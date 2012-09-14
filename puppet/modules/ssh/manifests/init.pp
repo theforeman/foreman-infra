@@ -10,11 +10,11 @@ class ssh {
   }
 
   case $::osfamily {
-    Debian: {
-      $ssh_service = 'ssh'
+    RedHat: {
+      $ssh_service = 'sshd'
     }
     default: {
-      $ssh_service = 'sshd'
+      $ssh_service = 'ssh'
     }
   }
 

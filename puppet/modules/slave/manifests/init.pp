@@ -9,25 +9,25 @@ class slave {
     "libxml2-dev":
       ensure => present,
       name => $osfamily ? {
-        Debian => "libxml2-dev",
-        default => "libxml2-devel"
+        RedHat => "libxml2-devel",
+        default => "libxml2-dev"
       };
     "libxslt-dev":
       ensure => present,
       name => $osfamily ? {
-        Debian => "libxslt-dev",
-        default => "libxslt-devel"
+        RedHat => "libxslt-devel",
+        default => "libxslt-dev"
       };
     "mysql-dev":
       ensure => present,
       name => $osfamily ? {
-       Debian => "libmysqlclient-dev",
-       default => "mysql-devel"
+       RedHat => "mysql-devel",
+       default => "libmysqlclient-dev"
       };
     "postgresql-dev":
       ensure => present,
       name => $osfamily ? {
-        Debian => "libpqxx3-dev",
+        default => "libpqxx3-dev"
       }
   }
 }

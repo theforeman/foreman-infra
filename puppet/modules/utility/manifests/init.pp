@@ -3,7 +3,7 @@ class utility {
     ensure => present,
     name => $osfamily ? {
       Redhat => "vim-enhanced",
-      Debian => "vim"
+      default => "vim"
     }
   }
 

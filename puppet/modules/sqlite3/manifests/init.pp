@@ -3,7 +3,7 @@ class sqlite3 {
     ensure => present,
     name => $osfamily ? {
       Redhat => "sqlite-devel",
-      Debian => "libsqlite3-dev"
+      default => "libsqlite3-dev"
     }
   }
 }
