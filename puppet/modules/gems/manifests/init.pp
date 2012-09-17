@@ -6,5 +6,8 @@ class gems {
     "bundler":
       ensure => present,
       provider => 'gem';
+    "brakeman":
+      ensure => present,
+      provider => 'gem';
   }
 }

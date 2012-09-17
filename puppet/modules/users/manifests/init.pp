@@ -10,6 +10,14 @@ class users {
     file { "/home/$name":
       ensure => directory
     }
+
+    file { "/home/$name/.vimrc":
+      source => "puppet:///modules/users/vimrc",
+      ensure => present,
+      owner => $name,
+      group => $name,
+      require => File["/home/$name"]
+    }
    
     file { "/home/$name/.ssh":
       ensure => directory,
@@ -25,6 +33,11 @@ class users {
       group => $name,
       require => File["/home/$name/.ssh"]
     }
+  }
+
+  file { "/root/.vimrc":
+    ensure => present,
+    source => "puppet:///modules/users/vimrc",
   }
 
   ssh_user { "samkottler":

@@ -1,0 +1,12 @@
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set autoindent
+set smartindent
+
+if has("autocmd")
+  augroup module
+    autocmd BufRead,BufNewFile *.pp set filetype=ruby
+  augroup END
+endif
+syntax on
