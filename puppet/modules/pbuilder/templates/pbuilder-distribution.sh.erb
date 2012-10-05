@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# FILE MANAGED BY PUPPET
+# GENERATED FROM TEMPLATE pbuilder/pbuilder-distribution.sh.erb
+# ANY LOCAL CHANGES WILL BE OVERRIDDEN
+#
+# script from Jamin W. Collins  BTS: #255165
+# name this script 'pbuilder-woody', 'pbuilder-sid', 'pbuilder-sarge', 'pbuilder-experimental' etc.
+#
+# $Id: pbuilder-distribution.sh,v 1.1 2007/09/13 15:00:53 root Exp root $
+
+
+############ CONFIGURATION #############
+
+CONFIGDIR="<%= pbuilder_confroot %>"
+
+############ END OF CONFIGURATION #####
+
+
+OPERATION=$1
+
+# Get the archicture and release from $0 (use symlink)
+PBUILDERNAME=`basename $0 | cut -f2 -d'-'`
+
+PROCEED=false
+case $OPERATION in
+   create|update|build|clean|login|execute|debuild )
+      PROCEED=true
+      ;;
+esac
+if ( $PROCEED == true ) then
+   shift 
+   sudo pbuilder $OPERATION \
+       --configfile $CONFIGDIR/$PBUILDERNAME/pbuilderrc \
+       $@
+
+else
+   echo "Invalid command..."
+   echo "Valid commands are:"
+   echo "   create"
+   echo "   update"
+   echo "   build"
+   echo "   clean"
+   echo "   login"
+   echo "   execute"
+   echo "   debuild"
+   exit 1
+fi

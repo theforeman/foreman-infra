@@ -1,0 +1,4 @@
+
+TODO: 
+  - manage sudo rules for pbuilder (depend on sudo module ?)
+  - add a $users argument to define users allowed to use pbuilder and add them to the pbuilder group??? not sure
