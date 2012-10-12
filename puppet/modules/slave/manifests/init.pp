@@ -27,7 +27,7 @@ class slave {
     "postgresql-dev":
       ensure => present,
       name => $osfamily ? {
-        Debian => "postgresql-dev",
+        Debian => "libpq-dev",
         default => "postgresql-devel"
       }
   }
