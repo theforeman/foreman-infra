@@ -1,0 +1,66 @@
+#
+# FILE MANAGED BY PUPPET
+# GENERATED FROM TEMPLATE pbuilder/pbuilderrc.erb
+# ANY LOCAL CHANGES WILL BE OVERRIDDEN
+#
+# this is your configuration file for pbuilder.
+# the file in /usr/share/pbuilder/pbuilderrc is the default template.
+# /etc/pbuilderrc is the one meant for editing.
+#
+# read pbuilderrc.5 document for notes on specific options.
+
+
+########## BEGIN SPECIFIC CONFIGURATION ###########
+
+MIRRORSITE="<%= methodurl %>"
+DISTRIBUTION="<%= release %>"
+ARCH="<%= arch %>"
+
+BASETGZ="<%= basetgz %>"
+BUILDPLACE="<%= builddir %>"
+BUILDRESULT="<%= resultdir %>"
+APTCACHE="<%= aptcachedir %>"
+APTCONFDIR="<%= aptconfdir %>"
+HOOKDIR="<%= hookdir %>"
+
+DEBBUILDOPTS="<%= debbuildopts %>"
+
+# BINDMOUNTS is a space separated list of things to mount
+# inside the chroot.
+BINDMOUNTS="<%= bindmounts %>"
+
+########## END SPECIFIC CONFIGURATION #############
+
+
+#EXTRAPACKAGES=gcc3.0-athlon-builder
+#export DEBIAN_BUILDARCH=athlon
+#NONUSMIRRORSITE="http://ftp.jp.debian.org/debian-non-US"
+#OTHERMIRROR="deb http://www.home.com/updates/ ./"
+#export http_proxy=http://your-proxy:8080/
+USEPROC=yes
+USEDEVPTS=yes
+USEDEVFS=no
+
+# specifying the distribution forces the distribution on "pbuilder update"
+#specify the cache for APT 
+APTCACHE="<%= aptcachedir %>"
+APTCACHEHARDLINK="yes"
+REMOVEPACKAGES="lilo"
+
+# make debconf not interact with user
+export DEBIAN_FRONTEND="noninteractive"
+
+DEBEMAIL=""
+
+#for pbuilder debuild
+BUILDSOURCEROOTCMD="fakeroot"
+PBUILDERROOTCMD="sudo"
+
+# the username and ID used by pbuilder, inside chroot. Needs fakeroot, really
+BUILDUSERID=1234
+#BUILDUSERNAME=pbuilder
+
+DEBOOTSTRAPOPTS[0]='--variant=buildd'
+DEBOOTSTRAPOPTS[1]="--arch"
+DEBOOTSTRAPOPTS[2]="$ARCH"
+#DEBOOTSTRAPOPTS[3]="--allow-unauthenticated"

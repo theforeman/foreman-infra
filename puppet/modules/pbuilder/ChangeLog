@@ -1,0 +1,21 @@
+0.04 (2009-07-24):
+  - let users deal with their own apt sources
+
+0.03 (2007-09-17):
+  - do not use links anymore, create script to allow different configuration
+  directories for various pbuilders
+  - use "mkdir -p" execs to create root directories
+  - do not use virtual resources anymore, depend on the pbuilder::common class
+  instead for the package and group
+  - add $bindir, $confdir, $cachedir and $chrootdir arguments to the pbuilder
+  type
+
+0.02 (2007-09-14):
+  - change lots of configuration directories
+  - manage multiple instances of pbuilder with virtual resources for general
+  files
+  - automatically create/update pbuilders
+  - add ensure argument to allow purging pbuilders
+
+0.01 (2007-09-13):
+   Initial release

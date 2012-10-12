@@ -1,0 +1,115 @@
+= Overview
+
+Pbuilder is a building utility for Debian systems based on sbuild.
+
+
+= Dependencies
+
+This module is only tested on puppet master and client versions 0.24.7,
+so it could be that it depends on that version (or higher).
+
+
+= Reference
+
+To use this module, drop it into your modules path.
+
+
+= Classes
+
+ - pbuilder::common, included by the pbuilder definition
+
+
+= Definitions
+
+ - pbuilder
+
+== pbuilder
+
+=== Parameters
+
+The pbuilder type takes the following arguments :
+ - ensure: whether the pbuilder should be present
+     Possible values: "present", "absent"
+     Defaults to "present"
+ - release: the Debian/Ubuntu release to be used
+     (sarge/etch/lenny/dapper/feisty/gusty/etc.)
+     Defaults to $lsbdistcodename
+ - arch: the architecture of the pbuilder (i386, amd64, etc.)
+     Defaults to $architecture
+ - methodurl: the URL used to grab the packages from 
+     (e.g. http://ftp.debian.org/debian)
+     Defaults to "" (not functional, only useful for "ensure => absent")
+ - site: a hash used to find the right apt.config directory 
+     (in puppet://${server}/apt/${release}/${arch}/${site})
+     Defaults to "" (not functional, only useful for "ensure => absent")
+ - debbuildopts: the options to send to debuild (see `man dpkg-buildpackage`)
+     Defaults to "-b"
+ - bindmounts: a list of space-separated directories to bind-mount in the chroot
+     Defaults to ""
+ - bindir: where to put the pbuilder script
+     Defaults to "/usr/local/bin"
+ - chrootdir: where to put the basetgz tarball
+     Defaults to "/var/chroot/pbuilder"
+ - confdir: where to store the configuration for the script
+     Defaults to "/etc/pbuilder"
+ - cachedir: where to create the aptcache, build and result directories
+     Defaults to "/var/cache/pbuilder"
+
+
+This module assumes the following directories:
+
+Configuration:
+ - ${confdir}/$name : root for the pbuilder conf
+ - ${confdir}/$name/pbuilderrc : configuration file for the pbuilder
+ - ${confdir}/$name/apt.config : apt config file (including sources.list) for the pbuilder
+ - ${confdir}/$name/hooks : hooks for the pbuilder
+
+Cache:
+ - ${cachedir}/$name : root for the pbuilder cache
+ - ${cachedir}/$name/aptcache : aptcache for the pbuilder
+ - ${cachedir}/$name/build : build directory for the pbuilder
+ - ${cachedir}/$name/result : result packages for the pbuilder
+
+Chroot:
+ - ${chrootdir}/base_$name.tgz : compressed chroot for the pbuilder
+
+
+
+=== Examples
+
+
+==== Set a pbuilder using the release and architecture of the host
+
+pbuilder { "feisty":
+   methodurl => "http://archive.ubuntu.com/ubuntu",
+}
+
+
+==== Destroy an old existing pbuilder
+
+pbuilder { "dapper":
+   ensure => absent
+}
+
+
+==== Set an am64 pbuilder for the etch release, including sources in the .changes
+
+pbuilder { "etch-amd64":
+   release      => etch,
+   methodurl    => "http://ftp.debian.org/debian",
+   debbuildopts => "-sa"
+}
+
+
+
+=== Important note
+
+You have to provide a valid apt.config directory for your pbuilder.
+You can use the apt class for that, and notify the private pbuilder_update Exec.
+
+
+= Licence
+
+Copyright © 2007-2009 Raphaël Pinson <raphink@gmail.com>
+See the LICENSE file for the full license.
+
