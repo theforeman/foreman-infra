@@ -28,4 +28,24 @@ class mock {
     version => "6",
     architecture => "x86_64"
   }
+
+  mock::config { "f16-i386":
+    version => "16",
+    architecture => "i386"
+  }
+
+  mock::config { "f16-x86_64":
+    version => "16",
+    architecture => "x86_64"
+  }
+
+  mock::config { "f17-i386":
+    version => "17",
+    architecture => "i386"
+  }
+
+  mock::config { "f17-x86_64":
+    version => "17",
+    architecture => "x86_64"
+  }
 }

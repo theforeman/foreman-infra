@@ -20,7 +20,7 @@ syslog_ident=mock
 syslog_device=
 
 # repos
-<% if @version = "5" or @version = "6" -%>
+<% if @version == "5" or @version == "6" -%>
 [core]
 name=base
 mirrorlist=http://mirrorlist.centos.org/?release=<%= @version %>&arch=<%= @architecture %>&repo=os
@@ -58,6 +58,36 @@ mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-debug-<%= @vers
 failovermethod=priority
 enabled=0
 <% else -%>
+[fedora]
+name=fedora
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-<%= @version %>&arch=<%= @architecture %>
+failovermethod=priority
 
+[updates-released]
+name=updates
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f<%= @version %>&arch=<%= @architecture %>
+failovermethod=priority
+
+[local]
+name=local
+baseurl=http://kojipkgs.fedoraproject.org/repos/f<%= @version %>-build/latest/<%= @architecture %>/
+cost=2000
+enabled=0
+
+[foreman]
+name=foreman
+baseurl=http://yum.theforeman.org/development/f<%= @version %>/<%= @architecture %>
+
+[fedora-debug]
+name=fedora-debug
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-debug-<%= @version %>&arch=<%= @architecture %>
+failovermethod=priority
+enabled=0
+
+[updates-debug]
+name=updates-debug
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-debug-f<%= @version %>&arch=<%= @architecture %>
+failovermethod=priority
+enabled=0
 <% end -%>
 """
