@@ -9,5 +9,8 @@ class gems {
     "brakeman":
       ensure => present,
       provider => 'gem';
+    "fpm":
+      ensure => present,
+      provider => 'gem';
   }
 }
