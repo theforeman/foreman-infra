@@ -12,5 +12,8 @@ class gems {
     "fpm":
       ensure => present,
       provider => 'gem';
+    "hub":
+      ensure => present,
+      provider => 'gem';
   }
 }
