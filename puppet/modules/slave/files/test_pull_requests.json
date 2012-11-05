@@ -1,0 +1,41 @@
+{
+  "proxy_host": null,
+  "proxy_port": null,
+  "jenkins_host": "http://ci.theforeman.org",
+  "jenkins_url": "http://ci.theforeman.org",
+  "hub_config": "~/.config/hub",
+  "github_user": "theforeman",
+  "repo_groups": {},
+  "settings": {
+    "test_settings": {
+      "name": "test",
+      "test_prefix": "Test Results:",
+      "allow_multiple": true,
+      "branches": { "*": {"jenkins_job_name": "test_pull_requests_stage",
+                              "downstream_job_name": "build_image_stage",
+                              "build_token": "mytoken"},
+                    "master": {"jenkins_job_name": "test_pull_requests",
+                               "downstream_job_name": "build_image",
+                               "build_token": "mytoken"
+                               "addtl_jenkins_params": {"group1": {"param1": "value1",
+                                                                   "param2": "value2"} }
+                              } },
+      "repo_to_teams": {
+        "foreman": []
+      },
+      "repo_to_pull_id_param": {}
+    },
+    "merge_test_settings": {
+      "name": "merge",
+      "test_prefix": "test",
+      "allow_multiple": false,
+      "branches": { "*": "develop": {"jenkins_job_name": "merge_pull_requests",
+                               "downstream_job_name": "test_pull_request"}
+      },
+      "repo_to_teams": {},
+      "repo_to_pull_id_param": {
+        "foreman": "https://github.com/theforeman/foreman"
+      }
+    }
+  }
+}

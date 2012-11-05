@@ -5,6 +5,14 @@ class slave {
     group => "jenkins"
   }
 
+  file { "/home/jenkins/.test_pull_requests.json":
+    ensure => file,
+    owner => "jenkins",
+    group => "jenkins",
+    source => "puppet:///modules/slave/test_pull_requests.json",
+    require => File['/var/lib/workspace']
+  }
+
   package {
     "libxml2-dev":
       ensure => present,
