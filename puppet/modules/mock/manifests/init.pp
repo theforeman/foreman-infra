@@ -9,6 +9,14 @@ class mock {
     require => Package["mock"]
   }
 
+  if(!defined(User["jenkins"])) {
+    user { "jenkins":
+      ensure => present,
+      groups => ["mock"],
+      require => Package["mock"]
+    }
+  }
+
   mock::config { "el5-i386":
     version => "5",
     architecture => "i386"
