@@ -7,9 +7,9 @@ class ntp($ensure='running') {
       $config     = '/etc/ntp.conf'
       $config_tpl = 'ntp.conf.debian.erb'
       $servers    = [ '0.debian.pool.ntp.org iburst',
-                        '1.debian.pool.ntp.org iburst',
-                        '2.debian.pool.ntp.org iburst',
-                        '3.debian.pool.ntp.org iburst' ]
+                      '1.debian.pool.ntp.org iburst',
+                      '2.debian.pool.ntp.org iburst',
+                      '3.debian.pool.ntp.org iburst' ]
     }
     centos, redhat, fedora: {
       $supported  = true
@@ -18,8 +18,8 @@ class ntp($ensure='running') {
       $config     = '/etc/ntp.conf'
       $config_tpl = 'ntp.conf.el.erb'
       $servers    = [ '0.centos.pool.ntp.org',
-                        '1.centos.pool.ntp.org',
-                        '2.centos.pool.ntp.org' ]
+                      '1.centos.pool.ntp.org',
+                      '2.centos.pool.ntp.org' ]
     }
   }
 
