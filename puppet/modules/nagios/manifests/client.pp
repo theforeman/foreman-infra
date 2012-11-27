@@ -10,7 +10,8 @@ class nagios::client {
   file { "/etc/nagios/nrpe.cfg":
     ensure => present,
     content => template("nagios/nrpe.cfg.erb"),
-    notify => Service["nrpe"]
+    notify => Service["nrpe"],
+    require => Package["nrpe"]
   }
 
   service { "nrpe":
