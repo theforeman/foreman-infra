@@ -15,5 +15,8 @@ class gems {
     "hub":
       ensure => present,
       provider => 'gem';
+    "rspec-puppet":
+      ensure   => present,
+      provider => 'gem';
   }
 }
