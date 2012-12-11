@@ -34,9 +34,9 @@ class debian {
   # Cronjob to clean old packages out
   # TODO: move this this to the reprepro class when written
   file { "/etc/cron.d/reprepro-clean":
-    ensure   => present,
-    mode     => 0644,
-    contents => '5 * * * * root /usr/bin/reprepro -b /root/foreman-reprepro clearvanished',
+    ensure  => present,
+    mode    => 0644,
+    content => '5 * * * * root /usr/bin/reprepro -b /root/foreman-reprepro clearvanished',
   }
 
 }
