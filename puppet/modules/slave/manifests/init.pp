@@ -39,4 +39,8 @@ class slave {
         default => "postgresql-devel"
       }
   }
+
+  slave::db_config { "mysql": }
+  slave::db_config { "sqlite3": }
+  slave::db_config { "postgresql": }
 }

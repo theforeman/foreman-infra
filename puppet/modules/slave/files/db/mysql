@@ -1,0 +1,5 @@
+test:
+  adapter: mysql
+  database: foreman
+  username: foreman
+  password: foreman
