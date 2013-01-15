@@ -1,5 +1,3 @@
 test:
   adapter: postgresql
   database: foreman
-  username: foreman
-  password: foreman
