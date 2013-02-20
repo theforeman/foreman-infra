@@ -28,7 +28,7 @@ namespace :deploy do
   end
 
   task :swing_symlink do
-    # This actually only needs to run the first time the msater is dpeloyed
+    # This actually only needs to run the first time the master is deployed
     # but there isn't a good way in cap to test for existence. This is a hack.
     run("unlink #{moduledir} && ln -s #{deploy_to}/current/puppet/modules #{moduledir}")
   end
