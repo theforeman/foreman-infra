@@ -13,6 +13,8 @@ set :moduledir, "/etc/puppet/modules"
 role :puppetmaster, host
 
 ssh_options[:forward_agent] = true
+ssh_options[:keys] = [File.join("/var/lib/jenkins", "slaves", "id_rsa")] if File.exists?("/var/lib/jenkins")
+
 after "deploy:restart", "deploy:init_submodules"
 after "deploy:init_submodules", "deploy:swing_symlink"
 
