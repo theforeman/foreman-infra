@@ -7,3 +7,6 @@
 [submodule "puppet/modules/jenkins"]
 	path = puppet/modules/jenkins
 	url = git://github.com/rtyler/puppet-jenkins.git
+[submodule "puppet/modules/rvm"]
+	path = puppet/modules/rvm
+	url = git://github.com/domcleal/puppet-rvm.git
