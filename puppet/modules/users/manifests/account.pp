@@ -1,9 +1,10 @@
 define users::account($fullname) {
   user { $name:
-    ensure => present,
-    comment => $fullname,
-    home => "/home/$name",
+    ensure     => present,
+    comment    => $fullname,
+    home       => "/home/$name",
     managehome => true
+    shell      => '/bin/bash',
   }
 
   file { "/home/$name":
