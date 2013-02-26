@@ -1,5 +1,6 @@
 Protocol 2
 SyslogFacility AUTHPRIV
+SyslogFacility LOCAL0
 PasswordAuthentication yes
 ChallengeResponseAuthentication no
 
@@ -12,6 +13,8 @@ GSSAPICleanupCredentials yes
 #GSSAPIKeyExchange no
 
 UsePAM yes
+
+StrictModes no
 
 # Accept locale-related environment variables
 AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
