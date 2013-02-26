@@ -3,7 +3,7 @@ define users::account($fullname) {
     ensure     => present,
     comment    => $fullname,
     home       => "/home/$name",
-    managehome => true
+    managehome => true,
     shell      => '/bin/bash',
   }
 
@@ -18,7 +18,7 @@ define users::account($fullname) {
     group => $name,
     require => File["/home/$name"]
   }
-   
+
   file { "/home/$name/.ssh":
     ensure => directory,
     owner => $name,
