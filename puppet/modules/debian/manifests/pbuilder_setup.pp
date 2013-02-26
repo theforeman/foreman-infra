@@ -42,5 +42,11 @@ define debian::pbuilder_setup (
 /usr/bin/apt-get update\n"
   }
 
+  # the result cache gets huge after a while - trim it to the last 7 days at 5am
+  file { "/etc/cron.d/cleanup-${name}":
+    ensure  => present,
+    mode    => 0644,
+    content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mtime +6 -delete\n"
+  }
 
-} 
+}
