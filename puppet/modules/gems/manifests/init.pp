@@ -3,19 +3,24 @@ class gems {
     "rubygems":
       ensure => present;
     "rake":
-      ensure => present,
+      ensure  => present,
+      require => Package['rubygems'],
       provider => 'gem';
     "bundler":
-      ensure => present,
+      ensure  => present,
+      require => Package['rubygems'],
       provider => 'gem';
     "brakeman":
-      ensure => present,
+      ensure  => present,
+      require => Package['rubygems'],
       provider => 'gem';
     "fpm":
-      ensure => present,
+      ensure  => present,
+      require => Package['rubygems'],
       provider => 'gem';
     "hub":
-      ensure => present,
+      ensure  => present,
+      require => Package['rubygems'],
       provider => 'gem';
     "rspec-puppet":
       ensure   => present,
