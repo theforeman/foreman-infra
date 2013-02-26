@@ -2,6 +2,8 @@ class gems {
   package {
     "rubygems":
       ensure => present;
+    "ruby-devel":
+      ensure => present;
     "rake":
       ensure  => present,
       require => Package['rubygems'],
@@ -16,7 +18,7 @@ class gems {
       provider => 'gem';
     "fpm":
       ensure  => present,
-      require => Package['rubygems'],
+      require => [ Package['ruby-devel'], Package['rubygems'] ],
       provider => 'gem';
     "hub":
       ensure  => present,
