@@ -10,4 +10,8 @@ class utility {
   package { "htop":
     ensure => present
   }
+
+  package { "screen":
+    ensure => present
+  }
 }
