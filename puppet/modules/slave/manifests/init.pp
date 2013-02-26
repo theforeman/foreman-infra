@@ -44,17 +44,20 @@ class slave {
   slave::db_config { "sqlite3": }
   slave::db_config { "postgresql": }
 
-  rvm::system_user { "jenkins": }
-  slave::rvm_config { "ruby-1.8.7":
-    version => "ruby-1.8.7-p371",
-  }
-  slave::rvm_config { "ruby-1.9.2":
-    version => "ruby-1.9.2-p320",
-  }
-  slave::rvm_config { "ruby-1.9.3":
-    version => "ruby-1.9.3-p392",
-  }
-  slave::rvm_config { "ruby-2.0.0":
-    version => "ruby-2.0.0-p0",
+  include rvm
+  if $rvm_installed == "true" {
+    rvm::system_user { "jenkins": }
+    slave::rvm_config { "ruby-1.8.7":
+      version => "ruby-1.8.7-p371",
+    }
+    slave::rvm_config { "ruby-1.9.2":
+      version => "ruby-1.9.2-p320",
+    }
+    slave::rvm_config { "ruby-1.9.3":
+      version => "ruby-1.9.3-p392",
+    }
+    slave::rvm_config { "ruby-2.0.0":
+      version => "ruby-2.0.0-p0",
+    }
   }
 }
