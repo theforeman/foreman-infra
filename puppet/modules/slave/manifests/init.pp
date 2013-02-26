@@ -37,7 +37,9 @@ class slave {
       name => $osfamily ? {
         Debian => "libpq-dev",
         default => "postgresql-devel"
-      }
+      };
+    "ipmitool":
+      ensure => present
   }
 
   slave::db_config { "mysql": }
