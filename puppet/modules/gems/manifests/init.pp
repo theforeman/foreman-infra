@@ -1,5 +1,7 @@
 class gems {
   package {
+    "rubygems":
+      ensure => present;
     "rake":
       ensure => present,
       provider => 'gem';
