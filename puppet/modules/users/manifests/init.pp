@@ -19,4 +19,8 @@ class users {
   users::account { "bgupta":
     fullname => "Brian Gupta"
   }
+
+  users::account { "dcleal":
+    fullname => "Dominic Cleal"
+  }
 }
