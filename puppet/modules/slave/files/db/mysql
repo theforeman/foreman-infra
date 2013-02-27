@@ -3,3 +3,4 @@ test:
   database: foreman
   username: foreman
   password: foreman
+  host: localhost

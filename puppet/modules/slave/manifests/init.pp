@@ -42,6 +42,7 @@ class slave {
       ensure => present
   }
 
+  include slave::mysql, slave::postgresql
   slave::db_config { "mysql": }
   slave::db_config { "sqlite3": }
   slave::db_config { "postgresql": }

@@ -10,3 +10,12 @@
 [submodule "puppet/modules/rvm"]
 	path = puppet/modules/rvm
 	url = git://github.com/domcleal/puppet-rvm.git
+[submodule "puppet/modules/postgresql"]
+	path = puppet/modules/postgresql
+	url = git://github.com/puppetlabs/puppet-postgresql.git
+[submodule "puppet/modules/mysql"]
+	path = puppet/modules/mysql
+	url = git://github.com/puppetlabs/puppetlabs-mysql.git
+[submodule "puppet/modules/stdlib"]
+	path = puppet/modules/stdlib
+	url = git://github.com/puppetlabs/puppetlabs-stdlib.git
