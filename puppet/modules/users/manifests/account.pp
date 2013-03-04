@@ -1,10 +1,14 @@
-define users::account($fullname) {
+define users::account(
+  $fullname,
+  $passwd = undef
+) {
   user { $name:
     ensure     => present,
     comment    => $fullname,
     home       => "/home/$name",
     managehome => true,
     shell      => '/bin/bash',
+    password   => $passwd,
   }
 
   file { "/home/$name":
