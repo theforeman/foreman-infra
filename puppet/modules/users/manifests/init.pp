@@ -1,12 +1,12 @@
 class users (
-  $users  = undef
+  $users  = 'undef'
 ) {
   file { "/root/.vimrc":
     ensure => present,
     source => "puppet:///modules/users/vimrc",
   }
 
-  if $users == undef {
+  if $users == 'undef' {
     # Create basic users, delete once foreman is updated
     users::account { "samkottler":
       fullname => "Sam Kottler"
