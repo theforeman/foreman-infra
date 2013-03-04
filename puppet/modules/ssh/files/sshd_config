@@ -1,7 +1,8 @@
 Protocol 2
 SyslogFacility AUTHPRIV
 SyslogFacility LOCAL0
-PasswordAuthentication yes
+PasswordAuthentication no
+PermitRootLogin without-password
 ChallengeResponseAuthentication no
 
 # GSSAPI options
