@@ -8,7 +8,7 @@ define users::account(
     home       => "/home/$name",
     managehome => true,
     shell      => '/bin/bash',
-    passwd     => $passwd,
+    password   => $passwd,
   }
 
   file { "/home/$name":
