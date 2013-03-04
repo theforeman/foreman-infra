@@ -13,6 +13,9 @@ define users::account(
 
   file { "/home/$name":
     ensure => directory
+    owner  => $name,
+    group  => $name,
+    mode   => 0755,
   }
 
   file { "/home/$name/.vimrc":
