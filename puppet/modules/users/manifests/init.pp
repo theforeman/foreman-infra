@@ -1,6 +1,8 @@
 class users (
   $users  = 'undef'
 ) {
+  include sudo
+
   file { "/root/.vimrc":
     ensure => present,
     owner  => 'root',

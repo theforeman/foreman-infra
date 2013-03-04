@@ -16,3 +16,6 @@
 [submodule "puppet/modules/stdlib"]
 	path = puppet/modules/stdlib
 	url = git://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/modules/sudo"]
+	path = puppet/modules/sudo
+	url = https://github.com/treydock/puppet-sudo

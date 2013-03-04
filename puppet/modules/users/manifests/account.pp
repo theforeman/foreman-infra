@@ -40,4 +40,10 @@ define users::account(
     group => $name,
     require => File["/home/$name/.ssh"]
   }
+
+  sudo::directive { "sudo-puppet-${name}":
+    ensure    => present,
+    content   => "$name ALL=(ALL) ALL\n",
+  }
+
 }
