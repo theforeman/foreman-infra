@@ -1,0 +1,26 @@
+{
+  "proxy_host": null,
+  "proxy_port": null,
+  "jenkins_host": "http://ci.theforeman.org/",
+  "jenkins_url": "http://ci.theforeman.org/",
+  "hub_config": "~/.config/hub",
+  "github_user": "theforeman",
+  "bot_github_user": "<%= github_user -%>",
+  "repo_groups": {},
+  "settings": {
+    "test_settings": {
+      "name": "test",
+      "test_prefix": "Test Results:",
+      "allow_multiple": true,
+      "run_without_trigger": true,
+      "branches": { "develop": {"jenkins_job_name": "test_pull_requests",
+                                "downstream_job_name": "test_develop",
+                                "build_token": "<%= jenkins_build_token -%>"
+                                } },
+      "repo_to_orgs": {
+        "foreman": ["theforeman", "katello"]
+      },
+      "repo_to_pull_id_param": "pr_number"
+    }
+  }
+}
