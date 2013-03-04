@@ -1,4 +1,8 @@
 class slave::postgresql {
+  Postgresql_psql {
+    cwd => "/",
+  }
+
   include postgresql::client
   include postgresql::server
 
