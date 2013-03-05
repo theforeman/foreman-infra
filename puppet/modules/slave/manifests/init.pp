@@ -7,7 +7,7 @@ class slave($github_user = undef,
     group => "jenkins"
   }
 
-  file { "/home/jenkins/test_pull_request_not_mergable":
+  file { ["/home/jenkins/test_pull_request_not_mergable", "/home/jenkins/test_pull_request_proxy_not_mergable"]:
     ensure => file,
     owner => "jenkins",
     group => "jenkins",
@@ -28,12 +28,19 @@ class slave($github_user = undef,
       content => template("slave/hub_config.erb"),
     }
 
-    file { "/home/jenkins/.test_pull_requests.json":
-      ensure  => file,
-      owner   => "jenkins",
-      group   => "jenkins",
-      content => template("slave/test_pull_requests.json.erb"),
-      require => File['/var/lib/workspace']
+    file {
+      "/home/jenkins/.test_pull_requests.json":
+        ensure  => file,
+        owner   => "jenkins",
+        group   => "jenkins",
+        content => template("slave/test_pull_requests.json.erb"),
+        require => File['/var/lib/workspace'];
+      "/home/jenkins/.test_pull_requests_proxy.json":
+        ensure  => file,
+        owner   => "jenkins",
+        group   => "jenkins",
+        content => template("slave/test_pull_requests_proxy.json.erb"),
+        require => File['/var/lib/workspace']
     }
   }
 
