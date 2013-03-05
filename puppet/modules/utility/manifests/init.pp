@@ -11,6 +11,10 @@ class utility {
     ensure => present
   }
 
+  package { "iftop":
+    ensure => present
+  }
+
   package { "screen":
     ensure => present
   }
