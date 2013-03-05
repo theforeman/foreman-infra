@@ -1,16 +1,40 @@
-class slave {
+class slave($github_user = undef,
+            $github_oauth = undef,
+            $jenkins_build_token = undef) {
   file { "/var/lib/workspace":
     ensure => directory,
     owner => "jenkins",
     group => "jenkins"
   }
 
-  file { "/home/jenkins/.test_pull_requests.json":
+  file { "/home/jenkins/test_pull_request_not_mergable":
     ensure => file,
     owner => "jenkins",
     group => "jenkins",
-    source => "puppet:///modules/slave/test_pull_requests.json",
-    require => File['/var/lib/workspace']
+  }
+
+  if $github_user and $github_oauth and $jenkins_build_token {
+    file { "/home/jenkins/.config":
+      ensure => directory,
+      owner  => "jenkins",
+      group  => "jenkins",
+    }
+
+    file { "/home/jenkins/.config/hub":
+      ensure  => file,
+      mode    => 0600,
+      owner   => "jenkins",
+      group   => "jenkins",
+      content => template("slave/hub_config.erb"),
+    }
+
+    file { "/home/jenkins/.test_pull_requests.json":
+      ensure  => file,
+      owner   => "jenkins",
+      group   => "jenkins",
+      content => template("slave/test_pull_requests.json.erb"),
+      require => File['/var/lib/workspace']
+    }
   }
 
   package {
