@@ -1,5 +1,5 @@
-class ssh {
   file { "/root/.ssh":
+class ssh {
     ensure => directory
   }
 
@@ -19,8 +19,9 @@ class ssh {
   }
 
   file { "/etc/ssh/sshd_config":
+    owner   => "root",
+    group  => "root",
     ensure => present,
-    source => "puppet:///modules/ssh/sshd_config",
     notify => Service[$ssh_service]
   }
 
