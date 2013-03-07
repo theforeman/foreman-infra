@@ -3,6 +3,8 @@ class users (
 ) {
   file { "/root/.vimrc":
     ensure => present,
+    owner  => 'root',
+    group  => 'root',
     source => "puppet:///modules/users/vimrc",
   }
 
