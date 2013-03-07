@@ -1,6 +1,8 @@
-  file { "/root/.ssh":
 class ssh {
-    ensure => directory
+  file { "/root/.ssh":
+    ensure => directory,
+    owner  => "root",
+    group  => "root"
   }
 
   file { "/root/.ssh/authorized_keys":
