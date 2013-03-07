@@ -6,16 +6,16 @@ class freight2::client {
   $pub_key  = ssh_keygen('freight_key','public')
   $priv_key = ssh_keygen('freight_key','private')
 
-  file { '/root/.ssh/id_freight':
-    owner   => 'root',
-    group   => 'root',
+  file { '/var/lib/workspace/workspace/ssh_key_freight':
+    owner   => 'jenkins',
+    group   => 'jenkins',
     mode    => 0400,
     content => "${priv_key}",
   }
 
-  file { '/root/.ssh/id_freight.pub':
-    owner   => 'root',
-    group   => 'root',
+  file { '/var/lib/workspace/workspace/ssh_key_freight.pub':
+    owner   => 'jenkins',
+    group   => 'jenkins',
     mode    => 0644,
     content => "ssh-rsa ${pub_key} freight_key\n",
   }
