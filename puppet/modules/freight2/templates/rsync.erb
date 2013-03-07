@@ -1,0 +1,40 @@
+#!/bin/sh
+
+case "$SSH_ORIGINAL_COMMAND" in
+*\&*)
+echo "Rejected"
+;;
+*\(*)
+echo "Rejected"
+;;
+*\{*)
+echo "Rejected"
+;;
+*\;*)
+echo "Rejected"
+;;
+*\<*)
+echo "Rejected"
+;;
+*\`*)
+echo "Rejected"
+;;
+*\|*)
+echo "Rejected"
+;;
+rsync\ --server*)
+# Only push to the rsync cache
+if [ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` == 'rsync_cache/' ] ; then
+  $SSH_ORIGINAL_COMMAND
+  # TODO: work out how to handle the paths-to-repo mapping
+  find /srv/freight/rsync_cache/ -iname '*.deb' -exec freight-add {} apt/squeeze/stable \;
+  # Publish the debs
+  freight-cache -v
+  # Cleanup - no need to keep the debs
+  find /srv/freight/rsync_cache/ -iname '*.deb' -delete
+fi
+;;
+*)
+echo "Rejected"
+;;
+esac
