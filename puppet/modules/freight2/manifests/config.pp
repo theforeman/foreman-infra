@@ -12,7 +12,7 @@ class freight2::config {
   file { '/etc/freight.conf':
     ensure  => present,
     mode    => 644,
-    content => template('freight/freight.conf.erb'),
+    content => template('freight2/freight.conf.erb'),
     require => Package['freight'],
   }
 
@@ -36,7 +36,7 @@ class freight2::config {
 
   file { '/etc/cron.daily/freight':
     mode    => 755,
-    content => template('freight/cron.erb'),
+    content => template('freight2/cron.erb'),
   }
 
 }
