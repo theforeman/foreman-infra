@@ -33,7 +33,7 @@ class freight2::user (
     owner   => $user,
     group   => $user,
     mode    => 0644,
-    content => "from=\"5.9.188.104\" command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
+    content => "from=\"5.9.188.104\",command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
   }
 
   # Create validation script for rsync connections only
