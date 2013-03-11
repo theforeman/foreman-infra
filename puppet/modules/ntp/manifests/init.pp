@@ -1,4 +1,4 @@
-class ntp($ensure='running') {
+class ntp($ensure='running', $enable=true) {
   case $::operatingsystem {
     debian, ubuntu: {
       $supported  = true
@@ -39,6 +39,7 @@ class ntp($ensure='running') {
 
   service { 'ntp':
     ensure     => $ensure,
+    enable     => $enable,
     name       => $svc_name,
     hasstatus  => true,
     hasrestart => true,
