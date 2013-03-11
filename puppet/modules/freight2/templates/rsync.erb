@@ -24,17 +24,26 @@ echo "Rejected"
 ;;
 rsync\ --server*)
 # Only push to the rsync cache
-if [ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` == 'rsync_cache/' ] ; then
+if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
+  # Make sure target dir can be created
+  DEB_PATH=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'`
+  DISTRO=`echo $DEB_PATH | /bin/cut -f2 -d/`
+  REPO=`echo $DEB_PATH | /bin/cut -f3 -d/`
+  mkdir -p /srv/freight/rsync_cache/$DISTRO/$REPO
+
+  # Permit transfer
   $SSH_ORIGINAL_COMMAND
-  # TODO: work out how to handle the paths-to-repo mapping
-  find /srv/freight/rsync_cache/ -iname '*.deb' -exec freight-add {} apt/squeeze/stable \;
+
+  find /srv/freight/rsync_cache/$DISTRO/$REPO -iname '*.deb' -exec freight-add {} apt/$DISTRO/$REPO \;
   # Publish the debs
   freight-cache -v
   # Cleanup - no need to keep the debs
-  find /srv/freight/rsync_cache/ -iname '*.deb' -delete
+  find /srv/freight/rsync_cache/$DISTRO/$REPO -iname '*.deb' -delete
 fi
 ;;
 *)
 echo "Rejected"
 ;;
 esac
+# ERB highlighting looks terrible in this script...
+# vim: set ft=sh : #
