@@ -14,9 +14,11 @@ class freight2::install {
     }
   } else {
     package { 'freight':
+      provider => 'rpm',
       ensure   => installed,
-      provider => 'gem'
+      source   => "http://skottler.fedorapeople.org/packages/freight-0.3.2-1.x86_64.rpm",
     }
+    package { 'dpkg': ensure => installed }
   }
 
 }
