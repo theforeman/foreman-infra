@@ -38,7 +38,7 @@ class freight2::user (
   file_line { 'freight_ssh_public':
     ensure => present,
     path   => "${home}/.ssh/authorized_keys",
-    line   => "command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
+    line   => "from=\"5.9.188.104\" command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
   }
 
   # Create validation script for rsync connections only
