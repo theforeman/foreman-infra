@@ -18,4 +18,8 @@ class utility {
   package { "screen":
     ensure => present
   }
+
+  package { "rsync":
+    ensure => present
+  }
 }
