@@ -22,4 +22,12 @@ class utility {
   package { "rsync":
     ensure => present
   }
+
+  package { "ruby-shadow":
+    ensure => installed,
+    name => $osfamily ? {
+      Debian => "libshadow-ruby1.8",
+      default => "ruby-shadow"
+    }
+  }
 }
