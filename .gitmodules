@@ -6,7 +6,7 @@
 	url = git://github.com/rtyler/puppet-jenkins.git
 [submodule "puppet/modules/rvm"]
 	path = puppet/modules/rvm
-	url = git://github.com/domcleal/puppet-rvm.git
+	url = git://github.com/blt04/puppet-rvm.git
 [submodule "puppet/modules/postgresql"]
 	path = puppet/modules/postgresql
 	url = git://github.com/puppetlabs/puppet-postgresql.git
