@@ -25,20 +25,15 @@ class freight2::user (
     mode   => 0700,
   }
 
-  file { "${home}/.ssh/authorized_keys":
-    ensure => present,
-    owner  => $user,
-    group  => $user,
-    mode   => 0644,
-  }
-
   # Read the dirvish key from the puppetmaster
   $pub_key  = ssh_keygen('freight_key','public')
 
-  file_line { 'freight_ssh_public':
-    ensure => present,
-    path   => "${home}/.ssh/authorized_keys",
-    line   => "from=\"5.9.188.104\" command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
+  file { "${home}/.ssh/authorized_keys":
+    ensure  => present,
+    owner   => $user,
+    group   => $user,
+    mode    => 0644,
+    content => "from=\"5.9.188.104\" command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
   }
 
   # Create validation script for rsync connections only
