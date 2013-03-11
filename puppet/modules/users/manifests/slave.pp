@@ -1,4 +1,6 @@
 class users::slave {
+  include sudo
+
   user { "jenkins":
     ensure => present,
     home => "/home/jenkins",
@@ -26,4 +28,10 @@ class users::slave {
     require => File["/home/jenkins/.ssh"],
     source => "puppet:///modules/users/jenkins-authorized_keys"
   }
+
+  sudo::directive { "puppet-jenkins":
+    ensure => present,
+    content => "jenkins ALL=NOPASSWD: ALL\n"
+  }
+
 }
