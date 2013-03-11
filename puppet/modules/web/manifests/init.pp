@@ -9,4 +9,10 @@ class web {
     config_file => "puppet:///modules/web/web.conf",
     require     => File["/var/www/vhosts/web_theforeman.org"],
   }
+
+  apache::vhost { "deb":
+    ensure      => present,
+    config_file => "puppet:///modules/web/deb.theforeman.org.conf",
+    require     => File["/srv/freight/web"],
+  }
 }
