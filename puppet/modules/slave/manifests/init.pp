@@ -83,6 +83,12 @@ class slave($github_user = undef,
       name => $osfamily ? {
         Debian  => "iceweasel",
         default => "firefox"
+      };
+    "xvfb":
+      ensure => present,
+      name => $osfamily ? {
+        Debian  => "xvfb",
+        default => "xorg-x11-server-Xvfb"
       }
   }
 
