@@ -18,6 +18,6 @@ class web {
 
   apache::vhost { "yum":
     ensure => present,
-    config_file => "puppet://modules/web/yum.theforeman.org.conf"
+    config_file => "puppet:///modules/web/yum.theforeman.org.conf"
   }
 }
