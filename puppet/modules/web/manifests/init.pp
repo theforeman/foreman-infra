@@ -15,4 +15,10 @@ class web {
     config_file => "puppet:///modules/web/deb.theforeman.org.conf",
     require     => File["/srv/freight/web"],
   }
+
+  apache::vhost { "yum":
+    ensure => present,
+    config_file => "puppet://modules/web/yum.theforeman.org.conf",
+    require => File["/var/www/vhosts/yum/htdocs"]
+  }
 }
