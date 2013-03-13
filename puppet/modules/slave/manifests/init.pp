@@ -77,7 +77,13 @@ class slave($github_user = undef,
         default => "postgresql-devel"
       };
     "ipmitool":
-      ensure => present
+      ensure => present;
+    "firefox":
+      ensure => present,
+      name => $osfamily ? {
+        Debian  => "iceweasel",
+        default => "firefox"
+      }
   }
 
   include slave::mysql, slave::postgresql
