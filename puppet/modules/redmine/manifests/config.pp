@@ -43,15 +43,14 @@ class redmine::config {
     require => Git::Repo['redmine'],
   }
 
-  file {$redmine::local_dir:
+  file {[$redmine::local_dir, "${redmine::local_dir}/db"]:
     ensure  => directory,
     owner   => $redmine::user,
     mode    => '0644',
     before  => Service['apache'],
   }
 
-  file {["${redmine::local_dir}/log", "${redmine::local_dir}/tmp",
-        "${redmine::local_dir}/public", "${redmine::local_dir}/files"]:
+  file {["${redmine::local_dir}/log", "${redmine::local_dir}/tmp", "${redmine::local_dir}/files"]:
     ensure  => directory,
     owner   => $redmine::user,
     recurse => true,
@@ -70,7 +69,10 @@ class redmine::config {
   exec{'redmine-bundle':
     command => 'bundle install --path vendor/bundle --without development test rmagick',
     creates => "${redmine::local_dir}/vendor/bundle",
-    require => User[$redmine::user],
+    require => [ User[$redmine::user],
+                 File["${redmine::local_dir}/config/configuration.yml"],
+                 File["${redmine::local_dir}/config/database.yml"],
+               ],
   }
 
   file {"${redmine::local_dir}/config/configuration.yml":
