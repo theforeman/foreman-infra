@@ -58,11 +58,11 @@ class slave($github_user = undef,
         RedHat => "libxml2-devel",
         default => "libxml2-dev"
       };
-    "libxslt-dev":
+    "libxslt1-dev":
       ensure => present,
       name => $osfamily ? {
         RedHat => "libxslt-devel",
-        default => "libxslt-dev"
+        default => "libxslt1-dev"
       };
     "mysql-dev":
       ensure => present,
