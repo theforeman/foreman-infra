@@ -34,3 +34,9 @@
 [submodule "puppet/modules/xinetd"]
 	path = puppet/modules/xinetd
 	url = git://github.com/theforeman/puppet-xinetd.git
+[submodule "puppet-git"]
+	path = puppet-git
+	url = https://github.com/theforeman/puppet-git.git
+[submodule "puppet/modules/passenger"]
+	path = puppet/modules/passenger
+	url = https://github.com/theforeman/puppet-passenger.git
