@@ -19,3 +19,18 @@
 [submodule "puppet/modules/sudo"]
 	path = puppet/modules/sudo
 	url = https://github.com/treydock/puppet-sudo
+[submodule "puppet/modules/foreman_proxy"]
+	path = puppet/modules/foreman_proxy
+	url = git://github.com/theforeman/puppet-foreman_proxy.git
+[submodule "puppet/modules/tftp"]
+	path = puppet/modules/tftp
+	url = git://github.com/theforeman/puppet-tftp.git
+[submodule "puppet/modules/puppet"]
+	path = puppet/modules/puppet
+	url = git://github.com/theforeman/puppet-puppet.git
+[submodule "puppet/modules/foreman"]
+	path = puppet/modules/foreman
+	url = git://github.com/theforeman/puppet-foreman.git
+[submodule "puppet/modules/xinetd"]
+	path = puppet/modules/xinetd
+	url = git://github.com/theforeman/puppet-xinetd.git
