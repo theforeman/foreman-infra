@@ -1,0 +1,12 @@
+<VirtualHost <%= ipaddress %>:80>
+  ServerName <%= scope.lookupvar('redmine::site_name') %>
+<% scope.lookupvar('redmine::site_aliases').each do |serveralias| -%>
+  ServerAlias <%= serveralias %>
+<% end -%>
+  DocumentRoot <%= scope.lookupvar('redmine::local_dir') %>/public
+
+  RailsAutoDetect On
+  AddDefaultCharset UTF-8
+  ServerSignature Off
+
+</VirtualHost>
