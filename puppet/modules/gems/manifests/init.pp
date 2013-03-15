@@ -3,7 +3,11 @@ class gems {
     "rubygems":
       ensure => present;
     "ruby-devel":
-      ensure => present;
+      ensure => present,
+      name => $osfamily ? {
+        Debian  => "ruby-dev",
+        default => "ruby-devel"
+      };
     "rake":
       ensure  => present,
       require => Package['rubygems'],
