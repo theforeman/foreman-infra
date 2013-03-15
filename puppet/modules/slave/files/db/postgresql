@@ -4,3 +4,4 @@ test:
   username: foreman
   password: foreman
   host: localhost
+  template: template0
