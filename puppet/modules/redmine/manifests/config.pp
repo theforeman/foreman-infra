@@ -43,7 +43,7 @@ class redmine::config {
     require => Git::Repo['redmine'],
   }
 
-  file {[$redmine::local_dir, "${redmine::local_dir}/db"]:
+  file {[$redmine::local_dir, "${redmine::local_dir}/db", "${redmine::local_dir}/config/initializers", "${redmine::local_dir}/config/environments"]:
     ensure  => directory,
     owner   => $redmine::user,
     mode    => '0644',
@@ -58,7 +58,7 @@ class redmine::config {
     before  => Service['apache'],
   }
 
-  file {"${redmine::local_dir}/config/environment.rb":
+  file {["${redmine::local_dir}/config/environment.rb", "${redmine::local_dir}/config.ru"]:
     owner   => $redmine::user,
     mode    => '0644',
     recurse => true,
@@ -95,8 +95,8 @@ class redmine::config {
     group   => 'root'
   }
 
-  plugin{'votes':
-    git_url => 'https://github.com/panicinc/redmine_vote.git'
-  }
+  #plugin{'votes':
+  #  git_url => 'https://github.com/panicinc/redmine_vote.git'
+  #}
 
 }
