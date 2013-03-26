@@ -12,9 +12,9 @@
 #
 #   You probably want to point a vhost at $freight_home
 #
-class freight2 {
+class freight {
 
-  class { 'freight2::install': }~>
-  class { 'freight2::config':  }
+  class { 'freight::install': }~>
+  class { 'freight::config':  }
 
 }

@@ -1,4 +1,4 @@
-class freight2::user (
+class freight::user (
   $user = 'freight',
   $home = '/srv/freight',
 ) {
@@ -49,7 +49,7 @@ class freight2::user (
     owner   => $user,
     group   => $user,
     mode    => 0755,
-    content => template('freight2/rsync.erb'),
+    content => template('freight/rsync.erb'),
   }
 
 }

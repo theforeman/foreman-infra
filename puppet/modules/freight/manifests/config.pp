@@ -1,10 +1,10 @@
-class freight2::config {
+class freight::config {
 
   $freight_home = '/srv/freight'
   $freight_user = 'freight'
 
   # Setup the user, group, and ssh keys
-  class { 'freight2::user':
+  class { 'freight::user':
     user => $freight_user,
     home => $freight_home,
   }
@@ -12,7 +12,7 @@ class freight2::config {
   file { '/etc/freight.conf':
     ensure  => present,
     mode    => 644,
-    content => template('freight2/freight.conf.erb'),
+    content => template('freight/freight.conf.erb'),
     require => Package['freight'],
   }
 
@@ -36,7 +36,7 @@ class freight2::config {
 
   file { '/etc/cron.daily/freight':
     mode    => 755,
-    content => template('freight2/cron.erb'),
+    content => template('freight/cron.erb'),
   }
 
 }
