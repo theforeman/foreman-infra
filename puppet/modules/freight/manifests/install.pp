@@ -1,4 +1,4 @@
-class freight2::install {
+class freight::install {
 
   if $::operatingsystem == 'Debian' {
     apt::source { 'freight':

@@ -1,7 +1,7 @@
 # Cheap class to deploy an SSH provate key for use in contacting the freight server
 # to upload deb packages for signing
 #
-class freight2::client {
+class freight::client {
 
   $pub_key  = ssh_keygen('freight_key','public')
   $priv_key = ssh_keygen('freight_key','private')

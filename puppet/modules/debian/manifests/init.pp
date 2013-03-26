@@ -44,7 +44,7 @@ class debian {
   }
 
   # Add freight setup
-  include freight
+  include freight::client
 
   # TODO: Cleanup failed pbuilder mounts as a cron
 
