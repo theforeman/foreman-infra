@@ -1,0 +1,33 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          sabnzbd, episode butler
+# Short-Description: start/stop sabnzbd and episode butler web interface
+### END INIT INFO
+
+USER="<%= scope.lookupvar('rbot::user') %>"
+HOME="<%= scope.lookupvar('rbot::homedir') %>"
+WORKING="<%= scope.lookupvar('rbot::working_dir') %>"
+
+case "$1" in
+start)
+  echo "Starting RBot."
+  /bin/su -l $USER -c "/usr/bin/ruby $WORKING/launch_here.rb -b"
+;;
+stop)
+  echo "Shutting down RBot."
+  /bin/kill `/bin/cat $HOME/.rbot/rbot.pid`
+;;
+status)
+  if ! (ps ax | grep -v grep | grep launch_here.rb > /dev/null); then
+    echo "RBot is not running"
+    exit 1
+  else
+    echo "RBot is running"
+  fi
+;;
+*)
+  echo "Usage: $0 {start|stop}"
+  exit 1
+esac
+
+exit 0

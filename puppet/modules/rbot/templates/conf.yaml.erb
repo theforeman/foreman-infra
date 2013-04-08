@@ -1,0 +1,32 @@
+--- 
+plugins.path: 
+<% scope.lookupvar('rbot::plugin_dir').each do |dir| -%>
+<% next if dir == '' -%>
+- <%= dir %>
+<% end -%>
+core.language: <%= scope.lookupvar('rbot::core_language') %>
+core.address_prefix:
+- "<%= scope.lookupvar('rbot::address_prefix') %>"
+irc.nick: <%= scope.lookupvar('rbot::nickname') %>
+server.list: 
+<% scope.lookupvar('rbot::servers').each do |server| -%>
+- irc://<%= server %>
+<% end -%>
+auth.password: <%= scope.lookupvar('rbot::auth_password') %>
+irc.join_channels: 
+<% scope.lookupvar('rbot::channels').each do |channel| -%>
+- "<%= channel %>"
+<% end -%>
+<% if scope.lookupvar('rbot::ssl') == 'true' -%>
+server.ssl: true
+<% end -%>
+<% if scope.lookupvar('rbot::reply_with_nick') == 'true' -%>
+core.reply_with_nick: true
+<% end -%>
+<% if scope.lookupvar('rbot::irc_password') != '' -%>
+server.password: <%= irc_password %>
+<% end -%>
+<% if scope.lookupvar('rbot::bind_host') != '' -%>
+server.bindhost: <%= bind_host %>
+<% end -%>
+core.nick_postfix: "<%= scope.lookupvar('rbot::nick_postfix') %>"
