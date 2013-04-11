@@ -1,9 +1,12 @@
 class utility::repos {
 
-  # This can be expanded to include yum systems later
-  case $::operatingsystem {
-    fedora,redhat,centos,Scientific: {}
-    Debian,Ubuntu: {
+  case $::osfamily {
+    RedHat: {
+      anchor { 'utility::repos::begin': } ->
+        class { 'puppetlabs_repo::yum': } ->
+      anchor { 'utility::repos::end': }
+    }
+    Debian: {
       apt::source { 'puppetlabs':
         location   => 'http://apt.puppetlabs.com',
         repos      => 'main',
