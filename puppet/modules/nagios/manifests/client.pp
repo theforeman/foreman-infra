@@ -19,16 +19,4 @@ class nagios::client {
     ensure => running,
     require => [ Package["nrpe"], Package["nagios-plugins-all"] ]
   }
-
-  @@nagios_host { $fqdn:
-    ensure => present,
-    alias => $hostname,
-    address => $ipaddress,
-    use => "generic-host",
-  }
-
-  @@nagios_service { "check_ping_${hostname}":
-    check_command => "check_ping!100.0,20%!500.0,60%",
-    host_name => "$hostname",
-  }
 }
