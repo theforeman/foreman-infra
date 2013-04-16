@@ -52,6 +52,10 @@ class RedmineUrlsPlugin < Plugin
 		# Do we have at least one possible reference?
 		return unless refs.length > 0
 
+    # Should we ignore certain users?
+    ignored_users = ['foreman-github']
+    return if ignored_users.include? m.sourcenick
+
 		refs.each do |ref|
 			debug "We're out to handle '#{ref}'"
 
