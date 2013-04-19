@@ -1,4 +1,6 @@
 class utility {
+  include motd
+
   package { "vim":
     ensure => present,
     name => $osfamily ? {

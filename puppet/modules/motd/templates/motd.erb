@@ -1,0 +1,20 @@
+*****************************************************************
+This is a private virtual machine that is the property of the Foreman project.  It is for authorized use only.  Users (authorized or unauthorized) have no explicit or implicit expectation of privacy.
+
+Any or all uses of this system and all files on this system may be monitored, recorded, copied, audited, or inspected.
+
+LOG OFF IMMEDIATELY if you do not agree to the conditions stated in this warning.
+*****************************************************************
+
+<%= operatingsystem %> <%= operatingsystemrelease %> <%= architecture %>
+
+FQDN:      <%= fqdn %> (<%= ipaddress %>)
+<% if has_variable?("processor0") then -%>
+Processor: <%= processorcount %>x <%= processor0 %>
+<% end -%>
+Kernel:    <%= kernelrelease %>
+Memory:    <%= memorysize %>
+
+<% if has_variable?("owner") then -%>
+Owner: <%= owner -%>
+<% end %>
