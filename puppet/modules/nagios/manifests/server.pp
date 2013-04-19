@@ -23,7 +23,15 @@ class nagios::server {
       use => "generic-service",
       host_name => $name,
       notification_period => "24x7",
-      service_description => "Check Ping"
+      service_description => "Ping"
+    }
+
+    nagios_service { "${name}_check_ssh":
+      check_command => "check_ssh",
+      use => "generic-service",
+      host_name => $name,
+      notification_period => "24x7",
+      service_description => "SSH"
     }
   }
 
