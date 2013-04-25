@@ -10,7 +10,7 @@ class slave::postgresql {
   # own databases when required
   postgresql::role { "foreman":
     password_hash => postgresql_password("foreman", "foreman"),
-    createdb      => true,
+    superuser     => true,
     login         => true,
     require       => Class["postgresql::server"],
   }
