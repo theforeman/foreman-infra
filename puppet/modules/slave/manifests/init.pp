@@ -20,6 +20,13 @@ class slave($github_user = undef,
     source => "puppet:///modules/slave/gitconfig",
   }
 
+  file { "/home/jenkins/.gemrc":
+    ensure => file,
+    owner  => "jenkins",
+    group  => "jenkins",
+    source => "puppet:///modules/slave/gemrc",
+  }
+
   if $github_user and $github_oauth and $jenkins_build_token {
     file { "/home/jenkins/.config":
       ensure => directory,
