@@ -40,8 +40,8 @@ class utility {
   $puppet_version = $::osfamily ? {
     Debian => '2.7.21-1puppetlabs1',
     RedHat => $::operatingsystem ? {
-      CentOS => "2.7.21.el${osmajor}",
-      Fedora => "2.7.21.f${::operatingsystemrelease}",
+      CentOS => "2.7.21-1.el${osmajor}",
+      Fedora => "2.7.21-1.f${::operatingsystemrelease}",
     },
   }
   $puppet_packages = $::osfamily ? {
