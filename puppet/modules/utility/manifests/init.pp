@@ -41,7 +41,7 @@ class utility {
     Debian => '2.7.21-1puppetlabs1',
     RedHat => $::operatingsystem ? {
       CentOS => "2.7.21-1.el${osmajor}",
-      Fedora => "2.7.21-1.f${::operatingsystemrelease}",
+      Fedora => "2.7.21-1.fc${::operatingsystemrelease}",
     },
   }
   $puppet_packages = $::osfamily ? {
