@@ -36,9 +36,13 @@ class utility {
   }
 
   # TODO: replace with theforeman/puppet-puppet
+  $osmajor = regsubst($::operatingsystemrelease, '\..*', '')
   $puppet_version = $::osfamily ? {
     Debian => '2.7.21-1puppetlabs1',
-    RedHat => '2.7.21',
+    RedHat => $::operatingsystem ? {
+      RedHat => "2.7.21.el${osmajor}",
+      Fedora => "2.7.21.f${::operatingsystemrelease}",
+    },
   }
   $puppet_packages = $::osfamily ? {
     Debian => ['puppet-common','puppet'],
