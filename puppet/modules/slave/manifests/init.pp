@@ -83,6 +83,12 @@ class slave($github_user = undef,
         Debian => "libpq-dev",
         default => "postgresql-devel"
       };
+    "libkrb5-dev":
+      ensure => present,
+      name => $osfamily ? {
+        Debian => "libkrb5-dev",
+        default => "krb5-devel"
+      };
     "ipmitool":
       ensure => present;
     "firefox":
