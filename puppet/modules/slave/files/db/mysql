@@ -1,5 +1,5 @@
 test:
-  adapter: mysql
+  adapter: mysql2
   database: foreman
   username: foreman
   password: foreman
