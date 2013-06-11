@@ -1,5 +1,5 @@
 require 'capistrano_colors'
-set :stages, %w(web puppetmaster)
+set :stages, %w(web puppetmaster yum)
 require 'capistrano/ext/multistage'
 
 ssh_options[:keys] = [
