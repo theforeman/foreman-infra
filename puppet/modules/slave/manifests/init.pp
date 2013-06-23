@@ -105,6 +105,15 @@ class slave($github_user = undef,
       }
   }
 
+  if $osfamily == 'RedHat' {
+    package {
+      'scl-utils-build':
+        ensure => present;
+      'rpmdevtools':
+        ensure => present
+    }
+  }
+
   include slave::mysql, slave::postgresql
   slave::db_config { "mysql": }
   slave::db_config { "sqlite3": }
