@@ -1,16 +1,11 @@
 class slave($github_user = undef,
             $github_oauth = undef,
-            $jenkins_build_token = undef) {
+            $jenkins_build_token = undef,
+            $koji_certificate = undef) {
   file { "/var/lib/workspace":
     ensure => directory,
     owner => "jenkins",
     group => "jenkins"
-  }
-
-  file { ["/home/jenkins/test_pull_request_not_mergable", "/home/jenkins/test_pull_request_proxy_not_mergable"]:
-    ensure => file,
-    owner => "jenkins",
-    group => "jenkins",
   }
 
   file { "/home/jenkins/.gitconfig":
@@ -27,6 +22,12 @@ class slave($github_user = undef,
     source => "puppet:///modules/slave/gemrc",
   }
 
+  # test-pull-requests scanner script
+  file { ["/home/jenkins/test_pull_request_not_mergable", "/home/jenkins/test_pull_request_proxy_not_mergable"]:
+    ensure => file,
+    owner => "jenkins",
+    group => "jenkins",
+  }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { "/home/jenkins/.config":
       ensure => directory,
@@ -58,6 +59,7 @@ class slave($github_user = undef,
     }
   }
 
+  # Build dependencies
   package {
     "libxml2-dev":
       ensure => present,
@@ -105,6 +107,7 @@ class slave($github_user = undef,
       }
   }
 
+  # specs-from-koji
   if $osfamily == 'RedHat' {
     package {
       'scl-utils-build':
@@ -114,11 +117,13 @@ class slave($github_user = undef,
     }
   }
 
+  # Databases
   include slave::mysql, slave::postgresql
   slave::db_config { "mysql": }
   slave::db_config { "sqlite3": }
   slave::db_config { "postgresql": }
 
+  # RVM
   include rvm
   if $rvm_installed == "true" {
     rvm::system_user { "jenkins": }
@@ -133,6 +138,46 @@ class slave($github_user = undef,
     }
     slave::rvm_config { "ruby-2.0.0":
       version => "ruby-2.0.0-p0",
+    }
+  }
+
+  # Koji
+  if $osfamily == 'RedHat' {
+    package {
+      'koji':
+        ensure => present;
+      'rpm-build':
+        ensure => present;
+      'tito':
+        ensure => present
+    }
+  }
+  file { "/home/jenkins/.koji":
+    ensure => directory,
+    owner  => "jenkins",
+    group  => "jenkins",
+  }
+  file { "/home/jenkins/.koji/katello-config":
+    ensure => file,
+    mode   => 0644,
+    owner  => "jenkins",
+    group  => "jenkins",
+    source => "puppet:///modules/slave/katello-config",
+  }
+  file { "/home/jenkins/.katello-ca.cert":
+    ensure => file,
+    mode   => 0644,
+    owner  => "jenkins",
+    group  => "jenkins",
+    source => "puppet:///modules/slave/katello-ca.cert",
+  }
+  if $koji_certificate {
+    file { "/home/jenkins/.katello.cert":
+      ensure  => file,
+      mode    => 0600,
+      owner   => "jenkins",
+      group   => "jenkins",
+      content => $koji_certificate,
     }
   }
 }
