@@ -3,8 +3,9 @@
 #
 class freight::client {
 
-  $pub_key  = ssh_keygen('freight_key','public')
-  $priv_key = ssh_keygen('freight_key','private')
+
+  $pub_key  = ssh_keygen({name => 'freight_key', public => 'public'})
+  $priv_key = ssh_keygen({name => 'freight_key'})
 
   file { '/var/lib/workspace/workspace/ssh_key_freight':
     owner   => 'jenkins',

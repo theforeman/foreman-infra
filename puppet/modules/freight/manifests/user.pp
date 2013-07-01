@@ -26,7 +26,7 @@ class freight::user (
   }
 
   # Read the dirvish key from the puppetmaster
-  $pub_key  = ssh_keygen('freight_key','public')
+  $pub_key  = ssh_keygen({name => 'freight_key', public => 'public'})
 
   file { "${home}/.ssh/authorized_keys":
     ensure  => present,
