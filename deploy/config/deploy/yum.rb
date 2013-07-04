@@ -1,11 +1,12 @@
 set :application, "yum.theforeman.org"
-set :host, "server2.theforeman.org"
 set :user_sudo, false
 
-# parameters, use cap -s
-#set :overwrite, false
+# parameters, use cap -S
+set :host, fetch(:host, "server2.theforeman.org")
 #set :repo_source, "foreman-nightly/RHEL/6"
 #set :repo_dest, "nightly/el6"
+set :overwrite, fetch(:overwrite, false)
+set :merge, fetch(:merge, false)
 
 set :repo_source_base, "rsync://koji.katello.org/releases"
 set :repo_source_rpm, "#{repo_source_base}/yum/#{repo_source}"
@@ -35,16 +36,18 @@ namespace :repo do
 
   # Copy with hard links the existing repo to minimise rsync later
   task :prepcache do
-    unless overwrite || capture("test -e #{repo_path} && echo yes || true").empty?
-      raise CommandError.new("Repo overwrite is disabled #{overwrite}, but #{repo_path} already exists")
+    unless overwrite || merge || capture("test -e #{repo_path} && echo yes || true").empty?
+      raise CommandError.new("Repo overwrite (#{overwrite}) or merge (#{merge}) are disabled, but #{repo_path} already exists")
     end
     run "if [ -e #{repo_path} ]; then cp -al #{repo_path} #{repo_instance_path}; else mkdir -p #{repo_instance_path}; fi"
   end
 
   task :rsync do
-    run "rsync -avH --delete #{repo_source_rpm}/* #{repo_instance_path}/"
-    run "rsync -avH --delete #{repo_source_srpm}/ #{repo_instance_path}/source/"
+    opts = merge ? '--exclude=**/repodata/' : '--delete'
+    run "rsync -avH #{opts} #{repo_source_rpm}/* #{repo_instance_path}/"
+    run "rsync -avH #{opts} #{repo_source_srpm}/ #{repo_instance_path}/source/"
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-release-*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-release.rpm); done}
+    run %Q{for d in #{repo_instance_path}/*; do (cd $d; createrepo --skip-symlinks --update .); done} if merge
   end
 
   task :replace do
@@ -56,7 +59,7 @@ namespace :repo do
 
       run "if [ -e #{repo_path} ]; then mv #{repo_path} #{repo_instance_path}-previous; fi"
       run "mv #{repo_instance_path} #{repo_path}"
-      run "if [ -e #{repo_instance_path}-previous ]; then rm -rf #{repo_instance_path}-previous; fi" if overwrite
+      run "if [ -e #{repo_instance_path}-previous ]; then rm -rf #{repo_instance_path}-previous; fi" if overwrite || merge
     end
   end
 end

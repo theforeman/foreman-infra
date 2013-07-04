@@ -1,4 +1,4 @@
-class web($latest = "1.1") {
+class web($latest = "1.2") {
   file { "/var/www/vhosts/web_theforeman.org":
     ensure => link,
     target => "/var/www/cap/theforeman.org/current/_site/",
@@ -19,6 +19,12 @@ class web($latest = "1.1") {
   apache::vhost { "yum":
     ensure => present,
     config_file => "puppet:///modules/web/yum.theforeman.org.conf"
+  }
+
+  if $osfamily == 'RedHat' {
+    package { 'createrepo':
+      ensure => present,
+    }
   }
 
   file { "/var/www/vhosts/yum/htdocs/releases/latest":
