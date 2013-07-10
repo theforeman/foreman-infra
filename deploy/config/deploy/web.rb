@@ -26,6 +26,6 @@ namespace :deploy do
   end
 
   task :jekyll_build do
-    run "cd #{deploy_to}/current && jekyll --no-auto"
+    run "cd #{deploy_to}/current && jekyll build"
   end
 end
