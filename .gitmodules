@@ -46,3 +46,9 @@
 [submodule "puppet/modules/dirvish"]
 	path = puppet/modules/dirvish
 	url = https://github.com/GregSutcliffe/puppet-dirvish
+[submodule "puppet/modules/git"]
+	path = puppet/modules/git
+	url = https://github.com/theforeman/puppet-git.git
+[submodule "puppet/modules/passenger"]
+	path = puppet/modules/passenger
+	url = https://github.com/theforeman/puppet-passenger.git
