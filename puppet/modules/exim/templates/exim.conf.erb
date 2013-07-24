@@ -1,0 +1,732 @@
+# $Cambridge: exim/exim-src/src/configure.default,v 1.14 2009/10/16 07:46:13 tom Exp $
+
+#
+# This file is managed by puppet. Any changes made will be replaced.
+# 
+
+######################################################################
+#                    MAIN CONFIGURATION SETTINGS                     #
+######################################################################
+
+primary_hostname = <%= primary_hostname %>
+
+domainlist local_domains = <%= domainlist_local_domains %>
+domainlist relay_to_domains = <%= domainlist_relay_to_domains %>
+hostlist   relay_from_hosts = <%= hostlist_relay_from_hosts %>
+
+acl_smtp_mail = acl_check_mail
+acl_smtp_rcpt = acl_check_rcpt
+acl_smtp_data = acl_check_data
+acl_smtp_mime = acl_check_mime
+
+<% if virus_scan %>
+av_scanner = <%= av_scanner %>
+<% end %>
+
+<% if spam_scan %>
+spamd_address=<%= spamd_address %>
+<% end %>
+
+tls_advertise_hosts = <%= tls_advertise_hosts %>
+tls_certificate = <%= tls_certificate %>
+tls_privatekey = <%= tls_privatekey %>
+
+daemon_smtp_ports = <%= daemon_smtp_ports %>
+tls_on_connect_ports = <%= tls_on_connect_ports %>
+
+<% if qualify_domain != "" %>
+qualify_domain = <%= qualify_domain %>
+<% end %>
+
+<% if qualify_recipient != "" %>
+qualify_recipient = <%= qualify_recipient %>
+<% end %>
+
+<% if allow_domain_literals %>
+allow_domain_literals
+<% end %>
+
+never_users = <%= never_users %>
+
+<% if do_host_lookups %>
+host_lookup = <%= host_lookup %>
+<% end %>
+
+auth_advertise_hosts = <%= auth_advertise_hosts %>
+
+rfc1413_hosts = <%= rfc1413_hosts %>
+rfc1413_query_timeout = <%= rfc1413_query_timeout %>
+
+<% if allow_unqualified_sender %>
+sender_unqualified_hosts = 
+<% end %>
+
+<% if allow_unqualified_recipient %>
+recipient_unqualified_hosts = 
+<% end %>
+
+<% if allow_percent_hack %>
+percent_hack_domains = <%= percent_hack_domains %>
+<% end %>
+
+ignore_bounce_errors_after = <%= ignore_bounce_errors_after %>
+timeout_frozen_after = <%= timeout_frozen_after %>
+
+<% if split_spool_directory %>
+split_spool_directory = true
+<% end %>
+
+######################################################################
+#                       ACL CONFIGURATION                            #
+#         Specifies access control lists for incoming SMTP mail      #
+######################################################################
+
+begin acl
+
+
+# This access control list is used for the MAIL command in an incoming
+# SMTP message.
+
+acl_check_mail:
+
+  # Hosts are required to say HELO (or EHLO) before sending mail.
+  # So don't allow them to use the MAIL command if they haven't
+  # done so.
+
+  deny condition = ${if eq{$sender_helo_name}{} {1}}
+       message = Nice boys say HELO first
+
+  # Use the lack of reverse DNS to trigger greylisting. Some people
+  # even reject for it but that would be a little excessive.
+  
+  warn condition = ${if eq{$sender_host_name}{} {1}}
+       set acl_m_greylistreasons = Host $sender_host_address lacks reverse DNS\n$acl_m_greylistreasons
+  
+  accept
+
+
+
+# This access control list is used for every RCPT command in an incoming
+# SMTP message. The tests are run in order until the address is either
+# accepted or denied.
+
+acl_check_rcpt:
+
+  # Accept if the source is local SMTP (i.e. not over TCP/IP). We do this by
+  # testing for an empty sending host field.
+
+  accept  hosts = :
+          control = dkim_disable_verify
+
+  #############################################################################
+  # The following section of the ACL is concerned with local parts that contain
+  # @ or % or ! or / or | or dots in unusual places.
+  #
+  # The characters other than dots are rarely found in genuine local parts, but
+  # are often tried by people looking to circumvent relaying restrictions.
+  # Therefore, although they are valid in local parts, these rules lock them
+  # out, as a precaution.
+  #
+  # Empty components (two dots in a row) are not valid in RFC 2822, but Exim
+  # allows them because they have been encountered. (Consider local parts
+  # constructed as "firstinitial.secondinitial.familyname" when applied to
+  # someone like me, who has no second initial.) However, a local part starting
+  # with a dot or containing /../ can cause trouble if it is used as part of a
+  # file name (e.g. for a mailing list). This is also true for local parts that
+  # contain slashes. A pipe symbol can also be troublesome if the local part is
+  # incorporated unthinkingly into a shell command line.
+  #
+  # Two different rules are used. The first one is stricter, and is applied to
+  # messages that are addressed to one of the local domains handled by this
+  # host. The line "domains = +local_domains" restricts it to domains that are
+  # defined by the "domainlist local_domains" setting above. The rule  blocks
+  # local parts that begin with a dot or contain @ % ! / or |. If you have
+  # local accounts that include these characters, you will have to modify this
+  # rule.
+
+  deny    message       = Restricted characters in address
+          domains       = +local_domains
+          local_parts   = ^[.] : ^.*[@%!/|]
+
+  # The second rule applies to all other domains, and is less strict. The line
+  # "domains = !+local_domains" restricts it to domains that are NOT defined by
+  # the "domainlist local_domains" setting above. The exclamation mark is a
+  # negating operator. This rule allows your own users to send outgoing
+  # messages to sites that use slashes and vertical bars in their local parts.
+  # It blocks local parts that begin with a dot, slash, or vertical bar, but
+  # allows these characters within the local part. However, the sequence /../
+  # is barred. The use of @ % and ! is blocked, as before. The motivation here
+  # is to prevent your users (or your users' viruses) from mounting certain
+  # kinds of attack on remote sites.
+
+  deny    message       = Restricted characters in address
+          domains       = !+local_domains
+          local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
+  #############################################################################
+
+  # Accept mail to postmaster in any local domain, regardless of the source,
+  # and without verifying the sender.
+
+  accept  local_parts   = postmaster
+          domains       = +local_domains
+
+  # Deny unless the sender address can be routed. For proper verification of the
+  # address, read the documentation on callouts and add the /callout modifier.
+
+  require verify        = sender
+
+  # Accept if the message comes from one of the hosts for which we are an
+  # outgoing relay. It is assumed that such hosts are most likely to be MUAs,
+  # so we set control=submission to make Exim treat the message as a
+  # submission. It will fix up various errors in the message, for example, the
+  # lack of a Date: header line. If you are actually relaying out out from
+  # MTAs, you may want to disable this. If you are handling both relaying from
+  # MTAs and submissions from MUAs you should probably split them into two
+  # lists, and handle them differently.
+
+  # Recipient verification is omitted here, because in many cases the clients
+  # are dumb MUAs that don't cope well with SMTP error responses. If you are
+  # actually relaying out from MTAs, you should probably add recipient
+  # verification here.
+
+  # Note that, by putting this test before any DNS black list checks, you will
+  # always accept from these hosts, even if they end up on a black list. The
+  # assumption is that they are your friends, and if they get onto a black
+  # list, it is a mistake.
+
+  accept  hosts         = +relay_from_hosts
+          control       = submission
+          control       = dkim_disable_verify
+
+  # Accept if the message arrived over an authenticated connection, from
+  # any host. Again, these messages are usually from MUAs, so recipient
+  # verification is omitted, and submission mode is set. And again, we do this
+  # check before any black list tests.
+
+  accept  authenticated = *
+          control       = submission
+          control       = dkim_disable_verify
+
+  # Insist that any other recipient address that we accept is either in one of
+  # our local domains, or is in a domain for which we explicitly allow
+  # relaying. Any other domain is rejected as being unacceptable for relaying.
+
+  require message = relay not permitted
+          domains = +local_domains : +relay_to_domains
+
+  # We also require all accepted addresses to be verifiable. This check will
+  # do local part verification for local domains, but only check the domain
+  # for remote domains. The only way to check local parts for the remote
+  # relay domains is to use a callout (add /callout), but please read the
+  # documentation about callouts before doing this.
+
+  require verify = recipient
+
+  #############################################################################
+  # There are no default checks on DNS black lists because the domains that
+  # contain these lists are changing all the time. However, here are two
+  # examples of how you can get Exim to perform a DNS black list lookup at this
+  # point. The first one denies, whereas the second just warns. The third
+  # triggers greylisting for any host in the blacklist.
+  #
+  # deny    message       = rejected because $sender_host_address is in a black list at $dnslist_domain\n$dnslist_text
+  #         dnslists      = black.list.example
+  #
+  # warn    dnslists      = black.list.example
+  #         add_header    = X-Warning: $sender_host_address is in a black list at $dnslist_domain
+  #         log_message   = found in $dnslist_domain
+  #
+  # warn    dnslists      = black.list.example
+  #         set acl_m_greylistreasons = Host found in $dnslist_domain\n$acl_m_greylistreasons
+  #
+  #############################################################################
+
+  #############################################################################
+  # This check is commented out because it is recognized that not every
+  # sysadmin will want to do it. If you enable it, the check performs
+  # Client SMTP Authorization (csa) checks on the sending host. These checks
+  # do DNS lookups for SRV records. The CSA proposal is currently (May 2005)
+  # an Internet draft. You can, of course, add additional conditions to this
+  # ACL statement to restrict the CSA checks to certain hosts only.
+  #
+  # require verify = csa
+  #############################################################################
+
+  # Alternatively, greylist for it:
+  # warn !verify = csa
+  #      set acl_m_greylistreasons = Host failed CSA check\n$acl_m_greylistreasons
+
+  # At this point, the address has passed all the checks that have been
+  # configured, so we accept it unconditionally.
+
+  accept
+
+
+# This ACL is used after the contents of a message have been received. This
+# is the ACL in which you can test a message's headers or body, and in
+# particular, this is where you can invoke external virus or spam scanners.
+# Some suggested ways of configuring these tests are shown below, commented
+# out. Without any tests, this ACL accepts all messages. If you want to use
+# such tests, you must ensure that Exim is compiled with the content-scanning
+# extension (WITH_CONTENT_SCAN=yes in Local/Makefile).
+
+acl_check_data:
+
+  # Put simple tests first. A good one is to check for the presence of a
+  # Message-Id: header, which RFC2822 says SHOULD be present. Some broken
+  # or misconfigured mailer software occasionally omits this from genuine
+  # messages too, though -- although it's not hard for the offender to fix
+  # after they receive a bounce because of it.
+  #
+  # deny    condition  = ${if !def:h_Message-ID: {1}}
+  #         message    = RFC2822 says that all mail SHOULD have a Message-ID header.\n\
+  #                      Most messages without it are spam, so your mail has been rejected.
+  #
+  # Alternatively if we're feeling more lenient we could just use it to 
+  # trigger greylisting instead:
+
+  warn    condition  = ${if !def:h_Message-ID: {1}}
+          set acl_m_greylistreasons = Message lacks Message-Id: header. Consult RFC2822.\n$acl_m_greylistreasons
+
+  # Deny if the message contains a virus. Before enabling this check, you
+  # must install a virus scanner and set the av_scanner option above.
+  #
+  # deny    malware    = *
+  #         message    = This message contains a virus ($malware_name).
+
+  # Bypass SpamAssassin checks if the message is too large.
+  #
+  # accept  condition  = ${if >={$message_size}{100000} {1}}
+  #         add_header = X-Spam-Note: SpamAssassin run bypassed due to message size
+
+  # Run SpamAssassin, but allow for it to fail or time out. Add a warning message
+  # and accept the mail if that happens. Add an X-Spam-Flag: header if the SA
+  # score exceeds the SA system threshold.
+  #
+  # warn    spam       = nobody/defer_ok
+  #         add_header = X-Spam-Flag: YES
+  #
+  # accept  condition  = ${if !def:spam_score_int {1}}
+  #         add_header = X-Spam-Note: SpamAssassin invocation failed
+  #
+  
+  # Unconditionally add score and report headers
+  #
+  # warn    add_header = X-Spam-Score: $spam_score ($spam_bar)\n\
+  #                      X-Spam-Report: $spam_report
+
+  # And reject if the SpamAssassin score is greater than ten
+  #
+  # deny    condition = ${if >{$spam_score_int}{100} {1}}
+  #         message   = Your message scored $spam_score SpamAssassin point. Report follows:\n\
+  #  	    	        $spam_report
+
+  # Trigger greylisting (if enabled) if the SpamAssassin score is greater than 0.5
+  #
+  # warn    condition = ${if >{$spam_score_int}{5} {1}}
+  #         set acl_m_greylistreasons = Message has $spam_score SpamAssassin points\n$acl_m_greylistreasons
+
+
+  # If you want to greylist _all_ mail rather than only mail which looks like there
+  # might be something wrong with it, then you can do this...
+  #
+  # warn set acl_m_greylistreasons = We greylist all mail\n$acl_m_greylistreasons
+
+  # Now, invoke the greylisting. For this you need to have installed the exim-greylist
+  # package which contains this subroutine, and you need to uncomment the bit below
+  # which includes it too. Whenever the $acl_m_greylistreasons variable is non-empty,
+  # greylisting will kick in and will defer the mail to check if the sender is a
+  # proper mail which which retries, or whether it's a zombie. For more details, see
+  # the exim-greylist.conf.inc file itself.
+  #
+  # require acl = greylist_mail
+
+  accept
+
+# To enable the greylisting, also uncomment this line: 
+# .include /etc/exim/exim-greylist.conf.inc
+
+acl_check_mime:
+
+  # File extension filtering.
+  deny message = Blacklisted file extension detected
+       condition = ${if match \
+                        {${lc:$mime_filename}} \
+                        {\N(\.exe|\.pif|\.bat|\.scr|\.lnk|\.com)$\N} \
+                     {1}{0}}
+
+  accept
+
+
+######################################################################
+#                      ROUTERS CONFIGURATION                         #
+#               Specifies how addresses are handled                  #
+######################################################################
+#     THE ORDER IN WHICH THE ROUTERS ARE DEFINED IS IMPORTANT!       #
+# An address is passed to each router in turn until it is accepted.  #
+######################################################################
+
+begin routers
+
+# This router routes to remote hosts over SMTP by explicit IP address,
+# when an email address is given in "domain literal" form, for example,
+# <user@[192.168.35.64]>. The RFCs require this facility. However, it is
+# little-known these days, and has been exploited by evil people seeking
+# to abuse SMTP relays. Consequently it is commented out in the default
+# configuration. If you uncomment this router, you also need to uncomment
+# allow_domain_literals above, so that Exim can recognize the syntax of
+# domain literal addresses.
+
+<% if allow_domain_literals %>
+domain_literal:
+   driver = ipliteral
+   domains = ! +local_domains
+   transport = remote_smtp
+<% end %>
+
+<% if use_gateway %>
+send_to_gateway:
+    driver = <%= gateway_driver %>
+    transport = <%= gateway_transport %>
+    route_list = <%= gateway_route_list %>
+    no_more
+<% else if use_smarthost %>
+smarthost:
+    driver = <%= smarthost_driver %>
+    domains = <%= smarthost_domains %>
+    transport = <%= smarthost_transport %>
+    route_data = <%= smarthost_route_data %>
+    no_more
+<% else %>
+dnslookup:
+    driver = dnslookup
+    domains = ! +local_domains
+    transport = remote_smtp
+    ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+    no_more
+<% end %>
+<% end %>
+# The remaining routers handle addresses in the local domain(s), that is those
+# domains that are defined by "domainlist local_domains" above.
+
+
+# This router handles aliasing using a linearly searched alias file with the
+# name SYSTEM_ALIASES_FILE. When this configuration is installed automatically,
+# the name gets inserted into this file from whatever is set in Exim's
+# build-time configuration. The default path is the traditional /etc/aliases.
+# If you install this configuration by hand, you need to specify the correct
+# path in the "data" setting below.
+#
+##### NB  You must ensure that the alias file exists. It used to be the case
+##### NB  that every Unix had that file, because it was the Sendmail default.
+##### NB  These days, there are systems that don't have it. Your aliases
+##### NB  file should at least contain an alias for "postmaster".
+#
+# If any of your aliases expand to pipes or files, you will need to set
+# up a user and a group for these deliveries to run under. You can do
+# this by uncommenting the "user" option below (changing the user name
+# as appropriate) and adding a "group" option if necessary. Alternatively, you
+# can specify "user" on the transports that are used. Note that the transports
+# listed below are the same as are used for .forward files; you might want
+# to set up different ones for pipe and file deliveries from aliases.
+
+system_aliases:
+  driver = redirect
+  allow_fail
+  allow_defer
+  data = ${lookup{$local_part}lsearch{/etc/aliases}}
+# user = exim
+  file_transport = address_file
+  pipe_transport = address_pipe
+
+
+# This router handles forwarding using traditional .forward files in users'
+# home directories. If you want it also to allow mail filtering when a forward
+# file starts with the string "# Exim filter" or "# Sieve filter", uncomment
+# the "allow_filter" option.
+
+# If you want this router to treat local parts with suffixes introduced by "-"
+# or "+" characters as if the suffixes did not exist, uncomment the two local_
+# part_suffix options. Then, for example, xxxx-foo@your.domain will be treated
+# in the same way as xxxx@your.domain by this router. You probably want to make
+# the same change to the localuser router.
+
+# The no_verify setting means that this router is skipped when Exim is
+# verifying addresses. Similarly, no_expn means that this router is skipped if
+# Exim is processing an EXPN command.
+
+# The check_ancestor option means that if the forward file generates an
+# address that is an ancestor of the current one, the current one gets
+# passed on instead. This covers the case where A is aliased to B and B
+# has a .forward file pointing to A.
+
+# The three transports specified at the end are those that are used when
+# forwarding generates a direct delivery to a file, or to a pipe, or sets
+# up an auto-reply, respectively.
+
+userforward:
+  driver = redirect
+  check_local_user
+# local_part_suffix = +* : -*
+# local_part_suffix_optional
+  file = $home/.forward
+  allow_filter
+  no_verify
+  no_expn
+  check_ancestor
+  file_transport = address_file
+  pipe_transport = address_pipe
+  reply_transport = address_reply
+
+procmail:
+  driver = accept
+  check_local_user
+  require_files = ${local_part}:+${home}/.procmailrc:/usr/bin/procmail
+  transport = procmail
+  no_verify
+
+# This router matches local user mailboxes. If the router fails, the error
+# message is "Unknown user".
+
+# If you want this router to treat local parts with suffixes introduced by "-"
+# or "+" characters as if the suffixes did not exist, uncomment the two local_
+# part_suffix options. Then, for example, xxxx-foo@your.domain will be treated
+# in the same way as xxxx@your.domain by this router.
+
+localuser:
+  driver = accept
+  check_local_user
+# local_part_suffix = +* : -*
+# local_part_suffix_optional
+  transport = local_delivery
+  cannot_route_message = Unknown user
+
+
+
+######################################################################
+#                      TRANSPORTS CONFIGURATION                      #
+######################################################################
+#                       ORDER DOES NOT MATTER                        #
+#     Only one appropriate transport is called for each delivery.    #
+######################################################################
+
+# A transport is used only when referenced from a router that successfully
+# handles an address.
+
+begin transports
+
+
+# This transport is used for delivering messages over SMTP connections.
+<% if use_gateway %>
+remote_smtp:
+    driver = smtp
+    hosts_try_auth=<%= gateway_auth_hosts_try_auth %>
+<% else %>
+remote_smtp:
+    driver = smtp
+<% end %>
+
+# This transport is used for delivering messages over SMTP using the
+# "message submission" port (RFC4409).
+
+remote_msa:
+  driver = smtp
+  port = 587
+  hosts_require_auth = *
+
+
+# This transport invokes procmail to deliver mail
+procmail:
+  driver = pipe
+  command = "/usr/bin/procmail -d $local_part"
+  return_path_add
+  delivery_date_add
+  envelope_to_add
+  user = $local_part
+  initgroups
+  return_output
+
+# This transport is used for local delivery to user mailboxes in traditional
+# BSD mailbox format. By default it will be run under the uid and gid of the
+# local user, and requires the sticky bit to be set on the /var/mail directory.
+# Some systems use the alternative approach of running mail deliveries under a
+# particular group instead of using the sticky bit. The commented options below
+# show how this can be done.
+
+local_delivery:
+  driver = appendfile
+  file = /var/mail/$local_part
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+  group = mail
+  mode = 0660
+
+
+# This transport is used for handling pipe deliveries generated by alias or
+# .forward files. If the pipe generates any standard output, it is returned
+# to the sender of the message as a delivery error. Set return_fail_output
+# instead of return_output if you want this to happen only when the pipe fails
+# to complete normally. You can set different transports for aliases and
+# forwards if you want to - see the references to address_pipe in the routers
+# section above.
+
+address_pipe:
+  driver = pipe
+  return_output
+
+
+# This transport is used for handling deliveries directly to files that are
+# generated by aliasing or forwarding.
+
+address_file:
+  driver = appendfile
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+
+
+# This transport is used for handling autoreplies generated by the filtering
+# option of the userforward router.
+
+address_reply:
+  driver = autoreply
+
+
+# This transport is used to deliver local mail to cyrus IMAP server via UNIX 
+# socket. You'll need to configure the 'localuser' router above to use it.
+#
+#lmtp_delivery:
+#  home_directory = /var/spool/imap
+#  driver = lmtp
+#  command = "/usr/lib/cyrus-imapd/deliver -l"
+#  batch_max = 20
+#  user = cyrus
+
+
+######################################################################
+#                      RETRY CONFIGURATION                           #
+######################################################################
+
+begin retry
+
+# This single retry rule applies to all domains and all errors. It specifies
+# retries every 15 minutes for 2 hours, then increasing retry intervals,
+# starting at 1 hour and increasing each time by a factor of 1.5, up to 16
+# hours, then retries every 6 hours until 4 days have passed since the first
+# failed delivery.
+
+# WARNING: If you do not have any retry rules at all (this section of the
+# configuration is non-existent or empty), Exim will not do any retries of
+# messages that fail to get delivered at the first attempt. The effect will
+# be to treat temporary errors as permanent. Therefore, DO NOT remove this
+# retry rule unless you really don't want any retries.
+
+# Address or Domain    Error       Retries
+# -----------------    -----       -------
+
+*                      *           F,2h,15m; G,16h,1h,1.5; F,4d,6h
+
+
+
+######################################################################
+#                      REWRITE CONFIGURATION                         #
+######################################################################
+
+# There are no rewriting specifications in this default configuration file.
+
+begin rewrite
+
+
+
+######################################################################
+#                   AUTHENTICATION CONFIGURATION                     #
+######################################################################
+
+begin authenticators
+
+<% if use_gateway %>
+cram_md5:
+    driver = cram_md5
+    public_name = CRAM-MD5
+    client_name = <%= gateway_auth_username %>
+    client_secret = <%= gateway_auth_secret %>
+
+plain:
+    driver = plaintext
+    public_name = PLAIN
+    client_send = ^<%= gateway_auth_username %>^<%= gateway_auth_secret %>
+<% end %>
+
+# This authenticator supports CRAM-MD5 username/password authentication
+# with Exim acting as a _client_, as it might when sending its outgoing
+# mail to a smarthost rather than directly to the final recipient.
+# Replace SMTPAUTH_USERNAME and SMTPAUTH_PASSWORD as appropriate.
+
+#client_auth:
+#  driver = cram_md5
+#  public_name = CRAM-MD5
+#  client_name = SMTPAUTH_USERNAME
+#  client_secret = SMTPAUTH_PASSWORD
+
+#
+
+# The following authenticators support plaintext username/password
+# authentication using the standard PLAIN mechanism and the traditional
+# but non-standard LOGIN mechanism, with Exim acting as the server.
+# PLAIN and LOGIN are enough to support most MUA software.
+#
+# These authenticators are not complete: you need to change the
+# server_condition settings to specify how passwords are verified.
+# They are set up to offer authentication to the client only if the
+# connection is encrypted with TLS, so you also need to add support
+# for TLS. See the global configuration options section at the start
+# of this file for more about TLS.
+#
+# The default RCPT ACL checks for successful authentication, and will accept
+# messages from authenticated users from anywhere on the Internet.
+
+# 
+
+# PLAIN authentication has no server prompts. The client sends its
+# credentials in one lump, containing an authorization ID (which we do not
+# use), an authentication ID, and a password. The latter two appear as
+# $auth2 and $auth3 in the configuration and should be checked against a
+# valid username and password. In a real configuration you would typically
+# use $auth2 as a lookup key, and compare $auth3 against the result of the
+# lookup, perhaps using the crypteq{}{} condition.
+
+#PLAIN:
+#  driver                     = plaintext
+#  server_set_id              = $auth2
+#  server_prompts             = :
+#  server_condition           = ${if saslauthd{{$2}{$3}{smtp}} {1}}
+#  server_advertise_condition = ${if def:tls_cipher }
+
+# LOGIN authentication has traditional prompts and responses. There is no
+# authorization ID in this mechanism, so unlike PLAIN the username and
+# password are $auth1 and $auth2. Apart from that you can use the same
+# server_condition setting for both authenticators.
+
+#LOGIN:
+#  driver                     = plaintext
+#  server_set_id              = $auth1
+#  server_prompts             = <| Username: | Password:
+#  server_condition           = ${if saslauthd{{$1}{$2}{smtp}} {1}}
+#  server_advertise_condition = ${if def:tls_cipher }
+
+
+######################################################################
+#                   CONFIGURATION FOR local_scan()                   #
+######################################################################
+
+# If you have built Exim to include a local_scan() function that contains
+# tables for private options, you can define those options here. Remember to
+# uncomment the "begin" line. It is commented by default because it provokes
+# an error with Exim binaries that are not built with LOCAL_SCAN_HAS_OPTIONS
+# set in the Local/Makefile.
+
+# begin local_scan
+
+
+# End of Exim configuration file
