@@ -1,0 +1,5 @@
+<%= scope.lookupvar('redmine::environment') %>:
+  adapter: sqlite3
+  database: db/<%= scope.lookupvar('redmine::environment') %>.sqlite3
+  pool: 5
+  timeout: 5000

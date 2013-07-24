@@ -1,0 +1,6 @@
+default:
+  delivery_method: :smtp
+  smtp_settings:
+    address: '<%= scope.lookupvar('redmine::smtp_server') %>'
+    port: <%= scope.lookupvar('redmine::smtp_port') %>
+    domain: <%= scope.lookupvar('redmine::smtp_domain') %>
