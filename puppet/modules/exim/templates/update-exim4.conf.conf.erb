@@ -1,0 +1,15 @@
+# Managed by Puppet
+
+dc_eximconfig_configtype='satellite'
+dc_other_hostnames='<%= @fqdn %>'
+dc_local_interfaces='127.0.0.1 ; ::1'
+dc_readhost='<%= @fqdn %>'
+dc_relay_domains=''
+dc_minimaldns='false'
+dc_relay_nets=''
+dc_smarthost='<%= scope.lookupvar('exim::mail_relay') %>'
+CFILEMODE='644'
+dc_use_split_config='false'
+dc_hide_mailname='true'
+dc_mailname_in_oh='true'
+dc_localdelivery='mail_spool'
