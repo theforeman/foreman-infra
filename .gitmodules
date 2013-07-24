@@ -52,3 +52,6 @@
 [submodule "puppet/modules/passenger"]
 	path = puppet/modules/passenger
 	url = https://github.com/theforeman/puppet-passenger.git
+[submodule "puppet/modules/sendmail"]
+	path = puppet/modules/sendmail
+	url = https://github.com/example42/puppet-sendmail.git
