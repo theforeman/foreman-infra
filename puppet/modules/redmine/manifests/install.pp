@@ -4,13 +4,14 @@ class redmine::install {
     default: {fail("db_adapter ${redmine::db_adapter} is not supported - patches welcomed")}
   }
 
+  # requires redhat-lsb-core for apache to work
   include 'git', 'apache'
 
   package{'passenger':
     ensure  => installed,
     name    => 'mod_passenger',
-    require => Package['apache'], # we are not using our own apache module,
-    notify  => Service['apache'], # so I'm forced for inter module dependencies
+    require => [Yumrepo['foreman'],Package['apache']], # we are not using our own apache module,
+    notify  => Service['apache'],                      # so I'm forced for inter module dependencies
   }
 
   yumrepo{'foreman':
@@ -19,9 +20,15 @@ class redmine::install {
     gpgcheck => 0,
   }
 
-  package{['rubygem-bundler','ruby-devel', 'gcc']:
+  # we don't package rubygem-bundler for centos anymore, so rubygems
+  # is installed and we get bundler from gem sources
+  package{['rubygems','ruby-devel', 'gcc']:
     ensure  => present,
-    require => Yumrepo['foreman'],
+  }
+  ->
+  package{'bundler':
+    ensure   => present,
+    provider => 'gem',
   }
 
   git::repo {'redmine':

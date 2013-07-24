@@ -10,12 +10,14 @@ class redmine::config {
   # Create session store
   exec { 'session_store':
     command => 'bundle exec rake generate_session_store',
+    path    => ['/bin','/usr/bin'],
     creates => "${redmine::local_dir}/config/initializers/secret_token.rb",
   }
 
   # Perform rails migrations
   exec { 'rails_migrations':
     command => 'bundle exec rake db:migrate',
+    path    => ['/bin','/usr/bin'],
     creates => "${redmine::local_dir}/db/schema.rb",
     before  => Service['apache'],
   }
@@ -68,6 +70,7 @@ class redmine::config {
 
   exec{'redmine-bundle':
     command => 'bundle install --path vendor/bundle --without development test rmagick',
+    path    => ['/bin','/usr/bin'],
     creates => "${redmine::local_dir}/vendor/bundle",
     require => [ User[$redmine::user],
                  File["${redmine::local_dir}/config/configuration.yml"],
