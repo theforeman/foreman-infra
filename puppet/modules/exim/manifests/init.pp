@@ -18,7 +18,7 @@
 # Sample Usage:
 # include exim()
 # include exim(version="latest", use_smarthost=true, smarthost_route_data="mymta.domain.dom")
-# 
+#
 #
 # [Remember: No empty lines between comments and class definition]
 class exim ($ensure="running",
@@ -65,7 +65,7 @@ class exim ($ensure="running",
             $gateway_auth_hosts_try_auth="",
             $gateway_auth_username="",
             $gateway_auth_secret=""
-        ) 
+        )
 {
     if ! ($ensure in [ "running", "stopped" ]) {
         fail("ensure parameter must be running or stopped")
