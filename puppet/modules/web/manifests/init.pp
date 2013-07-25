@@ -1,4 +1,8 @@
 class web($latest = "1.2") {
+  file { "/etc/httpd/conf.d/welcome.conf":
+    ensure => absent
+  }
+
   file { "/var/www/vhosts/web_theforeman.org":
     ensure => link,
     target => "/var/www/cap/theforeman.org/current/_site/",
