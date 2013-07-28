@@ -52,3 +52,6 @@
 [submodule "puppet/modules/passenger"]
 	path = puppet/modules/passenger
 	url = https://github.com/theforeman/puppet-passenger.git
+[submodule "puppet/modules/monit"]
+	path = puppet/modules/monit
+	url = git@github.com:puppetmodules/puppet-module-monit.git
