@@ -107,6 +107,19 @@ class redmine::config {
     group   => 'root'
   }
 
+  include monit
+  monit::monitor { "httpd":
+    pidfile => "/var/run/httpd.pid",
+    checks => [
+      "if 2 restarts within 3 cycles then timeout",
+      "if totalmem > 1700 Mb then alert",
+      "if children > 255 for 5 cycles then stop",
+      "if cpu usage > 95% for 3 cycles then restart",
+      "if failed port 80 protocol http then restart",
+      "if failed url http://projects.theforeman.org/ then restart"
+    ]
+  }
+
   #plugin{'votes':
   #  git_url => 'https://github.com/panicinc/redmine_vote.git'
   #}
