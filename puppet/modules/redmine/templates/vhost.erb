@@ -8,5 +8,7 @@
   # RailsAutoDetect On # Not needed for Passenger4
   AddDefaultCharset UTF-8
   ServerSignature Off
+  RewriteEngine on
+  RewriteRule   ^/wiki(.*)  http://projects.theforeman.org/projects/foreman/wiki$1  [R,L]
 
 </VirtualHost>
