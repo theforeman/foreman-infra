@@ -1,6 +1,7 @@
 class redmine::install {
   case $redmine::db_adapter {
     'sqlite': {  include 'sqlite3' }
+    'postgresql': { include postgresql::client, postgresql::server }
     default: {fail("db_adapter ${redmine::db_adapter} is not supported - patches welcomed")}
   }
 
@@ -22,7 +23,7 @@ class redmine::install {
 
   # we don't package rubygem-bundler for centos anymore, so rubygems
   # is installed and we get bundler from gem sources
-  package{['rubygems','ruby-devel', 'gcc']:
+  package{['rubygems','ruby-devel', 'gcc', 'postgresql-devel']:
     ensure  => present,
   }
   ->
