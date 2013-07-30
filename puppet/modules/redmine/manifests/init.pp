@@ -19,6 +19,8 @@ class redmine(
     default => $db_password,
   }
 
-  include 'install', 'config'
-  Class['install'] -> Class['config']
+  class { 'redmine::install': }->
+  class { 'redmine::config': } ->
+  class { 'redmine::cron': }
+
 }
