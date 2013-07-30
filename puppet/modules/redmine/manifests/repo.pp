@@ -1,5 +1,5 @@
 define redmine::repo(
-  $git_url
+  $git_url,
   $dirname
 ) {
 
