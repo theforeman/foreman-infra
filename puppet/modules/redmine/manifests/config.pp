@@ -1,5 +1,9 @@
 class redmine::config {
 
+  Postgresql_psql {
+    cwd => "/",
+  }
+
   Exec {
     environment => ["HOME=${redmine::local_dir}","RAILS_ENV=${redmine::environment}",'REDMINE_LANG=en'],
     user        => $redmine::user,
@@ -35,6 +39,11 @@ class redmine::config {
     owner   => $redmine::user,
     mode    => '0701',
     require => User[$redmine::user]
+  }
+
+  postgresql::db { $redmine::db_name:
+    user     => $redmine::user,
+    password => postgresql_password($redmine::user, $redmine::db_password_real),
   }
 
   file{ "${redmine::local_dir}/config/database.yml":
