@@ -41,6 +41,8 @@ class redmine::cron {
                           'dirname' => 'hammer-cli'},
     'stacker'        => { 'git_url' => 'https://github.com/ohadlevy/stacker.git',
                           'dirname' => 'stacker' },
+    'foreman_api'    => { 'git_url' => 'https://github.com/theforeman/foreman_api.git',
+                          'dirname' => 'foreman_api' },
   }
 
   create_resources(redmine::repo,$repos)
