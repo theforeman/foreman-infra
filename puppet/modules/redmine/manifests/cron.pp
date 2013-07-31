@@ -18,31 +18,42 @@ class redmine::cron {
     hour    => string_to_cron('redmine-sessions-hour', '24'),
   }
 
-  # $name is the redmine project identifier
+  # $name is where to clone to - historically some projects have different checkouts
   # $git_url is where to clone it from - --recurse-submodules is always done as well
-  # $dirname is where to clone to - historically some projects have different checkouts
-  # Once cloned, add /home/$redmine::user/git/$dirname to the project's settings in the UI
+  # $project_name is the redmine project identifier
+  # Once cloned, add /home/$redmine::user/git/$name to the project's settings in the UI
   $repos = {
-    'foreman'        => { 'git_url' => 'https://github.com/theforeman/foreman.git',
-                          'dirname' => 'foreman' },
-    'smart-proxy'    => { 'git_url' => 'https://github.com/theforeman/smart-proxy.git',
-                          'dirname' => 'smart-proxy' },
-    'puppet-foreman' => { 'git_url' => 'https://github.com/theforeman/foreman-installer.git',
-                          'dirname' => 'foreman-installer'},
-    'rpms'           => { 'git_url' => 'https://github.com/theforeman/foreman-packaging',
-                          'dirname' => 'foreman-rpms' },
-    'discovery'      => { 'git_url' => 'https://github.com/theforeman/foreman_discovery',
-                          'dirname' => 'foreman_discovery'},
-    'content'        => { 'git_url' => 'https://github.com/theforeman/foreman_content',
-                          'dirname' => 'foreman_content'},
-    'selinux'        => { 'git_url' => 'https://github.com/theforeman/foreman-selinux',
-                          'dirname' => 'foreman-selinux'},
-    'hammer-cli'     => { 'git_url' => 'https://github.com/theforeman/hammer-cli',
-                          'dirname' => 'hammer-cli'},
-    'stacker'        => { 'git_url' => 'https://github.com/ohadlevy/stacker.git',
-                          'dirname' => 'stacker' },
-    'foreman_api'    => { 'git_url' => 'https://github.com/theforeman/foreman_api.git',
-                          'dirname' => 'foreman_api' },
+    'foreman'                   => { 'git_url' => 'https://github.com/theforeman/foreman.git',
+                                     'project_name' => 'foreman' },
+    'smart-proxy'               => { 'git_url' => 'https://github.com/theforeman/smart-proxy.git',
+                                     'project_name' => 'smart-proxy' },
+    'foreman-rpms'              => { 'git_url' => 'https://github.com/theforeman/foreman-packaging',
+                                     'project_name' => 'rpms' },
+    'foreman-selinux'           => { 'git_url' => 'https://github.com/theforeman/foreman-selinux',
+                                     'project_name' => 'selinux'},
+    # installer
+    'foreman-installer'         => { 'git_url' => 'https://github.com/theforeman/foreman-installer.git',
+                                     'project_name' => 'puppet-foreman'},
+    'puppet-foreman'            => { 'git_url' => 'https://github.com/theforeman/puppet-foreman.git',
+                                     'project_name' => 'puppet-foreman'},
+    'puppet-foreman_proxy'      => { 'git_url' => 'https://github.com/theforeman/puppet-foreman_proxy.git',
+                                     'project_name' => 'puppet-foreman'},
+    # CLI etc.
+    'foreman_api'               => { 'git_url' => 'https://github.com/theforeman/foreman_api.git',
+                                     'project_name' => 'foreman' },
+    'hammer-cli'                => { 'git_url' => 'https://github.com/theforeman/hammer-cli',
+                                     'project_name' => 'foreman'},
+    'hammer-cli-foreman'        => { 'git_url' => 'https://github.com/theforeman/hammer-cli-foreman',
+                                     'project_name' => 'foreman'},
+    'hammer-cli-katello-bridge' => { 'git_url' => 'https://github.com/theforeman/hammer-cli-katello-bridge',
+                                     'project_name' => 'foreman'},
+    # plugins
+    'foreman_content'           => { 'git_url' => 'https://github.com/theforeman/foreman_content',
+                                     'project_name' => 'content'},
+    'foreman_discovery'         => { 'git_url' => 'https://github.com/theforeman/foreman_discovery',
+                                     'project_name' => 'discovery'},
+    'stacker'                   => { 'git_url' => 'https://github.com/ohadlevy/stacker.git',
+                                     'project_name' => 'stacker' },
   }
 
   create_resources(redmine::repo,$repos)
