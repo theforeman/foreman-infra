@@ -124,4 +124,8 @@ class redmine::config {
   #  git_url => 'https://github.com/panicinc/redmine_vote.git'
   #}
 
+  mailalias { 'redmine':
+    ensure    => present,
+    recipient => 'sysadmins',
+  }
 }

@@ -1,4 +1,4 @@
-class utility {
+class utility($sysadmins = []) {
   include motd
 
   class { 'utility::repos': }
@@ -51,5 +51,14 @@ class utility {
   package { $puppet_packages:
     ensure => $puppet_version,
     require => Class['utility::repos'],
+  }
+
+  mailalias { 'sysadmins':
+    ensure    => present,
+    recipient => $sysadmins,
+  }
+  mailalias { 'root':
+    ensure    => present,
+    recipient => 'sysadmins',
   }
 }

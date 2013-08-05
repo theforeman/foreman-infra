@@ -6,7 +6,7 @@ define redmine::repo(
   include git
 
   cron { "redmine-sync-cron-${name}":
-    command => "(cd ~/git/${name} && git pull --recurse-submodules && curl http://projects.theforeman.org/projects/${project_name}/repository ) > /dev/null",
+    command => "(cd ~/git/${name} && git pull -q && curl -sS http://projects.theforeman.org/projects/${project_name}/repository ) > /dev/null",
     user    => $redmine::user,
     minute  => string_to_cron($name,60),
   }
