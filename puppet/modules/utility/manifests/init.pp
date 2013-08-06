@@ -1,4 +1,4 @@
-class utility($sysadmins = []) {
+class utility($sysadmins = ['/dev/null']) {
   include motd
 
   class { 'utility::repos': }
