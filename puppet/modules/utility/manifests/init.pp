@@ -48,7 +48,6 @@ class utility($sysadmins = ['/dev/null']) {
   }
   package { $puppet_packages:
     ensure => $puppet_version,
-    require => Class['utility::repos'],
   }
 
   mailalias { 'sysadmins':
