@@ -1,8 +1,6 @@
 class utility($sysadmins = ['/dev/null']) {
   include motd
 
-  class { 'utility::repos': }
-
   package { "vim":
     ensure => present,
     name => $osfamily ? {
