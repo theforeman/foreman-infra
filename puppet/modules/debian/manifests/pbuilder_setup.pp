@@ -29,7 +29,7 @@ define debian::pbuilder_setup (
   file { "/etc/pbuilder/${name}/hooks/F70aptupdate":
     ensure  => $ensure,
     mode    => 0775,
-    content => template('debian/pbuilder_f70')
+    content => template('debian/pbuilder_f70.erb')
   }
 
   # the result cache gets huge after a while - trim it to the last 7 days at 5am
