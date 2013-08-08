@@ -1,14 +1,13 @@
 set :application, "foreman-infra"
 set :repository, "git://github.com/theforeman/foreman-infra.git"
 set :scm, :git
-set :host, "server3.theforeman.org"
+set :host, "208.74.145.200"
 set :user_sudo, false
 set :deploy_via, :copy
 set :deploy_to, "/etc/puppet/#{application}"
 set :branch, "master"
 set :copy_compression,  :gzip
-set :moduledir, "/etc/puppet/modules"
-
+set :moduledir, "/etc/puppet/environments/production/modules"
 
 role :puppetmaster, host
 
