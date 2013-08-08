@@ -7,12 +7,14 @@ class debian {
   debian::pbuilder_setup {
     "squeeze64":
       ensure     => present,
+      backports  => true,
       arch       => 'amd64',
       release    => 'squeeze',
       apturl     => 'http://ftp.de.debian.org/debian',
       aptcontent => "deb http://ftp.uk.debian.org/debian/ squeeze main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ squeeze main non-free contrib\n";
     "squeeze32":
       ensure     => present,
+      backports  => true,
       arch       => 'i386',
       release    => 'squeeze',
       apturl     => 'http://ftp.de.debian.org/debian',

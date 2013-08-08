@@ -1,5 +1,6 @@
 define debian::pbuilder_setup (
-  $ensure  = present,
+  $ensure    = present,
+  $backports = false,
   $arch,
   $release,
   $apturl,
@@ -28,18 +29,7 @@ define debian::pbuilder_setup (
   file { "/etc/pbuilder/${name}/hooks/F70aptupdate":
     ensure  => $ensure,
     mode    => 0775,
-    content => "#!/bin/sh
-
-# F<digit><digit><whatever-else-you-want> is executed just before
-# user logs in, or program starts executing, after chroot is created
-# in --login or --execute target.
-
-# Use local results of previous builds - not needed (yet)
-#cd /var/cache/pbuilder/result/
-#/usr/bin/dpkg-scanpackages . /dev/null >> /var/cache/pbuilder/result/Packages
-
-# Update apt
-/usr/bin/apt-get update\n"
+    content => template('debian/pbuilder_f70')
   }
 
   # the result cache gets huge after a while - trim it to the last 7 days at 5am
