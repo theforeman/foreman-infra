@@ -33,16 +33,6 @@ class utility($sysadmins = ['/dev/null']) {
     }
   }
 
-  # TODO: replace with theforeman/puppet-puppet
-  $osmajor = regsubst($::operatingsystemrelease, '\..*', '')
-  $puppet_packages = $::osfamily ? {
-    Debian => ['puppet-common','puppet'],
-    RedHat => ['puppet']
-  }
-  package { $puppet_packages:
-    ensure => present
-  }
-
   mailalias { 'sysadmins':
     ensure    => present,
     recipient => $sysadmins,
