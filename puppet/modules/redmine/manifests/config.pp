@@ -61,11 +61,19 @@ class redmine::config {
     before  => Service['apache'],
   }
 
-  file {["${redmine::local_dir}/log", "${redmine::local_dir}/tmp", "${redmine::local_dir}/files"]:
+  file {["${redmine::local_dir}/log", "${redmine::local_dir}/files"]:
     ensure  => directory,
     owner   => $redmine::user,
     recurse => true,
     mode    => '0644',
+    before  => Service['apache'],
+  }
+
+  file {"${redmine::local_dir}/tmp":
+    ensure  => directory,
+    owner   => $redmine::user,
+    recurse => true,
+    mode    => '0664',
     before  => Service['apache'],
   }
 
