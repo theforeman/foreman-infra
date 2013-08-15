@@ -128,9 +128,9 @@ class redmine::config {
     ]
   }
 
-  #plugin{'votes':
-  #  git_url => 'https://github.com/panicinc/redmine_vote.git'
-  #}
+  plugin{'redmine_vote':
+    git_url => 'https://github.com/ares/redmine_vote.git'
+  }
 
   mailalias { 'redmine':
     ensure    => present,
