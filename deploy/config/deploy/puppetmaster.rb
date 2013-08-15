@@ -31,6 +31,8 @@ namespace :deploy do
   task :swing_symlink do
     # This actually only needs to run the first time the master is deployed
     # but there isn't a good way in cap to test for existence. This is a hack.
-    run("unlink #{moduledir} && ln -s #{deploy_to}/current/puppet/modules #{moduledir}")
+    # We can't use a symlink as the puppet::server class enforces a directory
+    # so just sync up the files
+    run("rsync -aqx --delete-after --exclude=.git #{deploy_to}/current/puppet/modules/ #{moduledir}/")
   end
 end
