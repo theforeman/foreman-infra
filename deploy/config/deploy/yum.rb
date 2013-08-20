@@ -46,7 +46,7 @@ namespace :repo do
     opts = merge ? '--exclude=**/repodata/' : '--delete'
     run "rsync -avH #{opts} #{repo_source_rpm}/* #{repo_instance_path}/"
     run "rsync -avH #{opts} #{repo_source_srpm}/ #{repo_instance_path}/source/"
-    run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-release-*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-release.rpm); done}
+    run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-release-*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-release.rpm || true); done}
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; createrepo --skip-symlinks --update .); done} if merge
   end
 
