@@ -5,7 +5,11 @@ define slave::pr_test_config() {
     group  => "jenkins",
   }
 
-  if $github_user and $github_oauth and $jenkins_build_token {
+  if $::slave::github_user and $::slave::github_oauth and $::slave::jenkins_build_token {
+    $github_user = $::slave::github_user
+    $github_oauth = $::slave::github_oauth
+    $jenkins_build_token = $::slave::jenkins_build_token
+
     file { "/home/jenkins/.test_pull_requests_${name}.json":
       ensure  => file,
       owner   => "jenkins",
