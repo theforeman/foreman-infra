@@ -23,11 +23,14 @@ class slave($github_user = undef,
   }
 
   # test-pull-requests scanner script
-  file { ["/home/jenkins/test_pull_request_not_mergable", "/home/jenkins/test_pull_request_proxy_not_mergable"]:
-    ensure => file,
-    owner => "jenkins",
-    group => "jenkins",
+  slave::pr_test_config { "foreman":
+    not_mergable_cache => "/home/jenkins/test_pull_request_not_mergable",
   }
+  slave::pr_test_config { [
+    "proxy",
+    "hammer_cli",
+    "hammer_cli_foreman",
+  ]: }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { "/home/jenkins/.config":
       ensure => directory,
@@ -41,21 +44,6 @@ class slave($github_user = undef,
       owner   => "jenkins",
       group   => "jenkins",
       content => template("slave/hub_config.erb"),
-    }
-
-    file {
-      "/home/jenkins/.test_pull_requests.json":
-        ensure  => file,
-        owner   => "jenkins",
-        group   => "jenkins",
-        content => template("slave/test_pull_requests.json.erb"),
-        require => File['/var/lib/workspace'];
-      "/home/jenkins/.test_pull_requests_proxy.json":
-        ensure  => file,
-        owner   => "jenkins",
-        group   => "jenkins",
-        content => template("slave/test_pull_requests_proxy.json.erb"),
-        require => File['/var/lib/workspace']
     }
   }
 
