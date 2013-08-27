@@ -1,5 +1,5 @@
 define slave::pr_test_config() {
-  file { "/home/jenkins/test_pull_request_${name}_not_mergable",
+  file { "/home/jenkins/test_pull_request_${name}_not_mergable":
     ensure => file,
     owner  => "jenkins",
     group  => "jenkins",
