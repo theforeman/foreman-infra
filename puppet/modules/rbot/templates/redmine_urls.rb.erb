@@ -103,7 +103,7 @@ class RedmineUrlsPlugin < Plugin
       when /changeset:(\w+)/:
         [rev_url(base, project, $1), :changeset]
 
-      when /\#\#(?:([a-z_-]+)\/)?(\d+)/:
+      when /\#\#(?:([a-z_\.-]+)\/)?(\d+)/:
         [pr_url($1, $2), :pullreq]
 
 			when /\#(\d+)/:
