@@ -9,9 +9,9 @@ class web($latest = "1.2") {
   }
 
   apache::vhost { "web":
-    ensure      => present,
-    config_file => "puppet:///modules/web/web.conf",
-    require     => File["/var/www/vhosts/web_theforeman.org"],
+    ensure         => present,
+    config_content => template("web/web.conf.erb"),
+    require        => File["/var/www/vhosts/web_theforeman.org"],
   }
 
   apache::vhost { "deb":
