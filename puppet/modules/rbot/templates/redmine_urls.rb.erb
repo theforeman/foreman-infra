@@ -47,7 +47,7 @@ class RedmineUrlsPlugin < Plugin
 		# chat messages
 		return unless m.kind_of?(PrivMessage) && m.public?
 
-    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\/]+|wiki:\w+\#?\w+|changeset:\w+)(?:$|\W)/).flatten
+    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\.\/]+|wiki:\w+\#?\w+|changeset:\w+)(?:$|\W)/).flatten
 
 		# Do we have at least one possible reference?
 		return unless refs.length > 0
