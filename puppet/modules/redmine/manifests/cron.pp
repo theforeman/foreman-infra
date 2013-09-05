@@ -38,6 +38,8 @@ class redmine::cron {
                                      'project_name' => 'puppet-foreman'},
     'puppet-foreman_proxy'      => { 'git_url' => 'https://github.com/theforeman/puppet-foreman_proxy.git',
                                      'project_name' => 'puppet-foreman'},
+    'kafo'                      => { 'git_url' => 'https://github.com/theforeman/kafo.git',
+                                     'project_name' => 'kafo'},
     # CLI etc.
     'foreman_api'               => { 'git_url' => 'https://github.com/theforeman/foreman_api.git',
                                      'project_name' => 'foreman' },
