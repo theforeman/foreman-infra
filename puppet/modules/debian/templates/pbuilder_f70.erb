@@ -13,6 +13,11 @@
 echo "deb http://backports.debian.org/debian-backports/ <%= release %>-backports main" >> /etc/apt/sources.list
 
 <% end -%>
+<% if release == 'precise' then -%>
+# Extra precise repos
+echo "deb http://gb.archive.ubuntu.com/ubuntu precise universe" >> /etc/apt/sources.list
+
+<% end -%>
 
 # Get the Foreman GPG key, just in case we've added the repo
 # in an earlier hook (via Jenkins, say). Sadly wget is not available in
