@@ -14,12 +14,6 @@ class web($latest = "1.2") {
     require        => File["/var/www/vhosts/web_theforeman.org"],
   }
 
-  apache::vhost { "deb":
-    ensure      => present,
-    config_file => "puppet:///modules/web/deb.theforeman.org.conf",
-    require     => File["/srv/freight/web"],
-  }
-
   apache::vhost { "yum":
     ensure => present,
     config_file => "puppet:///modules/web/yum.theforeman.org.conf"

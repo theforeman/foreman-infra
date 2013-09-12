@@ -1,6 +1,7 @@
 class freight::user (
-  $user = 'freight',
-  $home = '/srv/freight',
+  $user  = 'freight',
+  $home  = '/srv/freight',
+  $vhost = 'deb',
 ) {
 
   # Disable password, we want this to be keys only
@@ -25,9 +26,23 @@ class freight::user (
     mode   => 0700,
   }
 
+  file { "${home}/freight.conf":
+    ensure  => present,
+    mode    => 644,
+    content => template('freight/freight.conf.erb'),
+    require => Package['freight'],
+  }
+
+  file { ["${home}/staged", "${home}/web", "${home}/rsync_cache"]:
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+  }
+
   # Read the dirvish key from the puppetmaster
   $pub_key  = ssh_keygen({name => 'freight_key', public => 'public'})
 
+  # TODO: get these IPs from somewhere... Foreman?
   file { "${home}/.ssh/authorized_keys":
     ensure  => present,
     owner   => $user,
@@ -50,6 +65,18 @@ class freight::user (
     group   => $user,
     mode    => 0755,
     content => template('freight/rsync.erb'),
+  }
+
+  # Cleanup old stuff
+  file { '/etc/cron.daily/freight':
+    mode    => 755,
+    content => template('freight/cron.erb'),
+  }
+
+  apache::vhost { $vhost:
+    ensure         => present,
+    config_content => template("freight/vhost.erb"),
+    require        => File["${home}/web"],
   }
 
 }

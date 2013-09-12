@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-  DocumentRoot         /srv/freight/web/
-  ServerName           deb.theforeman.org
+  DocumentRoot         <%= home %>/web/
+  ServerName           <%= vhost %>.theforeman.org
 
   <Directory />
     Options Indexes FollowSymLinks

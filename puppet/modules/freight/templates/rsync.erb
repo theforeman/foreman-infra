@@ -29,16 +29,16 @@ if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ;
   DEB_PATH=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'`
   DISTRO=`echo $DEB_PATH | /bin/cut -f2 -d/`
   REPO=`echo $DEB_PATH | /bin/cut -f3 -d/`
-  mkdir -p /srv/freight/rsync_cache/$DISTRO/$REPO
+  mkdir -p <%= home %>/rsync_cache/$DISTRO/$REPO
 
   # Permit transfer
   $SSH_ORIGINAL_COMMAND
 
-  find /srv/freight/rsync_cache/$DISTRO/$REPO -iname '*.deb' -exec freight-add {} apt/$DISTRO/$REPO \;
+  find <%= home %>/rsync_cache/$DISTRO/$REPO -iname '*.deb' -exec freight-add -v -c <%= home %>/freight.conf {} apt/$DISTRO/$REPO \;
   # Publish the debs
-  freight-cache -v apt/$DISTRO
+  freight-cache -c -v apt/$DISTRO
   # Cleanup - no need to keep the debs
-  find /srv/freight/rsync_cache/$DISTRO/$REPO -iname '*.deb' -delete
+  find <%= home %>/rsync_cache/$DISTRO/$REPO -iname '*.deb' -delete
 fi
 ;;
 *)
