@@ -7,5 +7,11 @@
 
 . <%= home %>/freight.conf
 
-find $VARLIB -mtime +6 -iname "*nightly*deb" -delete
-find $VARLIB -mtime +6 -iname "*scratch*deb" -delete
+# Delete all matching debs over a week old
+<% if cron_matches == 'all' then -%>
+find $VARLIB -mtime +6 -iname "*deb" -delete
+<% else -%>
+  <% cron_matches.each do |cron| -%>
+find $VARLIB -mtime +6 -iname "*<%= cron %>*deb" -delete
+  <% end -%>
+<% end -%>

@@ -1,7 +1,8 @@
 define freight::user (
-  $user  = 'freight',
-  $home  = '/srv/freight',
-  $vhost = 'deb',
+  $user         = 'freight',
+  $home         = '/srv/freight',
+  $vhost        = 'deb',
+  $cron_matches,
 ) {
 
   # Disable password, we want this to be keys only
