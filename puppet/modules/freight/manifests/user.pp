@@ -1,4 +1,4 @@
-class freight::user (
+define freight::user (
   $user  = 'freight',
   $home  = '/srv/freight',
   $vhost = 'deb',
