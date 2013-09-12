@@ -68,7 +68,7 @@ define freight::user (
   }
 
   # Cleanup old stuff
-  file { '/etc/cron.daily/freight':
+  file { "/etc/cron.daily/${user}":
     mode    => 755,
     content => template('freight/cron.erb'),
   }
