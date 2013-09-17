@@ -15,3 +15,9 @@ find $VARLIB -mtime +6 -iname "*deb" -delete
 find $VARLIB -mtime +6 -iname "*<%= cron %>*deb" -delete
   <% end -%>
 <% end -%>
+
+# Re-cache the repo
+sudo -u <%= user %> /usr/local/bin/freight-cache -c <%= home %>/freight.conf
+
+# Just for safety...
+chown -R <%= user %> <%= home %>
