@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Welcome to Quassel"
+echo "------------------"
+
+echo "Changing Password for $USER"
+sudo /usr/bin/quasselcore --change-userpass=$USER --configdir=/var/lib/quassel
+
+echo "--------------------"
+echo "Goodbye from Quassel"
