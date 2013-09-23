@@ -4,6 +4,8 @@
 #
 class debian {
 
+  package { 'gem2deb': ensure => present }
+
   debian::pbuilder_setup {
     "squeeze64":
       ensure     => present,
