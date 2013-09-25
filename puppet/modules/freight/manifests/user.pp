@@ -40,16 +40,23 @@ define freight::user (
     group  => $user,
   }
 
-  # Read the dirvish key from the puppetmaster
+  # Read the freight key from the puppetmaster
   $pub_key  = ssh_keygen({name => 'freight_key', public => 'public'})
 
-  # TODO: get these IPs from somewhere... Foreman?
+  # Get the IPs of the Debian slaves from foreman
+  $ip_data=foreman({
+    'item'         => 'fact_values',
+    'search'       => 'host.hostgroup = Debian and name = ipaddress',
+    'foreman_user' => $::foreman_api_user,
+    'foreman_pass' => $::foreman_api_password,
+  })
+
   file { "${home}/.ssh/authorized_keys":
     ensure  => present,
     owner   => $user,
     group   => $user,
     mode    => 0644,
-    content => "from=\"5.9.188.106\",command=\"${home}/bin/freight_rsync\" ssh-rsa ${pub_key} freight_key\n",
+    content => template('freight/keys.erb'),
   }
 
   # Create validation script for rsync connections only
