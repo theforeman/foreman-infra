@@ -1,0 +1,3 @@
+<% @ip_data.each do |host,data| -%>
+from="<%= data['ipaddress'] %>",command="<%= @home %>/bin/freight_rsync" ssh-rsa <%= @pub_key %> <%= host %>
+<% end -%>
