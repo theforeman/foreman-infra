@@ -21,9 +21,10 @@ class utility($sysadmins = ['/dev/null']) {
     ensure => present
   }
 
-  package { "rsync":
-    ensure => present
-  }
+  # Figure out how to not conflict with Dirvish
+  #package { "rsync":
+  #  ensure => present
+  #}
 
   package { "ruby-shadow":
     ensure => installed,
