@@ -132,6 +132,10 @@ class redmine::config {
     git_url => 'https://github.com/ares/redmine_vote.git'
   }
 
+  plugin{'redmine_omniauth_github':
+    git_url => 'https://github.com/ares/redmine_omniauth_github.git'
+  }
+
   mailalias { 'redmine':
     ensure    => present,
     recipient => 'sysadmins',
