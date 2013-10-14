@@ -1,4 +1,4 @@
-class web($latest = "1.2") {
+class web($latest = "1.3") {
   file { "/etc/httpd/conf.d/welcome.conf":
     ensure => absent
   }
