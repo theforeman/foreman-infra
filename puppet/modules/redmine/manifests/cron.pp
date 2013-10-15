@@ -62,6 +62,8 @@ class redmine::cron {
                                      'project_name' => 'discovery'},
     'stacker'                   => { 'git_url' => 'https://github.com/ohadlevy/stacker.git',
                                      'project_name' => 'stacker' },
+    'katello'                   => { 'git_url' => 'https://github.com/Katello/katello.git',
+                                     'project_name' => 'katello' },
   }
 
   create_resources(redmine::repo,$repos)
