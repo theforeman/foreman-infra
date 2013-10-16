@@ -11,7 +11,7 @@ define redmine::plugin(
     require => Class['install'],
   }
 
-  exec { 'rails_plugin_migrations':
+  exec { "rails_plugin_migrations_$name":
     environment => ["HOME=${redmine::local_dir}","RAILS_ENV=${redmine::environment}",'REDMINE_LANG=en'],
     command     => 'bundle exec rake redmine:plugins:migrate',
     path        => ['/bin','/usr/bin'],
