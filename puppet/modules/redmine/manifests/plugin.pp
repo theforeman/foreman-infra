@@ -7,7 +7,7 @@ define redmine::plugin(
   git::repo {$name:
     target  => "${plugin_dir}/${name}",
     source  => $git_url,
-    notify  => Exec['rails_plugin_migrations'],
+    notify  => Exec["rails_plugin_migrations_$name"],
     require => Class['install'],
   }
 
