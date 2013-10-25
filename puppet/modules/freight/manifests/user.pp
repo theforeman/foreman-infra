@@ -95,6 +95,10 @@ define freight::user (
     require   => File["${home}/web"],
   }
   file { "${home}/web/HEADER.html":
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => 0644,
     source => "puppet:///modules/freight/${vhost}-HEADER.html",
   }
 }

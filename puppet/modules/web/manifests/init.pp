@@ -34,6 +34,10 @@ class web($latest = "1.3") {
   }
 
   file { '/var/www/vhosts/yum/htdocs/HEADER.html':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => 0644,
     source => 'puppet:///modules/web/yum-HEADER.html',
   }
   file { "/var/www/vhosts/yum/htdocs/releases":
