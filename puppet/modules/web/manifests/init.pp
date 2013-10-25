@@ -1,4 +1,6 @@
 class web($latest = "1.3") {
+  include rsync::server
+
   file { "/etc/httpd/conf.d/welcome.conf":
     ensure => absent
   }
@@ -18,6 +20,12 @@ class web($latest = "1.3") {
     ensure => present,
     config_file => "puppet:///modules/web/yum.theforeman.org.conf"
   }
+  rsync::server::module { 'yum':
+    path      => '/var/www/vhosts/yum/htdocs',
+    list      => true,
+    read_only => true,
+    comment   => 'yum.theforeman.org',
+  }
 
   if $osfamily == 'RedHat' {
     package { 'createrepo':
@@ -25,6 +33,12 @@ class web($latest = "1.3") {
     }
   }
 
+  file { '/var/www/vhosts/yum/htdocs/HEADER.html':
+    source => 'puppet:///modules/web/yum-HEADER.html',
+  }
+  file { "/var/www/vhosts/yum/htdocs/releases":
+    ensure => directory,
+  }
   file { "/var/www/vhosts/yum/htdocs/releases/latest":
     ensure => link,
     target => $latest,

@@ -4,6 +4,7 @@ define freight::user (
   $vhost        = 'deb',
   $cron_matches,
 ) {
+  include rsync::server
 
   # Disable password, we want this to be keys only
   user { $user:
@@ -86,5 +87,14 @@ define freight::user (
     config_content => template("freight/vhost.erb"),
     require        => File["${home}/web"],
   }
-
+  rsync::server::module { $vhost:
+    path      => "${home}/web",
+    list      => true,
+    read_only => true,
+    comment   => "${vhost}.theforeman.org",
+    require   => File["${home}/web"],
+  }
+  file { "${home}/web/HEADER.html":
+    source => "puppet:///modules/freight/${vhost}-HEADER.html",
+  }
 }
