@@ -58,3 +58,6 @@
 [submodule "puppet/modules/timezone"]
 	path = puppet/modules/timezone
 	url = https://github.com/BashtonLtd/puppet-timezone.git
+[submodule "puppet/modules/puppetlabs_rsync"]
+	path = puppet/modules/puppetlabs_rsync
+	url = https://github.com/puppetlabs/puppetlabs-rsync.git
