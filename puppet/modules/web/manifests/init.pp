@@ -47,4 +47,8 @@ class web($latest = "1.3") {
     ensure => link,
     target => $latest,
   }
+  file { "/var/www/vhosts/yum/htdocs/plugins/latest":
+    ensure => link,
+    target => $latest,
+  }
 }
