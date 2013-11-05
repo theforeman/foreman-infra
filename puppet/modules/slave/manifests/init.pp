@@ -25,7 +25,7 @@ class slave($github_user = undef,
   # test-pull-requests scanner script
   slave::pr_test_config { [
     "foreman",
-    "proxy",
+    "smart_proxy",
     "hammer_cli",
     "hammer_cli_foreman",
     "katello",
