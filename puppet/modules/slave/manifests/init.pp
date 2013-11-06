@@ -97,6 +97,19 @@ class slave($github_user = undef,
       }
   }
 
+  # nodejs/npm for Katello JavaScript tests
+  # packages only really available on EL6+
+  if $osfamily == 'RedHat' {
+    package { 'npm':
+      ensure => present,
+    } -> Package <| provider == 'npm' |>
+
+    package { ['phantomjs', 'bower', 'grunt-cli']:
+      ensure   => present,
+      provider => npm,
+    }
+  }
+
   # specs-from-koji
   if $osfamily == 'RedHat' {
     package {
