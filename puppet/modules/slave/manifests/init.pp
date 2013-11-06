@@ -30,9 +30,6 @@ class slave($github_user = undef,
     "hammer_cli_foreman",
     "katello",
   ]: }
-  file { "/home/jenkins/.test_pull_requests_proxy.json":
-    ensure => absent,
-  }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { "/home/jenkins/.config":
       ensure => directory,
