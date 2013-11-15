@@ -140,6 +140,10 @@ class redmine::config {
     git_url => 'https://github.com/backlogs/redmine_backlogs.git'
   }
 
+  plugin{'redmine_ruby_code':
+    git_url => 'https://github.com/ares/redmine_ruby_code.git'
+  }
+
   mailalias { 'redmine':
     ensure    => present,
     recipient => 'sysadmins',
