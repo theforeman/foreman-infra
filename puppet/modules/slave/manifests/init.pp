@@ -29,6 +29,7 @@ class slave($github_user = undef,
     "hammer_cli",
     "hammer_cli_foreman",
     "katello",
+    "kafo",
   ]: }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { "/home/jenkins/.config":
