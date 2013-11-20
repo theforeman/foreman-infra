@@ -63,4 +63,4 @@
 	url = https://github.com/puppetlabs/puppetlabs-rsync.git
 [submodule "puppet/modules/nodejs"]
 	path = puppet/modules/nodejs
-	url = https://github.com/domcleal/puppetlabs-nodejs.git
+	url = https://github.com/puppetlabs/puppetlabs-nodejs.git
