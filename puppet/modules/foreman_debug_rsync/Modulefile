@@ -1,0 +1,12 @@
+name    'lzap/foreman_debug_rsync'
+version '0.1.0'
+source 'UNKNOWN'
+author 'lzap'
+license 'Apache License, Version 2.0'
+summary 'Configures rsync to accept foreman-debug tarballs'
+description 'Configures rsync to accept foreman-debug tarballs'
+project_page 'UNKNOWN'
+
+dependency 'puppetlabs/stdlib', '>= 4.1.0'
+dependency 'puppetlabs/rsync', '>= 0.1.0'
+dependency 'puppetlabs/xinetd', '>= 1.2.0'
