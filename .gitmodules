@@ -64,3 +64,6 @@
 [submodule "puppet/modules/nodejs"]
 	path = puppet/modules/nodejs
 	url = https://github.com/puppetlabs/puppetlabs-nodejs.git
+[submodule "puppet/modules/vagrant"]
+	path = puppet/modules/vagrant
+	url = https://github.com/shr3kst3r/puppet-vagrant.git
