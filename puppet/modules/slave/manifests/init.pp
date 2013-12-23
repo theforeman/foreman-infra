@@ -1,7 +1,9 @@
 class slave($github_user = undef,
             $github_oauth = undef,
             $jenkins_build_token = undef,
-            $koji_certificate = undef) {
+            $koji_certificate = undef,
+            $rackspace_username = undef,
+            $rackspace_api_key = undef) {
   file { "/var/lib/workspace":
     ensure => directory,
     owner => "jenkins",
@@ -179,6 +181,13 @@ class slave($github_user = undef,
       owner   => "jenkins",
       group   => "jenkins",
       content => $koji_certificate,
+    }
+  }
+
+  if $rackspace_username && $rackspace_api_key {
+    class { 'slave::vagrant':
+      username => $rackspace_username,
+      api_key  => $rackspace_api_key,
     }
   }
 }
