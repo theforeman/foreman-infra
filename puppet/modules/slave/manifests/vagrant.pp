@@ -10,6 +10,7 @@ class slave::vagrant($username, $api_key) {
     unless      => 'vagrant plugin list | grep vagrant-rackspace',
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
     user        => 'jenkins',
+    cwd         => $home,
     provider    => 'shell',
     require     => Package['libxml2-dev'],
   } ->
@@ -18,6 +19,7 @@ class slave::vagrant($username, $api_key) {
     unless      => 'vagrant box list | grep dummy',
     environment => ["HOME=${home}"],
     user        => 'jenkins',
+    cwd         => $home,
     provider    => 'shell',
   } ->
   file { "${home}/.vagrant.d/Vagrantfile":
