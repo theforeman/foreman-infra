@@ -32,5 +32,14 @@ class slave::vagrant($username, $api_key) {
 
   exec { "/usr/bin/ssh-keygen -t rsa -f ${ssh_key}":
     creates => $ssh_key,
+    user    => 'jenkins',
+  } ->
+  file { $ssh_key:
+    owner => 'jenkins',
+    group => 'jenkins',
+  } ->
+  file { "${ssh_key}.pub":
+    owner => 'jenkins',
+    group => 'jenkins',
   }
 }
