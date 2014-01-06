@@ -3,8 +3,8 @@ class slave::vagrant($username, $api_key) {
   $ssh_key = "${home}/.ssh/id_rsa_rackspace"
 
   class { '::vagrant':
-    git_hash => 'a40522f5fabccb9ddabad03d836e120ff5d14093',
-    version  => '1.3.5',
+    git_hash => 'f9e418a92bb7704ff4e34e3d173901f17c4b700e',
+    version  => '1.4.2',
   } ->
   exec { 'vagrant plugin install vagrant-rackspace':
     unless      => 'vagrant plugin list | grep vagrant-rackspace',
