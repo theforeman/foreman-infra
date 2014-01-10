@@ -1,23 +1,63 @@
-#!/bin/bash
+#!/usr/bin/ruby
 
-# Clean up old nightlies from freight
+# Basic plan:
+# * Figure out where all the matching debs are
+# * Group by package name
+# * Get a list of all packages by that name older than 7 days
+#   * Watch out for architecture suffixes
+# * Remove the last entry (sorted by mtime) to keep the newest package
+# * Unlink the rest
 
-# This won't actually remove them, but the next time freight-cache runs
-# (.e. when the next nightly is built) they will be removed from the web repo
+# Source the conffile
+unless ENV['VARLIB']
+  TODO key = `source <%= home %>/freight.conf 2> /dev/null && echo $VARLIB`.chomp
+  ENV['VARLIB'] = key unless key.empty?
+end
+exit unless ENV['VARLIB']
 
-. <%= home %>/freight.conf
+Dir.chdir(ENV['VARLIB'])
+$time = Time.now - (60*60*24*7)  # 7 days ago
 
-# Delete all matching debs over a week old
+raw_files = []
+# Globs
 <% if cron_matches == 'all' then -%>
-find $VARLIB -mtime +6 -iname "*deb" -delete
+  raw_files += Dir.glob('**/*deb')
 <% else -%>
+  raw_files += Dir.glob('**/nightly/*deb')  # Always clean all of the nightly repo
   <% cron_matches.each do |cron| -%>
-find $VARLIB -mtime +6 -iname "*<%= cron %>*deb" -delete
+  raw_files += Dir.glob('**/*<%= cron %>*deb')  # Input from Freight class
   <% end -%>
 <% end -%>
+raw_files.uniq!
 
-# Re-cache the repo
-sudo -u <%= user %> /usr/local/bin/freight-cache -c <%= home %>/freight.conf
+package_names = {}
+raw_files.map do |f|
+  f.match(/^(.*?)_.*_(.*?).deb/)
+  package_names[$1] ||= Array.new
+  package_names[$1] << $2
+end
+package_names.each { |pn,archs| package_names[pn] = archs.uniq.compact }
 
-# Just for safety...
-chown -R <%= user %> <%= home %>
+files_to_remove = []
+
+keep = 0
+package_names.each do |pn,archs|
+  # pn is something like "apt/wheezy/nightly/foreman-proxy"
+  # archs is ['all'] or ['amd64', 'i386']
+
+  archs.each do |arch|
+    packages = raw_files.map { |f| f if f.match /^#{pn}_.*_#{arch}.deb/ }.compact
+
+    packages.sort! {|x,y| File.mtime(x) <=> File.mtime(y)}
+    packages.delete_at(-1) # Always leave at least one file
+    packages.delete_if { |f| File.mtime(f) > $time }
+
+    files_to_remove += packages
+  end
+end
+
+files_to_remove.uniq!
+File.unlink(*files_to_remove)
+
+system "sudo -u <%= user %> /usr/local/bin/freight-cache -c <%= home %>/freight.conf"
+system "chown -R <%= user %> <%= home %>"
