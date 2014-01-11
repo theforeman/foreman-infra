@@ -10,7 +10,7 @@
 
 # Source the conffile
 unless ENV['VARLIB']
-  TODO key = `source <%= home %>/freight.conf 2> /dev/null && echo $VARLIB`.chomp
+  key = `source <%= home %>/freight.conf 2> /dev/null && echo $VARLIB`.chomp
   ENV['VARLIB'] = key unless key.empty?
 end
 exit unless ENV['VARLIB']
