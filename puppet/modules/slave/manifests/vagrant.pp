@@ -2,6 +2,23 @@ class slave::vagrant($username, $api_key) {
   $home = '/home/jenkins'
   $ssh_key = "${home}/.ssh/id_rsa_rackspace"
 
+  case $::osfamily {
+    'RedHat': {
+      $vagrant_source = 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.2_x86_64.rpm'
+      $vagrant_provider = 'rpm'
+    }
+    'Debian': {
+      $vagrant_source = 'https://dl.bintray.com/mitchellh/vagrant/vagrant_1.4.2_x86_64.deb'
+      $vagrant_provider = 'dpkg'
+    }
+    default: { fail("Unknown osfamily ${::osfamily}") }
+  }
+
+  package { 'vagrant':
+    ensure   => installed,
+    source   => $vagrant_source,
+    provider => $vagrant_provider,
+  } ->
   class { '::vagrant':
     git_hash => 'f9e418a92bb7704ff4e34e3d173901f17c4b700e',
     version  => '1.4.2',
