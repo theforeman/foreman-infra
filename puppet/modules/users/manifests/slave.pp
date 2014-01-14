@@ -22,11 +22,12 @@ class users::slave {
   }
 
   file { "/home/jenkins/.ssh/authorized_keys":
-    ensure => present,
-    owner => "jenkins",
-    group => "jenkins",
+    ensure  => present,
+    mode    => '0600',
+    owner   => "jenkins",
+    group   => "jenkins",
     require => File["/home/jenkins/.ssh"],
-    source => "puppet:///modules/users/jenkins-authorized_keys"
+    source  => "puppet:///modules/users/jenkins-authorized_keys"
   }
 
   sudo::directive { "puppet-jenkins":
