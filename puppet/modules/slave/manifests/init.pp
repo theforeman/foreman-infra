@@ -30,6 +30,7 @@ class slave($github_user = undef,
     "smart_proxy",
     "hammer_cli",
     "hammer_cli_foreman",
+    "hammer_cli_katello",
     "katello",
     "kafo",
   ]: }
