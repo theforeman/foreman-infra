@@ -19,10 +19,6 @@ class slave::vagrant($username, $api_key) {
     source   => $vagrant_source,
     provider => $vagrant_provider,
   } ->
-  class { '::vagrant':
-    git_hash => 'f9e418a92bb7704ff4e34e3d173901f17c4b700e',
-    version  => '1.4.2',
-  } ->
   exec { 'vagrant plugin install vagrant-rackspace':
     unless      => 'vagrant plugin list | grep vagrant-rackspace',
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
