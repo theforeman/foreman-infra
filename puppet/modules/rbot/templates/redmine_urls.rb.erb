@@ -126,7 +126,7 @@ class RedmineUrlsPlugin < Plugin
 			when :ticket:
 				'title'
 			when :pullreq:
-				'h2.discussion-topic-title'
+        'h1.gh-header-title'
 			else
 				warning "Unknown reftype: #{reftype}"; nil
 		end
