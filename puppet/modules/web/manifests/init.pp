@@ -1,4 +1,4 @@
-class web($latest = "1.3") {
+class web($latest = "1.4") {
   include rsync::server
 
   file { "/etc/httpd/conf.d/welcome.conf":
