@@ -27,17 +27,19 @@ define users::account(
   }
 
   file { "/home/$name/.ssh":
-    ensure => directory,
-    owner => $name,
-    group => $name,
+    ensure  => directory,
+    owner   => $name,
+    group   => $name,
+    mode    => '0700',
     require => [ User["$name"], File["/home/$name"] ]
   }
 
   file { "/home/$name/.ssh/authorized_keys":
-    ensure => present,
-    source => "puppet:///modules/users/$name-authorized_keys",
-    owner => $name,
-    group => $name,
+    ensure  => present,
+    source  => "puppet:///modules/users/$name-authorized_keys",
+    owner   => $name,
+    group   => $name,
+    mode    => '0600',
     require => File["/home/$name/.ssh"]
   }
 
