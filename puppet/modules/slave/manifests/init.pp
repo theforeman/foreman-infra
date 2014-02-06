@@ -105,7 +105,11 @@ class slave($github_user = undef,
       ensure => present,
     } -> Package <| provider == 'npm' |>
 
-    package { ['phantomjs', 'bower', 'grunt-cli']:
+    package { 'bower':
+      ensure   => '1.2.8',
+      provider => npm,
+    }
+    package { ['phantomjs', 'grunt-cli']:
       ensure   => present,
       provider => npm,
     }
