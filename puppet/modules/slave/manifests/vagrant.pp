@@ -14,9 +14,13 @@ class slave::vagrant($username, $api_key) {
     default: { fail("Unknown osfamily ${::osfamily}") }
   }
 
+  exec { "wget -O /root/vagrant_package ${vagrant_source}":
+    creates  => '/root/vagrant_package',
+    provider => 'shell',
+  } ->
   package { 'vagrant':
     ensure   => installed,
-    source   => $vagrant_source,
+    source   => '/root/vagrant_package',
     provider => $vagrant_provider,
   } ->
   exec { 'vagrant plugin install vagrant-rackspace':
