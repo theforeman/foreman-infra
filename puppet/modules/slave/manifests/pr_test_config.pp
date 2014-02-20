@@ -1,6 +1,6 @@
-define slave::pr_test_config() {
+define slave::pr_test_config($ensure = 'present') {
   file { "/home/jenkins/test_pull_request_${name}_not_mergable":
-    ensure => file,
+    ensure => $ensure,
     owner  => "jenkins",
     group  => "jenkins",
   }
@@ -11,7 +11,7 @@ define slave::pr_test_config() {
     $jenkins_build_token = $::slave::jenkins_build_token
 
     file { "/home/jenkins/.test_pull_requests_${name}.json":
-      ensure  => file,
+      ensure  => $ensure,
       owner   => "jenkins",
       group   => "jenkins",
       content => template("slave/test_pull_requests_${name}.json.erb"),

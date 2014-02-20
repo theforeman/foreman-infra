@@ -30,10 +30,12 @@ class slave($github_user = undef,
     "smart_proxy",
     "hammer_cli",
     "hammer_cli_foreman",
-    "hammer_cli_katello",
     "katello",
     "kafo",
   ]: }
+  slave::pr_test_config { "hammer_cli_katello":
+    ensure => absent,
+  }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { "/home/jenkins/.config":
       ensure => directory,
