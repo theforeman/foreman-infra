@@ -5,6 +5,7 @@ plugins.path:
 - <%= dir %>
 <% end -%>
 core.language: <%= scope.lookupvar('rbot::core_language') %>
+core.db: tc
 core.address_prefix:
 - "<%= scope.lookupvar('rbot::address_prefix') %>"
 irc.nick: <%= scope.lookupvar('rbot::nickname') %>

@@ -1,24 +1,24 @@
 class rbot::package {
-  
+
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
   case $::osfamily {
-    RedHat:  { $packages = [ 'db4', 'db4-utils', 'ruby-bdb', 'gettext', 'gettext-devel'] }
-    Debian:  { $packages = [ 'libdb-ruby1.8' ] }
+    RedHat:  { $packages = [ 'db4', 'db4-utils', 'gettext', 'gettext-devel'] }
+    Debian:  { $packages = [ 'libdb-ruby1.8' ]
+      package { 'gettext-ruby':
+        ensure   => 'present',
+        name     => 'gettext',
+        provider => 'gem',
+      }
+    }
     default: { fail ("OS $::osfamily is not supported") }
   }
 
-  $extra_gems = [ 'mechanize', 'tzinfo' ]
+  $extra_gems = [ 'mechanize', 'tzinfo', 'tokyocabinet' ]
 
   package { $packages: ensure => 'present' }
-  ->
-  package { 'gettext-ruby':
-    ensure   => 'present',
-    name     => 'gettext',
-    provider => 'gem',
-  }
   ->
   package { $extra_gems:
     ensure   => 'present',
