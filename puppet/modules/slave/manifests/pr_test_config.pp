@@ -10,11 +10,15 @@ define slave::pr_test_config($ensure = 'present') {
     $github_oauth = $::slave::github_oauth
     $jenkins_build_token = $::slave::jenkins_build_token
 
+    $json_content = $ensure ? {
+      present => template("slave/test_pull_requests_${name}.json.erb"),
+      default => undef,
+    }
     file { "/home/jenkins/.test_pull_requests_${name}.json":
       ensure  => $ensure,
       owner   => "jenkins",
       group   => "jenkins",
-      content => template("slave/test_pull_requests_${name}.json.erb"),
+      content => $json_content,
       require => File['/var/lib/workspace']
     }
   }
