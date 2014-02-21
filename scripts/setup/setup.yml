@@ -1,0 +1,35 @@
+---
+
+- hosts: all
+  user: root
+
+  vars:
+    is_debian: "'{{ansible_os_family}}' == 'Debian'"
+    is_rhel: "'{{ansible_os_family}}' == 'RedHat'"
+    puppetmaster: "puppetmaster.theforeman.org"
+
+  tasks:
+    - name: Update apt cache
+      apt: update_cache=yes
+      when: is_debian
+
+    - name: Upgrade all safe packages
+      apt: upgrade=safe
+      when: is_debian
+
+    - name: Install Puppet from main repo
+      apt: pkg=puppet state=latest
+      when: is_debian
+
+    - name: Install Puppet from EPEL
+      yum: pkg=puppet state=latest
+      when: is_rhel
+
+    - name: Upgrade all packages
+      shell: yum update -y
+
+    - name: Setup /etc/puppet/puppet.conf
+      template: src=puppet.conf.j2 dest=/etc/puppet/puppet.conf
+
+    - name: Run puppet
+      shell: puppet agent --waitforcert 60 -t
