@@ -64,6 +64,8 @@ class redmine::cron {
                                      'project_name' => 'stacker' },
     'katello'                   => { 'git_url' => 'https://github.com/Katello/katello.git',
                                      'project_name' => 'katello' },
+    'ofi'                       => { 'git_url' => 'https://github.com/theforeman/OFI.git',
+                                     'project_name' => 'OFI' },
   }
 
   create_resources(redmine::repo,$repos)
