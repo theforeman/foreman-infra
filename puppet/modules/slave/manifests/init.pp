@@ -32,6 +32,7 @@ class slave($github_user = undef,
     "hammer_cli_foreman",
     "katello",
     "kafo",
+    "kafo_parsers",
   ]: }
   slave::pr_test_config { "hammer_cli_katello":
     ensure => absent,
