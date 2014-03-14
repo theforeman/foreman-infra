@@ -98,6 +98,12 @@ class slave($github_user = undef,
       name => $osfamily ? {
         Debian  => "xvfb",
         default => "xorg-x11-server-Xvfb"
+      };
+    "augeas-dev":
+      ensure => present,
+      name => $osfamily ? {
+        Debian => "libaugeas-dev",
+        default => "augeas-devel"
       }
   }
 
