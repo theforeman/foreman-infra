@@ -30,6 +30,15 @@ class users::slave {
     source  => "puppet:///modules/users/jenkins-authorized_keys"
   }
 
+  file { "/home/jenkins/.ssh/config":
+    ensure  => present,
+    mode    => '0600',
+    owner   => "jenkins",
+    group   => "jenkins",
+    require => File["/home/jenkins/.ssh"],
+    source  => "puppet:///modules/users/jenkins-ssh_config"
+  }
+
   sudo::directive { "puppet-jenkins":
     ensure => present,
     content => "jenkins ALL=NOPASSWD: ALL\n"
