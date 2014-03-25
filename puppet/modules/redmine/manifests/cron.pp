@@ -60,6 +60,8 @@ class redmine::cron {
                                      'project_name' => 'content'},
     'foreman_discovery'         => { 'git_url' => 'https://github.com/theforeman/foreman_discovery',
                                      'project_name' => 'discovery'},
+    'foreman_snapshot'          => { 'git_url' => 'https://github.com/theforeman/foreman_snapshot',
+                                     'project_name' => 'snapshot'},
     'stacker'                   => { 'git_url' => 'https://github.com/ohadlevy/stacker.git',
                                      'project_name' => 'stacker' },
     'katello'                   => { 'git_url' => 'https://github.com/Katello/katello.git',
