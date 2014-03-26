@@ -11,4 +11,7 @@
   RewriteEngine on
   RewriteRule   ^/wiki/foreman(.*) http://projects.theforeman.org/projects/foreman/wiki$1 [R,L]
 
+  # Limit lifetime of passenger processes to avoid memory leaks
+  PassengerMaxRequests 100
+
 </VirtualHost>
