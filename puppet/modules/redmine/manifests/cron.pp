@@ -64,10 +64,17 @@ class redmine::cron {
                                      'project_name' => 'snapshot'},
     'stacker'                   => { 'git_url' => 'https://github.com/ohadlevy/stacker.git',
                                      'project_name' => 'stacker' },
-    'katello'                   => { 'git_url' => 'https://github.com/Katello/katello.git',
-                                     'project_name' => 'katello' },
     'ofi'                       => { 'git_url' => 'https://github.com/theforeman/ofi.git',
                                      'project_name' => 'ofi' },
+    # katello plugin
+    'katello'                   => { 'git_url' => 'https://github.com/Katello/katello.git',
+                                     'project_name' => 'katello' },
+    'hammer-cli-katello'        => { 'git_url' => 'https://github.com/Katello/hammer-cli-katello.git',
+                                     'project_name' => 'katello' },
+    'katello-installer'         => { 'git_url' => 'https://github.com/Katello/katello-installer.git',
+                                     'project_name' => 'katello' },
+    'hammer-cli-foreman-tasks'  => { 'git_url' => 'https://github.com/inecas/hammer-cli-foreman-tasks.git',
+                                     'project_name' => 'foreman-tasks' },
   }
 
   create_resources(redmine::repo,$repos)
