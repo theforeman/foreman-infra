@@ -66,6 +66,8 @@ class redmine::cron {
                                      'project_name' => 'stacker' },
     'ofi'                       => { 'git_url' => 'https://github.com/theforeman/ofi.git',
                                      'project_name' => 'ofi' },
+    'hammer-cli-foreman-tasks'  => { 'git_url' => 'https://github.com/inecas/hammer-cli-foreman-tasks.git',
+                                     'project_name' => 'foreman-tasks' },
     # katello plugin
     'katello'                   => { 'git_url' => 'https://github.com/Katello/katello.git',
                                      'project_name' => 'katello' },
@@ -73,8 +75,8 @@ class redmine::cron {
                                      'project_name' => 'katello' },
     'katello-installer'         => { 'git_url' => 'https://github.com/Katello/katello-installer.git',
                                      'project_name' => 'katello' },
-    'hammer-cli-foreman-tasks'  => { 'git_url' => 'https://github.com/inecas/hammer-cli-foreman-tasks.git',
-                                     'project_name' => 'foreman-tasks' },
+    'hammer-cli-csv'            => { 'git_url' => 'https://github.com/Katello/hammer-cli-csv.git',
+                                     'project_name' => 'katello' },
   }
 
   create_resources(redmine::repo,$repos)
