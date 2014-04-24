@@ -45,6 +45,18 @@ class debian {
       release    => 'precise',
       apturl     => 'http://gb.archive.ubuntu.com/ubuntu',
       aptcontent => "deb http://gb.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://gb.archive.ubuntu.com/ubuntu/ precise main restricted\n";
+    "trusty64":
+      ensure     => present,
+      arch       => 'amd64',
+      release    => 'trusty',
+      apturl     => 'http://gb.archive.ubuntu.com/ubuntu',
+      aptcontent => "deb http://gb.archive.ubuntu.com/ubuntu/ trusty main restricted\ndeb-src http://gb.archive.ubuntu.com/ubuntu/ trusty main restricted\n";
+    "trusty32":
+      ensure     => present,
+      arch       => 'i386',
+      release    => 'trusty',
+      apturl     => 'http://gb.archive.ubuntu.com/ubuntu',
+      aptcontent => "deb http://gb.archive.ubuntu.com/ubuntu/ trusty main restricted\ndeb-src http://gb.archive.ubuntu.com/ubuntu/ trusty main restricted\n";
   }
 
   # Add freight setup
