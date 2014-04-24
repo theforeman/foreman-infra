@@ -37,14 +37,26 @@ class debian {
       ensure     => present,
       arch       => 'amd64',
       release    => 'precise',
-      apturl     => 'http://gb.archive.ubuntu.com/ubuntu',
-      aptcontent => "deb http://gb.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://gb.archive.ubuntu.com/ubuntu/ precise main restricted\n";
+      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
     "precise32":
       ensure     => present,
       arch       => 'i386',
       release    => 'precise',
-      apturl     => 'http://gb.archive.ubuntu.com/ubuntu',
-      aptcontent => "deb http://gb.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://gb.archive.ubuntu.com/ubuntu/ precise main restricted\n";
+      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
+    "trusty64":
+      ensure     => present,
+      arch       => 'amd64',
+      release    => 'trusty',
+      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\n";
+    "trusty32":
+      ensure     => present,
+      arch       => 'i386',
+      release    => 'trusty',
+      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\n";
   }
 
   # Add freight setup

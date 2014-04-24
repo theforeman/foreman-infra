@@ -15,7 +15,7 @@ echo "deb http://backports.debian.org/debian-backports/ <%= release %>-backports
 <% end -%>
 <% if release == 'precise' then -%>
 # Extra precise repos
-echo "deb http://gb.archive.ubuntu.com/ubuntu precise universe" >> /etc/apt/sources.list
+echo "deb http://ubuntu.osuosl.org/ubuntu/ precise universe" >> /etc/apt/sources.list
 
 <% end -%>
 
