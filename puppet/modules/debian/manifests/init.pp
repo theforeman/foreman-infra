@@ -50,13 +50,13 @@ class debian {
       arch       => 'amd64',
       release    => 'trusty',
       apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\n";
+      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
     "trusty32":
       ensure     => present,
       arch       => 'i386',
       release    => 'trusty',
       apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted\n";
+      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
   }
 
   # Add freight setup
