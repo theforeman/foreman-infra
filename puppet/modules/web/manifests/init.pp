@@ -51,4 +51,22 @@ class web($latest = "1.4") {
     ensure => link,
     target => $latest,
   }
+
+  apache::vhost { "downloads":
+    ensure => present,
+    config_file => "puppet:///modules/web/downloads.theforeman.org.conf"
+  }
+  rsync::server::module { 'downloads':
+    path      => '/var/www/vhosts/downloads/htdocs',
+    list      => true,
+    read_only => true,
+    comment   => 'downloads.theforeman.org',
+  }
+  file { '/var/www/vhosts/downloads/htdocs/HEADER.html':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => 0644,
+    source => 'puppet:///modules/web/downloads-HEADER.html',
+  }
 }
