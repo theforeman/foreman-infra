@@ -141,7 +141,9 @@ class slave($github_user = undef,
   slave::db_config { "postgresql": }
 
   # RVM
-  include rvm
+  class { 'rvm':
+    version => '1.25.25',
+  }
   if $rvm_installed == "true" {
     rvm::system_user { "jenkins": }
     slave::rvm_config { "ruby-1.8.7":

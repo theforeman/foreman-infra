@@ -1,7 +1,6 @@
 define slave::rvm_config($version) {
   $alias = $title
 
-  include rvm
   rvm_system_ruby { $version:
     ensure => present,
   }
