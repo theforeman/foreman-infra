@@ -166,6 +166,8 @@ class slave($github_user = undef,
       'rpm-build':
         ensure => present;
       'tito':
+        ensure => present;
+      'git-annex':
         ensure => present
     }
   }
