@@ -176,6 +176,13 @@ class slave($github_user = undef,
     owner  => "jenkins",
     group  => "jenkins",
   }
+  file { "/home/jenkins/.titorc":
+    ensure => file,
+    mode   => 0644,
+    owner  => "jenkins",
+    group  => "jenkins",
+    source => "puppet:///modules/slave/titorc",
+  }
   file { "/home/jenkins/.koji/katello-config":
     ensure => file,
     mode   => 0644,

@@ -1,0 +1,1 @@
+KOJI_OPTIONS=-c ~/.koji/katello-config build --nowait
