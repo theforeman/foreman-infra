@@ -168,6 +168,8 @@ class slave($github_user = undef,
       'tito':
         ensure => present;
       'git-annex':
+        ensure => present;
+      'pyliblzma':
         ensure => present
     }
   }
