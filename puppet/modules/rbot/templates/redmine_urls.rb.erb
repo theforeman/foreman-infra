@@ -47,7 +47,7 @@ class RedmineUrlsPlugin < Plugin
 		# chat messages
 		return unless m.kind_of?(PrivMessage) && m.public?
 
-    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\.\/]+|wiki:\w+\#?\w+|changeset:\w+)(?:$|\W)/).flatten
+    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\.\/]+|wiki:\w+\#?\w+|changeset:\w+|bz\d+)(?:$|\W)/i).flatten
 
 		# Do we have at least one possible reference?
 		return unless refs.length > 0
@@ -111,6 +111,9 @@ class RedmineUrlsPlugin < Plugin
 
       when /wiki:(\w+\#?\w+)/:
         [wiki_url(base, project, $1), :wiki]
+
+      when /bz(\d+)/i:
+        [bz_url($1), :ticket]
 		end
 	end
 
@@ -160,6 +163,10 @@ class RedmineUrlsPlugin < Plugin
 
 	def wiki_url(base_url, project, page)
 		base_url + '/wiki/' + project + '/' + page
+	end
+
+	def bz_url(bz)
+		"https://bugzilla.redhat.com/show_bug.cgi?id=#{bz}"
 	end
 
 	# Turn a string (which is, presumably, a Redmine reference of some sort)
