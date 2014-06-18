@@ -4,7 +4,7 @@ class redmine::cron {
 
   # Backups
   cron { 'redmine-backup':
-    command => "(cd ${redmine::local_dir} && pg_dump ${redmine::db_name} > db/production.psqldump)",
+    command => "(cd ${redmine::local_dir} && pg_dump ${redmine::db_name} > db/production.psqldump && gzip -9 db/production.psqldump)",
     user    => $redmine::user,
     minute  => string_to_cron('redmine-backup'),
     hour    => string_to_cron('redmine-backup-hour', '24'),
