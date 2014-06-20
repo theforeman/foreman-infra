@@ -47,7 +47,7 @@ class RedmineUrlsPlugin < Plugin
 		# chat messages
 		return unless m.kind_of?(PrivMessage) && m.public?
 
-    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\.\/]+|wiki:\w+\#?\w+|changeset:\w+|bz\d+)(?:$|\W)/i).flatten
+    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\.\/]+|K\#[\w\d\-_\.\/]+|wiki:\w+\#?\w+|changeset:\w+|bz\d+)(?:$|\W)/i).flatten
 
 		# Do we have at least one possible reference?
 		return unless refs.length > 0
@@ -106,6 +106,9 @@ class RedmineUrlsPlugin < Plugin
       when /\#\#(?:([a-z_\.-]+)\/)?(\d+)/:
         [pr_url($1, $2), :pullreq]
 
+      when /K\#(?:([a-z_\.-]+)\/)?(\d+)/i:
+        [pr_url($1, $2, "katello"), :pullreq]
+
 			when /\#(\d+)/:
 				[bug_url(base, project, $1), :ticket]
 
@@ -152,9 +155,9 @@ class RedmineUrlsPlugin < Plugin
     base_url + '/repositories/revision/' + project + '/' + num
 	end
 
-  def pr_url(proj, num)
-    proj = 'foreman' if proj.nil?
-    'https://github.com/theforeman/' + proj + '/pull/' + num
+  def pr_url(proj, num, org = "theforeman")
+    proj ||= (org == "katello") ? "katello" : "foreman"
+    "https://github.com/#{org}/#{proj}/pull/#{num}"
   end
 
 	def bug_url(base_url, project, num)
