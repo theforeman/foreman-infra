@@ -4,14 +4,14 @@ class freight::config {
 
   freight::user { 'main':
     user         => 'freight',
-    home         => '/srv/freight',
+    home         => '/var/www/freight',
     vhost        => 'deb',
     cron_matches => ['nightly','scratch']
   }
 
   freight::user { 'staging':
     user         => 'freightstage',
-    home         => '/srv/freightstage',
+    home         => '/var/www/freightstage',
     vhost        => 'stagingdeb',
     cron_matches => 'all'
   }
