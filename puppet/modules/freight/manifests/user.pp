@@ -1,6 +1,6 @@
 define freight::user (
   $user         = 'freight',
-  $home         = '/srv/freight',
+  $home         = '/var/www/freight',
   $vhost        = 'deb',
   $cron_matches,
 ) {
