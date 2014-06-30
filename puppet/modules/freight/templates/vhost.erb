@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-  DocumentRoot         <%= home %>/web/
-  ServerName           <%= vhost %>.theforeman.org
+  DocumentRoot         <%= @webdir %>/
+  ServerName           <%= @vhost %>.theforeman.org
 
   <Directory />
     Options Indexes FollowSymLinks
