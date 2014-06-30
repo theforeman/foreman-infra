@@ -1,6 +1,7 @@
 define freight::user (
   $user         = 'freight',
   $home         = '/var/www/freight',
+  $webdir       = "${home}/web",
   $vhost        = 'deb',
   $cron_matches,
 ) {
@@ -35,7 +36,9 @@ define freight::user (
     require => Package['freight'],
   }
 
-  file { ["${home}/staged", "${home}/web", "${home}/rsync_cache"]:
+  # $webdir should be created too, but since we normally override to point at
+  # the vhost, we'll get a duplicate definition
+  file { ["${home}/staged", "${home}/rsync_cache"]:
     ensure => directory,
     owner  => $user,
     group  => $user,
@@ -85,16 +88,19 @@ define freight::user (
   apache::vhost { $vhost:
     ensure         => present,
     config_content => template("freight/vhost.erb"),
-    require        => File["${home}/web"],
+    user           => $user,
+    group          => $user,
+    mode           => 0755,
   }
+
   rsync::server::module { $vhost:
-    path      => "${home}/web",
+    path      => $webdir,
     list      => true,
     read_only => true,
     comment   => "${vhost}.theforeman.org",
-    require   => File["${home}/web"],
+    require   => File[$webdir],
   }
-  file { "${home}/web/HEADER.html":
+  file { "${webdir}/HEADER.html":
     ensure => present,
     owner  => 'root',
     group  => 'root',
