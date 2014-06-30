@@ -23,7 +23,7 @@ class foreman_debug_rsync::config {
   }
 
   selboolean { 'allow_rsync_anon_write':
-    persistant => true,
+    persistent => true,
     value      => 'on',
   }
 
