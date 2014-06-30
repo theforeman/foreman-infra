@@ -4,16 +4,18 @@ class freight::config {
 
   freight::user { 'main':
     user         => 'freight',
-    home         => '/var/www/freight',
+    home         => '/home/freight',
     webdir       => '/var/www/vhosts/deb/htdocs',
+    stagedir     => '/var/www/freight',
     vhost        => 'deb',
     cron_matches => ['nightly','scratch']
   }
 
   freight::user { 'staging':
     user         => 'freightstage',
-    home         => '/var/www/freightstage',
+    home         => '/home/freightstage',
     webdir       => '/var/www/vhosts/stagingdeb/htdocs',
+    stagedir     => '/var/www/freightstage',
     vhost        => 'stagingdeb',
     cron_matches => 'all'
   }
