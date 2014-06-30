@@ -2,6 +2,7 @@ define freight::user (
   $user         = 'freight',
   $home         = '/var/www/freight',
   $webdir       = "${home}/web",
+  $stagedir     = "${home}/staged",
   $vhost        = 'deb',
   $cron_matches,
 ) {
@@ -38,7 +39,7 @@ define freight::user (
 
   # $webdir should be created too, but since we normally override to point at
   # the vhost, we'll get a duplicate definition
-  file { ["${home}/staged", "${home}/rsync_cache"]:
+  file { [$stagedir, "${home}/rsync_cache"]:
     ensure => directory,
     owner  => $user,
     group  => $user,
