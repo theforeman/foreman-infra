@@ -23,6 +23,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano
+  capistrano (~> 2.0)
   capistrano-ext
   capistrano_colors

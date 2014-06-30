@@ -2,7 +2,7 @@ set :application, "yum.theforeman.org"
 set :user_sudo, false
 
 # parameters, use cap -S
-set :host, fetch(:host, "server2.theforeman.org")
+set :host, fetch(:host, "web01.theforeman.org")
 #set :repo_source, "foreman-nightly/RHEL/6"
 #set :repo_dest, "nightly/el6"
 set :overwrite, fetch(:overwrite, false)
