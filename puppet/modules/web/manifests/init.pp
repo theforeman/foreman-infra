@@ -18,7 +18,7 @@ class web($latest = "1.5") {
 
   apache::vhost { "yum":
     ensure      => present,
-    config_file => "puppet:///modules/web/yum.theforeman.org.conf"
+    config_file => "puppet:///modules/web/yum.theforeman.org.conf",
     mode        => 2575,
   }
   rsync::server::module { 'yum':
