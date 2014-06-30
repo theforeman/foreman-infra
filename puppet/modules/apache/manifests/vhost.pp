@@ -92,11 +92,6 @@ define apache::vhost (
         owner  => $wwwuser,
         group  => $wwwgroup,
         mode   => $mode,
-        seltype => $::operatingsystem ? {
-          redhat => "httpd_sys_content_t",
-          CentOS => "httpd_sys_content_t",
-          default => undef,
-        },
         require => [File["${apache::params::root}/${name}"]],
       }
 
