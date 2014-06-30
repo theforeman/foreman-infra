@@ -100,6 +100,8 @@ define freight::user (
     read_only => true,
     comment   => "${vhost}.theforeman.org",
     require   => File[$webdir],
+    uid       => 'nobody',
+    gid       => 'nobody',
   }
   file { "${webdir}/HEADER.html":
     ensure => present,
