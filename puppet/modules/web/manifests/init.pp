@@ -17,14 +17,17 @@ class web($latest = "1.5") {
   }
 
   apache::vhost { "yum":
-    ensure => present,
+    ensure      => present,
     config_file => "puppet:///modules/web/yum.theforeman.org.conf"
+    mode        => 2575,
   }
   rsync::server::module { 'yum':
     path      => '/var/www/vhosts/yum/htdocs',
     list      => true,
     read_only => true,
     comment   => 'yum.theforeman.org',
+    uid       => 'nobody',
+    gid       => 'nobody',
   }
 
   if $osfamily == 'RedHat' {
@@ -53,14 +56,17 @@ class web($latest = "1.5") {
   }
 
   apache::vhost { "downloads":
-    ensure => present,
+    ensure      => present,
     config_file => "puppet:///modules/web/downloads.theforeman.org.conf"
+    mode        => 2575,
   }
   rsync::server::module { 'downloads':
     path      => '/var/www/vhosts/downloads/htdocs',
     list      => true,
     read_only => true,
     comment   => 'downloads.theforeman.org',
+    uid       => 'nobody',
+    gid       => 'nobody',
   }
   file { '/var/www/vhosts/downloads/htdocs/HEADER.html':
     ensure => present,
