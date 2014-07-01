@@ -13,12 +13,15 @@ class freight::install {
       ensure  => installed,
     }
   } else {
+    yumrepo { 'freight':
+      descr    => 'Freight',
+      baseurl  => 'http://copr-be.cloud.fedoraproject.org/results/domcleal/freight/epel-6-$basearch/',
+      gpgcheck => '0',
+      enabled  => '1',
+    } ->
     package { 'freight':
-      provider => 'rpm',
-      ensure   => installed,
-      source   => "http://skottler.fedorapeople.org/packages/freight-0.3.2-1.x86_64.rpm",
+      ensure => 'latest',
     }
-    package { 'dpkg': ensure => installed }
   }
 
 }
