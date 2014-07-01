@@ -6,15 +6,12 @@ class web($latest = "1.5") {
     ensure => absent
   }
 
-  file { "/var/www/vhosts/web_theforeman.org":
-    ensure => link,
-    target => "/var/www/cap/theforeman.org/current/_site/",
-  }
-
   apache::vhost { "web":
     ensure         => present,
     config_content => template("web/web.conf.erb"),
-    require        => File["/var/www/vhosts/web_theforeman.org"],
+    owner          => 'website',
+    group          => 'website',
+    mode           => 0755,
   }
 
   apache::vhost { "yum":
