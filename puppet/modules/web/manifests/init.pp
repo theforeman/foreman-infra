@@ -9,7 +9,7 @@ class web($latest = "1.5") {
   apache::vhost { "web":
     ensure         => present,
     config_content => template("web/web.conf.erb"),
-    owner          => 'website',
+    user           => 'website',
     group          => 'website',
     mode           => 0755,
   }
