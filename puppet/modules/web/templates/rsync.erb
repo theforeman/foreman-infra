@@ -30,12 +30,9 @@ if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ;
 
   find /home/website/rsync_cache -type f -exec chmod 644 {} \;
   find /home/website/rsync_cache -type d -exec chmod 755 {} \;
-  # Publish the site
-  rsync -avPx /home/website/rsync_cache/ /var/www/vhosts/web/htdocs/ --delete-after
-  # Cleanup - no need to keep the tmp site
-  rm -rf /home/website/rsync_cache/*
+  # Publish the site - stderr/out redirect is required to stop the noninteractive shell from hanging
+  rsync -rvx --delete-after /home/website/rsync_cache/ /var/www/vhosts/web/htdocs/ 2>&1 >/dev/null ;
 fi
-exit 0
 ;;
 *)
 echo "Rejected"
