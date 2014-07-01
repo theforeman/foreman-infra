@@ -1,0 +1,45 @@
+#!/bin/sh
+
+case "$SSH_ORIGINAL_COMMAND" in
+*\&*)
+echo "Rejected"
+;;
+*\(*)
+echo "Rejected"
+;;
+*\{*)
+echo "Rejected"
+;;
+*\;*)
+echo "Rejected"
+;;
+*\<*)
+echo "Rejected"
+;;
+*\`*)
+echo "Rejected"
+;;
+*\|*)
+echo "Rejected"
+;;
+rsync\ --server*)
+# Only push to the rsync cache
+if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
+  # Permit transfer
+  $SSH_ORIGINAL_COMMAND
+
+  find /home/website/rsync_cache -type f -exec chmod 644 {} \;
+  find /home/website/rsync_cache -type d -exec chmod 755 {} \;
+  # Publish the site
+  rsync -avPx /home/website/rsync_cache/ /var/www/vhosts/web_theforeman.org/ --delete-after
+  # Cleanup - no need to keep the tmp site
+  rm -rf /home/website/rsync_cache/*
+fi
+exit 0
+;;
+*)
+echo "Rejected"
+;;
+esac
+# ERB highlighting looks terrible in this script...
+# vim: set ft=sh : #

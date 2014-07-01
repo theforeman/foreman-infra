@@ -1,5 +1,6 @@
 class web($latest = "1.5") {
   include rsync::server
+  include web::website_user
 
   file { "/etc/httpd/conf.d/welcome.conf":
     ensure => absent

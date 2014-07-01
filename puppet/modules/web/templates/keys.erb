@@ -1,0 +1,3 @@
+<% @ip_data.sort.each do |host,data| -%>
+from="<%= data['ipaddress'] %>",command="/home/website/bin/web_rsync" ssh-rsa <%= @pub_key %> <%= host %>
+<% end -%>
