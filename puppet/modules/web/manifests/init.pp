@@ -57,7 +57,7 @@ class web($latest = "1.5") {
 
   apache::vhost { "downloads":
     ensure      => present,
-    config_file => "puppet:///modules/web/downloads.theforeman.org.conf"
+    config_file => "puppet:///modules/web/downloads.theforeman.org.conf",
     mode        => 2575,
   }
   rsync::server::module { 'downloads':
