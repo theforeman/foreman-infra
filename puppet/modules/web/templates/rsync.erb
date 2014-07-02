@@ -1,30 +1,3 @@
-#!/bin/sh
-
-case "$SSH_ORIGINAL_COMMAND" in
-*\&*)
-echo "Rejected"
-;;
-*\(*)
-echo "Rejected"
-;;
-*\{*)
-echo "Rejected"
-;;
-*\;*)
-echo "Rejected"
-;;
-*\<*)
-echo "Rejected"
-;;
-*\`*)
-echo "Rejected"
-;;
-*\|*)
-echo "Rejected"
-;;
-rsync\ --server*)
-# Only push to the rsync cache
-if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
   # Permit transfer
   $SSH_ORIGINAL_COMMAND
 
@@ -32,11 +5,3 @@ if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ;
   find /home/website/rsync_cache -type d -exec chmod 755 {} \;
   # Publish the site - stderr/out redirect is required to stop the noninteractive shell from hanging
   rsync -rvx --delete-after /home/website/rsync_cache/ /var/www/vhosts/web/htdocs/ 2>&1 >/dev/null ;
-fi
-;;
-*)
-echo "Rejected"
-;;
-esac
-# ERB highlighting looks terrible in this script...
-# vim: set ft=sh : #
