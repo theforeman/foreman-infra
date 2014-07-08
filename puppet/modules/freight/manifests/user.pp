@@ -110,4 +110,10 @@ define freight::user (
     mode   => 0644,
     source => "puppet:///modules/freight/${vhost}-HEADER.html",
   }
+  file { "${webdir}/foreman.asc":
+    ensure => link,
+    target => 'pubkey.gpg',
+    owner  => 'root',
+    group  => 'root',
+  }
 }
