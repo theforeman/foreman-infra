@@ -41,6 +41,13 @@ class web($latest = "1.5") {
     mode   => 0644,
     source => 'puppet:///modules/web/yum-HEADER.html',
   }
+  file { '/var/www/vhosts/yum/htdocs/RPM-GPG-KEY-foreman':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => 0644,
+    source => 'puppet:///modules/web/RPM-GPG-KEY-foreman',
+  }
   file { "/var/www/vhosts/yum/htdocs/releases":
     ensure => directory,
   }
