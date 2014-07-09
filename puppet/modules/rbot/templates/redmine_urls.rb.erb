@@ -47,7 +47,7 @@ class RedmineUrlsPlugin < Plugin
     # chat messages
     return unless m.kind_of?(PrivMessage) && m.public?
 
-    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d+|\#\#[\w\d\-_\.\/]+|K\#[\w\d\-_\.\/]+|wiki:[\w-]+\#?[\w-]+|changeset:\w+|bz\d+|ERF\d+\-\d+)(?:$|\W)/i).flatten
+    refs = m.message.scan(/(?:^|\W)(\[\S+\]|r\d+|\#\d{3,}|\#\#[\w\d\-_\.\/]+|K\#[\w\d\-_\.\/]+|wiki:[\w-]+\#?[\w-]+|changeset:\w+|bz\d+|ERF\d+\-\d+)(?:$|\W)/i).flatten
 
     # Do we have at least one possible reference?
     return unless refs.length > 0
@@ -113,7 +113,7 @@ class RedmineUrlsPlugin < Plugin
     when /K\#(?:([a-z_\.-]+)\/)?(\d+)/i:
       [pr_url($1, $2, "katello"), :pullreq]
 
-    when /\#(\d+)/:
+    when /\#(\d{3,})/:
       [bug_url(base, project, $1), :ticket]
 
     when /wiki:([\w-]+\#?[\w-]+)/:
