@@ -1,6 +1,11 @@
 class web($latest = "1.5") {
   include rsync::server
-  include web::website_user
+
+  secure_rsync::receiver_setup { 'web':
+    user           => 'website',
+    foreman_search => 'host = slave01.rackspace.theforeman.org and name = ipaddress',
+    script_content => template('web/rsync.erb')
+  }
 
   file { "/etc/httpd/conf.d/welcome.conf":
     ensure => absent
