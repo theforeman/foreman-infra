@@ -9,4 +9,10 @@ class freight::uploader {
     manage_dir => true,
   }
 
+  secure_rsync::uploader_key { 'freightstage':
+    user       => 'jenkins',
+    dir        => '/var/lib/workspace/workspace',
+    manage_dir => true,
+  }
+
 }
