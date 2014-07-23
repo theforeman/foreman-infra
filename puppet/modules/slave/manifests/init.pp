@@ -124,6 +124,21 @@ class slave($github_user = undef,
     }
   }
 
+  # needed by katello gem dependency qpid-messaging
+  # to interface with candlepin's event topic
+  if $osfamily == 'RedHat' {
+    yumrepo { 'katello-pulp':
+      descr    => "Katello Pulp Repo",
+      baseurl  => "http://fedorapeople.org/groups/katello/releases/yum/katello-pulp/RHEL/\$releasever/\$basearch",
+      gpgcheck => '1',
+      gpgkey   => 'http://www.katello.org/gpg/RPM-GPG-KEY-katello-2012.gpg',
+      enabled  => '1',
+    } ~>
+    package { 'qpid-client-cpp-devel':
+      ensure => present;
+    }
+  }
+
   # specs-from-koji
   if $osfamily == 'RedHat' {
     package {
