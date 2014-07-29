@@ -130,8 +130,7 @@ class slave($github_user = undef,
     yumrepo { 'katello-pulp':
       descr    => "Katello Pulp Repo",
       baseurl  => "http://fedorapeople.org/groups/katello/releases/yum/katello-pulp/RHEL/\$releasever/\$basearch",
-      gpgcheck => '1',
-      gpgkey   => 'http://www.katello.org/gpg/RPM-GPG-KEY-katello-2012.gpg',
+      gpgcheck => '0',
       enabled  => '1',
     } ->
     package { 'qpid-cpp-client-devel':
