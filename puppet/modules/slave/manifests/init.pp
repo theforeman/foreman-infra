@@ -133,9 +133,9 @@ class slave($github_user = undef,
       gpgcheck => '1',
       gpgkey   => 'http://www.katello.org/gpg/RPM-GPG-KEY-katello-2012.gpg',
       enabled  => '1',
-    } ~>
-    package { 'qpid-client-cpp-devel':
-      ensure => present;
+    } ->
+    package { 'qpid-cpp-client-devel':
+      ensure => present,
     }
   }
 
