@@ -1,4 +1,4 @@
-class web($latest = "1.5") {
+class web($latest = "1.5", $htpasswds = {}) {
   include rsync::server
 
   secure_rsync::receiver_setup { 'web':
@@ -19,11 +19,24 @@ class web($latest = "1.5") {
     mode           => 0755,
   }
 
+  apache::vhost { "debugs":
+    ensure         => present,
+    config_content => template("web/debugs.conf.erb"),
+    user           => 'nobody',
+    group          => 'nobody',
+    mode           => 0755,
+  }
+
   apache::vhost { "yum":
     ensure      => present,
     config_file => "puppet:///modules/web/yum.theforeman.org.conf",
     mode        => 2575,
   }
+
+  # Auths
+  # takes a hash like: { 'user' => { 'vhost' => 'debugs', passwd => 'secret' }
+  create_resources(web::htpasswd, $htpasswds)
+
   rsync::server::module { 'yum':
     path      => '/var/www/vhosts/yum/htdocs',
     list      => true,

@@ -1,5 +1,5 @@
 class foreman_debug_rsync (
-  $base = '/home/foreman-debug-rsync',
+  $base = '/var/www/vhosts/debugs/htdocs',
 ) {
 
   class { 'foreman_debug_rsync::config': } ->
