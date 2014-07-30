@@ -107,6 +107,15 @@ class slave($github_user = undef,
       }
   }
 
+  # bash JSON parser
+  file { '/usr/local/bin/JSON.sh':
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => "puppet:///modules/slave/JSON.sh",
+  }
+
   # nodejs/npm for Katello JavaScript tests
   # packages only really available on EL6+
   if $osfamily == 'RedHat' {
