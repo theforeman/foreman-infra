@@ -4,13 +4,14 @@
 
   DocumentRoot /var/www/vhosts/debugs/htdocs
 
-  Options Indexes
+  <Location />
+    Options Indexes
 
-  AuthType Digest
-  AuthName "Foreman-debug uploads - restricted area"
-  AuthBasicProvider file
-  AuthUserFile /var/www/vhosts/debugs/htpasswd
-  Require valid-user
+    AuthType Basic
+    AuthName "Foreman-debug uploads - restricted area"
+    AuthUserFile /var/www/vhosts/debugs/htpasswd
+    Require valid-user
+  </Location>
 
   ErrorLog /var/log/httpd/debugs_error_log
   LogLevel warn
