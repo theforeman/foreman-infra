@@ -3,12 +3,13 @@ class foreman_debug_rsync::config {
   include 'rsync'
   include 'rsync::server'
 
-  file { $foreman_debug_rsync::base:
-    ensure => directory,
-    mode   => 775,
-    owner  => 'nobody',
-    group  => 'nobody',
-  }
+  # Defined by Apache vhost module in ::web
+  #file { $foreman_debug_rsync::base:
+  #  ensure => directory,
+  #  mode   => 775,
+  #  owner  => 'nobody',
+  #  group  => 'nobody',
+  #}
 
   rsync::server::module{ 'debug-incoming':
     path            => $foreman_debug_rsync::base,
