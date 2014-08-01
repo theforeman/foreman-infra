@@ -41,6 +41,7 @@ define apache::auth::htpasswd (
 
       if $clearPassword {
         exec {"test -f ${_authUserFile} || OPT='-c'; htpasswd -b \$OPT ${_authUserFile} ${username} ${clearPassword}":
+          path    => ['/bin','/usr/bin'],
           unless  => "egrep '^${username}:' ${_authUserFile} && grep ${username}:\$(mkpasswd -S \$(egrep '^${username}:' ${_authUserFile} |cut -d : -f 2 |cut -c-2) ${clearPassword}) ${_authUserFile}",
           require => File[$_userFileLocation],
         }
