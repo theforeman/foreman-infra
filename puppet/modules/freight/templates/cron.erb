@@ -25,7 +25,7 @@ raw_files = []
 <% else -%>
   raw_files += Dir.glob('**/nightly/*deb')  # Always clean all of the nightly repo
   <% cron_matches.each do |cron| -%>
-  raw_files += Dir.glob('**/*<%= @cron %>*deb')  # Input from Freight class
+  raw_files += Dir.glob('**/*<%= cron %>*deb')  # Input from Freight class
   <% end -%>
 <% end -%>
 raw_files.uniq!
