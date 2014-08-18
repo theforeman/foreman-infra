@@ -23,11 +23,14 @@ raw_files = []
 <% if cron_matches == 'all' then -%>
   raw_files += Dir.glob('**/*deb')
 <% else -%>
-  raw_files += Dir.glob('**/nightly/*deb')  # Always clean all of the nightly repo
   <% cron_matches.each do |cron| -%>
   raw_files += Dir.glob('**/*<%= cron %>*deb')  # Input from Freight class
   <% end -%>
 <% end -%>
+raw_files += Dir.glob('**/nightly/*deb')  # Always clean all of the nightly repo
+# Always keep the files in theforeman-* except theforeman-nightly
+raw_files -  Dir.glob('**/theforeman*/*deb')
+raw_files += Dir.glob('**/theforeman-nightly/*deb')
 raw_files.uniq!
 
 package_names = {}
