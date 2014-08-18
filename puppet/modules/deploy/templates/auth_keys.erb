@@ -1,0 +1,12 @@
+<%
+  if @ip_data.nil?
+    # Flat array from user
+    array = @allowed_ips
+  else
+    # Facts hash from Foreman
+    array = @ip_data.values.map{|a| a['ipaddress']}
+  end
+-%>
+<% array.each do |ip| -%>
+from="<%= ip %>",command="<%= @homedir %>/bin/deploy_puppet" ssh-rsa <%= @pub_key %> <%= ip %>_deploy_puppet
+<% end -%>
