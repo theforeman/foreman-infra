@@ -13,7 +13,7 @@
 # $manage_dir  whether or not to manage $dir (default: false)
 #              type: boolean
 #
-define secure_rsync::uploader_key (
+define secure_ssh::uploader_key (
   $user,
   $dir          = "/home/${user}/.ssh",
   $mode         = 0600,

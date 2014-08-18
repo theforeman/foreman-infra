@@ -7,11 +7,11 @@
 # $keys  Hash of names of keys to permit access from
 #        type:hash
 #
-class secure_rsync::receiver (
+class secure_ssh::receiver (
   $keys = {}
 ) {
 
   validate_hash($keys)
-  create_resources(secure_rsync::receiver_setup,$keys)
+  create_resources(secure_ssh::receiver_setup,$keys)
 
 }

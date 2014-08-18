@@ -33,7 +33,7 @@ class and a "slave" class. In which case you might add the following:
 
 ```
 class slave {
-  secure_rsync::uploader_key { 'website':
+  secure_ssh::uploader_key { 'website':
     user       => 'jenkins',
     dir        => '/home/jenkins',
     manage_dir => true,
@@ -42,7 +42,7 @@ class slave {
 }
 
 class website {
-  secure_rsync::receiver_setup { 'website':
+  secure_ssh::receiver_setup { 'website':
     user        => 'website',
     allowed_ips => [ '1.2.3.4' ],
   }
@@ -64,7 +64,7 @@ $keys = {
     "manage_dir" => "true",
   }
 }
-class { 'secure_rsync::uploader': keys => $keys }
+class { 'secure_ssh::uploader': keys => $keys }
 ```
 
 On the receiver, apply a hash containing the key names and actions to take:
@@ -76,6 +76,5 @@ $conf = {
     "allowed_ips" => ['1.2.3.4','5.6.7.8']
   }
 }
-class { 'secure_rsync::receiver': keys => $conf }
+class { 'secure_ssh::receiver': keys => $conf }
 ```
-
