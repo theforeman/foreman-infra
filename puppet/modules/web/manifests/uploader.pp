@@ -3,7 +3,7 @@
 #
 class web::uploader {
 
-  secure_rsync::uploader_key { 'web':
+  secure_rsync::rsync::uploader_key { 'web':
     user       => 'jenkins',
     dir        => '/var/lib/workspace/workspace',
     manage_dir => true,
