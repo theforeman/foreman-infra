@@ -15,12 +15,16 @@
 #                  if specified, uses the foreman search puppet function to
 #                  get IP addresses matching the required string.
 #
+# $script_content: content of a script that'll be run by sshd when the user
+#                  connects with the key
+#
 define secure_rsync::receiver_setup (
   $user,
   $homedir        = "/home/${user}",
   $foreman_search = false,
   $allowed_ips    = [],
-  $script_content = "# Permit transfer\n\$SSH_ORIGINAL_COMMAND\n"
+  $script_content,
+  $ssh_key_name   = "${name}_key",
 ) {
 
   # Disable password, we want this to be keys only
@@ -36,14 +40,9 @@ define secure_rsync::receiver_setup (
     owner  => $user,
     mode   => '0700',
   }
-  ->
-  file { "${homedir}/rsync_cache":
-    ensure => directory,
-    owner  => $user,
-  }
 
   # Read the web key from the puppetmaster
-  $pub_key  = ssh_keygen({name => "rsync_${name}_key", public => 'public'})
+  $pub_key  = ssh_keygen({name => $ssh_key_name, public => 'public'})
 
   if $foreman_search {
     # Get the IPs of the Web Builder slaves from foreman
@@ -62,17 +61,17 @@ define secure_rsync::receiver_setup (
     content => template('secure_rsync/auth_keys.erb'),
   }
 
-  # Create validation script for rsync connections only
+  # Create validation script for secure connections only
   file { "${homedir}/bin":
     ensure => directory,
     owner  => $user,
     mode   => '0700',
   }
 
-  file { "${homedir}/bin/${name}_rsync":
+  file { "${homedir}/bin/secure_${name}":
     ensure  => present,
     owner   => $user,
     mode    => '0700',
-    content => template('secure_rsync/script.erb'),
+    content => $script_content,
   }
 }

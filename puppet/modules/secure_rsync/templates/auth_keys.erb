@@ -8,5 +8,5 @@
   end
 -%>
 <% array.each do |ip| -%>
-from="<%= ip %>",command="<%= @homedir %>/bin/<%= @name %>_rsync" ssh-rsa <%= @pub_key %> <%= ip %>_<%= @name %>_rsync
+from="<%= ip %>",command="<%= @homedir %>/bin/secure_<%= @name %>" ssh-rsa <%= @pub_key %> <%= ip %>_secure_<%= @name %>
 <% end -%>

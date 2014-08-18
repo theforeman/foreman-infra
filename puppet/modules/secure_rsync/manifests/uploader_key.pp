@@ -15,13 +15,14 @@
 #
 define secure_rsync::uploader_key (
   $user,
-  $dir        = "/home/${user}/.ssh",
-  $mode       = 0600,
-  $manage_dir = false,
+  $dir          = "/home/${user}/.ssh",
+  $mode         = 0600,
+  $manage_dir   = false,
+  $ssh_key_name = "${name}_key",
 ) {
 
-  $pub_key  = ssh_keygen({name => "rsync_${name}_key", public => 'public'})
-  $priv_key = ssh_keygen({name => "rsync_${name}_key"})
+  $pub_key  = ssh_keygen({name => $ssh_key_name, public => 'public'})
+  $priv_key = ssh_keygen({name => $ssh_key_name})
 
   if $manage_dir {
     file { $dir:
@@ -31,15 +32,15 @@ define secure_rsync::uploader_key (
     }
   }
 
-  file { "${dir}/rsync_${name}_key":
+  file { "${dir}/${ssh_key_name}":
     owner   => $user,
     mode    => '0400',
     content => $priv_key,
   }
 
-  file { "${dir}/rsync_${name}_key.pub":
+  file { "${dir}/${ssh_key_name}.pub":
     owner   => $user,
     mode    => '0644',
-    content => "ssh-rsa ${pub_key} rsync_${name}_key from puppetmaster\n",
+    content => "ssh-rsa ${pub_key} ${ssh_key_name} from puppetmaster\n",
   }
 }

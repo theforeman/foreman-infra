@@ -1,9 +1,10 @@
-# Puppet module for managing secure ways to copy files using easily revokable ssh keys
+# Puppet module for managing secure ways to SSH or copy files using easily revokable ssh keys
 
-This module uses Puppet to set up rsync and ssh in such a way that:
+This module uses Puppet to set up ssh and optionally rsync in such a way that:
 
 * The key is revokable from the puppetmaster
-* The uploader cannot use the key for anything other than rsync
+* The uploader cannot use the key for anything other than running a single script, or
+  optionally rsyncing files
 * The uploader cannot upload to anywhere other than the intended location
 * The receiver can run an arbitrary script upon receiving the files to sanitize
   and distribute them to the correct place
