@@ -1,7 +1,7 @@
 class web($latest = "1.5", $htpasswds = {}) {
   include rsync::server
 
-  secure_rsync::rsync::receiver_setup { 'web':
+  secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
     foreman_search => 'host = slave01.rackspace.theforeman.org and name = ipaddress',
     script_content => template('web/rsync.erb')

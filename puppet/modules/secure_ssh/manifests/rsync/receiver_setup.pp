@@ -15,20 +15,20 @@
 #                  if specified, uses the foreman search puppet function to
 #                  get IP addresses matching the required string.
 #
-define secure_rsync::rsync::receiver_setup (
+define secure_ssh::rsync::receiver_setup (
   $user,
   $homedir        = "/home/${user}",
   $foreman_search = false,
   $allowed_ips    = [],
   $script_content = "# Permit transfer\n\$SSH_ORIGINAL_COMMAND\n"
 ) {
-  ::secure_rsync::receiver_setup { $name:
+  ::secure_ssh::receiver_setup { $name:
     user           => $user,
     homedir        => $homedir,
     foreman_search => $foreman_search,
     allowed_ips    => $allowed_ips,
     ssh_key_name   => "rsync_${name}_key",
-    script_content => template('secure_rsync/script_rsync.erb'),
+    script_content => template('secure_ssh/script_rsync.erb'),
   }
 
   file { "${homedir}/rsync_cache":

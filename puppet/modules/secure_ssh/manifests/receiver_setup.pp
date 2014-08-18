@@ -18,7 +18,7 @@
 # $script_content: content of a script that'll be run by sshd when the user
 #                  connects with the key
 #
-define secure_rsync::receiver_setup (
+define secure_ssh::receiver_setup (
   $user,
   $homedir        = "/home/${user}",
   $foreman_search = false,
@@ -41,11 +41,11 @@ define secure_rsync::receiver_setup (
     mode   => '0700',
   }
 
-  # Read the web key from the puppetmaster
+  # Read the public key from the puppetmaster
   $pub_key  = ssh_keygen({name => $ssh_key_name, public => 'public'})
 
   if $foreman_search {
-    # Get the IPs of the Web Builder slaves from foreman
+    # Get the IPs of the uploaders from foreman
     $ip_data=foreman({
       'item'         => 'fact_values',
       'search'       => $foreman_search,
@@ -58,7 +58,7 @@ define secure_rsync::receiver_setup (
     ensure  => present,
     owner   => $user,
     mode    => '0700',
-    content => template('secure_rsync/auth_keys.erb'),
+    content => template('secure_ssh/auth_keys.erb'),
   }
 
   # Create validation script for secure connections only

@@ -3,13 +3,13 @@
 #
 class freight::uploader {
 
-  secure_rsync::rsync::uploader_key { 'freight':
+  secure_ssh::rsync::uploader_key { 'freight':
     user       => 'jenkins',
     dir        => '/var/lib/workspace/workspace/deb_key',
     manage_dir => true,
   }
 
-  secure_rsync::rsync::uploader_key { 'freightstage':
+  secure_ssh::rsync::uploader_key { 'freightstage':
     user       => 'jenkins',
     dir        => '/var/lib/workspace/workspace/staging_key',
     manage_dir => true,

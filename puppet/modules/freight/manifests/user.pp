@@ -7,7 +7,7 @@ define freight::user (
   $cron_matches = 'all',
 ) {
 
-  secure_rsync::rsync::receiver_setup { $user:
+  secure_ssh::rsync::receiver_setup { $user:
     user           => $user,
     foreman_search => 'host.hostgroup = Debian and name = ipaddress',
     script_content => template('freight/rsync.erb'),

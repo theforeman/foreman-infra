@@ -7,11 +7,11 @@
 # $keys  Hash of names to user/dir pairs for ssh keys to create
 #        type:hash
 #
-class secure_rsync::rsync::uploader (
+class secure_ssh::rsync::uploader (
   $keys = {}
 ) {
 
   validate_hash($keys)
-  create_resources(secure_rsync::rsync::uploader_key,$keys)
+  create_resources(secure_ssh::rsync::uploader_key,$keys)
 
 }
