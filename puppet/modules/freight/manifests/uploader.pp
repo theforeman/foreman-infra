@@ -15,4 +15,8 @@ class freight::uploader {
     manage_dir => true,
   }
 
+  secure_ssh::uploader_key { 'deploy_debs':
+    user => 'jenkins',
+    dir  => '/var/lib/workspace/workspace/deploy_debs_key',
+  }
 }
