@@ -1,0 +1,54 @@
+#!/bin/sh
+
+case "$SSH_ORIGINAL_COMMAND" in
+*\&*)
+echo "Rejected"
+;;
+*\(*)
+echo "Rejected"
+;;
+*\{*)
+echo "Rejected"
+;;
+*\;*)
+echo "Rejected"
+;;
+*\<*)
+echo "Rejected"
+;;
+*\`*)
+echo "Rejected"
+;;
+*\|*)
+echo "Rejected"
+;;
+rsync\ --server*)
+# Only push to the rsync cache
+if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
+  # Make sure target dir can be created
+  DEB_PATH=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'`
+  DISTRO=`echo $DEB_PATH | /bin/cut -f2 -d/`
+  REPO=`echo $DEB_PATH | /bin/cut -f3 -d/`
+  mkdir -p <%= @home %>/rsync_cache/$DISTRO/$REPO
+
+  # Permit transfer
+  $SSH_ORIGINAL_COMMAND
+
+  find <%= @home %>/rsync_cache/$DISTRO/$REPO -iname '*.deb' -exec freight-add -v -c <%= @home %>/freight.conf {} apt/$DISTRO/$REPO \;
+  # Publish the debs
+  freight-cache -c <%= @home %>/freight.conf -v apt/$DISTRO
+  # Cleanup - no need to keep the debs
+  find <%= @home %>/rsync_cache/$DISTRO/$REPO -iname '*.deb' -delete
+fi
+;;
+deploy*)
+  OS=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $2 }'`
+  VERS=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $3 }'`
+  <%= @home %>/bin/secure_deploy_debs $OS $VERS
+;;
+*)
+echo "Rejected"
+;;
+esac
+# ERB highlighting looks terrible in this script...
+# vim: set ft=sh : #
