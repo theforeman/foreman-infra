@@ -1,5 +1,5 @@
   # Make sure target dir can be created
-  DEB_PATH=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'`
+  DEB_PATH=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'`
   DISTRO=`echo $DEB_PATH | /bin/cut -f2 -d/`
   REPO=`echo $DEB_PATH | /bin/cut -f3 -d/`
   mkdir -p <%= @home %>/rsync_cache/$DISTRO/$REPO

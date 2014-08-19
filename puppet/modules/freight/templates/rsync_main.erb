@@ -24,9 +24,9 @@ echo "Rejected"
 ;;
 rsync\ --server*)
 # Only push to the rsync cache
-if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
+if [[ `echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
   # Make sure target dir can be created
-  DEB_PATH=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'`
+  DEB_PATH=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'`
   DISTRO=`echo $DEB_PATH | /bin/cut -f2 -d/`
   REPO=`echo $DEB_PATH | /bin/cut -f3 -d/`
   mkdir -p <%= @home %>/rsync_cache/$DISTRO/$REPO
@@ -42,8 +42,8 @@ if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ;
 fi
 ;;
 deploy*)
-  OS=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $2 }'`
-  VERS=`echo $SSH_ORIGINAL_COMMAND | awk '{ print $3 }'`
+  OS=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $2 }'`
+  VERS=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $3 }'`
   <%= @home %>/bin/secure_deploy_debs $OS $VERS
 ;;
 *)

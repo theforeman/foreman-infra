@@ -24,7 +24,7 @@ echo "Rejected"
 ;;
 rsync\ --server*)
 # Only push to the rsync cache
-if [[ `echo $SSH_ORIGINAL_COMMAND | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
+if [[ `echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'` =~ ^rsync_cache/.* ]] ; then
 <%= @script_content %>
 fi
 ;;
