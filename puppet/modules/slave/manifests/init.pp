@@ -31,6 +31,7 @@ class slave($github_user = undef,
     "hammer_cli",
     "hammer_cli_foreman",
     "katello",
+    "katello_installer",
     "kafo",
     "kafo_parsers",
   ]: }
