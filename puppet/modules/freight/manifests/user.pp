@@ -7,10 +7,32 @@ define freight::user (
   $cron_matches = 'all',
 ) {
 
-  secure_ssh::rsync::receiver_setup { $user:
-    user           => $user,
-    foreman_search => 'host.hostgroup = Debian and name = ipaddress',
-    script_content => template('freight/rsync.erb'),
+  if $name == 'main' {
+    # Can't use a standard rsync define here as we need to extend the
+    # script to handle deployment too
+    secure_ssh::receiver_setup { $user:
+      user           => $user,
+      foreman_search => 'host.hostgroup = Debian and name = ipaddress',
+      script_content => template('freight/rsync_main.erb'),
+      ssh_key_name   => "rsync_${user}_key",
+    }
+    file { '/home/freight/rsync_cache':
+      ensure => directory,
+      owner  => $user,
+    }
+    # This ruby script is called from the secure_freight template
+    file { '/home/freight/bin/secure_deploy_debs':
+      ensure  => present,
+      owner   => 'freight',
+      mode    => '0700',
+      content => template('freight/deploy_debs.erb'),
+    }
+  } else {
+    secure_ssh::rsync::receiver_setup { $user:
+      user           => $user,
+      foreman_search => 'host.hostgroup = Debian and name = ipaddress',
+      script_content => template('freight/rsync.erb'),
+    }
   }
 
   file { "${home}/freight.conf":

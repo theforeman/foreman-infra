@@ -20,10 +20,4 @@ class freight::config {
     cron_matches => 'all'
   }
 
-  # Only 'freight' (i.e. prod repo) needs this, so it's not in the define
-  secure_ssh::receiver_setup { 'deploy_debs':
-    user           => 'freight',
-    foreman_search => 'host.hostgroup = Debian and name = ipaddress',
-    script_content => template('freight/deploy_debs.erb'),
-  }
 }
