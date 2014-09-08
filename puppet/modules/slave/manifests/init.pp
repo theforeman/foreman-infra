@@ -180,6 +180,15 @@ class slave($github_user = undef,
     slave::rvm_config { "ruby-2.0.0":
       version => "ruby-2.0.0-p353",
     }
+
+    # Cleanup log dirs
+    file { '/etc/cron.daily/rvm_log_cleaner':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => "#!/bin/sh\nfind /usr/local/rvm/log -maxdepth 1 -mtime +31 -exec rm -rf {} +\n"
+    }
   }
 
   # Koji
