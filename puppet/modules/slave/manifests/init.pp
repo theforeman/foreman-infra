@@ -187,7 +187,7 @@ class slave($github_user = undef,
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      content => "#!/bin/sh\nfind /usr/local/rvm/log -maxdepth 1 -mtime +31 -exec rm -rf {} +\n"
+      content => "#!/bin/sh\n[ -e /usr/local/rvm/log ] || exit 0;\nfind /usr/local/rvm/log -maxdepth 1 -mtime +31 -exec rm -rf {} +\n"
     }
   }
 
