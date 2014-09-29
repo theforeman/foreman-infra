@@ -28,4 +28,8 @@ class foreman_debug_rsync::config {
     value      => 'on',
   }
 
+  selinux::module { 'rsync_debug.te':
+     source => 'puppet:///modules/files/rsync_debug.te'
+  }
+
 }
