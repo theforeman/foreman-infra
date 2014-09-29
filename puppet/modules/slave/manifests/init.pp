@@ -248,4 +248,13 @@ class slave($github_user = undef,
       api_key  => $rackspace_api_key,
     }
   }
+
+  # Cleanup Jenkins Xvfb processes from aborted builds after a day
+  file { '/etc/cron.daily/xvfb_cleaner':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /Xvfb/) { print \$1 }' | xargs kill >/dev/null 2>&1 || true\n"
+  }
 }
