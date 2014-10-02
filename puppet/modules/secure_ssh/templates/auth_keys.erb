@@ -7,6 +7,6 @@
     array = @ip_data.values.map{|a| a['ipaddress']}
   end
 -%>
-<% array.each do |ip| -%>
+<% array.sort.each do |ip| -%>
 from="<%= ip %>",command="<%= @homedir %>/bin/secure_<%= @name %>" ssh-rsa <%= @pub_key %> <%= ip %>_secure_<%= @name %>
 <% end -%>
