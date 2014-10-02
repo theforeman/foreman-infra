@@ -139,7 +139,7 @@ class slave($github_user = undef,
   if $osfamily == 'RedHat' {
     yumrepo { 'katello-pulp':
       descr    => "Katello Pulp Repo",
-      baseurl  => "http://fedorapeople.org/groups/katello/releases/yum/katello-pulp/RHEL/\$releasever/\$basearch",
+      baseurl  => "http://fedorapeople.org/groups/katello/releases/yum/nightly/pulp/RHEL/\$releasever/\$basearch",
       gpgcheck => '0',
       enabled  => '1',
     } ->
