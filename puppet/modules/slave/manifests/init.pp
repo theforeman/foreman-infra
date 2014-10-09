@@ -34,6 +34,9 @@ class slave($github_user = undef,
     "katello_installer",
     "kafo",
     "kafo_parsers",
+    "foreman_discovery",
+    "foreman_docker",
+    "foreman_salt",
   ]: }
   slave::pr_test_config { "hammer_cli_katello":
     ensure => absent,
