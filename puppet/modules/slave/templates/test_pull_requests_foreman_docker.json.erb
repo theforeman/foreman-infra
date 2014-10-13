@@ -9,7 +9,7 @@
     "irc_channel": "#theforeman-dev",
     "not_mergable_cache": "~/test_pull_request_foreman_docker_not_mergable",
     "repo_groups": {
-        "foreman_docker": "foreman_docker",
+        "foreman-docker": "foreman-docker",
     },
     "settings": {
         "test_settings": {
@@ -23,7 +23,7 @@
                     "downstream_job_name": "test_plugin_foreman_docker",
                     "build_token": "<%= jenkins_build_token -%>",
                     "addtl_jenkins_params": {
-                        "foreman_docker": {
+                        "foreman-docker": {
                             "plugin_repo": "https://github.com/theforeman/foreman-docker.git",
                             "plugin_name": "foreman_docker"
                         }
@@ -31,13 +31,13 @@
                 }
             },
             "repo_to_orgs": {
-                "foreman_docker": [
+                "foreman-docker": [
                     "theforeman",
                     "katello"
                 ]
             },
             "repo_to_pull_id_param": {
-                "foreman_docker": {
+                "foreman-docker": {
                     "git_url": "pr_git_url",
                     "ref": "pr_git_ref",
                     "number": "pr_number",
