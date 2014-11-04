@@ -1,0 +1,19 @@
+- job:
+    name: release_nightly_push_deb
+    project-type: matrix
+    builders:
+      - trigger-builds:
+        - project: deploy_deb
+          predefined-parameters: "os=${os}\nrepo=nightly"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - wheezy
+          - precise
+          - squeeze
+          - trusty
+    publishers:
+      - ircbot_freenode

@@ -1,0 +1,12 @@
+- job:
+    name: deploy_web
+    node: 'admin && sshkey'
+    scm:
+      - theforeman.org
+    triggers:
+      - github
+      - pollscm: '*/5 * * * *'
+    builders:
+      - deploy_web
+    publishers:
+      - gemset_cleanup

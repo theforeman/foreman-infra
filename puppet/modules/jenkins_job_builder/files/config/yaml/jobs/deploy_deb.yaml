@@ -1,0 +1,20 @@
+- job:
+    name: deploy_deb
+    node: 'debian'
+    scm:
+      - foreman-infra
+    builders:
+      - deploy_deb
+    parameters:
+      - string:
+          name: os
+          default: wheezy
+          description: 'OS code, e.g. <code>wheezy</code>, <code>trusty</code>'
+      - string:
+          name: repo
+          default: nightly
+          description: 'Repo on staging-deb to consume. This will have "theforeman-" prefixed automatically, so e.g. nightly, 1.6'
+    wrappers:
+      - timeout:
+          timeout: 30
+          type: absolute

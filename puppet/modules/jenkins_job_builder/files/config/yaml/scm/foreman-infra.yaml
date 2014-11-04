@@ -1,0 +1,8 @@
+- scm:
+    name: foreman-infra
+    scm:
+      - git:
+         url: git://github.com/theforeman/foreman-infra.git
+         wipe-workspace: false
+         branches:
+          - master

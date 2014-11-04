@@ -1,0 +1,49 @@
+- job:
+    name: systest_foreman
+    node: 'el6'
+    scm:
+      - foreman-bats
+    builders:
+      - systest_foreman
+    wrappers:
+      - timeout:
+          timeout: 60
+          type: absolute
+    parameters:
+      - string:
+          name: repo
+          default: nightly
+          description: 'Repo on koji / stagingdeb to test. Prefixes appropriate to the test repo is automatically added ("foreman" for koji, "theforeman" for stagingdeb), so use only the variable component, e.g. <code>nightly</code> or <code>1.6</code>'
+      - string:
+          name: os
+          default: ''
+          description: 'OS code, e.g. <code>el6</code>, <code>f18</code>, <code>wheezy</code>'
+      - bool:
+          name: pl_puppet
+          default: false
+          description: 'Whether to install Puppet from Puppet Labs first, instead of using the distro version.'
+      - bool:
+          name: nightly_puppet
+          default: false
+          description: 'Whether to enable nightly Puppet repos, use in addition to pl_puppet.'
+      - bool:
+          name: run_hammer_tests
+          default: false
+          description: 'Whether to run additional hammer tests (https://github.com/theforeman/hammer-tests).'
+      - string:
+          name: hammer_tests_owner
+          default: theforeman
+          description: ''
+      - string:
+          name: hammer_tests_branch
+          default: master
+          description: ''
+      - string:
+          name: hammer_deps
+          default: ''
+          description: 'Install additional gem dependencies for hammer tests. Can be used for testing your own branches.  Whitespace separated list of gem names or git urls in format <code>https://github.com/owner/repo.git#name_of_branch</code>.
+
+E.g.
+<code>https://github.com/theforeman/hammer-cli.git#test</code>'
+    publishers:
+      - systest_foreman
