@@ -27,6 +27,10 @@ class web($latest = "1.6", $htpasswds = {}) {
     mode           => 0755,
   }
 
+  apache::module { "expires":
+    ensure => present,
+    notify => Exec["apache-graceful"],
+  }
   apache::vhost { "yum":
     ensure      => present,
     config_file => "puppet:///modules/web/yum.theforeman.org.conf",
