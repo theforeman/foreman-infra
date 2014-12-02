@@ -1,4 +1,4 @@
-class web($latest = "1.6", $htpasswds = {}) {
+class web($latest = "1.7", $htpasswds = {}) {
   include rsync::server
 
   secure_ssh::rsync::receiver_setup { 'web':
