@@ -7,7 +7,7 @@
 <p>Releases are available under <code>/releases/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/releases/1.5/el6/x86_64</li>
+  <li>/releases/1.7/el7/x86_64</li>
   <li>/releases/1.4/f19/x86_64</li>
 </ul>
 
@@ -15,10 +15,11 @@
 
 <ul>
   <li><a href="http://yum.theforeman.org/releases/latest/el6/x86_64/foreman-release.rpm">http://yum.theforeman.org/releases/latest/el6/x86_64/foreman-release.rpm</a></li>
-  <li><a href="http://yum.theforeman.org/releases/1.5/el6/x86_64/foreman-release.rpm">http://yum.theforeman.org/releases/1.5/el6/x86_64/foreman-release.rpm</a></li>
+  <li><a href="http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm">http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm</a></li>
+  <li><a href="http://yum.theforeman.org/releases/latest/f19/x86_64/foreman-release.rpm">http://yum.theforeman.org/releases/latest/f19/x86_64/foreman-release.rpm</a></li>
 </ul>
 
-<p>All release packages are signed with "Foreman Automatic Signing Key (2014) packages@theforeman.org" (0x1AA043B8).  The public key is available in <a href="http://yum.theforeman.org/RPM-GPG-KEY-foreman">RPM-GPG-KEY-foreman</a> or the foreman-release RPMs.</p>
+<p>Release packages <a href="http://theforeman.org/security.html#GPGkeys">are signed with a new key for each major release</a>.  The public key is available in the RPM-GPG-KEY-foreman file within each version directory or the foreman-release RPMs.</p>
 
 <p>A symlink is available at <code>/releases/latest</code> which always points to the latest stable release.  Please be careful when using this, as release upgrades often require some manual intervention (see release notes).</p>
 
@@ -26,7 +27,7 @@
 
 <p>Nightly builds of Foreman are available under <code>/nightly/DIST/ARCH</code> and are refreshed a few times a day, but are not GPG signed.</p>
 
-<p>Release candidates are available under <code>/rc/DIST/ARCH</code> when the project is in a release phase.  These are GPG-signed like stable packages.</p>
+<p>Release candidates are in the versioned directories under <code>/releases</code>.  These are GPG-signed like stable packages.</p>
 
 <h3>Plugins</h3>
 
