@@ -114,6 +114,12 @@ class slave($github_user = undef,
       name => $osfamily ? {
         Debian => "libaugeas-dev",
         default => "augeas-devel"
+      };
+    "lib-qt":
+      ensure => present,
+      name => $osfamily ? {
+        Debian => "libqt4-dev",
+        default => "libqt4-devel"
       }
   }
 
