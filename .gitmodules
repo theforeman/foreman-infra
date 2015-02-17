@@ -73,3 +73,6 @@
 [submodule "puppet/modules/mount_providers"]
 	path = puppet/modules/mount_providers
 	url = https://github.com/puppetlabs/puppetlabs-mount_providers.git
+[submodule "puppet/modules/apt"]
+	path = puppet/modules/apt
+	url = https://github.com/puppetlabs/puppetlabs-apt.git
