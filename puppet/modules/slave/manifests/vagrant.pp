@@ -14,9 +14,11 @@ class slave::vagrant($username, $api_key) {
     default: { fail("Unknown osfamily ${::osfamily}") }
   }
 
+  ensure_packages(['wget'])
   exec { "wget -O /root/vagrant_package ${vagrant_source}":
     creates  => '/root/vagrant_package',
     provider => 'shell',
+    requires => Package['wget'],
   } ->
   package { 'vagrant':
     ensure   => installed,
