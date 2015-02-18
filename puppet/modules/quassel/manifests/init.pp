@@ -11,7 +11,7 @@ class quassel (
   }
 
   include postgresql::client, postgresql::server
-  postgresql::db { 'quassel':
+  postgresql::server::db { 'quassel':
     user     => 'quasselcore',
     password => $password,
   }
