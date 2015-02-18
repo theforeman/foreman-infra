@@ -4,7 +4,7 @@ define quassel::user(
 
   # This is a horrid hack, but there's no easy non-interactive way to add or check for users
   exec { "add-${name}-to-quassel":
-    command => "/bin/echo -e \"${name}\nfoo\nfoo\" | /usr/bin/quasselcore --add-user --configdir=/var/lib/quassel && /bin/touch /var/cache/quassel/${user}/user-created",
+    command => "/bin/echo -e \"${name}\nfoo\nfoo\" | /usr/bin/quasselcore --add-user --configdir=/var/lib/quassel && /bin/touch /var/cache/quassel/${name}/user-created",
     creates => "/var/cache/quassel/${name}/user-created",
   }
 
