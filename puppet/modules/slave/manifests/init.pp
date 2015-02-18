@@ -80,8 +80,11 @@ class slave($github_user = undef,
     "mysql-dev":
       ensure => present,
       name => $osfamily ? {
-       RedHat => "mysql-devel",
-       default => "libmysqlclient-dev"
+       'RedHat' => $::operatingsystemmajrelease ? {
+         '6'     => "mysql-devel",
+         default => "mariadb-devel",
+       },
+       default  => "libmysqlclient-dev"
       };
     "postgresql-dev":
       ensure => present,
