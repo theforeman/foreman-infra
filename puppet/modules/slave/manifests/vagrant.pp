@@ -18,7 +18,7 @@ class slave::vagrant($username, $api_key) {
   exec { "wget -O /root/vagrant_package ${vagrant_source}":
     creates  => '/root/vagrant_package',
     provider => 'shell',
-    requires => Package['wget'],
+    require  => Package['wget'],
   } ->
   package { 'vagrant':
     ensure   => installed,
