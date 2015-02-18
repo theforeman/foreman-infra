@@ -1,0 +1,12 @@
+- publisher:
+    name: systest_foreman
+    publishers:
+    - archive:
+        artifacts: '*.tar.gz'
+        allow-empty: true
+    - tap:
+        results: '*.bats.out'
+        fail-if-no-results: true
+        failed-tests-mark-build-as-failure: true
+        enable-subtests: false
+        todo-is-failure: false

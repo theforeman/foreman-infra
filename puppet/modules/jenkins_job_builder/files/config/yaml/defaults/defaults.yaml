@@ -1,0 +1,16 @@
+##############################################################################
+####   Defaults
+###############################################################################
+- defaults:
+    description: |
+      This job is automatically updated by jenkins job builder, any manual
+      change will be lost in the next update. If you want to make permanent
+      changes, check out the <a href="http://github.com/theforeman/foreman-infra">infra</a> repo.
+    name: global
+    project-type: freestyle
+    concurrent: false
+    logrotate:
+      numToKeep: 3
+    wrappers:
+      - timestamps
+

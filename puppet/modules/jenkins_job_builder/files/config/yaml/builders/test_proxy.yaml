@@ -1,0 +1,4 @@
+- builder:
+    name: test_proxy
+    builders:
+      - shell: !include-raw scripts/test/proxy.sh

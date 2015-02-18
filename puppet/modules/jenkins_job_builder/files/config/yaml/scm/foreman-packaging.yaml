@@ -1,0 +1,20 @@
+- scm:
+    name: foreman-deb-packaging
+    scm:
+      - git:
+         url: git://github.com/theforeman/foreman-packaging.git
+         recursive-submodules: true
+         skip-tag: true
+         git-config-name: Jenkins
+         git-config-email: 'packaging@theforeman.org'
+         branches:
+          - '*/deb/develop'
+- scm:
+    name: foreman-rpm-packaging
+    scm:
+      - git:
+         url: git://github.com/theforeman/foreman-packaging.git
+         recursive-submodules: true
+         skip-tag: true
+         branches:
+          - '*/rpm/develop'

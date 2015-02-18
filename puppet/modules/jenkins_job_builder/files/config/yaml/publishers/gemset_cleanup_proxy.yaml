@@ -1,0 +1,10 @@
+- publisher:
+    name: gemset_cleanup_proxy
+    publishers:
+    - post-tasks:
+        - matches: 
+          - log-text: ""
+            operator: AND
+          escalate-status: false
+          run-if-job-successful: false
+          script: !include-raw scripts/gemset_cleanup_proxy.sh

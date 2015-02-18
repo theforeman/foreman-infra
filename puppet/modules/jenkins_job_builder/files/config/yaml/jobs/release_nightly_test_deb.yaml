@@ -1,0 +1,21 @@
+- job:
+    name: release_nightly_test_deb
+    project-type: matrix
+    builders:
+      - trigger-builds:
+        - project: systest_foreman
+          predefined-parameters: "os=${os}\nrepo=nightly\npl_puppet=true"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - wheezy
+          - precise
+          - trusty
+    publishers:
+      - trigger:
+          project: release_nightly_push_deb
+          threshold: SUCCESS
+      - ircbot_freenode

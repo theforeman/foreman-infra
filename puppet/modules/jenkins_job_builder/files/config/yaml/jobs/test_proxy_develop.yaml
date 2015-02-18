@@ -1,0 +1,45 @@
+- job:
+    name: test_proxy_develop
+    project-type: matrix
+    properties:
+      - github:
+          url: https://github.com/theforeman/smart-proxy
+    scm:
+      - foreman-proxy
+    triggers:
+      - github
+      - pollscm: '*/5 * * * *'
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+          - 1.8.7
+          - 1.9.2
+          - 1.9.3
+          - 2.0.0
+          - 2.1
+      - axis:
+          type: user-defined
+          name: puppet
+          values:
+          - 2.6.0
+          - 2.7.0
+          - 3.0.0
+          - 3.4.0
+          - 3.7.0
+    execution-strategy:
+      combination-filter: '!( (ruby ==~ /(1\.9|2).*/ && puppet ==~ /2\.6.*/) || (ruby ==~ /2.*/ && puppet ==~ /(2|3\.[01]).*/) || (ruby ==~ /2.[^0]*/ && puppet ==~ /(2|3\.[0-4]).*/) )'
+    builders:
+      - test_proxy
+    publishers:
+    - gemset_cleanup_proxy
+    - archive:
+        artifacts: 'pkg/*'
+    - trigger-parameterized-builds:
+      - project: release_nightly_build_rpm, release_nightly_build_deb
+        condition: SUCCESS
+        predefined-parameters: |
+          project=foreman-proxy
+          jenkins_job=${JOB_NAME}
+          jenkins_job_id=${BUILD_NUMBER}
