@@ -6,12 +6,16 @@ class slave::mysql {
     ensure        => 'present',
     password_hash => mysql_password("foreman"),
   } ->
-  mysql_grant { "foreman@localhost":
+  mysql_grant { 'foreman@localhost/*.*':
     ensure     => 'present',
-    privileges => ["Create_priv", "Drop_priv"],
+    privileges => ['CREATE', 'DROP'],
+    table      => '*.*',
+    user       => 'foreman@localhost',
   } ->
-  mysql_grant { "foreman@localhost/test%":
+  mysql_grant { 'foreman@localhost/test%.*':
     ensure     => 'present',
-    privileges => "all",
+    privileges => 'all',
+    table      => 'test%.*',
+    user       => 'foreman@localhost',
   }
 }
