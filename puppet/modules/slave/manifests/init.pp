@@ -175,7 +175,7 @@ class slave($github_user = undef,
 
   # RVM
   class { 'rvm':
-    version => '1.25.33',
+    version => '1.26.10',
   }
   if $rvm_installed == "true" {
     rvm::system_user { "jenkins": }
