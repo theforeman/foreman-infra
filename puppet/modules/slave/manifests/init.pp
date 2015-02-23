@@ -274,4 +274,13 @@ class slave($github_user = undef,
     mode    => '0755',
     content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /Xvfb/) { print \$1 }' | xargs kill >/dev/null 2>&1 || true\n"
   }
+
+  # Cleanup Jenkins Ruby processes from aborted builds after a day
+  file { '/etc/cron.daily/ruby_cleaner':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /ruby/) { print \$1 }' | xargs kill -9 >/dev/null 2>&1 || true\n"
+  }
 }
