@@ -212,15 +212,15 @@ class slave($github_user = undef,
   if $osfamily == 'RedHat' {
     package {
       'koji':
-        ensure => present;
+        ensure => latest;
       'rpm-build':
-        ensure => present;
+        ensure => latest;
       'tito':
-        ensure => present;
+        ensure => latest;
       'git-annex':
-        ensure => present;
+        ensure => latest;
       'pyliblzma':
-        ensure => present
+        ensure => latest
     }
   }
   file { "/home/jenkins/.koji":
