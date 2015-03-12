@@ -28,7 +28,8 @@ class jenkins_job_builder (
 
   if ! defined(Package['python-jenkins']) {
     package { 'python-jenkins':
-      ensure => present,
+      ensure   => present,
+      provider => 'pip',
     }
   }
 
