@@ -1,6 +1,11 @@
 - job:
     name: release_nightly_build_deb
     node: 'admin'
+    block-downstream: true
+    concurrent: true
+    logrotate:
+      daysToKeep: 7
+      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/foreman-packaging/
@@ -31,6 +36,4 @@
           default: lastSuccessfulBuild
           description: 'When building nightly (develop), the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
     publishers:
-      - trigger:
-          project: release_nightly_test_deb
-          threshold: SUCCESS
+      - ircbot_freenode

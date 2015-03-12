@@ -2,6 +2,13 @@
 
 rm -f *.bats.out || true
 
+if [ ${os} = f19 ]; then
+  # https://github.com/mitchellh/vagrant-rackspace/issues/132
+  echo "skipping f19, no Rackspace image"
+  echo "1..0 # Skipped: no Rackspace image for f19" > skipped.bats.out
+  exit 0
+fi
+
 if [ ${os#f} != $os ]; then
   osname=Fedora
   osver=${os#f}
@@ -42,7 +49,7 @@ if [ $run_hammer_tests = true ]; then
     echo "bash ~/install_gems.sh ${hammer_deps}" | vagrant ssh $os
   fi
 
-  hammer_test_args="HAMMER_TEST_BRANCH=${hammer_tests_branch}" 
+  hammer_test_args="HAMMER_TEST_BRANCH=${hammer_tests_branch}"
   hammer_test_args="HAMMER_TEST_REPO=https://github.com/${hammer_tests_owner}/hammer-tests.git ${hammer_test_args}"
   echo $hammer_test_args fb-hammer-tests.bats | vagrant ssh $os | tee fb-hammer-tests.bats.out
 fi

@@ -1,6 +1,10 @@
 - job:
     name: release_nightly_push_deb
     project-type: matrix
+    block-upstream: true
+    logrotate:
+      daysToKeep: 2
+      numToKeep: -1
     builders:
       - trigger-builds:
         - project: deploy_deb
