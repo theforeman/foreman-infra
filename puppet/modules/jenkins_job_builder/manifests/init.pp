@@ -44,6 +44,7 @@ class jenkins_job_builder (
     command     => 'pip install /opt/jenkins_job_builder',
     path        => '/usr/local/bin:/usr/bin:/bin/',
     refreshonly => true,
+    notify      => Exec['jenkins_jobs_update'],
   }
 
   file { '/etc/jenkins_jobs':
@@ -80,7 +81,6 @@ class jenkins_job_builder (
       File['/etc/jenkins_jobs/jenkins_jobs.ini'],
       Package['python-jenkins'],
       Package['PyYAML'],
-      Vcsrepo['/opt/jenkins_job_builder'],
     ],
   }
 
