@@ -2,8 +2,9 @@
     name: systest_foreman
     publishers:
     - archive:
-        artifacts: '*.tar.gz'
+        artifacts: 'debug/*,*.bats.out,*.tap'
         allow-empty: true
+        only-successful: true
     - tap:
         results: '*.bats.out'
         fail-if-no-results: true
