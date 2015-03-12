@@ -8,18 +8,41 @@
 # $run is our addition and is so named becuase noop is a bit too magic in puppet syntax...
 #
 class jenkins_job_builder (
-  $url = '',
-  $username = '',
-  $password = '',
-  $config_dir = '',
-  $run = 'false',
+  $url                         = '',
+  $username                    = '',
+  $password                    = '',
+  $config_dir                  = '',
+  $run                         = 'false',
+  $git_revision                = 'master',
+  $git_url                     = 'https://github.com/theforeman/jenkins-job-builder',
+  $jenkins_jobs_update_timeout = '600',
 ) {
 
-  if ! defined(Package['jenkins-job-builder']) {
-    package { 'jenkins-job-builder':
-      ensure   => present,
-      provider => 'pip',
+  # A lot of things need yaml, be conservative requiring this package to avoid
+  # conflicts with other modules.
+  if ! defined(Package['PyYAML']) {
+    package { 'PyYAML':
+      ensure => present,
     }
+  }
+
+  if ! defined(Package['python-jenkins']) {
+    package { 'python-jenkins':
+      ensure => present,
+    }
+  }
+
+  vcsrepo { '/opt/jenkins_job_builder':
+    ensure   => latest,
+    provider => git,
+    revision => $git_revision,
+    source   => $git_url,
+  }
+  ~>
+  exec { 'install_jenkins_job_builder':
+    command     => 'pip install /opt/jenkins_job_builder',
+    path        => '/usr/local/bin:/usr/bin:/bin/',
+    refreshonly => true,
   }
 
   file { '/etc/jenkins_jobs':
@@ -40,21 +63,23 @@ class jenkins_job_builder (
 
   # test for a string here since it's annoyingly hard to pass a boolean from foreman via yaml
   if $run == 'false' {
-    $cmd = "jenkins-jobs test /etc/jenkins_jobs/config > /var/cache/jjb.xml"
+    $cmd = 'jenkins-jobs test /etc/jenkins_jobs/config > /var/cache/jjb.xml'
   }else{
-    $cmd = "jenkins-jobs update /etc/jenkins_jobs/config > /var/cache/jjb.xml"
+    $cmd = 'jenkins-jobs update /etc/jenkins_jobs/config > /var/cache/jjb.xml'
     # eventually we may wish to nuke unmanaged jobs:
     #$cmd = "jenkins-jobs update --delete-old /etc/jenkins_jobs/config > /var/cache/jjb.xml"
   }
 
   exec { 'jenkins_jobs_update':
     command     => $cmd,
-    timeout     => '600',
+    timeout     => $jenkins_jobs_update_timeout,
     path        => '/bin:/usr/bin:/usr/local/bin',
     refreshonly => true,
     require     => [
       File['/etc/jenkins_jobs/jenkins_jobs.ini'],
-      Package['jenkins-job-builder'],
+      Package['python-jenkins'],
+      Package['PyYAML'],
+      Vcsrepo['/opt/jenkins_job_builder'],
     ],
   }
 
