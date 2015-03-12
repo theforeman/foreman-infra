@@ -10,3 +10,4 @@
       - deploy_web
     publishers:
       - gemset_cleanup
+      - ircbot_freenode

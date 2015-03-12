@@ -1,6 +1,15 @@
 - job:
     name: release_nightly_test_deb
     project-type: matrix
+    block-downstream: true
+    block-upstream: true
+    quiet-period: 30
+    logrotate:
+      daysToKeep: 2
+      numToKeep: -1
+    triggers:
+      - timed: 'H 13 * * 1-5'
+      - schedule-failed-builds: '* * * * *'
     builders:
       - trigger-builds:
         - project: systest_foreman

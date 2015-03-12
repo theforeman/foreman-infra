@@ -1,7 +1,15 @@
 - job:
     name: packaging_build_deb_coreproject
     project-type: matrix
+    logrotate:
+      daysToKeep: 7
+      numToKeep: -1
     properties:
+      - throttle:
+          max-per-node: 0
+          max-total: 0
+          enabled: false
+          option: project
       - github:
           url: https://github.com/theforeman/foreman-packaging/
     scm:

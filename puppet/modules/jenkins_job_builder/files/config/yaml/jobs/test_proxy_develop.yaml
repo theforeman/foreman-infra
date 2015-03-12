@@ -1,6 +1,9 @@
 - job:
     name: test_proxy_develop
     project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
     properties:
       - github:
           url: https://github.com/theforeman/smart-proxy
@@ -9,6 +12,7 @@
     triggers:
       - github
       - pollscm: '*/5 * * * *'
+      - schedule-failed-builds: '* * * * *'
     axes:
       - axis:
           type: user-defined
@@ -34,8 +38,12 @@
       - test_proxy
     publishers:
     - gemset_cleanup_proxy
+    - ircbot_freenode
+    - junit:
+        results: 'jenkins/reports/unit/*.xml'
     - archive:
         artifacts: 'pkg/*'
+        only-successful: true
     - trigger-parameterized-builds:
       - project: release_nightly_build_rpm, release_nightly_build_deb
         condition: SUCCESS

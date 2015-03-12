@@ -2,7 +2,7 @@
     name: foreman-deb-packaging
     scm:
       - git:
-         url: git://github.com/theforeman/foreman-packaging.git
+         url: git://github.com/${repoowner}/foreman-packaging.git
          recursive-submodules: true
          skip-tag: true
          git-config-name: Jenkins

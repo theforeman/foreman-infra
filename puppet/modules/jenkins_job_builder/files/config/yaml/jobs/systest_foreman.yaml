@@ -1,6 +1,10 @@
 - job:
     name: systest_foreman
-    node: 'el6'
+    node: 'el'
+    concurrent: true
+    logrotate:
+      daysToKeep: 3
+      numToKeep: -1
     scm:
       - foreman-bats
     builders:
