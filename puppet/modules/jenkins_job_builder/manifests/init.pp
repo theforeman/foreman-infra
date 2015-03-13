@@ -84,6 +84,26 @@ class jenkins_job_builder (
     ],
   }
 
+  # copy of the first exec to run on a regular schedule, in the early morning
+  # this can be removed once all job changes are going through JJB, but for now
+  # it will ensure any manual changes to jobs will be reverted
+  schedule { 'jenkins':
+    range  => '2 - 4',
+    period => daily,
+    repeat => 1,
+  }
+  exec { 'jenkins_jobs_update_scheduled':
+    command  => $cmd,
+    timeout  => $jenkins_jobs_update_timeout,
+    path     => '/bin:/usr/bin:/usr/local/bin',
+    schedule => 'jenkins',
+    require  => [
+      File['/etc/jenkins_jobs/jenkins_jobs.ini'],
+      Package['python-jenkins'],
+      Package['PyYAML'],
+    ],
+  }
+
 # TODO: We should put in  notify Exec['jenkins_jobs_update']
 #       at some point, but that still has some problems.
   file { '/etc/jenkins_jobs/jenkins_jobs.ini':
