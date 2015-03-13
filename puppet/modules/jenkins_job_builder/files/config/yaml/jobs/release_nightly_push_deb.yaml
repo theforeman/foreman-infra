@@ -17,7 +17,6 @@
           values:
           - wheezy
           - precise
-          - squeeze
           - trusty
     publishers:
       - ircbot_freenode
