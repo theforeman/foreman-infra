@@ -78,11 +78,11 @@ class web($stable = "1.7", $latest = "1.8", $next = "1.9", $htpasswds = {}) {
   }
   file { "/var/www/vhosts/yum/htdocs/releases/latest":
     ensure => link,
-    target => $latest,
+    target => $stable,
   }
   file { "/var/www/vhosts/yum/htdocs/plugins/latest":
     ensure => link,
-    target => $latest,
+    target => $stable,
   }
 
   apache::vhost { "downloads":
