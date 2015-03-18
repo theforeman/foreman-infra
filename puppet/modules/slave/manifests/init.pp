@@ -151,12 +151,12 @@ class slave($github_user = undef,
   if $osfamily == 'RedHat' {
     yumrepo { 'katello-pulp':
       descr    => "Katello Pulp Repo",
-      baseurl  => "http://fedorapeople.org/groups/katello/releases/yum/nightly/pulp/RHEL/\$releasever/\$basearch",
+      baseurl  => "http://koji.katello.org/releases/yum/katello-nightly/pulp/RHEL/\$releasever/\$basearch",
       gpgcheck => '0',
       enabled  => '1',
     } ->
     package { 'qpid-cpp-client-devel':
-      ensure => present,
+      ensure => latest,
     }
   }
 
