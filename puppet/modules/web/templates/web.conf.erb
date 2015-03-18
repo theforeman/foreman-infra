@@ -10,7 +10,8 @@
   RewriteRule   ^/versions(.*)  http://projects.theforeman.org/versions$1  [R,L]
   RewriteRule   ^/wiki(.*)  http://projects.theforeman.org/wiki$1  [R,L]
 
-  RewriteRule   ^/manuals/latest(.*) /manuals/<%= @latest -%>$1 [R,L]
+  RewriteRule   ^/manuals/latest(.*) /manuals/<%= @stable -%>$1 [R,L]
+  RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/<%= @latest -%>$1 [R,L]
 
   ErrorLog /var/log/httpd/error_log
   LogLevel warn
