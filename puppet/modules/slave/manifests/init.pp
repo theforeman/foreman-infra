@@ -98,6 +98,8 @@ class slave($github_user = undef,
         Debian => "libkrb5-dev",
         default => "krb5-devel"
       };
+    "freeipmi":
+      ensure => present;
     "ipmitool":
       ensure => present;
     "firefox":
