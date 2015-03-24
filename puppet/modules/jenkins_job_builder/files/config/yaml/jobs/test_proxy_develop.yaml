@@ -37,7 +37,7 @@
     builders:
       - test_proxy
     publishers:
-    - gemset_cleanup_proxy
+    - gemset_cleanup
     - ircbot_freenode
     - junit:
         results: 'jenkins/reports/unit/*.xml'
