@@ -1,0 +1,11 @@
+- scm:
+    name: katello.org
+    scm:
+      - git:
+         url: git://github.com/Katello/katello.org.git
+         wipe-workspace: false
+         branches:
+          - master
+          - */Katello-2.0
+          - */Katello-2.1
+          - */Katello-2.2
