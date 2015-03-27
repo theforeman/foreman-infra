@@ -1,0 +1,4 @@
+- builder:
+    name: deploy_katello_site
+    builders:
+      - shell: !include-raw scripts/deploy_katello_site.sh

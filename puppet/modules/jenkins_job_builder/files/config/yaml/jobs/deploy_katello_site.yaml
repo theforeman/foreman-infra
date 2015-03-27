@@ -1,0 +1,12 @@
+- job:
+    name: deploy_katello_site
+    node: 'admin && sshkey'
+    scm:
+      - katello.org
+    triggers:
+      - github
+      - pollscm: '*/5 * * * *'
+    builders:
+      - deploy_katello_site
+    publishers:
+      - gemset_cleanup
