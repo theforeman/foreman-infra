@@ -11,15 +11,6 @@ rvm gemset empty --force
 #gem update --no-ri --no-rdoc
 gem install bundler --no-ri --no-rdoc
 
-# Retry as rubygems (being external to us) can be intermittent
-while ! bundle install -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
-
 # Reset environment
 rm -rf public/
 git checkout deploy
