@@ -29,7 +29,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '(onlyos == "all" && os != "jessie") || onlyos == os'
+      combination-filter: '(onlyos == "all") || onlyos == os'
     builders:
       - build_deb_coreproject
     publishers:
