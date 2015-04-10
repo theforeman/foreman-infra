@@ -21,6 +21,7 @@
           name: os
           values:
           - wheezy
+          - jessie
           - precise
           - trusty
     publishers:
