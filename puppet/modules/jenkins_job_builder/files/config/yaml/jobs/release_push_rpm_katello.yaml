@@ -1,0 +1,13 @@
+- job:
+    name: release_push_rpm_katello
+    node: 'admin && sshkey'
+    builders:
+      - release_push_rpm_katello
+    parameters:
+      - choice:
+          name: RELEASE
+          choices:
+            - 'nightly'
+            - '2.2'
+            - '2.1'
+            - '2.0'
