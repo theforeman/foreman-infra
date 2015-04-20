@@ -1,0 +1,13 @@
+- job:
+    name: packaging_mash_rpms
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
+    node: sshkey
+    builders:
+      - packaging_mash_rpms
+    parameters:
+      - string:
+          name: script
+          default: 'foreman-mash-split.py'
+          description: 'Change for specific versions, e.g. foreman-mash-split-1.6.py'

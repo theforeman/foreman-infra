@@ -1,0 +1,4 @@
+- builder:
+    name: packaging_mash_rpms
+    builders:
+      - shell: !include-raw scripts/run_koji_script.sh
