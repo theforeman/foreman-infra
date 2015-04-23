@@ -35,7 +35,7 @@ vagrant up $os
 
 PUPPET_REPO=stable
 [ $nightly_puppet = true ] && PUPPET_REPO=nightly
-if [ $pl_puppet = true -o $os = precise ]; then
+if [ $pl_puppet = true -a ! $os = jessie -o $os = precise ]; then
   echo PUPPET_REPO=${PUPPET_REPO} fb-install-plpuppet.bats | vagrant ssh $os | tee fb-install-plpuppet.bats.out
 fi
 
