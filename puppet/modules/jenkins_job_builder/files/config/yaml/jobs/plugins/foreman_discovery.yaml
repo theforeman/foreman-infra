@@ -1,0 +1,10 @@
+- project:
+    name: foreman_discovery
+    repo: foreman_discovery
+    branch:
+      - develop:
+          foreman_branch: develop
+      - 2.0-stable:
+          foreman_branch: 1.7-stable
+    jobs:
+      - 'test_plugin_{name}_{branch}'

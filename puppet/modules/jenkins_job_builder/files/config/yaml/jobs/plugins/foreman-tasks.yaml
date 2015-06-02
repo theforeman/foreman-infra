@@ -1,0 +1,5 @@
+- project:
+    name: foreman-tasks
+    defaults: plugin
+    jobs:
+      - 'test_plugin_{name}_{branch}'

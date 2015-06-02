@@ -1,0 +1,6 @@
+- project:
+    name: foreman_digitalocean
+    repo: foreman-digitalocean
+    defaults: plugin
+    jobs:
+      - 'test_plugin_{name}_{branch}'
