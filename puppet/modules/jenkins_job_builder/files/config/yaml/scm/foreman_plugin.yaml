@@ -1,0 +1,8 @@
+- scm:
+    name: foreman_plugin
+    scm:
+      - git:
+         url: git://github.com/theforeman/{repo}.git
+         wipe-workspace: false
+         branches:
+          - 'master'

@@ -1,0 +1,36 @@
+# parameters:
+#   name: plugin name, e.g. foreman_bootdisk
+#   repo: git repo name as it may differ, e.g. foreman_bootdisk
+#   branch: git repo branch to test, e.g. master
+#   foreman_branch: foreman git repo branch to run on, e.g. develop
+- job-template:
+    name: 'test_plugin_{name}_{branch}'
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    scm:
+      - foreman_plugin:
+          repo: '{repo}'
+          branch: '{branch}'
+    triggers:
+      - github
+      - pollscm: 'H/15 * * * *'
+      - schedule-failed-builds: 'H H * * H'
+      - timed: 'H H * * H'
+    builders:
+      - trigger-builds:
+        - project: test_plugin_matrix
+          predefined-parameters: |
+            plugin_repo=https://github.com/theforeman/{repo}
+            plugin_branch={branch}
+            plugin_name={name}
+            foreman_branch={foreman_branch}
+          block: true
+    publishers:
+      - ircbot_freenode
+
+- defaults:
+    name: plugin
+    repo: '{name}'
+    branch: master
+    foreman_branch: develop
