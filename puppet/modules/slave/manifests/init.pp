@@ -162,6 +162,19 @@ class slave($github_user = undef,
     }
   }
 
+  # Needed by foreman_openscap gem dependency OpenSCAP
+  if $osfamily == 'RedHat' {
+    yumrepo { 'isimluk-openscap':
+      enabled     => 1,
+      gpgcheck    => 0,
+      baseurl     => "http://copr-be.cloud.fedoraproject.org/results/isimluk/OpenSCAP/epel-${::operatingsystemmajrelease}-\$basearch/",
+      includepkgs => ['openscap'],
+    } ->
+    package { 'openscap':
+      ensure => latest,
+    }
+  }
+
   # specs-from-koji
   if $osfamily == 'RedHat' {
     package {
