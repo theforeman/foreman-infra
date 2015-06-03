@@ -5,7 +5,7 @@
     description: |
       This job is automatically updated by jenkins job builder, any manual
       change will be lost in the next update. If you want to make permanent
-      changes, check out the <a href="http://github.com/theforeman/foreman-infra">infra</a> repo.
+      changes, check out the <a href="https://github.com/theforeman/foreman-infra/tree/master/puppet/modules/jenkins_job_builder/files/config">infra</a> repo.
     name: global
     project-type: freestyle
     concurrent: false
