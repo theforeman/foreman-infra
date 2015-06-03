@@ -42,6 +42,7 @@ class slave($github_user = undef,
     "foreman_docker",
     "foreman_salt",
     "foreman_tasks",
+    "foreman_templates",
     "smart_proxy_discovery",
   ]: }
   slave::pr_test_config { "hammer_cli_katello":
