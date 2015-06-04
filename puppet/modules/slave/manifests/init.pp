@@ -45,6 +45,7 @@ class slave($github_user = undef,
     "foreman_templates",
     "smart_proxy_abrt",
     "smart_proxy_discovery",
+    "test_fusor",
   ]: }
   slave::pr_test_config { "hammer_cli_katello":
     ensure => absent,

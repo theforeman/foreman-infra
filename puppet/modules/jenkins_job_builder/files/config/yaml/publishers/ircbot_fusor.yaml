@@ -1,0 +1,15 @@
+- publisher:
+    name: ircbot_fusor
+    publishers:
+    - ircbot:
+        strategy: failure-and-fixed
+        notify-start: false
+        notify-committers: false
+        notify-culprits: false
+        notify-upstream: false
+        notify-fixers: false
+        message-type: summary
+        channels:
+            - name: '#fusor-dev'
+              notify-only: true
+        matrix-notifier: only-configurations

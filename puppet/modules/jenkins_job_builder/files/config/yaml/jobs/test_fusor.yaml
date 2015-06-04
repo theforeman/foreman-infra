@@ -1,0 +1,40 @@
+# parameters:
+#   name: plugin name, e.g. foreman_bootdisk
+#   repo: git repo name as it may differ, e.g. foreman_bootdisk
+#   branch: git repo branch to test, e.g. master
+#   foreman_branch: foreman git repo branch to run on, e.g. develop
+- job:
+    name: 'test_fusor'
+    logrotate:
+      daysToKeep: 3
+      numToKeep: -1
+    scm:
+      - fusor
+    triggers:
+      - github
+      - pollscm: 'H/15 * * * *'
+      - schedule-failed-builds: 'H H * * H'
+      - timed: 'H H * * H'
+    builders:
+      - trigger-builds:
+        - project: test_fusor
+          predefined-parameters: |
+            branch={branch}
+            foreman_branch={foreman_branch}
+            katello_branch={katello_branch}
+          block: true
+    publishers:
+      - ircbot_fusor
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: 'The fusor branch to test against'
+      - string:
+          name: foreman_branch
+          default: 1.7-stable
+          description: 'The foreman branch to test against'
+      - string:
+          name: katello_branch
+          default: KATELLO-2.2
+          description: 'The katello branch to test against'

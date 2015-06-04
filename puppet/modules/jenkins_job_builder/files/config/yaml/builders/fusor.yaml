@@ -1,0 +1,4 @@
+- builder:
+    name: fusor
+    builders:
+      - shell: !include-raw scripts/test/fusor.sh
