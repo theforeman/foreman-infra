@@ -41,6 +41,10 @@ fi
 
 echo ${args} fb-install-foreman.bats | vagrant ssh $os | tee fb-install-foreman.bats.out
 
+if [ $run_puppet_tests = true ]; then
+  echo fb-puppet-tests.bats | vagrant ssh $os | tee fb-puppet-tests.bats.out
+fi
+
 if [ $run_hammer_tests = true ]; then
   if [ "x$hammer_deps" != "x" ]; then
     echo "cd ~/ && wget https://gist.githubusercontent.com/tstrachota/52b86d7ccf835a11dc99/raw/install_gems.sh" | vagrant ssh $os
