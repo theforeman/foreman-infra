@@ -32,8 +32,7 @@
           description: 'Whether to enable nightly Puppet repos, use in addition to pl_puppet.'
       - bool:
           name: run_puppet_tests
-          # disable by default once Puppet tests are run on their own schedule
-          default: true
+          default: false
           description: 'Whether to run additional Foreman/Puppet integration tests.'
       - bool:
           name: run_hammer_tests
