@@ -1,6 +1,9 @@
 - job:
     name: packaging_repoclosure
     node: el
+    logrotate:
+      daysToKeep: 7
+      numToKeep: -1
     scm:
       - foreman-rpm-packaging
     builders:
