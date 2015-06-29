@@ -43,6 +43,7 @@ class slave($github_user = undef,
     "foreman_salt",
     "foreman_tasks",
     "foreman_templates",
+    "foreman_remote_execution",
     "smart_proxy_abrt",
     "smart_proxy_discovery",
   ]: }
