@@ -196,7 +196,7 @@ class slave($github_user = undef,
 
   # RVM
   class { 'rvm':
-    version => '1.26.10',
+    version => '1.26.11',
   }
   if $rvm_installed == "true" {
     rvm::system_user { "jenkins": }
@@ -214,6 +214,9 @@ class slave($github_user = undef,
     }
     slave::rvm_config { "ruby-2.1":
       version => "ruby-2.1.2",
+    }
+    slave::rvm_config { "ruby-2.2":
+      version => "ruby-2.2.1",
     }
 
     # Cleanup log dirs
