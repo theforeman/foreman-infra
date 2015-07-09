@@ -8,7 +8,7 @@
       daysToKeep: 2
       numToKeep: -1
     triggers:
-      - timed: 'H 13 * * 1-5'
+      - timed: 'H 07 * * 1-5'
       - schedule-failed-builds: '* * * * *'
     builders:
       - trigger-builds:
