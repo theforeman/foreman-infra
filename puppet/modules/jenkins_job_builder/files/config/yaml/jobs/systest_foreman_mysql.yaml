@@ -1,0 +1,27 @@
+- job:
+    name: systest_foreman_mysql
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 3
+    triggers:
+      - timed: 'H 6 * * 1'
+    builders:
+      - trigger-builds:
+        - project: systest_foreman
+          predefined-parameters: "os=${os}\ndb_type=mysql"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - el6
+          - el7
+          - f19
+          - wheezy
+          - jessie
+          - precise
+          - trusty
+    publishers:
+      - ircbot_freenode

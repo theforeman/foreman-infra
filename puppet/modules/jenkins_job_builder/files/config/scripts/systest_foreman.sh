@@ -27,6 +27,10 @@ if [ $run_hammer_tests = true ]; then
   args="FOREMAN_USE_ORGANIZATIONS=true FOREMAN_USE_LOCATIONS=true $args"
 fi
 
+if [ -n "${db_type}" ]; then
+  args="FOREMAN_DB_TYPE=${db_type} $args"
+fi
+
 export VAGRANT_DEFAULT_PROVIDER=rackspace
 
 trap "vagrant destroy" EXIT ERR

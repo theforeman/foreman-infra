@@ -53,5 +53,9 @@
 
 E.g.
 <code>https://github.com/theforeman/hammer-cli.git#test</code>'
+      - string:
+          name: db_type
+          default: ''
+          description: 'Database server to use, default is PostgreSQL (postgresql/mysql/sqlite)'
     publishers:
       - systest_foreman
