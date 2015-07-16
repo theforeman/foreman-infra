@@ -37,6 +37,10 @@ trap "vagrant destroy" EXIT ERR
 
 vagrant up $os
 
+if [ -n "$umask" ]; then
+  echo fb-setup-umask.bats | vagrant ssh $os | tee fb-setup-umask.bats.out
+fi
+
 PUPPET_REPO=stable
 [ $nightly_puppet = true ] && PUPPET_REPO=nightly
 if [ $pl_puppet = true -a ! $os = jessie -o $os = precise ]; then

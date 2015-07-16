@@ -1,0 +1,27 @@
+- job:
+    name: systest_foreman_umask_077
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 3
+    triggers:
+      - timed: 'H 9 * * 1'
+    builders:
+      - trigger-builds:
+        - project: systest_foreman
+          predefined-parameters: "os=${os}\numask=077"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - el6
+          - el7
+          - f19
+          - wheezy
+          - jessie
+          - precise
+          - trusty
+    publishers:
+      - ircbot_freenode

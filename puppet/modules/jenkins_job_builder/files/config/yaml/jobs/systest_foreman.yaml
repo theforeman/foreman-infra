@@ -57,5 +57,9 @@ E.g.
           name: db_type
           default: ''
           description: 'Database server to use, default is PostgreSQL (postgresql/mysql/sqlite)'
+      - string:
+          name: umask
+          default: ''
+          description: 'umask value for all shells, default is OS default (e.g. 022)'
     publishers:
       - systest_foreman
