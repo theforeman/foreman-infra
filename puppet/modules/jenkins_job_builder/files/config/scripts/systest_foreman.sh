@@ -10,17 +10,19 @@ if [ ${os} = f19 ]; then
 fi
 
 if [ ${os#f} != $os ]; then
-  osname=Fedora
-  osver=${os#f}
   [ $repo != nightly ] && FOREMAN_REPO=releases/$repo
-  args="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/foreman-${repo}/${osname}/${osver}/x86_64/ FOREMAN_REPO=$FOREMAN_REPO"
+  args="FOREMAN_REPO=$FOREMAN_REPO"
+  [ $staging = true ] && args="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/foreman-${repo}/Fedora/${os#f}/x86_64/ $args"
 elif [ ${os#el} != $os ]; then
-  osname=RHEL
-  osver=${os#el}
   [ $repo != nightly ] && FOREMAN_REPO=releases/$repo
-  args="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/foreman-${repo}/${osname}/${osver}/x86_64/ FOREMAN_REPO=$FOREMAN_REPO"
+  args="FOREMAN_REPO=$FOREMAN_REPO"
+  [ $staging = true ] && args="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/foreman-${repo}/RHEL/${os#el}/x86_64/ $args"
 else
-  args="FOREMAN_CUSTOM_URL=http://stagingdeb.theforeman.org/ FOREMAN_REPO=theforeman-${repo}"
+  if [ $staging = true ]; then
+    args="FOREMAN_CUSTOM_URL=http://stagingdeb.theforeman.org/ FOREMAN_REPO=theforeman-${repo}"
+  else
+    args="FOREMAN_REPO=${repo}"
+  fi
 fi
 
 if [ $run_hammer_tests = true ]; then

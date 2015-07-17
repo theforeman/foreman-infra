@@ -17,7 +17,11 @@
       - string:
           name: repo
           default: nightly
-          description: 'Repo on koji / stagingdeb to test. Prefixes appropriate to the test repo is automatically added ("foreman" for koji, "theforeman" for stagingdeb), so use only the variable component, e.g. <code>nightly</code> or <code>1.6</code>'
+          description: 'Repo to test. Prefixes appropriate to the test repo is automatically added ("foreman" for koji, "theforeman" for stagingdeb), so use only the variable component, e.g. <code>nightly</code> or <code>1.6</code>'
+      - bool:
+          name: staging
+          default: false
+          description: 'True to test staged packages (koji/stagingdeb) or false to test latest published packages'
       - string:
           name: os
           default: ''
