@@ -28,4 +28,4 @@
       - trigger:
           project: release_nightly_push_deb
           threshold: SUCCESS
-      - ircbot_freenode
+      - ircbot_freenode_matrix
