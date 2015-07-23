@@ -41,5 +41,25 @@ if [ -n "${copr_lookasides}" ]; then
   done
 fi
 
-cd repoclosure
-./repoclosure.sh yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ -l ${os}-base -l ${os}-updates -l ${os}-epel -l ${os}-scl -l ${os}-scl-ruby -l ${os}-scl-v8 -l ${os}-openscap ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside}
+puppet_lookaside=""
+if [ -n "${puppet_lookasides}" ]; then
+  lookaside_repos=$(echo $puppet_lookasides | tr "," "\n")
+
+  for lookaside_repo in $lookaside_repos
+  do
+    if [ ${osname} == 'Fedora' ]; then
+      puppet_lookaside+="--repofrompath=${lookaside_repo},http://yum.puppetlabs.com/fedora/${os}/products/x86_64/ -l ${lookaside_repo} "
+    else
+      puppet_lookaside+="--repofrompath=${lookaside_repo},http://yum.puppetlabs.com/el/${osver}/products/x86_64/ -l ${lookaside_repo} "
+    fi
+  done
+fi
+  
+options="yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ -l ${os}-base -l ${os}-updates -l ${os}-epel -l ${os}-scl -l ${os}-scl-ruby -l ${os}-scl-v8 -l ${os}-openscap ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside} ${puppet_lookaside}"
+
+if [ $1 == '--dry-run' ]; then
+  echo $options
+else
+  cd repoclosure
+  ./repoclosure $options
+fi

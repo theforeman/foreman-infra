@@ -29,3 +29,7 @@
           name: copr_lookasides
           default: ''
           description: "Comma separated list of lookaside repos that exist at http://copr.fedoraproject.org/coprs"
+      - string:
+          name: puppet_lookasides
+          default: ''
+          description: "Comma separated list of lookaside repos that exist at http://yum.puppetlabs.com/"
