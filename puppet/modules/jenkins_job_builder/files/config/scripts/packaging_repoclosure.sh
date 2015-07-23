@@ -57,7 +57,7 @@ fi
   
 options="yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ -l ${os}-base -l ${os}-updates -l ${os}-epel -l ${os}-scl -l ${os}-scl-ruby -l ${os}-scl-v8 -l ${os}-openscap ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside} ${puppet_lookaside}"
 
-if [ $1 == '--dry-run' ]; then
+if [[ $1 == '--dry-run' ]]; then
   echo $options
 else
   cd repoclosure
