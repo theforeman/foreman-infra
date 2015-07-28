@@ -4,6 +4,8 @@
     branch:
       - develop:
           foreman_branch: develop
+      - 3.0-stable:
+          foreman_branch: 1.8-stable
       - 2.0-stable:
           foreman_branch: 1.7-stable
     jobs:
