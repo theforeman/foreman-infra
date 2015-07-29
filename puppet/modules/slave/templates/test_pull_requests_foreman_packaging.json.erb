@@ -18,13 +18,8 @@
             "allow_multiple": true,
             "run_without_trigger": true,
             "branches": {
-                "deb/develop": {
-                    "jenkins_job_name": "packaging_test_pull_request_deb",
-                    "downstream_job_name": "true",
-                    "build_token": "<%= jenkins_build_token -%>"
-                },
-                "rpm/develop": {
-                    "jenkins_job_name": "packaging_test_pull_request_rpm",
+                "*": {
+                    "jenkins_job_name": "packaging_test_pull_request",
                     "downstream_job_name": "true",
                     "build_token": "<%= jenkins_build_token -%>"
                 }
