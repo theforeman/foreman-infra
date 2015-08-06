@@ -1,11 +1,11 @@
 [jenkins]
-user=<%= username %>
-password=<%= password %>
-url=<%= url %>
+user=<%= @username %>
+password=<%= @password %>
+url=<%= @url %>
 
 [job_builder]
 ignore_cache=True
 keep_descriptions=False
-include_path=.:/etc/jenkins_jobs/config
+include_path=.:/etc/jenkins_jobs/<%= @config_name %>
 recursive=True
 allow_duplicates=False
