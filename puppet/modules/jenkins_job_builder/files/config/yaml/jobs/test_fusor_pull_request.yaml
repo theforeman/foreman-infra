@@ -1,0 +1,50 @@
+# parameters:
+#   name: plugin name, e.g. foreman_bootdisk
+#   repo: git repo name as it may differ, e.g. foreman_bootdisk
+#   branch: git repo branch to test, e.g. master
+#   foreman_branch: foreman git repo branch to run on, e.g. develop
+- job:
+    name: 'test_fusor_pull_request'
+    logrotate:
+      daysToKeep: 3
+      numToKeep: -1
+    scm:
+      - fusor
+    triggers:
+      - github
+      - pollscm: 'H/15 * * * *'
+      - schedule-failed-builds: 'H H * * H'
+      - timed: 'H H * * H'
+    builders:
+      - trigger-builds:
+        - project: test_fusor_pull_request
+          predefined-parameters: |
+            branch={branch}
+            foreman_branch={foreman_branch}
+            katello_branch={katello_branch}
+            pr_number={pr_number}
+            pr_git_url={pr_git_url}
+            pr_git_ref={pr_git_ref}
+          block: true
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: 'The fusor branch to test against'
+      - string:
+          name: foreman_branch
+          default: 1.7-stable
+          description: 'The foreman branch to test against'
+      - string:
+          name: katello_branch
+          default: KATELLO-2.2
+          description: 'The katello branch to test against'
+      - string:
+          name: pr_number
+          description: 'The pull request number to test'
+      - string:
+          name: pr_git_url
+          description: 'The forked repo that the pull request is coming from'
+      - string:
+          name: pr_git_ref
+          description: 'The pull request reference branch'

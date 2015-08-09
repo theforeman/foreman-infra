@@ -1,0 +1,8 @@
+- scm:
+    name: fusor
+    scm:
+      - git:
+         url: git://github.com/fusor/fusor.git
+         wipe-workspace: false
+         branches:
+          - master
