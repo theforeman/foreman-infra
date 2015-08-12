@@ -4,6 +4,8 @@
     branch:
       - develop:
           foreman_branch: develop
+      - 4.0-stable:
+          foreman_branch: 1.9-stable
       - 3.0-stable:
           foreman_branch: 1.8-stable
       - 2.0-stable:
