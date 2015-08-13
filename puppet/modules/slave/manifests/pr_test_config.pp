@@ -1,5 +1,5 @@
 define slave::pr_test_config($ensure = 'present') {
-  file { "/home/jenkins/test_pull_request_${name}_not_mergable":
+  file { "/home/jenkins/pr_tests/cache/test_pull_request_${name}_not_mergable":
     ensure => $ensure,
     owner  => "jenkins",
     group  => "jenkins",
@@ -14,7 +14,7 @@ define slave::pr_test_config($ensure = 'present') {
       present => template("slave/test_pull_requests_${name}.json.erb"),
       default => undef,
     }
-    file { "/home/jenkins/.test_pull_requests_${name}.json":
+    file { "/home/jenkins/pr_tests/test_pull_requests_${name}.json":
       ensure  => $ensure,
       owner   => "jenkins",
       group   => "jenkins",

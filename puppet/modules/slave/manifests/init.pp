@@ -25,6 +25,14 @@ class slave($github_user = undef,
   }
 
   # test-pull-requests scanner script
+  file { '/home/jenkins/pr_tests':
+    ensure  => directory,
+    purge   => true,
+    recurse => true,
+  }
+  file { '/home/jenkins/pr_tests/cache':
+    ensure => directory,
+  }
   slave::pr_test_config { [
     'foreman',
     'smart_proxy',
@@ -49,9 +57,6 @@ class slave($github_user = undef,
     'smart_proxy_abrt',
     'smart_proxy_discovery',
   ]: }
-  slave::pr_test_config { 'hammer_cli_katello':
-    ensure => absent,
-  }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { '/home/jenkins/.config':
       ensure => directory,
