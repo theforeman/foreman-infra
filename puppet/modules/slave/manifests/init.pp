@@ -27,11 +27,15 @@ class slave($github_user = undef,
   # test-pull-requests scanner script
   file { '/home/jenkins/pr_tests':
     ensure  => directory,
+    owner   => 'jenkins',
+    group   => 'jenkins',
     purge   => true,
     recurse => true,
   }
   file { '/home/jenkins/pr_tests/cache':
     ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
   }
   slave::pr_test_config { [
     'foreman',
