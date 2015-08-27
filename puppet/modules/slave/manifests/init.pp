@@ -60,6 +60,8 @@ class slave($github_user = undef,
     'foreman_openscap',
     'smart_proxy_abrt',
     'smart_proxy_discovery',
+    'smart_proxy_dynflow',
+    'smart_proxy_remote_execution_ssh',
   ]: }
   if $github_user and $github_oauth and $jenkins_build_token {
     file { '/home/jenkins/.config':

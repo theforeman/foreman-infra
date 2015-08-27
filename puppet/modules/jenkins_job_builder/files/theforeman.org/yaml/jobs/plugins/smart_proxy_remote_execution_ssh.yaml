@@ -1,0 +1,6 @@
+- project:
+    name: smart_proxy_remote_execution_ssh
+    defaults: proxy_plugin
+    branch: master
+    jobs:
+      - 'test_proxy_plugin_{name}_{branch}'
