@@ -30,6 +30,7 @@ define apache::vhost (
 
   # used in ERB templates
   $wwwroot = $apache::params::root
+  $logroot = $apache::params::log
 
   $documentroot = $docroot ? {
     false   => "${wwwroot}/${name}/htdocs",
@@ -153,23 +154,10 @@ define apache::vhost (
       }
 
       # Log files
-      file {"${apache::params::root}/${name}/logs":
-        ensure => directory,
-        owner  => root,
-        group  => root,
-        mode   => '0755',
-        seltype => $::operatingsystem ? {
-          redhat => 'httpd_log_t',
-          CentOS => 'httpd_log_t',
-          default => undef,
-        },
-        require => File["${apache::params::root}/${name}"],
-      }
-
       # We have to give log files to right people with correct rights on them.
       # Those rights have to match those set by logrotate
-      file { ["${apache::params::root}/${name}/logs/access.log",
-              "${apache::params::root}/${name}/logs/error.log"] :
+      file { ["${apache::params::log}/${name}_access.log",
+              "${apache::params::log}/${name}_error.log"] :
         ensure => present,
         owner => root,
         group => adm,
@@ -179,7 +167,6 @@ define apache::vhost (
           CentOS => 'httpd_log_t',
           default => undef,
         },
-        require => File["${apache::params::root}/${name}/logs"],
       }
 
       # Private data
@@ -222,7 +209,6 @@ define apache::vhost (
           default => Package[$apache::params::pkg]},
           File["${apache::params::conf}/sites-available/${name}"],
           File["${apache::params::root}/${name}/htdocs"],
-          File["${apache::params::root}/${name}/logs"],
           File["${apache::params::root}/${name}/conf"]
         ],
         unless  => "/bin/sh -c '[ -L ${apache::params::conf}/sites-enabled/${name} ] \\

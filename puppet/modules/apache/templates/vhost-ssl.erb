@@ -10,8 +10,8 @@
 
   LogLevel warn
 
-  ErrorLog <%= wwwroot %>/<%= name %>/logs/error.log
-  CustomLog <%= wwwroot %>/<%= name %>/logs/access.log combined
+  ErrorLog <%= logroot %>/<%= name %>_error.log
+  CustomLog <%= logroot %>/<%= name %>_access.log combined
 
   Include <%= wwwroot %>/<%= name%>/conf/*.conf
 

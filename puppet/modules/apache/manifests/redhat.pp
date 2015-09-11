@@ -18,7 +18,7 @@ class apache::redhat inherits apache::base {
   }
 
   # the following variables are used in template logrotate-httpd.erb
-  $logrotate_paths = "${apache::params::root}/*/logs/*.log ${apache::params::log}/*log"
+  $logrotate_paths = "${apache::params::log}/*log"
   $httpd_pid_file = $::lsbmajdistrelease ? {
     /4|5/   => '/var/run/httpd.pid',
     default => '/var/run/httpd/httpd.pid',
