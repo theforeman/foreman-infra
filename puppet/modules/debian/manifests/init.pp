@@ -11,26 +11,26 @@ class debian {
       ensure     => present,
       arch       => 'amd64',
       release    => 'wheezy',
-      apturl     => 'http://ftp.de.debian.org/debian',
-      aptcontent => "deb http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\n";
+      apturl     => 'http://ftp.us.debian.org/debian',
+      aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
     'wheezy32':
       ensure     => present,
       arch       => 'i386',
       release    => 'wheezy',
-      apturl     => 'http://ftp.de.debian.org/debian',
-      aptcontent => "deb http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\n";
+      apturl     => 'http://ftp.us.debian.org/debian',
+      aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
     'jessie64':
       ensure     => present,
       arch       => 'amd64',
       release    => 'jessie',
-      apturl     => 'http://ftp.de.debian.org/debian',
-      aptcontent => "deb http://ftp.uk.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ jessie main non-free contrib\n";
+      apturl     => 'http://ftp.us.debian.org/debian',
+      aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
     'jessie32':
       ensure     => present,
       arch       => 'i386',
       release    => 'jessie',
-      apturl     => 'http://ftp.de.debian.org/debian',
-      aptcontent => "deb http://ftp.uk.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ jessie main non-free contrib\n";
+      apturl     => 'http://ftp.us.debian.org/debian',
+      aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
     'precise64':
       ensure     => present,
       arch       => 'amd64',
