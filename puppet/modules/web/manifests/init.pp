@@ -1,7 +1,7 @@
 # $stable::   latest release that users expect
 # $latest::   latest release that we have a manual for, change after copying it
 # $next::     latest release that we don't have a manual for, before copying it
-class web($stable = "1.9", $latest = "1.9", $next = "1.10", $htpasswds = {}) {
+class web($stable = "1.9", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
   include rsync::server
 
   secure_ssh::rsync::receiver_setup { 'web':
