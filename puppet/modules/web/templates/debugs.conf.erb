@@ -13,8 +13,8 @@
     Require valid-user
   </Location>
 
-  ErrorLog /var/log/httpd/debugs_error_log
+  ErrorLog /var/log/httpd/debugs_error.log
   LogLevel warn
-  CustomLog /var/log/httpd/debugs_access_log combined
+  CustomLog /var/log/httpd/debugs_access.log combined
   ServerSignature Off
 </VirtualHost>

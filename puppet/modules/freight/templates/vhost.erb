@@ -9,8 +9,8 @@
   LogLevel warn
   ServerSignature Off
 
-  ErrorLog /var/www/vhosts/<%= @vhost %>/logs/error.log
+  ErrorLog /var/log/httpd/<%= @vhost %>_error.log
   LogLevel warn
-  CustomLog /var/www/vhosts/<%= @vhost %>/logs/access.log combined
+  CustomLog /var/log/httpd/<%= @vhost %>_access.log combined
   ServerSignature Off
 </VirtualHost>

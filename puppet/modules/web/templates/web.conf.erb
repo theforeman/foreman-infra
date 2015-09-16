@@ -13,8 +13,8 @@
   RewriteRule   ^/manuals/latest(.*) /manuals/<%= @stable -%>$1 [R,L]
   RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/<%= @latest -%>$1 [R,L]
 
-  ErrorLog /var/log/httpd/error_log
+  ErrorLog /var/log/httpd/web_error.log
   LogLevel warn
-  CustomLog /var/log/httpd/access_log combined
+  CustomLog /var/log/httpd/web_access.log combined
   ServerSignature Off
 </VirtualHost>
