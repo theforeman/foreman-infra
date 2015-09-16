@@ -7,5 +7,6 @@ Vagrant.configure("2") do |config|
     rs.username = "<%= @username -%>"
     rs.api_key = "<%= @api_key -%>"
     rs.public_key_path = "<%= @ssh_key -%>.pub"
+    rs.rackspace_region = :iad
   end
 end
