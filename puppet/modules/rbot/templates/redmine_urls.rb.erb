@@ -155,11 +155,11 @@ class RedmineUrlsPlugin < Plugin
   # if the channel isn't in the channelmap.
   #
   def base_url(target)
-    "http://theforeman.org"
+    "http://projects.theforeman.org"
   end
 
   def rev_url(base_url, project, num)
-    base_url + '/repositories/revision/' + project + '/' + num
+    base_url + '/projects/' + project + '/repository/revisions/' + num
   end
 
   def pr_url(proj, num, org = "theforeman")
