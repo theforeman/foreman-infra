@@ -83,11 +83,17 @@ fi
 
 # Build the package for the OS using pbuilder
 # needs sudo as pedebuild uses loop and bind mounts
-# TODO: handle 32bit stuff here
-sudo pdebuild-${os}64
-# Only foreman is binary-dependant
-if [ x$project = xforeman ]; then
-  sudo pdebuild-${os}32
+if [ $arch = x86 ]; then
+  sudo pdebuild-${os}64
+fi
+
+# Only build on i386 and non-x86 arches when the binary differs
+if grep -qe "Architecture:\s\+any" debian/control; then
+  if [ $arch = x86 ]; then
+    sudo pdebuild-${os}32
+  else
+    sudo pdebuild-${os}
+  fi
 fi
 
 # Cleanup, pdebuild uses root
