@@ -20,4 +20,6 @@ COMPONENT=${repoowner}-${version}
 # transfers) will parse the path to figure out the repo to send debs to.
 TARGET_PATH="${USER}@${HOST}.theforeman.org:rsync_cache/${os}/${COMPONENT}/"
 
-/usr/bin/rsync -avPx $DEB_PATH/*deb $TARGET_PATH
+if ls $DEB_PATH/*deb >/dev/null 2>&1; then
+  /usr/bin/rsync -avPx $DEB_PATH/*deb $TARGET_PATH
+fi
