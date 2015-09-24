@@ -28,10 +28,7 @@ class utility($sysadmins = ['/dev/null']) {
 
   package { "ruby-shadow":
     ensure => installed,
-    name => $osfamily ? {
-      Debian => "libshadow-ruby1.8",
-      default => "ruby-shadow"
-    }
+    name   => "ruby-shadow",
   }
 
   mailalias { 'sysadmins':
