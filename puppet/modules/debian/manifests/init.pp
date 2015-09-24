@@ -78,43 +78,31 @@ class debian {
           ensure     => present,
           arch       => 'armhf',
           release    => 'precise',
-          apturl     => 'http://de.archive.ubuntu.com/ubuntu/',
-          aptcontent => "deb http://de.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://de.archive.ubuntu.com/ubuntu/ precise main restricted\n";
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports precise main restricted\ndeb-src http://ports.ubuntu.com/ubuntu-ports precise main restricted\n";
         'trusty':
           ensure     => present,
           arch       => 'armhf',
           release    => 'trusty',
-          apturl     => 'http://de.archive.ubuntu.com/ubuntu/',
-          aptcontent => "deb http://de.archive.ubuntu.com/ubuntu/ trusty main restricted universe\ndeb-src http://de.archive.ubuntu.com/ubuntu/ trusty main restricted universe\n";
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\n";
       }
     }
 
     'aarch64': {
       debian::pbuilder_setup {
-        'wheezy':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'wheezy',
-          apturl     => 'http://ftp.uk.debian.org/debian',
-          aptcontent => "deb http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\n";
         'jessie':
           ensure     => present,
           arch       => 'arm64',
           release    => 'jessie',
           apturl     => 'http://ftp.uk.debian.org/debian',
           aptcontent => "deb http://ftp.uk.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ jessie main non-free contrib\n";
-        'precise':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'precise',
-          apturl     => 'http://uk.archive.ubuntu.com/ubuntu/',
-          aptcontent => "deb http://uk.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://uk.archive.ubuntu.com/ubuntu/ precise main restricted\n";
         'trusty':
           ensure     => present,
           arch       => 'arm64',
           release    => 'trusty',
-          apturl     => 'http://uk.archive.ubuntu.com/ubuntu/',
-          aptcontent => "deb http://uk.archive.ubuntu.com/ubuntu/ trusty main restricted universe\ndeb-src http://uk.archive.ubuntu.com/ubuntu/ trusty main restricted universe\n";
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\n";
       }
     }
   }
