@@ -10,9 +10,9 @@
     scm:
       - foreman-proxy
     triggers:
+      - scm_fifteen_minutes
       - github
-      - pollscm: '*/5 * * * *'
-      - schedule-failed-builds: '* * * * *'
+      - schedule_failed_builds
     axes:
       - axis:
           type: user-defined
@@ -38,17 +38,12 @@
     builders:
       - test_proxy
     publishers:
-    - gemset_cleanup
-    - ircbot_freenode
-    - junit:
-        results: 'jenkins/reports/unit/*.xml'
-    - archive:
-        artifacts: 'pkg/*'
-        only-if-success: true
-    - trigger-parameterized-builds:
-      - project: release_nightly_build_rpm, release_nightly_build_deb
-        condition: SUCCESS
-        predefined-parameters: |
-          project=foreman-proxy
-          jenkins_job=${JOB_NAME}
-          jenkins_job_id=${BUILD_NUMBER}
+      - gemset_cleanup
+      - ircbot_freenode
+      - junit:
+          results: 'jenkins/reports/unit/*.xml'
+      - archive:
+          artifacts: 'pkg/*'
+          only-if-success: true
+      - release_nightly_build_foreman:
+          project: foreman-proxy

@@ -1,0 +1,8 @@
+- scm:
+    name: foreman
+    scm:
+      - git:
+         url: git://github.com/theforeman/foreman.git
+         wipe-workspace: true
+         branches:
+          - 'develop'
