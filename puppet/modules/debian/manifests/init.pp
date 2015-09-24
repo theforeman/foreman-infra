@@ -6,55 +6,117 @@ class debian {
 
   package { 'gem2deb': ensure => present }
 
-  debian::pbuilder_setup {
-    'wheezy64':
-      ensure     => present,
-      arch       => 'amd64',
-      release    => 'wheezy',
-      apturl     => 'http://ftp.us.debian.org/debian',
-      aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
-    'wheezy32':
-      ensure     => present,
-      arch       => 'i386',
-      release    => 'wheezy',
-      apturl     => 'http://ftp.us.debian.org/debian',
-      aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
-    'jessie64':
-      ensure     => present,
-      arch       => 'amd64',
-      release    => 'jessie',
-      apturl     => 'http://ftp.us.debian.org/debian',
-      aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
-    'jessie32':
-      ensure     => present,
-      arch       => 'i386',
-      release    => 'jessie',
-      apturl     => 'http://ftp.us.debian.org/debian',
-      aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
-    'precise64':
-      ensure     => present,
-      arch       => 'amd64',
-      release    => 'precise',
-      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
-    'precise32':
-      ensure     => present,
-      arch       => 'i386',
-      release    => 'precise',
-      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
-    'trusty64':
-      ensure     => present,
-      arch       => 'amd64',
-      release    => 'trusty',
-      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
-    'trusty32':
-      ensure     => present,
-      arch       => 'i386',
-      release    => 'trusty',
-      apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-      aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
+  case $architecture {
+    'amd64': {
+      debian::pbuilder_setup {
+        'wheezy64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'wheezy',
+          apturl     => 'http://ftp.us.debian.org/debian',
+          aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
+        'wheezy32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'wheezy',
+          apturl     => 'http://ftp.us.debian.org/debian',
+          aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
+        'jessie64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'jessie',
+          apturl     => 'http://ftp.us.debian.org/debian',
+          aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
+        'jessie32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'jessie',
+          apturl     => 'http://ftp.us.debian.org/debian',
+          aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
+        'precise64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'precise',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
+        'precise32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'precise',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
+        'trusty64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'trusty',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
+        'trusty32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'trusty',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
+      }
+    }
+
+    'armv7l': {
+      debian::pbuilder_setup {
+        'wheezy':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'wheezy',
+          apturl     => 'http://ftp.de.debian.org/debian',
+          aptcontent => "deb http://ftp.de.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ wheezy main non-free contrib\n";
+        'jessie':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'jessie',
+          apturl     => 'http://ftp.de.debian.org/debian',
+          aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
+        'precise':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'precise',
+          apturl     => 'http://de.archive.ubuntu.com/ubuntu/',
+          aptcontent => "deb http://de.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://de.archive.ubuntu.com/ubuntu/ precise main restricted\n";
+        'trusty':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'trusty',
+          apturl     => 'http://de.archive.ubuntu.com/ubuntu/',
+          aptcontent => "deb http://de.archive.ubuntu.com/ubuntu/ trusty main restricted universe\ndeb-src http://de.archive.ubuntu.com/ubuntu/ trusty main restricted universe\n";
+      }
+    }
+
+    'aarch64': {
+      debian::pbuilder_setup {
+        'wheezy':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'wheezy',
+          apturl     => 'http://ftp.uk.debian.org/debian',
+          aptcontent => "deb http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ wheezy main non-free contrib\n";
+        'jessie':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'jessie',
+          apturl     => 'http://ftp.uk.debian.org/debian',
+          aptcontent => "deb http://ftp.uk.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ jessie main non-free contrib\n";
+        'precise':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'precise',
+          apturl     => 'http://uk.archive.ubuntu.com/ubuntu/',
+          aptcontent => "deb http://uk.archive.ubuntu.com/ubuntu/ precise main restricted\ndeb-src http://uk.archive.ubuntu.com/ubuntu/ precise main restricted\n";
+        'trusty':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'trusty',
+          apturl     => 'http://uk.archive.ubuntu.com/ubuntu/',
+          aptcontent => "deb http://uk.archive.ubuntu.com/ubuntu/ trusty main restricted universe\ndeb-src http://uk.archive.ubuntu.com/ubuntu/ trusty main restricted universe\n";
+      }
+    }
   }
 
   # Add freight setup
