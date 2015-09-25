@@ -6,7 +6,6 @@ class web::uploader {
   secure_ssh::rsync::uploader_key { 'web':
     user       => 'jenkins',
     dir        => '/var/lib/workspace/workspace',
-    manage_dir => true,
   }
 
 }
