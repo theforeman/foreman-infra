@@ -10,6 +10,12 @@ class slave($github_user = undef,
     group  => 'jenkins',
   }
 
+  file { '/var/lib/workspace/workspace':
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
+
   file { '/home/jenkins/.gitconfig':
     ensure => file,
     owner  => 'jenkins',
