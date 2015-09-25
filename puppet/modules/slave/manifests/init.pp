@@ -296,7 +296,7 @@ class slave($github_user = undef,
     }
   }
 
-  if $rackspace_username and $rackspace_api_key {
+  if $rackspace_username and $rackspace_api_key and ($architecture == 'x86_64' or $architecture == 'amd64') {
     class { 'slave::vagrant':
       username => $rackspace_username,
       api_key  => $rackspace_api_key,
