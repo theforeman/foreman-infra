@@ -79,3 +79,6 @@
 [submodule "puppet/modules/vcsrepo"]
 	path = puppet/modules/vcsrepo
 	url = https://github.com/puppetlabs/puppetlabs-vcsrepo
+[submodule "puppet/modules/external_ip"]
+	path = puppet/modules/external_ip
+	url = https://github.com/nightfly19/puppet-external_ip

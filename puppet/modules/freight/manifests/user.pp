@@ -12,7 +12,7 @@ define freight::user (
     # script to handle deployment too
     secure_ssh::receiver_setup { $user:
       user           => $user,
-      foreman_search => 'host.hostgroup = Debian and name = ipaddress',
+      foreman_search => 'host.hostgroup = Debian and name = external_ip4',
       script_content => template('freight/rsync_main.erb'),
       ssh_key_name   => "rsync_${user}_key",
     }
@@ -30,7 +30,7 @@ define freight::user (
   } else {
     secure_ssh::rsync::receiver_setup { $user:
       user           => $user,
-      foreman_search => 'host.hostgroup = Debian and name = ipaddress',
+      foreman_search => 'host.hostgroup = Debian and name = external_ip4',
       script_content => template('freight/rsync.erb'),
     }
   }
