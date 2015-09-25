@@ -25,6 +25,11 @@
           - trusty
       - axis:
           type: slave
+          name: arch
+          values:
+          - x86
+      - axis:
+          type: slave
           name: label
           values:
           - debian
