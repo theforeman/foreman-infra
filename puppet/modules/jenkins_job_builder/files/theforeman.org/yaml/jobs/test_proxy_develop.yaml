@@ -44,7 +44,7 @@
         results: 'jenkins/reports/unit/*.xml'
     - archive:
         artifacts: 'pkg/*'
-        only-successful: true
+        only-if-success: true
     - trigger-parameterized-builds:
       - project: release_nightly_build_rpm, release_nightly_build_deb
         condition: SUCCESS
