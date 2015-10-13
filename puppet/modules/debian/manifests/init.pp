@@ -38,13 +38,13 @@ class debian {
           arch       => 'amd64',
           release    => 'precise',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\n";
         'precise32':
           ensure     => present,
           arch       => 'i386',
           release    => 'precise',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted\n";
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\n";
         'trusty64':
           ensure     => present,
           arch       => 'amd64',
@@ -79,7 +79,7 @@ class debian {
           arch       => 'armhf',
           release    => 'precise',
           apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports precise main restricted\ndeb-src http://ports.ubuntu.com/ubuntu-ports precise main restricted\n";
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports precise main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports precise main restricted universe\n";
         'trusty':
           ensure     => present,
           arch       => 'armhf',
