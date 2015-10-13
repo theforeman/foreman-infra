@@ -14,7 +14,11 @@ define debian::pbuilder_setup (
     methodurl => $apturl,
   }
 
-  file { "/etc/pbuilder/${name}/apt.config/debian.list":
+  file { "/etc/pbuilder/${name}/apt.config/sources.list.d":
+    ensure  => directory,
+  }
+
+  file { "/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list":
     ensure  => $ensure,
     notify  => Exec["update_pbuilder_${name}"],
     content => $aptcontent,
