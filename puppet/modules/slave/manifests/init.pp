@@ -238,7 +238,7 @@ class slave($github_user = undef,
       version => 'ruby-2.1.5',
     }
     slave::rvm_config { 'ruby-2.2':
-      version => 'ruby-2.2.1',
+      version => 'ruby-2.2.3',
     }
 
     # Cleanup log dirs
