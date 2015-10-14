@@ -3,6 +3,6 @@
     defaults: plugin
     branch:
       - master:
-          foreman_branch: 1.9-stable
+          foreman_branch: 1.10-stable
     jobs:
       - 'test_plugin_{name}_{branch}'
