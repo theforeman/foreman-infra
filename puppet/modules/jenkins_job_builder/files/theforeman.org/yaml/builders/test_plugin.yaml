@@ -1,0 +1,4 @@
+- builder:
+    name: test_plugin
+    builders:
+      - shell: !include-raw scripts/test/test_plugin.sh

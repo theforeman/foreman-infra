@@ -1,0 +1,71 @@
+- job:
+    name: test_plugin_matrix
+    project-type: matrix
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    parameters:
+      - string:
+          name: plugin_repo
+          default:
+          description: "Git URL containing the Foreman plugin, e.g. <pre>https://github.com/theforeman/foreman_example</pre>"
+      - string:
+          name: plugin_branch
+          default: master
+          description: "Git branch name of the Foreman plugin, e.g. <pre>master</pre>"
+      - string:
+          name: plugin_name
+          default:
+          description: "Name of the Foreman plugin/gem, in the format that should be in the Gemfile, e.g. <pre>foreman_test</pre>"
+      - string:
+          name: foreman_repo
+          default: https://github.com/theforeman/foreman
+          description: "Git URL containing Foreman itself, which the plugin will be added to,
+          e.g. <pre>https://github.com/theforeman/foreman</pre>"
+      - string:
+          name: foreman_branch
+          default: develop
+          description: "Git branch name of Foreman itself, e.g. <pre>develop</pre>"
+    concurrent: true
+    scm:
+      - git:
+          url: ${foreman_repo}
+          branches:
+            - upstream/${foreman_branch}
+          basedir: 'foreman'
+          prune: true
+          wipe-workspace: true
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 1.9.3
+            - 2.0.0
+            - 2.1
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql 
+            - mysql
+            - sqlite3
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - fast
+    execution-strategy:
+      combination-filter: "!(foreman_branch == '1.7-stable' && ruby == '2.1')"
+    wrappers:
+      - default_xvfb
+      - timestamps
+      - abort_build:
+          timeout_min: 120
+    builders:
+      - clone_repository
+      - test_plugin
+    publishers:
+      - gemset_cleanup
+      - junit:
+          results: 'foreman/jenkins/reports/unit/*.xml'

@@ -10,9 +10,8 @@
     builders:
       - systest_foreman
     wrappers:
-      - timeout:
-          timeout: 60
-          type: absolute
+      - abort_build:
+          timeout_min: 60
     parameters:
       - string:
           name: repo
