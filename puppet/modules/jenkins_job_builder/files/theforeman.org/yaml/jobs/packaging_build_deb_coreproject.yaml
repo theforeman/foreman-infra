@@ -28,13 +28,14 @@
           name: arch
           values:
           - x86
+          - armv7
       - axis:
           type: slave
           name: label
           values:
           - debian
     execution-strategy:
-      combination-filter: '(onlyos == "all") || onlyos == os'
+      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "wheezy" || os == "precise"))'
     builders:
       - build_deb_coreproject
     publishers:
