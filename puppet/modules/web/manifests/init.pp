@@ -80,6 +80,10 @@ class web($stable = "1.9", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
     ensure => link,
     target => $stable,
   }
+  file { "/var/www/vhosts/yum/htdocs/releases/nightly":
+    ensure => link,
+    target => "../nightly",
+  }
   file { "/var/www/vhosts/yum/htdocs/plugins/latest":
     ensure => link,
     target => $stable,
