@@ -1,0 +1,12 @@
+- wrapper:
+    name: default_xvfb
+    wrappers:
+      - xvfb:
+          installation-name: system
+          auto-display-name: false
+          parallel-build: false
+          timeout: 0
+          screen: 1024x768x24
+          display-name-offset: 1
+          debug: false
+          shutdown-with-build: false

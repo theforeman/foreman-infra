@@ -1,0 +1,51 @@
+- job:
+    name: test_develop
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 32
+    properties:
+      - github_foreman
+    scm:
+      - foreman
+    triggers:
+      - scm_fifteen_minutes
+      - github
+      - schedule_failed_builds
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 1.9.3
+            - 2.0.0
+            - 2.1
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql
+            - mysql
+            - sqlite3
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - fast
+    builders:
+      - test_develop
+    publishers:
+      - gemset_cleanup
+      - ircbot_freenode
+      - archive:
+          artifacts: 'pkg/*,Gemfile.lock'
+          only-if-success: false
+      - junit:
+          results: 'jenkins/reports/unit/*.xml'
+      - release_nightly_build_foreman:
+          project: foreman
+      - trigger-parameterized-builds:
+        - project: test_katello
+          condition: SUCCESS
+    wrappers:
+      - default_xvfb

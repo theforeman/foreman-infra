@@ -1,0 +1,4 @@
+- trigger:
+    name: scm_fifteen_minutes
+    triggers:
+      - pollscm: 'H/15 * * * *'
