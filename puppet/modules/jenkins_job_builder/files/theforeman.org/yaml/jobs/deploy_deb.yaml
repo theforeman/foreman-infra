@@ -24,6 +24,5 @@
           default: nightly
           description: 'Repo on staging-deb to consume. This will have "theforeman-" prefixed automatically, so e.g. nightly, 1.6'
     wrappers:
-      - timeout:
-          timeout: 30
-          type: absolute
+      - abort_build:
+          timeout_min: 30

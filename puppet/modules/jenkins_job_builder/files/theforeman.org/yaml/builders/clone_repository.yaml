@@ -1,0 +1,4 @@
+- builder:
+    name: clone_repository
+    builders:
+      - shell: !include-raw scripts/clone_repository.sh
