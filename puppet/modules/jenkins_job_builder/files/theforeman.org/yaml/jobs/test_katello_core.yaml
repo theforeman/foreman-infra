@@ -1,0 +1,36 @@
+- job:
+    name: test_katello_core
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 32
+    properties:
+      - github_katello
+    scm:
+      - katello
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 1.9.3
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - fast
+    builders:
+      - clone_foreman
+      - test_katello
+    publishers:
+      - archive:
+          artifacts: 'plugin/pkg/*,Gemfile.lock'
+          only-if-success: false
+      - gemset_cleanup
+      - junit:
+          results: 'foreman/jenkins/reports/unit/*.xml'
