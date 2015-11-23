@@ -31,7 +31,7 @@
       - git:
           url: ${foreman_repo}
           branches:
-            - upstream/${foreman_branch}
+            - origin/${foreman_branch}
           basedir: 'foreman'
           prune: true
           wipe-workspace: true
