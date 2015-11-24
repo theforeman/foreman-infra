@@ -6,6 +6,11 @@
       numToKeep: 32
     properties:
       - github_katello
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: "Branch to run test suite on"
     scm:
       - katello
     axes:
