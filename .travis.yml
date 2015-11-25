@@ -1,0 +1,10 @@
+sudo: false
+language: ruby
+rvm: 2.0.0
+install:
+  - git clone --depth 1 -b local git://github.com/theforeman/jenkins-job-builder.git
+  - (cd jenkins-job-builder && pip install --user -r requirements.txt && pip install --user .)
+  - (cd puppet && bundle install)
+script:
+  - for d in puppet/modules/jenkins_job_builder/files/*; do (cd $d && jenkins-jobs -l debug test -r .); done
+  - (cd puppet && rake syntax)

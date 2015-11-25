@@ -1,0 +1,4 @@
+source 'https://rubygems.org'
+
+gem 'puppet-syntax'
+gem 'puppet', '~> 3.5'
