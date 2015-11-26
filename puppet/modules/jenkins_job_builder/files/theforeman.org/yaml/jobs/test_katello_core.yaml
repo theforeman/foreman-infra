@@ -19,6 +19,7 @@
           name: ruby
           values:
             - 1.9.3
+            - 2.1
       - axis:
           type: user-defined
           name: database
