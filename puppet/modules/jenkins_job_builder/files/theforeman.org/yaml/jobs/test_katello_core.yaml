@@ -11,6 +11,7 @@
           name: branch
           default: master
           description: "Branch to run test suite on"
+    concurrent: true
     scm:
       - katello
     axes:
