@@ -1,0 +1,40 @@
+- job:
+    name: test_hammer_cli_foreman
+    project-type: matrix
+    concurrent: true
+    logrotate:
+      daysToKeep: 14
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/theforeman/hammer-cli-foreman
+    scm:
+      - hammer_cli_foreman
+    triggers:
+      - scm_fifteen_minutes
+      - github
+      - schedule_failed_builds
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 1.9.3
+            - 2.0.0
+    builders:
+      - test_hammer_cli_foreman
+    publishers:
+      - archive:
+          artifacts: 'pkg/*'
+      - gemset_cleanup
+      - junit:
+          results: 'test/reports/*.xml'
+          health-scale-factor: 1.0
+      - ircbot_freenode
+      - trigger-parameterized-builds:
+        - project: release_nightly_build_rpm
+          condition: SUCCESS
+          predefined-parameters: |
+            project=rubygem-hammer_cli_foreman
+            jenkins_job=${JOB_NAME}
+            jenkins_job_id=${BUILD_NUMBER}
