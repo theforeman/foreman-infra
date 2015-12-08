@@ -11,6 +11,10 @@
           name: branch
           default: master
           description: "Branch to run test suite on"
+      - string:
+          name: foreman_branch
+          default: develop
+          description: "Foreman branch to run test suite against"
     concurrent: true
     scm:
       - katello
