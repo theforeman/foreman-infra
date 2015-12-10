@@ -37,6 +37,7 @@
             - el7
     builders:
       - clone_foreman
+      - gemset_create
       - test_katello
     publishers:
       - archive:

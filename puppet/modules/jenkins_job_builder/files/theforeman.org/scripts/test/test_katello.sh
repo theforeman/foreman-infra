@@ -27,15 +27,6 @@ mkdir config/settings.plugins.d
 sed -e 's/:locations_enabled: false/:locations_enabled: true/' $APP_ROOT/config/settings.yaml.example > $APP_ROOT/config/settings.yaml
 sed -i 's/:organizations_enabled: false/:organizations_enabled: true/' $APP_ROOT/config/settings.yaml
 
-# RVM Ruby environment
-. /etc/profile.d/rvm.sh
-# Use a gemset unique to each executor to enable parallel builds
-gemset=$(echo ${JOB_NAME} | cut -d/ -f1)-${EXECUTOR_NUMBER}
-rvm use ruby-${ruby}@${gemset} --create
-rvm gemset empty --force
-gem update --no-ri --no-rdoc
-gem install bundler --no-ri --no-rdoc
-
 # Now let's introduce the plugin
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb
 

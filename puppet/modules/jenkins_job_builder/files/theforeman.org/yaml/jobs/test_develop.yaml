@@ -33,6 +33,7 @@
           values:
             - fast
     builders:
+      - gemset_create
       - test_develop
     publishers:
       - gemset_cleanup
