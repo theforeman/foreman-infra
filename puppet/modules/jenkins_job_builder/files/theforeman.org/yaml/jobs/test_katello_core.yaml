@@ -34,7 +34,7 @@
           type: label-expression
           name: slave
           values:
-            - fast
+            - el7
     builders:
       - clone_foreman
       - test_katello
