@@ -113,7 +113,7 @@ class RedmineUrlsPlugin < Plugin
     when /K\#(?:([a-z_\.-]+)\/)?(\d+)/i:
       [pr_url($1, $2, "katello"), :pullreq]
 
-    when /\#(\d{3,})/:
+    when /\#(\d{3,})(?!\])/:
       [bug_url(base, project, $1), :ticket]
 
     when /wiki:([\w-]+\#?[\w-]+)/:
