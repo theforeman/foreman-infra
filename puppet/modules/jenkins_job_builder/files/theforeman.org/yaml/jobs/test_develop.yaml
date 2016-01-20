@@ -4,6 +4,7 @@
     logrotate:
       daysToKeep: -1
       numToKeep: 32
+    quiet-period: 900
     properties:
       - github_foreman
     scm:
