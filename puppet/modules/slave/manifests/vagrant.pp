@@ -25,7 +25,7 @@ class slave::vagrant($username, $api_key) {
     source   => '/root/vagrant_package',
     provider => $vagrant_provider,
   } ->
-  exec { 'vagrant plugin install vagrant-rackspace':
+  exec { 'vagrant plugin install --plugin-version 0.1.6 vagrant-rackspace':
     unless      => 'vagrant plugin list | grep vagrant-rackspace',
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
     user        => 'jenkins',
