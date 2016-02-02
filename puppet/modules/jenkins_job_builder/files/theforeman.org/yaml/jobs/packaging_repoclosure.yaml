@@ -18,6 +18,10 @@
           default: el6
           description: "OS code, e.g. <code>el6</code>, <code>f18</code>"
       - string:
+          name: predefined_lookasides
+          default: ''
+          description: "Comma separated list of predefined repos to enable as defined in https://github.com/theforeman/foreman-packaging/tree/rpm/develop/repoclosure"
+      - string:
           name: foreman_lookasides
           default: ''
           description: "Comma separated list of published Foreman lookaside repos that exist on http://yum.theforeman.org"
