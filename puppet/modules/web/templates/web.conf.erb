@@ -1,20 +1,8 @@
-# file managed by puppet
-<VirtualHost *:80>
-  ServerName theforeman.org
-  ServerAlias www.theforeman.org
+RewriteEngine on
+RewriteRule   ^/projects(.*)  http://projects.theforeman.org/projects$1  [R,L]
+RewriteRule   ^/issues(.*)  http://projects.theforeman.org/issues$1  [R,L]
+RewriteRule   ^/versions(.*)  http://projects.theforeman.org/versions$1  [R,L]
+RewriteRule   ^/wiki(.*)  http://projects.theforeman.org/wiki$1  [R,L]
 
-  DocumentRoot /var/www/vhosts/web/htdocs
-  RewriteEngine on
-  RewriteRule   ^/projects(.*)  http://projects.theforeman.org/projects$1  [R,L]
-  RewriteRule   ^/issues(.*)  http://projects.theforeman.org/issues$1  [R,L]
-  RewriteRule   ^/versions(.*)  http://projects.theforeman.org/versions$1  [R,L]
-  RewriteRule   ^/wiki(.*)  http://projects.theforeman.org/wiki$1  [R,L]
-
-  RewriteRule   ^/manuals/latest(.*) /manuals/<%= @stable -%>$1 [R,L]
-  RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/<%= @latest -%>$1 [R,L]
-
-  ErrorLog /var/log/httpd/web_error.log
-  LogLevel warn
-  CustomLog /var/log/httpd/web_access.log combined
-  ServerSignature Off
-</VirtualHost>
+RewriteRule   ^/manuals/latest(.*) /manuals/<%= @stable -%>$1 [R,L]
+RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/<%= @latest -%>$1 [R,L]

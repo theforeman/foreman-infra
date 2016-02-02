@@ -4,45 +4,41 @@
 class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
   include rsync::server
 
+  # WWW
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
     foreman_search => 'host = slave01.rackspace.theforeman.org and name = external_ip4',
     script_content => template('web/rsync.erb')
   }
-
-  file { "/etc/httpd/conf.d/welcome.conf":
-    ensure => absent
-  }
-
   apache::vhost { "web":
-    ensure         => present,
-    config_content => template("web/web.conf.erb"),
-    user           => 'website',
-    group          => 'website',
-    mode           => 0755,
+    servername      => 'theforeman.org',
+    serveraliases   => ['www.theforeman.org'],
+    docroot         => '/var/www/vhosts/web/htdocs',
+    docroot_owner   => 'website',
+    docroot_group   => 'website',
+    docroot_mode    => 0755,
+    custom_fragment => template("web/web.conf.erb"),
   }
 
+  # DEBUGS
   apache::vhost { "debugs":
-    ensure         => present,
-    config_content => template("web/debugs.conf.erb"),
-    user           => 'nobody',
-    group          => 'nobody',
-    mode           => 0755,
+    servername      => 'debugs.theforeman.org',
+    docroot         => '/var/www/vhosts/debugs/htdocs',
+    docroot_owner   => 'nobody',
+    docroot_group   => 'nobody',
+    docroot_mode    => 0755,
+    custom_fragment => template("web/debugs.conf.erb"),
   }
-
-  apache::module { "expires":
-    ensure => present,
-    notify => Exec["apache-graceful"],
-  }
-  apache::vhost { "yum":
-    ensure      => present,
-    config_file => "puppet:///modules/web/yum.theforeman.org.conf",
-    mode        => 2575,
-  }
-
-  # Auths
   # takes a hash like: { 'user' => { 'vhost' => 'debugs', passwd => 'secret' }
   create_resources(web::htpasswd, $htpasswds)
+
+  # YUM
+  apache::vhost { "yum":
+    servername      => 'yum.theforeman.org',
+    docroot         => '/var/www/vhosts/yum/htdocs',
+    docroot_mode    => 2575,
+    custom_fragment => template('web/yum.conf.erb'),
+  }
 
   rsync::server::module { 'yum':
     path      => '/var/www/vhosts/yum/htdocs',
@@ -89,10 +85,11 @@ class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
     target => $stable,
   }
 
+  # DOWNLOADS
   apache::vhost { "downloads":
-    ensure      => present,
-    config_file => "puppet:///modules/web/downloads.theforeman.org.conf",
-    mode        => 2575,
+    servername   => 'downloads.theforeman.org',
+    docroot      => '/var/www/vhosts/downloads/htdocs',
+    docroot_mode => 2575,
   }
   rsync::server::module { 'downloads':
     path      => '/var/www/vhosts/downloads/htdocs',

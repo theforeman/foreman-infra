@@ -1,1 +1,0 @@
-LoadModule dav_fs_module modules/mod_dav_fs.so
