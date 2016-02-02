@@ -1,8 +1,52 @@
 # $stable::   latest release that users expect
 # $latest::   latest release that we have a manual for, change after copying it
 # $next::     latest release that we don't have a manual for, before copying it
-class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
+#
+# All vhosts can be protected by a single SSL cert with additional names added in the certonly
+# $domains parameter below.
+#
+# $https:: to request an LE cert via webroot mode, the HTTP vhost must be up.  To start httpd, the
+#          certs have to exist, so keep SSL vhosts disabled until the certs are present via the HTTP
+#          vhost and only then enable the SSL vhosts.
+class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}, $https = false) {
+  include apache
   include rsync::server
+
+  class { 'letsencrypt':
+    email => 'foreman-infra-notifications@googlegroups.com'
+  }
+
+  letsencrypt::certonly { 'theforeman.org':
+    plugin        => 'webroot',
+    manage_cron   => false,
+    # domain / webroot_paths must match exactly
+    domains       => [
+      'theforeman.org',
+      'deb.theforeman.org',
+      'debugs.theforeman.org',
+      'downloads.theforeman.org',
+      'stagingdeb.theforeman.org',
+      'www.theforeman.org',
+      'yum.theforeman.org',
+    ],
+    webroot_paths => [
+      '/var/www/vhosts/web/htdocs',
+      '/var/www/vhosts/deb/htdocs',
+      '/var/www/vhosts/debugs/htdocs',
+      '/var/www/vhosts/downloads/htdocs',
+      '/var/www/vhosts/stagingdeb/htdocs',
+      '/var/www/vhosts/web/htdocs',
+      '/var/www/vhosts/yum/htdocs',
+    ],
+  }
+
+  cron { 'letsencrypt_renew':
+    command => '/usr/bin/certbot renew --renew-hook "/sbin/service httpd reload"',
+    user    => root,
+    weekday => '6',
+    hour    => '3',
+    minute  => '27'
+  }
 
   if $selinux {
     include selinux
@@ -20,8 +64,7 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
     foreman_search => 'host = slave01.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
     script_content => template('web/rsync.erb')
   }
-  apache::vhost { "web":
-    port            => '80',
+  $web_attrs = {
     servername      => 'theforeman.org',
     serveraliases   => ['www.theforeman.org'],
     docroot         => '/var/www/vhosts/web/htdocs',
@@ -32,8 +75,7 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
   }
 
   # DEBUGS
-  apache::vhost { "debugs":
-    port            => '80',
+  $debugs_attrs = {
     servername      => 'debugs.theforeman.org',
     docroot         => '/var/www/vhosts/debugs/htdocs',
     docroot_owner   => 'nobody',
@@ -45,8 +87,7 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
   create_resources(web::htpasswd, $htpasswds)
 
   # YUM
-  apache::vhost { "yum":
-    port            => '80',
+  $yum_attrs = {
     servername      => 'yum.theforeman.org',
     docroot         => '/var/www/vhosts/yum/htdocs',
     docroot_mode    => 2575,
@@ -99,8 +140,7 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
   }
 
   # DOWNLOADS
-  apache::vhost { "downloads":
-    port         => '80',
+  $downloads_attrs = {
     servername   => 'downloads.theforeman.org',
     docroot      => '/var/www/vhosts/downloads/htdocs',
     docroot_mode => 2575,
@@ -119,6 +159,40 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
     group  => 'root',
     mode   => 0644,
     source => 'puppet:///modules/web/downloads-HEADER.html',
+  }
+
+  # Create the vhosts defined above
+  create_resources(
+    'apache::vhost',
+    {
+      'debugs'    => $debugs_attrs,
+      'downloads' => $downloads_attrs,
+      'web'       => $web_attrs,
+      'yum'       => $yum_attrs,
+    },
+    {
+      'port' => '80',
+    }
+  )
+
+  if $https {
+    create_resources(
+      'apache::vhost',
+      {
+        'debugs-https'    => $debugs_attrs,
+        'downloads-https' => $downloads_attrs,
+        'web-https'       => $web_attrs,
+        'yum-https'       => $yum_attrs,
+      },
+      {
+        'port'      => '443',
+        'ssl'       => true,
+        'ssl_cert'  => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
+        'ssl_chain' => '/etc/letsencrypt/live/theforeman.org/chain.pem',
+        'ssl_key'   => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
+        'require'   => Letsencrypt::Certonly['theforeman.org'],
+      }
+    )
   }
 
   # METRICS

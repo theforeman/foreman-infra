@@ -92,3 +92,9 @@
 [submodule "puppet/modules/selinux"]
 	path = puppet/modules/selinux
 	url = https://github.com/jfryman/puppet-selinux.git
+[submodule "puppet/modules/letsencrypt"]
+	path = puppet/modules/letsencrypt
+	url = https://github.com/danzilio/puppet-letsencrypt.git
+[submodule "puppet/modules/inifile"]
+	path = puppet/modules/inifile
+	url = https://github.com/puppetlabs/puppetlabs-inifile.git

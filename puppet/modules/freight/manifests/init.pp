@@ -12,7 +12,7 @@
 #
 #   You probably want to point a vhost at $freight_home
 #
-class freight {
+class freight($https = false) {
 
   class { 'freight::install': }~>
   class { 'freight::config':  }

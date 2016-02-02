@@ -8,6 +8,7 @@ class freight::config {
     webdir       => '/var/www/vhosts/deb/htdocs',
     stagedir     => '/var/www/freight',
     vhost        => 'deb',
+    vhost_https  => $freight::https,
     cron_matches => ['nightly','scratch']
   }
 
@@ -17,6 +18,7 @@ class freight::config {
     webdir       => '/var/www/vhosts/stagingdeb/htdocs',
     stagedir     => '/var/www/freightstage',
     vhost        => 'stagingdeb',
+    vhost_https  => $freight::https,
     cron_matches => 'all'
   }
 

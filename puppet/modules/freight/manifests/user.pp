@@ -4,6 +4,7 @@ define freight::user (
   $webdir       = "${home}/web",
   $stagedir     = "${home}/staged",
   $vhost        = 'deb',
+  $vhost_https  = false,
   $cron_matches = 'all',
 ) {
 
@@ -65,6 +66,22 @@ define freight::user (
     docroot_group   => $user,
     docroot_mode    => 0755,
     custom_fragment => template('freight/vhost.erb'),
+  }
+
+  if $vhost_https {
+    apache::vhost { "${vhost}-https":
+      port            => '443',
+      servername      => "${vhost}.theforeman.org",
+      docroot         => $webdir,
+      docroot_owner   => $user,
+      docroot_group   => $user,
+      docroot_mode    => 0755,
+      ssl             => true,
+      ssl_cert        => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
+      ssl_chain       => '/etc/letsencrypt/live/theforeman.org/chain.pem',
+      ssl_key         => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
+      custom_fragment => template('freight/vhost.erb'),
+    }
   }
 
   include rsync::server
