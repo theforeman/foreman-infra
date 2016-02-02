@@ -76,6 +76,9 @@ class redmine::cron {
     'hammer-cli-csv'            => { 'git_url' => 'https://github.com/Katello/hammer-cli-csv.git',
                                      'project_name' => 'katello',
                                      'subrepo_id' => 'hammer-cli-csv' },
+    'runcible'                  => { 'git_url' => 'https://github.com/Katello/runcible.git',
+                                     'project_name' => 'katello',
+                                     'subrepo_id' => 'runcible' },
   }
 
   create_resources(redmine::repo,$repos)
