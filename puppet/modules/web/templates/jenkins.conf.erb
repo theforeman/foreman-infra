@@ -1,13 +1,8 @@
-# file managed by puppet
-<VirtualHost *:80>
-  ServerAdmin foreman-dev@googlegroups.com
-  ServerName <%= @hostname %>
-  ProxyRequests Off
-  <Proxy *>
-    Order deny,allow
-    Allow from all
-  </Proxy>
-  ProxyPreserveHost on
-  ProxyPass / http://localhost:8080/ nocanon
-  ProxyPassReverse / http://localhost:8080/
-</VirtualHost>
+ProxyRequests Off
+<Proxy *>
+  Order deny,allow
+  Allow from all
+</Proxy>
+ProxyPreserveHost on
+ProxyPass / http://localhost:8080/ nocanon
+ProxyPassReverse / http://localhost:8080/
