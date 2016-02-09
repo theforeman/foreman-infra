@@ -1,1 +1,0 @@
-LoadModule mem_cache_module modules/mod_mem_cache.so

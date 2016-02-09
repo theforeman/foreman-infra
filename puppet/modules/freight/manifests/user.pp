@@ -58,11 +58,12 @@ define freight::user (
 
   # Website resources
   apache::vhost { $vhost:
-    ensure         => present,
-    config_content => template('freight/vhost.erb'),
-    user           => $user,
-    group          => $user,
-    mode           => 0755,
+    servername      => "${vhost}.theforeman.org",
+    docroot         => $webdir,
+    docroot_owner   => $user,
+    docroot_group   => $user,
+    docroot_mode    => 0755,
+    custom_fragment => template('freight/vhost.erb'),
   }
 
   include rsync::server

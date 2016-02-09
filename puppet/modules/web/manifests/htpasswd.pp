@@ -2,11 +2,9 @@ define web::htpasswd(
   $vhost,
   $passwd = undef
 ) {
-  apache::auth::htpasswd {"${name} in ${vhost}":
-    ensure           => present,
-    userFileLocation => "/var/www/vhosts/${vhost}",
-    userFileName     => "htpasswd",
-    username         => $name,
-    clearPassword    => $passwd,
+  httpauth { $name:
+    ensure   => present,
+    file     => "/var/www/vhosts/${vhost}/htpasswd",
+    password => $passwd,
   }
 }

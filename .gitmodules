@@ -82,3 +82,10 @@
 [submodule "puppet/modules/external_ip"]
 	path = puppet/modules/external_ip
 	url = https://github.com/nightfly19/puppet-external_ip
+[submodule "puppet/modules/apache"]
+	path = puppet/modules/apache
+	url = https://github.com/puppetlabs/puppetlabs-apache.git
+	branch = 1.8.x
+[submodule "puppet/modules/httpauth"]
+	path = puppet/modules/httpauth
+	url = https://github.com/jamtur01/jamtur01-httpauth.git

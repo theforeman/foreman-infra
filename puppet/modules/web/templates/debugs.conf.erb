@@ -1,20 +1,6 @@
-# file managed by puppet
-<VirtualHost *:80>
-  ServerName debugs.theforeman.org
-
-  DocumentRoot /var/www/vhosts/debugs/htdocs
-
-  <Location />
-    Options Indexes
-
-    AuthType Basic
-    AuthName "Foreman-debug uploads - restricted area"
-    AuthUserFile /var/www/vhosts/debugs/htpasswd
-    Require valid-user
-  </Location>
-
-  ErrorLog /var/log/httpd/debugs_error.log
-  LogLevel warn
-  CustomLog /var/log/httpd/debugs_access.log combined
-  ServerSignature Off
-</VirtualHost>
+<Location />
+  AuthType Basic
+  AuthName "Foreman-debug uploads - restricted area"
+  AuthUserFile /var/www/vhosts/debugs/htpasswd
+  Require valid-user
+</Location>
