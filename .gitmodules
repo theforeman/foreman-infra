@@ -89,3 +89,6 @@
 [submodule "puppet/modules/httpauth"]
 	path = puppet/modules/httpauth
 	url = https://github.com/jamtur01/jamtur01-httpauth.git
+[submodule "puppet/modules/selinux"]
+	path = puppet/modules/selinux
+	url = https://github.com/jfryman/puppet-selinux.git

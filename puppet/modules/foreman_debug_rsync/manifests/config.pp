@@ -3,14 +3,6 @@ class foreman_debug_rsync::config {
   include 'rsync'
   include 'rsync::server'
 
-  # Defined by Apache vhost module in ::web
-  #file { $foreman_debug_rsync::base:
-  #  ensure => directory,
-  #  mode   => 775,
-  #  owner  => 'nobody',
-  #  group  => 'nobody',
-  #}
-
   rsync::server::module{ 'debug-incoming':
     path            => $foreman_debug_rsync::base,
     require         => File[$foreman_debug_rsync::base],
@@ -23,9 +15,17 @@ class foreman_debug_rsync::config {
     gid             => 'nobody',
   }
 
-  selboolean { 'allow_rsync_anon_write':
-    persistent => true,
-    value      => 'on',
-  }
+  if $selinux {
+    include selinux
 
+    selinux::boolean { 'allow_rsync_anon_write': }
+
+    package { 'selinux-policy-devel':
+      ensure => installed,
+    } ->
+    selinux::module { 'rsync_debug':
+      ensure => 'present',
+      source => 'puppet:///modules/foreman_debug_rsync/rsync_debug.te',
+    }
+  }
 }
