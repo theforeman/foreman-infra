@@ -11,6 +11,7 @@ class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
     script_content => template('web/rsync.erb')
   }
   apache::vhost { "web":
+    port            => '80',
     servername      => 'theforeman.org',
     serveraliases   => ['www.theforeman.org'],
     docroot         => '/var/www/vhosts/web/htdocs',
@@ -22,6 +23,7 @@ class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
 
   # DEBUGS
   apache::vhost { "debugs":
+    port            => '80',
     servername      => 'debugs.theforeman.org',
     docroot         => '/var/www/vhosts/debugs/htdocs',
     docroot_owner   => 'nobody',
@@ -34,6 +36,7 @@ class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
 
   # YUM
   apache::vhost { "yum":
+    port            => '80',
     servername      => 'yum.theforeman.org',
     docroot         => '/var/www/vhosts/yum/htdocs',
     docroot_mode    => 2575,
@@ -87,6 +90,7 @@ class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
 
   # DOWNLOADS
   apache::vhost { "downloads":
+    port         => '80',
     servername   => 'downloads.theforeman.org',
     docroot      => '/var/www/vhosts/downloads/htdocs',
     docroot_mode => 2575,

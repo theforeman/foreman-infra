@@ -58,6 +58,7 @@ define freight::user (
 
   # Website resources
   apache::vhost { $vhost:
+    port            => '80',
     servername      => "${vhost}.theforeman.org",
     docroot         => $webdir,
     docroot_owner   => $user,
