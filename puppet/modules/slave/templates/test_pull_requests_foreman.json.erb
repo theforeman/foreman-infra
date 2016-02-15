@@ -15,15 +15,33 @@
       "test_prefix": "Test Results:",
       "allow_multiple": true,
       "run_without_trigger": true,
-      "branches": { "develop": {"jenkins_job_name": "test_develop_pull_request",
-                                "downstream_job_name": "test_develop",
-                                "build_token": "<%= jenkins_build_token -%>"
-                                } },
+      "branches": {
+        "develop": {
+          "jenkins_job_name": "test_develop_pull_request",
+          "downstream_job_name": "test_develop",
+          "build_token": "<%= jenkins_build_token -%>"
+        },
+        "1.10-stable": {
+          "jenkins_job_name": "test_develop_pull_request",
+          "downstream_job_name": "true",
+          "build_token": "<%= jenkins_build_token -%>",
+          "addtl_jenkins_params": {
+            "foreman": {
+              "katello_branch": "KATELLO-2.4"
+            }
+          }
+        }
+      },
       "repo_to_orgs": {
         "foreman": ["theforeman", "katello"]
       },
       "repo_to_pull_id_param": {
-        "foreman": {"git_url":"pr_git_url","ref":"pr_git_ref","number":"pr_number"}
+        "foreman": {
+          "git_url": "pr_git_url",
+          "ref": "pr_git_ref",
+          "number": "pr_number",
+          "base_branch": "branch"
+        }
       }
     }
   }
