@@ -7,7 +7,7 @@ class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
   # WWW
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
-    foreman_search => 'host = slave01.rackspace.theforeman.org and name = external_ip4',
+    foreman_search => 'host = slave01.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
     script_content => template('web/rsync.erb')
   }
   apache::vhost { "web":
