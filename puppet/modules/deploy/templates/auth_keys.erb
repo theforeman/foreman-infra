@@ -4,7 +4,7 @@
     array = @allowed_ips
   else
     # Facts hash from Foreman
-    array = @ip_data.values.map{|a| a.values_at('external_ip4', 'external_ip6') }.compact.flatten
+    array = @ip_data.values.map{|a| a.values_at('external_ip4', 'external_ip6') }.flatten.compact
   end
 -%>
 <% array.each do |ip| -%>
