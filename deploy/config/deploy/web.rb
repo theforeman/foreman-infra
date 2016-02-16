@@ -1,7 +1,7 @@
 set :application, "theforeman.org"
 set :repository, "git://github.com/theforeman/theforeman.org.git"
 set :scm, :git
-set :host, "web01.theforeman.org"
+set :host, "theforeman.org"
 set :user_sudo, false
 set :deploy_via, :copy
 set :deploy_to, "/var/www/cap/#{application}"
