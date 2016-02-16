@@ -1,7 +1,7 @@
 # $stable::   latest release that users expect
 # $latest::   latest release that we have a manual for, change after copying it
 # $next::     latest release that we don't have a manual for, before copying it
-class web($stable = "1.10", $latest = "1.10", $next = "1.11", $htpasswds = {}) {
+class web($stable = "1.10", $latest = "1.11", $next = "1.12", $htpasswds = {}) {
   include rsync::server
 
   # WWW
