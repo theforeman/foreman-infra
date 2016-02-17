@@ -23,8 +23,6 @@
           type: user-defined
           name: ruby
           values:
-            - 1.9.3
-            - 2.1
             - 2.2
       - axis:
           type: user-defined
