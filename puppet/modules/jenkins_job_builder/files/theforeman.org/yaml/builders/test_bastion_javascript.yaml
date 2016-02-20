@@ -1,0 +1,4 @@
+- builder:
+    name: test_bastion_javascript
+    builders:
+      - shell: !include-raw scripts/test/test_bastion_javascript.sh

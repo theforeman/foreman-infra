@@ -1,0 +1,28 @@
+- job:
+    name: test_bastion_javascript
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 32
+    concurrent: true
+    properties:
+      - github:
+          url: https://github.com/katello/bastion
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: "Branch to run test suite on"
+      - pr_parameters
+    scm:
+      - bastion
+    builders:
+      - plugin_pr_checkout
+      - test_bastion_javascript
+    publishers:
+      - cobertura:
+          report-file: 'plugin/coverage/**/cobertura-coverage.xml'
+          targets:
+            - files:
+                healthy: 0
+                unhealthy: 20
+                failing: 30
