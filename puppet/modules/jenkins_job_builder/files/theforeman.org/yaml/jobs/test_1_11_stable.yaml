@@ -1,5 +1,5 @@
 - job:
-    name: test_develop
+    name: test_1_11_stable
     project-type: matrix
     logrotate:
       daysToKeep: -1
@@ -9,7 +9,7 @@
       - github_foreman
     scm:
       - foreman:
-          branch: 'develop'
+          branch: '1.11-stable'
     triggers:
       - scm_fifteen_minutes
       - github
@@ -45,10 +45,5 @@
           only-if-success: false
       - junit:
           results: 'jenkins/reports/unit/*.xml'
-      - release_nightly_build_foreman:
-          project: foreman
-      - trigger-parameterized-builds:
-        - project: test_katello
-          condition: SUCCESS
     wrappers:
       - default_xvfb

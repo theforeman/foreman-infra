@@ -5,4 +5,4 @@
          url: git://github.com/theforeman/foreman.git
          wipe-workspace: true
          branches:
-          - 'develop'
+          - '{branch}'
