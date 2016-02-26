@@ -14,7 +14,7 @@
       "name": "test",
       "test_prefix": "Test Results:",
       "allow_multiple": true,
-      "run_without_trigger": true,
+      "run_without_trigger": false,
       "branches": { "*": {"jenkins_job_name": "test_bastion_pull_request",
                                 "downstream_job_name": "test_bastion",
                                 "build_token": "<%= jenkins_build_token -%>"
