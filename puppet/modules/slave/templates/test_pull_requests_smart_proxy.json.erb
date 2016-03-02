@@ -15,15 +15,23 @@
       "test_prefix": "Test Results:",
       "allow_multiple": true,
       "run_without_trigger": true,
-      "branches": { "develop": {"jenkins_job_name": "test_proxy_develop_pull_request",
-                                "downstream_job_name": "test_proxy_develop",
-                                "build_token": "<%= jenkins_build_token -%>"
-                                } },
+      "branches": {
+        "*": {
+          "jenkins_job_name": "test_proxy_develop_pull_request",
+          "downstream_job_name": "test_proxy_develop",
+          "build_token": "<%= jenkins_build_token -%>"
+        }
+      },
       "repo_to_orgs": {
         "smart-proxy": ["theforeman", "katello"]
       },
       "repo_to_pull_id_param": {
-        "smart-proxy": {"git_url":"pr_git_url","ref":"pr_git_ref","number":"pr_number"}
+        "smart-proxy": {
+          "git_url": "pr_git_url",
+          "ref": "pr_git_ref",
+          "number": "pr_number",
+          "base_branch": "branch"
+        }
       }
     }
   }
