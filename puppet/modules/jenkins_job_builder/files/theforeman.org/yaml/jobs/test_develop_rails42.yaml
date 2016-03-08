@@ -1,0 +1,51 @@
+- job:
+    name: test_develop_rails42
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 32
+    quiet-period: 900
+    properties:
+      - github_foreman
+    scm:
+      - foreman:
+          branch: 'rails42'
+    triggers:
+      - timed: 'H 05 * * 1-5'
+      - scm_fifteen_minutes
+      - github
+      - schedule_failed_builds
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 1.9.3
+            - 2.0.0
+            - 2.1
+            - 2.2
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql
+            - mysql
+            - sqlite3
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - fast
+    builders:
+      - shell: 'git merge origin/develop'
+      - test_develop
+    publishers:
+      - gemset_cleanup
+      - ircbot_freenode
+      - archive:
+          artifacts: 'pkg/*,Gemfile.lock'
+          only-if-success: false
+      - junit:
+          results: 'jenkins/reports/unit/*.xml'
+    wrappers:
+      - default_xvfb
