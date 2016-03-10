@@ -90,4 +90,14 @@ define freight::user (
     owner  => 'root',
     group  => 'root',
   }
+
+  if $selinux {
+    include selinux
+
+    # Ensure contexts are correct for content copied between webroot and staging area
+    selinux::fcontext { "fcontext-${user}":
+      context  => 'public_content_t',
+      pathname => "/var/www/${user}(/.*)?",
+    }
+  }
 }

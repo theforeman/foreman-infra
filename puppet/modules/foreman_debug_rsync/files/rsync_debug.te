@@ -1,0 +1,14 @@
+policy_module(rsync_debug, 1.0)
+
+optional_policy(`
+  require {
+    type public_content_t;
+    type rsync_t;
+  }
+
+  # rsync creates temporary name during upload and then renames
+  create_files_pattern(rsync_t, public_content_t, public_content_t)
+  write_files_pattern(rsync_t, public_content_t, public_content_t)
+  rename_files_pattern(rsync_t, public_content_t, public_content_t)
+  setattr_files_pattern(rsync_t, public_content_t, public_content_t)
+')

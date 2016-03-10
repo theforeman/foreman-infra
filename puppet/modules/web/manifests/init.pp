@@ -4,6 +4,16 @@
 class web($stable = "1.10", $latest = "1.11", $next = "1.12", $htpasswds = {}) {
   include rsync::server
 
+  if $selinux {
+    include selinux
+
+    # Use a non-HTTP specific context to be shared with rsync
+    selinux::fcontext { 'fcontext-www':
+      context  => 'public_content_t',
+      pathname => '/var/www(/.*)?',
+    }
+  }
+
   # WWW
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
