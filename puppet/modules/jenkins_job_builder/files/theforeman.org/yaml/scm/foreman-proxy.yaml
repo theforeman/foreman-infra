@@ -4,4 +4,4 @@
       - git:
          url: git://github.com/theforeman/smart-proxy.git
          branches:
-          - 'develop'
+          - '{branch}'

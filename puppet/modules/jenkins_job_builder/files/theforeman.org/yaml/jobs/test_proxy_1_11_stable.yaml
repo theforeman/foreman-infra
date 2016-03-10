@@ -1,5 +1,5 @@
 - job:
-    name: test_proxy_develop
+    name: test_proxy_1_11_stable
     project-type: matrix
     logrotate:
       daysToKeep: -1
@@ -9,7 +9,7 @@
           url: https://github.com/theforeman/smart-proxy
     scm:
       - foreman-proxy:
-          branch: 'develop'
+          branch: '1.11-stable'
     triggers:
       - scm_fifteen_minutes
       - github
@@ -47,5 +47,3 @@
       - archive:
           artifacts: 'pkg/*'
           only-if-success: true
-      - release_nightly_build_foreman:
-          project: foreman-proxy
