@@ -18,7 +18,7 @@
             "allow_multiple": true,
             "run_without_trigger": true,
             "branches": {
-                "master": {
+                "*": {
                     "jenkins_job_name": "packaging_test_pull_request_katello_rpm",
                     "downstream_job_name": "true",
                     "build_token": "<%= jenkins_build_token -%>"
