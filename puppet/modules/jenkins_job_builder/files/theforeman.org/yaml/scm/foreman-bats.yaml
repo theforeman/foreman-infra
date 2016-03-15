@@ -2,7 +2,7 @@
     name: foreman-bats
     scm:
       - git:
-         url: git://github.com/theforeman/foreman-bats.git
-         wipe-workspace: false
-         branches:
-          - '**'
+          url: git://github.com/theforeman/foreman-bats.git
+          wipe-workspace: false
+          branches:
+            - '**'

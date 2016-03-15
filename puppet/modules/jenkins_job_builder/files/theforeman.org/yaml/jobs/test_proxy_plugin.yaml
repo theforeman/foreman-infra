@@ -13,7 +13,8 @@
           branch: '{branch}'
     triggers:
       - github
-      - pollscm: 'H/15 * * * *'
+      - pollscm:
+          cron: 'H/15 * * * *'
       - schedule-failed-builds: 'H H * * H'
       - timed: 'H H * * H'
     builders:

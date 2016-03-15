@@ -5,7 +5,8 @@
       - katello.org
     triggers:
       - github
-      - pollscm: '*/5 * * * *'
+      - pollscm:
+          cron: '*/5 * * * *'
     builders:
       - deploy_katello_site
     publishers:

@@ -2,7 +2,7 @@
     name: hammer_cli_foreman
     scm:
       - git:
-         url: git://github.com/theforeman/hammer-cli-foreman.git
-         wipe-workspace: true
-         branches:
-          - 'master'
+          url: git://github.com/theforeman/hammer-cli-foreman.git
+          wipe-workspace: true
+          branches:
+            - 'master'

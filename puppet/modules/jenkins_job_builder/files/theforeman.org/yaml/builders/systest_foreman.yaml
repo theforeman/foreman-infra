@@ -1,4 +1,4 @@
 - builder:
     name: systest_foreman
     builders:
-      - shell: !include-raw scripts/systest_foreman.sh
+      - shell: !include-raw: scripts/systest_foreman.sh
