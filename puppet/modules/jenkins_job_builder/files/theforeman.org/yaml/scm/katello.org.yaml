@@ -2,12 +2,12 @@
     name: katello.org
     scm:
       - git:
-         url: git://github.com/Katello/katello.org.git
-         wipe-workspace: false
-         branches:
-          - 'origin/master'
-          - 'origin/KATELLO-2.0'
-          - 'origin/KATELLO-2.1'
-          - 'origin/KATELLO-2.2'
-          - 'origin/KATELLO-2.3'
-          - 'origin/KATELLO-2.4'
+          url: git://github.com/Katello/katello.org.git
+          wipe-workspace: false
+          branches:
+            - 'origin/master'
+            - 'origin/KATELLO-2.0'
+            - 'origin/KATELLO-2.1'
+            - 'origin/KATELLO-2.2'
+            - 'origin/KATELLO-2.3'
+            - 'origin/KATELLO-2.4'

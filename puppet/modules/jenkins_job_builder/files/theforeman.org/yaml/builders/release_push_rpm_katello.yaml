@@ -1,4 +1,4 @@
 - builder:
     name: release_push_rpm_katello
     builders:
-      - shell: !include-raw scripts/release_push_rpm_katello.sh
+      - shell: !include-raw: scripts/release_push_rpm_katello.sh

@@ -2,6 +2,6 @@
     name: foreman-proxy
     scm:
       - git:
-         url: git://github.com/theforeman/smart-proxy.git
-         branches:
-          - '{branch}'
+          url: git://github.com/theforeman/smart-proxy.git
+          branches:
+            - '{branch}'

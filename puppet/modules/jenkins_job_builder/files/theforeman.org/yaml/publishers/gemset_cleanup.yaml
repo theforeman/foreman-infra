@@ -7,4 +7,4 @@
             operator: AND
           escalate-status: false
           run-if-job-successful: false
-          script: !include-raw scripts/gemset_cleanup.sh
+          script: !include-raw: scripts/gemset_cleanup.sh

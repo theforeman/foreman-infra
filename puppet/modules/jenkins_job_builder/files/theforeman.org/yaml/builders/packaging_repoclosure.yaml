@@ -1,4 +1,4 @@
 - builder:
     name: packaging_repoclosure
     builders:
-      - shell: !include-raw scripts/packaging_repoclosure.sh
+      - shell: !include-raw: scripts/packaging_repoclosure.sh
