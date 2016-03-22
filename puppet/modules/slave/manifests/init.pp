@@ -166,7 +166,11 @@ class slave($github_user = undef,
       ensure   => '1.3.12',
       provider => npm,
     }
-    package { ['phantomjs', 'grunt-cli']:
+    package { 'phantomjs':
+      ensure   => latest,
+      provider => npm,
+    }
+    package { 'grunt-cli':
       ensure   => present,
       provider => npm,
     }
