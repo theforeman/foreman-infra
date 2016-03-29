@@ -2,10 +2,10 @@
 
 rm -f *.bats.out || true
 
-if [ ${os} = f19 ]; then
+if [ ${os} = f19 -o ${os} = f21 ]; then
   # https://github.com/mitchellh/vagrant-rackspace/issues/132
-  echo "skipping f19, no Rackspace image"
-  echo "1..0 # Skipped: no Rackspace image for f19" > skipped.bats.out
+  echo "skipping f19/f21, no Rackspace image"
+  echo "1..0 # Skipped: no Rackspace image for f19/f21" > skipped.bats.out
   exit 0
 fi
 
