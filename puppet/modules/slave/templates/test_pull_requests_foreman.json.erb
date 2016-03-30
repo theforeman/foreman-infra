@@ -20,17 +20,17 @@
       "branches": {
         "develop": {
           "jenkins_job_name": "test_develop_pull_request",
-          "downstream_job_name": "true",
+          "downstream_job_name": "test_develop",
           "build_token": "<%= jenkins_build_token -%>"
         },
         "rails42": {
           "jenkins_job_name": "test_develop_pull_request",
-          "downstream_job_name": "true",
+          "downstream_job_name": "test_develop",
           "build_token": "<%= jenkins_build_token -%>"
         },
         "1.11-stable": {
           "jenkins_job_name": "test_develop_pull_request",
-          "downstream_job_name": "true",
+          "downstream_job_name": "test_1_11_stable",
           "build_token": "<%= jenkins_build_token -%>",
           "addtl_jenkins_params": {
             "foreman": {
