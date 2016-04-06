@@ -246,6 +246,9 @@ class slave($github_user = undef,
     slave::rvm_config { 'ruby-2.2':
       version => 'ruby-2.2.3',
     }
+    slave::rvm_config { 'ruby-2.3':
+      version => 'ruby-2.3.0',
+    }
 
     # Cleanup log dirs
     file { '/etc/cron.daily/rvm_log_cleaner':
