@@ -1,5 +1,10 @@
 - project:
     name: foreman_bootdisk
     defaults: plugin
+    branch:
+      - master:
+          foreman_branch: develop
+      - 7.x:
+          foreman_branch: 1.11-stable
     jobs:
       - 'test_plugin_{name}_{branch}'
