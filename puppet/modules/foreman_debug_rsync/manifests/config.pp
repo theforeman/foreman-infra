@@ -13,6 +13,8 @@ class foreman_debug_rsync::config {
     list            => 'no',
     uid             => 'nobody',
     gid             => 'nobody',
+    incoming_chmod  => 'Du=rwx,g=rx,o=rx,Fu=rw,g=r,o=r',
+    outgoing_chmod  => 'Du=rwx,g=rx,o=rx,Fu=rw,g=r,o=r',
   }
 
   if $selinux {
