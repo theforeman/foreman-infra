@@ -1,5 +1,6 @@
 - project:
     name: foreman_pipeline
     defaults: plugin
+    dbs: 'postgres sqlite3'
     jobs:
       - 'test_plugin_{name}_{branch}'

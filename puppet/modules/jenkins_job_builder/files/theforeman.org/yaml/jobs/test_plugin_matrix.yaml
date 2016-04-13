@@ -26,6 +26,10 @@
           name: foreman_branch
           default: develop
           description: "Git branch name of Foreman itself, e.g. <pre>develop</pre>"
+      - string:
+          name: dbs
+          default: 'postgresql mysql sqlite3'
+          description: "Databases to test against"
     concurrent: true
     scm:
       - git:
@@ -44,12 +48,10 @@
             - 2.0.0
             - 2.1
       - axis:
-          type: user-defined
+          type: dynamic
           name: database
           values:
-            - postgresql 
-            - mysql
-            - sqlite3
+            - dbs
       - axis:
           type: label-expression
           name: slave

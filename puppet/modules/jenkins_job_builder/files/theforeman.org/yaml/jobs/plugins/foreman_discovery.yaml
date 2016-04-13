@@ -1,6 +1,6 @@
 - project:
     name: foreman_discovery
-    repo: foreman_discovery
+    defaults: plugin
     branch:
       - develop:
           foreman_branch: develop
