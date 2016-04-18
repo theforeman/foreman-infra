@@ -8,9 +8,16 @@
 #cd /var/cache/pbuilder/result/
 #/usr/bin/dpkg-scanpackages . /dev/null >> /var/cache/pbuilder/result/Packages
 
-<% if backports == true then -%>
+<% if @backports == true then -%>
 # Backports
-echo "deb http://backports.debian.org/debian-backports/ <%= release %>-backports main" >> /etc/apt/sources.list
+echo "deb http://backports.debian.org/debian-backports/ <%= @release %>-backports main" >> /etc/apt/sources.list
+
+<% end -%>
+
+<% if @puppetlabs == true then %>
+# Puppet Labs
+echo "deb http://apt.puppetlabs.com <%= @release %> main" >> /etc/apt/sources.list
+echo "deb http://apt.puppetlabs.com <%= @release %> dependencies" >> /etc/apt/sources.list
 
 <% end -%>
 

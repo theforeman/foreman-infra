@@ -1,6 +1,7 @@
 define debian::pbuilder_setup (
-  $ensure    = present,
-  $backports = false,
+  $ensure     = present,
+  $backports  = false,
+  $puppetlabs = true,
   $arch,
   $release,
   $apturl,
