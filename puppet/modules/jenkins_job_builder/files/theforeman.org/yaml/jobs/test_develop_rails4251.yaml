@@ -1,5 +1,5 @@
 - job:
-    name: test_develop_rails415
+    name: test_develop_rails4251
     project-type: matrix
     logrotate:
       daysToKeep: -1
@@ -31,8 +31,7 @@
           values:
             - fast
     builders:
-      - shell: 'git revert f20c2a1'
-      - shell: "sed -i \"/'rails'/ s/4\\.[0-9\\.]*/4.1.5/\" Gemfile"
+      - shell: "sed -i \"/'rails'/ s/4\\.[0-9\\.]*/4.2.5.1/\" Gemfile"
       - test_develop
     publishers:
       - gemset_cleanup
