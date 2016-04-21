@@ -65,7 +65,7 @@ if [ -n "${predefined_lookasides}" ]; then
   done
 fi
 
-options="yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ -l ${os}-base -l ${os}-updates -l ${os}-epel -l ${os}-scl -l ${os}-scl-ruby -l ${os}-scl-v8 ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside} ${puppet_lookaside} ${predefined_lookaside}"
+options="yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ -l ${os}-base -l ${os}-updates -l ${os}-epel -l ${os}-scl -l ${os}-scl-sclo -l ${os}-scl-ruby -l ${os}-scl-v8 ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside} ${puppet_lookaside} ${predefined_lookaside}"
 
 if [[ $1 == '--dry-run' ]]; then
   echo $options
