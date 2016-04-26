@@ -57,6 +57,18 @@ class debian {
           release    => 'trusty',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
+        'xenial64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'xenial',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\n";
+        'xenial32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'xenial',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\n";
       }
     }
 
@@ -86,6 +98,12 @@ class debian {
           release    => 'trusty',
           apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
           aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\n";
+        'xenial':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'xenial',
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
       }
     }
 
@@ -103,6 +121,12 @@ class debian {
           release    => 'trusty',
           apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
           aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\n";
+        'xenial':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'xenial',
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
       }
     }
   }
