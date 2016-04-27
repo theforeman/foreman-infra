@@ -3,7 +3,7 @@
     scm:
       - git:
           url: git://github.com/katello/bastion.git
-          wipe-workspace: false
+          wipe-workspace: true
           basedir: 'plugin'
           branches:
             - '${branch}'
