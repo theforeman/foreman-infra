@@ -23,6 +23,7 @@
           - jessie
           - precise
           - trusty
+          - xenial
       - axis:
           type: slave
           name: arch
@@ -61,6 +62,7 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
             - jessie
             - precise
             - trusty
+            - xenial
           description: 'Restrict matrix job to just the one OS.'
       - string:
           name: repo
