@@ -222,6 +222,17 @@ class slave($github_user = undef,
     }
   }
 
+  # Increase OS limits, RH OSes ship them by default
+  if $::osfamily == 'RedHat' {
+    file { '/etc/security/limits.d/90-nproc.conf':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('slave/90-nproc.conf.erb'),
+    }
+  }
+
   # Databases
   include slave::mysql, slave::postgresql
   slave::db_config { 'mysql': }

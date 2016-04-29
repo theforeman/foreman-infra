@@ -1,0 +1,8 @@
+# Templated by Puppet
+#
+# Default limit for number of user's processes to prevent
+# accidental fork bombs.
+# See rhbz #432903 for reasoning.
+
+*          soft    nproc     <%= (@memorysize_mb || 2048).to_i %>
+root       soft    nproc     unlimited
