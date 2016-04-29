@@ -224,6 +224,15 @@ class slave($github_user = undef,
 
   # Increase OS limits, RH OSes ship them by default
   if $::osfamily == 'RedHat' {
+    file { '/etc/security/limits.d':
+      ensure  => directory,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      recurse => true,
+      purge   => true,
+    }
+
     file { '/etc/security/limits.d/90-nproc.conf':
       ensure  => present,
       owner   => 'root',
