@@ -174,6 +174,15 @@ class slave($github_user = undef,
       ensure   => present,
       provider => npm,
     }
+
+    # Cleanup temporary dirs
+    file { '/etc/cron.daily/npm_tmp_cleaner':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => "#!/bin/sh\nfind ~jenkins/tmp -maxdepth 1 -name 'npm-*' -type d -mtime +1 -exec rm -rf {} +\n",
+    }
   }
 
   # needed by katello gem dependency qpid-messaging
