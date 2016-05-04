@@ -60,7 +60,6 @@
     execution-strategy:
       combination-filter: "!(foreman_branch == '1.7-stable' && ruby == '2.1')"
     wrappers:
-      - default_xvfb
       - timestamps
       - abort_build:
           timeout_min: 120

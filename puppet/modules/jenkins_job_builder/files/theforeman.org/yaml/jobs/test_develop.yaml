@@ -51,5 +51,3 @@
       - trigger-parameterized-builds:
         - project: test_katello
           condition: SUCCESS
-    wrappers:
-      - default_xvfb
