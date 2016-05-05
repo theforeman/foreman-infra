@@ -1,15 +1,17 @@
 - job:
-    name: systest_foreman_puppet
+    name: systest_foreman_puppet_pc1
+    disabled: true
+    description: 'Current status: <b>BROKEN</b> (<a href="http://projects.theforeman.org/issues/8447">#8447</a>)'
     project-type: matrix
     logrotate:
       daysToKeep: -1
       numToKeep: 3
     triggers:
-      - timed: 'H 6 * * 1'
+      - timed: 'H 7 * * 1'
     builders:
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\npl_puppet=true\nrun_puppet_tests=true"
+          predefined-parameters: "os=${os}\npl_puppet=pc1\nrun_puppet_tests=true"
           block: true
     axes:
       - axis:
@@ -18,7 +20,7 @@
           values:
           - el6
           - el7
-          - f19
+          - f21
           - wheezy
           - jessie
           - precise

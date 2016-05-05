@@ -43,9 +43,9 @@ if [ -n "$umask" ]; then
   echo fb-setup-umask.bats | vagrant ssh $os | tee fb-setup-umask.bats.out
 fi
 
-PUPPET_REPO=stable
-[ $nightly_puppet = true ] && PUPPET_REPO=nightly
-if [ $pl_puppet = true -a ! $os = jessie -o $os = precise -o $os = el6 -o $os = wheezy ]; then
+if [ $pl_puppet != false ]; then
+  PUPPET_REPO=$pl_puppet
+  [ $PUPPET_REPO = true ] && PUPPET_REPO=stable
   echo PUPPET_REPO=${PUPPET_REPO} fb-install-plpuppet.bats | vagrant ssh $os | tee fb-install-plpuppet.bats.out
 fi
 
