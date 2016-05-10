@@ -20,9 +20,7 @@
           type: user-defined
           name: os
           values:
-          - wheezy
           - jessie
-          - precise
           - trusty
     publishers:
       - trigger:
