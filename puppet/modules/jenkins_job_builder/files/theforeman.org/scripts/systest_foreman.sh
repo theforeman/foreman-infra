@@ -33,18 +33,19 @@ if [ -n "${db_type}" ]; then
   args="FOREMAN_DB_TYPE=${db_type} $args"
 fi
 
+[ $pl_puppet = true ] && pl_puppet=stable
+[ $os = xenial -a $pl_puppet = stable ] && pl_puppet=false  # no repo available
+
 export VAGRANT_DEFAULT_PROVIDER=rackspace
 
 trap "vagrant destroy" EXIT ERR
 
-vagrant up $os
+PUPPET_REPO=${pl_puppet} vagrant up $os
 
 if [ -n "$umask" ]; then
   echo fb-setup-umask.bats | vagrant ssh $os | tee fb-setup-umask.bats.out
 fi
 
-[ $pl_puppet = true ] && pl_puppet=stable
-[ $os = xenial -a $pl_puppet = stable ] && pl_puppet=false  # no repo available
 if [ $pl_puppet != false ]; then
   echo PUPPET_REPO=${pl_puppet} fb-install-plpuppet.bats | vagrant ssh $os | tee fb-install-plpuppet.bats.out
 fi
