@@ -16,9 +16,11 @@
           type: user-defined
           name: os
           values:
+          # - el6  # EPEL6 is too old, 3.x required
           - el7
           - f21
           - jessie
           - trusty
+          - xenial
     publishers:
       - ircbot_freenode

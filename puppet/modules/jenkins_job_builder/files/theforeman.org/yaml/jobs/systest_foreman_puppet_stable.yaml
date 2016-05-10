@@ -21,5 +21,6 @@
           - f21
           # - jessie   # no packages published
           - trusty
+          # - xenial   # no packages published
     publishers:
       - ircbot_freenode

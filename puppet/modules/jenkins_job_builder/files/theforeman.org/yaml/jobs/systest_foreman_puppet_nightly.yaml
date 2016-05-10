@@ -22,5 +22,6 @@
           - f21
           - jessie
           - trusty
+          - xenial
     publishers:
       - ircbot_freenode
