@@ -43,10 +43,10 @@ if [ -n "$umask" ]; then
   echo fb-setup-umask.bats | vagrant ssh $os | tee fb-setup-umask.bats.out
 fi
 
+[ $pl_puppet = true ] && pl_puppet=stable
+[ $os = xenial -a $pl_puppet = stable ] && pl_puppet=false  # no repo available
 if [ $pl_puppet != false ]; then
-  PUPPET_REPO=$pl_puppet
-  [ $PUPPET_REPO = true ] && PUPPET_REPO=stable
-  echo PUPPET_REPO=${PUPPET_REPO} fb-install-plpuppet.bats | vagrant ssh $os | tee fb-install-plpuppet.bats.out
+  echo PUPPET_REPO=${pl_puppet} fb-install-plpuppet.bats | vagrant ssh $os | tee fb-install-plpuppet.bats.out
 fi
 
 echo ${args} fb-install-foreman.bats | vagrant ssh $os | tee fb-install-foreman.bats.out
