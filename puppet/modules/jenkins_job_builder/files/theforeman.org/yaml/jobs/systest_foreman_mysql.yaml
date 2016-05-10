@@ -18,10 +18,8 @@
           values:
           - el6
           - el7
-          - f19
-          - wheezy
+          - f21
           - jessie
-          - precise
           - trusty
     publishers:
       - ircbot_freenode

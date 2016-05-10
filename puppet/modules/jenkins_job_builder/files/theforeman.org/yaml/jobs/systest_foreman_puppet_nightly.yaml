@@ -20,9 +20,7 @@
           - el6
           - el7
           - f21
-          - wheezy
           - jessie
-          - precise
           - trusty
     publishers:
       - ircbot_freenode

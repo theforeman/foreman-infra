@@ -19,8 +19,7 @@
           - el6
           - el7
           - f21
-          - wheezy
-          - precise
+          # - jessie   # no packages published
           - trusty
     publishers:
       - ircbot_freenode
