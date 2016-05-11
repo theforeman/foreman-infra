@@ -22,6 +22,6 @@
           - f21
           - jessie
           - trusty
-          - xenial
+          # - xenial  # no puppetserver package yet
     publishers:
       - ircbot_freenode
