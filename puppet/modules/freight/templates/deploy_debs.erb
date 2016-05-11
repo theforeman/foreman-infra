@@ -33,8 +33,10 @@ puts "Deb deploy from #{os}/theforeman-#{version} to #{os}/#{version} starting: 
 Dir.chdir("#{ENV['SOURCELIB']}/apt/#{os}/theforeman-#{version}")
 files = Dir.glob('*deb')
 
-Dir.chdir("#{ENV['TARGETLIB']}/apt/#{os}/#{version}")
-files -= Dir.glob('*deb')
+if File.exist?("#{ENV['TARGETLIB']}/apt/#{os}/#{version}")
+  Dir.chdir("#{ENV['TARGETLIB']}/apt/#{os}/#{version}")
+  files -= Dir.glob('*deb')
+end
 
 files.each do |file|
   system "/usr/bin/freight-add -v -c /home/freight/freight.conf #{ENV['SOURCELIB']}/apt/#{os}/theforeman-#{version}/#{file} apt/#{os}/#{version}"
