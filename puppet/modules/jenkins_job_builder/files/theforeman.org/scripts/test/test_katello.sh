@@ -40,13 +40,7 @@ gem install bundler --no-ri --no-rdoc
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb
 
 # Retry as rubygems (being external to us) can be intermittent
-while ! bundle install --without development -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --without development -j 5 --retry 5 || exit 1
 
 # Database environment
 (
