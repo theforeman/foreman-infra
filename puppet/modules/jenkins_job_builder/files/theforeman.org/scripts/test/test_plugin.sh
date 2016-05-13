@@ -48,7 +48,6 @@ bundle exec rake db:drop db:create db:migrate
 echo "gem '${plugin_name}', :path => '${PLUGIN_ROOT}'" >> bundler.d/Gemfile.local.rb
 
 # Plugin specifics..
-[ -e ${PLUGIN_ROOT}/script/ci/katello.yml ] && cp ${PLUGIN_ROOT}/script/ci/katello.yml ${PLUGIN_ROOT}/config/katello.yml
 [ -e ${PLUGIN_ROOT}/gemfile.d/${plugin_name}.rb ] && cat ${PLUGIN_ROOT}/gemfile.d/${plugin_name}.rb >> bundler.d/Gemfile.local.rb
 
 # Update dependencies
