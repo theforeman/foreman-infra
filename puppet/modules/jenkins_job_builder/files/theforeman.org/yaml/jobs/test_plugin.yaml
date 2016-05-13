@@ -26,6 +26,7 @@
             plugin_branch={branch}
             plugin_name={name}
             foreman_branch={foreman_branch}
+            dbs={dbs}
           block: true
     publishers:
       - ircbot_freenode
@@ -35,3 +36,4 @@
     repo: '{name}'
     branch: master
     foreman_branch: develop
+    dbs: 'postgresql mysql sqlite3'
