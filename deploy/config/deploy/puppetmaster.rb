@@ -25,6 +25,7 @@ end
 
 namespace :deploy do
   task :init_submodules do
+    run("rm #{deploy_to}/current/puppet/modules/augeasproviders/.gitmodules")
     run("cd #{deploy_to}/current/ && git submodule update --init")
   end
 
