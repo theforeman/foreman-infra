@@ -53,7 +53,7 @@ fi
 echo ${args} fb-install-foreman.bats | vagrant ssh $os | tee fb-install-foreman.bats.out
 
 if [ $run_puppet_tests = true ]; then
-  echo fb-puppet-tests.bats | vagrant ssh $os | tee fb-puppet-tests.bats.out
+  echo PUPPET_REPO=${pl_puppet} fb-puppet-tests.bats | vagrant ssh $os | tee fb-puppet-tests.bats.out
 fi
 
 if [ $run_hammer_tests = true ]; then
