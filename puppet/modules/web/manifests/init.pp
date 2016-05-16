@@ -120,4 +120,22 @@ class web($stable = "1.11", $latest = "1.11", $next = "1.12", $htpasswds = {}) {
     mode   => 0644,
     source => 'puppet:///modules/web/downloads-HEADER.html',
   }
+
+  # METRICS
+  # script to do initial filtering of apache logs for download metrics
+  file { '/usr/local/bin/filter_apache_stats':
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0744',
+    source => 'puppet:///modules/web/filter_apache_stats.sh',
+  }
+
+  # daily at 4am, should be fairly quiet on the server
+  cron { 'filter_apache_stats':
+    command => '/usr/bin/nice -19 /usr/local/bin/filter_apache_stats',
+    user    => root,
+    hour    => '4',
+    minute  => '0'
+  }
 }
