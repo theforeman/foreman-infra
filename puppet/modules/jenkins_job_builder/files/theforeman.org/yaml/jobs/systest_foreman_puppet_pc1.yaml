@@ -1,6 +1,5 @@
 - job:
     name: systest_foreman_puppet_pc1
-    description: 'Current status: installation OK, integration BROKEN (<a href="http://projects.theforeman.org/issues/8447">#8447</a>)'
     project-type: matrix
     logrotate:
       daysToKeep: -1
@@ -10,7 +9,7 @@
     builders:
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\npl_puppet=pc1\nrun_puppet_tests=false"
+          predefined-parameters: "os=${os}\npl_puppet=pc1\nrun_puppet_tests=true"
           block: true
     axes:
       - axis:
@@ -22,6 +21,6 @@
           - f21
           - jessie
           - trusty
-          # - xenial  # no puppetserver package yet
+          - xenial
     publishers:
       - ircbot_freenode
