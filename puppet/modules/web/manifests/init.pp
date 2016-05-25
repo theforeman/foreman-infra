@@ -1,7 +1,7 @@
 # $stable::   latest release that users expect
 # $latest::   latest release that we have a manual for, change after copying it
 # $next::     latest release that we don't have a manual for, before copying it
-class web($stable = "1.11", $latest = "1.11", $next = "1.12", $htpasswds = {}) {
+class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
   include rsync::server
 
   if $selinux {
