@@ -1,0 +1,18 @@
+# Builds yum repos for all plugins on Koji
+- job:
+    name: release_plugins_mash
+    block-upstream: true
+    block-downstream: true
+    quiet-period: 60
+    triggers:
+      - timed: 'H H * * *'
+    builders:
+      - trigger-builds:
+        - project: packaging_mash_rpms
+          predefined-parameters: 'script=foreman-mash-split-plugins.py'
+          block: true
+    publishers:
+      - trigger:
+          project: release_plugins_test
+          threshold: SUCCESS
+      - ircbot_freenode

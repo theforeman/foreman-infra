@@ -1,0 +1,48 @@
+# Tests the Foreman plugin RPM repos using repoclosure to make sure all dependencies are satisifed.
+#
+# It's a matrix job as we have separate repos and tags per version in koji, so it runs the publish job once
+# for each of these, which then splits into once per OS.
+- job:
+    name: release_plugins_test
+    project-type: matrix
+    block-downstream: true
+    block-upstream: true
+    quiet-period: 30
+    axes:
+      - axis:
+          type: user-defined
+          name: version
+          values:
+          - nightly
+          - 1.9
+          - 1.10
+          - 1.11
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - el6
+          - el7
+    execution-strategy:
+      combination-filter: '!( ((version == "1.9" || version == "1.10") && os == "f21") || ((version == "1.11" || version == "nightly") && os == "f19") )'
+      sequential: true
+    builders:
+      - shell: |
+          if [ $version = nightly ]; then
+            echo foreman_lookasides=${version}
+          else
+            echo foreman_lookasides=releases/${version}
+          fi > lookasides.properties
+      - trigger-builds:
+        - project: packaging_repoclosure
+          property-file: lookasides.properties
+          predefined-parameters: |
+            os=${os}
+            repo=foreman-plugins-${version}
+            predefined_lookasides=openscap
+          block: true
+    publishers:
+      - trigger:
+          project: release_plugins_push
+          threshold: SUCCESS
+      - ircbot_freenode_matrix

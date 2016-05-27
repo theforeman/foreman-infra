@@ -1,0 +1,41 @@
+# Publishes the Foreman plugin repos from Koji to the public repos.
+#
+# It's a matrix job as we have separate repos and tags per version in koji, so it runs the publish job once
+# for each of these, which then splits into once per OS.
+- job:
+    name: release_plugins_push
+    project-type: matrix
+    block-downstream: true
+    block-upstream: true
+    axes:
+      - axis:
+          type: user-defined
+          name: version
+          values:
+          - nightly
+          - 1.9
+          - 1.10
+          - 1.11
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - el6
+          - el7
+          - f19
+          - f21
+    execution-strategy:
+      combination-filter: '!( ((version == "1.9" || version == "1.10") && os == "f21") || ((version == "1.11" || version == "nightly") && os == "f19") )'
+      sequential: true
+    builders:
+      - trigger-builds:
+        - project: deploy_yum
+          predefined-parameters: |
+            os=${os}
+            repo_source=foreman-plugins-${version}
+            repo_dest=plugins/${version}
+            overwrite=false
+            merge=true
+          block: true
+    publishers:
+      - ircbot_freenode_matrix
