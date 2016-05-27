@@ -1,0 +1,16 @@
+# Mashes all RPMs in the nightly tags on Koji into a public yum repository.
+- job:
+    name: release_nightly_mash
+    block-upstream: true
+    block-downstream: true
+    triggers:
+      - timed: 'H 07 * * 1-5'
+    builders:
+      - trigger-builds:
+        - project: packaging_mash_rpms
+          block: true
+    publishers:
+      - trigger:
+          project: release_nightly_test_rpm
+          threshold: SUCCESS
+      - ircbot_freenode
