@@ -5,7 +5,8 @@
       daysToKeep: 7
       numToKeep: -1
     scm:
-      - foreman-rpm-packaging
+      - foreman-rpm-packaging:
+          branch: rpm/develop
     builders:
       - packaging_repoclosure
     parameters:

@@ -19,4 +19,4 @@
             recursive: true
           skip-tag: true
           branches:
-            - '*/rpm/develop'
+            - 'origin/{branch}'

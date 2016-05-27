@@ -1,0 +1,4 @@
+- builder:
+    name: pr_checkout
+    builders:
+      - shell: !include-raw: scripts/pr_checkout.sh
