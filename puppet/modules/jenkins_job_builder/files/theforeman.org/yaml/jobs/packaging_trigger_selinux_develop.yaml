@@ -1,0 +1,19 @@
+# Trigger build jobs via SCM monitoring only, no testing or building here.
+- job:
+    name: packaging_trigger_selinux_develop
+    scm:
+      - foreman-selinux:
+          branch: 'develop'
+    triggers:
+      - timed: 'H 3 * * 1-5'
+      - scm_fifteen_minutes
+      - github
+    builders:
+      - shell: rake pkg:generate_source
+    publishers:
+      - ircbot_freenode
+      - archive:
+          artifacts: 'pkg/*'
+          only-if-success: false
+      - release_nightly_build_foreman:
+          project: foreman-selinux
