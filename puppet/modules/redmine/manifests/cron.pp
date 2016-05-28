@@ -76,6 +76,9 @@ class redmine::cron {
     'hammer-cli-csv'            => { 'git_url' => 'https://github.com/Katello/hammer-cli-csv.git',
                                      'project_name' => 'katello',
                                      'subrepo_id' => 'hammer-cli-csv' },
+    'katello-agent'             => { 'git_url' => 'https://github.com/Katello/katello-agent.git',
+                                     'project_name' => 'katello',
+                                     'subrepo_id' => 'katello-agent' },
   }
 
   create_resources(redmine::repo,$repos)
