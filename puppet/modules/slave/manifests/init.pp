@@ -143,6 +143,12 @@ class slave($github_user = undef,
       name   => $::osfamily ? {
         Debian  => 'libaugeas-dev',
         default => 'augeas-devel'
+      };
+    'libvirt-dev':
+      ensure => present,
+      name   => $::osfamily ? {
+        Debian  => 'libvirt-dev',
+        default => 'libvirt-devel'
       }
   }
 
