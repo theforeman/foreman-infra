@@ -1,0 +1,30 @@
+{
+  "proxy_host": null,
+  "proxy_port": null,
+  "jenkins_host": "http://ci.theforeman.org/",
+  "jenkins_url": "http://ci.theforeman.org/",
+  "hub_config": "~/.config/hub",
+  "github_user": "theforeman",
+  "bot_github_user": "<%= github_user -%>",
+  "irc_channel": "#theforeman-dev",
+  "not_mergable_cache": "~/pr_tests/cache/test_pull_request_hammer_cli_foreman_remote_execution_not_mergable",
+  "repo_groups": {},
+  "settings": {
+    "test_settings": {
+      "name": "test",
+      "test_prefix": "Test Results:",
+      "allow_multiple": true,
+      "run_without_trigger": true,
+      "branches": { "master": {"jenkins_job_name": "test_hammer_cli_foreman_remote_execution_pull_request",
+                                "downstream_job_name": "test_hammer_cli_foreman_remote_execution",
+                                "build_token": "<%= jenkins_build_token -%>"
+                                } },
+      "repo_to_orgs": {
+        "hammer-cli-foreman-remote_execution": ["theforeman", "katello"]
+      },
+      "repo_to_pull_id_param": {
+        "hammer-cli-foreman-remote_execution": "pr_number"
+      }
+    }
+  }
+}
