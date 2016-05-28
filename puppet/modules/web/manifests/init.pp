@@ -138,4 +138,10 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}) {
     hour    => '4',
     minute  => '0'
   }
+
+  apache::vhost { "deb":
+    ensure      => present,
+    config_file => "puppet:///modules/web/deb.theforeman.org.conf",
+    require     => File["/srv/freight/web"],
+  }
 }
