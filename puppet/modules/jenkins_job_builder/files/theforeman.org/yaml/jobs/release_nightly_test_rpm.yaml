@@ -21,6 +21,7 @@
           values:
           - el6
           - el7
+          - f24
     publishers:
       - trigger:
           project: release_nightly_push_rpm

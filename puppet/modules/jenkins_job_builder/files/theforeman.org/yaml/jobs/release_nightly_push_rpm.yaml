@@ -17,5 +17,6 @@
           values:
           - el6
           - el7
+          - f24
     publishers:
       - ircbot_freenode_matrix

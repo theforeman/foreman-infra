@@ -24,8 +24,9 @@
           - el7
           - f19
           - f21
+          - f24
     execution-strategy:
-      combination-filter: '!( ((version == "1.9" || version == "1.10") && os == "f21") || ((version == "1.11" || version == "nightly") && os == "f19") )'
+      combination-filter: 'os == "el6" || os == "el7" || (os == "f19" && (version == "1.9" || version == "1.10")) || (os == "f21" && version == "1.11") || (os == "f24" && version == "nightly")'
       sequential: true
     builders:
       - trigger-builds:
