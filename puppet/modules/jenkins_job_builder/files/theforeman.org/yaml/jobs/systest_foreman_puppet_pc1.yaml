@@ -5,7 +5,7 @@
       daysToKeep: -1
       numToKeep: 3
     triggers:
-      - timed: 'H 7 * * 1'
+      - timed: 'H 10 * * 1'
     builders:
       - trigger-builds:
         - project: systest_foreman
