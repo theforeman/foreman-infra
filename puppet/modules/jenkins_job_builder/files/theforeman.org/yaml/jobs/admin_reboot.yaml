@@ -1,0 +1,8 @@
+# Reboot the Jenkins master process regularly
+- job:
+    name: admin_reboot
+    triggers:
+      - timed: 'H 3 * * 2,4,6'
+    builders:
+      - system-groovy:
+          command: !include-raw: scripts/admin_reboot.groovy
