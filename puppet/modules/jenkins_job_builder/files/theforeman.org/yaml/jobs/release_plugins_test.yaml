@@ -13,10 +13,10 @@
           type: user-defined
           name: version
           values:
-          - nightly
-          - 1.9
-          - 1.10
-          - 1.11
+          - 'nightly'
+          - '1.9'
+          - '1.10'
+          - '1.11'
       - axis:
           type: user-defined
           name: os
