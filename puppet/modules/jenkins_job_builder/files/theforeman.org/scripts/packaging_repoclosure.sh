@@ -42,7 +42,7 @@ if [ -n "${copr_lookasides}" ]; then
 fi
 
 puppet_lookaside=""
-if [ -n "${puppet_lookasides}" ]; then
+if [ -n "${puppet_lookasides}" -a ${os} != f24 ]; then
   lookaside_repos=$(echo $puppet_lookasides | tr "," "\n")
 
   for lookaside_repo in $lookaside_repos
