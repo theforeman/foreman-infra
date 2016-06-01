@@ -13,7 +13,8 @@ class web($stable = "1.11", $latest = "1.12", $next = "1.13", $htpasswds = {}, $
   include rsync::server
 
   class { 'letsencrypt':
-    email => 'foreman-infra-notifications@googlegroups.com'
+    email          => 'foreman-infra-notifications@googlegroups.com',
+    configure_epel => false,
   }
 
   letsencrypt::certonly { 'theforeman.org':
