@@ -4,3 +4,10 @@
   AuthUserFile /var/www/vhosts/debugs/htpasswd
   Require valid-user
 </Location>
+
+# For ACME/Let's Encrypt challenges
+<Location /.well-known>
+  Satisfy Any
+  Order Allow,Deny
+  Allow from all
+</Location>
