@@ -5,7 +5,7 @@
       - foreman-selinux:
           branch: 'develop'
     triggers:
-      - timed: 'H 3 * * 1-5'
+      - timed: 'H 3 * * 1'
       - scm_fifteen_minutes
       - github
     builders:
