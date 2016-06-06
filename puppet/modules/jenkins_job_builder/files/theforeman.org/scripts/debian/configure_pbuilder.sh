@@ -1,8 +1,6 @@
 #!/bin/bash
 set -xe
 
-git checkout origin/deb/${repo} -b local || git checkout ${repo} -b local
-
 # This script sets up the PBuilder hooks to pull in our deb repositories while the package is building
 echo "--Apt Hook Setup"
 
