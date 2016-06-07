@@ -15,7 +15,7 @@
           type: user-defined
           name: os
           values:
-          - wheezy
+          - trusty
       - axis:
           type: slave
           name: arch
