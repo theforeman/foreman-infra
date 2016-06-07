@@ -1,5 +1,8 @@
+# Builds a single package from the dependencies Deb packaging repo, using PBuilder.
+#
+# Setting $repoowner to a value other that "theforeman" will trigger a scratchbuild, pushed to stagingdeb.theforeman.org for manual testing.
 - job:
-    name: packaging_build_deb_coreproject
+    name: packaging_build_deb_dependency
     project-type: matrix
     logrotate:
       daysToKeep: 7
@@ -34,7 +37,7 @@
     execution-strategy:
       combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "wheezy" || os == "precise")) && !((version == "nightly" || version == "1.12") && (os == "wheezy" || os == "precise")) && !((version == "1.10" || version == "1.11") && (os == "xenial"))'
     builders:
-      - build_deb_coreproject
+      - build_deb_dependency
     publishers:
       - pbuilder_cleanup
     parameters:
@@ -43,13 +46,9 @@
           default: theforeman
           description: 'GitHub username/org containing the repo, useful to change for scratch builds.<br/>
 Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman.org for testing.'
-      - choice:
+      - string:
           name: project
-          choices:
-            - foreman
-            - foreman-proxy
-            - foreman-installer
-          description: 'Which main project to build'
+          description: 'Name of the dependency in the repo to build, e.g. <code>foreman-api</code>, <code>rkerberos</code>'
       - choice:
           name: onlyos
           choices:
@@ -72,14 +71,3 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
           name: gitrelease
           default: true
           description: 'Whether to label the build as a git build with a SHA as an extra changelog entry.  This <b>must</b> be disabled for releases (RC or final).'
-      - choice:
-          name: nightly_jenkins_job
-          choices:
-            - test_develop
-            - test_proxy_develop
-            - packaging_trigger_installer_develop
-          description: 'When building nightly (develop), name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
-      - string:
-          name: nightly_jenkins_job_id
-          default: lastSuccessfulBuild
-          description: 'When building nightly (develop), the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'

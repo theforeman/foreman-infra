@@ -22,4 +22,7 @@ for pbuilderd in /etc/pbuilder/${os}*; do
 
   # Make executable
   sudo chmod 0775 ${pbuilderd}/hooks/F60addforemanrepo
+  
+  echo "tail -n 100 /etc/apt/sources.list /etc/apt/sources.list.d/*.list" | sudo tee ${pbuilderd}/hooks/F99printrepos
+  sudo chmod 0775 ${pbuilderd}/hooks/F99printrepos
 done
