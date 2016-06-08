@@ -32,6 +32,9 @@ while ! bundle install --without=development -j5; do
   fi
 done
 
+# run npm install if package.json exists
+[ -e "$APP_ROOT/package.json"] && npm install
+
 # Database environment
 (
   sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
