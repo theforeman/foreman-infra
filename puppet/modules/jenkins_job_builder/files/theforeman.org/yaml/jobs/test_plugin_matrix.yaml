@@ -67,6 +67,7 @@
           timeout_min: 120
     builders:
       - clone_repository
+      - gemset_create
       - test_plugin
     publishers:
       - gemset_cleanup

@@ -24,6 +24,7 @@
             - 2.1
             - 2.2
     builders:
+      - gemset_create
       - test_hammer_cli_foreman
     publishers:
       - archive:

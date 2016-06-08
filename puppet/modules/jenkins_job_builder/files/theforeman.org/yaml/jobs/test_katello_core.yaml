@@ -45,6 +45,7 @@
             - fast
     builders:
       - clone_foreman
+      - gemset_create
       - test_katello
     publishers:
       - archive:

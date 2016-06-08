@@ -3,11 +3,17 @@
     node: 'admin && sshkey'
     scm:
       - theforeman.org
+    parameters:
+      - string:
+          name: ruby
+          default: '2.0.0'
+          description: 'Ruby version to build with'
     triggers:
       - github
       - pollscm:
           cron: '*/5 * * * *'
     builders:
+      - gemset_create
       - deploy_web
     publishers:
       - gemset_cleanup

@@ -1,0 +1,4 @@
+- builder:
+    name: gemset_create
+    builders:
+      - shell: !include-raw scripts/gemset_create.sh
