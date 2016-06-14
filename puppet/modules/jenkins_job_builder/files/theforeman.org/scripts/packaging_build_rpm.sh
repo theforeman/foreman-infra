@@ -19,6 +19,11 @@ args="-o $(pwd)/rel-eng/build/"
 cd $project
 tito release ${args} ${releaser} 2>&1 | tee tito.log
 
+if [ ${PIPESTATUS[0]} -ne 0 ]; then
+  echo "tito release failed, exit code ${PIPESTATUS[0]}"
+  exit 1
+fi
+
 grep "Task info:" tito.log | grep -o "[0-9]*" > tasks || true
 
 if [ -s tasks ]; then
