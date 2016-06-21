@@ -1,0 +1,20 @@
+# Builds yum repos for releases on Koji.
+- job:
+    name: release_mash
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
+    block-downstream: true
+    block-upstream: true
+    parameters:
+      - release_parameters
+    builders:
+      - trigger-builds:
+        - project: packaging_mash_rpms
+          predefined-parameters: "script=foreman-mash-split-${major_version}.py"
+          block: true
+    publishers:
+      - trigger:
+          project: release_test
+          threshold: SUCCESS
+          current-parameters: true

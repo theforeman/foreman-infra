@@ -1,0 +1,41 @@
+# Testing already-built RPMs from Koji and Debian packages in stagingdeb.
+- job:
+    name: release_test
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
+    block-downstream: true
+    block-upstream: true
+    parameters:
+      - release_parameters
+    builders:
+      - trigger-builds:
+        - project: packaging_repoclosure
+          predefined-parameters: "os=${os}\nrepo=foreman-${major_version}\npuppet_lookasides=${os}-puppet"
+          block: true
+      - trigger-builds:
+        - project: systest_foreman
+          predefined-parameters: "os=${os}\nrepo=${major_version}\nstaging=true"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - el6
+          - el7
+          - f21
+          - f24
+          - precise
+          - jessie
+          - trusty
+          - wheezy
+          - xenial
+    execution-strategy:
+      combination-filter: '!( ((major_version == "1.10" || major_version == "1.12") && os == "f21") || ((major_version == "1.10" || major_version == "1.11") && os == "f24") || ((major_version == "1.12") && os == "wheezy") || ((major_version == "1.12") && os == "precise") || ((major_version == "1.10" || major_version == "1.11") && os == "xenial") )'
+    publishers:
+      - trigger:
+          project: 'release_push_deb, release_push_rpm'
+          threshold: SUCCESS
+          current-parameters: true

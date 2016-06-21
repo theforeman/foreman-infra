@@ -1,0 +1,11 @@
+- parameter:
+    name: release_parameters
+    parameters:
+      - string:
+          name: version
+          default:
+          description: '1.5.2, 1.6.0-RC1 etc.'
+      - string:
+          name: major_version
+          default:
+          description: '1.5, 1.6, etc.'
