@@ -3,6 +3,6 @@
     scm:
       - git:
           url: git://github.com/theforeman/theforeman.org.git
-          wipe-workspace: false
+          wipe-workspace: true
           branches:
             - gh-pages
