@@ -2,7 +2,6 @@
 
 # Build the site on the slave 
 
-ruby=2.3.0
 # RVM Ruby environment
 . /etc/profile.d/rvm.sh
 # Use a gemset unique to each executor to enable parallel builds

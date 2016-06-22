@@ -7,6 +7,11 @@
       - github
       - pollscm:
           cron: '*/5 * * * *'
+    parameters:
+      - string:
+          name: ruby
+          default: '2.3.0'
+          description: "Ruby version to run rake generate task under"
     builders:
       - deploy_web
     publishers:
