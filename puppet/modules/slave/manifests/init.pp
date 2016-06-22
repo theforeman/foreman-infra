@@ -143,7 +143,9 @@ class slave($github_user = undef,
       name   => $::osfamily ? {
         Debian  => 'libaugeas-dev',
         default => 'augeas-devel'
-      }
+      };
+    'asciidoc':
+      ensure => present
   }
 
   # bash JSON parser
