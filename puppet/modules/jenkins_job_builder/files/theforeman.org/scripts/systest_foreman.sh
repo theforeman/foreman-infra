@@ -33,6 +33,10 @@ if [ -n "${db_type}" ]; then
   args="FOREMAN_DB_TYPE=${db_type} $args"
 fi
 
+if [ -n "${expected_version}" ]; then
+  args="FOREMAN_EXPECTED_VERSION=${expected_version} $args"
+fi
+
 [ $pl_puppet = true ] && pl_puppet=stable
 [ $os = xenial -a $pl_puppet = stable ] && pl_puppet=false  # no repo available
 

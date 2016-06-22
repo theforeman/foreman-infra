@@ -60,5 +60,9 @@ E.g.
           name: umask
           default: ''
           description: 'umask value for all shells, default is OS default (e.g. 022)'
+      - string:
+          name: expected_version
+          default: ''
+          description: 'Verifies the installed version of Foreman packages matches this value, if set.'
     publishers:
       - systest_foreman

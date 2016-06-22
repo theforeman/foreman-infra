@@ -16,7 +16,7 @@
           block: true
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\nrepo=${major_version}\nstaging=true"
+          predefined-parameters: "os=${os}\nrepo=${major_version}\nstaging=true\nexpected_version=${version}"
           block: true
     axes:
       - axis:
