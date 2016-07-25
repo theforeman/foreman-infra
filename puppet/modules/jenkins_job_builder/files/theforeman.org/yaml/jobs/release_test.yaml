@@ -35,7 +35,7 @@
     execution-strategy:
       combination-filter: '!( ((major_version == "1.10" || major_version == "1.12") && os == "f21") || ((major_version == "1.10" || major_version == "1.11") && os == "f24") || ((major_version == "1.12") && os == "wheezy") || ((major_version == "1.12") && os == "precise") || ((major_version == "1.10" || major_version == "1.11") && os == "xenial") )'
     publishers:
-      - trigger:
-          project: 'release_push_deb, release_push_rpm'
-          threshold: SUCCESS
-          current-parameters: true
+      - trigger-parameterized-builds:
+          - project: 'release_push_deb, release_push_rpm'
+            condition: SUCCESS
+            current-parameters: true
