@@ -15,7 +15,6 @@
           type: user-defined
           name: os
           values:
-          - el6
           - el7
           - f24
     publishers:

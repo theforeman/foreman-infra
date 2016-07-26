@@ -16,9 +16,8 @@
           type: user-defined
           name: os
           values:
-          - el6
           - el7
-          - f21
+          - f24
           # - jessie   # no packages published
           - trusty
           # - xenial   # no packages published
