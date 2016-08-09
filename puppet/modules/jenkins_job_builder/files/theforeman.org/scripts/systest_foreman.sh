@@ -46,6 +46,13 @@ trap "vagrant destroy" EXIT ERR
 
 PUPPET_REPO=${pl_puppet} vagrant up $os
 
+# Workaround Rackspace image issue installing tzdata-java, as tzdata is pre-installed from
+# jessie-updates and the two versions don't match. Can be removed after Debian 8.6 release.
+if [ $os = jessie ]; then
+  echo "echo 'deb http://httpredir.debian.org/debian jessie-updates main' >> /etc/apt/sources.list" | vagrant ssh $os
+  echo "apt-get update" | vagrant ssh $os
+fi
+
 if [ -n "$umask" ]; then
   echo fb-setup-umask.bats | vagrant ssh $os | tee fb-setup-umask.bats.out
 fi
