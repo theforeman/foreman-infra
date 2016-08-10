@@ -1,0 +1,8 @@
+- scm:
+    name: katello-packaging
+    scm:
+      - git:
+          url: git://github.com/katello/katello-packaging.git
+          submodule:
+            recursive: true
+          skip-tag: true
