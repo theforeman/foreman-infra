@@ -24,6 +24,9 @@ while ! bundle install --without=development -j 5; do
   fi
 done
 
+# run npm install if package.json exists and we are running integration tests (which only run on postgresql)
+[ ${database} = postgresql ] && [ -e "$APP_ROOT/package.json"] && npm install
+
 # Database environment
 (
   sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
