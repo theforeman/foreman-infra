@@ -33,7 +33,7 @@ while ! bundle install --without=development -j5; do
 done
 
 # run npm install if package.json exists
-[ -e "$APP_ROOT/package.json"] && npm install
+[ -e "$APP_ROOT/package.json" ] && npm install
 
 # Database environment
 (
