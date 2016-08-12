@@ -10,6 +10,7 @@ import hudson.node_monitors.*;
 for (node in Jenkins.instance.nodes) {
     computer = node.toComputer()
     if (computer.getChannel() == null) continue
+    if (computer.isOffline()) continue
 
     rootPath = node.getRootPath()
     size = DiskSpaceMonitor.DESCRIPTOR.get(computer).size
