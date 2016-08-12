@@ -191,17 +191,10 @@ class slave($github_user = undef,
     }
   }
 
-  # needed by katello gem dependency qpid-messaging
-  # to interface with candlepin's event topic
+  # Obsolete repository
   if $::osfamily == 'RedHat' {
     yumrepo { 'katello-pulp':
-      descr    => 'Katello Pulp Repo',
-      baseurl  => 'http://koji.katello.org/releases/yum/katello-nightly/pulp/RHEL/$releasever/$basearch',
-      gpgcheck => '0',
-      enabled  => '1',
-    } ->
-    package { 'qpid-cpp-client-devel':
-      ensure => latest,
+      ensure => absent,
     }
   }
 
