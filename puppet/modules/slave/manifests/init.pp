@@ -191,10 +191,26 @@ class slave($github_user = undef,
     }
   }
 
-  # Obsolete repository
+  # needed by katello gem dependency qpid-messaging
+  # to interface with candlepin's event topic
   if $::osfamily == 'RedHat' {
     yumrepo { 'katello-pulp':
       ensure => absent,
+    }
+
+    if $::operatingsystemmajrelease == '6' {
+      yumrepo { 'qpid':
+        descr    => 'qpid/qpid copr',
+        baseurl  => 'https://copr-be.cloud.fedoraproject.org/results/@qpid/qpid/epel-6-$basearch/',
+        gpgcheck => '1',
+        gpgkey   => 'https://copr-be.cloud.fedoraproject.org/results/@qpid/qpid/pubkey.gpg',
+        enabled  => '1',
+        before   => Package['qpid-cpp-client-devel'],
+      }
+    }
+
+    package { 'qpid-cpp-client-devel':
+      ensure => latest,
     }
   }
 
