@@ -1,0 +1,50 @@
+# Test Katello on each Foreman PR
+- job:
+    name: test_develop_pr_katello
+    project-type: matrix
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    concurrent: true
+    properties:
+      - github_foreman
+    parameters:
+      - string:
+          name: plugin_repo
+          default: git://github.com/katello/katello.git
+          description: "Git URL containing Katello, e.g. <pre>https://github.com/katello/katello</pre>"
+      - string:
+          name: plugin_branch
+          default: master
+          description: "Git branch name of Katello, e.g. <pre>master</pre>"
+    scm:
+      - foreman_pr
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 2.2
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - fast
+    triggers:
+      - github_pr:
+          context: 'katello'
+    builders:
+      - clone_repository
+      - test_katello
+    publishers:
+      - archive:
+          artifacts: 'Gemfile.lock'
+          only-if-success: false
+      - gemset_cleanup
+      - junit:
+          results: 'jenkins/reports/unit/*.xml'

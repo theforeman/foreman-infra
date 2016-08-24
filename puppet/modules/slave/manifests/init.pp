@@ -45,7 +45,6 @@ class slave($github_user = undef,
   }
   slave::pr_test_config { [
     'bastion',
-    'foreman',
     'foreman_ansible',
     'foreman_bootdisk',
     'foreman_digitalocean',

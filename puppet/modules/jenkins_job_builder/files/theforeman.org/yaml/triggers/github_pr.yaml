@@ -1,0 +1,17 @@
+- trigger:
+    name: github_pr
+    triggers:
+      - github-pull-request:
+          org-list:
+            - theforeman
+            - katello
+          cron: 'H * * * *'
+          trigger-phrase: '.*\[test {context}\].*'
+          github-hooks: true
+          allow-whitelist-orgs-as-admins: true
+          auth-id: '68200ee2-e1e8-4121-9209-f52564d5a973'
+          status-context: '{context}'
+          triggered-status: 'Test queued, please be patient'
+          started-status: 'Test running'
+          status-add-test-results: true
+          cancel-builds-on-update: true

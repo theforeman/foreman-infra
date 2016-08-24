@@ -6,3 +6,13 @@
           wipe-workspace: true
           branches:
             - '{branch}'
+
+- scm:
+    name: foreman_pr
+    scm:
+      - git:
+          url: git://github.com/theforeman/foreman.git
+          wipe-workspace: true
+          branches:
+            - '${sha1}'
+          refspec: '+refs/pull/*:refs/remotes/origin/pr/*'

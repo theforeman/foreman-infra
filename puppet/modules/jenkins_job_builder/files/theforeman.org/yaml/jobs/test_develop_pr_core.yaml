@@ -1,0 +1,48 @@
+# Test Foreman PRs, runs Foreman's own unit tests
+- job:
+    name: test_develop_pr_core
+    project-type: matrix
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    concurrent: true
+    properties:
+      - github_foreman
+    wrappers:
+      - abort_build:
+          timeout_min: 240
+    scm:
+      - foreman_pr
+    triggers:
+      - github_pr:
+          context: 'foreman'
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 2.0.0
+            - 2.1
+            - 2.2
+            - 2.3
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql
+            - mysql
+            - sqlite3
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - fast
+    builders:
+      - shell: !include-raw: scripts/test/test_develop.sh
+    publishers:
+      - gemset_cleanup
+      - archive:
+          artifacts: 'tmp/capybara/*,Gemfile.lock'
+          only-if-success: false
+      - junit:
+          results: 'jenkins/reports/unit/*.xml'

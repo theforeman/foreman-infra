@@ -1,7 +1,11 @@
 #!/bin/bash -ex
 
 TOP_ROOT=`pwd`
-APP_ROOT=$TOP_ROOT/foreman
+if [ -e $TOP_ROOT/foreman/Gemfile ]; then
+  APP_ROOT=$TOP_ROOT/foreman
+else
+  APP_ROOT=$TOP_ROOT
+fi
 PLUGIN_ROOT=$TOP_ROOT/plugin
 
 ### Foreman PR testing ###
