@@ -17,7 +17,7 @@
       - pollscm:
           cron: 'H/15 * * * *'
       - schedule-failed-builds: 'H H * * H'
-      - timed: 'H H * * H'
+      - timed: 'H H * * 6'
     builders:
       - trigger-builds:
         - project: test_plugin_matrix
