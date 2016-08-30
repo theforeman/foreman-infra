@@ -40,7 +40,13 @@ gem install bundler --no-ri --no-rdoc
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb
 
 # Retry as rubygems (being external to us) can be intermittent
-bundle install --without development -j 5 --retry 5 || exit 1
+while ! bundle update -j 5; do
+  (( c += 1 ))
+  if [ $c -ge 5 ]; then
+    echo "bundle update continually failed" >&2
+    exit 1
+  fi
+done
 
 # Database environment
 (
@@ -52,15 +58,6 @@ bundle install --without development -j 5 --retry 5 || exit 1
 # Create DB first in development as migrate behaviour can change
 bundle exec rake db:drop db:create
 ### END test_develop ###
-
-# Update dependencies
-while ! bundle update -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle update continually failed" >&2
-    exit 1
-  fi
-done
 
 # Now let's add the plugin migrations
 bundle exec rake db:migrate
