@@ -19,7 +19,7 @@
           - el7
           - f24
           - jessie
-          - trusty
+          # - trusty  # older than the minimum installer version
           - xenial
     publishers:
       - ircbot_freenode
