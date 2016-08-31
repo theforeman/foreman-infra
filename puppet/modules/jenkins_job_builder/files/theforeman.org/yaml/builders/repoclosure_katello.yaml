@@ -1,0 +1,4 @@
+- builder:
+    name: repoclosure_katello
+    builders:
+      - shell: !include-raw: scripts/repoclosure_katello.sh

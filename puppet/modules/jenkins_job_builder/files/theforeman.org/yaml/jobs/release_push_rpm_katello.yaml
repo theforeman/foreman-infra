@@ -1,13 +1,16 @@
-- job:
-    name: release_push_rpm_katello
+- job-template:
+    name: 'release_push_rpm_katello_{version}_{dist}'
     node: 'admin && sshkey'
     builders:
-      - release_push_rpm_katello
-    parameters:
-      - choice:
-          name: RELEASE
-          choices:
-            - 'nightly'
-            - '2.2'
-            - '2.1'
-            - '2.0'
+      - shell: >
+          ssh
+          -i /var/lib/workspace/workspace/deploy_katello_repos_key/deploy_katello_repos_key
+          katelloproject@fedorapeople.org
+          "cd /project/katello/bin && sh rsync-repos-from-koji {version} {dist}"
+
+- project:
+    name: 'nightly el7'
+    dist: 'el7'
+    version: 'nightly'
+    jobs:
+      - 'release_push_rpm_katello_{version}_{dist}'
