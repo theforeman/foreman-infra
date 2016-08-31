@@ -1,0 +1,55 @@
+- job-template:
+    name: 'build_rpm_{name}_{version}'
+    project-type: 'matrix'
+    properties:
+      - github:
+          url: https://github.com/theforeman/katello-packaging
+    logrotate:
+      daysToKeep: 21
+      numToKeep: -1
+    scm:
+      - katello-packaging
+    axes:
+      - axis:
+          type: user-defined
+          name: dist
+          values:
+            - el6
+            - el7
+      - axis:
+          type: label-expression
+          name: slave
+          values:
+            - el7
+    wrappers:
+      - abort_build:
+          timeout_min: 60
+      - ansicolor
+    builders:
+      - shell: >
+          ./release_package.rb
+          --project {name}
+          --releaser koji-katello-jenkins-${{dist}}
+          --jenkins-job {jenkins_job}
+          --jenkins-job-id lastSuccessfulBuild
+
+- project:
+    name: 'rubygem-katello'
+    version: 'nightly'
+    jenkins_job: 'test_katello_core'
+    jobs:
+      - 'build_rpm_{name}_{version}'
+
+- project:
+    name: 'rubygem-hammer_cli_katello'
+    version: 'nightly'
+    jenkins_job: 'release_build_hammer_cli_katello'
+    jobs:
+      - 'build_rpm_{name}_{version}'
+
+- project:
+    name: 'katello-installer'
+    version: 'nightly'
+    jenkins_job: 'release_build_katello_installer'
+    jobs:
+      - 'build_rpm_{name}_{version}'
