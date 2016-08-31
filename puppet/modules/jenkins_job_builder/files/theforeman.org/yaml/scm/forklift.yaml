@@ -1,0 +1,8 @@
+- scm:
+    name: forklift
+    scm:
+      - git:
+          url: git://github.com/katello/forklift.git
+          wipe-workspace: true
+          branches:
+            - 'master'
