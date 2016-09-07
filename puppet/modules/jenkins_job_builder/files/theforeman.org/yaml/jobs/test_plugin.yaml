@@ -8,6 +8,7 @@
     logrotate:
       daysToKeep: 45
       numToKeep: -1
+    quiet-period: 1200
     scm:
       - foreman_plugin:
           repo: '{repo}'
