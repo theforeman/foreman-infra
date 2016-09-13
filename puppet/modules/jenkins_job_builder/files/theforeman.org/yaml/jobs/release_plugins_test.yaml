@@ -14,9 +14,9 @@
           name: version
           values:
           - 'nightly'
-          - '1.10'
           - '1.11'
           - '1.12'
+          - '1.13'
       - axis:
           type: user-defined
           name: os
@@ -27,7 +27,7 @@
           - f21
           - f24
     execution-strategy:
-      combination-filter: 'os == "el7" || (os == "f19" && version == "1.10") || (os == "f21" && version == "1.11") || (os == "f24" && (version == "1.12" || version == "nightly")) || (os == "el6" && (version == "1.10" || version == "1.11" || version == "1.12"))'
+      combination-filter: 'os == "el7" || (os == "f21" && version == "1.11") || (os == "f24" && (version == "1.12" || version == "1.13" || version == "nightly")) || (os == "el6" && (version == "1.11" || version == "1.12"))'
       sequential: true
     builders:
       - shell: |
