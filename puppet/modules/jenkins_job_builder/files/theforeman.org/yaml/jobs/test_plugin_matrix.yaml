@@ -60,7 +60,10 @@
           values:
             - fast
     execution-strategy:
-      combination-filter: "!(foreman_branch == 'develop' && ruby == '1.9.3')"
+      combination-filter: >
+        "(foreman_branch != 'develop' && ruby == '1.9.3' && database == 'postgresql') ||
+        (database == 'postgresql' && ruby != '1.9.3') ||
+        (ruby == '2.3')"
     wrappers:
       - timestamps
       - abort_build:
