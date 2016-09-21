@@ -24,8 +24,11 @@ while ! bundle install --without=development -j 5; do
   fi
 done
 
-# run npm install if package.json exists and we are running integration tests (which only run on postgresql)
-[ ${database} = postgresql ] && [ -e "$APP_ROOT/package.json" ] && npm install
+# we need to install node modules for integration tests (which only run on postgresql)
+if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
+  npm install npm # first upgrade to newer npm
+  $APP_ROOT/node_modules/.bin/npm install
+fi
 
 # Database environment
 (
