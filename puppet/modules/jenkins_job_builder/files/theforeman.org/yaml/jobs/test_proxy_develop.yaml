@@ -19,7 +19,6 @@
           type: user-defined
           name: ruby
           values:
-          - 1.8.7
           - 1.9.3
           - 2.0.0
           - 2.1
@@ -29,7 +28,6 @@
           type: user-defined
           name: puppet
           values:
-          - 2.6.0
           - 2.7.0
           - 3.0.0
           - 3.4.0
@@ -37,7 +35,7 @@
           - 4.2.0
           - 4.4.0
     execution-strategy:
-      combination-filter: '!( (ruby ==~ /(1\.9|2).*/ && puppet ==~ /2\.6.*/) || (ruby ==~ /2.*/ && puppet ==~ /(2|3\.[01]).*/) || (ruby ==~ /2\.[^0]*/ && puppet ==~ /(2|3\.[0-4]).*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /(2|3).*/) || (ruby ==~ /1\.(8|9\.2).*/ && puppet ==~ /4\..*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )'
+      combination-filter: '!( (ruby ==~ /2.*/ && puppet ==~ /(2|3\.[01]).*/) || (ruby ==~ /2\.[^0]*/ && puppet ==~ /(2|3\.[0-4]).*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /(2|3).*/) || (ruby ==~ /1\.(8|9\.2).*/ && puppet ==~ /4\..*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )'
     builders:
       - test_proxy
     publishers:
