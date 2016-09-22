@@ -14,5 +14,5 @@
           url: git://github.com/theforeman/foreman.git
           wipe-workspace: true
           branches:
-            - '${sha1}'
+            - '${ghprbActualCommit}'
           refspec: '+refs/pull/*:refs/remotes/origin/pr/*'
