@@ -32,8 +32,11 @@ while ! bundle install --without=development -j5; do
   fi
 done
 
-# run npm install if package.json exists
-[ -e "$APP_ROOT/package.json" ] && npm install
+# we need to install node modules for integration tests
+if [ -e "$APP_ROOT/package.json" ]; then
+  npm install npm # first upgrade to newer npm
+  $APP_ROOT/node_modules/.bin/npm install
+fi
 
 # Database environment
 (
