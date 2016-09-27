@@ -35,7 +35,7 @@ done
 # we need to install node modules for integration tests
 if [ -e "$APP_ROOT/package.json" ]; then
   npm install npm # first upgrade to newer npm
-  $APP_ROOT/node_modules/.bin/npm install
+  $APP_ROOT/node_modules/.bin/npm install --no-optional
 fi
 
 # Database environment
