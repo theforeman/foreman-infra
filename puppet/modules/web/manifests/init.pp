@@ -8,7 +8,7 @@
 # $https:: to request an LE cert via webroot mode, the HTTP vhost must be up.  To start httpd, the
 #          certs have to exist, so keep SSL vhosts disabled until the certs are present via the HTTP
 #          vhost and only then enable the SSL vhosts.
-class web($stable = "1.12", $latest = "1.13", $next = "1.14", $htpasswds = {}, $https = false) {
+class web($stable = "1.13", $latest = "1.13", $next = "1.14", $htpasswds = {}, $https = false) {
   include apache
   include rsync::server
 
