@@ -3,6 +3,7 @@
 TOP_ROOT=`pwd`
 APP_ROOT=$TOP_ROOT/foreman
 PLUGIN_ROOT=$TOP_ROOT/plugin
+RAILS_ENV=test
 
 cd $APP_ROOT
 
