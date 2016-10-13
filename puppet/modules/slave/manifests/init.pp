@@ -149,7 +149,9 @@ class slave($github_user = undef,
         default => 'augeas-devel'
       };
     'asciidoc':
-      ensure => present
+      ensure => present;
+    'unzip':
+      ensure => present;
   }
 
   # bash JSON parser
