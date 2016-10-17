@@ -36,7 +36,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "wheezy" || os == "precise")) && !(arch == "armv8" && (os == "wheezy" || os == "precise" || os == trusty || os == "jessie")) && !((version == "nightly" || version == "1.13" || version == "1.12") && (os == "wheezy" || os == "precise")) && !((version == "1.11") && (os == "xenial"))'
+      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "wheezy" || os == "precise")) && !(arch == "armv8" && (os == "wheezy" || os == "precise" || os == "trusty" || os == "jessie")) && !((version == "nightly" || version == "1.13" || version == "1.12") && (os == "wheezy" || os == "precise")) && !((version == "1.11") && (os == "xenial"))'
     builders:
       - build_deb_dependency
     publishers:
