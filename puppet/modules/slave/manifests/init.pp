@@ -132,7 +132,7 @@ class slave($github_user = undef,
       ensure => present;
     'firefox':
       ensure => present,
-      name   => $::osfamily ? {
+      name   => $::operatingsystem ? {
         Debian  => 'iceweasel',
         default => 'firefox'
       };
