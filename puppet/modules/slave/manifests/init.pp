@@ -283,7 +283,7 @@ class slave($github_user = undef,
         version => 'ruby-1.9.3-p392',
       }
       slave::rvm_config { 'ruby-2.0.0':
-        version => 'ruby-2.0.0-p484',
+        version => 'ruby-2.0.0-p481',
       }
     }
     slave::rvm_config { 'ruby-2.1':
