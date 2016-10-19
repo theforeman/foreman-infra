@@ -171,7 +171,7 @@ class slave($github_user = undef,
     } -> Package <| provider == 'npm' |>
 
     package { 'bower':
-      ensure   => '1.3.12',
+      ensure   => '1.7.9',
       provider => npm,
     }
     package { 'phantomjs':
