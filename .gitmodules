@@ -98,3 +98,6 @@
 [submodule "puppet/modules/inifile"]
 	path = puppet/modules/inifile
 	url = https://github.com/puppetlabs/puppetlabs-inifile.git
+[submodule "puppet/modules/ntp"]
+	path = puppet/modules/ntp
+	url = https://github.com/puppetlabs/puppetlabs-ntp.git
