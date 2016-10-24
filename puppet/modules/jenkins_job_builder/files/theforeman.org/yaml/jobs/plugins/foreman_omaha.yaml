@@ -1,0 +1,8 @@
+- project:
+    name: foreman_omaha
+    defaults: plugin
+    branch:
+      - master:
+          foreman_branch: develop
+    jobs:
+      - 'test_plugin_{name}_{branch}'
