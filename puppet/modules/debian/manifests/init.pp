@@ -131,6 +131,13 @@ class debian {
     }
   }
 
+  shellvar { 'extend_pbuilder_path':
+    ensure   => present,
+    target   => '/etc/pbuilderrc',
+    variable => 'PATH',
+    value    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+  }
+
   # Add freight setup
   include freight::uploader
 
