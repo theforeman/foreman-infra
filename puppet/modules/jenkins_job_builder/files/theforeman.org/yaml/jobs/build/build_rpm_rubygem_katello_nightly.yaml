@@ -8,7 +8,8 @@
       daysToKeep: 21
       numToKeep: -1
     scm:
-      - katello-packaging
+      - katello-packaging:
+          branch: 'master'
     axes:
       - axis:
           type: user-defined

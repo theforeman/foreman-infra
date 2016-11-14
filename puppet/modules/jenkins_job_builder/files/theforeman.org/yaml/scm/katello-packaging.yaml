@@ -6,3 +6,5 @@
           submodule:
             recursive: true
           skip-tag: true
+          branches:
+            - '{branch}'
