@@ -1,0 +1,5 @@
+- project:
+    name: smart_proxy_openscap
+    defaults: proxy_plugin
+    jobs:
+      - 'test_proxy_plugin_{name}_{branch}'
