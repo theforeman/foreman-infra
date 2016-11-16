@@ -24,7 +24,7 @@
             plugin_repo=https://github.com/theforeman/{repo}
             plugin_branch={branch}
             plugin_name={name}
-            min_ruby193={min_ruby193}
+            min_ruby200={min_ruby200}
           block: true
     publishers:
       - ircbot_freenode
@@ -33,4 +33,4 @@
     name: proxy_plugin
     repo: '{name}'
     branch: master
-    min_ruby193: false
+    min_ruby200: true
