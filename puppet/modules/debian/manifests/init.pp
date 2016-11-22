@@ -6,7 +6,7 @@ class debian {
 
   package { 'gem2deb': ensure => present }
 
-  case $architecture {
+  case $::architecture {
     'amd64': {
       debian::pbuilder_setup {
         'wheezy64':
@@ -25,12 +25,14 @@ class debian {
           ensure     => present,
           arch       => 'amd64',
           release    => 'jessie',
+          nodesource => true,
           apturl     => 'http://ftp.us.debian.org/debian',
           aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
         'jessie32':
           ensure     => present,
           arch       => 'i386',
           release    => 'jessie',
+          nodesource => true,
           apturl     => 'http://ftp.us.debian.org/debian',
           aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
         'precise64':
@@ -49,12 +51,14 @@ class debian {
           ensure     => present,
           arch       => 'amd64',
           release    => 'trusty',
+          nodesource => true,
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
         'trusty32':
           ensure     => present,
           arch       => 'i386',
           release    => 'trusty',
+          nodesource => true,
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ trusty main restricted universe\n";
         'xenial64':
@@ -84,6 +88,7 @@ class debian {
           ensure     => present,
           arch       => 'armhf',
           release    => 'jessie',
+          nodesource => true,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
         'precise':
