@@ -9,18 +9,6 @@ class debian {
   case $::architecture {
     'amd64': {
       debian::pbuilder_setup {
-        'wheezy64':
-          ensure     => present,
-          arch       => 'amd64',
-          release    => 'wheezy',
-          apturl     => 'http://ftp.us.debian.org/debian',
-          aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
-        'wheezy32':
-          ensure     => present,
-          arch       => 'i386',
-          release    => 'wheezy',
-          apturl     => 'http://ftp.us.debian.org/debian',
-          aptcontent => "deb http://ftp.us.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ wheezy main non-free contrib\n";
         'jessie64':
           ensure     => present,
           arch       => 'amd64',
@@ -35,18 +23,6 @@ class debian {
           nodesource => true,
           apturl     => 'http://ftp.us.debian.org/debian',
           aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
-        'precise64':
-          ensure     => present,
-          arch       => 'amd64',
-          release    => 'precise',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\n";
-        'precise32':
-          ensure     => present,
-          arch       => 'i386',
-          release    => 'precise',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ precise main restricted universe\n";
         'trusty64':
           ensure     => present,
           arch       => 'amd64',
@@ -78,12 +54,6 @@ class debian {
 
     'armv7l': {
       debian::pbuilder_setup {
-        'wheezy':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'wheezy',
-          apturl     => 'http://ftp.de.debian.org/debian',
-          aptcontent => "deb http://ftp.de.debian.org/debian/ wheezy main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ wheezy main non-free contrib\n";
         'jessie':
           ensure     => present,
           arch       => 'armhf',
@@ -91,18 +61,6 @@ class debian {
           nodesource => true,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
-        'precise':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'precise',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports precise main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports precise main restricted universe\n";
-        'trusty':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'trusty',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\n";
         'xenial':
           ensure     => present,
           arch       => 'armhf',
@@ -114,18 +72,6 @@ class debian {
 
     'aarch64': {
       debian::pbuilder_setup {
-        'jessie':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'jessie',
-          apturl     => 'http://ftp.uk.debian.org/debian',
-          aptcontent => "deb http://ftp.uk.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.uk.debian.org/debian/ jessie main non-free contrib\n";
-        'trusty':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'trusty',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports trusty main restricted universe\n";
         'xenial':
           ensure     => present,
           arch       => 'arm64',
