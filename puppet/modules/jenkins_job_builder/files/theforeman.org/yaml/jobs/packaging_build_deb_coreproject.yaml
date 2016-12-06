@@ -15,9 +15,7 @@
           type: user-defined
           name: os
           values:
-          - wheezy
           - jessie
-          - precise
           - trusty
           - xenial
       - axis:
@@ -33,7 +31,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "wheezy" || os == "precise" || os == "trusty")) && !(arch == "armv8" && (os == "wheezy" || os == "precise" || os == "trusty" || os == "jessie")) && !((version == "nightly" || version == "1.13" || version == "1.12") && (os == "wheezy" || os == "precise")) && !((version == "1.11") && (os == "xenial"))'
+      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "trusty")) && !(arch == "armv8" && (os == "trusty" || os == "jessie"))'
     builders:
       - build_deb_coreproject
     publishers:
@@ -55,9 +53,7 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
           name: onlyos
           choices:
             - all
-            - wheezy
             - jessie
-            - precise
             - trusty
             - xenial
           description: 'Restrict matrix job to just the one OS.'
