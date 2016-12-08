@@ -50,6 +50,8 @@ bundle exec rake db:drop db:create db:migrate
 
 ### END test_develop ###
 
+# Ensure we don't mention the gem twice in the Gemfile in case it's already mentioned there
+find Gemfile bundler.d -type f -exec sed -i "/gem ['\"]${plugin_name}['\"]/d" {} \;
 # Now let's introduce the plugin
 echo "gem '${plugin_name}', :path => '${PLUGIN_ROOT}'" >> bundler.d/Gemfile.local.rb
 
