@@ -1,4 +1,4 @@
-// Check if a slave has < 10 GB of free space, wipe out workspaces if it does
+// Check if a slave has < 5 GB of free space, wipe out workspaces if it does
 
 import hudson.model.*;
 import hudson.util.*;
@@ -17,7 +17,7 @@ for (node in Jenkins.instance.nodes) {
     roundedSize = size / (1024 * 1024 * 1024) as int
 
     println("node: " + node.getDisplayName() + ", free space: " + roundedSize + "GB")
-    if (roundedSize < 10) {
+    if (roundedSize < 5) {
         computer.setTemporarilyOffline(true, new hudson.slaves.OfflineCause.ByCLI("disk cleanup"))
         for (item in Jenkins.instance.items) {
             jobName = item.getFullDisplayName()
