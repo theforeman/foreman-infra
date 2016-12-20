@@ -1,7 +1,7 @@
 set :application, "foreman-infra"
 set :repository, "git://github.com/theforeman/foreman-infra.git"
 set :scm, :git
-set :host, "208.74.145.200"
+set :host, "puppetmaster.theforeman.org:8122"
 set :user_sudo, false
 set :deploy_via, :copy
 set :deploy_to, "/etc/puppet/#{application}"
