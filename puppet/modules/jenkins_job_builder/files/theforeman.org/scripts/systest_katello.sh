@@ -5,11 +5,16 @@ rm -f *.bats.out || true
 osname=RHEL
 osver="${os#el}"
 args="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/"
+cmd="USE_KOJI_REPOS=true katello-bats swapfile nightly content"
 
 if [ ${os} = el6 ]; then
- os_vagrant='centos6-bats'
+  os_vagrant='centos6-bats'
 else
- os_vagrant='centos7-bats'
+  os_vagrant='centos7-bats'
+fi
+
+if [ ${puppet_version} = 4 ]; then
+  cmd="USE_PUPPET_FOUR=true $cmd"
 fi
 
 export VAGRANT_DEFAULT_PROVIDER=rackspace
@@ -18,7 +23,7 @@ trap "vagrant destroy $os_vagrant" EXIT ERR
 
 vagrant up $os_vagrant
 vagrant ssh $os_vagrant -c "ls -la /vagrant"
-vagrant ssh $os_vagrant -c "USE_KOJI_REPOS=true katello-bats swapfile nightly content" | tee fb-install-foreman.bats.out
+vagrant ssh $os_vagrant -c "$cmd" | tee fb-install-foreman.bats.out
 
 [ -e debug ] && rm -rf debug/
 mkdir debug
