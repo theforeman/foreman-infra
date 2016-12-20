@@ -9,6 +9,10 @@
           name: 'os'
           default: '{dist}'
           description: 'OS code, e.g. <code>el6</code>, <code>el7</code>'
+      - string:
+          name: 'puppet_version'
+          default: '4'
+          description: 'Puppet version to test against'
     scm:
       - forklift
     wrappers:
