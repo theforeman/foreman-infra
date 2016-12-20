@@ -24,3 +24,6 @@ ca = ~/.katello-ca.cert
 
 ;certificate of the CA that issued the HTTP server certificate
 serverca = ~/.katello-ca.cert
+
+;use SSL instead of Kerberos default
+authtype = ssl
