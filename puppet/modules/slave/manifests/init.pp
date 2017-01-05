@@ -76,6 +76,7 @@ class slave($github_user = undef,
     'smart_proxy_dynflow',
     'smart_proxy_monitoring',
     'smart_proxy_omaha',
+    'smart_proxy_openscap',
     'smart_proxy_pulp',
     'smart_proxy_remote_execution_ssh',
   ]: }
