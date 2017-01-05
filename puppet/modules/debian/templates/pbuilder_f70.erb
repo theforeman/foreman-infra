@@ -112,6 +112,7 @@ EOF
 # Puppet Labs
 echo "deb http://apt.puppetlabs.com <%= @release %> main" >> /etc/apt/sources.list
 echo "deb http://apt.puppetlabs.com <%= @release %> dependencies" >> /etc/apt/sources.list
+echo "deb http://apt.puppetlabs.com <%= @release %> PC1" >> /etc/apt/sources.list
 
 cat <<EOF | apt-key add -
 -----BEGIN PGP PUBLIC KEY BLOCK-----
