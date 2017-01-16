@@ -11,9 +11,13 @@ for pbuilderd in /etc/pbuilder/${os}*; do
   if wget -O/dev/null -q http://stagingdeb.theforeman.org/dists/${os}/${repoowner}-${version} ; then
     echo "echo deb http://stagingdeb.theforeman.org/ ${os} ${repoowner}-${version} >> /etc/apt/sources.list" | sudo tee -a ${pbuilderd}/hooks/F60addforemanrepo > /dev/null
   fi
+  if wget -O/dev/null -q http://stagingdeb.theforeman.org/dists/plugins/${repoowner} ; then
+    echo "echo deb http://stagingdeb.theforeman.org/ plugins ${repoowner} >> /etc/apt/sources.list" | sudo tee -a ${pbuilderd}/hooks/F60addforemanrepo > /dev/null
+  fi
 
   # Use tee to get around sudo/redirection problems, with /dev/null to drop the stdout
   echo "echo deb http://deb.theforeman.org/ ${os} ${version} >> /etc/apt/sources.list" | sudo tee -a ${pbuilderd}/hooks/F60addforemanrepo > /dev/null
+  echo "echo deb http://deb.theforeman.org/ plugins ${version} >> /etc/apt/sources.list" | sudo tee -a ${pbuilderd}/hooks/F60addforemanrepo > /dev/null
 
   # Permit per-OS/project setups to add their own repos
   if [ -e debian/${os}/${project}/hooks ]; then
