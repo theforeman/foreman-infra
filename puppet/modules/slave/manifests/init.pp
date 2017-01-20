@@ -226,7 +226,7 @@ class slave($github_user = undef,
     yumrepo { 'isimluk-openscap':
       enabled     => 1,
       gpgcheck    => 0,
-      name        => 'isimluk-openscap',
+      descr       => 'isimluk-openscap',
       baseurl     => "http://copr-be.cloud.fedoraproject.org/results/isimluk/OpenSCAP/epel-${::operatingsystemmajrelease}-\$basearch/",
       includepkgs => ['openscap'],
     } ->
