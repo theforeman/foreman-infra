@@ -157,6 +157,8 @@ class slave($github_user = undef,
       ensure => present;
     'unzip':
       ensure => present;
+    'ansible':
+      ensure => latest;
   }
 
   # bash JSON parser
