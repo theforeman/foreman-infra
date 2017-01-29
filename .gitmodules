@@ -101,3 +101,6 @@
 [submodule "puppet/modules/ntp"]
 	path = puppet/modules/ntp
 	url = https://github.com/puppetlabs/puppetlabs-ntp.git
+[submodule "puppet/modules/pbuilder"]
+	path = puppet/modules/pbuilder
+	url = https://github.com/camptocamp/puppet-pbuilder.git
