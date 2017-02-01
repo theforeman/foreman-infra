@@ -22,11 +22,11 @@
       - systest_katello
     publishers:
       - archive:
-          artifacts: 'debug/*,*.bats.out,*.tap'
+          artifacts: 'debug/*'
           allow-empty: true
           only-if-success: false
       - tap:
-          results: '*.bats.out'
+          results: 'debug/*.tap'
           fail-if-no-results: true
           failed-tests-mark-build-as-failure: true
           enable-subtests: false
