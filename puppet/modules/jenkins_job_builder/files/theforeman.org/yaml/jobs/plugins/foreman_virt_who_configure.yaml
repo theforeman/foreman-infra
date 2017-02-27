@@ -1,0 +1,5 @@
+- project:
+    name: foreman_virt_who_configure
+    defaults: plugin
+    jobs:
+      - 'test_plugin_{name}_{branch}'
