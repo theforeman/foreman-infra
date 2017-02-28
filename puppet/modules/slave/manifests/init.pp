@@ -303,6 +303,9 @@ class slave($github_user = undef,
     slave::rvm_config { 'ruby-2.3':
       version => 'ruby-2.3.1',
     }
+    slave::rvm_config { 'ruby-2.4':
+      version => 'ruby-2.4.0',
+    }
 
     # Cleanup log dirs
     file { '/etc/cron.daily/rvm_log_cleaner':
