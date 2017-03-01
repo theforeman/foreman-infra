@@ -49,6 +49,7 @@
             - 2.1
             - 2.2
             - 2.3
+            - 2.4
       - axis:
           type: dynamic
           name: database
@@ -63,7 +64,7 @@
       combination-filter: >
         (foreman_branch != 'develop' && ruby == '1.9.3' && database == 'postgresql') ||
         (database == 'postgresql' && ruby != '1.9.3') ||
-        (ruby == '2.3')
+        (ruby == '2.4')
     wrappers:
       - timestamps
       - abort_build:

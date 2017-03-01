@@ -23,6 +23,7 @@
             - 2.1
             - 2.2
             - 2.3
+            - 2.4
       - axis:
           type: user-defined
           name: database
