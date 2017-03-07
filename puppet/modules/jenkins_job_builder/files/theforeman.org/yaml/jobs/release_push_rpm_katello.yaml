@@ -10,7 +10,6 @@
 
 - project:
     name: 'nightly el7'
-    dist: 'el7'
     version: 'nightly'
     jobs:
       - 'release_push_rpm_katello_{version}_{dist}'
