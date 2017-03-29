@@ -23,14 +23,13 @@
           type: user-defined
           name: os
           values:
-          - el6
           - el7
           - f24
           - jessie
           - trusty
           - xenial
     execution-strategy:
-      combination-filter: 'os == "el7" || os == "f24" || (os == "el6" && (version == "1.12")) || os == "jessie" || os == "trusty" || os == "xenial"'
+      combination-filter: 'os == "el7" || os == "f24" || os == "jessie" || os == "trusty" || os == "xenial"'
     publishers:
       - trigger-parameterized-builds:
           - project: 'release_push_deb, release_push_rpm'
