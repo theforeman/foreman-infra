@@ -72,6 +72,13 @@ class debian {
 
     'aarch64': {
       debian::pbuilder_setup {
+        'jessie':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'jessie',
+          nodesource => true,
+          apturl     => 'http://ftp.de.debian.org/debian',
+          aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'arm64',
