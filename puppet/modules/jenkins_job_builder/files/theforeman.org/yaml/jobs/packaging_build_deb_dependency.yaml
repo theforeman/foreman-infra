@@ -34,7 +34,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "trusty")) && !(arch == "armv8" && (os == "trusty" || os == "jessie"))'
+      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "trusty")) && !(arch == "armv8" && os == "trusty")'
     builders:
       - build_deb_dependency
     publishers:
