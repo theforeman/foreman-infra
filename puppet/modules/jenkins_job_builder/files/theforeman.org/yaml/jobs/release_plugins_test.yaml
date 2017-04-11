@@ -14,20 +14,16 @@
           name: version
           values:
           - 'nightly'
-          - '1.12'
           - '1.13'
           - '1.14'
+          - '1.15'
       - axis:
           type: user-defined
           name: os
           values:
-          - el6
           - el7
-          - f19
-          - f21
           - f24
     execution-strategy:
-      combination-filter: 'os == "el7" || os == "f24" || (os == "el6" && (version == "1.12"))'
       sequential: true
     builders:
       - shell: |
