@@ -42,13 +42,13 @@ if [ -n "${copr_lookasides}" ]; then
 fi
 
 puppet_lookaside=""
-if [ -n "${puppet_lookasides}" -a ${os} != f24 ]; then
+if [ -n "${puppet_lookasides}" ]; then
   lookaside_repos=$(echo $puppet_lookasides | tr "," "\n")
 
   for lookaside_repo in $lookaside_repos
   do
     if [ ${osname} == 'Fedora' ]; then
-      puppet_lookaside+="--repofrompath=${lookaside_repo},http://yum.puppetlabs.com/fedora/${os}/products/x86_64/ -l ${lookaside_repo} --repofrompath=${lookaside_repo}-pc1,http://yum.puppetlabs.com/fedora/${os}/PC1/x86_64/ -l ${lookaside_repo}-pc1"
+      puppet_lookaside+="--repofrompath=${lookaside_repo}-pc1,http://yum.puppetlabs.com/fedora/${os}/PC1/x86_64/ -l ${lookaside_repo}-pc1"
     else
       puppet_lookaside+="--repofrompath=${lookaside_repo},http://yum.puppetlabs.com/el/${osver}/products/x86_64/ -l ${lookaside_repo} --repofrompath=${lookaside_repo}-pc1,http://yum.puppetlabs.com/el/${osver}/PC1/x86_64/ -l ${lookaside_repo}-pc1"
     fi

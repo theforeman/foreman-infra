@@ -12,6 +12,9 @@ fi
 . /etc/profile.d/rvm.sh
 gemset=$(echo ${JOB_NAME} | cut -d/ -f1)-${EXECUTOR_NUMBER}
 rvm use ruby-${ruby}@${gemset}
-bundle exec rake db:drop
+
+# Env var works around Rails issue #28001 if DB migrations fail
+bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true
+
 rvm gemset delete ${gemset} --force
 exit 0
