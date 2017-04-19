@@ -1,3 +1,4 @@
 ssl/*
 yaml/*
 puppet/puppet.conf
+.idea

@@ -1,10 +1,11 @@
-# uses a (slightly modified) 3rd-party pbuilder module to create
+# uses a 3rd-party pbuilder module to create
 # tgz images of the specified OSs, as well as a hook script and an
 # execution script. This can be use to build a package.
 #
 class debian {
-
-  package { 'gem2deb': ensure => present }
+  package { 'gem2deb':
+    ensure => present,
+  }
 
   case $::architecture {
     'amd64': {
@@ -23,6 +24,18 @@ class debian {
           nodesource => true,
           apturl     => 'http://ftp.us.debian.org/debian',
           aptcontent => "deb http://ftp.us.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ jessie main non-free contrib\n";
+        'stretch64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'stretch',
+          apturl     => 'http://ftp.us.debian.org/debian',
+          aptcontent => "deb http://ftp.us.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ stretch main non-free contrib\n";
+        'stretch32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'stretch',
+          apturl     => 'http://ftp.us.debian.org/debian',
+          aptcontent => "deb http://ftp.us.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ stretch main non-free contrib\n";
         'trusty64':
           ensure     => present,
           arch       => 'amd64',
@@ -61,6 +74,12 @@ class debian {
           nodesource => true,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
+        'stretch':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'stretch',
+          apturl     => 'http://ftp.de.debian.org/debian',
+          aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'armhf',
@@ -79,6 +98,12 @@ class debian {
           nodesource => true,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
+        'stretch':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'stretch',
+          apturl     => 'http://ftp.de.debian.org/debian',
+          aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'arm64',
@@ -100,5 +125,4 @@ class debian {
   include freight::uploader
 
   # TODO: Cleanup failed pbuilder mounts as a cron
-
 }
