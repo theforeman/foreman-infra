@@ -44,7 +44,6 @@
           type: user-defined
           name: ruby
           values:
-            - 1.9.3
             - 2.0.0
             - 2.1
             - 2.2
@@ -62,9 +61,7 @@
             - fast
     execution-strategy:
       combination-filter: >
-        (foreman_branch != 'develop' && ruby == '1.9.3' && database == 'postgresql') ||
-        (database == 'postgresql' && ruby != '1.9.3') ||
-        (ruby == '2.4')
+        (database == 'postgresql') || (ruby == '2.4')
     wrappers:
       - timestamps
       - abort_build:
