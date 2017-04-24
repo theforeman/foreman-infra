@@ -32,7 +32,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "trusty")) && !(arch == "armv8" && os == "trusty")'
+      combination-filter: '((onlyos == "all") || onlyos == os) && !(arch == "armv7" && (os == "trusty")) && !(arch == "armv8" && os == "trusty") && !((version == "1.14" || version == "1.15") && os == "stretch")'
     builders:
       - build_deb_coreproject
     publishers:
