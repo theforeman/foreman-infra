@@ -368,6 +368,11 @@ class slave($github_user = undef,
       content => $koji_certificate,
     }
   }
+  file { '/tmp/tito':
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
 
   if $rackspace_username and $rackspace_api_key and ($architecture == 'x86_64' or $architecture == 'amd64') {
     class { 'slave::vagrant':
