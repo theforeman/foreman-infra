@@ -7,6 +7,11 @@ cd dependencies/${os}
 mkdir build-${project}
 cd build-${project}
 
+# Import variables from the project, allowing it to override gem2deb behaviour
+if [ -e ../${project}/build_vars.sh ]; then
+  . ../${project}/build_vars.sh
+fi
+
 # Figure out package version and gem2deb it
 VERSION=$(head -n1 ../${project}/changelog|awk '{print $2}'|sed 's/(//;s/)//'|cut -f1 -d-|cut -d: -f2)
 gem fetch ${project} -v "=${VERSION}"
