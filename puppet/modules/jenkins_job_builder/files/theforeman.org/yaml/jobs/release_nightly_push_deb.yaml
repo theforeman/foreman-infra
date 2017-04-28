@@ -16,6 +16,7 @@
           name: os
           values:
           - jessie
+          - stretch
           - trusty
           - xenial
     publishers:

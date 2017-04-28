@@ -39,6 +39,7 @@ fi
 
 [ $pl_puppet = true ] && pl_puppet=stable
 [ $os = xenial -a $pl_puppet = stable ] && pl_puppet=false  # no repo available
+[ $os = stretch -a $pl_puppet = pc1 ] && pl_puppet=false  # no repo available
 
 export VAGRANT_DEFAULT_PROVIDER=rackspace
 

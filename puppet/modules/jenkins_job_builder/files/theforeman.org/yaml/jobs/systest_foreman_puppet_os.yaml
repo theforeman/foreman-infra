@@ -19,6 +19,7 @@
           # - el7  # older than the minimum installer version
           # - f24  # older than the minimum installer version
           - jessie
+          - stretch
           # - trusty  # older than the minimum installer version
           # - xenial  # older than the minimum installer version
     publishers:

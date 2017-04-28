@@ -19,6 +19,7 @@
           - el7
           - f24
           - jessie
+          # - stretch  # not available yet
           - trusty
           - xenial
     publishers:
