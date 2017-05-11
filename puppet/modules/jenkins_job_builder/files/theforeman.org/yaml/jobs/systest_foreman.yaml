@@ -27,8 +27,8 @@
           description: 'OS code, e.g. <code>el6</code>, <code>f18</code>, <code>wheezy</code>'
       - string:
           name: pl_puppet
-          default: pc1
-          description: 'Whether to install Puppet from Puppet Labs first, instead of using the distro version. Set to stable/pc1/nightly for a specific repo, or false to disable.'
+          default: auto
+          description: 'Whether to install Puppet from a non-default repo. Set to nightly/pc1/stable for a specific repo, false to disable, or auto to choose a reasonable working version.'
       - bool:
           name: run_puppet_tests
           default: false

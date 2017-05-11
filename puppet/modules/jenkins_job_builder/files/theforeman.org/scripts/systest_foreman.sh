@@ -37,9 +37,13 @@ if [ -n "${expected_version}" ]; then
   args="FOREMAN_EXPECTED_VERSION=${expected_version} $args"
 fi
 
-[ $pl_puppet = true ] && pl_puppet=stable
-[ $os = xenial -a $pl_puppet = stable ] && pl_puppet=false  # no repo available
-[ $os = stretch -a $pl_puppet = pc1 ] && pl_puppet=false  # no repo available
+if [ $pl_puppet = auto ]; then
+  if [ $os = stretch ]; then
+    pl_puppet=false  # no pc1 repo available
+  else
+    pl_puppet=pc1
+  fi
+fi
 
 export VAGRANT_DEFAULT_PROVIDER=rackspace
 
