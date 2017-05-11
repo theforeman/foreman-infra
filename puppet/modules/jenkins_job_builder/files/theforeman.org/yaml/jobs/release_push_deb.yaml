@@ -1,0 +1,27 @@
+# Push tested stagingdeb repos to public repos.
+- job:
+    name: release_push_deb
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
+    block-downstream: true
+    block-upstream: true
+    parameters:
+      - release_parameters
+    builders:
+      - trigger-builds:
+        - project: deploy_deb
+          predefined-parameters: "os=${os}\nrepo=${major_version}"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - jessie
+          - stretch
+          - trusty
+          - xenial
+    execution-strategy:
+      combination-filter: 'os == "jessie" || (os == "stretch" && major_version != "1.14" && major_version != "1.15") || os == "trusty" || os == "xenial"'

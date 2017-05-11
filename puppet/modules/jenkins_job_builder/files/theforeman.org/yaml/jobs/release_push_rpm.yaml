@@ -1,0 +1,23 @@
+# Push Koji's tested repos to public repos.
+- job:
+    name: release_push_rpm
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
+    block-downstream: true
+    block-upstream: true
+    parameters:
+      - release_parameters
+    builders:
+      - trigger-builds:
+        - project: deploy_yum
+          predefined-parameters: "os=${os}\nrepo_source=foreman-${major_version}\nrepo_dest=releases/${major_version}\noverwrite=false\nmerge=true"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - el7
+          - f24
