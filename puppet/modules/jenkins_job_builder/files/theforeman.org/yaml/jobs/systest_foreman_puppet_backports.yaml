@@ -1,0 +1,22 @@
+- job:
+    name: systest_foreman_puppet_backports
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 3
+    triggers:
+      - timed: 'H 9 * * 6'
+    builders:
+      - trigger-builds:
+        - project: systest_foreman
+          predefined-parameters: "os=${os}\npl_puppet=backports\nrun_puppet_tests=true"
+          block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+          - jessie
+          # - stretch  # no package in backports
+    publishers:
+      - ircbot_freenode

@@ -18,7 +18,7 @@
           values:
           # - el7  # older than the minimum installer version
           # - f24  # older than the minimum installer version
-          - jessie
+          # - jessie  # older than the minimum installer version
           - stretch
           # - trusty  # older than the minimum installer version
           # - xenial  # older than the minimum installer version
