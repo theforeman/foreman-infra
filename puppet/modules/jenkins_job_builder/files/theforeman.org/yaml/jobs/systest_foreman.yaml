@@ -3,7 +3,7 @@
     node: 'el'
     concurrent: true
     logrotate:
-      daysToKeep: 3
+      daysToKeep: 8
       numToKeep: -1
     scm:
       - foreman-bats
