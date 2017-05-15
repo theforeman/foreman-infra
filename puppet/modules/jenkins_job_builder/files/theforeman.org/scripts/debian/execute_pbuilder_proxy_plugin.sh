@@ -27,8 +27,7 @@ if [ x$gitrelease = xtrue ]; then
   PACKAGE_NAME=$(head -n1 debian/changelog|awk '{print $1}')
   LAST_COMMIT=$(git rev-list HEAD|/usr/bin/head -n 1)
   DATE=$(date -R)
-  UNIXTIME=$(date +%Y%m%d%H%M )
-  RELEASE="${VERSION}-plugin+scratchbuild${UNIXTIME}"
+  RELEASE="${VERSION}-plugin+scratchbuild${BUILD_TIMESTAMP}"
   MAINTAINER="${repoowner} <no-reply@theforeman.org>"
   mv debian/changelog debian/changelog.tmp
   echo "$PACKAGE_NAME ($RELEASE) UNRELEASED; urgency=low
