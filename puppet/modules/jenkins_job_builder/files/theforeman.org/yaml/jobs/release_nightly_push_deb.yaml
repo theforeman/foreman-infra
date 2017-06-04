@@ -17,7 +17,6 @@
           values:
           - jessie
           - stretch
-          - trusty
           - xenial
     publishers:
       - ircbot_freenode

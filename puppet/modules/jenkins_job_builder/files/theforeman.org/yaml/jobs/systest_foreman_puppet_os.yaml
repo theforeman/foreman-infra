@@ -20,7 +20,6 @@
           # - f24  # older than the minimum installer version
           # - jessie  # older than the minimum installer version
           - stretch
-          # - trusty  # older than the minimum installer version
           # - xenial  # older than the minimum installer version
     publishers:
       - ircbot_freenode
