@@ -20,7 +20,6 @@
           - f24
           - jessie
           # - stretch  # not available yet
-          - trusty
           - xenial
     publishers:
       - ircbot_freenode

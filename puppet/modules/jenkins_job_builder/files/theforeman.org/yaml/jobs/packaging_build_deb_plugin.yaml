@@ -15,7 +15,7 @@
           type: user-defined
           name: os
           values:
-          - trusty
+          - jessie
       - axis:
           type: slave
           name: arch
