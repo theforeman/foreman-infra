@@ -18,7 +18,7 @@
 	url = git://github.com/puppetlabs/puppetlabs-stdlib.git
 [submodule "puppet/modules/sudo"]
 	path = puppet/modules/sudo
-	url = https://github.com/treydock/puppet-sudo
+	url = https://github.com/treydock/puppet-sudo-old.git
 [submodule "puppet/modules/foreman_proxy"]
 	path = puppet/modules/foreman_proxy
 	url = git://github.com/theforeman/puppet-foreman_proxy.git
