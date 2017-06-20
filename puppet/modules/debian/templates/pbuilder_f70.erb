@@ -19,7 +19,7 @@ echo "deb http://backports.debian.org/debian-backports/ <%= @release %>-backport
 
 <% if @nodesource == true then -%>
 # Nodesource
-echo "deb http://deb.nodesource.com/node_4.x <%= @release %> main" >> /etc/apt/sources.list
+echo "deb http://deb.nodesource.com/node_6.x <%= @release %> main" >> /etc/apt/sources.list
 
 cat <<EOF | apt-key add -
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -76,72 +76,6 @@ sckuXINIU3DFWzZGr0QrqkuE/jyr7FXeUJj9B7cLo+s/TXo+RaVfi3kOc9BoxIvy
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
 
-<% end -%>
-
-<% if @release == 'xenial' && @arch == 'arm64' -%>
-# Use patched nodejs to work around Foreman issue #17491
-echo "deb http://ppa.launchpad.net/kvedulv/nodejs/ubuntu xenial main" >> /etc/apt/sources.list
-
-cat <<EOF | apt-key add -
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-mQINBFg7onIBEADAt0q07gJAa1vPwAh1MdBdgO/EvGwY1y0Q+PzAyNKqOvvCnKB/nnUJPtKv
-o6jc8rX7pTUrkls6ngXA7BZa7G0o6gMKMMZnaNduXbdPOOVNPm73Z1WTgw71O67py/b4lwoF
-Y8GrGBGjFIRN/iRYLIrhCpP4IpxNGcZoQiCcjW+M/KEUUMj4Se6rhouFqTfukhPVS3Q+V+kL
-FZMlQGvSjvd9eQkeyqp4Mpm/H5YeVLzQFsV+xlrwRJHOVcWRjALwR9QUn5pJlr3ANQBfotfl
-+BypeObCEbXtVvXpa4ucnHRXlY9lm2kugUpsl0iioIimqyQcIfmknMUKHj6gi1a6CqrM423O
-/g60MWoo0KZm7HdL5O0u/g4R2XUy5glKWvr/f66Ms/Evr8dF6LIYj0rvzKnaTds89Xrx8aXm
-Zy1/3IqO/XM169fTguhGFBPfUo1CaanyYBEIQf7FmNXFEFGzgWuyTJWgNGVSzeOqnnMnsgP1
-v8BgWokWdxkPs2LQeXIhsJFVb2cFV6O8PI6oR0WE9Y3PLonKC5/c0AxUR03mWoiYVfXIZQ1P
-bkYpYmHhyirQY6hqi+hNmbFWji5feuIQZCxHV0v4IQYIp7EcTTLZaUC4QmQ23oQ5oeusNhPk
-tIwTnTpzt8sKWF7sDOAKaPuv4iaDctiAVfNf8AKvDNvxG2ZIUQARAQABtB5MYXVuY2hwYWQg
-UFBBIGZvciBNaWNoYWVsIE1vbGyJAjgEEwECACIFAlg7onICGwMGCwkIBwMCBhUIAgkKCwQW
-AgMBAh4BAheAAAoJENE8Ju7rtPo/aygQAKEvHdaS01vqUoR6IYGCKBPOt0RyYFsOi8rnih+C
-Knk4vot4955xj6ZcIk0JkuHrtId4eO4yNtOOI0MZTTMwSFat5xXTNwj15msdku1wxY1YE43R
-Z/FIDZSWsBjEkCQcbstD0Tv1/a5ImGh5xzgwZx4jlFOmX5kGHuthYN2bMzRZz3+Nd1tCve/H
-523b4cClY/0zxDLensd3BRKBDZh2OP4fcrZ3H5Hwisp5hPWBaodJXpPs6FlbPjbmyPxZqmrP
-57lE9EAur2HsVwLt5Kc7A8B/TcsukwoHIRqZtg1/H59/U6Y9ZtBk72mgVzvCR85HFnLXkyUA
-q520lSLv0zCHxwqlUNDn3MlUsUKPT0iMabfEFIoBPpyI7YA5qP9xcKRv0RwBeqo8ge2C7N+d
-uWuCe42w5NVmPs9CqdAiicYgwcO4Wy1TXzuIsKiB4rMbMPNkGqGT0KVDGUZIWM1DORg+lIEh
-u96psZ1w/SEGM8OGwSWXfdH+8bIJkU9qe3kjYlSkULdkgzbWwLapIHJLH/5sSnWT/VHt78aN
-ALj/moxqeVm68WeFXNCaGQq7Oh3OhLPoUIoQPzmJ7gQndEHgXh1towk71I9BrHnifuXyl/Ik
-+s8i6r8rEWyzh9NCt9lGeE0f90I33uwCPYTZ368XOMaZfiSy6vcawYiJ011P3+EtlrOf
-=EVYC
------END PGP PUBLIC KEY BLOCK-----
-EOF
-<% end -%>
-
-<% if @release == 'stretch' -%>
-# Use updated npm, see Debian bugs #794890 and #857986
-echo "deb http://ppa.launchpad.net/kvedulv/npm/ubuntu zesty main" >> /etc/apt/sources.list
-
-cat <<EOF | apt-key add -
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-mQINBFg7onIBEADAt0q07gJAa1vPwAh1MdBdgO/EvGwY1y0Q+PzAyNKqOvvCnKB/nnUJPtKv
-o6jc8rX7pTUrkls6ngXA7BZa7G0o6gMKMMZnaNduXbdPOOVNPm73Z1WTgw71O67py/b4lwoF
-Y8GrGBGjFIRN/iRYLIrhCpP4IpxNGcZoQiCcjW+M/KEUUMj4Se6rhouFqTfukhPVS3Q+V+kL
-FZMlQGvSjvd9eQkeyqp4Mpm/H5YeVLzQFsV+xlrwRJHOVcWRjALwR9QUn5pJlr3ANQBfotfl
-+BypeObCEbXtVvXpa4ucnHRXlY9lm2kugUpsl0iioIimqyQcIfmknMUKHj6gi1a6CqrM423O
-/g60MWoo0KZm7HdL5O0u/g4R2XUy5glKWvr/f66Ms/Evr8dF6LIYj0rvzKnaTds89Xrx8aXm
-Zy1/3IqO/XM169fTguhGFBPfUo1CaanyYBEIQf7FmNXFEFGzgWuyTJWgNGVSzeOqnnMnsgP1
-v8BgWokWdxkPs2LQeXIhsJFVb2cFV6O8PI6oR0WE9Y3PLonKC5/c0AxUR03mWoiYVfXIZQ1P
-bkYpYmHhyirQY6hqi+hNmbFWji5feuIQZCxHV0v4IQYIp7EcTTLZaUC4QmQ23oQ5oeusNhPk
-tIwTnTpzt8sKWF7sDOAKaPuv4iaDctiAVfNf8AKvDNvxG2ZIUQARAQABtB5MYXVuY2hwYWQg
-UFBBIGZvciBNaWNoYWVsIE1vbGyJAjgEEwECACIFAlg7onICGwMGCwkIBwMCBhUIAgkKCwQW
-AgMBAh4BAheAAAoJENE8Ju7rtPo/aygQAKEvHdaS01vqUoR6IYGCKBPOt0RyYFsOi8rnih+C
-Knk4vot4955xj6ZcIk0JkuHrtId4eO4yNtOOI0MZTTMwSFat5xXTNwj15msdku1wxY1YE43R
-Z/FIDZSWsBjEkCQcbstD0Tv1/a5ImGh5xzgwZx4jlFOmX5kGHuthYN2bMzRZz3+Nd1tCve/H
-523b4cClY/0zxDLensd3BRKBDZh2OP4fcrZ3H5Hwisp5hPWBaodJXpPs6FlbPjbmyPxZqmrP
-57lE9EAur2HsVwLt5Kc7A8B/TcsukwoHIRqZtg1/H59/U6Y9ZtBk72mgVzvCR85HFnLXkyUA
-q520lSLv0zCHxwqlUNDn3MlUsUKPT0iMabfEFIoBPpyI7YA5qP9xcKRv0RwBeqo8ge2C7N+d
-uWuCe42w5NVmPs9CqdAiicYgwcO4Wy1TXzuIsKiB4rMbMPNkGqGT0KVDGUZIWM1DORg+lIEh
-u96psZ1w/SEGM8OGwSWXfdH+8bIJkU9qe3kjYlSkULdkgzbWwLapIHJLH/5sSnWT/VHt78aN
-ALj/moxqeVm68WeFXNCaGQq7Oh3OhLPoUIoQPzmJ7gQndEHgXh1towk71I9BrHnifuXyl/Ik
-+s8i6r8rEWyzh9NCt9lGeE0f90I33uwCPYTZ368XOMaZfiSy6vcawYiJ011P3+EtlrOf
-=EVYC
------END PGP PUBLIC KEY BLOCK-----
-EOF
 <% end -%>
 
 <% if @puppetlabs == true then %>
