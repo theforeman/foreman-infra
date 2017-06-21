@@ -104,3 +104,6 @@
 [submodule "puppet/modules/pbuilder"]
 	path = puppet/modules/pbuilder
 	url = https://github.com/camptocamp/puppet-pbuilder.git
+[submodule "puppet/modules/staging"]
+	path = puppet/modules/staging
+	url = https://github.com/voxpupuli/puppet-staging.git
