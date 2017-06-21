@@ -279,7 +279,9 @@ class slave($github_user = undef,
     version => '1.26.11',
   }
   if $rvm_installed == "true" {
-    rvm::system_user { 'jenkins': }
+    rvm::system_user { 'jenkins':
+      create => false,
+    }
 
     if $architecture == 'x86_64' or $architecture == 'amd64' {
       slave::rvm_config { 'ruby-1.8.7':
