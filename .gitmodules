@@ -110,3 +110,6 @@
 [submodule "puppet/modules/archive"]
 	path = puppet/modules/archive
 	url = https://github.com/voxpupuli/puppet-archive.git
+[submodule "puppet/modules/extlib"]
+	path = puppet/modules/extlib
+	url = https://github.com/voxpupuli/puppet-extlib.git
