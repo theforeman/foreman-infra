@@ -1,4 +1,1 @@
 require 'puppet-syntax/tasks/puppet-syntax'
-
-# sudo module does not follow auto-loading, needs updating or replacing
-PuppetSyntax.exclude_paths = ['modules/sudo/manifests/init.pp']

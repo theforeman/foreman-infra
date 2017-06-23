@@ -43,9 +43,8 @@ define users::account(
     require => File["/home/$name/.ssh"]
   }
 
-  sudo::directive { "sudo-puppet-${name}":
-    ensure    => present,
-    content   => "$name ALL=(ALL) ALL\n",
+  sudo::conf { "sudo-puppet-${name}":
+    content => "$name ALL=(ALL) ALL",
   }
 
 }

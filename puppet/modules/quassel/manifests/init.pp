@@ -36,9 +36,8 @@ class quassel (
   }
 
   include sudo
-  sudo::directive { "sudo-puppet-quassel":
-    ensure    => present,
-    content   => "%quassel ALL=NOPASSWD:/usr/bin/quasselcore *\n",
+  sudo::conf { 'sudo-puppet-quassel':
+    content => '%quassel ALL=NOPASSWD:/usr/bin/quasselcore *',
   }
 
   if $users == 'undef' {

@@ -39,9 +39,8 @@ class users::slave {
     source  => "puppet:///modules/users/jenkins-ssh_config"
   }
 
-  sudo::directive { "puppet-jenkins":
-    ensure => present,
-    content => "jenkins ALL=NOPASSWD: ALL\n"
+  sudo::conf { 'puppet-jenkins':
+    content => 'jenkins ALL=NOPASSWD: ALL',
   }
 
 }
