@@ -16,7 +16,7 @@
 define secure_ssh::uploader_key (
   $user,
   $dir          = "/home/${user}/.ssh",
-  $mode         = 0600,
+  $mode         = '0600',
   $manage_dir   = false,
   $ssh_key_name = "${name}_key",
 ) {

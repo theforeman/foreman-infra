@@ -1,6 +1,4 @@
 class slave::mysql {
-  include mysql
-
   class { "mysql::server": } ->
   mysql_user { "foreman@localhost":
     ensure        => 'present',

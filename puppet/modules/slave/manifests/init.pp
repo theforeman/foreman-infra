@@ -1,9 +1,11 @@
-class slave($github_user = undef,
-            $github_oauth = undef,
-            $jenkins_build_token = undef,
-            $koji_certificate = undef,
-            $rackspace_username = undef,
-            $rackspace_api_key = undef) {
+class slave (
+  $github_user         = undef,
+  $github_oauth        = undef,
+  $jenkins_build_token = undef,
+  $koji_certificate    = undef,
+  $rackspace_username  = undef,
+  $rackspace_api_key   = undef
+) {
   file { '/var/lib/workspace':
     ensure => directory,
     owner  => 'jenkins',
@@ -102,14 +104,14 @@ class slave($github_user = undef,
     'libxml2-dev':
       ensure => present,
       name   => $::osfamily ? {
-        RedHat  => 'libxml2-devel',
-        default => 'libxml2-dev'
+        'RedHat' => 'libxml2-devel',
+        default  => 'libxml2-dev'
       };
     'libxslt1-dev':
       ensure => present,
       name   => $::osfamily ? {
-        RedHat  => 'libxslt-devel',
-        default => 'libxslt1-dev'
+        'RedHat' => 'libxslt-devel',
+        default  => 'libxslt1-dev'
       };
     'mysql-dev':
       ensure => present,
@@ -123,14 +125,14 @@ class slave($github_user = undef,
     'postgresql-dev':
       ensure => present,
       name   => $::osfamily ? {
-        Debian  => 'libpq-dev',
-        default => 'postgresql-devel'
+        'Debian' => 'libpq-dev',
+        default  => 'postgresql-devel'
       };
     'libkrb5-dev':
       ensure => present,
       name   => $::osfamily ? {
-        Debian  => 'libkrb5-dev',
-        default => 'krb5-devel'
+        'Debian' => 'libkrb5-dev',
+        default  => 'krb5-devel'
       };
     'freeipmi':
       ensure => present;
@@ -139,20 +141,20 @@ class slave($github_user = undef,
     'firefox':
       ensure => present,
       name   => $::operatingsystem ? {
-        Debian  => 'iceweasel',
-        default => 'firefox'
+        'Debian' => 'iceweasel',
+        default  => 'firefox'
       };
     'xvfb':
       ensure => present,
       name   => $::osfamily ? {
-        Debian  => 'xvfb',
-        default => 'xorg-x11-server-Xvfb'
+        'Debian' => 'xvfb',
+        default  => 'xorg-x11-server-Xvfb'
       };
     'augeas-dev':
       ensure => present,
       name   => $::osfamily ? {
-        Debian  => 'libaugeas-dev',
-        default => 'augeas-devel'
+        'Debian' => 'libaugeas-dev',
+        default  => 'augeas-devel'
       };
     'asciidoc':
       ensure => present;

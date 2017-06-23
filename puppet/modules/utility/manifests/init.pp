@@ -4,8 +4,8 @@ class utility($sysadmins = ['/dev/null']) {
   package { "vim":
     ensure => present,
     name => $osfamily ? {
-      Redhat => "vim-enhanced",
-      default => "vim"
+      'RedHat' => "vim-enhanced",
+      default  => "vim"
     }
   }
 

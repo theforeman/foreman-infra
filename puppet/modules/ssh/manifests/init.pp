@@ -12,7 +12,7 @@ class ssh {
   }
 
   case $::osfamily {
-    RedHat: {
+    'RedHat': {
       $ssh_service = 'sshd'
     }
     default: {

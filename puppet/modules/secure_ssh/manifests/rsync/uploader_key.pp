@@ -16,7 +16,7 @@
 define secure_ssh::rsync::uploader_key (
   $user,
   $dir          = "/home/${user}/.ssh",
-  $mode         = 0600,
+  $mode         = '0600',
   $manage_dir   = false,
 ) {
   ::secure_ssh::uploader_key { $name:
