@@ -49,12 +49,6 @@
 [submodule "puppet/modules/git"]
 	path = puppet/modules/git
 	url = https://github.com/theforeman/puppet-git.git
-[submodule "puppet/modules/passenger"]
-	path = puppet/modules/passenger
-	url = https://github.com/theforeman/puppet-passenger.git
-[submodule "puppet/modules/monit"]
-	path = puppet/modules/monit
-	url = https://github.com/theforeman/puppet-module-monit.git
 [submodule "puppet/modules/timezone"]
 	path = puppet/modules/timezone
 	url = https://github.com/BashtonLtd/puppet-timezone.git
