@@ -1,4 +1,4 @@
-class java {
+class slave::java {
   package { "java":
     ensure => present,
     name => $osfamily ? {

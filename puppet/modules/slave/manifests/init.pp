@@ -156,12 +156,29 @@ class slave (
         'Debian' => 'libaugeas-dev',
         default  => 'augeas-devel'
       };
+    'libvirt-dev':
+      ensure => present,
+      name   => $osfamily ? {
+        'Debian' => 'libvirt-dev',
+        default  => 'libvirt-devel'
+      };
     'asciidoc':
       ensure => present;
     'unzip':
       ensure => present;
     'ansible':
       ensure => latest;
+  }
+
+  # this might clash with RVM on Ubuntu(?) otherwise
+  if ! defined(Package['libsqlite3-dev']) {
+    package { "sqlite3-dev":
+      ensure    => present,
+      name      => $osfamily ? {
+        'RedHat' => "sqlite-devel",
+        default  => "libsqlite3-dev"
+      }
+    }
   }
 
   # bash JSON parser
@@ -269,6 +286,9 @@ class slave (
       content => template('slave/90-nproc.conf.erb'),
     }
   }
+
+  # Java
+  include slave::java
 
   # Databases
   include slave::mysql, slave::postgresql
