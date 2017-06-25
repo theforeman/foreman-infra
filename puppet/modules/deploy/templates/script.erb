@@ -5,7 +5,7 @@ dir=`mktemp -d`
 trap "rm -rf $dir" EXIT
 git clone https://github.com/theforeman/foreman-infra $dir/
 (cd $dir && git submodule update --init)
-rsync -aqx --delete-after --exclude=.git $dir/puppet/modules/ /etc/puppet/environments/production/modules/
+rsync -aqx --delete-after --exclude=.git $dir/puppet/modules/ /etc/puppetlabs/code/environments/production/modules/
 echo "Deploy complete at `date`"
 # ERB highlighting looks terrible in this script...
 # vim: set ft=sh : #

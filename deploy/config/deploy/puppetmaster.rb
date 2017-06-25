@@ -4,10 +4,10 @@ set :scm, :git
 set :host, "puppetmaster.theforeman.org:8122"
 set :user_sudo, false
 set :deploy_via, :copy
-set :deploy_to, "/etc/puppet/#{application}"
+set :deploy_to, "/etc/puppetlabs/code/#{application}"
 set :branch, "master"
 set :copy_compression,  :gzip
-set :moduledir, "/etc/puppet/environments/production/modules"
+set :moduledir, "/etc/puppetlabs/code/environments/production/modules"
 
 role :puppetmaster, host
 
