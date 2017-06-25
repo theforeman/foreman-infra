@@ -6,7 +6,7 @@
           foreman_branch: develop
       - 8.0-stable:
           foreman_branch: 1.14-stable
-      - 9.0-stable:
+      - 9.1-stable:
           foreman_branch: 1.15-stable
     jobs:
       - 'test_plugin_{name}_{branch}'
