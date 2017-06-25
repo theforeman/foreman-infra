@@ -20,10 +20,10 @@ $time = Time.now - (60*60*24*7)  # 7 days ago
 
 raw_files = []
 # Globs
-<% if cron_matches == 'all' then -%>
+<% if @cron_matches == 'all' then -%>
   raw_files += Dir.glob('**/*deb')
 <% else -%>
-  <% cron_matches.each do |cron| -%>
+  <% @cron_matches.each do |cron| -%>
   raw_files += Dir.glob('**/*<%= cron %>*deb')  # Input from Freight class
   <% end -%>
 <% end -%>

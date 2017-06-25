@@ -45,7 +45,7 @@ class slave::vagrant($username, $api_key) {
     ensure  => file,
     owner   => 'jenkins',
     group   => 'jenkins',
-    mode    => 0600,
+    mode    => '0600',
     content => template('slave/Vagrantfile.erb'),
   }
 
