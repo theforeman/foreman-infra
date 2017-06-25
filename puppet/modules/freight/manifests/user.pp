@@ -64,7 +64,7 @@ define freight::user (
     docroot         => $webdir,
     docroot_owner   => $user,
     docroot_group   => $user,
-    docroot_mode    => 0755,
+    docroot_mode    => '0755',
     custom_fragment => template('freight/vhost.erb'),
   }
 
@@ -75,7 +75,7 @@ define freight::user (
       docroot         => $webdir,
       docroot_owner   => $user,
       docroot_group   => $user,
-      docroot_mode    => 0755,
+      docroot_mode    => '0755',
       ssl             => true,
       ssl_cert        => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
       ssl_chain       => '/etc/letsencrypt/live/theforeman.org/chain.pem',

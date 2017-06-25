@@ -18,13 +18,13 @@ define quassel::user(
   file { ["/var/cache/quassel/${name}","/var/cache/quassel/${name}/.ssh"]:
     ensure => directory,
     owner  => $name,
-    mode   => 0700,
+    mode   => '0700',
   }
 
   file { "/var/cache/quassel/${name}/.ssh/authorized_keys":
     ensure  => present,
     owner   => $name,
-    mode    => 0600,
+    mode    => '0600',
     content => "ssh-rsa ${key} ${name}",
   }
 

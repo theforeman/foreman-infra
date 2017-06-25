@@ -31,7 +31,7 @@ class rbot::config {
   }
   file { "${rbot::homedir}/.rbot/plugins/redmine_urls.rb":
     ensure  => present,
-    mode    => 0755,
+    mode    => '0755',
     content => template('rbot/redmine_urls.rb.erb')
   }
   exec { 'seed-rbot-config':

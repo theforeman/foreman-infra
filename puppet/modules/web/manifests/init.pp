@@ -71,7 +71,7 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
     docroot         => '/var/www/vhosts/web/htdocs',
     docroot_owner   => 'website',
     docroot_group   => 'website',
-    docroot_mode    => 0755,
+    docroot_mode    => '0755',
     custom_fragment => template("web/web.conf.erb"),
   }
 
@@ -81,7 +81,7 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
     docroot         => '/var/www/vhosts/debugs/htdocs',
     docroot_owner   => 'nobody',
     docroot_group   => 'nobody',
-    docroot_mode    => 0755,
+    docroot_mode    => '0755',
     custom_fragment => template("web/debugs.conf.erb"),
   }
   # takes a hash like: { 'user' => { 'vhost' => 'debugs', passwd => 'secret' }
@@ -91,7 +91,7 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
   $yum_attrs = {
     servername      => 'yum.theforeman.org',
     docroot         => '/var/www/vhosts/yum/htdocs',
-    docroot_mode    => 2575,
+    docroot_mode    => '2575',
     custom_fragment => template('web/yum.conf.erb'),
   }
 
@@ -114,14 +114,14 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
     ensure => present,
     owner  => 'root',
     group  => 'root',
-    mode   => 0644,
+    mode   => '0644',
     source => 'puppet:///modules/web/yum-HEADER.html',
   }
   file { '/var/www/vhosts/yum/htdocs/RPM-GPG-KEY-foreman':
     ensure => present,
     owner  => 'root',
     group  => 'root',
-    mode   => 0644,
+    mode   => '0644',
     source => 'puppet:///modules/web/RPM-GPG-KEY-foreman',
   }
   file { "/var/www/vhosts/yum/htdocs/releases":
@@ -144,7 +144,7 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
   $downloads_attrs = {
     servername   => 'downloads.theforeman.org',
     docroot      => '/var/www/vhosts/downloads/htdocs',
-    docroot_mode => 2575,
+    docroot_mode => '2575',
   }
   rsync::server::module { 'downloads':
     path      => '/var/www/vhosts/downloads/htdocs',
@@ -158,7 +158,7 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
     ensure => present,
     owner  => 'root',
     group  => 'root',
-    mode   => 0644,
+    mode   => '0644',
     source => 'puppet:///modules/web/downloads-HEADER.html',
   }
 

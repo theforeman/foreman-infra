@@ -32,7 +32,7 @@ class quassel (
   file { '/usr/local/bin/quasselshell':
     ensure  => present,
     content => template('quassel/shell.erb'),
-    mode    => 0755,
+    mode    => '0755',
   }
 
   include sudo

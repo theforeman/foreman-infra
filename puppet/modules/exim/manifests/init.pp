@@ -110,7 +110,7 @@ class exim ($ensure="running",
             ensure => present,
             require => Package[$pkg_name],
             content => template('exim/exim.conf.erb'),
-            mode    => 0640,
+            mode    => '0640',
             owner   => 'root',
             group   => 'mail',
         }
