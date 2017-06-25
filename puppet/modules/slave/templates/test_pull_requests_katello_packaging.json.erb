@@ -5,7 +5,7 @@
     "jenkins_url": "http://ci.theforeman.org/",
     "hub_config": "~/.config/hub",
     "github_user": "Katello",
-    "bot_github_user": "<%= github_user -%>",
+    "bot_github_user": "<%= @github_user -%>",
     "irc_channel": "#theforeman-dev",
     "not_mergable_cache": "~/pr_tests/cache/test_pull_request_katello_packaging_not_mergable",
     "repo_groups": {
@@ -21,7 +21,7 @@
                 "*": {
                     "jenkins_job_name": "packaging_test_pull_request_katello_rpm",
                     "downstream_job_name": "true",
-                    "build_token": "<%= jenkins_build_token -%>"
+                    "build_token": "<%= @jenkins_build_token -%>"
                 }
             },
             "repo_to_orgs": {

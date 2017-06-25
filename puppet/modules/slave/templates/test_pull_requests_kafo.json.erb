@@ -5,7 +5,7 @@
   "jenkins_url": "http://ci.theforeman.org/",
   "hub_config": "~/.config/hub",
   "github_user": "theforeman",
-  "bot_github_user": "<%= github_user -%>",
+  "bot_github_user": "<%= @github_user -%>",
   "irc_channel": "#theforeman-dev",
   "not_mergable_cache": "~/pr_tests/cache/test_pull_request_kafo_not_mergable",
   "repo_groups": {},
@@ -17,7 +17,7 @@
       "run_without_trigger": true,
       "branches": { "master": {"jenkins_job_name": "test_kafo_master_pull_request",
                                 "downstream_job_name": "test_kafo_master",
-                                "build_token": "<%= jenkins_build_token -%>"
+                                "build_token": "<%= @jenkins_build_token -%>"
                                 } },
       "repo_to_orgs": {
         "kafo": ["theforeman", "katello"]
