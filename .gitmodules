@@ -113,3 +113,6 @@
 [submodule "puppet/modules/augeasproviders_shellvar"]
 	path = puppet/modules/augeasproviders_shellvar
 	url = https://github.com/hercules-team/augeasproviders_shellvar.git
+[submodule "puppet/modules/augeasproviders_ssh"]
+	path = puppet/modules/augeasproviders_ssh
+	url = https://github.com/hercules-team/augeasproviders_ssh.git
