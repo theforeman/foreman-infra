@@ -58,9 +58,6 @@
 [submodule "puppet/modules/nodejs"]
 	path = puppet/modules/nodejs
 	url = https://github.com/theforeman/puppet-nodejs.git
-[submodule "puppet/modules/augeasproviders"]
-	path = puppet/modules/augeasproviders
-	url = git://github.com/hercules-team/augeasproviders.git
 [submodule "puppet/modules/mount_providers"]
 	path = puppet/modules/mount_providers
 	url = https://github.com/puppetlabs/puppetlabs-mount_providers.git
