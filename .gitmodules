@@ -37,9 +37,6 @@
 [submodule "puppet/modules/epel"]
 	path = puppet/modules/epel
 	url = git://github.com/stahnma/puppet-module-epel.git
-[submodule "puppet/modules/puppetlabs_repo"]
-	path = puppet/modules/puppetlabs_repo
-	url = git://github.com/stahnma/puppetlabs-puppetlabs_repo.git
 [submodule "puppet/modules/ssh_statickeys"]
 	path = puppet/modules/ssh_statickeys
 	url = https://github.com/GregSutcliffe/puppet-ssh_statickeys
