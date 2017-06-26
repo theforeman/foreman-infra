@@ -7,7 +7,7 @@ class users::slave {
     managehome => true
   }
 
-  file { "/home/jenkins/":
+  file { "/home/jenkins":
     ensure => directory,
     owner => "jenkins",
     group => "jenkins",
