@@ -57,7 +57,7 @@
 	url = https://github.com/puppetlabs/puppetlabs-rsync.git
 [submodule "puppet/modules/nodejs"]
 	path = puppet/modules/nodejs
-	url = https://github.com/theforeman/puppet-nodejs.git
+	url = https://github.com/voxpupuli/puppet-nodejs.git
 [submodule "puppet/modules/mount_providers"]
 	path = puppet/modules/mount_providers
 	url = https://github.com/puppetlabs/puppetlabs-mount_providers.git
