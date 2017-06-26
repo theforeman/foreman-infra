@@ -110,3 +110,6 @@
 [submodule "puppet/modules/java"]
 	path = puppet/modules/java
 	url = https://github.com/puppetlabs/puppetlabs-java.git
+[submodule "puppet/modules/augeasproviders_shellvar"]
+	path = puppet/modules/augeasproviders_shellvar
+	url = https://github.com/hercules-team/augeasproviders_shellvar.git
