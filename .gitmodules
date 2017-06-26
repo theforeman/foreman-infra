@@ -104,3 +104,6 @@
 [submodule "puppet/modules/extlib"]
 	path = puppet/modules/extlib
 	url = https://github.com/voxpupuli/puppet-extlib.git
+[submodule "puppet/modules/augeasproviders_core"]
+	path = puppet/modules/augeasproviders_core
+	url = https://github.com/hercules-team/augeasproviders_core.git
