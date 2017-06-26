@@ -1,50 +1,48 @@
 define users::account(
   $fullname,
-  $passwd = undef
+  $passwd = undef,
+  $homedir = "/home/${title}",
 ) {
   user { $name:
     ensure     => present,
     comment    => $fullname,
-    home       => "/home/$name",
+    home       => $homedir,
     managehome => true,
     shell      => '/bin/bash',
     password   => $passwd,
   }
 
-  file { "/home/$name":
+  file { $homedir:
     ensure => directory,
     owner  => $name,
     group  => $name,
     mode   => '0755',
   }
 
-  file { "/home/$name/.vimrc":
-    source => "puppet:///modules/users/vimrc",
-    ensure => present,
-    owner => $name,
-    group => $name,
-    require => File["/home/$name"]
+  file { "${homedir}/.vimrc":
+    ensure => file,
+    source => 'puppet:///modules/users/vimrc',
+    owner  => $name,
+    group  => $name,
   }
 
-  file { "/home/$name/.ssh":
-    ensure  => directory,
-    owner   => $name,
-    group   => $name,
-    mode    => '0700',
-    require => [ User["$name"], File["/home/$name"] ]
+  file { "${homedir}/.ssh":
+    ensure => directory,
+    owner  => $name,
+    group  => $name,
+    mode   => '0700',
   }
 
-  file { "/home/$name/.ssh/authorized_keys":
-    ensure  => present,
-    source  => "puppet:///modules/users/$name-authorized_keys",
-    owner   => $name,
-    group   => $name,
-    mode    => '0600',
-    require => File["/home/$name/.ssh"]
+  file { "${homedir}/.ssh/authorized_keys":
+    ensure => file,
+    source => "puppet:///modules/users/${name}-authorized_keys",
+    owner  => $name,
+    group  => $name,
+    mode   => '0600',
   }
 
   sudo::conf { "sudo-puppet-${name}":
-    content => "$name ALL=(ALL) ALL",
+    content => "${name} ALL=(ALL) ALL",
   }
 
 }

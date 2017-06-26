@@ -1,42 +1,38 @@
 class users::slave {
-  include sudo
+  include ::sudo
 
-  user { "jenkins":
-    ensure => present,
-    home => "/home/jenkins",
-    managehome => true
+  user { 'jenkins':
+    ensure     => present,
+    home       => '/home/jenkins',
+    managehome => true,
   }
 
-  file { "/home/jenkins":
+  file { '/home/jenkins':
     ensure => directory,
-    owner => "jenkins",
-    group => "jenkins",
-    require => User["jenkins"]
+    owner  => 'jenkins',
+    group  => 'jenkins',
   }
 
-  file { "/home/jenkins/.ssh":
+  file { '/home/jenkins/.ssh':
     ensure => directory,
-    owner => "jenkins",
-    group => "jenkins",
-    require => [ User["jenkins"], File["/home/jenkins"] ]
+    owner  => 'jenkins',
+    group  => 'jenkins',
   }
 
-  file { "/home/jenkins/.ssh/authorized_keys":
-    ensure  => present,
-    mode    => '0600',
-    owner   => "jenkins",
-    group   => "jenkins",
-    require => File["/home/jenkins/.ssh"],
-    source  => "puppet:///modules/users/jenkins-authorized_keys"
+  file { '/home/jenkins/.ssh/authorized_keys':
+    ensure => file,
+    mode   => '0600',
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    source => 'puppet:///modules/users/jenkins-authorized_keys',
   }
 
-  file { "/home/jenkins/.ssh/config":
-    ensure  => present,
-    mode    => '0600',
-    owner   => "jenkins",
-    group   => "jenkins",
-    require => File["/home/jenkins/.ssh"],
-    source  => "puppet:///modules/users/jenkins-ssh_config"
+  file { '/home/jenkins/.ssh/config':
+    ensure => file,
+    mode   => '0600',
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    source => 'puppet:///modules/users/jenkins-ssh_config',
   }
 
   sudo::conf { 'puppet-jenkins':
