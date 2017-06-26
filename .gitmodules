@@ -104,3 +104,6 @@
 [submodule "puppet/modules/augeasproviders_mounttab"]
 	path = puppet/modules/augeasproviders_mounttab
 	url = https://github.com/hercules-team/augeasproviders_mounttab.git
+[submodule "puppet/modules/gnupg"]
+	path = puppet/modules/gnupg
+	url = https://github.com/dgolja/golja-gnupg.git
