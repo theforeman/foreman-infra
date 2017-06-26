@@ -107,3 +107,6 @@
 [submodule "puppet/modules/augeasproviders_core"]
 	path = puppet/modules/augeasproviders_core
 	url = https://github.com/hercules-team/augeasproviders_core.git
+[submodule "puppet/modules/augeasproviders_mounttab"]
+	path = puppet/modules/augeasproviders_mounttab
+	url = https://github.com/hercules-team/augeasproviders_mounttab.git
