@@ -107,3 +107,6 @@
 [submodule "puppet/modules/gnupg"]
 	path = puppet/modules/gnupg
 	url = https://github.com/dgolja/golja-gnupg.git
+[submodule "puppet/modules/java"]
+	path = puppet/modules/java
+	url = https://github.com/puppetlabs/puppetlabs-java.git
