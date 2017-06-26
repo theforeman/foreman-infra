@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
 gem 'puppet-syntax'
-gem 'puppet', '~> 4.6.2'
+gem 'puppet', '~> 4.10'
