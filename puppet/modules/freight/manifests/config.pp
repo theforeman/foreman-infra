@@ -9,7 +9,7 @@ class freight::config {
     stagedir     => '/var/www/freight',
     vhost        => 'deb',
     vhost_https  => $freight::https,
-    cron_matches => ['nightly','scratch']
+    cron_matches => ['nightly','scratch'],
   }
 
   freight::user { 'staging':
@@ -19,7 +19,7 @@ class freight::config {
     stagedir     => '/var/www/freightstage',
     vhost        => 'stagingdeb',
     vhost_https  => $freight::https,
-    cron_matches => 'all'
+    cron_matches => 'all',
   }
 
 }
