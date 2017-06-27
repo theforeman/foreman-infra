@@ -190,33 +190,15 @@ class slave (
     source => 'puppet:///modules/slave/JSON.sh',
   }
 
-  # nodejs/npm for Katello JavaScript tests
-  # packages only really available on EL6+
+  # nodejs JavaScript tests
   if $::osfamily == 'RedHat' {
     package { 'npm':
       ensure => present,
-    } -> Package <| provider == 'npm' |>
-
-    package { 'bower':
-      ensure   => '1.7.9',
-      provider => npm,
-    }
-    package { 'phantomjs':
-      ensure   => latest,
-      provider => npm,
-    }
-    package { 'grunt-cli':
-      ensure   => present,
-      provider => npm,
     }
 
-    # Cleanup temporary dirs
+    # Old job for cleaning up temporary dirs
     file { '/etc/cron.daily/npm_tmp_cleaner':
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0755',
-      content => "#!/bin/sh\nfind ~jenkins/tmp -maxdepth 1 -name 'npm-*' -type d -mtime +1 -exec rm -rf {} +\n",
+      ensure  => absent,
     }
   }
 
