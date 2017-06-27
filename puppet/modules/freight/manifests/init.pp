@@ -14,7 +14,8 @@
 #
 class freight($https = false) {
 
-  class { 'freight::install': }~>
-  class { 'freight::config':  }
+  contain ::freight::install
+  contain ::freight::config
 
+  Class['freight::install'] ~> Class['freight::config']
 }
