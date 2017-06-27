@@ -3,13 +3,6 @@ class users (
 ) {
   include ::sudo
 
-  file { '/root/.vimrc':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    source => 'puppet:///modules/users/vimrc',
-  }
-
   if $users == 'undef' {
     # Create basic users, delete once foreman is updated
     users::account { 'samkottler':

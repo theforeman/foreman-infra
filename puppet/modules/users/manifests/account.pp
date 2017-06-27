@@ -1,7 +1,8 @@
 define users::account(
-  $fullname,
+  $fullname = undef,
   $passwd = undef,
   $homedir = "/home/${title}",
+  $sudo = "ALL=(ALL) ALL",
 ) {
   user { $name:
     ensure     => present,
@@ -19,13 +20,6 @@ define users::account(
     mode   => '0755',
   }
 
-  file { "${homedir}/.vimrc":
-    ensure => file,
-    source => 'puppet:///modules/users/vimrc',
-    owner  => $name,
-    group  => $name,
-  }
-
   file { "${homedir}/.ssh":
     ensure => directory,
     owner  => $name,
@@ -34,15 +28,15 @@ define users::account(
   }
 
   file { "${homedir}/.ssh/authorized_keys":
-    ensure => file,
-    source => "puppet:///modules/users/${name}-authorized_keys",
-    owner  => $name,
-    group  => $name,
-    mode   => '0600',
+    ensure  => file,
+    content => file("${module_name}/${name}-authorized_keys"),
+    owner   => $name,
+    group   => $name,
+    mode    => '0600',
   }
 
   sudo::conf { "sudo-puppet-${name}":
-    content => "${name} ALL=(ALL) ALL",
+    content => "${name} ${sudo}",
   }
 
 }
