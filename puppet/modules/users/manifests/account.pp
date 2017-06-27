@@ -28,11 +28,11 @@ define users::account(
   }
 
   file { "${homedir}/.ssh/authorized_keys":
-    ensure => file,
-    source => "puppet:///modules/users/${name}-authorized_keys",
-    owner  => $name,
-    group  => $name,
-    mode   => '0600',
+    ensure  => file,
+    content => file("${module_name}/${name}-authorized_keys"),
+    owner   => $name,
+    group   => $name,
+    mode    => '0600',
   }
 
   sudo::conf { "sudo-puppet-${name}":
