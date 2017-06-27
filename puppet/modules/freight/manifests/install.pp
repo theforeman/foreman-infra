@@ -10,7 +10,7 @@ class freight::install {
       include_src => false,
     }->
     package { 'freight':
-      ensure  => installed,
+      ensure => installed,
     }
   } else {
     yumrepo { 'freight':

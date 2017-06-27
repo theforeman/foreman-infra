@@ -23,7 +23,7 @@ define freight::user (
     }
     # This ruby script is called from the secure_freight template
     file { '/home/freight/bin/secure_deploy_debs':
-      ensure  => present,
+      ensure  => file,
       owner   => 'freight',
       mode    => '0700',
       content => template('freight/deploy_debs.erb'),
@@ -37,7 +37,7 @@ define freight::user (
   }
 
   file { "${home}/freight.conf":
-    ensure  => present,
+    ensure  => file,
     mode    => '0644',
     content => template('freight/freight.conf.erb'),
     require => Package['freight'],
@@ -84,7 +84,7 @@ define freight::user (
     }
   }
 
-  include rsync::server
+  include ::rsync::server
   rsync::server::module { $vhost:
     path      => $webdir,
     list      => true,
@@ -108,8 +108,8 @@ define freight::user (
     group  => 'root',
   }
 
-  if $selinux {
-    include selinux
+  if $::selinux {
+    include ::selinux
 
     # Ensure contexts are correct for content copied between webroot and staging area
     selinux::fcontext { "fcontext-${user}":
