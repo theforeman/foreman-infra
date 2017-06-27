@@ -95,11 +95,11 @@ define freight::user (
     gid       => 'nobody',
   }
   file { "${webdir}/HEADER.html":
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => "puppet:///modules/freight/${vhost}-HEADER.html",
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => file("${module_name}/${vhost}-HEADER.html"),
   }
   file { "${webdir}/foreman.asc":
     ensure => link,
