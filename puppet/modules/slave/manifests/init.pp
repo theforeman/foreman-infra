@@ -210,7 +210,15 @@ class slave (
       provider => npm,
     }
 
-    # Cleanup temporary dirs
+    # temporary dir
+    file { '/home/jenkins/tmp':
+      ensure => directory,
+      owner  => 'jenkins',
+      group  => 'jenkins',
+      mode    => '0775',
+    }
+
+    # Cleanup temporary dir
     file { '/etc/cron.daily/npm_tmp_cleaner':
       ensure  => present,
       owner   => 'root',
