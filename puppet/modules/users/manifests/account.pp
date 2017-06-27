@@ -19,13 +19,6 @@ define users::account(
     mode   => '0755',
   }
 
-  file { "${homedir}/.vimrc":
-    ensure => file,
-    source => 'puppet:///modules/users/vimrc',
-    owner  => $name,
-    group  => $name,
-  }
-
   file { "${homedir}/.ssh":
     ensure => directory,
     owner  => $name,
