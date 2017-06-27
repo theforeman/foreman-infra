@@ -1,7 +1,8 @@
 define users::account(
-  $fullname,
+  $fullname = undef,
   $passwd = undef,
   $homedir = "/home/${title}",
+  $sudo = "ALL=(ALL) ALL",
 ) {
   user { $name:
     ensure     => present,
@@ -35,7 +36,7 @@ define users::account(
   }
 
   sudo::conf { "sudo-puppet-${name}":
-    content => "${name} ALL=(ALL) ALL",
+    content => "${name} ${sudo}",
   }
 
 }
