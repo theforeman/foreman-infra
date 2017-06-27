@@ -1,6 +1,6 @@
 class freight::install {
 
-  if $::operatingsystem == 'Debian' {
+  if $::osfamily == 'Debian' {
     apt::source { 'freight':
       location    => 'http://packages.rcrowley.org',
       release     => $::lsbdistcodename,
