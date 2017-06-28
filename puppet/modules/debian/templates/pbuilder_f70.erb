@@ -79,7 +79,7 @@ EOF
 
 <% if @yarn == true then -%>
 # yarn
-echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
+echo "deb http://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
 
 cat <<EOF | apt-key add -
 -----BEGIN PGP PUBLIC KEY BLOCK-----
