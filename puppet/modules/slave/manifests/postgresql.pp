@@ -14,4 +14,17 @@ class slave::postgresql {
     login         => true,
     require       => Class["postgresql::server"],
   }
+
+  # Tune DB settings for Jenkins slaves, this is UNSAFE for production!
+  postgresql::server::config_entry { 'fsync':
+    value => 'off',
+  }
+
+  postgresql::server::config_entry { 'full_page_writes':
+    value => 'off',
+  }
+
+  postgresql::server::config_entry { 'synchronous_commit':
+    value => 'off',
+  }
 }
