@@ -42,6 +42,7 @@ gem install bundler --no-ri --no-rdoc
 
 # Now let's introduce the plugin
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb
+echo "gem 'psych'" >> bundler.d/Gemfile.local.rb
 
 # Retry as rubygems (being external to us) can be intermittent
 while ! bundle update -j 5; do
