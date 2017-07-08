@@ -8,5 +8,6 @@ class web::jenkins($hostname = 'ci.theforeman.org') {
     servername      => $hostname,
     docroot         => '/var/www/vhosts/jenkins/htdocs',
     custom_fragment => template('web/jenkins.conf.erb'),
+    keepalive       => 'on',
   }
 }
