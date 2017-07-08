@@ -65,7 +65,8 @@ define freight::user (
     docroot_owner   => $user,
     docroot_group   => $user,
     docroot_mode    => '0755',
-    custom_fragment => template('freight/vhost.erb'),
+    options         => ['Indexes', 'FollowSymLinks'],
+    keepalive       => 'on',
   }
 
   if $vhost_https {
@@ -80,7 +81,8 @@ define freight::user (
       ssl_cert        => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
       ssl_chain       => '/etc/letsencrypt/live/theforeman.org/chain.pem',
       ssl_key         => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
-      custom_fragment => template('freight/vhost.erb'),
+      options         => ['Indexes', 'FollowSymLinks'],
+      keepalive       => 'on',
     }
   }
 
