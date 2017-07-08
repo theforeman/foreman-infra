@@ -11,7 +11,7 @@ class rbot::config {
     ensure     => present,
     comment    => 'RBot',
     shell      => '/bin/bash',
-    managehome => 'true',
+    managehome => true,
     home       => $rbot::homedir,
   }
   file { "${rbot::homedir}/.rbot":

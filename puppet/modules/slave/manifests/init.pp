@@ -308,7 +308,7 @@ class slave (
   class { 'rvm':
     version => '1.26.11',
   }
-  if $rvm_installed == "true" {
+  if $rvm_installed == true {
     rvm::system_user { 'jenkins':
       create => false,
     }

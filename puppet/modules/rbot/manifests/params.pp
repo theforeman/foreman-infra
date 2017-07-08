@@ -8,10 +8,10 @@ class rbot::params {
 
   # RBot Defaults
   $auth_password   = 'rbotauth'
-  $reply_with_nick = 'false'
+  $reply_with_nick = false
   $address_prefix  = '!'
   $nick_postfix    = ':'
   $core_language   = 'english'
-  $ssl             = 'false'
+  $ssl             = false
   $plugin_dir      = ['(default)', '(default)/games', '(default)/contrib']
 }
