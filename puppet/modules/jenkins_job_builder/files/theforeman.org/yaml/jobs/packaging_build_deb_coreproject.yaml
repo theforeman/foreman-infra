@@ -32,7 +32,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyos == "all") || onlyos == os) && !((version != "1.15" || (arch == "armv7" || arch == "armv8")) && os == "trusty") && !((version == "1.14" || version == "1.15") && os == "stretch")'
+      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os) && !((version != "1.15" || (arch == "armv7" || arch == "armv8")) && os == "trusty") && !((version == "1.14" || version == "1.15") && os == "stretch")'
     builders:
       - build_deb_coreproject
     publishers:
@@ -59,6 +59,14 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
             - trusty
             - xenial
           description: 'Restrict matrix job to just the one OS.'
+      - choice:
+          name: onlyarch
+          choices:
+            - all
+            - x86
+            - armv7
+            - armv8
+          description: 'Restrict matrix job to just the one arch.'
       - string:
           name: repo
           default: develop
