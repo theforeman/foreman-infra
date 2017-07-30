@@ -65,20 +65,20 @@ class debian {
 
     'armv7l': {
       debian::pbuilder_setup {
-        'jessie32':
+        'jessie':
           ensure     => present,
           arch       => 'armhf',
           release    => 'jessie',
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
-        'stretch32':
+        'stretch':
           ensure     => present,
           arch       => 'armhf',
           release    => 'stretch',
           puppetlabs => false,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
-        'xenial32':
+        'xenial':
           ensure     => present,
           arch       => 'armhf',
           release    => 'xenial',
@@ -89,41 +89,22 @@ class debian {
 
     'aarch64': {
       debian::pbuilder_setup {
-        'jessie64':
+        'jessie':
           ensure     => present,
           arch       => 'arm64',
           release    => 'jessie',
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
-        'jessie32':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'jessie',
-          apturl     => 'http://ftp.de.debian.org/debian',
-          aptcontent => "deb http://ftp.de.debian.org/debian/ jessie main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ jessie main non-free contrib\n";
-        'stretch64':
+        'stretch':
           ensure     => present,
           arch       => 'arm64',
           release    => 'stretch',
           puppetlabs => false,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
-        'stretch32':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'stretch',
-          puppetlabs => false,
-          apturl     => 'http://ftp.de.debian.org/debian',
-          aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
-        'xenial64':
+        'xenial':
           ensure     => present,
           arch       => 'arm64',
-          release    => 'xenial',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
-        'xenial32':
-          ensure     => present,
-          arch       => 'armhf',
           release    => 'xenial',
           apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
           aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
