@@ -53,7 +53,11 @@ if grep -qe "Architecture:\s\+any" debian/control; then
   if [ $arch = x86 ]; then
     sudo pdebuild-${os}32
   else
-    sudo pdebuild-${os}
+    if [ $arch = armv8 ]; then
+      sudo pdebuild-${os}64
+    else
+     sudo pdebuild-${os}32
+    fi
   fi
 fi
 

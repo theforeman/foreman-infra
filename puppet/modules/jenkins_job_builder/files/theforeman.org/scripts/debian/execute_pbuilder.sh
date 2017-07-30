@@ -9,7 +9,7 @@ echo `git log -n1 --oneline`
 cd debian/${os}/
 VERSION=$(head -n1 ${project}/changelog|awk '{print $2}'|sed 's/(//;s/)//'|cut -f1 -d-)
 
-# Setup sources 
+# Setup sources
 mkdir build-${project} && cd build-${project}
 if [[ x$repo =~ ^xdevelop ]]; then
   url_base='http://ci.theforeman.org'
@@ -23,13 +23,13 @@ if [[ x$repo =~ ^xdevelop ]]; then
   if [ x$base_url = x ] ; then
     base_url=`curl "${json_url}" | /usr/local/bin/JSON.sh -b | egrep '\["url"\]' | awk '{print $NF}' | tr -d \"`
   fi
-  url="${base_url}/artifact/*zip*/archive.zip" 
-  
+  url="${base_url}/artifact/*zip*/archive.zip"
+
   wget $url
   unzip archive.zip
   mv archive/pkg/*bz2 ${project}_${VERSION}.orig.tar.bz2
-  
-  # Set this in case we need it 
+
+  # Set this in case we need it
   LAST_COMMIT=`curl "${json_url}" | /usr/local/bin/JSON.sh -b | egrep '"lastBuiltRevision","SHA1"' | awk '{print $NF}' | tr -d \" | head -n1`
 else
   VERSION=`echo ${VERSION} | tr '~rc' '-RC'`
@@ -75,7 +75,7 @@ if [ x$gitrelease = xtrue ] || [ x$pr_number != x ]; then
 
   cat debian/changelog.tmp >> debian/changelog
   rm -f debian/changelog.tmp
-  
+
   # rename orig tarball to stop lintian complaining
   mv ../${project}_${VERSION}.orig.tar.bz2 ../${project}_9999.orig.tar.bz2
 fi
@@ -91,7 +91,11 @@ if grep -qe "Architecture:\s\+any" debian/control; then
   if [ $arch = x86 ]; then
     sudo pdebuild-${os}32
   else
-    sudo pdebuild-${os}
+    if [ $arch = armv8 ]; then
+      sudo pdebuild-${os}64
+    else
+     sudo pdebuild-${os}32
+    fi
   fi
 fi
 
