@@ -116,3 +116,6 @@
 [submodule "puppet/modules/augeasproviders_ssh"]
 	path = puppet/modules/augeasproviders_ssh
 	url = https://github.com/hercules-team/augeasproviders_ssh.git
+[submodule "puppet/modules/datacat"]
+	path = puppet/modules/datacat
+	url = https://github.com/richardc/puppet-datacat.git
