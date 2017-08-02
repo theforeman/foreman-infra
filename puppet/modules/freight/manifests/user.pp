@@ -66,7 +66,6 @@ define freight::user (
     docroot_group   => $user,
     docroot_mode    => '0755',
     options         => ['Indexes', 'FollowSymLinks'],
-    keepalive       => 'on',
   }
 
   if $vhost_https {
@@ -82,7 +81,6 @@ define freight::user (
       ssl_chain       => '/etc/letsencrypt/live/theforeman.org/chain.pem',
       ssl_key         => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
       options         => ['Indexes', 'FollowSymLinks'],
-      keepalive       => 'on',
     }
   }
 

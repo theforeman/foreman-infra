@@ -173,7 +173,6 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
     },
     {
       'port'      => '80',
-      'keepalive' => 'on',
     }
   )
 
@@ -193,7 +192,6 @@ class web($stable = "1.15", $latest = "1.15", $next = "1.16", $htpasswds = {}, $
         'ssl_chain' => '/etc/letsencrypt/live/theforeman.org/chain.pem',
         'ssl_key'   => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
         'require'   => Letsencrypt::Certonly['theforeman.org'],
-        'keepalive' => 'on',
       }
     )
   }
