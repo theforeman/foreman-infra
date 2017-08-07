@@ -1,0 +1,32 @@
+---
+- job:
+    name: 'foreman-forklift-containers-pr-test'
+    node: 'foreman'
+    concurrent: true
+    properties:
+      - github:
+          url: https://github.com/theforeman/forklift
+    triggers:
+      - github-pull-request:
+          org-list:
+            - theforeman
+          status-context: 'containers'
+          trigger-phrase: '.*\[test containers/deploy\].*'
+          permit-all: true
+          github-hooks: true
+          allow-whitelist-orgs-as-admins: true
+          status-add-test-results: true
+          cancel-builds-on-update: true
+    parameters:
+      - string:
+          name: ghprbPullId
+      - string:
+          name: ghprbActualCommit
+      - string:
+          name: ghprbTargetBranch
+          default: master
+    builders:
+      - trigger-builds:
+        - project: foreman-forklift-containers-test
+          current-parameters: true
+          block: true

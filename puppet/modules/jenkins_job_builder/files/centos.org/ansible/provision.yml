@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  vars:
+    api_key: "{{ lookup('file', '~/duffy.key') }}"
+  tasks:
+    - name: 'Get list of nodes'
+      cico:
+        action: get
+        api_key: "{{ api_key }}"
+      register: cico_data
+
+    - name: 'Write cico data locally'
+      copy:
+        content: "{{ cico_data.results | to_json }}"
+        dest: "{{ playbook_dir }}/cico_data.json"
+
+    - name: 'Write cico inventory'
+      copy:
+        content: |
+          [all]
+          {% for host, value in cico_data.results.hosts.items() %}
+          {{ value.hostname }} ansible_fqdn={{ value.hostname }} ansible_ssh_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_ssh_host={{ value.ip_address }}
+          {% endfor %}
+        dest: "{{ playbook_dir }}/cico_inventory"
