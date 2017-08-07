@@ -1,0 +1,20 @@
+---
+- job:
+    name: 'foreman-forklift-containers-test'
+    project-type: 'pipeline'
+    sandbox: true
+    concurrent: true
+    parameters:
+      - string:
+          name: ghprbPullId
+      - string:
+          name: ghprbActualCommit
+      - string:
+          name: ghprbTargetBranch
+          default: master
+    dsl:
+      !include-raw:
+        - pipelines/test/containers.groovy
+        - pipelines/lib/duffy.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/folderChanged.groovy
