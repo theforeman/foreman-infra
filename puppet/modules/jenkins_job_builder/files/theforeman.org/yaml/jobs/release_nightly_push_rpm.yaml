@@ -16,6 +16,5 @@
           name: os
           values:
           - el7
-          - f24
     publishers:
       - ircbot_freenode_matrix
