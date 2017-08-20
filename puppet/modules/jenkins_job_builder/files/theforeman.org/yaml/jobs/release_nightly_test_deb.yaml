@@ -21,7 +21,7 @@
           name: os
           values:
           - jessie
-          - stretch
+            # - stretch # OS packages are too old and there's no puppetserver 5 from PL, yet
           - xenial
     publishers:
       - trigger:
