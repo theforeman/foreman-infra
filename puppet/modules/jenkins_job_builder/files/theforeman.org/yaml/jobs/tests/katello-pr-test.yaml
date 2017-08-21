@@ -1,0 +1,18 @@
+- job:
+    name: katello-pr-test
+    project-type: workflow
+    concurrent: true
+    logrotate:
+      daysToKeep: 30
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/Katello/katello
+    triggers:
+      - github_pr:
+          context: 'katello'
+    dsl:
+      !include-raw:
+        - pipelines/test/testKatello.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/foreman.groovy

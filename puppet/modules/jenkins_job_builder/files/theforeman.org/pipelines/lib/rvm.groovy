@@ -9,8 +9,14 @@ def gemset(name) {
     base_name
 }
 
-def cleanup_rvm(name = '') {
-    withRVM(["rvm gemset delete ${gemset(name)} --force"])
+def configureRVM(ruby = '2.0') {
+    withRVM(['rvm gemset empty --force'], ruby)
+    withRVM(['gem update --no-ri --no-rdoc'], ruby)
+    withRVM(['gem install bundler'], ruby)
+}
+
+def cleanupRVM(name = '', ruby = '2.0') {
+    withRVM(["rvm gemset delete ${gemset(name)} --force"], ruby)
 }
 
 def withRVM(commands, ruby = '2.0', name = '') {
@@ -20,7 +26,6 @@ def withRVM(commands, ruby = '2.0', name = '') {
 
     sh """#!/bin/bash -l
         rvm use ruby-${ruby}@${gemset(name)} --create
-        gem install bundler
         ${commands}
     """
 }
