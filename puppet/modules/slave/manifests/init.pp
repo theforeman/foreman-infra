@@ -324,7 +324,7 @@ class slave (
         version => 'ruby-1.9.3-p392',
       }
       slave::rvm_config { 'ruby-2.0.0':
-        version => 'ruby-2.0.0-p481',
+        version => 'ruby-2.0.0-p643',
       }
     }
     slave::rvm_config { 'ruby-2.1':
