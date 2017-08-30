@@ -1,18 +1,17 @@
 class slave::postgresql {
   Postgresql_psql {
-    cwd => "/",
+    cwd => '/',
   }
 
-  include postgresql::client
-  include postgresql::server
+  include ::postgresql::client
+  include ::postgresql::server
 
   # Simple known user/pass that will allow Jenkins to create its
   # own databases when required
-  postgresql::server::role { "foreman":
-    password_hash => postgresql_password("foreman", "foreman"),
+  postgresql::server::role { 'foreman':
+    password_hash => postgresql_password('foreman', 'foreman'),
     superuser     => true,
     login         => true,
-    require       => Class["postgresql::server"],
   }
 
   # Tune DB settings for Jenkins slaves, this is UNSAFE for production!

@@ -56,7 +56,7 @@ define jenkins_job_builder::config (
 # TODO: We should put in  notify Exec['jenkins_jobs_update']
 #       at some point, but that still has some problems.
   file { $inifile:
-    ensure  => present,
+    ensure  => file,
     mode    => '0400',
     content => template('jenkins_job_builder/jenkins_jobs.ini.erb'),
   }
