@@ -110,6 +110,7 @@ class debian {
           aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
       }
     }
+    default: {}
   }
 
   shellvar { 'extend_pbuilder_path':
@@ -120,7 +121,7 @@ class debian {
   }
 
   # Add freight setup
-  include freight::uploader
+  include ::freight::uploader
 
   # TODO: Cleanup failed pbuilder mounts as a cron
 }

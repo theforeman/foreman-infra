@@ -172,11 +172,11 @@ class slave (
 
   # this might clash with RVM on Ubuntu(?) otherwise
   if ! defined(Package['libsqlite3-dev']) {
-    package { "sqlite3-dev":
-      ensure    => present,
+    package { 'sqlite3-dev':
+      ensure    => file,
       name      => $osfamily ? {
-        'RedHat' => "sqlite-devel",
-        default  => "libsqlite3-dev"
+        'RedHat' => 'sqlite-devel',
+        default  => 'libsqlite3-dev'
       }
     }
   }
@@ -220,7 +220,7 @@ class slave (
 
     # Cleanup temporary dir
     file { '/etc/cron.daily/npm_tmp_cleaner':
-      ensure  => present,
+      ensure  => file,
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
@@ -271,7 +271,7 @@ class slave (
       'scl-utils-build':
         ensure => present;
       'rpmdevtools':
-        ensure => present
+        ensure => present;
     }
   }
 
@@ -287,7 +287,7 @@ class slave (
     }
 
     file { '/etc/security/limits.d/90-nproc.conf':
-      ensure  => present,
+      ensure  => file,
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
@@ -296,16 +296,16 @@ class slave (
   }
 
   # Java
-  include slave::java
+  include ::slave::java
 
   # Databases
-  include slave::mysql, slave::postgresql
+  include ::slave::mysql, ::slave::postgresql
   slave::db_config { 'mysql': }
   slave::db_config { 'sqlite3': }
   slave::db_config { 'postgresql': }
 
   # RVM
-  class { 'rvm':
+  class { '::rvm':
     version => '1.26.11',
   }
   if $rvm_installed == true {
@@ -313,7 +313,7 @@ class slave (
       create => false,
     }
 
-    if $architecture == 'x86_64' or $architecture == 'amd64' {
+    if $::architecture == 'x86_64' or $::architecture == 'amd64' {
       slave::rvm_config { 'ruby-1.8.7':
         version => 'ruby-1.8.7-p371',
       }
@@ -342,11 +342,11 @@ class slave (
 
     # Cleanup log dirs
     file { '/etc/cron.daily/rvm_log_cleaner':
-      ensure  => present,
+      ensure  => file,
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      content => "#!/bin/sh\n[ -e /usr/local/rvm/log ] || exit 0;\nfind /usr/local/rvm/log -maxdepth 1 -mtime +31 -exec rm -rf {} +\n"
+      content => "#!/bin/sh\n[ -e /usr/local/rvm/log ] || exit 0;\nfind /usr/local/rvm/log -maxdepth 1 -mtime +31 -exec rm -rf {} +\n",
     }
   }
 
@@ -362,7 +362,7 @@ class slave (
       'git-annex':
         ensure => latest;
       'pyliblzma':
-        ensure => latest
+        ensure => latest;
     }
   }
   file { '/home/jenkins/.koji':
@@ -406,8 +406,8 @@ class slave (
     group  => 'jenkins',
   }
 
-  if $rackspace_username and $rackspace_api_key and ($architecture == 'x86_64' or $architecture == 'amd64') {
-    class { 'slave::vagrant':
+  if $rackspace_username and $rackspace_api_key and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
+    class { '::slave::vagrant':
       username => $rackspace_username,
       api_key  => $rackspace_api_key,
     }
@@ -415,19 +415,19 @@ class slave (
 
   # Cleanup Jenkins Xvfb processes from aborted builds after a day
   file { '/etc/cron.daily/xvfb_cleaner':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /Xvfb/) { print \$1 }' | xargs kill >/dev/null 2>&1 || true\n"
+    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /Xvfb/) { print \$1 }' | xargs kill >/dev/null 2>&1 || true\n",
   }
 
   # Cleanup Jenkins Ruby processes from aborted builds after a day
   file { '/etc/cron.daily/ruby_cleaner':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /ruby/) { print \$1 }' | xargs kill -9 >/dev/null 2>&1 || true\n"
+    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /ruby/) { print \$1 }' | xargs kill -9 >/dev/null 2>&1 || true\n",
   }
 }

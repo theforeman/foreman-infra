@@ -22,7 +22,7 @@ class jenkins_job_builder (
   $defaults = { 'jenkins_jobs_update_timeout' => $jenkins_jobs_update_timeout }
   create_resources('jenkins_job_builder::config', $configs, $defaults)
 
-  class { 'jenkins_job_builder::install': } ~> Jenkins_job_builder::Config <| |>
+  class { '::jenkins_job_builder::install': } ~> Jenkins_job_builder::Config <| |>
 
   # used to run an update on a regular schedule, in the early morning
   schedule { 'jenkins':
