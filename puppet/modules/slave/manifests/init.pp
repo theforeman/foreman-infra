@@ -173,7 +173,7 @@ class slave (
   # this might clash with RVM on Ubuntu(?) otherwise
   if ! defined(Package['libsqlite3-dev']) {
     package { 'sqlite3-dev':
-      ensure    => file,
+      ensure    => present,
       name      => $osfamily ? {
         'RedHat' => 'sqlite-devel',
         default  => 'libsqlite3-dev'
