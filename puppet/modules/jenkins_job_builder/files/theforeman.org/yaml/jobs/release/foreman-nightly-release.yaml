@@ -1,0 +1,7 @@
+- job:
+    name: foreman-nightly-release
+    project-type: workflow
+    dsl:
+      !include-raw:
+        - pipelines/release/foremanRelease.groovy
+        - pipelines/lib/rvm.groovy
