@@ -25,11 +25,14 @@
           - f24
     execution-strategy:
       sequential: true
+      combination-filter: "!(version == 'nightly' && os == 'f24')"
     builders:
       - shell: |
           if [ $version = nightly ]; then
+            echo branch='develop'
             echo foreman_lookasides=${version}
           else
+            echo branch=${version}
             echo foreman_lookasides=releases/${version}
           fi > lookasides.properties
       - trigger-builds:

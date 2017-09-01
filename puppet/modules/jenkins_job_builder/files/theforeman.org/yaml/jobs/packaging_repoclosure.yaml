@@ -6,7 +6,7 @@
       numToKeep: -1
     scm:
       - foreman-rpm-packaging:
-          branch: rpm/develop
+          branch: "rpm/${branch}"
     builders:
       - packaging_repoclosure
     parameters:
@@ -38,3 +38,7 @@
           name: puppet_lookasides
           default: ''
           description: "Comma separated list of lookaside repos that exist at http://yum.puppetlabs.com/"
+      - string:
+          name: branch
+          default: 'develop'
+          description: 'Packaging branch to use for repoclosure configuration'
