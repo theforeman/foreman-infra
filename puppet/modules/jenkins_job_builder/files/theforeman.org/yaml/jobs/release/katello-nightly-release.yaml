@@ -1,0 +1,6 @@
+- job:
+    name: katello-nightly-release
+    project-type: workflow
+    dsl:
+      !include-raw:
+        - pipelines/release/katelloRelease.groovy
