@@ -77,3 +77,5 @@ mkdir pkg
 gem build katello.gemspec
 cp katello-*.gem pkg/
 
+# Run the DB seeds to verify they work
+bundle exec rake db:drop db:create db:migrate db:seed
