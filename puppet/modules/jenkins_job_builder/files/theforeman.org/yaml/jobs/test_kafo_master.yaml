@@ -1,0 +1,50 @@
+- job:
+    name: test_kafo_master
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 16
+    properties:
+      - github:
+          url: https://github.com/theforeman/kafo
+    scm:
+      - kafo:
+          branch: 'master'
+    triggers:
+      - scm_fifteen_minutes
+      - github
+      - schedule_failed_builds
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+          - 1.8.7
+          - 1.9.3
+          - 2.0.0
+          - 2.1
+          - 2.2
+          - 2.3
+          - 2.4
+      - axis:
+          type: user-defined
+          name: puppet
+          values:
+          - 3.8.0
+          - 4.4.0
+          - 4.5.0
+          - 4.6.0
+          - 4.9.0
+          - 4.10.0
+    execution-strategy:
+      combination-filter: '!( (ruby ==~ /^2\.[2-9].*/ && puppet ==~ /^3\..*/) || (ruby ==~ /^1\..*/ && puppet ==~ /^4\..*/) )'
+      touchstone:
+        expr: 'ruby=="2.1" && puppet=="4.10.0"'
+        result: 'stable'
+    builders:
+      - test_kafo
+    publishers:
+      - gemset_cleanup
+      - ircbot_freenode
+      - junit:
+          results: 'jenkins/reports/unit/*.xml'
