@@ -14,9 +14,9 @@
           name: version
           values:
           - 'nightly'
-          - '1.13'
           - '1.14'
           - '1.15'
+          - '1.16'
       - axis:
           type: user-defined
           name: os
@@ -25,7 +25,7 @@
           - f24
     execution-strategy:
       sequential: true
-      combination-filter: "!(version == 'nightly' && os == 'f24')"
+      combination-filter: "!((version == 'nightly' || version =='1.16' ) && os == 'f24')"
     builders:
       - shell: |
           if [ $version = nightly ]; then
