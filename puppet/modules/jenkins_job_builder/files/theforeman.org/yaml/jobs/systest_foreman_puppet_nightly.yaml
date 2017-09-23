@@ -18,8 +18,7 @@
           values:
           - el7
           - f24
-          - jessie
-          # - stretch  # not available yet
+          - stretch
           - xenial
     publishers:
       - ircbot_freenode

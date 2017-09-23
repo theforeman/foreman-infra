@@ -20,7 +20,6 @@
           type: user-defined
           name: os
           values:
-          - jessie
             # - stretch # OS packages are too old and there's no puppetserver 5 from PL, yet
           - xenial
     publishers:

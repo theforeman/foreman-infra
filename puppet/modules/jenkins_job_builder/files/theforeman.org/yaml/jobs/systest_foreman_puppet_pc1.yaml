@@ -18,7 +18,6 @@
           values:
           - el7
           - f24
-          - jessie
           # - stretch  # not available yet
           # - xenial  # https://tickets.puppetlabs.com/browse/SERVER-17
     publishers:

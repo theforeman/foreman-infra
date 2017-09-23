@@ -18,7 +18,6 @@
           values:
           - el7
           - f24
-          - jessie
           - stretch
           - xenial
     publishers:
