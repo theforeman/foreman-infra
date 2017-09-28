@@ -2,7 +2,7 @@
 
 rm -f *.bats.out || true
 
-os_vagrant='centos7-bats-ci'
+os_vagrant='centos7-katello-bats-ci'
 cp -f boxes.yaml.example boxes.yaml
 
 export VAGRANT_DEFAULT_PROVIDER=rackspace
