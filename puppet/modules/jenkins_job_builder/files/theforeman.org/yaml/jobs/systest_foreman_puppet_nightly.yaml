@@ -17,7 +17,6 @@
           name: os
           values:
           - el7
-          - f24
           - stretch
           - xenial
     publishers:

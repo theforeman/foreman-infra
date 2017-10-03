@@ -12,7 +12,7 @@
           block: true
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\nrepo=nightly\nstaging=true"
+          predefined-parameters: "os=${os}\nrepo=nightly\nstaging=true\npl_puppet=puppet5"
           block: true
     axes:
       - axis:

@@ -9,7 +9,7 @@
     builders:
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\ndb_type=mysql"
+          predefined-parameters: "os=${os}\ndb_type=mysql\npl_puppet=puppet5"
           block: true
     axes:
       - axis:
@@ -17,7 +17,6 @@
           name: os
           values:
           - el7
-          - f24
           - stretch
           - xenial
     publishers:
