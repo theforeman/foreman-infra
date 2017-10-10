@@ -32,7 +32,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os) && !((version != "1.15" || (arch == "armv7" || arch == "armv8")) && os == "trusty") && !((version != "1.15" || version != "1.16") && os == "jessie") && !((version == "1.14" || version == "1.15") && os == "stretch")'
+      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os) && !((version != "1.15" || (arch == "armv7" || arch == "armv8")) && os == "trusty") && !((version != "1.15" && version != "1.16") && os == "jessie") && !((version == "1.14" || version == "1.15") && os == "stretch")'
     builders:
       - build_deb_coreproject
     publishers:
