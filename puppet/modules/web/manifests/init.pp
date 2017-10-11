@@ -11,7 +11,7 @@
 class web($stable = "1.15", $latest = "1.16", $next = "1.17", $htpasswds = {}, $https = false) {
   include apache
   include rsync::server
-  include web::letsencypt
+  include web::letsencrypt
 
   letsencrypt::certonly { 'theforeman.org':
     plugin        => 'webroot',
