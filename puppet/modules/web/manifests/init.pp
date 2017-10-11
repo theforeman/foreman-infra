@@ -11,11 +11,7 @@
 class web($stable = "1.15", $latest = "1.16", $next = "1.17", $htpasswds = {}, $https = false) {
   include apache
   include rsync::server
-
-  class { 'letsencrypt':
-    email          => 'foreman-infra-notifications@googlegroups.com',
-    configure_epel => false,
-  }
+  include web::letsencypt
 
   letsencrypt::certonly { 'theforeman.org':
     plugin        => 'webroot',
@@ -39,14 +35,6 @@ class web($stable = "1.15", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
       '/var/www/vhosts/web/htdocs',
       '/var/www/vhosts/yum/htdocs',
     ],
-  }
-
-  cron { 'letsencrypt_renew':
-    command => '/usr/bin/certbot renew --renew-hook "/sbin/service httpd reload"',
-    user    => root,
-    weekday => '6',
-    hour    => '3',
-    minute  => '27'
   }
 
   if $selinux {
