@@ -1,12 +1,19 @@
-class web::jenkins($hostname = 'ci.theforeman.org') {
+class web::jenkins(
+  $hostname = 'ci.theforeman.org',
+  $webroot = '/var/www/vhosts/jenkins/htdocs',
+) {
   include apache
-  include apache::mod::proxy
-  include apache::mod::proxy_http
+
+  $proxy_pass = {
+    'path'     => '/',
+    'url'      => 'http://localhost:8080/',
+    'keywords' => ['nocanon'],
+  }
 
   apache::vhost { 'jenkins':
-    port            => '80',
-    servername      => $hostname,
-    docroot         => '/var/www/vhosts/jenkins/htdocs',
-    custom_fragment => template('web/jenkins.conf.erb'),
+    port       => '80',
+    servername => $hostname,
+    docroot    => $webroot,
+    proxy_pass => $proxy_pass,
   }
 }
