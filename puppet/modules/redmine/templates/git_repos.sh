@@ -11,7 +11,7 @@ update_repo() {
   fi
 
   cd git/${dir}.git
-  git fetch $*
+  git fetch origin $*
 
   popd >/dev/null
 }
