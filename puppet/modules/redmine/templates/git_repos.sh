@@ -6,19 +6,11 @@ update_repo() {
   repo=$1; shift;
   [ -e git ] || mkdir git
 
-  if [ -e git/${dir}.git ]; then
-    cd git/${dir}.git
-  elif [ -e git/${dir} ]; then
-    # Convert the old full checkout to a bare clone
-    mv git/${dir}/.git git/${dir}.git
-    rm -rf git/${dir}
-    cd git/${dir}.git
-    git config --bool core.bare true
-  else
-    git clone --quiet --bare ${repo} git/${dir}.git
-    cd git/${dir}.git
+  if [ ! -e git/${dir}.git ]; then
+    git clone --quiet --mirror ${repo} git/${dir}.git
   fi
 
+  cd git/${dir}.git
   git fetch $*
 
   popd >/dev/null
@@ -29,7 +21,7 @@ curl http://prprocessor-theforeman.rhcloud.com/redmine_repos | ruby -rjson -e '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
-    puts "#{repo_name} https://github.com/#{repo} #{branches.nil? ? "" : branches.join(" ")}"
+    puts "#{repo_name} https://github.com/#{repo} #{branches.nil? ? "" : branches.map { |branch| "#{branch}:#{branch}" }.join(" ")}"
   end
 end' | while read repo; do
   update_repo $repo
