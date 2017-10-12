@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 update_repo() {
   pushd /usr/share/redmine_data >/dev/null
@@ -7,17 +7,25 @@ update_repo() {
   [ -e git ] || mkdir git
 
   if [ ! -e git/${dir}.git ]; then
-    git clone --quiet --mirror ${repo} git/${dir}.git
+    git clone --quiet --bare ${repo} git/${dir}.git
+    cd git/${dir}.git
+    # Only follow HEAD
+    git branch | grep -v '*' | xargs --no-run-if-empty git branch -D
+  else
+    cd git/${dir}.git
   fi
 
-  cd git/${dir}.git
-  git fetch origin $*
+  if [ -z $1 ] ; then
+    git fetch $repo HEAD:$(git rev-parse --abbrev-ref HEAD)
+  else
+    git fetch $repo $*
+  fi
 
   popd >/dev/null
 }
 
 # Sync repositories for all known git repos
-curl http://prprocessor-theforeman.rhcloud.com/redmine_repos | ruby -rjson -e '
+curl -s http://prprocessor-theforeman.rhcloud.com/redmine_repos | ruby -rjson -e '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
@@ -30,7 +38,7 @@ done
 cd /usr/share/redmine
 
 # Create repositories in the Redmine projects for all known git repos
-curl http://prprocessor-theforeman.rhcloud.com/redmine_repos | script/rails runner -e production '
+curl -s http://prprocessor-theforeman.rhcloud.com/redmine_repos | script/rails runner -e production '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
@@ -40,4 +48,5 @@ JSON.load(STDIN).each do |project_name,repos|
   end
 end'
 
+# Import the changesets
 script/rails runner "Repository.fetch_changesets" -e production
