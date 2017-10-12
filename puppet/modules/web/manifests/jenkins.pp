@@ -30,7 +30,7 @@ class web::jenkins(
   }
 
   if $https {
-    apache::vhost { 'jenkins':
+    apache::vhost { 'jenkins-https':
       port          => 443,
       servername    => $hostname,
       docroot       => $webroot,
