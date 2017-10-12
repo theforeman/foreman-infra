@@ -4,6 +4,7 @@ class web::letsencrypt(
   class { '::letsencrypt':
     email          => $email,
     configure_epel => false,
+    install_method => 'package',
   }
 
   cron { 'letsencrypt_renew':
