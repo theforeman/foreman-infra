@@ -7,16 +7,25 @@
 #
 # $email_password:: Mailgun SMTP access password
 #
+# $app_root::       Directory holding the application
+#
+# $data_dir::       Directory containing the data
+#
+# $username::       User to run under
+#
+# $db_name::        Name of the database
+#
+# $db_password::    The password used to connect to redmine
+#
 class redmine (
-  String $secret_token   = 'token',
-  String $email_password = 'pass',
+  String $secret_token           = 'token',
+  String $email_password         = 'pass',
+  Stdlib::Absolutepath $app_root = '/usr/share/redmine',
+  Stdlib::Absolutepath $data_dir = '/usr/share/redmine_data',
+  String $username               = 'adminpz8bn8d',
+  String $db_name                = 'redmine4',
+  String $db_password            = cache_data('foreman_cache_data', 'db_password', random_password(32)),
 ) {
-  $app_root    = '/usr/share/redmine'
-  $db_name     = 'redmine4'
-  $db_username = 'adminpz8bn8d'
-  $db_password = cache_data('foreman_cache_data', 'db_password', random_password(32))
-  $password    = postgresql_password($db_username, $db_password)
-
   # Prevents errors if run from /root etc.
   Postgresql_psql {
     cwd => '/',
@@ -25,15 +34,15 @@ class redmine (
   include ::postgresql::client, ::postgresql::server
 
   postgresql::server::db { $db_name:
-    user     => $db_username,
-    password => $password,
-    owner    => $db_username,
+    user     => $username,
+    password => postgresql_password($username, $db_password),
+    owner    => $username,
     encoding => 'utf8',
     locale   => 'en_US.utf8',
   }
 
   # Create ident user for psql
-  user { $db_username:
+  user { $username:
     ensure  => 'present',
     shell   => '/bin/false',
     comment => 'Redmine',
@@ -46,7 +55,7 @@ class redmine (
 
   file { '/etc/redmine/secure_config.yaml':
     ensure  => file,
-    owner   => $db_username,
+    owner   => $username,
     group   => 'root',
     mode    => '0600',
     content => template('redmine/secure_config.yaml.erb'),
@@ -66,6 +75,13 @@ class redmine (
     group   => 'root',
     mode    => '0644',
     content => template('redmine/database.yml.erb'),
+  }
+
+  file { $data_dir:
+    ensure => directory,
+    owner  => $username,
+    group  => $username,
+    mode   => '0750',
   }
 
   # Needed for bundle install
@@ -107,7 +123,7 @@ class redmine (
   }
 
   file { ["${app_root}/config.ru", "${app_root}/config/environment.rb"]:
-    owner => $db_username,
+    owner => $username,
   }
 
   # cron jobs ported from .openshift
@@ -134,7 +150,7 @@ class redmine (
     group   => 'root',
     mode    => '0755',
     content => "#!/bin/bash
-sudo -u ${db_username} /usr/local/bin/redmine_repos.sh",
+sudo -u ${username} /usr/local/bin/redmine_repos.sh ${app_root} ${data_dir}",
   }
 
   # Logrotate

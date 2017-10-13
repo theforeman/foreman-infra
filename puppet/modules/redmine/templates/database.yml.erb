@@ -18,8 +18,8 @@ test:
 production:
   adapter: postgresql
   database: <%= @db_name %>
-  username: <%= @db_username %>
-  password: "<%= @password %>"
+  username: <%= @username %>
+  password: "<%= @db_password %>"
   pool: 5
   encoding: utf8
   min_messages: ERROR
