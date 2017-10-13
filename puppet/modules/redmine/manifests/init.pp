@@ -133,7 +133,7 @@ class redmine (
   }
 
   if $https {
-    apache::vhost { $servername:
+    apache::vhost { "${servername}-https":
       add_default_charset     => 'UTF-8',
       docroot                 => $docroot,
       manage_docroot          => false,
