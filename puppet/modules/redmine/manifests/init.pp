@@ -1,7 +1,16 @@
 # Hacky class to set up Redmine
 # Needs VCS handling for cloning and bundling Redmine itself
 #
-class redmine {
+# === Parameters:
+#
+# $secret_token::   Token used in the Rails initializer for session auth, etc
+#
+# $email_password:: Mailgun SMTP access password
+#
+class redmine (
+  String $secret_token   = 'token',
+  String $email_password = 'pass',
+) {
   $app_root    = '/usr/share/redmine'
   $db_name     = 'redmine4'
   $db_username = 'adminpz8bn8d'
@@ -23,12 +32,24 @@ class redmine {
     locale   => 'en_US.utf8',
   }
 
-  # Create ident user
+  # Create ident user for psql
   user { $db_username:
     ensure  => 'present',
     shell   => '/bin/false',
     comment => 'Redmine',
-    home    => $app_root
+    home    => $app_root,
+  }
+
+  file { '/etc/redmine':
+    ensure =>  directory,
+  }
+
+  file { '/etc/redmine/secure_config.yaml':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
+    content => template('redmine/secure_config.yaml.erb'),
   }
 
   # TODO: handle cloning the redmine repo and bundle install...
@@ -36,15 +57,15 @@ class redmine {
     ensure => directory,
     owner  => 'root',
     group  => 'root',
-    mode   => '0755'
+    mode   => '0755',
   }
 
   file { "${app_root}/config/database.yml":
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('redmine/database.yml.erb')
+    content => template('redmine/database.yml.erb'),
   }
 
   # Needed for bundle install
@@ -93,33 +114,33 @@ class redmine {
   # cron jobs ported from .openshift
 
   file { '/etc/cron.daily/redmine_backup':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('redmine/postgresql_backup.sh')
+    content => template('redmine/postgresql_backup.sh'),
   }
 
   file { '/usr/local/bin/redmine_repos.sh':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('redmine/git_repos.sh')
+    content => template('redmine/git_repos.sh'),
   }
 
   file { '/etc/cron.hourly/redmine_repos':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
     content => "#!/bin/bash
-sudo -u ${db_username} /usr/local/bin/redmine_repos.sh"
+sudo -u ${db_username} /usr/local/bin/redmine_repos.sh",
   }
 
   # Logrotate
   file { '/etc/logrotate.d/redmine':
-    ensure  => present,
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
