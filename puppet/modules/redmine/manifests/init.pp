@@ -77,7 +77,7 @@ class redmine (
     'libxml2-devel',
     'ImageMagick-devel',
     'postgresql-devel',
-    'sqlite-devel'
+    'sqlite-devel',
   ]
 
   ensure_packages($packages)
