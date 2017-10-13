@@ -23,9 +23,9 @@ class redmine (
   String $secret_token           = 'token',
   String $email_password         = 'pass',
   Stdlib::Absolutepath $app_root = '/usr/share/redmine',
-  Stdlib::Absolutepath $data_dir = '/usr/share/redmine_data',
-  String $username               = 'adminpz8bn8d',
-  String $db_name                = 'redmine4',
+  Stdlib::Absolutepath $data_dir = '/var/lib/redmine_data',
+  String $username               = 'redmine',
+  String $db_name                = 'redmine',
   String $db_password            = cache_data('foreman_cache_data', 'db_password', random_password(32)),
   Boolean $https                 = false,
 ) {
