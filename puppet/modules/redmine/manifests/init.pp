@@ -126,7 +126,7 @@ class redmine (
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('redmine/git_repos.sh'),
+    content => file('redmine/git_repos.sh'),
   }
 
   file { '/etc/cron.hourly/redmine_repos':
@@ -144,7 +144,7 @@ sudo -u ${db_username} /usr/local/bin/redmine_repos.sh",
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('redmine/logrotate.erb'),
+    content => file('redmine/logrotate'),
   }
 
 }
