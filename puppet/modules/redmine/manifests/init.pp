@@ -63,9 +63,6 @@ class redmine {
 
   # Apache / Passenger
 
-  class { 'apache':
-    default_vhost => false,
-  }
   include ::apache::mod::headers
   include ::apache::mod::passenger
 
@@ -74,7 +71,7 @@ class redmine {
   $docroot          = "${app_root}/public"
   $min_instances    = 1
   $start_timeout    = 600
-  $priority         = 30
+  $priority         = '05'
 
   apache::vhost { $servername:
     add_default_charset     => 'UTF-8',
