@@ -46,7 +46,7 @@ class redmine (
 
   file { '/etc/redmine/secure_config.yaml':
     ensure  => file,
-    owner   => 'root',
+    owner   => $db_username,
     group   => 'root',
     mode    => '0600',
     content => template('redmine/secure_config.yaml.erb'),
