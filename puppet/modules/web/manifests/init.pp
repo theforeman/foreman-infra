@@ -9,9 +9,8 @@
 #          certs have to exist, so keep SSL vhosts disabled until the certs are present via the HTTP
 #          vhost and only then enable the SSL vhosts.
 class web($stable = "1.15", $latest = "1.16", $next = "1.17", $htpasswds = {}, $https = false) {
-  include apache
+  include web::base
   include rsync::server
-  include web::letsencrypt
 
   letsencrypt::certonly { 'theforeman.org':
     plugin        => 'webroot',

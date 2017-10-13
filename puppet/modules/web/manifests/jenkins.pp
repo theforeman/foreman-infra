@@ -3,8 +3,7 @@ class web::jenkins(
   $webroot = '/var/www/vhosts/jenkins/htdocs',
   $https = false,
 ) {
-  include apache
-  include web::letsencrypt
+  include ::web::base
 
   $proxy_pass = {
     'path'          => '/',

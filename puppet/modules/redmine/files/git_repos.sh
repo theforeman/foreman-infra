@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
+CODE_DIR=$1
+DATA_DIR=$2
+
 update_repo() {
-  pushd /usr/share/redmine_data >/dev/null
+  pushd $DATA_DIR >/dev/null
   dir=$1; shift;
   repo=$1; shift;
   [ -e git ] || mkdir git
@@ -35,14 +38,14 @@ end' | while read repo; do
   update_repo $repo
 done
 
-cd /usr/share/redmine
+cd $CODE_DIR
 
 # Create repositories in the Redmine projects for all known git repos
 curl -s http://prprocessor-theforeman.rhcloud.com/redmine_repos | script/rails runner -e production '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
-    repo_path = File.join("/usr/share/redmine_data", "git", "#{repo_name}.git") + File::SEPARATOR
+    repo_path = File.join("'$DATA_DIR'", "git", "#{repo_name}.git") + File::SEPARATOR
     project = Project.find_by_identifier(project_name) or raise("cannot find project #{project_name}")
     Repository::Git.create!(:identifier => repo_name, :project => project, :url => repo_path) unless Repository.find_by_url(repo_path)
   end
