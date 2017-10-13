@@ -120,4 +120,13 @@ class redmine {
 sudo -u ${db_username} /usr/local/bin/redmine_repos.sh"
   }
 
+  # Logrotate
+  file { '/etc/logrotate.d/redmine':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('redmine/logrotate.erb'),
+  }
+
 }
