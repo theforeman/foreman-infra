@@ -17,6 +17,8 @@
 #
 # $db_password::    The password used to connect to redmine
 #
+# $https::          Whether to enable the https vhost
+#
 class redmine (
   String $secret_token           = 'token',
   String $email_password         = 'pass',
@@ -25,6 +27,7 @@ class redmine (
   String $username               = 'adminpz8bn8d',
   String $db_name                = 'redmine4',
   String $db_password            = cache_data('foreman_cache_data', 'db_password', random_password(32)),
+  Boolean $https                 = false,
 ) {
   # Prevents errors if run from /root etc.
   Postgresql_psql {
@@ -101,6 +104,7 @@ class redmine (
   # Apache / Passenger
 
   include ::apache
+  include ::web::letsencrypt
 
   $servername       = 'projects.theforeman.org'
   $redmine_url      = "http://${servername}/"
@@ -108,6 +112,13 @@ class redmine (
   $min_instances    = 1
   $start_timeout    = 600
   $priority         = '05'
+
+  letsencrypt::certonly { $servername:
+    plugin        => 'webroot',
+    manage_cron   => false,
+    domains       => [$servername],
+    webroot_paths => [$docroot],
+  }
 
   apache::vhost { $servername:
     add_default_charset     => 'UTF-8',
@@ -120,6 +131,26 @@ class redmine (
     passenger_start_timeout => $start_timeout,
     priority                => $priority,
     servername              => $servername,
+  }
+
+  if $https {
+    apache::vhost { $servername:
+      add_default_charset     => 'UTF-8',
+      docroot                 => $docroot,
+      manage_docroot          => false,
+      port                    => 443,
+      options                 => ['SymLinksIfOwnerMatch'],
+      passenger_app_root      => $app_root,
+      passenger_min_instances => $min_instances,
+      passenger_start_timeout => $start_timeout,
+      priority                => $priority,
+      servername              => $servername,
+      ssl                     => true,
+      ssl_cert                => "/etc/letsencrypt/live/${servername}/fullchain.pem",
+      ssl_chain               => "/etc/letsencrypt/live/${servername}/chain.pem",
+      ssl_key                 => "/etc/letsencrypt/live/${servername}/privkey.pem",
+      require                 => Letsencrypt::Certonly[$servername],
+    }
   }
 
   file { ["${app_root}/config.ru", "${app_root}/config/environment.rb"]:
