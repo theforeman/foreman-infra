@@ -84,8 +84,7 @@ class redmine (
 
   # Apache / Passenger
 
-  include ::apache::mod::headers
-  include ::apache::mod::passenger
+  include ::apache
 
   $servername       = 'projects.theforeman.org'
   $redmine_url      = "http://${servername}/"
