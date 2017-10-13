@@ -103,8 +103,7 @@ class redmine (
 
   # Apache / Passenger
 
-  include ::apache
-  include ::web::letsencrypt
+  include ::web::base
 
   $servername       = 'projects.theforeman.org'
   $redmine_url      = "http://${servername}/"
