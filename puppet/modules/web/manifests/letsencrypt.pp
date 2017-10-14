@@ -7,7 +7,7 @@ class web::letsencrypt(
   }
 
   cron { 'letsencrypt_renew':
-    command => '/usr/bin/certbot renew --renew-hook "/sbin/service httpd reload"',
+    command => "${::letsencrypt::command} renew --renew-hook '/sbin/service httpd reload'",
     user    => 'root',
     weekday => '6',
     hour    => '3',
