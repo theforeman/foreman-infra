@@ -25,12 +25,12 @@ ldir='/var/cache/parsed_apache_logs'
 
 mkdir -p $ldir
 
-grep "\s200\s" "$debs" \
+grep "\s200\s" $debs \
   | grep "\"GET" \
   | grep "\.deb\s" \
   > ${ldir}/deb_downloads.${date}.log
 
-grep "\s200\s" "$yums" \
+grep "\s200\s" $yums \
   | grep "\"GET" \
   | grep "\.rpm\s" \
   | grep -v "\/source\/" \
