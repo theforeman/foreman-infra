@@ -46,7 +46,7 @@ fi
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate
+bundle exec rake db:drop db:create db:migrate RAILS_ENV=development
 
 ### END test_develop ###
 
@@ -68,7 +68,7 @@ while ! bundle update; do
 done
 
 # Now let's add the plugin migrations
-bundle exec rake db:migrate
+bundle exec rake db:migrate RAILS_ENV=development
 
 tasks="jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
