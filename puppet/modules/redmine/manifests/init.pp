@@ -158,12 +158,12 @@ class redmine (
 
   # cron jobs ported from .openshift
 
-  file { '/etc/cron.daily/redmine_backup':
+  file { '/etc/cron.d/redmine':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
-    mode    => '0755',
-    content => template('redmine/postgresql_backup.sh.erb'),
+    mode    => '0644',
+    content => template('redmine/cron.erb'),
   }
 
   file { '/usr/local/bin/redmine_repos.sh':
@@ -174,13 +174,14 @@ class redmine (
     content => file('redmine/git_repos.sh'),
   }
 
+  # Old crons
+
+  file { '/etc/cron.daily/redmine_backup':
+    ensure  => absent,
+  }
+
   file { '/etc/cron.hourly/redmine_repos':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => "#!/bin/bash
-sudo -u ${username} /usr/local/bin/redmine_repos.sh ${app_root} ${data_dir}",
+    ensure  => absent,
   }
 
   # Logrotate
