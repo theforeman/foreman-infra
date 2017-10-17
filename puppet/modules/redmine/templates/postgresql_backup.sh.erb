@@ -1,0 +1,8 @@
+#!/bin/bash
+# Backs up the OpenShift PostgreSQL database for this application
+
+FILENAME="<%= @data_dir %>/redmine.backup.sql.gz"
+DBNAME="<%= @db_name %>"
+
+cd /tmp
+sudo -u postgres pg_dump $DBNAME | gzip > $FILENAME
