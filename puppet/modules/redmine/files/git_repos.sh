@@ -19,9 +19,9 @@ update_repo() {
   fi
 
   if [ -z $1 ] ; then
-    git fetch $repo HEAD:$(git rev-parse --abbrev-ref HEAD)
+    git fetch --quiet $repo HEAD:$(git rev-parse --abbrev-ref HEAD)
   else
-    git fetch $repo $*
+    git fetch --quiet $repo $*
   fi
 
   popd >/dev/null
