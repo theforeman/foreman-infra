@@ -163,7 +163,7 @@ class redmine (
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('redmine/postgresql_backup.sh'),
+    content => template('redmine/postgresql_backup.sh.erb'),
   }
 
   file { '/usr/local/bin/redmine_repos.sh':
