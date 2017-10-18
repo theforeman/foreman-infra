@@ -20,6 +20,7 @@ def withRVM(commands, ruby = '2.0', name = '') {
 
     sh """#!/bin/bash -l
         rvm use ruby-${ruby}@${gemset(name)} --create
+        gem install bundler
         ${commands}
     """
 }
