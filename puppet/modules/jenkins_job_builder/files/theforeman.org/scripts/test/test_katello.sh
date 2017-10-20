@@ -69,6 +69,8 @@ bundle exec rake db:migrate
 
 # Katello-specific tests
 bundle exec rake jenkins:katello TESTOPTS="-v"
+# Run the DB seeds to verify they work
+bundle exec rake db:drop db:create db:migrate db:seed
 
 cd $PLUGIN_ROOT
 
@@ -76,6 +78,3 @@ rm -rf pkg/
 mkdir pkg
 gem build katello.gemspec
 cp katello-*.gem pkg/
-
-# Run the DB seeds to verify they work
-bundle exec rake db:drop db:create db:migrate db:seed
