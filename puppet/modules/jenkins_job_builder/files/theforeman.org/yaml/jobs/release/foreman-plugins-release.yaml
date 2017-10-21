@@ -1,0 +1,7 @@
+- job:
+    name: foreman-plugins-release
+    project-type: workflow
+    dsl:
+      !include-raw:
+        - pipelines/release/foremanPluginsRelease.groovy
+        - pipelines/lib/rvm.groovy
