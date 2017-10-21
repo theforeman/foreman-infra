@@ -1,6 +1,8 @@
 #!/bin/bash -xe
 
-# Build the site on the slave 
+echo "Setting up RVM environment."
+set +x
+# Build the site on the slave
 ruby=2.0.0
 # RVM Ruby environment
 . /etc/profile.d/rvm.sh
@@ -8,7 +10,8 @@ ruby=2.0.0
 gemset=$(echo ${JOB_NAME} | cut -d/ -f1)-${EXECUTOR_NUMBER}
 rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
-#gem update --no-ri --no-rdoc
+set -x
+
 gem install bundler --no-ri --no-rdoc
 
 # Reset environment
