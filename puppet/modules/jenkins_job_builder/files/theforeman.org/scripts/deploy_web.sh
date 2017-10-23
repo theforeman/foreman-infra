@@ -1,14 +1,17 @@
 #!/bin/bash -xe
 
-# Build the site on the slave 
+# Build the site on the slave
 
+echo "Setting up RVM environment."
 # RVM Ruby environment
+set +x
 . /etc/profile.d/rvm.sh
 # Use a gemset unique to each executor to enable parallel builds
 gemset=$(echo ${JOB_NAME} | cut -d/ -f1)-${EXECUTOR_NUMBER}
 rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
-#gem update --no-ri --no-rdoc
+set -x
+
 gem install bundler --no-ri --no-rdoc
 
 # Retry as rubygems (being external to us) can be intermittent
@@ -21,7 +24,7 @@ while ! bundle install -j 5; do
 done
 
 # compile site on slave
-bundle exec jekyll build 
+bundle exec jekyll build
 
 # Copy the site to the web node
 # Dependencies
