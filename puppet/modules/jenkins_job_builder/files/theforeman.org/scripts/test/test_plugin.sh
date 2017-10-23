@@ -46,7 +46,7 @@ fi
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate RAILS_ENV=development
+bundle exec rake db:drop db:create db:migrate DISABLE_DATABASE_ENVIRONMENT_CHECK=true
 
 ### END test_develop ###
 
