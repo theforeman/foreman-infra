@@ -49,4 +49,5 @@ tasks="pkg:generate_source jenkins:unit"
 bundle exec rake $tasks TESTOPTS="-v"
 
 # Run the DB seeds to verify they work
-bundle exec rake db:drop db:create db:migrate db:seed
+bundle exec rake db:drop db:create db:migrate
+bundle exec rake db:seed
