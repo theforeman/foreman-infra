@@ -8,4 +8,4 @@ if [ -n "${pr_git_url}" ]; then
   git merge pr/${pr_git_ref}
 fi
 
-popd plugin
+popd
