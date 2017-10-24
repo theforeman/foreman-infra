@@ -75,7 +75,7 @@ bundle exec rake db:migrate
 bundle exec rake jenkins:katello TESTOPTS="-v"
 # Run the DB seeds to verify they work
 bundle exec rake db:drop db:create db:migrate
-bunlde exec rake db:seed
+bundle exec rake db:seed
 
 cd $PLUGIN_ROOT
 
