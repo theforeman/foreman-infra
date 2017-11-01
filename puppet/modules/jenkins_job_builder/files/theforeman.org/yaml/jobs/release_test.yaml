@@ -24,7 +24,6 @@
           name: os
           values:
           - el7
-          - f24
           - jessie
           - stretch
           - trusty
