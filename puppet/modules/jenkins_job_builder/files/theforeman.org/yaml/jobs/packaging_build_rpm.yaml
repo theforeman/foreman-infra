@@ -34,6 +34,8 @@
             - koji-foreman
             - koji-foreman-nightly
             - koji-foreman-plugins
+            - koji-katello
+            - koji-katello-client
           description: 'tito releaser appropriate for the selected project.  Use koji-foreman for core projects and dependencies, use koji-foreman-plugins for plugins and their dependencies.  Use koji-foreman-nightly when building nightly packages with the nightly_* parameters.'
       - bool:
           name: gitrelease
