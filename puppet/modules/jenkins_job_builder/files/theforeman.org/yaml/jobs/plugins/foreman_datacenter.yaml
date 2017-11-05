@@ -1,0 +1,6 @@
+- project:
+    name: foreman_datacenter
+    repo: foreman_datacenter
+    defaults: plugin
+    jobs:
+      - 'test_plugin_{name}_{branch}'
