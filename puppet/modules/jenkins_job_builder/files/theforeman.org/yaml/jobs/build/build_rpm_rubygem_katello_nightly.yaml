@@ -1,37 +1,27 @@
 - job-template:
     name: 'build_rpm_{name}_{version}'
-    project-type: 'matrix'
     properties:
       - github:
-          url: https://github.com/theforeman/katello-packaging
+          url: https://github.com/theforeman/foreman-packaging
     logrotate:
       daysToKeep: 21
       numToKeep: -1
-    scm:
-      - katello-packaging:
-          branch: 'master'
-    axes:
-      - axis:
-          type: user-defined
-          name: dist
-          values:
-            - el7
-      - axis:
-          type: label-expression
-          name: slave
-          values:
-            - el7
+    triggers:
+      - timed: '0 18 * * *'
     wrappers:
       - abort_build:
           timeout_min: 60
       - ansicolor
     builders:
-      - shell: >
-          ./release_package.rb
-          --project {name}
-          --releaser koji-katello-jenkins-${{dist}}
-          --jenkins-job {jenkins_job}
-          --jenkins-job-id lastSuccessfulBuild
+      - trigger-builds:
+        - project: "packaging_build_rpm"
+          block: true
+          predefined-parameters: |
+            project=katello/{name}
+            scratch=true
+            releaser=koji-katello-jenkins
+            nightly_jenkins_job={jenkins_job}
+            nightly_jenkins_job_id=lastSuccessfulBuild
 
 - project:
     name: 'rubygem-katello'
