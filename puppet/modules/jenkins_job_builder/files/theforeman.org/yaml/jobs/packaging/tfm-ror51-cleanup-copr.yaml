@@ -1,0 +1,11 @@
+---
+- job:
+    name: tfm-ror51-cleanup-copr
+    project-type: workflow
+    properties:
+      - github:
+          url: https://github.com/theforeman/tfm-ror51-packaging
+    dsl:
+      !include-raw:
+        - pipelines/test/tfmROR51CoprCleanup.groovy
+        - pipelines/lib/ansible.groovy

@@ -1,0 +1,14 @@
+---
+- job:
+    name: tfm-ror51-pr-test
+    project-type: workflow
+    properties:
+      - github:
+          url: https://github.com/theforeman/tfm-ror51-packaging
+    triggers:
+      - github_pr:
+          context: 'copr'
+    dsl:
+      !include-raw:
+        - pipelines/test/tfmROR51.groovy
+        - pipelines/lib/ansible.groovy
