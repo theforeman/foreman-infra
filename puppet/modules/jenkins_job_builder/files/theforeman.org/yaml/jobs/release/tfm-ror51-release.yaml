@@ -1,0 +1,13 @@
+---
+- job:
+    name: tfm-ror51-release
+    project-type: workflow
+    properties:
+      - github:
+          url: https://github.com/theforeman/tfm-ror51-packaging
+    triggers:
+        - github
+    dsl:
+      !include-raw:
+        - pipelines/release/tfmROR51.groovy
+        - pipelines/lib/ansible.groovy
