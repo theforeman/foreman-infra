@@ -363,6 +363,8 @@ class slave (
         ensure => latest;
       'pyliblzma':
         ensure => latest;
+      'copr-cli':
+        ensure => latest;
     }
   }
   file { '/home/jenkins/.koji':
