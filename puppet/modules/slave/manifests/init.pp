@@ -4,7 +4,10 @@ class slave (
   $jenkins_build_token = undef,
   $koji_certificate    = undef,
   $rackspace_username  = undef,
-  $rackspace_api_key   = undef
+  $rackspace_api_key   = undef,
+  $copr_login          = undef,
+  $copr_username       = undef,
+  $copr_token          = undef,
 ) {
   file { '/var/lib/workspace':
     ensure => directory,
@@ -392,6 +395,13 @@ class slave (
     owner  => 'jenkins',
     group  => 'jenkins',
     source => 'puppet:///modules/slave/katello-ca.cert',
+  }
+  file { '/home/jenkins/.config/copr':
+    ensure   => file,
+    mode     => '0640',
+    owner    => 'jenkins',
+    group    => 'jenkins',
+    content  => template('slave/copr.erb'),
   }
   if $koji_certificate {
     file { '/home/jenkins/.katello.cert':
