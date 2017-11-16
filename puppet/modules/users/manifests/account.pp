@@ -36,11 +36,6 @@ define users::account(
       group   => $name,
       mode    => '0600',
     }
-  } elsif $ensure == 'absent' {
-    # Allow to revoke users access for cleanup
-    file { "${homedir}/.ssh/authorized_keys":
-      ensure  => absent,
-    }
   }
 
   sudo::conf { "sudo-puppet-${name}":
