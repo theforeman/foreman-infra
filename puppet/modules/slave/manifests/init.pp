@@ -68,6 +68,7 @@ class slave (
     'foreman_setup',
     'foreman_tasks',
     'foreman_templates',
+    'foreman_userdata',
     'hammer_cli',
     'hammer_cli_foreman',
     'hammer_cli_foreman_discovery',
