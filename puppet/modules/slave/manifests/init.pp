@@ -219,7 +219,7 @@ class slave (
       ensure => directory,
       owner  => 'jenkins',
       group  => 'jenkins',
-      mode    => '0775',
+      mode   => '0775',
     }
 
     # Cleanup temporary dir
@@ -229,6 +229,23 @@ class slave (
       group   => 'root',
       mode    => '0755',
       content => "#!/bin/sh\nfind ~jenkins/tmp -maxdepth 1 -name 'npm-*' -type d -mtime +1 -exec rm -rf {} +\n",
+    }
+  }
+
+  # Needed to test with headless chrome and Selenium
+  if $::osfamily == 'RedHat' {
+    yumrepo { 'google-chrome':
+      name     => 'google-chrome - \$basearch',
+      ensure   => present,
+      baseurl  => 'http://dl.google.com/linux/chrome/rpm/stable/\$basearch',
+      enabled  => '1',
+      gpgcheck => '1',
+      gpgkey   => 'https://dl-ssl.google.com/linux/linux_signing_key.pub',
+      before   => Package['google-chrome-stable'],
+    }
+
+    package { 'google-chrome-stable':
+      ensure => latest,
     }
   }
 
