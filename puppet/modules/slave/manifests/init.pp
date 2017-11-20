@@ -235,9 +235,9 @@ class slave (
   # Needed to test with headless chrome and Selenium
   if $::osfamily == 'RedHat' {
     yumrepo { 'google-chrome':
-      name     => 'google-chrome - \$basearch',
       ensure   => present,
-      baseurl  => 'http://dl.google.com/linux/chrome/rpm/stable/\$basearch',
+      name     => 'google-chrome - $basearch',
+      baseurl  => 'http://dl.google.com/linux/chrome/rpm/stable/$basearch',
       enabled  => '1',
       gpgcheck => '1',
       gpgkey   => 'https://dl-ssl.google.com/linux/linux_signing_key.pub',
