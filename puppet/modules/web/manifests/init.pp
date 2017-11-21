@@ -12,8 +12,8 @@
 #          vhost and only then enable the SSL vhosts.
 class web(
   String $stable = '1.16',
-  String $latest = '1.16',
-  String $next = '1.17',
+  String $latest = '1.17',
+  String $next = '1.18',
   Hash[String, Hash] $htpasswds = {},
   Boolean $https = false,
 ) {
