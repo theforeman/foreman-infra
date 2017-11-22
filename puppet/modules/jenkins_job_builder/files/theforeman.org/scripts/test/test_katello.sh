@@ -73,9 +73,15 @@ bundle exec rake db:migrate
 
 # Katello-specific tests
 bundle exec rake jenkins:katello TESTOPTS="-v"
+
 # Run the DB seeds to verify they work
-bundle exec rake db:drop db:create db:migrate
-bundle exec rake db:seed
+# Don't run DB seeds if the version of katello is less than 3.1
+VERSION=$(grep -Po "(\d+\.)+\d+" $PLUGIN_ROOT + '/lib/katello/version.rb')
+
+if [ $(echo ${VERSION}$'\n3.1.0' | sort --version-sort --reverse | head -n1) != ${VERSION} ]; then
+  bundle exec rake db:drop db:create db:migrate
+  bundle exec rake db:seed
+fi
 
 cd $PLUGIN_ROOT
 
