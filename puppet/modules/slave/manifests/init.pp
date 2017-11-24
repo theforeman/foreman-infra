@@ -251,6 +251,10 @@ class slave (
     package { 'google-chrome-stable':
       ensure => latest,
     }
+
+    class { 'chromedriver':
+      ensure => latest,
+    }
   }
 
   # needed by katello gem dependency qpid-messaging
