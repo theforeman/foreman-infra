@@ -25,11 +25,10 @@ pipeline {
 
                 parallel(
                     'nightly/el7': { repoclosure('nightly', 'el7') },
+                    '1.17/el7': { repoclosure('1.17', 'el7') },
                     '1.16/el7': { repoclosure('1.16', 'el7') },
                     '1.15/el7': { repoclosure('1.15', 'el7') },
-                    '1.15/f24': { repoclosure('1.15', 'f24') },
-                    '1.14/el7': { repoclosure('1.14', 'el7') },
-                    '1.14/f24': { repoclosure('1.14', 'f24') }
+                    '1.15/f24': { repoclosure('1.15', 'f24') }
                 )
 
             }
@@ -46,11 +45,10 @@ pipeline {
 
                 parallel(
                     'nightly/el7': { repoclosure('nightly', 'el7') },
+                    '1.17/el7': { repoclosure('1.17', 'el7') },
                     '1.16/el7': { repoclosure('1.16', 'el7') },
                     '1.15/el7': { repoclosure('1.15', 'el7') },
-                    '1.15/f24': { repoclosure('1.15', 'f24') },
-                    '1.14/el7': { repoclosure('1.14', 'el7') },
-                    '1.14/f24': { repoclosure('1.14', 'f24') }
+                    '1.15/f24': { repoclosure('1.15', 'f24') }
                 )
 
             }
