@@ -19,6 +19,7 @@
           predefined-parameters: |
             project=katello/{name}
             gitrelease=false
+            scratch=false
             releaser=koji-katello-jenkins
             nightly_jenkins_job={jenkins_job}
             nightly_jenkins_job_id=lastSuccessfulBuild
