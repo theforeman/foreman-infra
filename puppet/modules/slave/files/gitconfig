@@ -1,3 +1,7 @@
 [http]
   lowSpeedLimit = 1024
   lowSpeedTime  = 60
+
+[user]
+  email = ci@theforeman.org
+  name = jenkins
