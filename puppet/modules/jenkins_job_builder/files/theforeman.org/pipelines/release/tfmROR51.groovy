@@ -28,17 +28,6 @@ pipeline {
 
             }
         }
-        stage('Find Packages to Build') {
-            steps {
-
-                script {
-                    merge_info = sh(returnStdout: true, script: "git rev-list --parents -n 1 ${previousCommit}").split()
-                    packages_to_build = sh(returnStdout: true, script: "git diff ${merge_info[1]}...${merge_info[0]} --name-only -- 'packages/*.spec' | cut -d'/' -f2 |sort -u").trim()
-                    packages_to_build = packages_to_build.split().join(':')
-                }
-
-            }
-        }
         stage('Release Build Packages') {
             steps {
 
