@@ -9,15 +9,15 @@
     builders:
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\numask=077\npl_puppet=puppet5"
+          predefined-parameters: "os=${os}\numask=077"
           block: true
     axes:
       - axis:
           type: user-defined
           name: os
           values:
-          - el7
-          - stretch
-          - xenial
+          - centos7
+          - debian9
+          - ubuntu1604
     publishers:
       - ircbot_freenode

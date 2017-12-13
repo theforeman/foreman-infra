@@ -12,15 +12,15 @@
     builders:
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\nrepo=nightly\nstaging=true\npl_puppet=puppet5\nrun_puppet_tests=true"
+          predefined-parameters: "os=${os}\nrepo=nightly\nstaging=true"
           block: true
     axes:
       - axis:
           type: user-defined
           name: os
           values:
-          - stretch
-          - xenial
+          - debian9
+          - ubuntu1604
     publishers:
       - trigger:
           project: release_nightly_push_deb
