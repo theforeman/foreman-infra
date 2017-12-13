@@ -6,7 +6,7 @@
       daysToKeep: 8
       numToKeep: -1
     scm:
-      - foreman-bats
+      - forklift
     builders:
       - systest_foreman
     wrappers:
@@ -17,18 +17,18 @@
           name: repo
           default: nightly
           description: 'Repo to test. Prefixes appropriate to the test repo is automatically added ("foreman" for koji, "theforeman" for stagingdeb), so use only the variable component, e.g. <code>nightly</code> or <code>1.6</code>'
-      - bool:
-          name: staging
-          default: false
-          description: 'True to test staged packages (koji/stagingdeb) or false to test latest published packages'
+      - string:
+          name: repo_environment
+          default: release
+          description: 'Whether to use <code>staging</code> packages (koji/stagingdeb) or <code>release</code> packages'
       - string:
           name: os
           default: ''
-          description: 'OS code, e.g. <code>el6</code>, <code>f18</code>, <code>wheezy</code>'
+          description: 'OS code, e.g. <code>centos7</code>, <code>debian9</code>, <code>ubuntu1604</code>'
       - string:
           name: pl_puppet
-          default: auto
-          description: 'Whether to install Puppet from a non-default repo. Set to nightly/pc1/stable for a specific repo, false to disable, or auto to choose a reasonable working version.'
+          default: ''
+          description: 'Whether to install Puppet from a non-default repo. Set to 3/4/5 for a specific repo, false to disable, or empty to choose a reasonable working version.'
       - bool:
           name: run_puppet_tests
           default: false
@@ -37,21 +37,6 @@
           name: run_hammer_tests
           default: false
           description: 'Whether to run additional hammer tests (https://github.com/theforeman/hammer-tests).'
-      - string:
-          name: hammer_tests_owner
-          default: theforeman
-          description: ''
-      - string:
-          name: hammer_tests_branch
-          default: master
-          description: ''
-      - string:
-          name: hammer_deps
-          default: ''
-          description: 'Install additional gem dependencies for hammer tests. Can be used for testing your own branches.  Whitespace separated list of gem names or git urls in format <code>https://github.com/owner/repo.git#name_of_branch</code>.
-
-E.g.
-<code>https://github.com/theforeman/hammer-cli.git#test</code>'
       - string:
           name: db_type
           default: ''

@@ -9,15 +9,15 @@
     builders:
       - trigger-builds:
         - project: systest_foreman
-          predefined-parameters: "os=${os}\npl_puppet=pc1\nrun_puppet_tests=true"
+          predefined-parameters: "os=${os}\npl_puppet=4"
           block: true
     axes:
       - axis:
           type: user-defined
           name: os
           values:
-          - el7
-          # - stretch  # not available yet
-          # - xenial  # https://tickets.puppetlabs.com/browse/SERVER-17
+          - centos7
+          # - debian9  # not available yet
+          # - ubuntu1604  # https://tickets.puppetlabs.com/browse/SERVER-17
     publishers:
       - ircbot_freenode
