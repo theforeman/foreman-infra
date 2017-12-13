@@ -232,24 +232,13 @@ class slave (
     }
   }
 
-  # Needed to test with headless chrome and Selenium
+  # Needed for integration tests with headless chrome and Selenium
   if $::osfamily == 'RedHat' {
-    yumrepo { 'google-chrome - $basearch':
-      ensure => absent,
-    }
+    include ::epel
 
-    yumrepo { 'google-chrome':
-      ensure   => present,
-      descr    => 'google-chrome - $basearch',
-      baseurl  => 'http://dl.google.com/linux/chrome/rpm/stable/$basearch',
-      enabled  => '1',
-      gpgcheck => '1',
-      gpgkey   => 'https://dl-ssl.google.com/linux/linux_signing_key.pub',
-      before   => Package['google-chrome-stable'],
-    }
-
-    package { 'google-chrome-stable':
-      ensure => latest,
+    package { ['chromium', 'chromedriver']:
+      ensure  => latest,
+      require => Class['epel'],
     }
   }
 
