@@ -71,9 +71,6 @@
 	path = puppet/modules/apache
 	url = https://github.com/puppetlabs/puppetlabs-apache.git
 	branch = 1.8.x
-[submodule "puppet/modules/httpauth"]
-	path = puppet/modules/httpauth
-	url = https://github.com/jamtur01/jamtur01-httpauth.git
 [submodule "puppet/modules/selinux"]
 	path = puppet/modules/selinux
 	url = https://github.com/jfryman/puppet-selinux.git
@@ -119,3 +116,6 @@
 [submodule "puppet/modules/datacat"]
 	path = puppet/modules/datacat
 	url = https://github.com/richardc/puppet-datacat.git
+[submodule "puppet/modules/htpasswd"]
+	path = puppet/modules/htpasswd
+	url = https://github.com/ghoneycutt/puppet-htpasswd

@@ -1,10 +1,13 @@
 define web::htpasswd(
   $vhost,
-  $passwd = undef
+  $passwd = undef,
+  $salt = undef,
 ) {
-  httpauth { $name:
-    ensure   => present,
-    file     => "/var/www/vhosts/${vhost}/htpasswd",
-    password => $passwd,
+  $_salt = pick($salt, cache_data('web_htpasswd_salts', "${vhost}-${name}", random_password(10)))
+
+  htpasswd { $name:
+    ensure      => present,
+    target      => "/var/www/vhosts/${vhost}/htpasswd",
+    cryptpasswd => ht_crypt($passwd, $_salt),
   }
 }
