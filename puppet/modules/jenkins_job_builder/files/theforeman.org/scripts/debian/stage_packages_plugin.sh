@@ -24,7 +24,7 @@ else
   echo "scratch build: uploading to stagingdeb/plugins/${repoowner}"
   export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/staging_key/rsync_freightstage_key"
   USER=freightstage
-  HOST=stagingdeb
+  HOST=web02
   COMPONENT=${repoowner}
 fi
 

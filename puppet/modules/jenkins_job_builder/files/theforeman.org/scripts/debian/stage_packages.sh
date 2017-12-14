@@ -13,7 +13,7 @@ DEB_PATH=./debian/${os}/build-${project}
 echo "scratch build: uploading to stagingdeb/${os}/${repoowner}-${version}"
 export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/staging_key/rsync_freightstage_key"
 USER=freightstage
-HOST=stagingdeb
+HOST=web02
 COMPONENT=${repoowner}-${version}
 
 # The path is important, as freight_rsync (which is run on the web node for incoming
