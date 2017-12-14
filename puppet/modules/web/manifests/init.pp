@@ -2,13 +2,21 @@
 # $latest::   latest release that we have a manual for, change after copying it
 # $next::     latest release that we don't have a manual for, before copying it
 #
+# $htpasswds:: Which htpasswds to create.
+#
 # All vhosts can be protected by a single SSL cert with additional names added in the certonly
 # $domains parameter below.
 #
 # $https:: to request an LE cert via webroot mode, the HTTP vhost must be up.  To start httpd, the
 #          certs have to exist, so keep SSL vhosts disabled until the certs are present via the HTTP
 #          vhost and only then enable the SSL vhosts.
-class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $https = false) {
+class web(
+  String $stable = '1.16',
+  String $latest = '1.16',
+  String $next = '1.17',
+  Hash[String, Hash] $htpasswds = {},
+  Boolean $https = false,
+) {
   include web::base
   include rsync::server
 
@@ -36,7 +44,7 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
     ],
   }
 
-  if $selinux {
+  if $::selinux {
     include selinux
 
     # Use a non-HTTP specific context to be shared with rsync
@@ -50,7 +58,7 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
     foreman_search => '(host = slave01.rackspace.theforeman.org or host = slave02.rackspace.theforeman.org) and (name = external_ip4 or name = external_ip6)',
-    script_content => template('web/rsync.erb')
+    script_content => template('web/rsync.erb'),
   }
   $web_attrs = {
     servername      => 'theforeman.org',
@@ -59,7 +67,7 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
     docroot_owner   => 'website',
     docroot_group   => 'website',
     docroot_mode    => '0755',
-    custom_fragment => template("web/web.conf.erb"),
+    custom_fragment => template('web/web.conf.erb'),
   }
 
   # DEBUGS
@@ -69,7 +77,7 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
     docroot_owner   => 'nobody',
     docroot_group   => 'nobody',
     docroot_mode    => '0755',
-    custom_fragment => template("web/debugs.conf.erb"),
+    custom_fragment => template('web/debugs.conf.erb'),
   }
   # takes a hash like: { 'user' => { 'vhost' => 'debugs', passwd => 'secret' }
   create_resources(web::htpasswd, $htpasswds)
@@ -91,38 +99,38 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
     gid       => 'nobody',
   }
 
-  if $osfamily == 'RedHat' {
+  if $::osfamily == 'RedHat' {
     package { 'createrepo':
       ensure => present,
     }
   }
 
   file { '/var/www/vhosts/yum/htdocs/HEADER.html':
-    ensure => present,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
     source => 'puppet:///modules/web/yum-HEADER.html',
   }
   file { '/var/www/vhosts/yum/htdocs/RPM-GPG-KEY-foreman':
-    ensure => present,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
     source => 'puppet:///modules/web/RPM-GPG-KEY-foreman',
   }
-  file { "/var/www/vhosts/yum/htdocs/releases":
+  file { '/var/www/vhosts/yum/htdocs/releases':
     ensure => directory,
   }
-  file { "/var/www/vhosts/yum/htdocs/releases/latest":
+  file { '/var/www/vhosts/yum/htdocs/releases/latest':
     ensure => link,
     target => $stable,
   }
-  file { "/var/www/vhosts/yum/htdocs/releases/nightly":
+  file { '/var/www/vhosts/yum/htdocs/releases/nightly':
     ensure => link,
-    target => "../nightly",
+    target => '../nightly',
   }
-  file { "/var/www/vhosts/yum/htdocs/plugins/latest":
+  file { '/var/www/vhosts/yum/htdocs/plugins/latest':
     ensure => link,
     target => $stable,
   }
@@ -142,7 +150,7 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
     gid       => 'nobody',
   }
   file { '/var/www/vhosts/downloads/htdocs/HEADER.html':
-    ensure => present,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
@@ -198,6 +206,6 @@ class web($stable = "1.16", $latest = "1.16", $next = "1.17", $htpasswds = {}, $
     command => '/usr/bin/nice -19 /usr/local/bin/filter_apache_stats',
     user    => root,
     hour    => '4',
-    minute  => '0'
+    minute  => '0',
   }
 }
