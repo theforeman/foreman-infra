@@ -37,7 +37,7 @@ done
 
 # we need to install node modules for integration tests
 if [ -e "$APP_ROOT/package.json" ]; then
-  npm install npm@'<5.0.0' # first upgrade to newer npm
+  npm install npm@'<6.0.0' # first upgrade to newer npm
   $APP_ROOT/node_modules/.bin/npm install
 fi
 
