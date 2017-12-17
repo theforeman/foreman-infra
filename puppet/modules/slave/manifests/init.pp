@@ -348,10 +348,10 @@ class slave (
       version => 'ruby-2.2.5',
     }
     slave::rvm_config { 'ruby-2.3':
-      version => 'ruby-2.3.1',
+      version => 'ruby-2.3.5',
     }
     slave::rvm_config { 'ruby-2.4':
-      version => 'ruby-2.4.0',
+      version => 'ruby-2.4.3',
     }
 
     # Cleanup log dirs
