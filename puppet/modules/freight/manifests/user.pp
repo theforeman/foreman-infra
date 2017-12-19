@@ -69,6 +69,9 @@ define freight::user (
     },
   ]
 
+  # locations doesn't autorequire the headers module
+  include ::apache::mod::headers
+
   apache::vhost { $vhost:
     port            => '80',
     servername      => "${vhost}.theforeman.org",
