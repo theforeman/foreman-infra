@@ -1,5 +1,14 @@
 # Class to set up the PR processor
 #
+# @param github_oauth_token The Github oauth token
+# @param github_secret_token The github secret token
+# @param redmine_api_key The API key for Redmine
+# @param jenkins_token The token to use for the Jenkins API
+# @param username The unix username the PR processor should run as
+# @param servername The DNS name to use as servername
+# @param repo_url The git repo URL to clone from
+# @param app_root The path on the filesystem to clone to
+# @param https Whether to run on HTTPS besides HTTP
 class prprocessor (
   String $github_oauth_token,
   String $github_secret_token,
@@ -19,6 +28,12 @@ class prprocessor (
     home   => $app_root,
   }
 
+  file { $app_root:
+    ensure => directory,
+    owner  => $username,
+    group  => $username,
+  }
+
   # Needed for bundle install
   $packages = [
     'gcc',
@@ -36,16 +51,18 @@ class prprocessor (
     provider => 'git',
     source   => $repo_url,
     user     => $username,
+    require  => File[$app_root],
     notify   => Exec['install prprocessor'],
   }
 
   exec { 'install prprocessor':
-    command => 'bundle install',
-    user    => $username,
-    cwd     => $app_root,
-    path    => $::path,
-    unless  => 'bundle check',
-    require => Package[$packages],
+    command     => 'bundle install',
+    user        => $username,
+    cwd         => $app_root,
+    path        => $::path,
+    environment => ["HOME=${app_root}"],
+    unless      => 'bundle check',
+    require     => Package[$packages],
   }
 
   # Apache / Passenger
@@ -65,6 +82,7 @@ class prprocessor (
     manage_cron   => false,
     domains       => [$servername],
     webroot_paths => [$docroot],
+    require       => Apache::Vhost[$servername],
   }
 
   apache::vhost { $servername:
