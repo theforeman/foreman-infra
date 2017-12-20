@@ -60,6 +60,10 @@ define freight::user (
   # Website resources
   $directory_config = [
     {
+      path    => $webdir,
+      options => ['Indexes', 'FollowSymLinks'],
+    },
+    {
       path    => "${webdir}/dists",
       headers => 'Set Cache-Control "public, max-age=120"',
     },
@@ -76,7 +80,6 @@ define freight::user (
     docroot_owner   => $user,
     docroot_group   => $user,
     docroot_mode    => '0755',
-    options         => ['Indexes', 'FollowSymLinks'],
     directories     => $directory_config,
   }
 
@@ -92,7 +95,6 @@ define freight::user (
       ssl_cert        => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
       ssl_chain       => '/etc/letsencrypt/live/theforeman.org/chain.pem',
       ssl_key         => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
-      options         => ['Indexes', 'FollowSymLinks'],
       directories     => $directory_config,
     }
   }
