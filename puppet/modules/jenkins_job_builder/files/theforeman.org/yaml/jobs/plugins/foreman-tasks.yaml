@@ -4,6 +4,8 @@
     branch:
       - master:
           foreman_branch: develop
+      - 0.10.x:
+          foreman_branch: 1.16-stable
       - 0.9.x:
           foreman_branch: 1.15-stable
     jobs:
