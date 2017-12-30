@@ -68,6 +68,7 @@ class web(
     docroot_group   => 'website',
     docroot_mode    => '0755',
     custom_fragment => template('web/web.conf.erb'),
+    default_vhost   => true,
   }
 
   # DEBUGS
