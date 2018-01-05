@@ -6,6 +6,7 @@ RewriteRule   ^/wiki(.*)  https://projects.theforeman.org/wiki$1  [R,L]
 
 <% if @https -%>
 RewriteCond   %{HTTPS} !=on
+RewriteCond   %{REQUEST_URI} !^.well-known/acme-challenge
 RewriteRule   ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
 <% end -%>
 
