@@ -102,7 +102,8 @@ void repoclosure(repo, dist, additions = []) {
             "-l el${dist}-scl-v8",
             "-l el${dist}-puppet-4",
             "-l el${dist}-subscription-manager",
-            "-l el${dist}-qpid"
+            "-l el${dist}-qpid",
+            "-l el${dist}-tfm-ror51"
         ]
 
         command = command + additions
