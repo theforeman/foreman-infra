@@ -119,3 +119,6 @@
 [submodule "puppet/modules/htpasswd"]
 	path = puppet/modules/htpasswd
 	url = https://github.com/ghoneycutt/puppet-htpasswd
+[submodule "puppet/modules/hocon"]
+	path = puppet/modules/hocon
+	url = https://github.com/puppetlabs/puppetlabs-hocon.git
