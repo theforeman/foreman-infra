@@ -10,7 +10,7 @@
     parameters:
       - string:
           name: ruby
-          default: '2.3.5'
+          default: '2.4.3'
           description: "Ruby version to run rake generate task under"
     builders:
       - deploy_web
