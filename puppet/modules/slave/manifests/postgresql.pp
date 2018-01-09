@@ -15,15 +15,21 @@ class slave::postgresql {
   }
 
   # Tune DB settings for Jenkins slaves, this is UNSAFE for production!
-  postgresql::server::config_entry { 'fsync':
-    value => 'off',
+  $settings = {
+    'fsync'                        => 'off',
+    'full_page_writes'             => 'off',
+    'synchronous_commit'           => 'off',
+    'autovacuum'                   => 'off',
+    'effective_cache_size'         => '512M',
+    'shared_buffers'               => '256M',
+    'checkpoint_segments'          => '20',
+    'checkpoint_completion_target' => '0.9',
+    'wal_level'                    => 'minimal',
   }
 
-  postgresql::server::config_entry { 'full_page_writes':
-    value => 'off',
-  }
-
-  postgresql::server::config_entry { 'synchronous_commit':
-    value => 'off',
+  $settings.each |$setting, $value| {
+    postgresql::server::config_entry { $setting:
+      value => $value,
+    }
   }
 }
