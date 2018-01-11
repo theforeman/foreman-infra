@@ -124,6 +124,7 @@ void repoclosure(repo, dist, additions = []) {
             "-l ${dist}-scl-sclo",
             "-l ${dist}-scl-ruby",
             "-l ${dist}-scl-v8",
+            "-l ${dist}-tfm-ror51",
             "-l ${dist}-puppet-3",
             "-l ${dist}-puppet-4",
             "-l ${dist}-subscription-manager",
