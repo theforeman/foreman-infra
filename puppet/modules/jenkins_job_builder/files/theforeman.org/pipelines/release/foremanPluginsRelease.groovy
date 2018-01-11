@@ -100,6 +100,7 @@ void repoclosure(repo, dist, additions = []) {
             "-l ${dist}-updates",
             "-l ${dist}-epel",
             "-l ${dist}-extras",
+            "-l ${dist}-tfm-ror51",
             "-l ${dist}-scl",
             "-l ${dist}-scl-sclo",
             "-l ${dist}-scl-ruby",
