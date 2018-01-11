@@ -14,22 +14,25 @@ class slave::postgresql {
     login         => true,
   }
 
-  # Tune DB settings for Jenkins slaves, this is UNSAFE for production!
-  $settings = {
-    'fsync'                        => 'off',
-    'full_page_writes'             => 'off',
-    'synchronous_commit'           => 'off',
-    'autovacuum'                   => 'off',
-    'effective_cache_size'         => '512MB',
-    'shared_buffers'               => '256MB',
-    'checkpoint_segments'          => '20',
-    'checkpoint_completion_target' => '0.9',
-    'wal_level'                    => 'minimal',
-  }
+  # only CentOS slaves are used to run unit tests
+  if $::osfamily == 'RedHat' {
+    # Tune DB settings for Jenkins slaves, this is UNSAFE for production!
+    $settings = {
+      'fsync'                        => 'off',
+      'full_page_writes'             => 'off',
+      'synchronous_commit'           => 'off',
+      'autovacuum'                   => 'off',
+      'effective_cache_size'         => '512MB',
+      'shared_buffers'               => '256MB',
+      'checkpoint_segments'          => '20',
+      'checkpoint_completion_target' => '0.9',
+      'wal_level'                    => 'minimal',
+    }
 
-  $settings.each |$setting, $value| {
-    postgresql::server::config_entry { $setting:
-      value => $value,
+    $settings.each |$setting, $value| {
+      postgresql::server::config_entry { $setting:
+        value => $value,
+      }
     }
   }
 }
