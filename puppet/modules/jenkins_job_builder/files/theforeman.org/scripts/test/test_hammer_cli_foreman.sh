@@ -25,4 +25,4 @@ while ! bundle install --without=development; do
   fi
 done
 
-bundle exec rake pkg:generate_source ci:setup:minitest test TESTOPTS="-v"
+bundle exec rake pkg:generate_source ci:setup:minitest test TESTOPTS="-v" --trace
