@@ -49,7 +49,7 @@ fi
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate DISABLE_DATABASE_ENVIRONMENT_CHECK=true
+bundle exec rake db:drop db:create db:migrate DISABLE_DATABASE_ENVIRONMENT_CHECK=true --trace
 
 ### END test_develop ###
 
@@ -71,12 +71,12 @@ while ! bundle update; do
 done
 
 # Now let's add the plugin migrations
-bundle exec rake db:migrate RAILS_ENV=development
+bundle exec rake db:migrate RAILS_ENV=development --trace
 
 tasks="jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
-bundle exec rake $tasks TESTOPTS="-v"
+bundle exec rake $tasks TESTOPTS="-v" --trace
 
 # Run the DB seeds to verify they work
-bundle exec rake db:drop db:create db:migrate
-bundle exec rake db:seed
+bundle exec rake db:drop db:create db:migrate --trace
+bundle exec rake db:seed --trace

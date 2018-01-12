@@ -21,4 +21,4 @@ gem install bundler --no-ri --no-rdoc
 sed -i "/^\s*gem.*puppet/ s/\$/, '~> $puppet'/" $APP_ROOT/bundler.d/puppet.rb
 
 bundle install --without=development
-bundle exec rake pkg:generate_source jenkins:unit
+bundle exec rake pkg:generate_source jenkins:unit --trace

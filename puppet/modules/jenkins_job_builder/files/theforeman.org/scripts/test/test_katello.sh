@@ -65,22 +65,22 @@ done
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:create
+bundle exec rake db:create --trace
 ### END test_develop ###
 
 # Now let's add the plugin migrations
-bundle exec rake db:migrate
+bundle exec rake db:migrate --trace
 
 # Katello-specific tests
-bundle exec rake jenkins:katello TESTOPTS="-v"
+bundle exec rake jenkins:katello TESTOPTS="-v" --trace
 
 # Run the DB seeds to verify they work
 # Don't run DB seeds if the version of katello is less than 3.1
 VERSION=$(grep -Po "(\d+\.)+\d+" ${PLUGIN_ROOT}/lib/katello/version.rb)
 
 if [ $(echo ${VERSION}$'\n3.1.0' | sort --version-sort --reverse | head -n1) != '3.1.0' ]; then
-  bundle exec rake db:create db:migrate
-  bundle exec rake db:seed
+  bundle exec rake db:create db:migrate --trace
+  bundle exec rake db:seed --trace
 fi
 
 cd $PLUGIN_ROOT

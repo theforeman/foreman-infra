@@ -38,8 +38,8 @@ done
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate
-bundle exec rake db:seed
+bundle exec rake db:drop db:create db:migrate --trace
+bundle exec rake db:seed --trace
 
 # Back to the pull request
 git checkout -
@@ -54,5 +54,5 @@ while ! bundle update -j5; do
   fi
 done
 
-bundle exec rake db:migrate
-bundle exec rake db:seed
+bundle exec rake db:migrate --trace
+bundle exec rake db:seed --trace
