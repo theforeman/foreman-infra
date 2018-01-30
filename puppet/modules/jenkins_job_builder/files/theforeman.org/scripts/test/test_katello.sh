@@ -64,6 +64,10 @@ done
   sed "s/database:.*/database: ${gemset}-test/" $HOME/${database}.db.yaml
 ) > $APP_ROOT/config/database.yml
 
+# First try to drop the DB, but ignore failure as it might happen with Rails 5
+# when there is really no DB yet.
+bundle exec rake db:drop || true
+
 # Create DB first in development as migrate behaviour can change
 bundle exec rake db:create --trace
 ### END test_develop ###
@@ -79,9 +83,13 @@ bundle exec rake jenkins:katello TESTOPTS="-v" --trace
 VERSION=$(grep -Po "(\d+\.)+\d+" ${PLUGIN_ROOT}/lib/katello/version.rb)
 
 if [ $(echo ${VERSION}$'\n3.1.0' | sort --version-sort --reverse | head -n1) != '3.1.0' ]; then
+  bundle exec rake db:drop || true
   bundle exec rake db:create db:migrate --trace
   bundle exec rake db:seed --trace
 fi
+
+# Clean up the database after use
+bundle exec rake db:drop || true
 
 cd $PLUGIN_ROOT
 
