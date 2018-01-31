@@ -49,7 +49,12 @@ fi
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate DISABLE_DATABASE_ENVIRONMENT_CHECK=true --trace
+bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true --trace
+# We drop and create in 2 separate commands (speed penalty, 2 Rails initializations)
+# as it's necessary to make sure at db:migrate models are loaded from a clean slate.
+# e.g: model Host isn't loaded with a 'type' attribute before the column is added
+# in the migration.
+bundle exec rake db:create db:migrate DISABLE_DATABASE_ENVIRONMENT_CHECK=true --trace
 
 ### END test_develop ###
 
