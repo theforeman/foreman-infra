@@ -83,5 +83,10 @@ tasks="jenkins:unit"
 bundle exec rake $tasks TESTOPTS="-v" --trace
 
 # Run the DB seeds to verify they work
-bundle exec rake db:drop db:create db:migrate --trace
+bundle exec rake db:drop --trace
+# We drop and create in 2 separate commands (speed penalty, 2 Rails initializations)
+# as it's necessary to make sure at db:migrate models are loaded from a clean slate.
+# e.g: model Host isn't loaded with a 'type' attribute before the column is added
+# in the migration.
+bundle exec rake db:create db:migrate --trace
 bundle exec rake db:seed --trace
