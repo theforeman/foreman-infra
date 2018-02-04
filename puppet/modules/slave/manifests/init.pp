@@ -344,6 +344,9 @@ class slave (
     slave::rvm_config { 'ruby-2.4':
       version => 'ruby-2.4.3',
     }
+    slave::rvm_config { 'ruby-2.5':
+      version => 'ruby-2.5.0',
+    }
 
     # Cleanup log dirs
     file { '/etc/cron.daily/rvm_log_cleaner':
