@@ -46,6 +46,7 @@
           values:
             - 2.3
             - 2.4
+            - 2.5
       - axis:
           type: dynamic
           name: database
@@ -58,7 +59,7 @@
             - fast
     execution-strategy:
       combination-filter: >
-        ((database == 'postgresql') && ((ruby == '2.3') || (ruby == '2.4'))) || ((database == 'mysql') && (ruby == '2.4')) || ((database == 'sqlite3') && (ruby == '2.4'))
+        ((database == 'postgresql') && ((ruby == '2.3') || (ruby == '2.4') || (ruby == '2.5'))) || ((database == 'mysql') && (ruby == '2.4')) || ((database == 'sqlite3') && (ruby == '2.4'))
     wrappers:
       - timestamps
       - abort_build:

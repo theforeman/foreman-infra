@@ -21,6 +21,7 @@
           values:
             - 2.3
             - 2.4
+            - 2.5
     builders:
       - test_hammer_cli_foreman
     publishers:
