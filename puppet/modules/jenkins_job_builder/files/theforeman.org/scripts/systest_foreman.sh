@@ -38,11 +38,7 @@ if [ -n "${expected_version}" ]; then
 fi
 
 if [ $pl_puppet = auto ]; then
-  if [ $os = stretch ]; then
-    pl_puppet=false  # no pc1 repo available
-  else
-    pl_puppet=pc1
-  fi
+  pl_puppet=pc1
 fi
 
 export VAGRANT_DEFAULT_PROVIDER=rackspace
