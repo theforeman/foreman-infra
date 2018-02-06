@@ -16,7 +16,11 @@ if [ ${os#f} != $os ]; then
 elif [ ${os#el} != $os ]; then
   [ $repo != nightly ] && FOREMAN_REPO=releases/$repo
   args="FOREMAN_REPO=$FOREMAN_REPO"
-  [ $staging = true ] && args="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/foreman-${repo}/RHEL/${os#el}/x86_64/ $args"
+  if [ $staging = true ]; then
+    foreman_url="FOREMAN_CUSTOM_URL=http://koji.katello.org/releases/yum/foreman-${repo}/RHEL/${os#el}/x86_64/"
+    foreman_plugins_url="FOREMAN_CUSTOM_PLUGINS_URL=http://koji.katello.org/releases/yum/foreman-plugins-${repo}/RHEL/${os#el}/x86_64/"
+    args="$foreman_url $foreman_plugins_url $args"
+  fi
 else
   if [ $staging = true ]; then
     args="FOREMAN_CUSTOM_URL=http://stagingdeb.theforeman.org/ FOREMAN_REPO=theforeman-${repo}"
