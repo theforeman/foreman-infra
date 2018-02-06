@@ -1,6 +1,8 @@
 - job:
     name: foreman-plugins-release
     project-type: workflow
+    triggers:
+      - timed: 'H H * * *'
     dsl:
       !include-raw:
         - pipelines/release/foremanPluginsRelease.groovy
