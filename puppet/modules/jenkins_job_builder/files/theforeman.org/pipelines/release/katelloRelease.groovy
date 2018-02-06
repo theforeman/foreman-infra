@@ -95,7 +95,7 @@ pipeline {
             }
         }
         stage('Push RPMs') {
-            agent { label 'admin && sskey' }
+            agent { label 'admin && sshkey' }
 
             steps {
 
