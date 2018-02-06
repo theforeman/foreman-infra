@@ -1,6 +1,8 @@
 - job:
     name: katello-nightly-release
     project-type: workflow
+    triggers:
+      - timed: 'H 23 * * *'
     dsl:
       !include-raw:
         - pipelines/release/katelloRelease.groovy

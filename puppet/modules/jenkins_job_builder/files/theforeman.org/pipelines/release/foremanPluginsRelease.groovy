@@ -1,10 +1,6 @@
 pipeline {
     agent { label 'admin && sshkey' }
 
-    triggers {
-        cron('H H * * *')
-    }
-
     options {
         timestamps()
         timeout(time: 2, unit: 'HOURS')
@@ -20,19 +16,6 @@ pipeline {
 
             }
         }
-        stage('Repoclosure') {
-            steps {
-
-                parallel(
-                    'nightly/el7': { repoclosure('nightly', 'el7') },
-                    '1.17/el7': { repoclosure('1.17', 'el7') },
-                    '1.16/el7': { repoclosure('1.16', 'el7') },
-                    '1.15/el7': { repoclosure('1.15', 'el7') },
-                    '1.15/f24': { repoclosure('1.15', 'f24') }
-                )
-
-            }
-        }
         stage('Setup Push Environment') {
             steps {
 
@@ -40,38 +23,52 @@ pipeline {
                 dir('deploy') { withRVM(["bundle install"]) }
             }
         }
-        stage('Push RPMs') {
+        stage('Repoclosure and Push') {
             steps {
 
                 parallel(
-                    'nightly/el7': { repoclosure('nightly', 'el7') },
-                    '1.17/el7': { repoclosure('1.17', 'el7') },
-                    '1.16/el7': { repoclosure('1.16', 'el7') },
-                    '1.15/el7': { repoclosure('1.15', 'el7') },
-                    '1.15/f24': { repoclosure('1.15', 'f24') }
+                    'nightly/el7': {
+                        repoclosure('nightly', 'el7')
+                        push_rpms('nightly', 'el7')
+                    },
+                    '1.17/el7': {
+                        repoclosure('1.17', 'el7')
+                        push_rpms('1.17', 'el7')
+                    },
+                    '1.16/el7': {
+                        repoclosure('1.16', 'el7')
+                        push_rpms('1.16', 'el7')
+                    },
+                    '1.15/el7': {
+                        repoclosure('1.15', 'el7')
+                        push_rpms('1.15', 'el7')
+                    },
+                    '1.15/f24': {
+                        repoclosure('1.15', 'f24')
+                        push_rpms('1.15', 'f24')
+                    }
                 )
 
             }
-            post {
-                always {
-                    deleteDir()
-                }
-            }
+        }
+    }
+    post {
+        always {
+            deleteDir()
         }
     }
 }
 
 void push_rpms(version, distro) {
+    def os = 'RHEL/7'
 
     dir('deploy') {
 
-        if (distro == 'el7') {
-            withRVM(["cap yum repo:sync -S overwrite=false -S merge=true -S repo_source=foreman-plugins-${version}/RHEL/7 -S repo_dest=plugins/${version}/el7"])
+        if (distro == 'f24') {
+            os = 'Fedora/24'
         }
 
-        if (distro == 'f24') {
-            withRVM(["cap yum repo:sync -S overwrite=false -S merge=true -S repo_source=foreman-plugins-${version}/Fedora/24 -S repo_dest=plugins/${version}/f24"])
-        }
+        withRVM(["cap yum repo:sync -S overwrite=false -S merge=true -S repo_source=foreman-plugins-${version}/${os} -S repo_dest=plugins/${version}/${distro}"])
 
     }
 
