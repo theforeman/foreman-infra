@@ -58,6 +58,12 @@ if [ $os = jessie ]; then
   echo "apt-get update" | vagrant ssh $os
 fi
 
+echo "Vagrant system hostname -f:"
+echo "$(echo 'hostname -f' | vagrant ssh $os)"
+
+echo "/etc/hosts:"
+echo "$(echo 'cat /etc/hosts' | vagrant ssh $os)"
+
 if [ -n "$umask" ]; then
   echo fb-setup-umask.bats | vagrant ssh $os | tee fb-setup-umask.bats.out
 fi
