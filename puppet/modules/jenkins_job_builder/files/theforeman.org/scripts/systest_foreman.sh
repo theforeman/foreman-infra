@@ -66,6 +66,10 @@ if [ $pl_puppet != false ]; then
   echo PUPPET_REPO=${pl_puppet} fb-install-plpuppet.bats | vagrant ssh $os | tee fb-install-plpuppet.bats.out
 fi
 
+if [ $os = el7 ]; then
+  args="INSTALLER_OPTIONS=-s $args"
+fi
+
 echo ${args} fb-install-foreman.bats | vagrant ssh $os | tee fb-install-foreman.bats.out
 
 if [ $run_puppet_tests = true ]; then
