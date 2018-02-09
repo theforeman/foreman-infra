@@ -2,6 +2,7 @@
 
 CODE_DIR=$1
 DATA_DIR=$2
+REDMINE_REPOS=https://prprocessor.theforeman.org/redmine_repos
 
 update_repo() {
   pushd $DATA_DIR >/dev/null
@@ -28,7 +29,7 @@ update_repo() {
 }
 
 # Sync repositories for all known git repos
-curl -s http://prprocessor-theforeman.rhcloud.com/redmine_repos | ruby -rjson -e '
+curl -s $REDMINE_REPOS | ruby -rjson -e '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
@@ -41,7 +42,7 @@ done
 cd $CODE_DIR
 
 # Create repositories in the Redmine projects for all known git repos
-curl -s http://prprocessor-theforeman.rhcloud.com/redmine_repos | script/rails runner -e production '
+curl -s $REDMINE_REPOS | script/rails runner -e production '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
