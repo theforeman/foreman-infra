@@ -1,0 +1,15 @@
+---
+- job:
+    name: foreman-packaging-rpm-pr-test
+    project-type: workflow
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-packaging
+    triggers:
+      - github_pr_rpm_develop:
+          context: 'rpm'
+    dsl:
+      !include-raw:
+        - pipelines/lib/rpm_packaging.groovy
+        - pipelines/lib/git.groovy
+        - pipelines/lib/obal.groovy

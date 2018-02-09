@@ -21,6 +21,14 @@
           <<: *ghprb_defaults
 
 - trigger:
+    name: github_pr_rpm_develop
+    triggers:
+      - github-pull-request:
+          <<: *ghprb_defaults
+          white-list-target-branches:
+            - rpm/develop
+
+- trigger:
     name: github_pr_pipeline
     triggers:
       - github-pull-request:
