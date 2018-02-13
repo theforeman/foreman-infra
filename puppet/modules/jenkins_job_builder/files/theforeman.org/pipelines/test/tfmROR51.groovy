@@ -15,16 +15,7 @@ pipeline {
             steps {
 
                 deleteDir()
-                checkout changelog: true, poll: false, scm: [
-                    $class: 'GitSCM',
-                    branches: [[name: '${ghprbActualCommit}']],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [[$class: 'PreBuildMerge', options: [fastForwardMode: 'FF', mergeRemote: 'origin', mergeStrategy: 'default', mergeTarget: 'master']]],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [
-                        [refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', url: 'https://github.com/theforeman/tfm-ror51-packaging']
-                    ]
-                ]
+                ghprb_git_checkout()
 
             }
         }
@@ -40,27 +31,29 @@ pipeline {
             }
         }
         stage('Scratch Build Packages') {
+            when {
+                expression { packages_to_build != '' }
+            }
             steps {
 
-                script {
-                    runPlaybook {
-                        inventory = 'package_manifest.yaml'
-                        playbook = 'scratch_build.yml'
-                        limit = packages_to_build
-                    }
-                }
+                obal(
+                    action: 'scratch',
+                    packages: packages_to_build
+                )
 
             }
         }
         stage('Check Repoclosure') {
+            when {
+                expression { packages_to_build != '' }
+            }
             steps {
 
-                script {
-                    runPlaybook {
-                        inventory = 'package_manifest.yaml'
-                        playbook = 'repoclosure.yml'
-                    }
-                }
+                obal(
+                    action: 'repoclosure',
+                    packages: 'all',
+                    extraVars: readYaml(file: '.tmp/copr_repo')
+                )
 
             }
         }

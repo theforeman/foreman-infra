@@ -11,4 +11,5 @@
     dsl:
       !include-raw:
         - pipelines/test/tfmROR51.groovy
-        - pipelines/lib/ansible.groovy
+        - pipelines/lib/git.groovy
+        - pipelines/lib/obal.groovy

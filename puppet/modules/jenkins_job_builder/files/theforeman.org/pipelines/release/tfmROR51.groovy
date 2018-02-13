@@ -31,13 +31,11 @@ pipeline {
         stage('Release Build Packages') {
             steps {
 
-                script {
-                    runPlaybook {
-                        inventory = 'package_manifest.yaml'
-                        playbook = 'release_package.yml'
-                        limit = packages_to_build
-                    }
-                }
+                obal(
+                    action: 'release',
+                    tags: "wait",
+                    packages: 'all'
+                )
 
             }
         }
