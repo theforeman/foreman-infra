@@ -61,7 +61,7 @@ pipeline {
                 stage('tests') {
                     steps {
                         dir('foreman') {
-                            withRVM(['bundle exec rake jenkins:katello TESTOPTS="-v"'], ruby)
+                            withRVM(['bundle exec rake jenkins:katello TESTOPTS="-v" --trace'], ruby)
                         }
                     }
                 }
@@ -133,7 +133,7 @@ pipeline {
             dir('foreman') {
                 archiveArtifacts artifacts: "Gemfile.lock"
                 junit keepLongStdio: true, testResults: 'jenkins/reports/unit/*.xml'
-                cleanup()
+                cleanup(ruby)
             }
             deleteDir()
         }

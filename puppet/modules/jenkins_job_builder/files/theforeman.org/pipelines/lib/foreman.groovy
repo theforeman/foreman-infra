@@ -50,10 +50,10 @@ def configureDatabase(ruby) {
     withRVM(['bundle exec rake db:migrate -q'], ruby)
 }
 
-def cleanup() {
+def cleanup(ruby) {
     try {
 
-        withRVM(['bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true'])
+        withRVM(['bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true'], ruby)
 
     } finally {
 
