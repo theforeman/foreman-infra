@@ -24,14 +24,8 @@ pipeline {
         stage('Find and Remove Copr Scratch Repositories') {
             steps {
 
-                script {
-
-                    runPlaybook {
-                        inventory = 'package_manifest.yaml'
-                        playbook = 'cleanup_copr.yml'
-                        limit = packages_to_build
-                    }
-
+                obal {
+                    action = 'cleanup-copr'
                 }
 
             }

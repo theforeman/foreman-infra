@@ -5,7 +5,6 @@ def obal(args) {
     extra_vars = args.extraVars ?: [:]
 
     writeYaml file: extra_vars_file, data: extra_vars
-    archive extra_vars_file
 
     dir('obal') {
         git url: "https://github.com/theforeman/obal.git", branch: "master"
@@ -14,4 +13,6 @@ def obal(args) {
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         sh "ANSIBLE_FORCE_COLOR=true PYTHONPATH=obal python -m obal ${tags} -e @${extra_vars_file} ${args.action} ${args.packages}"
     }
+
+    sh "rm ${extra_vars_file}"
 }
