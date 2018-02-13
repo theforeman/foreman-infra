@@ -72,7 +72,6 @@ class slave (
     'hammer_cli',
     'hammer_cli_foreman',
     'hammer_cli_foreman_discovery',
-    'kafo',
     'kafo_parsers',
     'katello',
     'katello_packaging',
@@ -87,6 +86,14 @@ class slave (
     'smart_proxy_pulp',
     'smart_proxy_remote_execution_ssh',
   ]: }
+
+  # Old jobs that were converted to JJB
+  slave::pr_test_config { [
+      'kafo',
+    ]:
+      ensure => absent,
+  }
+
   if $github_user and $github_oauth and $jenkins_build_token {
     file { '/home/jenkins/.config':
       ensure => directory,
