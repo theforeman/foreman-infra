@@ -99,7 +99,7 @@ pipeline {
                         dir('engines/bastion_katello') {
                             sh "npm install npm"
                             sh "node_modules/.bin/npm install bastion-${bastion_version}"
-                            sh "grunt ci"
+                            sh "grunt ci --force"
                         }
                     }
                 }
