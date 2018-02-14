@@ -9,7 +9,7 @@
       - github:
           url: https://github.com/Katello/katello
     triggers:
-      - github_pr:
+      - github_pr_pipeline:
           context: 'katello'
     dsl:
       !include-raw:
