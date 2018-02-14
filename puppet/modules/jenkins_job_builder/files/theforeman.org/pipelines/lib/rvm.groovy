@@ -11,7 +11,6 @@ def gemset(name) {
 
 def configureRVM(ruby = '2.0') {
     withRVM(['rvm gemset empty --force'], ruby)
-    withRVM(['gem update --no-ri --no-rdoc'], ruby)
     withRVM(['gem install bundler'], ruby)
 }
 

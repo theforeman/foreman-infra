@@ -44,7 +44,7 @@ def addSettings(settings) {
 }
 
 def configureDatabase(ruby) {
-    withRVM(['bundle update'], ruby)
+    withRVM(['bundle install'], ruby)
     withRVM(['bundle exec rake db:drop -q || true'], ruby)
     withRVM(['bundle exec rake db:create -q'], ruby)
     withRVM(['bundle exec rake db:migrate -q'], ruby)
