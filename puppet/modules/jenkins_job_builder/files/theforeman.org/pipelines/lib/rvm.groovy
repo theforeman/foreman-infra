@@ -21,9 +21,10 @@ def cleanupRVM(name = '', ruby = '2.0') {
 def withRVM(commands, ruby = '2.0', name = '') {
 
     commands = commands.join("\n")
-    echo commands
+    echo commands.toString()
 
     sh """#!/bin/bash -l
+        set +e
         rvm use ruby-${ruby}@${gemset(name)} --create
         ${commands}
     """
