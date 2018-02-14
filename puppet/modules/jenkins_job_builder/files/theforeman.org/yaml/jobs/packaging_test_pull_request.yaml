@@ -1,0 +1,54 @@
+- job:
+    name: packaging_test_pull_request
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    concurrent: true
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-packaging
+    parameters:
+      - string:
+          name: branch
+          default:
+          description: "Base branch to merge PR into"
+      - pr_parameters
+    scm:
+      - foreman-rpm-packaging-pr
+    triggers:
+      - github_pr:
+          context: 'foreman-packaging'
+    builders:
+      - shell: !include-raw: scripts/test/packaging_test_pull_request_deb.sh
+      - trigger-builds:
+        - project: packaging_build_deb_coreproject
+          block: true
+          predefined-parameters: |
+            gitrelease=true
+          property-file: test_builds/debian/*.properties
+        - project: packaging_build_deb_dependency
+          block: true
+          predefined-parameters: |
+            gitrelease=true
+          property-file: test_builds/dependencies/*.properties
+        - project: packaging_build_deb_plugin
+          block: true
+          predefined-parameters: |
+            gitrelease=true
+          property-file: test_builds/plugins/*.properties
+        - project: packaging_build_deb_proxy_plugin
+          block: true
+          predefined-parameters: |
+            gitrelease=true
+          property-file: test_builds/smart_proxy_plugins/*.properties
+      - shell: !include-raw: scripts/test/packaging_test_pull_request_rpm.sh
+      - trigger-builds:
+        - project: packaging_build_rpm
+          block: true
+          predefined-parameters: |
+            scratch=true
+            branch=${branch}
+            pr_number=${pr_number}
+            pr_git_url=${pr_git_url}
+            pr_git_ref=${pr_git_ref}
+          property-file: test_builds/rpm/*.properties
