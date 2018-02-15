@@ -20,3 +20,14 @@
           skip-tag: true
           branches:
             - 'origin/{branch}'
+- scm:
+    name: foreman-rpm-packaging-pr
+    scm:
+      - git:
+          name: upstream
+          url: https://github.com/theforeman/foreman-packaging
+          submodule:
+            recursive: true
+          skip-tag: true
+          branches:
+            - 'upstream/{branch}'
