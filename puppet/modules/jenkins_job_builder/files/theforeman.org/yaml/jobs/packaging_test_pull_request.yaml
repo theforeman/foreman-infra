@@ -25,22 +25,30 @@
           block: true
           predefined-parameters: |
             gitrelease=true
-          property-file: test_builds/debian/*.properties
+          parameter-factories:
+            - factory: filebuild
+              file-pattern: test_builds/debian/*.properties
         - project: packaging_build_deb_dependency
           block: true
           predefined-parameters: |
             gitrelease=true
-          property-file: test_builds/dependencies/*.properties
+          parameter-factories:
+            - factory: filebuild
+              file-pattern: test_builds/dependencies/*.properties
         - project: packaging_build_deb_plugin
           block: true
           predefined-parameters: |
             gitrelease=true
-          property-file: test_builds/plugins/*.properties
+          parameter-factories:
+            - factory: filebuild
+              file-pattern: test_builds/plugins/*.properties
         - project: packaging_build_deb_proxy_plugin
           block: true
           predefined-parameters: |
             gitrelease=true
-          property-file: test_builds/smart_proxy_plugins/*.properties
+          parameter-factories:
+            - factory: filebuild
+              file-pattern: test_builds/smart_proxy_plugins/*.properties
       - shell: !include-raw: scripts/test/packaging_test_pull_request_rpm.sh
       - trigger-builds:
         - project: packaging_build_rpm
@@ -51,4 +59,6 @@
             pr_number=${pr_number}
             pr_git_url=${pr_git_url}
             pr_git_ref=${pr_git_ref}
-          property-file: test_builds/rpm/*.properties
+          parameter-factories:
+            - factory: filebuild
+              file-pattern: test_builds/rpm/*.properties
