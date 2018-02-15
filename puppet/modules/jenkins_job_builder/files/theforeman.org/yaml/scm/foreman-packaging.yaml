@@ -30,4 +30,5 @@
             recursive: true
           skip-tag: true
           branches:
-            - 'upstream/{branch}'
+            - '${ghprbActualCommit}'
+          refspec: '+refs/pull/*:refs/remotes/upstream/pr/*'

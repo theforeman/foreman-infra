@@ -1,16 +1,17 @@
 #!/bin/bash -ex
 
 ### RPM builds
-[ ${branch##rpm/} = $branch ] && exit 0
+[[ $ghprbTargetBranch == rpm/* ]] || exit 0
 
-
-# identify changed projects, 5 at most!
 git --version
 
-if [ -d packages ];then
-  to_build=$(git diff --name-only $(git merge-base upstream/${branch} pr/${pr_git_ref}) pr/${pr_git_ref} | grep spec | grep packages | tail -n15)
+merge_base=$(git merge-base HEAD upstream/${ghprbTargetBranch})
+
+# identify changed projects, 15 at most!
+if [ -d packages ]; then
+  to_build=$(git diff --name-only $merge_base HEAD | grep spec | grep packages | tail -n15)
 else
-  to_build=$(git diff --name-only $(git merge-base upstream/${branch} pr/${pr_git_ref}) pr/${pr_git_ref} | grep spec | tail -n15)
+  to_build=$(git diff --name-only $merge_base HEAD | grep spec | tail -n15)
 fi
 
 echo $to_build
@@ -24,7 +25,7 @@ for p in $to_build; do
   p=${p/.spec}
   mkdir -p test_builds/rpm/${p}
 
-  if [ $branch = "rpm/develop" ]; then
+  if [ $ghprbTargetBranch = "rpm/develop" ]; then
     case "$p" in
       foreman)
         echo "nightly_jenkins_job=test_develop" >> test_builds/rpm/${p}.properties
@@ -53,7 +54,7 @@ for p in $to_build; do
         echo "gitrelease=false" >> test_builds/rpm/${p}.properties
         ;;
       *)
-        if [[ -d projects ]] ; then
+        if [[ -d packages ]] ; then
           echo "gitrelease=true" >> test_builds/rpm/${p}.properties
           if [[ $subdir == "katello" ]] ; then
             r=koji-katello
@@ -69,7 +70,7 @@ for p in $to_build; do
     esac
   fi
 
-  if [[ -d projects ]] ; then
+  if [[ -d packages ]] ; then
     echo "project=${project}" >> test_builds/rpm/${p}.properties
     echo "releaser=${r}" >> test_builds/rpm/${p}.properties
 

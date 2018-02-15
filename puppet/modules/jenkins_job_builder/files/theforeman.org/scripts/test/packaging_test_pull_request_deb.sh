@@ -1,28 +1,31 @@
 #!/bin/bash -ex
 
 ### Debian builds
-[ ${branch##deb/} = $branch ] && exit 0
+[[ $ghprbTargetBranch == deb/* ]] || exit 0
+
+if [[ $ghprbSourceBranch != deb/* ]] ; then
+  echo "Source branch name must start with deb/"
+  exit 1
+fi
 
 mkdir -p test_builds/{debian,dependencies,plugins,smart_proxy_plugins,katello}
 
 # deb build jobs assume a deb/ branch prefix
-pr_git_short_ref=${pr_git_ref##deb/}
-
-# deb build jobs assume GitHub user names
-pr_git_username=${pr_git_url##git://github.com/}
-pr_git_username=${pr_git_username%%/foreman-packaging.git}
+pr_git_short_ref=${ghprbSourceBranch##deb/}
 
 # deb component
-branch_version=${branch##deb/}
+branch_version=${ghprbTargetBranch##deb/}
 [ x$branch_version = xdevelop ] && branch_version=nightly
 
+merge_base=$(git merge-base HEAD upstream/${ghprbTargetBranch})
+
 # identify changed core projects, 5 at most!
-for p in $(git diff --name-only pr/${pr_git_ref} $(git merge-base pr/${pr_git_ref} upstream/${branch}) debian | cut -d/ -f3 | sort -u | tail -n5); do
+for p in $(git diff --name-only HEAD $merge_base debian | cut -d/ -f3 | sort -u | tail -n5); do
   [ $(find debian/*/${p} -name control | wc -l) -ge 1 ] || continue
 
   cat > test_builds/debian/${p}.properties <<EOF
 project=${p}
-repoowner=${pr_git_username}
+repoowner=${ghprbPullAuthorLogin}
 repo=${pr_git_short_ref}
 version=${branch_version}
 EOF
@@ -34,25 +37,25 @@ EOF
 done
 
 # identify changed dependencies, 5 at most!
-for p in $(git diff --name-only pr/${pr_git_ref} $(git merge-base pr/${pr_git_ref} upstream/${branch}) dependencies | cut -d/ -f3 | sort -u | tail -n5); do
+for p in $(git diff --name-only HEAD $merge_base dependencies | cut -d/ -f3 | sort -u | tail -n5); do
   [ $(find dependencies/*/${p} -name control | wc -l) -ge 1 ] || continue
 
   cat > test_builds/dependencies/${p}.properties <<EOF
 project=${p}
-repoowner=${pr_git_username}
+repoowner=${ghprbPullAuthorLogin}
 repo=${pr_git_short_ref}
 version=${branch_version}
 EOF
 done
 
 # identify changed plugins, 5 at most!
-for p in $(git diff --name-only pr/${pr_git_ref} $(git merge-base pr/${pr_git_ref} upstream/${branch}) plugins | cut -d/ -f2 | sort -u | tail -n5); do
+for p in $(git diff --name-only HEAD $merge_base plugins | cut -d/ -f2 | sort -u | tail -n5); do
   [ $(find plugins/${p} -name control | wc -l) -ge 1 ] || continue
   [[ ${p} =~ ^smart_proxy_ ]] && continue
 
   cat > test_builds/plugins/${p}.properties <<EOF
 project=${p}
-repoowner=${pr_git_username}
+repoowner=${ghprbPullAuthorLogin}
 repo=${pr_git_short_ref}
 version=${branch_version}
 EOF
@@ -60,13 +63,13 @@ done
 
 
 # identify changed smart proxy plugins, 5 at most!
-for p in $(git diff --name-only pr/${pr_git_ref} $(git merge-base pr/${pr_git_ref} upstream/${branch}) plugins | cut -d/ -f2 | sort -u | tail -n5); do
+for p in $(git diff --name-only HEAD $merge_base plugins | cut -d/ -f2 | sort -u | tail -n5); do
   [ $(find plugins/${p} -name control | wc -l) -ge 1 ] || continue
   [[ ${p} =~ ^smart_proxy_ ]] || continue
 
   cat > test_builds/smart_proxy_plugins/${p}.properties <<EOF
 project=${p}
-repoowner=${pr_git_username}
+repoowner=${ghprbPullAuthorLogin}
 repo=${pr_git_short_ref}
 EOF
 done
