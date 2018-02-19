@@ -45,7 +45,7 @@
       - junit:
           results: 'jenkins/reports/unit/*.xml'
       - release_nightly_build_foreman:
-          project: foreman
+          project: packages/foreman/foreman
       - trigger-parameterized-builds:
         - project: test_katello
           condition: SUCCESS

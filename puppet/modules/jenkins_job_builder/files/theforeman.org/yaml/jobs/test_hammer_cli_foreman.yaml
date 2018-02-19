@@ -36,6 +36,6 @@
         - project: release_nightly_build_rpm
           condition: SUCCESS
           predefined-parameters: |
-            project=rubygem-hammer_cli_foreman
+            project=packages/foreman/rubygem-hammer_cli_foreman
             jenkins_job=${JOB_NAME}
             jenkins_job_id=${BUILD_NUMBER}
