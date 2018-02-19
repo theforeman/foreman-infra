@@ -22,4 +22,4 @@
           artifacts: 'pkg/*'
           only-if-success: false
       - release_nightly_build_foreman_rpm:
-          project: foreman-selinux
+          project: packages/foreman/foreman-selinux

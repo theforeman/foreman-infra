@@ -45,4 +45,4 @@
           artifacts: 'pkg/*'
           only-if-success: true
       - release_nightly_build_foreman:
-          project: foreman-proxy
+          project: packages/foreman/foreman-proxy

@@ -26,4 +26,4 @@
           artifacts: 'pkg/*'
           only-if-success: false
       - release_nightly_build_foreman:
-          project: foreman-installer
+          project: packages/foreman/foreman-installer
