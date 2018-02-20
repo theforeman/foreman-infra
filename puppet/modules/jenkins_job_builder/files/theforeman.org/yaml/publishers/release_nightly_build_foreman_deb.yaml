@@ -1,8 +1,8 @@
 - publisher:
-    name: release_nightly_build_foreman
+    name: release_nightly_build_foreman_deb
     publishers:
       - trigger-parameterized-builds:
-          - project: release_nightly_build_rpm, release_nightly_build_deb
+          - project: release_nightly_build_deb
             condition: SUCCESS
             predefined-parameters: |
               project={project}
