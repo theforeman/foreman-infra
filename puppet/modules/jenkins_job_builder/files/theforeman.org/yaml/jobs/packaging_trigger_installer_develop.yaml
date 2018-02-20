@@ -25,5 +25,7 @@
       - archive:
           artifacts: 'pkg/*'
           only-if-success: false
-      - release_nightly_build_foreman:
+      - release_nightly_build_foreman_rpm:
           project: packages/foreman/foreman-installer
+      - release_nightly_build_foreman_deb:
+          project: foreman-installer
