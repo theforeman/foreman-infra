@@ -45,6 +45,11 @@ if [ $pl_puppet = auto ]; then
   pl_puppet=pc1
 fi
 
+# no puppet server for Stretch in PC1 repo, use Puppet5 instead
+if [ $os = stretch ]; then
+  pl_puppet=puppet5
+fi
+
 export VAGRANT_DEFAULT_PROVIDER=rackspace
 
 trap "vagrant destroy" EXIT ERR
