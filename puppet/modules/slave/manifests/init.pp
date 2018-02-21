@@ -74,7 +74,6 @@ class slave (
     'hammer_cli_foreman_discovery',
     'kafo',
     'kafo_parsers',
-    'katello',
     'katello_packaging',
     'puppetdb_foreman',
     'smart_proxy',
@@ -101,6 +100,13 @@ class slave (
       group   => 'jenkins',
       content => template('slave/hub_config.erb'),
     }
+  }
+
+  # Old jobs that were converted to JJB
+  slave::pr_test_config { [
+      'katello',
+    ]:
+      ensure => absent,
   }
 
   # Build dependencies
