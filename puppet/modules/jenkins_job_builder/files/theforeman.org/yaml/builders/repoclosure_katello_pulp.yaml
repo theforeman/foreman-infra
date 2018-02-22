@@ -1,4 +1,0 @@
-- builder:
-    name: repoclosure_katello_pulp
-    builders:
-      - shell: !include-raw: scripts/repoclosure_katello_pulp.sh
