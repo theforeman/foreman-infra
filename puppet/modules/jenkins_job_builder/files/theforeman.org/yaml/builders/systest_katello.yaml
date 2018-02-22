@@ -1,4 +1,0 @@
-- builder:
-    name: systest_katello
-    builders:
-      - shell: !include-raw: scripts/systest_katello.sh
