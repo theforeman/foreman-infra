@@ -31,4 +31,4 @@
           skip-tag: true
           branches:
             - '${ghprbActualCommit}'
-          refspec: '+refs/pull/*:refs/remotes/upstream/pr/*'
+          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/upstream/pr/${ghprbPullId}/*'

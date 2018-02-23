@@ -15,4 +15,4 @@
           wipe-workspace: true
           branches:
             - '${ghprbActualCommit}'
-          refspec: '+refs/pull/*:refs/remotes/origin/pr/*'
+          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
