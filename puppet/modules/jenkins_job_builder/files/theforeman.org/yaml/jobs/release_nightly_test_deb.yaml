@@ -9,7 +9,6 @@
       numToKeep: -1
     triggers:
       - timed: 'H 07 * * 1-5'
-      - schedule-failed-builds: '* * * * *'
     builders:
       - trigger-builds:
         - project: systest_foreman
