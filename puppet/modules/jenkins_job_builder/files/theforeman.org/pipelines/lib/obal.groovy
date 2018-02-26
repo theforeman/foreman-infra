@@ -1,13 +1,8 @@
-def obal(body) {
-
-    def config = [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = config
-    body()
-
-    def tags = config.tags ? "--tags ${config.tags}" : ""
-    def extra_vars = config.extraVars ?: [:]
+def obal(args) {
     def extra_vars_file = 'extra_vars.yaml'
+
+    tags = args.tags ? "--tags ${args.tags}" : ""
+    extra_vars = args.extraVars ?: [:]
 
     writeYaml file: extra_vars_file, data: extra_vars
     archive extra_vars_file
@@ -17,6 +12,6 @@ def obal(body) {
     }
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-        sh "ANSIBLE_FORCE_COLOR=true PYTHONPATH=obal python -m obal ${tags} -e @${extra_vars_file} ${config.action} ${config.packages}"
+        sh "ANSIBLE_FORCE_COLOR=true PYTHONPATH=obal python -m obal ${tags} -e @${extra_vars_file} ${args.action} ${args.packages}"
     }
 }

@@ -24,7 +24,13 @@ pipeline {
             steps {
 
                 script {
-                    changed_packages = sh(returnStdout: true, script: "git diff origin/${ghprbTargetBranch} --name-only -- 'packages/**.spec' | xargs dirname | xargs -n1 basename |sort -u").trim()
+                    changed_packages = sh(returnStdout: true, script: "git diff origin/${ghprbTargetBranch} --name-only -- 'packages/**.spec'")
+
+                    if (changed_packages) {
+                        changed_packages = sh(returnStdout: true, script: "echo ${changed_packages} | xargs dirname | xargs -n1 basename |sort -u").trim()
+                    } else {
+                        changed_packages = ''
+                    }
                     packages_to_build = changed_packages.split().join(' ')
                     update_build_description_from_packages(packages_to_build)
                 }
@@ -33,13 +39,12 @@ pipeline {
         }
 
         stage('Scratch Build Packages') {
+            when {
+                expression { packages_to_build }
+            }
             steps {
 
-                obal {
-                    action = "scratch"
-                    tags = "wait,download"
-                    packages = packages_to_build
-                }
+                obal(action: "scratch", tags: "wait,download", packages: packages_to_build)
 
             }
         }
