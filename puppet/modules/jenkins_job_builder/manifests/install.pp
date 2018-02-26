@@ -19,17 +19,9 @@ class jenkins_job_builder::install {
     }
   }
 
-  vcsrepo { '/opt/jenkins_job_builder':
-    ensure   => latest,
-    provider => git,
-    revision => $::jenkins_job_builder::git_revision,
-    source   => $::jenkins_job_builder::git_url,
-  }
-  ~>
-  exec { 'install_jenkins_job_builder':
-    command     => 'pip install /opt/jenkins_job_builder',
-    path        => '/usr/local/bin:/usr/bin:/bin/',
-    refreshonly => true,
+  package { 'jenkins-job-builder':
+    ensure   => present,
+    provider => 'pip',
   }
 
   file { '/etc/jenkins_jobs':

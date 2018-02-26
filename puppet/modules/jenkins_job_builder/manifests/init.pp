@@ -13,8 +13,6 @@
 #
 class jenkins_job_builder (
   $configs                     = {},
-  $git_revision                = 'master',
-  $git_url                     = 'https://github.com/theforeman/jenkins-job-builder',
   $jenkins_jobs_update_timeout = '600',
 ) {
   validate_hash($configs)

@@ -1,4 +1,0 @@
-- trigger:
-    name: schedule_failed_builds
-    triggers:
-      - schedule-failed-builds: '* * * * *'
