@@ -15,4 +15,5 @@
       !include-raw:
         - pipelines/test/testKatello.groovy
         - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy
         - pipelines/lib/foreman.groovy
