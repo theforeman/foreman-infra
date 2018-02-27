@@ -1,45 +1,16 @@
 - job:
     name: test_kafo_master_pull_request
-    project-type: matrix
+    project-type: pipeline
+    sandbox: true
     properties:
       - github:
           url: https://github.com/theforeman/kafo
       - tfm-pull-request-build-discarder
-    wrappers:
-      - abort_build:
-          timeout_min: 60
-    scm:
-      - kafo_pr
     triggers:
       - github_pr:
           context: 'kafo'
-    builders:
-      - test_kafo
-    axes:
-      - axis:
-          type: user-defined
-          name: ruby
-          values:
-          - '2.0.0'
-          - '2.1'
-          - '2.2'
-          - '2.3'
-          - '2.4'
-          - '2.5'
-          - '2.6'
-      - axis:
-          type: user-defined
-          name: puppet
-          values:
-          - '4.10'
-          - '5.0'
-          - '6.0'
-    execution-strategy:
-      combination-filter: '!(ruby ==~ /^2\.[0-3].*/ && puppet ==~ /^[56]\..*/)'
-      touchstone:
-        expr: 'ruby=="2.5" && puppet=="6.0"'
-        result: 'stable'
-    publishers:
-      - gemset_cleanup
-      - junit:
-          results: 'jenkins/reports/unit/*.xml'
+    dsl:
+      !include-raw:
+        - pipelines/lib/git.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/test/kafo.groovy
