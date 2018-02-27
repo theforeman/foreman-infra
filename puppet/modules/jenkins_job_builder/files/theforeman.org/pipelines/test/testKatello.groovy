@@ -123,7 +123,7 @@ pipeline {
     post {
         always {
             dir('foreman') {
-                archiveArtifacts artifacts: "Gemfile.lock"
+                archiveArtifacts artifacts: "Gemfile.lock, log/test.log"
                 junit keepLongStdio: true, testResults: 'jenkins/reports/unit/*.xml'
                 cleanup(ruby)
             }
