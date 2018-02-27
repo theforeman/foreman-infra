@@ -11,15 +11,7 @@ pipeline {
     stages {
         stage('Setup Git Repos') {
             steps {
-               checkout changelog: true, poll: false, scm: [
-                   $class: 'GitSCM',
-                   branches: [[name: '${ghprbActualCommit}']],
-                   doGenerateSubmoduleConfigurations: false,
-                   extensions: [[$class: 'PreBuildMerge', options: [fastForwardMode: 'FF', mergeRemote: 'origin', mergeStrategy: 'default', mergeTarget: '${ghprbTargetBranch}']]],
-                   userRemoteConfigs: [
-                       [refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', url: 'https://github.com/katello/katello']
-                   ]
-               ]
+                ghprb_git_checkout()
 
                 dir('foreman') {
                     git url: "https://github.com/theforeman/foreman", branch: katello_versions[ghprbTargetBranch]
