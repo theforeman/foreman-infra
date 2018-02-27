@@ -16,8 +16,10 @@ gemset=$(echo ${JOB_NAME} | cut -d/ -f1)-${EXECUTOR_NUMBER}
 rvm use ruby-${ruby}@${gemset}
 set -x
 
-# Env var works around Rails issue #28001 if DB migrations fail
-bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true
+if [ -f Rakefile ] && bundle exec rake -T | grep -q db:drop; then
+  # Env var works around Rails issue #28001 if DB migrations fail
+  bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true
+fi
 
 echo "Delete gemset"
 set +x
