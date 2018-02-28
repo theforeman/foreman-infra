@@ -24,10 +24,10 @@ pipeline {
             steps {
 
                 script {
-                    changed_packages = sh(returnStdout: true, script: "git diff origin/${ghprbTargetBranch} --name-only -- 'packages/**.spec'")
+                    changed_packages = sh(returnStdout: true, script: "git diff origin/${ghprbTargetBranch} --name-only -- 'packages/**.spec'").trim()
 
                     if (changed_packages) {
-                        changed_packages = sh(returnStdout: true, script: "echo ${changed_packages} | xargs dirname | xargs -n1 basename |sort -u").trim()
+                        changed_packages = sh(returnStdout: true, script: "echo '${changed_packages}' | xargs dirname | xargs -n1 basename |sort -u").trim()
                     } else {
                         changed_packages = ''
                     }
