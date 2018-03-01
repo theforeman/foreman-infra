@@ -11,7 +11,7 @@ filename="boxes.d/80-tmp-${box_name}.yaml"
 args=""
 
 if [[ $run_hammer_tests == true ]]; then
-  args+=" --foreman-organizations-enabled=true --foreman-locations-enabled=true --foreman-log-level=debug"
+  args+=" --foreman-organizations-enabled=true --foreman-locations-enabled=true"
 fi
 
 if [[ -n "${db_type}" ]]; then
