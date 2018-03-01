@@ -401,6 +401,9 @@ class slave (
     source => 'puppet:///modules/slave/titorc',
   }
   file { '/home/jenkins/.koji/katello-config':
+    ensure => absent,
+  }
+  file { '/home/jenkins/.koji/config':
     ensure => file,
     mode   => '0644',
     owner  => 'jenkins',
@@ -434,6 +437,17 @@ class slave (
     ensure => directory,
     owner  => 'jenkins',
     group  => 'jenkins',
+  }
+  file { '/home/jenkins/bin':
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
+  file { '/home/jenkins/bin/kkoji':
+    ensure => link,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    target => '/usr/bin/koji'
   }
 
   if $rackspace_username and $rackspace_api_key and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
