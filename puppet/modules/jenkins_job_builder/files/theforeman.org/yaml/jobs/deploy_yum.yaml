@@ -1,0 +1,31 @@
+- job:
+    name: deploy_yum
+    project-type: workflow
+    logrotate:
+      daysToKeep: 2
+      numToKeep: -1
+    paramters:
+      - string:
+          name: os
+          default: el7
+          description: 'OS code, e.g. <code>el6</code>, <code>f18</code>'
+      - string:
+          name: repo_source
+          default: foreman-nightly
+          description: 'Repo on koji to test, e.g. <code>foreman-nightly</code> or <code>foreman-1.2</code>'
+      - string:
+          name: repo_dest
+          default: nightly
+          description: 'Relative path on yum.tf.org to sync to, e.g. <code>nightly</code> or <code>releases/1.2</code>'
+      - boolean:
+          name: overwrite
+          default: false
+          description: 'If repo_dest exists, whether to replace it.  If false and it exists, the job will fail with an error.'
+      - boolean:
+          name: merge
+          default: false
+          description: 'When true, will only add to and not delete the existing repo, then will run <code>createrepo</code> to merge the new packages into the existing repo.'
+    dsl:
+      !include-raw:
+        - pipelines/release/deployYum.groovy
+        - pipelines/lib/rvm.groovy
