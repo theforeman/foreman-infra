@@ -39,5 +39,5 @@ fi
 grep "Task info:" tito.log | grep -o "[0-9]*" > tasks || true
 
 if [ -s tasks ]; then
-  xargs koji -c ~/.koji/katello-config watch-task < tasks
+  xargs kkoji watch-task < tasks
 fi
