@@ -309,6 +309,10 @@ class slave (
     include ::slave::packaging::rpm
   }
 
+  if $::architecture == 'x86_64' or $::architecture == 'amd64' {
+    include slave::docker
+  }
+
   if $rackspace_username and $rackspace_api_key and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
     class { '::slave::vagrant':
       username => $rackspace_username,
