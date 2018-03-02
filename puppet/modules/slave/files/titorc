@@ -1,1 +1,1 @@
-KOJI_OPTIONS=build --nowait
+KOJI_OPTIONS=-c ~/.koji/config build --nowait
