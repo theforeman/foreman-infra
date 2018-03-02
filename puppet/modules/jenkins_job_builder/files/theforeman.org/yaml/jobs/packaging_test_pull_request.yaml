@@ -10,7 +10,7 @@
     scm:
       - foreman-rpm-packaging-pr
     triggers:
-      - github_pr:
+      - github_pr_rpm_deb:
           context: 'packaging'
     builders:
       - shell: !include-raw: scripts/test/packaging_test_pull_request_deb.sh
