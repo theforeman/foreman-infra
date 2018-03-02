@@ -1,0 +1,16 @@
+- job:
+    name: deploy_puppet
+    project-type: workflow
+    logrotate:
+      numToKeep: 3
+    scm:
+      - foreman-infra
+    triggers:
+      - github
+      - pollscm:
+          cron: 'H/5 * * * *'
+    dsl:
+      !include-raw:
+        - pipelines/release/deployPuppet.groovy
+    publishers:
+      - ircbot_freenode
