@@ -272,16 +272,6 @@ class slave (
     }
   }
 
-  # specs-from-koji
-  if $::osfamily == 'RedHat' {
-    package {
-      'scl-utils-build':
-        ensure => present;
-      'rpmdevtools':
-        ensure => present;
-    }
-  }
-
   # Increase OS limits, RH OSes ship them by default
   if $::osfamily == 'RedHat' {
     file { '/etc/security/limits.d':
@@ -351,83 +341,9 @@ class slave (
     }
   }
 
-  # Koji
+  # RPM packaging
   if $::osfamily == 'RedHat' {
-    package {
-      'koji':
-        ensure => latest;
-      'rpm-build':
-        ensure => latest;
-      'tito':
-        ensure => latest;
-      'git-annex':
-        ensure => latest;
-      'pyliblzma':
-        ensure => latest;
-      'copr-cli':
-        ensure => latest;
-    }
-  }
-  file { '/home/jenkins/.koji':
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
-  }
-  file { '/home/jenkins/.titorc':
-    ensure => file,
-    mode   => '0644',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/slave/titorc',
-  }
-  file { '/home/jenkins/.koji/katello-config':
-    ensure => absent,
-  }
-  file { '/home/jenkins/.koji/config':
-    ensure => file,
-    mode   => '0644',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/slave/katello-config',
-  }
-  file { '/home/jenkins/.katello-ca.cert':
-    ensure => file,
-    mode   => '0644',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/slave/katello-ca.cert',
-  }
-  file { '/home/jenkins/.config/copr':
-    ensure  => file,
-    mode    => '0640',
-    owner   => 'jenkins',
-    group   => 'jenkins',
-    content => template('slave/copr.erb'),
-  }
-  if $koji_certificate {
-    file { '/home/jenkins/.katello.cert':
-      ensure  => file,
-      mode    => '0600',
-      owner   => 'jenkins',
-      group   => 'jenkins',
-      content => $koji_certificate,
-    }
-  }
-  file { '/tmp/tito':
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
-  }
-  file { '/home/jenkins/bin':
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
-  }
-  file { '/home/jenkins/bin/kkoji':
-    ensure => link,
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    target => '/usr/bin/koji',
+    include ::slave::packaging::rpm
   }
 
   if $rackspace_username and $rackspace_api_key and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
