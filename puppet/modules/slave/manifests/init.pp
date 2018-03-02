@@ -4,7 +4,8 @@ class slave (
   $jenkins_build_token = undef,
   $koji_certificate    = undef,
   $rackspace_username  = undef,
-  $rackspace_api_key   = undef,
+  $rackspace_password  = undef,
+  $rackspace_tenant    = undef,
   $copr_login          = undef,
   $copr_username       = undef,
   $copr_token          = undef,
@@ -313,10 +314,15 @@ class slave (
     include slave::docker
   }
 
-  if $rackspace_username and $rackspace_api_key and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
+  if $rackspace_username and $rackspace_password and $rackspace_tenant and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
     class { '::slave::vagrant':
-      username => $rackspace_username,
-      api_key  => $rackspace_api_key,
+      username    => Sensitive($rackspace_username),
+      password    => Sensitive($rackspace_password),
+      tenant_name => Sensitive($rackspace_tenant),
+    }
+  } else {
+    file { '/home/jenkins/.vagrant.d/Vagrantfile':
+      ensure => absent,
     }
   }
 

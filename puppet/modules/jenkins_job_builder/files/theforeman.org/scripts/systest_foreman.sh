@@ -21,6 +21,7 @@ fi
 cat > "$filename" <<-EOF
 ${box_name}:
   box: ${os}
+  domain: 'rackspace.theforeman.org'
   ansible:
     playbook: 'playbooks/bats_pipeline_foreman_nightly.yml'
     group: 'bats'
@@ -35,11 +36,11 @@ ${box_name}:
       ${run_hammer_tests:+foreman_testing_hammer_tests: ${run_hammer_tests}}
 EOF
 
-export VAGRANT_DEFAULT_PROVIDER=rackspace
+export VAGRANT_DEFAULT_PROVIDER=openstack
 
 trap "vagrant destroy $box_name" EXIT ERR
 
-vagrant up $box_name || true
+vagrant up --debug $box_name || true
 
 [ -e debug ] && rm -rf debug/
 mkdir debug

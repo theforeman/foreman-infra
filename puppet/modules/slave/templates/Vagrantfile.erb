@@ -1,12 +1,14 @@
-# vim: sw=2:ts=2:et
+# vim: sw=2:ts=2:et:ft=ruby
 
-Vagrant.configure("2") do |config|
-  config.vm.box = "dummy"
-  config.ssh.private_key_path = "<%= @ssh_key -%>"
-  config.vm.provider :rackspace do |rs|
-    rs.username = "<%= @username -%>"
-    rs.api_key = "<%= @api_key -%>"
-    rs.public_key_path = "<%= @ssh_key -%>.pub"
-    rs.rackspace_region = :iad
+Vagrant.configure('2') do |config|
+  config.vm.provider :openstack do |os|
+    os.openstack_auth_url = 'https://identity.api.rackspacecloud.com/v2.0'
+    os.region = '<%= @region %>'
+    # Rackspace doesn't follow the openstack spec so the plugin can't autodetect
+    os.openstack_network_url = 'https://<%= @region.downcase %>.networks.api.rackspacecloud.com/v2/'
+    os.openstack_image_url = 'https://<%= @region.downcase %>.images.api.rackspacecloud.com/v2/'
+    os.username = '<%= @username.unwrap -%>'
+    os.password = '<%= @password.unwrap -%>'
+    os.tenant_name = '<%= @tenant_name.unwrap -%>'
   end
 end

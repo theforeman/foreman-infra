@@ -61,7 +61,7 @@ pipeline {
             agent { label 'el' }
 
             environment {
-                VAGRANT_DEFAULT_PROVIDER = 'rackspace'
+                VAGRANT_DEFAULT_PROVIDER = 'openstack'
             }
             steps {
 
