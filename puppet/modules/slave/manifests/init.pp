@@ -89,6 +89,7 @@ class slave (
   # Old jobs that were converted to JJB
   slave::pr_test_config { [
       'kafo',
+      'katello',
     ]:
       ensure => absent,
   }
@@ -107,13 +108,6 @@ class slave (
       group   => 'jenkins',
       content => template('slave/hub_config.erb'),
     }
-  }
-
-  # Old jobs that were converted to JJB
-  slave::pr_test_config { [
-      'katello',
-    ]:
-      ensure => absent,
   }
 
   # Build dependencies
@@ -262,17 +256,6 @@ class slave (
       ensure => absent,
     }
 
-    if $::operatingsystemmajrelease == '6' {
-      yumrepo { 'qpid':
-        descr    => 'qpid/qpid copr',
-        baseurl  => 'https://copr-be.cloud.fedoraproject.org/results/@qpid/qpid/epel-6-$basearch/',
-        gpgcheck => '1',
-        gpgkey   => 'https://copr-be.cloud.fedoraproject.org/results/@qpid/qpid/pubkey.gpg',
-        enabled  => '1',
-        before   => Package['qpid-cpp-client-devel'],
-      }
-    }
-
     package { 'qpid-cpp-client-devel':
       ensure => latest,
     }
@@ -281,12 +264,9 @@ class slave (
   # Needed by foreman_openscap gem dependency OpenSCAP
   if $::osfamily == 'RedHat' {
     yumrepo { 'isimluk-openscap':
-      enabled     => 1,
-      gpgcheck    => 0,
-      descr       => 'isimluk-openscap',
-      baseurl     => "http://copr-be.cloud.fedoraproject.org/results/isimluk/OpenSCAP/epel-${::operatingsystemmajrelease}-\$basearch/",
-      includepkgs => ['openscap'],
-    } ->
+      ensure => absent,
+    }
+
     package { 'openscap':
       ensure => latest,
     }
@@ -335,7 +315,7 @@ class slave (
   class { '::rvm':
     version => '1.26.11',
   }
-  if $rvm_installed == true {
+  if $::rvm_installed == true {
     rvm::system_user { 'jenkins':
       create => false,
     }
@@ -418,11 +398,11 @@ class slave (
     source => 'puppet:///modules/slave/katello-ca.cert',
   }
   file { '/home/jenkins/.config/copr':
-    ensure   => file,
-    mode     => '0640',
-    owner    => 'jenkins',
-    group    => 'jenkins',
-    content  => template('slave/copr.erb'),
+    ensure  => file,
+    mode    => '0640',
+    owner   => 'jenkins',
+    group   => 'jenkins',
+    content => template('slave/copr.erb'),
   }
   if $koji_certificate {
     file { '/home/jenkins/.katello.cert':
@@ -447,7 +427,7 @@ class slave (
     ensure => link,
     owner  => 'jenkins',
     group  => 'jenkins',
-    target => '/usr/bin/koji'
+    target => '/usr/bin/koji',
   }
 
   if $rackspace_username and $rackspace_api_key and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
