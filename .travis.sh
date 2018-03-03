@@ -15,3 +15,4 @@ done
 
 cd puppet
 rake syntax
+rake spec
