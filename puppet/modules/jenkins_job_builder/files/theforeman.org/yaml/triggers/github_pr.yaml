@@ -26,8 +26,8 @@
       - github-pull-request:
           <<: *ghprb_defaults
           white-list-target-branches:
-            - rpm/1*
-            - deb/*
+            - rpm/1.*
+            - deb/.*
 
 - trigger:
     name: github_pr_rpm_develop
