@@ -29,7 +29,7 @@ class slave::vagrant(
     source => 'https://downloads.theforeman.org/infra/vagrant-openstack-provider-0.12.0.pre.ed73861.gem',
   } ->
   package { 'vagrant':
-    ensure   => installed,
+    ensure   => latest,
     source   => "/root/vagrant-package-${vagrant_version}",
     provider => $vagrant_provider,
   } ->
