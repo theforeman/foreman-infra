@@ -25,7 +25,7 @@ class slave::vagrant(
   file { "/root/vagrant-package-${vagrant_version}":
     source => $vagrant_source,
   } ->
-  file { '/root/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
+  file { '/usr/local/src/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
     source => 'https://downloads.theforeman.org/infra/vagrant-openstack-provider-0.12.0.pre.ed73861.gem',
   } ->
   package { 'vagrant':
@@ -40,7 +40,7 @@ class slave::vagrant(
     cwd         => $home,
     provider    => 'shell',
   } ->
-  exec { 'vagrant plugin install /root/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
+  exec { 'vagrant plugin install /usr/local/src/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
     unless      => 'vagrant plugin list | grep vagrant-openstack-provider',
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
     user        => $user,
@@ -57,6 +57,10 @@ class slave::vagrant(
   }
 
   file { [$ssh_key, "${ssh_key}.pub"]:
+    ensure => absent,
+  }
+
+  file { '/root/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
     ensure => absent,
   }
 }
