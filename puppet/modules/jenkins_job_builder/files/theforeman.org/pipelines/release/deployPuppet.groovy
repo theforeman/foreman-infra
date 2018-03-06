@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'admin && sshkey' }
 
-    option {
+    options {
         timestamps()
         disableConcurrentBuilds()
         ansiColor('xterm')
