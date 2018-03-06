@@ -13,7 +13,7 @@ class unattended {
         'openjdk-11-jre',
         'openjdk-11-jre-headless',
       ],
-      mail => { 'to' => 'sysadmins', },
+      mail      => { 'to' => 'sysadmins', },
     }
   }
 }

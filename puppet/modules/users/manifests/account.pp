@@ -3,7 +3,7 @@ define users::account(
   Optional[String] $fullname = undef,
   Optional[String] $passwd = undef,
   Stdlib::Absolutepath $homedir = "/home/${title}",
-  String $sudo = "ALL=(ALL) ALL",
+  String $sudo = 'ALL=(ALL) ALL',
 ) {
   user { $name:
     ensure     => $ensure,

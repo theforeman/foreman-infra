@@ -1,8 +1,9 @@
+# The rbot config
+# @api private
 class rbot::config {
-
   File {
-    owner  => $rbot::user,
-    group  => $rbot::group,
+    owner => $rbot::user,
+    group => $rbot::group,
   }
   group { $rbot::group:
     ensure => 'present',
@@ -36,7 +37,7 @@ class rbot::config {
   }
   exec { 'seed-rbot-config':
     command => "cp ${rbot::homedir}/.rbot/conf.yaml.SEED ${rbot::homedir}/.rbot/conf.yaml",
-    path    => "/bin:/sbin:/usr/bin:/usr/sbin",
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin',
     creates => "${rbot::homedir}/.rbot/conf.yaml",
     require => File["${rbot::homedir}/.rbot/conf.yaml.SEED"],
   }

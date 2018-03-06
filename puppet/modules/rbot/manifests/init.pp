@@ -1,4 +1,8 @@
+# The Foreman rbot instance
 class rbot(
+  $servers,
+  $nickname,
+  $channels,
   $base_dir        = $rbot::params::base_dir,
   $version         = $rbot::params::version,
   $working_dir     = $rbot::params::working_dir,
@@ -14,12 +18,7 @@ class rbot(
   $plugin_dir      = $rbot::params::plugin_dir,
   $irc_password    = '',
   $bind_host       = '',
-  $servers,
-  $nickname,
-  $channels
 ) inherits rbot::params {
-  include stdlib
-
   anchor { 'rbot::begin': } ->
   class  { 'rbot::package': } ~>
   class  { 'rbot::config': } ~>
