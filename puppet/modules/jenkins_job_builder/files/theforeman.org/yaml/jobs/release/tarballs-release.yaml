@@ -1,0 +1,14 @@
+- job:
+    name: tarballs-release
+    project-type: workflow
+    parameters:
+      - string:
+          name: version
+          description: "1.5.2, 1.6.0-RC1 etc."
+      - string:
+          name: major_version
+          description: "1.5, 1.6 etc."
+    dsl:
+      !include-raw:
+        - pipelines/release/tarballsRelease.groovy
+        - pipelines/lib/rvm.groovy
