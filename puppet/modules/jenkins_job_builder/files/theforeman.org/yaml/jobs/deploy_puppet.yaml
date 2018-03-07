@@ -3,8 +3,6 @@
     project-type: workflow
     logrotate:
       numToKeep: 3
-    scm:
-      - foreman-infra
     triggers:
       - github
       - pollscm:
