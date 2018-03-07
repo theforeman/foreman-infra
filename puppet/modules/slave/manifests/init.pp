@@ -146,6 +146,12 @@ class slave (
         'Debian' => 'libkrb5-dev',
         default  => 'krb5-devel'
       };
+    'systemd-devel':
+      ensure => present,
+      name   => $::osfamily ? {
+        'Debian' => 'libsystemd-dev',
+        default  => 'systemd-devel'
+      };
     'freeipmi':
       ensure => present;
     'ipmitool':
