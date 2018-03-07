@@ -9,6 +9,7 @@ class slave::vagrant(
 ) {
   $home = "/home/${user}"
   $ssh_key = "${home}/.ssh/id_rsa_rackspace"
+  $plugin_version = '0.12.0.pre.376ac8c'
 
   case $::osfamily {
     'RedHat': {
@@ -25,16 +26,16 @@ class slave::vagrant(
   file { "/root/vagrant-package-${vagrant_version}":
     source => $vagrant_source,
   } ->
-  file { '/usr/local/src/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
-    source => 'https://downloads.theforeman.org/infra/vagrant-openstack-provider-0.12.0.pre.ed73861.gem',
+  file { "/usr/local/src/vagrant-openstack-provider-${plugin_version}.gem":
+    source => "https://downloads.theforeman.org/infra/vagrant-openstack-provider-${plugin_version}.gem",
   } ->
   package { 'vagrant':
     ensure   => latest,
     source   => "/root/vagrant-package-${vagrant_version}",
     provider => $vagrant_provider,
   } ->
-  exec { 'vagrant plugin install /usr/local/src/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
-    unless      => 'vagrant plugin list | grep vagrant-openstack-provider',
+  exec { "vagrant plugin install /usr/local/src/vagrant-openstack-provider-${plugin_version}.gem":
+    unless      => "vagrant plugin list | grep 'vagrant-openstack-provider (${plugin_version})",
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
     user        => $user,
     cwd         => $home,
