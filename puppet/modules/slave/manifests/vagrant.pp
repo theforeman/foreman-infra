@@ -33,13 +33,6 @@ class slave::vagrant(
     source   => "/root/vagrant-package-${vagrant_version}",
     provider => $vagrant_provider,
   } ->
-  # old installs need to be migrated and that's an interactive UI. Easier to wipe out the old config
-  exec { 'clean old vagrant':
-    command => "rm -rf ${home}/.vagrant.d",
-    onlyif  => "test -e ${home}/.vagrant.d/boxes/dummy/rackspace",
-    path    => ['/bin', '/usr/bin'],
-    user    => $user,
-  } ->
   exec { 'vagrant plugin install /usr/local/src/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
     unless      => 'vagrant plugin list | grep vagrant-openstack-provider',
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
@@ -54,9 +47,5 @@ class slave::vagrant(
     group   => $user,
     mode    => '0600',
     content => template('slave/Vagrantfile.erb'),
-  }
-
-  file { '/root/vagrant-openstack-provider-0.12.0.pre.ed73861.gem':
-    ensure => absent,
   }
 }
