@@ -44,7 +44,7 @@ pipeline {
             }
             steps {
 
-                obal(action: "scratch", tags: "wait,download", packages: packages_to_build)
+                obal(action: "scratch", extraVars: ['build_package_download_logs': 'True'], packages: packages_to_build)
 
             }
         }
