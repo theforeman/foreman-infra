@@ -1,5 +1,5 @@
 - job:
-    name: deploy_puppet
+    name: puppet-deploy
     project-type: workflow
     properties:
       - github:
@@ -8,6 +8,6 @@
       - github
     dsl:
       !include-raw:
-        - pipelines/release/deployPuppet.groovy
+        - pipelines/release/puppetDeploy.groovy
     publishers:
       - ircbot_freenode
