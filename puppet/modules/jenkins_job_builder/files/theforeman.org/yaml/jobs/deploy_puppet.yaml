@@ -1,14 +1,11 @@
 - job:
     name: deploy_puppet
     project-type: workflow
-    logrotate:
-      numToKeep: 3
-    scm:
-      - foreman-infra
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-infra
     triggers:
       - github
-      - pollscm:
-          cron: 'H/5 * * * *'
     dsl:
       !include-raw:
         - pipelines/release/deployPuppet.groovy

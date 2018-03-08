@@ -2,9 +2,14 @@ pipeline {
     agent { label 'admin && sshkey' }
 
     options {
-        timestamps()
-        disableConcurrentBuilds()
         ansiColor('xterm')
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+        disableConcurrentBuilds()
+        timestamps()
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')
     }
 
     stages {
