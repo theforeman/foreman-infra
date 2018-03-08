@@ -40,7 +40,7 @@ export VAGRANT_DEFAULT_PROVIDER=openstack
 
 trap "vagrant destroy $box_name" EXIT ERR
 
-vagrant up --debug $box_name || true
+vagrant up $box_name || true
 
 [ -e debug ] && rm -rf debug/
 mkdir debug
