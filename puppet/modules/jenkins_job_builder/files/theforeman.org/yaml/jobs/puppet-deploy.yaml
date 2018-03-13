@@ -6,6 +6,8 @@
           url: https://github.com/theforeman/foreman-infra
     triggers:
       - github
+      - pollscm:
+          cron: 'H/5 * * * *'
     dsl:
       !include-raw:
         - pipelines/release/puppetDeploy.groovy
