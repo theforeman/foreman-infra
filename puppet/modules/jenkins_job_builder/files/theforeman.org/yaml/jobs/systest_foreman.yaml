@@ -30,10 +30,6 @@
           default: ''
           description: 'Whether to install Puppet from a non-default repo. Set to 3/4/5 for a specific repo, false to disable, or empty to choose a reasonable working version.'
       - bool:
-          name: run_puppet_tests
-          default: false
-          description: 'Whether to run additional Foreman/Puppet integration tests.'
-      - bool:
           name: run_hammer_tests
           default: false
           description: 'Whether to run additional hammer tests (https://github.com/theforeman/hammer-tests).'
