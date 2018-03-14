@@ -22,6 +22,11 @@ cat > "$filename" <<-EOF
 ${box_name}:
   box: ${os}
   domain: 'rackspace.theforeman.org'
+  synced_folders:
+    - path: /vagrant
+      mount_point: /vagrant
+      options:
+        disabled: true
   ansible:
     playbook: 'playbooks/bats_pipeline_foreman_nightly.yml'
     group: 'bats'
@@ -35,6 +40,11 @@ ${box_name}:
       ${pl_puppet:+puppet_repositories_version: ${pl_puppet}}
       ${run_hammer_tests:+foreman_testing_hammer_tests: ${run_hammer_tests}}
 EOF
+
+if [[ $os == debian9 ]] ; then
+	# The Debian 9 image on rackspace has no /usr/bin/python
+	echo "      ansible_python_interpreter: /usr/bin/python2.7" >> "$filename"
+fi
 
 export VAGRANT_DEFAULT_PROVIDER=openstack
 
