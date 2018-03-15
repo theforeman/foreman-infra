@@ -4,4 +4,3 @@ test:
   username: foreman
   password: foreman
   host: localhost
-  encoding: utf8mb4
