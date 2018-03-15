@@ -5,7 +5,6 @@ class slave::mysql {
       'innodb-flush-log-at-trx-commit' => '0',
       'innodb-doublewrite'             => '0',
       'sync_frm'                       => '0',
-      'innodb_large_prefix'            => '1',
     },
   }
 
