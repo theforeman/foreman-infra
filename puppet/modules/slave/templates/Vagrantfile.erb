@@ -10,5 +10,7 @@ Vagrant.configure('2') do |config|
     os.username = '<%= @username.unwrap -%>'
     os.password = '<%= @password.unwrap -%>'
     os.tenant_name = '<%= @tenant_name.unwrap -%>'
+    os.server_create_timeout = 500
+    os.server_active_timeout = 500
   end
 end
