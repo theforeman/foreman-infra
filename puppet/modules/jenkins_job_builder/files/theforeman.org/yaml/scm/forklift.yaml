@@ -2,7 +2,7 @@
     name: forklift
     scm:
       - git:
-          url: git://github.com/katello/forklift.git
+          url: https://github.com/theforeman/forklift.git
           wipe-workspace: true
           branches:
             - 'master'
