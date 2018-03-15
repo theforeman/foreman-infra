@@ -1,0 +1,4 @@
+- builder:
+    name: foreman-discovery-image-publish
+    builders:
+      - shell: !include-raw: scripts/foreman-discovery-image-publish.sh
