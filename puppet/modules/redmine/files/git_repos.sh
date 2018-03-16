@@ -36,7 +36,7 @@ JSON.load(STDIN).each do |project_name,repos|
     puts "#{repo_name} https://github.com/#{repo} #{branches.nil? ? "" : branches.map { |branch| "#{branch}:#{branch}" }.join(" ")}"
   end
 end' | while read repo; do
-  update_repo $repo
+  update_repo $repo || echo "Failed to update $repo" > /dev/stderr
 done
 
 cd $CODE_DIR
