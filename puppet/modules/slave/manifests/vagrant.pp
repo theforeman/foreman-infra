@@ -35,7 +35,7 @@ class slave::vagrant(
     provider => $vagrant_provider,
   } ->
   exec { "vagrant plugin install /usr/local/src/vagrant-openstack-provider-${plugin_version}.gem":
-    unless      => "vagrant plugin list | grep 'vagrant-openstack-provider (${plugin_version})",
+    unless      => "vagrant plugin list | grep 'vagrant-openstack-provider (${plugin_version})'",
     environment => ["HOME=${home}", 'NOKOGIRI_USE_SYSTEM_LIBRARIES=yes'],
     user        => $user,
     cwd         => $home,
