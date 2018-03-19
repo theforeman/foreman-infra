@@ -1,0 +1,12 @@
+- job:
+    name: katello-installer-nighty-release
+    project-type: workflow
+    sandbox: false
+    logrotate:
+      daysToKeep: 7
+      triggers:
+        - timed: '0 22 * * *'
+    dsl:
+      !include-raw:
+        - pipelines/release/katelloInstallerNightlyRelease.groovy
+        - pipelines/lib/rvm.groovy
