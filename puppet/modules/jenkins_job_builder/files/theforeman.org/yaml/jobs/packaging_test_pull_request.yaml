@@ -48,6 +48,7 @@
         - project: packaging_build_rpm
           block: true
           predefined-parameters: |
+            gitrelease=true
             scratch=true
             branch=${ghprbTargetBranch}
             pr_number=${ghprbPullId}
