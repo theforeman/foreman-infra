@@ -37,10 +37,3 @@
     jenkins_job: 'release_build_hammer_cli_katello'
     jobs:
       - 'build_rpm_{name}_{version}'
-
-- project:
-    name: 'katello-installer'
-    version: 'nightly'
-    jenkins_job: 'release_build_katello_installer'
-    jobs:
-      - 'build_rpm_{name}_{version}'
