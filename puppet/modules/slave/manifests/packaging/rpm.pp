@@ -1,6 +1,9 @@
 # All RPM packaging tools
 class slave::packaging::rpm (
   Optional[String] $koji_certificate = $slave::koji_certificate,
+  Optional[String] $copr_login = $slave::copr_login,
+  Optional[String] $copr_username = $slave::copr_username,
+  Optional[String] $copr_token = $slave::copr_token,
 ) {
   package { ['koji', 'rpm-build', 'git-annex', 'pyliblzma']:
     ensure => latest,
