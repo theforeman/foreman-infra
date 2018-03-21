@@ -4,7 +4,7 @@
     logrotate:
       daysToKeep: 2
       numToKeep: -1
-    paramters:
+    parameters:
       - string:
           name: os
           default: el7
@@ -17,11 +17,11 @@
           name: repo_dest
           default: nightly
           description: 'Relative path on yum.tf.org to sync to, e.g. <code>nightly</code> or <code>releases/1.2</code>'
-      - boolean:
+      - bool:
           name: overwrite
           default: false
           description: 'If repo_dest exists, whether to replace it.  If false and it exists, the job will fail with an error.'
-      - boolean:
+      - bool:
           name: merge
           default: false
           description: 'When true, will only add to and not delete the existing repo, then will run <code>createrepo</code> to merge the new packages into the existing repo.'
