@@ -15,8 +15,12 @@ pipeline {
             steps {
 
                 deleteDir()
-                ghprb_git_checkout()
-
+                if (package_action == 'scratch') {
+                    ghprb_git_checkout()
+                }
+                else if (package_action == 'release') {
+                    git url: 'https://github.com/theforeman/foreman-packaging', branch: "${env.headCommit}"
+                }
             }
         }
 
@@ -24,7 +28,13 @@ pipeline {
             steps {
 
                 script {
-                    changed_packages = sh(returnStdout: true, script: "git diff origin/${ghprbTargetBranch} --name-only --diff-filter=d -- 'packages/**.spec'").trim()
+                    def changed_packages
+                    if (package_action == 'scratch') {
+                        changed_packages = find_changed_package("origin/${ghprbTargetBranch}")
+                    }
+                    else if (package_action == 'release') {
+                        changed_packages = find_changed_packages("${env.beforeCommit}...${env.headCommit}")
+                    }
 
                     if (changed_packages) {
                         changed_packages = sh(returnStdout: true, script: "echo '${changed_packages}' | xargs dirname | xargs -n1 basename |sort -u").trim()
@@ -44,7 +54,7 @@ pipeline {
             }
             steps {
 
-                obal(action: "scratch", extraVars: ['build_package_download_logs': 'True'], packages: packages_to_build)
+                obal(action: package_action, extraVars: ['build_package_download_logs': 'True'], packages: packages_to_build)
 
             }
         }
@@ -55,6 +65,10 @@ pipeline {
             status_koji_links("${currentBuild.getCurrentResult()}")
         }
     }
+}
+
+def find_changed_packages(diff_range) {
+    return sh(returnStdout: true, script: "git diff ${diff_range} --name-only --diff-filter=d -- 'packages/**.spec'").trim()
 }
 
 def status_koji_links(build_status) {

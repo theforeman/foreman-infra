@@ -10,6 +10,7 @@
           context: 'rpm'
     dsl:
       !include-raw:
+        - pipelines/test/rpm_packaging.groovy
         - pipelines/lib/rpm_packaging.groovy
         - pipelines/lib/git.groovy
         - pipelines/lib/obal.groovy
