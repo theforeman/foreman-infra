@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'admin && sshkey' }
 
-    option {
+    options {
         timestamps()
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
@@ -14,12 +14,14 @@ pipeline {
                 git url: 'https://github.com/theforeman/foreman-infra'
                 dir('deploy') { withRVM(["bundle install"]) }
 
-                if (env.getProperty('os') =~ /f\d+/) {
-                    env.setProperty('osname', 'Fedora')
-                } else {
-                    env.setProperty('osname', 'RHEL')
+                script {
+                    if (env.getProperty('os') =~ /f\d+/) {
+                        env.setProperty('osname', 'Fedora')
+                    } else {
+                        env.setProperty('osname', 'RHEL')
+                    }
+                    env.setProperty('osver', (env.getProperty('os') =~ /\d+/)[0][0])
                 }
-                osver = (env.getProperty('os') =~ /\d+/)[0][0]
             }
         }
 
