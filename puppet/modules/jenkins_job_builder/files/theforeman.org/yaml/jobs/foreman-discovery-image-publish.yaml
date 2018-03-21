@@ -10,21 +10,21 @@
       - foreman-discovery-image-publish
     parameters:
       - string:
-        name: proxy_repository
-        default: nightly
-        description: 'Repository with smart-proxy and foreman-discovery plugin that is injected into the image. For releases, this should be set to the latest release (e.g. 1.12), set to "nightly" for master.'
+          name: proxy_repository
+          default: nightly
+          description: 'Repository with smart-proxy and foreman-discovery plugin that is injected into the image. For releases, this should be set to the latest release (e.g. 1.12), set to "nightly" for master.'
       - string:
-        name: output_dir
-        default: nightly
-        description: 'Name of the directory for images published here http://downloads.theforeman.org/discovery/  (usually "nightly" or "releases/0.6" or "scratch/lzap/xyz). WARNING: Target folder is DELETED prior to starting the build process. You can use any string in the format of "scratch-myname" to create your own directory at downloads.tf.org/discovery site.'
+          name: output_dir
+          default: nightly
+          description: 'Name of the directory for images published here http://downloads.theforeman.org/discovery/  (usually "nightly" or "releases/0.6" or "scratch/lzap/xyz). WARNING: Target folder is DELETED prior to starting the build process. You can use any string in the format of "scratch-myname" to create your own directory at downloads.tf.org/discovery site.'
       - string:
-        name: repoowner
-        default: theforeman
-        description: 'GitHub username to build against. Useful to change for scratch builds.'
+          name: repoowner
+          default: theforeman
+          description: 'GitHub username to build against. Useful to change for scratch builds.'
       - string:
-        name: branch
-        default: master
-        description: 'Name of the branch in repoowner to use.'
+          name: branch
+          default: master
+          description: 'Name of the branch in repoowner to use.'
     wrappers:
       - abort_build:
-        timeout_min: 180
+          timeout_min: 180
