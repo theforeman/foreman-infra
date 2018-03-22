@@ -24,7 +24,7 @@ pipeline {
 
                 script {
                     changed_packages = sh(returnStdout: true, script: "git diff origin/master --name-only -- 'packages/*.spec' | cut -d'/' -f2 |sort -u").trim()
-                    packages_to_build = changed_packages.split().join(':')
+                    packages_to_build = changed_packages.split().join(' ')
                     update_build_description_from_packages(packages_to_build)
                 }
 
