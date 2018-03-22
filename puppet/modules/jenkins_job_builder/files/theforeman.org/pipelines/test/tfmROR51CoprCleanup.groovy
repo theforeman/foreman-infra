@@ -24,9 +24,10 @@ pipeline {
         stage('Find and Remove Copr Scratch Repositories') {
             steps {
 
-                obal {
-                    action = 'cleanup-copr'
-                }
+                obal(
+                    action: 'cleanup-copr',
+                    packages: 'all'
+                )
 
             }
         }
