@@ -33,7 +33,6 @@ pipeline {
 
                 obal(
                     action: 'release',
-                    tags: "wait",
                     packages: 'all'
                 )
 
