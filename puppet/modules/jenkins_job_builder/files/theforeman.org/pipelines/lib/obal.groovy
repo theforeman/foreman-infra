@@ -4,7 +4,7 @@ def obal(args) {
     tags = args.tags ? "--tags ${args.tags}" : ""
     extra_vars = args.extraVars ?: [:]
     packages = args.packages
-    if (packages instanceof ArrayList) {
+    if (packages instanceof String[]) {
         packages = packages.join(' ')
     }
 

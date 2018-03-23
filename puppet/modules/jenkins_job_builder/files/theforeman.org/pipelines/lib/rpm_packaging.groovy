@@ -1,6 +1,6 @@
 def update_build_description_from_packages(packages_to_build) {
     build_description = packages_to_build
-    if (build_description instanceof ArrayList) {
+    if (build_description instanceof String[]) {
         build_description = build_description.join(' ')
     }
     currentBuild.description = build_description
