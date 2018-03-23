@@ -3,6 +3,10 @@ def obal(args) {
 
     tags = args.tags ? "--tags ${args.tags}" : ""
     extra_vars = args.extraVars ?: [:]
+    packages = args.packages
+    if (packages instanceof ArrayList) {
+        packages = packages.join(' ')
+    }
 
     writeYaml file: extra_vars_file, data: extra_vars
 
@@ -12,7 +16,7 @@ def obal(args) {
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${pwd()}/obal"]) {
-            sh "python -m obal ${tags} -e @${extra_vars_file} ${args.action} ${args.packages}"
+            sh "python -m obal ${tags} -e @${extra_vars_file} ${args.action} ${packages}"
         }
     }
 
