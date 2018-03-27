@@ -1,5 +1,5 @@
 - job:
-    name: katello-installer-nighty-release
+    name: katello-installer-nightly-release
     project-type: workflow
     sandbox: false
     logrotate:
