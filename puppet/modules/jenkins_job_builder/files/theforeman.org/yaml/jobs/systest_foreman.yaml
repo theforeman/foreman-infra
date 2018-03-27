@@ -1,6 +1,6 @@
 - job:
     name: systest_foreman
-    node: 'el'
+    node: 'el && ipv6'
     concurrent: true
     logrotate:
       daysToKeep: 8

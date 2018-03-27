@@ -26,7 +26,7 @@ pipeline {
             }
         }
         stage('Install Test') {
-            agent { label 'el' }
+            agent { label 'el && ipv6' }
 
             environment {
                 VAGRANT_DEFAULT_PROVIDER = 'openstack'

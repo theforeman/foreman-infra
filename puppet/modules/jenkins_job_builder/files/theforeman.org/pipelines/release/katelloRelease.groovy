@@ -31,7 +31,7 @@ pipeline {
             }
         }
         stage('Pulp Repoclosure') {
-            agent { label 'el' }
+            agent { label 'el && ipv6' }
 
             steps {
 
