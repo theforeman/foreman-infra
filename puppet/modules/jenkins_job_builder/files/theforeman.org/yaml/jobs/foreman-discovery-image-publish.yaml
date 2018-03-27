@@ -1,6 +1,6 @@
 - job:
     name: foreman-discovery-image-publish
-    node: 'admin && el && sshkey'
+    node: 'admin && el && sshkey && ipv6'
     logrotate:
       daysToKeep: 90
       numToKeep: 30
