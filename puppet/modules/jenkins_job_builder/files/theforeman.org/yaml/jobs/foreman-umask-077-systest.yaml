@@ -1,5 +1,5 @@
 - job:
-    name: foreman-umask-077-temp
+    name: foreman-umask-077
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
@@ -29,6 +29,6 @@
     wrappers:
       - abort_build:
           timeout_min: 60
-#   publishers:
-#     - ircbot_freenode
-#     - systest
+    publishers:
+      - ircbot_freenode
+      - systest
