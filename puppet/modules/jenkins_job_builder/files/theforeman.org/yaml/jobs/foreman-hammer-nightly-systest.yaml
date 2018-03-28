@@ -1,5 +1,5 @@
 - job:
-    name: foreman-hammer-nightly-systest-temp
+    name: foreman-hammer-nightly-systest
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
@@ -28,9 +28,9 @@
     wrappers:
       - abort_build:
           timeout_min: 60
-#   publishers:
-#     - ircbot_freenode
-#     - systest
-#     - email:
-#         recipients: 'tstrachota@redhat.com mbacovsk@redhat.com'
-#         notify-every-unstable-build: true
+    publishers:
+      - ircbot_freenode
+      - systest
+      - email:
+          recipients: 'tstrachota@redhat.com mbacovsk@redhat.com'
+          notify-every-unstable-build: true
