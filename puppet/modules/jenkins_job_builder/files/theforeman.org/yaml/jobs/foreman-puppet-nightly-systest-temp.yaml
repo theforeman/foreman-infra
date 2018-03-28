@@ -1,5 +1,5 @@
 - job:
-    name: foreman-mysql-systest-temp
+    name: foreman-puppet-nightly-systest-temp
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
@@ -7,7 +7,7 @@
     scm:
       - forklift
     triggers:
-      - timed: 'H 9 * * 3'
+      - timed: 'H 10 * * 6'
     axes:
       - axis:
           type: user-defined
@@ -21,9 +21,9 @@
           repo: nightly
           repo_environment: release
           os: ''
-          pl_puppet: ''
+          pl_puppet: nightly
           run_hammer_tests: false
-          db_type: mysql
+          db_type: ''
           umask: ''
           expected_version: ''
     wrappers:
