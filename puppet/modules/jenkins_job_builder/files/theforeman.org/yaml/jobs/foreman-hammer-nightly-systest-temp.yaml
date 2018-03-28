@@ -1,0 +1,36 @@
+- job:
+    name: foreman-hammer-nightly-systest-temp
+    node: 'el && ipv6'
+    project-type: matrix
+    logrotate:
+      daysToKeep: 8
+      maxToKeep: 30
+    scm:
+      - forklift
+    triggers:
+      - timed: 'H 5 * * 1,4'
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+            - centos7
+    builders:
+      - systest:
+          repo: nightly
+          repo_environment: release
+          os: ''
+          pl_puppet: ''
+          run_hammer_tests: true
+          db_type: ''
+          umask: ''
+          expected_version: ''
+    wrappers:
+      - abort_build:
+          timeout_min: 60
+#   publishers:
+#     - ircbot_freenode
+#     - systest
+#     - email:
+#         recipients: 'tstrachota@redhat.com mbacovsk@redhat.com'
+#         notify-every-unstable-build: true
