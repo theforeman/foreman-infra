@@ -1,5 +1,5 @@
 - job:
-    name: systest-foreman-mysql-testing
+    name: foreman-mysql-systest-temp
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
@@ -27,4 +27,4 @@
           timeout_min: 60
 #   publishers:
 #     - ircbot_freenode
-#     - systest_foreman
+#     - systest

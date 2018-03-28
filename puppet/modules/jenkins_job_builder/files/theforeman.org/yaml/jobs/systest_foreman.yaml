@@ -46,4 +46,4 @@
           default: ''
           description: 'Verifies the installed version of Foreman packages matches this value, if set.'
     publishers:
-      - systest_foreman
+      - systest
