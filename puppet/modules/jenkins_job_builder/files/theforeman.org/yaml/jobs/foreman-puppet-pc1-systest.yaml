@@ -1,5 +1,5 @@
 - job:
-    name: foreman-puppet-nightly-systest-temp
+    name: foreman-puppet-pc1-systest
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
@@ -14,14 +14,14 @@
           name: os
           values:
             - centos7
-            - debian9
-            - ubuntu1604
+            # - debian9     # not available yet
+            # - ubuntu1604  # https://tickets.puppetlabs.com/browse/SERVER-17
     builders:
       - systest:
           repo: nightly
           repo_environment: release
           os: ''
-          pl_puppet: nightly
+          pl_puppet: 4
           run_hammer_tests: false
           db_type: ''
           umask: ''
@@ -29,6 +29,6 @@
     wrappers:
       - abort_build:
           timeout_min: 60
-#   publishers:
-#     - ircbot_freenode
-#     - systest
+    publishers:
+      - ircbot_freenode
+      - systest
