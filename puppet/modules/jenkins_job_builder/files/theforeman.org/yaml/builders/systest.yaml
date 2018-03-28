@@ -1,0 +1,4 @@
+- builder:
+    name: systest
+    builders:
+      - shell: !include-raw: scripts/systest.shell_template
