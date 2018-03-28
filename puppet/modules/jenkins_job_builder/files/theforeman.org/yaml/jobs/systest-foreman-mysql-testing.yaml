@@ -1,0 +1,30 @@
+- job:
+    name: systest-foreman-mysql-testing
+    node: 'el && ipv6'
+    project-type: matrix
+    logrotate:
+      daysToKeep: 8
+    scm:
+      - forklift
+    triggers:
+      - timed: 'H 9 * * 3'
+    axes:
+      - axis:
+          type: user-defined
+          name: os
+          values:
+            - centos7
+            - debian9
+            - ubuntu1604
+    builders:
+      - systest:
+          repo: nightly
+          repo_environment: release
+          run_hammer_tests: false
+          db_type: mysql
+    wrappers:
+      - abort_build:
+          timeout_min: 60
+#   publishers:
+#     - ircbot_freenode
+#     - systest_foreman
