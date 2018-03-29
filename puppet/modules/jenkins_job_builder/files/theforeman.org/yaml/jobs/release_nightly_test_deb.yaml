@@ -1,19 +1,16 @@
 - job:
     name: release_nightly_test_deb
+    node: 'el && ipv6'
     project-type: matrix
     block-downstream: true
     block-upstream: true
     quiet-period: 30
     logrotate:
-      daysToKeep: 2
-      numToKeep: -1
+      daysToKeep: 8
+    scm:
+      - forklift
     triggers:
       - timed: 'H 07 * * 1-5'
-    builders:
-      - trigger-builds:
-        - project: systest_foreman
-          predefined-parameters: "os=${os}\nrepo=nightly\nstaging=true"
-          block: true
     axes:
       - axis:
           type: user-defined
@@ -21,8 +18,22 @@
           values:
           - debian9
           - ubuntu1604
+    builders:
+      - systest:
+          repo: nightly
+          repo_environment: release
+          os: ''
+          pl_puppet: ''
+          run_hammer_tests: false
+          db_type: ''
+          umask: ''
+          expected_version: ''
+    wrappers:
+      - abort_build:
+          timeout_min: 60
     publishers:
       - trigger:
           project: release_nightly_push_deb
           threshold: SUCCESS
       - ircbot_freenode_matrix
+      - systest
