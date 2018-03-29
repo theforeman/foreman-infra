@@ -1,14 +1,14 @@
 #!/bin/bash -xe
 
 # populate variables from builder macros if they're given
-[ -n '{repo}' ] && repo='{repo}'
-[ -n '{repo_environment}' ] && repo_environment='{repo_environment}'
-[ -n '{os}' ] && os='{os}'
-[ -n '{pl_puppet}' ] && pl_puppet='{pl_puppet}'
-[ -n '{run_hammer_tests}' ] && run_hammer_tests=$(echo '{run_hammer_tests}' | tr '[:upper:]' '[:lower:]')
-[ -n '{db_type}' ] && db_type='{db_type}'
-[ -n '{umask}' ] && umask='{umask}'
-[ -n '{expected_version}' ] && expected_version=='{expected_version}'
+[ -n "{repo}" ] && repo="{repo}"
+[ -n "{repo_environment}" ] && repo_environment="{repo_environment}"
+[ -n "{os}" ] && os="{os}"
+[ -n "{pl_puppet}" ] && pl_puppet="{pl_puppet}"
+[ -n "{run_hammer_tests}" ] && run_hammer_tests=$(echo "{run_hammer_tests}" | tr '[:upper:]' '[:lower:]')
+[ -n "{db_type}" ] && db_type="{db_type}"
+[ -n "{umask}" ] && umask="{umask}"
+[ -n "{expected_version}" ] && expected_version=="{expected_version}"
 
 echo $repo
 echo $repo_environment
