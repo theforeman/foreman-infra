@@ -1,10 +1,10 @@
 # Testing already-built RPMs from Koji and Debian packages in stagingdeb.
 - job:
     name: release_test
+    node: 'el && ipv6'
     project-type: matrix
     logrotate:
-      daysToKeep: -1
-      numToKeep: 16
+      daysToKeep: 8
     block-downstream: true
     block-upstream: true
     parameters:
@@ -14,10 +14,15 @@
         - project: packaging_repoclosure
           predefined-parameters: "os=${os}\nrepo=foreman-${major_version}\npuppet_lookasides=${os}-puppet\nbranch=${major_version}"
           block: true
-      - trigger-builds:
-        - project: systest_foreman
-          predefined-parameters: "os=${os}\nrepo=${major_version}\nrepo_flavor=staging\nexpected_version=${version}"
-          block: true
+      - systest:
+          repo: '${major_version}'
+          repo_environment: release
+          os: ''
+          pl_puppet: ''
+          run_hammer_tests: false
+          db_type: mysql
+          umask: ''
+          expected_version: '${version}'
     axes:
       - axis:
           type: user-defined
@@ -29,8 +34,12 @@
           - ubuntu1604
     execution-strategy:
       combination-filter: 'os != "debian8" || major_version == "1.16"'
+    wrappers:
+      - abort_build:
+          timeout_min: 120
     publishers:
       - trigger-parameterized-builds:
           - project: 'release_push_deb, release_push_rpm'
             condition: SUCCESS
             current-parameters: true
+      - systest
