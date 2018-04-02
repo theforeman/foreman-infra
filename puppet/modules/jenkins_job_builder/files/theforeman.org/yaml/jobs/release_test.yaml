@@ -17,7 +17,6 @@
       - systest:
           repo: '${major_version}'
           repo_environment: release
-          os: ''
           pl_puppet: ''
           run_hammer_tests: false
           db_type: mysql
