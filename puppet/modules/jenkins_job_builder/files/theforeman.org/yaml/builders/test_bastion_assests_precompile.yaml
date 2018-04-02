@@ -1,0 +1,4 @@
+- builder:
+    name: bastion_assets_precompile
+    builders:
+      - shell: !include-raw: scripts/test/test_bastion_assets_precompile.sh
