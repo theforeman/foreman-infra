@@ -18,7 +18,6 @@
       - systest:
           repo: nightly
           repo_environment: release
-          os: ''
           pl_puppet: 4
           run_hammer_tests: false
           db_type: ''
