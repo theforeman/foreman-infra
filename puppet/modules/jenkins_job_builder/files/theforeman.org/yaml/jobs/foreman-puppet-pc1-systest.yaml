@@ -14,8 +14,6 @@
           name: os
           values:
             - centos7
-            # - debian9     # not available yet
-            # - ubuntu1604  # https://tickets.puppetlabs.com/browse/SERVER-17
     builders:
       - systest:
           repo: nightly
