@@ -126,6 +126,11 @@ pipeline {
 
             }
         }
+        stage('Cleanup RVM') {
+            steps {
+                cleanupRVM(ruby)
+            }
+        }
     }
 
     post {
