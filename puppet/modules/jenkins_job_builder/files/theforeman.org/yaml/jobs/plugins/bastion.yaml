@@ -26,3 +26,37 @@
                 healthy: 0
                 unhealthy: 20
                 failing: 30
+
+- job:
+    name: test_bastion
+    project-type: matrix
+    logrotate:
+      daysToKeep: 30
+      numToKeep: -1
+    concurrent: true
+    properties:
+      - github:
+          url: https://github.com/katello/bastion
+    scm:
+      - git:
+          url: https://github.com/katello/bastion
+          wipe-workspace: true
+          basedir: 'plugin'
+          branches:
+            - master
+    triggers:
+      - pollscm: 'H/15 * * * *'
+      - github
+    axes:
+      - axis:
+          type: user-defined
+          name: test
+          values:
+            - javascript
+    builders:
+      - trigger-builds:
+          - project: test_bastion_javascript
+            block: true
+            git-revision:
+              combine-queued-commits: false
+            current-parameters: true
