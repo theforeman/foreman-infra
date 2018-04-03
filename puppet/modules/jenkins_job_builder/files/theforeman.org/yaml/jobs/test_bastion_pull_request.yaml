@@ -1,0 +1,70 @@
+- job:
+    name: test_bastion_pull_request
+    description: Run Bastion pull request tests, as an engine within Foreman under each supported database. Only Ruby 1.9.3 is supported.
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 30
+    properties:
+      - github:
+          url: https://github.com/Katello/bastion
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: 'The branch to build against.'
+      - string:
+          name: pr_number
+          description: 'Katello GitHub PR number to merge, or a URL to a patch file to apply directly'
+      - string:
+          name: pr_git_url
+          description:  'Katello Git URL to PR to test, e.g. git://github.com/user/foo.git'
+      - string:
+          name: pr_git_ref
+          description: 'Katello Git ref for PR to test, usually the branch name.'
+    scm:
+      - git:
+          url: https://github.com/Katello/bastion
+          branches:
+            - ${branch}
+          basedir: plugin
+          per-build-tag: true
+    auth-token: ${pullRequestScannerAuthToken}
+    triggers:
+      - scm_fifteen_minutes
+      - github
+    builders:
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: javascript
+          steps:
+            - trigger-builds:
+              - project: test_bastion_javascript
+                predefined-options: branch=${branch}
+                git-revision: true
+                current-parameters: true
+                block: true
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: assets_precompile
+          steps:
+            - trigger-builds:
+              - project: test_bastion_assets_precompile
+                current-parameters: true
+                block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: test
+          values:
+            - javascript
+            - assets_precompile
+    publishers:
+      - trigger-parameterized-builds:
+        - project: pull_request_scanner
+          condition: ALWAYS
+          predefined-parameters: |
+            project=bastion
+            pr_number=${pr_number}
