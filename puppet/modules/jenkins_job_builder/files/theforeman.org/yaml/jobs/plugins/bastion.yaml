@@ -1,3 +1,9 @@
+- properties:
+    name: github_bastion
+    properties:
+      - github:
+          url: https://github.com/katello/bastion
+
 - scm:
     name: bastion
     scm:
@@ -16,8 +22,7 @@
       numToKeep: 32
     concurrent: true
     properties:
-      - github:
-          url: https://github.com/katello/bastion
+      - github_bastion
     parameters:
       - string:
           name: branch
@@ -46,8 +51,7 @@
       numToKeep: -1
     concurrent: true
     properties:
-      - github:
-          url: https://github.com/katello/bastion
+      - github_bastion
     scm:
       - git:
           url: git://github.com/katello/bastion.git
@@ -81,8 +85,7 @@
       daysToKeep: -1
       numToKeep: 30
     properties:
-      - github:
-          url: https://github.com/Katello/bastion
+      - github_bastion
     parameters:
       - string:
           name: branch
@@ -138,8 +141,10 @@
     logrotate:
       daysToKeep: 30
       numToKeep: -1
-    builders:
-      - shell: !include-raw: scripts/test/test_bastion_assets_precompile.sh
+    properties:
+      - github_bastion
+    scm:
+      - bastion
     parameters:
       - string:
           name: branch
@@ -155,8 +160,8 @@
       - string:
           name: base_foreman_branch
           default: develop
-    scm:
-      - bastion
+    builders:
+      - shell: !include-raw: scripts/test/test_bastion_assets_precompile.sh
     axes:
       - axis:
           type: user-defined
