@@ -186,6 +186,12 @@ class slave (
       ensure => present;
     'ansible':
       ensure => latest;
+    'libcurl-dev':
+      ensure => present,
+      name   => $::osfamily ? {
+        'RedHat' => 'libcurl-devel',
+        default  => 'libcurl4-openssl-dev'
+      };
   }
 
   # this might clash with RVM on Ubuntu(?) otherwise
