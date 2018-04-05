@@ -1,5 +1,5 @@
 - job:
-    name: foreman-umask-077
+    name: foreman-umask-077-systest
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
