@@ -67,7 +67,7 @@ pipeline {
 
                 git url: 'https://github.com/theforeman/forklift'
 
-                sh "cp -f boxes.d/99-local.yaml.example boxes.d/99-local.yaml"
+                sh "cp -f vagrant/boxes.d/99-local.yaml.example vagrant/boxes.d/99-local.yaml"
                 sh "vagrant up centos7-katello-bats-ci"
 
             }

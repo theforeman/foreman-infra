@@ -6,7 +6,7 @@ if [[ -z $os ]] ; then
 fi
 
 box_name="systest-foreman-${os}${BUILD_NUMBER:+-$BUILD_NUMBER}"
-filename="boxes.d/80-tmp-${box_name}.yaml"
+filename="vagrant/boxes.d/80-tmp-${box_name}.yaml"
 
 args=""
 
