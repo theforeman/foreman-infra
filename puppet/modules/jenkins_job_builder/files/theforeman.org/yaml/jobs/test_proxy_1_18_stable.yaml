@@ -1,12 +1,12 @@
 - job:
-    name: test_proxy_1_15_stable
+    name: test_proxy_1_18_stable
     project-type: matrix
     properties:
       - github:
           url: https://github.com/theforeman/smart-proxy
     scm:
       - foreman-proxy:
-          branch: '1.15-stable'
+          branch: '1.18-stable'
     triggers:
       - scm_fifteen_minutes
       - github
@@ -24,12 +24,11 @@
           type: user-defined
           name: puppet
           values:
-          - 3.4.0
           - 3.8.0
-          - 4.2.0
-          - 4.4.0
+          - 4.10.9
+          - 5.3.3
     execution-strategy:
-      combination-filter: '!( (ruby ==~ /2\.[^0]*/ && puppet ==~ /3\.[0-4].*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /3.*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )'
+      combination-filter: '(ruby ==~ /2\.[0-1].*/ && puppet ==~ /3\.8.*/) || (ruby ==~ /2\.[1-9].*/ && puppet ==~ /4\.10\.9/) || (ruby ==~ /2\.[4-9].*/ && puppet ==~ /5\.3\.3/)'
     builders:
       - test_proxy
     publishers:
