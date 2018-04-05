@@ -48,14 +48,13 @@
     properties:
       - github:
           url: https://github.com/katello/bastion
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: "Branch to run test suite on"
     scm:
-      - git:
-          url: git://github.com/katello/bastion.git
-          per-build-tag: true
-          wipe-workspace: true
-          basedir: 'plugin'
-          branches:
-            - master
+      - bastion
     triggers:
       - pollscm: 'H/15 * * * *'
       - github
