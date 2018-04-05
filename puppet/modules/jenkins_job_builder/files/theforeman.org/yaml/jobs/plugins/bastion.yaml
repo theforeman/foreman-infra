@@ -1,9 +1,3 @@
-- properties:
-    name: github_bastion
-    properties:
-      - github:
-          url: https://github.com/katello/bastion
-
 - scm:
     name: bastion
     scm:
@@ -22,7 +16,8 @@
       numToKeep: 32
     concurrent: true
     properties:
-      - github_bastion
+      - github:
+          url: https://github.com/katello/bastion
     parameters:
       - string:
           name: branch
@@ -51,7 +46,8 @@
       numToKeep: -1
     concurrent: true
     properties:
-      - github_bastion
+      - github:
+          url: https://github.com/katello/bastion
     scm:
       - git:
           url: git://github.com/katello/bastion.git
@@ -85,7 +81,8 @@
       daysToKeep: -1
       numToKeep: 30
     properties:
-      - github_bastion
+      - github:
+          url: https://github.com/katello/bastion
     parameters:
       - string:
           name: branch
@@ -148,7 +145,8 @@
       daysToKeep: 30
       numToKeep: -1
     properties:
-      - github_bastion
+      - github:
+          url: https://github.com/katello/bastion
     scm:
       - bastion
     parameters:
