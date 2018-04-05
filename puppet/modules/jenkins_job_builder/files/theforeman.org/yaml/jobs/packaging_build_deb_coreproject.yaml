@@ -14,7 +14,6 @@
           values:
           - jessie
           - stretch
-          - trusty
           - xenial
       - axis:
           type: slave
@@ -29,7 +28,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os) && !((version != "1.15" || (arch == "armv7" || arch == "armv8")) && os == "trusty") && !((version != "1.15" && version != "1.16") && os == "jessie") && !(version == "1.15" && os == "stretch") && !((version != "1.15" || version != "1.16" || version != 1.17) && arch == "armv7")'
+      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os) && !(version != "1.16" && os == "jessie") && !((version != "1.16" || version != 1.17) && arch == "armv7")'
     builders:
       - build_deb_coreproject
     publishers:

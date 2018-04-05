@@ -18,7 +18,6 @@
           values:
           - jessie
           - stretch
-          - trusty
           - xenial
     execution-strategy:
-      combination-filter: '(os == "jessie" && (major_version == "1.15" || major_version == "1.16")) || (os == "stretch" && major_version != "1.15") || (os == "trusty" && major_version == "1.15") || os == "xenial"'
+      combination-filter: '(os == "jessie" && major_version == "1.16") || os == "xenial" || os == "stretch"'

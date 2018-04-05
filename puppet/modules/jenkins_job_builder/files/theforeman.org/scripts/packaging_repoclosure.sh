@@ -1,15 +1,11 @@
 #!/bin/bash -e
 
-if [[ ${os#fedora} != $os ]]; then
-  os=f${os#fedora}
-elif [[ ${os#centos} != $os ]]; then
+
+if [ ${os#centos} != $os ]; then
   os=el${os#centos}
 fi
 
-if [[ ${os#f} != $os ]]; then
-  osname=Fedora
-  osver=${os#f}
-elif [[ ${os#el} != $os ]]; then
+if [ ${os#el} != $os ]; then
   osname=RHEL
   osver=${os#el}
 else
