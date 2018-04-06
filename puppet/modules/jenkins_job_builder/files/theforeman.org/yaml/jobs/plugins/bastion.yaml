@@ -1,3 +1,14 @@
+- scm:
+    name: bastion
+    scm:
+      - git:
+          url: git://github.com/katello/bastion.git
+          per-build-tag: true
+          wipe-workspace: true
+          basedir: 'plugin'
+          branches:
+            - '${branch}'
+
 - job:
     name: test_bastion_javascript
     logrotate:
@@ -17,7 +28,7 @@
       - bastion
     builders:
       - plugin_pr_checkout
-      - test_bastion_javascript
+      - shell: !include-raw: scripts/test/test_bastion_javascript.sh
     publishers:
       - cobertura:
           report-file: 'plugin/coverage/**/cobertura-coverage.xml'
@@ -37,13 +48,13 @@
     properties:
       - github:
           url: https://github.com/katello/bastion
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: "Branch to run test suite on"
     scm:
-      - git:
-          url: https://github.com/katello/bastion
-          wipe-workspace: true
-          basedir: 'plugin'
-          branches:
-            - master
+      - bastion
     triggers:
       - pollscm: 'H/15 * * * *'
       - github
@@ -60,3 +71,112 @@
             git-revision:
               combine-queued-commits: false
             current-parameters: true
+
+- job:
+    name: test_bastion_pull_request
+    description: Run Bastion pull request tests, as an engine within Foreman under each supported database. Only Ruby 1.9.3 is supported.
+    project-type: matrix
+    logrotate:
+      daysToKeep: -1
+      numToKeep: 30
+    properties:
+      - github:
+          url: https://github.com/katello/bastion
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: 'The branch to build against.'
+      - pr_parameters
+    scm:
+      - git:
+          url: git://github.com/katello/bastion.git
+          per-build-tag: true
+          wipe-workspace: true
+          basedir: 'plugin'
+          branches:
+            - '${ghprbActualCommit}'
+          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
+    triggers:
+      - github_pr:
+          context: bastion
+    builders:
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: javascript
+          steps:
+            - trigger-builds:
+              - project: test_bastion_javascript
+                predefined-options: branch=${branch}
+                git-revision: true
+                current-parameters: true
+                block: true
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: assets_precompile
+          steps:
+            - trigger-builds:
+              - project: test_bastion_assets_precompile
+                current-parameters: true
+                block: true
+    axes:
+      - axis:
+          type: user-defined
+          name: test
+          values:
+            - javascript
+            - assets_precompile
+    publishers:
+      - trigger-parameterized-builds:
+        - project: pull_request_scanner
+          condition: ALWAYS
+          predefined-parameters: |
+            project=bastion
+            pr_number=${pr_number}
+
+- job:
+    name: test_bastion_assets_precompile
+    project-type: matrix
+    description: 'Run Bastion assets precompile to ensure assets can be generated properly for production.'
+    logrotate:
+      daysToKeep: 30
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/katello/bastion
+    scm:
+      - bastion
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: 'The branch to build against.'
+      - pr_parameters
+      - string:
+          name: foreman_pr_git_url
+          description: 'Foreman Git URL to PR to test, e.g. git://github.com/user/foo.git'
+      - string:
+          name: foreman_pr_git_ref
+          description: 'Foreman Git ref for PR to test, usually the branch name.'
+      - string:
+          name: base_foreman_branch
+          default: develop
+    builders:
+      - shell: !include-raw: scripts/test/test_bastion_assets_precompile.sh
+    axes:
+      - axis:
+          type: user-defined
+          name: rubygems
+          values:
+            - 2.2
+    wrappers:
+      - timeout:
+          elastic-percentage: 200
+          elastic-number-builds: 3
+          timeout: 60
+          fail: true
+          type: elastic
+    publishers:
+      - gemset_cleanup

@@ -1,9 +1,0 @@
-- scm:
-    name: bastion
-    scm:
-      - git:
-          url: git://github.com/katello/bastion.git
-          wipe-workspace: true
-          basedir: 'plugin'
-          branches:
-            - '${branch}'
