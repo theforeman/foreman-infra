@@ -75,6 +75,11 @@ while ! bundle update; do
   fi
 done
 
+# If the plugin contains npm deps, we need to install its specific modules
+if [ -e "$PLUGIN_ROOT/package.json" ]; then
+  $APP_ROOT/node_modules/.bin/npm install
+fi
+
 # Now let's add the plugin migrations
 bundle exec rake db:migrate RAILS_ENV=development --trace
 
