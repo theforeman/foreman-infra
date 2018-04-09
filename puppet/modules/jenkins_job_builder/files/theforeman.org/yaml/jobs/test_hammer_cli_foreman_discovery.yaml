@@ -1,0 +1,33 @@
+- job:
+    name: test_hammer_cli_foreman_discovery
+    project-type: matrix
+    concurrent: true
+    logrotate:
+      daysToKeep: 14
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/theforeman/hammer-cli-foreman-discovery
+    scm:
+      - git:
+          url: https://github.com/theforeman/hammer-cli-foreman-discovery
+          per-build-tag: true
+          wipe-workspace: true
+          branches:
+            - master
+    triggers:
+      - scm_fifteen_minutes
+      - github
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 2.3
+            - 2.4
+            - 2.5
+    builders:
+      - shell: !include-raw: scripts/test/test_hammer_cli_foreman_discovery.sh
+    publishers:
+      - gemset_cleanup
+      - ircbot_freenode
