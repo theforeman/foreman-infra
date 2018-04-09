@@ -1,0 +1,39 @@
+- job:
+    name: test_hammer_cli_foreman_pull_request
+    description: |
+      Test a Hammer CLI (Foreman) pull request under each Ruby version.
+    concurrent: true
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/theforeman/hammer-cli-foreman
+    parameters:
+      - pr_parameters
+    scm:
+      - git:
+          url: https://github.com/theforeman/hammer-cli-foreman
+          per-build-tag: true
+          wipe-workspace: true
+          branches:
+            - '${ghprbActualCommit}'
+          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
+    triggers:
+      - github_pr:
+          context: hammer
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 2.3
+            - 2.4
+            - 2.5
+    builders:
+      - shell: !include-raw: scripts/test/test_hammer_cli_foreman_pull_request.sh
+    publishers:
+      - gemset_cleanup
+      - junit:
+          results: 'test/reports/*.xml'
+          health-scale-factor: 1.0
