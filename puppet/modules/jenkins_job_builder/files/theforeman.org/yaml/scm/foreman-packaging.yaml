@@ -9,7 +9,7 @@
           git-config-name: Jenkins
           git-config-email: 'packaging@theforeman.org'
           branches:
-            - '*/deb/{branch}'
+            - '*/{branch}'
 - scm:
     name: foreman-rpm-packaging
     scm:
