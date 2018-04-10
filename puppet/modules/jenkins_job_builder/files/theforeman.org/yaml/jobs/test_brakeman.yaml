@@ -1,0 +1,18 @@
+- job:
+    name: test_brakeman_temp
+    scm:
+      - git:
+          url: https://github.com/theforeman/foreman
+          per-build-tag: true
+          wipe-workspace: true
+          branches:
+            - develop
+    triggers:
+      - github
+      - scm_fifteen_minutes
+    builders:
+      - shell: !include-raw: scripts/test/test_brakeman.sh
+    publishers:
+      - gemset_cleanup
+      - brakeman:
+          output: brakeman_output.json
