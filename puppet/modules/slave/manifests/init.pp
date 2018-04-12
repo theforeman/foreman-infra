@@ -58,7 +58,6 @@ class slave (
     'foreman_docker',
     'foreman_expire_hosts',
     'foreman_host_extra_validator',
-    'foreman_host_rundeck',
     'foreman_monitoring',
     'foreman_omaha',
     'foreman_openscap',
