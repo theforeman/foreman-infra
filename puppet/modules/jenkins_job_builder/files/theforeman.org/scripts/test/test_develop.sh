@@ -47,7 +47,3 @@ bundle exec rake db:drop db:create db:migrate --trace
 tasks="pkg:generate_source jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
 bundle exec rake $tasks TESTOPTS="-v" --trace
-
-# Run the DB seeds to verify they work
-bundle exec rake db:drop db:create db:migrate --trace
-bundle exec rake db:seed --trace
