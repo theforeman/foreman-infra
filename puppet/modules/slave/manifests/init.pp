@@ -86,8 +86,9 @@ class slave (
     'smart_proxy_remote_execution_ssh',
   ]: }
 
-  # Old jobs that were converted to JJB
+  # Old jobs that were converted to JJB or removed
   slave::pr_test_config { [
+      'foreman_host_rundeck',
       'kafo',
       'katello',
     ]:
