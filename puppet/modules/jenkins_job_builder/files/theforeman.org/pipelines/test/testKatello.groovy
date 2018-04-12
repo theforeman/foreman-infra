@@ -11,6 +11,7 @@ pipeline {
     stages {
         stage('Setup Git Repos') {
             steps {
+                deleteDir()
                 ghprb_git_checkout()
 
                 dir('foreman') {
