@@ -1,6 +1,0 @@
-- project:
-    name: foreman_host_rundeck
-    repo: foreman_host_rundeck
-    defaults: plugin
-    jobs:
-      - 'test_plugin_{name}_{branch}'
