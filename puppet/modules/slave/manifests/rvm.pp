@@ -27,7 +27,7 @@ class slave::rvm {
       version => 'ruby-2.4.3',
     }
     slave::rvm_config { 'ruby-2.5':
-      version => 'ruby-2.5.0',
+      version => 'ruby-2.5.1',
     }
 
     # Cleanup log dirs
