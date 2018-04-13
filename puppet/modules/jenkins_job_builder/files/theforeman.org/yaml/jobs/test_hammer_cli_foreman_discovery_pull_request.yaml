@@ -2,6 +2,7 @@
     name: test_hammer_cli_foreman_discovery_pull_request
     description: |
       Test a Hammer CLI (Foreman Discovery) pull request under each Ruby version.
+    project-type: matrix
     concurrent: true
     logrotate:
       daysToKeep: 45
