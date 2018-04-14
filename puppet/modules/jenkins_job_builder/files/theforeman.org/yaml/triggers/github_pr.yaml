@@ -34,7 +34,7 @@
     triggers:
       - github-pull-request:
           <<: *ghprb_defaults
-          status-url: http://ci.theforeman.org/blue/organizations/jenkins/$JOB_NAME/detail/$JOB_NAME/$BUILD_ID/pipeline
+          status-url: https://ci.theforeman.org/blue/organizations/jenkins/$JOB_NAME/detail/$JOB_NAME/$BUILD_ID/pipeline
           white-list-target-branches:
             - rpm/develop
 
@@ -43,4 +43,4 @@
     triggers:
       - github-pull-request:
           <<: *ghprb_defaults
-          status-url: http://ci.theforeman.org/blue/organizations/jenkins/$JOB_NAME/detail/$JOB_NAME/$BUILD_ID/pipeline
+          status-url: https://ci.theforeman.org/blue/organizations/jenkins/$JOB_NAME/detail/$JOB_NAME/$BUILD_ID/pipeline
