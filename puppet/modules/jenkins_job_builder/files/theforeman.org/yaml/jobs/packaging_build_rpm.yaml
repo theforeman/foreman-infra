@@ -1,7 +1,7 @@
 # Builds a single Foreman (sub)project or dependency from the foreman-packaging
 # repository, using Koji.
 #
-# See http://projects.theforeman.org/projects/foreman/wiki/RPM_Packaging#Project-sources-version-3
+# See https://projects.theforeman.org/projects/foreman/wiki/RPM_Packaging#Project-sources-version-3
 # or the help text on the build page for usage.
 - job:
     name: packaging_build_rpm
