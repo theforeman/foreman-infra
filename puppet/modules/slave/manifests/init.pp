@@ -68,7 +68,6 @@ class slave (
     'foreman_tasks',
     'foreman_templates',
     'foreman_userdata',
-    'kafo_parsers',
     'katello_packaging',
     'puppetdb_foreman',
     'smart_proxy',
@@ -90,6 +89,7 @@ class slave (
       'hammer_cli_foreman',
       'hammer_cli_foreman_discovery',
       'kafo',
+      'kafo_parsers',
       'katello',
     ]:
       ensure => absent,
