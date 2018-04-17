@@ -35,12 +35,6 @@ while ! bundle install --without=development -j5; do
   fi
 done
 
-# we need to install node modules for integration tests
-if [ -e "$APP_ROOT/package.json" ]; then
-  npm install npm@'<6.0.0' # first upgrade to newer npm
-  $APP_ROOT/node_modules/.bin/npm install
-fi
-
 # Database environment
 (
   sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
@@ -76,7 +70,9 @@ while ! bundle update; do
 done
 
 # If the plugin contains npm deps, we need to install its specific modules
-if [ -e "$PLUGIN_ROOT/package.json" ]; then
+# we need to install node modules for integration tests
+if [ -e "$APP_ROOT/package.json" ]; then
+  npm install npm@'<6.0.0' # first upgrade to newer npm
   $APP_ROOT/node_modules/.bin/npm install
 fi
 
