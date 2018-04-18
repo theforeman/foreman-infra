@@ -101,7 +101,8 @@ pipeline {
                     steps {
                         sh "npm install"
                         dir('foreman') {
-                            sh "npm install"
+                            sh "npm install npm"
+                            sh "node_modules/.bin/npm install"
                             withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production --trace'], ruby)
                         }
                     }
