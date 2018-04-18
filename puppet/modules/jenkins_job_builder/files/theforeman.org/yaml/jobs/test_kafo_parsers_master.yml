@@ -1,5 +1,5 @@
 - job:
-    name: test_kafo_parsers_master
+    name: test_kafo_parsers_master_temp
     description: |
       Tests the Kafo Parsers "master" branch under each Ruby and Puppet configuration.
     project-type: matrix
@@ -21,8 +21,6 @@
           type: user-defined
           name: ruby
           values:
-            - 1.8.7
-            - 1.9.3
             - 2.0.0
             - 2.1
             - 2.2
@@ -31,28 +29,11 @@
           type: user-defined
           name: puppet
           values:
-            - 2.7.0
-            - 3.0.0
-            - 3.1.0
-            - 3.2.0
-            - 3.3.0
-            - 3.4.0
-            - 3.5.0
-            - 3.6.0
-            - 3.7.0
-            - 3.8.0
             - 4.0.0
             - 4.1.0
             - 4.2.0
             - 4.3.0
             - 4.4.0
-    execution-strategy:
-      combination-filter: |
-        !( (ruby ==~ /(1\.9|2).*/ && puppet ==~ /2\.6.*/) || (ruby ==~ /2.*/ && puppet ==~ /(2|3\.[01]).*/) || (ruby ==~ /2\.[^0]*/ && puppet ==~ /(2|3\.[0-4]).*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /(2|3).*/) || (ruby ==~ /1\.(8|9).*/ && puppet ==~ /4\..*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )
-      touchstone:
-        expr: |
-          ruby=="2.0.0" && puppet=="3.3.0"
-        result: stable
     builders:
       - shell: !include-raw: scripts/test/test_kafo_parsers_master.sh
     publishers:
