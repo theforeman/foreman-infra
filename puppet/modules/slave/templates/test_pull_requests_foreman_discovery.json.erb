@@ -21,6 +21,7 @@
                 "develop": {
                     "jenkins_job_name": "test_plugin_pull_request",
                     "downstream_job_name": "test_plugin_foreman_discovery_develop",
+                    "require_downstream_stability": false,
                     "build_token": "<%= @jenkins_build_token -%>",
                     "addtl_jenkins_params": {
                         "foreman_discovery": {
@@ -32,6 +33,7 @@
                 "2.0-stable": {
                     "jenkins_job_name": "test_plugin_pull_request",
                     "downstream_job_name": "test_plugin_foreman_discovery_2.0_stable",
+                    "require_downstream_stability": false,
                     "build_token": "<%= @jenkins_build_token -%>",
                     "addtl_jenkins_params": {
                         "foreman_discovery": {
