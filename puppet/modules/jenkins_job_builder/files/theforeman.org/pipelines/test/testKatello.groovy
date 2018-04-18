@@ -98,6 +98,7 @@ pipeline {
                 }
                 stage('assets-precompile') {
                     steps {
+                        sh "npm install"
                         dir('foreman') {
                             withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production --trace'], ruby)
                         }
