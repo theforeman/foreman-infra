@@ -88,13 +88,13 @@ pipeline {
                         }
 
                         sh "cp -rf \$(cat foreman/bastion-version) engines/bastion_katello/bastion-${bastion_version}"
-                        sh "rm .eslintrc"
+                        sh "rm -f .eslintrc"
                         dir('engines/bastion_katello') {
                             sh "npm install npm"
                             sh "node_modules/.bin/npm install bastion-${bastion_version}"
                             sh "grunt ci"
                         }
-                        sh "git checkout .eslintrc"
+                        sh "git checkout .eslintrc && true"
                     }
                 }
                 stage('assets-precompile') {
