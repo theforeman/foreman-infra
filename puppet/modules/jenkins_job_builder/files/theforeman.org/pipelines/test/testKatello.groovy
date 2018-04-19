@@ -70,7 +70,8 @@ pipeline {
                         expression { fileExists('package.json') }
                     }
                     steps {
-                        sh 'npm install'
+                        sh "npm install npm"
+                        sh "node_modules/.bin/npm install"
                         sh 'npm test'
                     }
                 }
@@ -99,7 +100,6 @@ pipeline {
                 }
                 stage('assets-precompile') {
                     steps {
-                        sh "npm install"
                         dir('foreman') {
                             sh "npm install npm"
                             sh "node_modules/.bin/npm install"
