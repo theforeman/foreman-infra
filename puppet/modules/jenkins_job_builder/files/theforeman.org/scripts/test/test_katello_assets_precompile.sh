@@ -5,7 +5,7 @@ plugin_name=katello
 [ -e foreman ] && rm -rf foreman/
 git clone https://github.com/theforeman/foreman --branch "${base_foreman_branch}"
 
-ruby=2.3
+ruby=2.4.3
 
 TOP_ROOT=`pwd`
 APP_ROOT=$TOP_ROOT/foreman
