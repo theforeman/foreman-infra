@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-ruby=2.2.3
+ruby=2.4.3
 database=sqlite3
 plugin_name=katello
 
