@@ -30,7 +30,7 @@ done
 # we need to install node modules for integration tests (which only run on postgresql)
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
   npm install npm@'<6.0.0' # first upgrade to newer npm
-  $APP_ROOT/node_modules/.bin/npm install --global-style true
+  $APP_ROOT/node_modules/.bin/npm install
   ./node_modules/webpack/bin/webpack.js --bail --config config/webpack.config.js
 fi
 
