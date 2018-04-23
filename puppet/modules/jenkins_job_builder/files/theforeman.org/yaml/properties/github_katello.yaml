@@ -2,4 +2,4 @@
     name: github_katello
     properties:
       - github:
-          url: https://github.com/katello/katello
+          url: https://github.com/Katello/katello

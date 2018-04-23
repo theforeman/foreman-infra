@@ -11,8 +11,8 @@
     parameters:
       - string:
           name: plugin_repo
-          default: git://github.com/katello/katello.git
-          description: "Git URL containing Katello, e.g. <pre>https://github.com/katello/katello</pre>"
+          default: git://github.com/Katello/katello.git
+          description: "Git URL containing Katello, e.g. <pre>https://github.com/Katello/katello</pre>"
       - string:
           name: plugin_branch
           default: master

@@ -13,7 +13,7 @@ pipeline {
             steps {
                 dir('katello-installer') {
                     configureRVM('2.2')
-                    git url: 'https://github.com/katello/katello-installer', branch: 'master'
+                    git url: 'https://github.com/Katello/katello-installer', branch: 'master'
                     withRVM(['bundle install --without development --retry 5'], '2.2')
 
                     script {

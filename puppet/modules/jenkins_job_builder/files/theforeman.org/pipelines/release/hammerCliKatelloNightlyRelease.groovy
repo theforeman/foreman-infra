@@ -12,7 +12,7 @@ pipeline {
         stage ("Build Gem") {
             steps {
                 dir('hammer_cli_katello') {
-                    git url: "https://github.com/katello/hammer-cli-katello", branch: 'master'
+                    git url: "https://github.com/Katello/hammer-cli-katello", branch: 'master'
                     sh "gem build hammer_cli_katello.gemspec"
                     archiveArtifacts artifacts '*.gem'
                 }

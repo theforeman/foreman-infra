@@ -2,7 +2,7 @@
     name: bastion
     scm:
       - git:
-          url: git://github.com/katello/bastion.git
+          url: https://github.com/Katello/bastion
           per-build-tag: true
           wipe-workspace: true
           basedir: 'plugin'
@@ -17,7 +17,7 @@
     concurrent: true
     properties:
       - github:
-          url: https://github.com/katello/bastion
+          url: https://github.com/Katello/bastion
     parameters:
       - string:
           name: branch
@@ -47,7 +47,7 @@
     concurrent: true
     properties:
       - github:
-          url: https://github.com/katello/bastion
+          url: https://github.com/Katello/bastion
     parameters:
       - string:
           name: branch
@@ -81,7 +81,7 @@
       numToKeep: 30
     properties:
       - github:
-          url: https://github.com/katello/bastion
+          url: https://github.com/Katello/bastion
     parameters:
       - string:
           name: branch
@@ -90,7 +90,7 @@
       - pr_parameters
     scm:
       - git:
-          url: git://github.com/katello/bastion.git
+          url: https://github.com/Katello/bastion
           per-build-tag: true
           wipe-workspace: true
           basedir: 'plugin'
@@ -145,7 +145,7 @@
       numToKeep: -1
     properties:
       - github:
-          url: https://github.com/katello/bastion
+          url: https://github.com/Katello/bastion
     scm:
       - bastion
     parameters:
