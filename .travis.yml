@@ -1,11 +1,20 @@
+dist: trusty
 sudo: false
-language: ruby
-rvm: 2.1.9
-addons:
-  apt:
-    packages:
-    - yajl-tools
-install:
-  - pip install --user jenkins-job-builder
-  - (cd puppet && bundle install)
-script: ./.travis.sh
+matrix:
+  include:
+    - language: ruby
+      rvm:
+        - 2.1.9
+      install: (cd puppet && bundle install)
+      script: ./.travis/puppet.sh
+      addons:
+        apt:
+          packages:
+            - yajl-tools
+    - language: python
+      python:
+        - "2.7"
+      git:
+        submodules: false
+      install: pip install jenkins-job-builder
+      script: ./.travis/jjb.sh
