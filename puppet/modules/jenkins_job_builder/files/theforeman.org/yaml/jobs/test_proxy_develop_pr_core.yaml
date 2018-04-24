@@ -41,7 +41,7 @@
             - 4.2.0
             - 4.4.0
     execution-strategy:
-      combination-filter: !( (ruby ==~ /2\.[^0]*/ && puppet ==~ /3\.[0-4].*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /3.*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )
+      combination-filter: '!( (ruby ==~ /2\.[^0]*/ && puppet ==~ /3\.[0-4].*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /3.*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )'
     wrappers:
       - timeout:
           type: absolute
