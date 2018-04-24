@@ -1,5 +1,5 @@
 - job:
-    name: test_kafo_parsers_master_temp
+    name: test_kafo_parsers_master
     description: |
       Tests the Kafo Parsers "master" branch under each Ruby and Puppet configuration.
     project-type: matrix
@@ -9,7 +9,6 @@
     scm:
       - git:
           url: https://github.com/theforeman/kafo_parsers
-          per-build-tag: true
           wipe-workspace: true
           branches:
             - master

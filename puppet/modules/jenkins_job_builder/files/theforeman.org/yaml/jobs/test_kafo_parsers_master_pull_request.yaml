@@ -9,19 +9,16 @@
     properties:
       - github:
           url: https://github.com/theforeman/kafo_parsers
-    parameters:
-      - pr_parameters
     scm:
       - git:
           url: https://github.com/theforeman/kafo_parsers
-          per-build-tag: true
           wipe-workspace: true
           branches:
             - '${ghprbActualCommit}'
           refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
     triggers:
       - github_pr:
-          context: kafo
+          context: kafo_parsers
     axes:
       - axis:
           type: user-defined
