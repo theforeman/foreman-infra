@@ -50,7 +50,6 @@ class slave (
     group  => 'jenkins',
   }
   slave::pr_test_config { [
-    'bastion',
     'foreman_ansible',
     'foreman_bootdisk',
     'foreman_digitalocean',
@@ -69,9 +68,6 @@ class slave (
     'foreman_tasks',
     'foreman_templates',
     'foreman_userdata',
-    'hammer_cli',
-    'hammer_cli_foreman',
-    'hammer_cli_foreman_discovery',
     'kafo_parsers',
     'katello_packaging',
     'puppetdb_foreman',
@@ -88,7 +84,11 @@ class slave (
 
   # Old jobs that were converted to JJB or removed
   slave::pr_test_config { [
+      'bastion',
       'foreman_host_rundeck',
+      'hammer_cli',
+      'hammer_cli_foreman',
+      'hammer_cli_foreman_discovery',
       'kafo',
       'katello',
     ]:
