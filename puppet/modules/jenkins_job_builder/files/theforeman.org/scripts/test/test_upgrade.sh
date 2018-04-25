@@ -30,7 +30,8 @@ bundle install --without=development --jobs=5 --retry=5
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate --trace
+bundle exec rake db:drop --trace
+bundle exec rake db:create db:migrate --trace
 bundle exec rake db:seed --trace
 
 # Back to the pull request
