@@ -1,6 +1,5 @@
 #!/bin/bash -ex
 
-ruby=2.3
 database=sqlite3
 APP_ROOT=`pwd`
 
