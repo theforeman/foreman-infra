@@ -1,5 +1,6 @@
 - job:
     name: foreman-puppet-nightly-systest
+    disabled: true
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
