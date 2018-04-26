@@ -1,5 +1,5 @@
 - job:
-    name: foreman-mysql-systest
+    name: foreman-mysql-nightly-systest
     node: 'el && ipv6'
     project-type: matrix
     logrotate:
