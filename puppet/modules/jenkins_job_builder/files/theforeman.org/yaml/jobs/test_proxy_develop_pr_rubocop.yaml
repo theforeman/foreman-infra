@@ -1,5 +1,5 @@
 - job:
-    name: test_proxy_develop_pr_rubocop_temp
+    name: test_proxy_develop_pr_rubocop
     description: |
       Run Rubocop tests against develop branch on PR.
     project-type: matrix
