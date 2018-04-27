@@ -21,7 +21,7 @@
     builders:
       - systest:
           repo: nightly
-          repo_environment: release
+          repo_environment: staging
           pl_puppet: ''
           run_hammer_tests: false
           db_type: ''
