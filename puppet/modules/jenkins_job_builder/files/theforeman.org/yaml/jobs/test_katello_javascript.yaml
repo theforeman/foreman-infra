@@ -1,0 +1,46 @@
+- job:
+    name: test_katello_javascript
+    description: 'Run Katello Javascript tests with coverage'
+    logrotate:
+      daysToKeep: 20
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/Katello/katello
+    concurrent: true
+    scm:
+      - katello
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - 2.4
+    builders:
+      - test_katello_javascript
+    parameters:
+      - string:
+          name: branch
+          default: master
+          description: 'The branch to build against.'
+      - string:
+          name: pr_number
+          description: 'GitHub PR number to merge, or a URL to patch file to apply directly.'
+      - string:
+          name: pr_git_url
+          description: 'Git URL to PR to test, e.g. git://github.com/user/foo.git'
+      - string:
+          name: pr_git_ref
+          description: 'Git ref for PR to test, usually the branch name.'
+    publishers:
+      - gemset_cleanup
+      - cobertura:
+          report-file: 'plugin/engines/bastion_katello/coverage/**/cobertura-coverage.xml'
+          targets:
+            - files:
+                healthy: 0
+                unhealthy: 20
+                failing: 30
+    wrappers:
+      - abort_build:
+          timeout_min: 30
