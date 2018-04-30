@@ -169,9 +169,9 @@
     axes:
       - axis:
           type: user-defined
-          name: rubygems
+          name: ruby
           values:
-            - 2.2
+            - 2.4
     wrappers:
       - timeout:
           elastic-percentage: 200
