@@ -11,7 +11,7 @@
           [ -n "{run_hammer_tests}" ] && run_hammer_tests=$(echo "{run_hammer_tests}" | tr '[:upper:]' '[:lower:]')
           [ -n "{db_type}" ] && db_type="{db_type}"
           [ -n "{umask}" ] && umask="{umask}"
-          [ -n "{expected_version}" ] && expected_version=="{expected_version}"
+          [ -n "{expected_version}" ] && expected_version="{expected_version}"
 
           if [[ -z ${{os}} ]] ; then
             echo "Operating system not set"
