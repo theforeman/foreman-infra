@@ -1,0 +1,4 @@
+- builder:
+    name: test_katello_javascript
+    builders:
+      - shell: !include-raw: scripts/test/test_katello_javascript.sh
