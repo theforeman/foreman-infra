@@ -1,0 +1,65 @@
+- job-template:
+    name: '{plugin_name}-pull-request'
+    concurrent: true
+    project-type: matrix
+    node: fast
+    logrotate:
+      daysToKeep: 30
+      numToKeep: -1
+    scm:
+      - git:
+          url: https://github.com/theforeman/foreman
+          prune: true
+          wipe-workspace: true
+          basedir: 'foreman'
+          branches:
+            - develop
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - '2.3'
+            - '2.4'
+            - '2.5'
+      - axis:
+          type: user-defined
+          name: database
+          values:
+            - postgresql
+            - sqlite3
+            - mysql
+    execution-strategy:
+      combination-filter: >
+        ((database == 'postgresql') && ((ruby == '2.3') || (ruby == '2.4') || (ruby == '2.5'))) || ((database == 'mysql') && (ruby == '2.4')) || ((database == 'sqlite3') && (ruby == '2.4'))
+    wrappers:
+      - timeout:
+          type: absolute
+          abort: true
+          timeout: 120
+          timeout-var: 'BUILD_TIMEOUT'
+          write-description: 'Build timed out (after ${BUILD_TIMEOUT} minutes). Marking the build as aborted.'
+    # builders:
+    #   - plugin_pull_request:
+    #       plugin_name: '{name}'
+    #       plugin_repo: '{repo}'
+    #       plugin_branch: '{branch}'
+    # publishers:
+    #   - gemset_cleanup
+    #   - junit:
+    #       results: 'foreman/jenkins/reports/unit/*.xml'
+    builders:
+      - shell: |
+        #!/bin/bash -x
+        echo '{plugin_name}'
+        echo '{repo}'
+        echo '{branch}'
+
+- project:
+    name: plugin-pull-request
+    plugin_name:
+      - foreman_ansible:
+          repo: https://github.com/theforeman/foreman_ansible.git
+          branch: master
+    jobs:
+      - '{plugin_name}-pull-request'
