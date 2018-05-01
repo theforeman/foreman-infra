@@ -15,11 +15,6 @@
           default: master
       - string:
           name: plugin_name
-      - bool:
-          name: min_ruby200
-          default: true
-          description: >
-            Enable if Ruby 2.0.0 is the minimum Ruby version and lower versions will be skipped. Recommended for 1.14 onwards.
     scm:
       - git:
           url: '${plugin_repo}'
@@ -33,15 +28,11 @@
           type: user-defined
           name: ruby
           values:
-            - '1.8.7'
-            - '1.9.3'
             - '2.0.0'
             - '2.1'
             - '2.2'
             - '2.3'
             - '2.4'
-    execution-strategy:
-      combination-filter: '(min_ruby200 == "true" && ruby ==~ /2.*/) || min_ruby200 != "true"'
     wrappers:
       - timeout:
           type: absolute
