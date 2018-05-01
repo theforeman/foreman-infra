@@ -5,8 +5,9 @@
       <li><b>core</b> - ruby unit/functional tests</li>
       <li><b>javascript</b> - Bastion UI JavaScript tests</li>
       <li><b>rubocop</b> - Rubocop code analyser</li>
-      <li><b>rubygem_rpm</b> - Katello gem RPM nightly build</li>
       </ul>
+
+      Afterwards, build the nightly RPM.
     project-type: matrix
     logrotate:
       daysToKeep: 60
@@ -33,7 +34,6 @@
             - core
             - javascript
             - rubocop
-            - assets
     builders:
       - conditional-step:
           condition-kind: strings-match
