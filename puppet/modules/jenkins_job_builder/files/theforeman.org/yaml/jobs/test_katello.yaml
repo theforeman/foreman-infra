@@ -1,5 +1,5 @@
 - job:
-    name: test_katello_temp
+    name: test_katello
     description: |
       Run Katello tests in the following categories:<ul>
       <li><b>core</b> - ruby unit/functional tests</li>
