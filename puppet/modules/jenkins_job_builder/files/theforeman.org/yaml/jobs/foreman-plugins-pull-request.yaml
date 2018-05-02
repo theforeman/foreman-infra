@@ -62,5 +62,7 @@
           repo: 'https://github.com/theforeman/foreman_bootdisk'
       - foreman_digitalocean:
           repo: 'https://github.com/theforeman/foreman-digitalocean'
+      - foreman_discovery:
+          repo: 'https://github.com/theforeman/foreman_discovery'
     jobs:
       - '{plugin}-pull-request'
