@@ -68,5 +68,7 @@
           repo: 'https://github.com/theforeman/foreman-docker'
       - foreman_expire_hosts:
           repo: 'https://github.com/theforeman/foreman_expire_hosts'
+      - foreman_host_extra_validator:
+          repo: 'https://github.com/theforeman/foreman_host_extra_validator'
     jobs:
       - '{plugin}-pull-request'
