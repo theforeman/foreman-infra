@@ -52,7 +52,6 @@ class slave (
   slave::pr_test_config { [
     'foreman_packaging',
     'katello_packaging',
-    'puppetdb_foreman',
     'smart_proxy',
     'smart_proxy_abrt',
     'smart_proxy_discovery',
@@ -91,6 +90,7 @@ class slave (
       'kafo',
       'kafo_parsers',
       'katello',
+      'puppetdb_foreman',
     ]:
       ensure => absent,
   }
