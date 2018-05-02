@@ -51,7 +51,6 @@ class slave (
   }
   slave::pr_test_config { [
     'foreman_packaging',
-    'foreman_tasks',
     'foreman_templates',
     'foreman_userdata',
     'katello_packaging',
@@ -85,6 +84,7 @@ class slave (
       'foreman_remote_execution',
       'foreman_salt',
       'foreman_setup',
+      'foreman_tasks',
       'hammer_cli',
       'hammer_cli_foreman',
       'hammer_cli_foreman_discovery',
