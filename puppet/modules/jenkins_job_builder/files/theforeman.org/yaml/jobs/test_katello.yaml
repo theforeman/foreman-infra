@@ -1,0 +1,78 @@
+- job:
+    name: test_katello
+    description: |
+      Run Katello tests in the following categories:<ul>
+      <li><b>core</b> - ruby unit/functional tests</li>
+      <li><b>javascript</b> - Bastion UI JavaScript tests</li>
+      <li><b>rubocop</b> - Rubocop code analyser</li>
+      </ul>
+
+      Afterwards, build the nightly RPM.
+    project-type: matrix
+    logrotate:
+      daysToKeep: 60
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/Katello/katello/
+    scm:
+      - git:
+          url: https://github.com/Katello/katello
+          basedir: plugin
+          per-build-tag: true
+          wipe-workspace: true
+          branches:
+            - master
+    triggers:
+      - github
+      - scm_fifteen_minutes
+    axes:
+      - axis:
+          type: user-defined
+          name: test
+          values:
+            - core
+            - javascript
+            - rubocop
+    builders:
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: core
+          steps:
+            - trigger-builds:
+              - project: test_katello_core
+                block: true
+                git-revision:
+                  combine-queued-commits: false
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: javascript
+          steps:
+            - trigger-builds:
+              - project: test_katello_javascript
+                block: true
+                git-revision:
+                  combine-queued-commits: false
+      - conditional-step:
+          condition-kind: strings-match
+          condition-string1: ${ENV,var="test"}
+          condition-string2: rubocop
+          steps:
+            - trigger-builds:
+              - project: test_katello_rubocop
+                block: true
+                block-thresholds:
+                  build-step-failure-threshold: never
+                  failure-threshold: never
+                  unstable-threshold: UNSTABLE
+    publishers:
+      - email:
+          recipients: jlsherrill@gmail.com
+      - ircbot_freenode
+      - trigger-parameterized-builds:
+        - project: build_rpm_rubygem-katello_nightly
+          condition: SUCCESS
+          trigger-with-no-params: true
+
