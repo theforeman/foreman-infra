@@ -64,5 +64,7 @@
           repo: 'https://github.com/theforeman/foreman-digitalocean'
       - foreman_discovery:
           repo: 'https://github.com/theforeman/foreman_discovery'
+      - foreman_docker:
+          repo: 'https://github.com/theforeman/foreman-docker'
     jobs:
       - '{plugin}-pull-request'
