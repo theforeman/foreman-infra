@@ -66,5 +66,7 @@
           repo: 'https://github.com/theforeman/foreman_discovery'
       - foreman_docker:
           repo: 'https://github.com/theforeman/foreman-docker'
+      - foreman_expire_hosts:
+          repo: 'https://github.com/theforeman/foreman_expire_hosts'
     jobs:
       - '{plugin}-pull-request'
