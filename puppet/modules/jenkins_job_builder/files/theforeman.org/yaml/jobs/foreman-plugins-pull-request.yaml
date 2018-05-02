@@ -58,5 +58,7 @@
     plugin:
       - foreman_ansible:
           repo: 'https://github.com/theforeman/foreman_ansible'
+      - foreman_bootdisk:
+          repo: 'https://github.com/theforeman/foreman_bootdisk'
     jobs:
       - '{plugin}-pull-request'
