@@ -1,11 +1,14 @@
 - job-template:
-    name: '{plugin_name}-pull-request'
+    name: '{plugin}-pull-request'
     concurrent: true
     project-type: matrix
     node: fast
     logrotate:
       daysToKeep: 30
       numToKeep: -1
+    properties:
+      - github:
+          url: '{repo}'
     scm:
       - git:
           url: https://github.com/theforeman/foreman
@@ -14,6 +17,9 @@
           basedir: 'foreman'
           branches:
             - develop
+    triggers:
+      - github_pr:
+          context: '{plugin}'
     axes:
       - axis:
           type: user-defined
@@ -37,29 +43,20 @@
           type: absolute
           abort: true
           timeout: 120
-          timeout-var: 'BUILD_TIMEOUT'
-          write-description: 'Build timed out (after ${BUILD_TIMEOUT} minutes). Marking the build as aborted.'
-    # builders:
-    #   - plugin_pull_request:
-    #       plugin_name: '{name}'
-    #       plugin_repo: '{repo}'
-    #       plugin_branch: '{branch}'
-    # publishers:
-    #   - gemset_cleanup
-    #   - junit:
-    #       results: 'foreman/jenkins/reports/unit/*.xml'
+          write-description: 'Build timed out (after {{0}} minutes). Marking the build as aborted.'
     builders:
-      - shell: |
-        #!/bin/bash -x
-        echo '{plugin_name}'
-        echo '{repo}'
-        echo '{branch}'
+      - plugin-pull-request:
+          plugin-name: '{plugin}'
+          plugin-repo: '{repo}'
+    publishers:
+      - gemset_cleanup
+      - junit:
+          results: 'foreman/jenkins/reports/unit/*.xml'
 
 - project:
-    name: plugin-pull-request
-    plugin_name:
+    name: foreman-plugin-pull-request
+    plugin:
       - foreman_ansible:
-          repo: https://github.com/theforeman/foreman_ansible.git
-          branch: master
+          repo: 'https://github.com/theforeman/foreman_ansible'
     jobs:
-      - '{plugin_name}-pull-request'
+      - '{plugin}-pull-request'
