@@ -50,7 +50,6 @@ class slave (
     group  => 'jenkins',
   }
   slave::pr_test_config { [
-    'foreman_digitalocean',
     'foreman_discovery',
     'foreman_docker',
     'foreman_expire_hosts',
@@ -84,6 +83,7 @@ class slave (
       'bastion',
       'foreman_ansible',
       'foreman_bootdisk',
+      'foreman_digitalocean',
       'foreman_host_rundeck',
       'hammer_cli',
       'hammer_cli_foreman',

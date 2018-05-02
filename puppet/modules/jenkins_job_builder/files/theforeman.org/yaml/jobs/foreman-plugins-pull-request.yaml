@@ -60,5 +60,7 @@
           repo: 'https://github.com/theforeman/foreman_ansible'
       - foreman_bootdisk:
           repo: 'https://github.com/theforeman/foreman_bootdisk'
+      - foreman_digitalocean:
+          repo: 'https://github.com/theforeman/foreman-digitalocean'
     jobs:
       - '{plugin}-pull-request'
