@@ -78,5 +78,7 @@
           repo: 'https://github.com/theforeman/foreman_openscap'
       - foreman_pipeline:
           repo: 'https://github.com/theforeman/foreman_pipeline'
+      - foreman_remote_execution:
+          repo: 'https://github.com/theforeman/foreman_remote_execution'
     jobs:
       - '{plugin}-pull-request'
