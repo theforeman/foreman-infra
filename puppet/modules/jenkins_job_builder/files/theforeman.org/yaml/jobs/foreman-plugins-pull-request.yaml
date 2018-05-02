@@ -80,5 +80,7 @@
           repo: 'https://github.com/theforeman/foreman_pipeline'
       - foreman_remote_execution:
           repo: 'https://github.com/theforeman/foreman_remote_execution'
+      - foreman_salt:
+          repo: 'https://github.com/theforeman/foreman_salt'
     jobs:
       - '{plugin}-pull-request'
