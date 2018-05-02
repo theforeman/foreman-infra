@@ -74,5 +74,7 @@
           repo: 'https://github.com/theforeman/foreman_monitoring'
       - foreman_omaha:
           repo: 'https://github.com/theforeman/foreman_omaha'
+      - foreman_openscap:
+          repo: 'https://github.com/theforeman/foreman_openscap'
     jobs:
       - '{plugin}-pull-request'

@@ -50,7 +50,6 @@ class slave (
     group  => 'jenkins',
   }
   slave::pr_test_config { [
-    'foreman_openscap',
     'foreman_packaging',
     'foreman_pipeline',
     'foreman_remote_execution',
@@ -85,6 +84,7 @@ class slave (
       'foreman_host_rundeck',
       'foreman_monitoring',
       'foreman_omaha',
+      'foreman_openscap',
       'hammer_cli',
       'hammer_cli_foreman',
       'hammer_cli_foreman_discovery',
