@@ -86,5 +86,7 @@
           repo: 'https://github.com/theforeman/foreman_setup'
       - foreman-tasks:
           repo: 'https://github.com/theforeman/foreman-tasks'
+      - foreman_templates:
+          repo: 'https://github.com/theforeman/foreman_templates'
     jobs:
       - '{plugin}-pull-request'
