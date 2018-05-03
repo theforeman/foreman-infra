@@ -4,9 +4,10 @@
       - shell: |+
           #!/bin/bash -ex
 
-          # check out the pull request
-          [ -e plugin ] && rm -rf plugin/
+          rm -rf plugin/
           git clone {plugin-repo} plugin
+
+          # check out the pull request
           pushd plugin
           git fetch --tags --progress {plugin-repo} +refs/pull/${{ghprbPullId}}/*:refs/remotes/origin/pr/${{ghprbPullId}}/*
           git checkout -f ${{ghprbActualCommit}}
