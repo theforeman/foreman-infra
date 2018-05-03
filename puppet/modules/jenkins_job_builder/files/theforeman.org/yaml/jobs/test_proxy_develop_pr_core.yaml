@@ -26,19 +26,21 @@
           type: user-defined
           name: ruby
           values:
-            - 2.0.0
-            - 2.1
-            - 2.2
-            - 2.3
+            - '2.0.0'
+            - '2.1'
+            - '2.2'
+            - '2.3'
       - axis:
           type: user-defined
           name: puppet
           values:
-            - 3.4.0
-            - 3.8.0
-            - 4.2.0
-            - 4.4.0
-            - 4.10.0
+            - '3.4.0'
+            - '3.8.0'
+            - '4.2.0'
+            - '4.4.0'
+            - '4.10.0'
+            - '5.0'
+            - '5.3.3'
     execution-strategy:
       combination-filter: '!( (ruby ==~ /2\.[^0]*/ && puppet ==~ /3\.[0-4].*/) || (ruby ==~ /2\.[2-9].*/ && puppet ==~ /3.*/) || (ruby ==~ /2\.[3-9].*/ && puppet ==~ /4\.[0-3].*/) )'
     wrappers:
