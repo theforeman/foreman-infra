@@ -1,0 +1,43 @@
+- job-template:
+    name: '{name}'
+    concurrent: true
+    project-type: matrix
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    properties:
+      - github:
+          url: https://github.com/theforeman/{name}
+    scm:
+      - git:
+          url: https://github.com/theforeman/{name}.git
+          wipe-workspace: true
+          prune: true
+          branches:
+            - master
+    triggers:
+      - github
+      - pollscm:
+          cron: 'H/15 * * * *'
+      - timed: 'H H * * H'
+    wrappers:
+      - timeout:
+          type: absolute
+          abort: true
+          timeout: 60
+          write-description: 'Build timed out (after {{0}} minutes). Marking the build as aborted.'
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - '2.0.0'
+            - '2.1'
+            - '2.2'
+            - '2.3'
+            - '2.4'
+    builders:
+      - smart-proxy-plugin
+    publishers:
+      - gemset_cleanup
+      - ircbot_freenode
