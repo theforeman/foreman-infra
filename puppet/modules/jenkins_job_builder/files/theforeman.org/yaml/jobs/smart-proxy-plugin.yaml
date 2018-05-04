@@ -1,5 +1,5 @@
 - job-template:
-    name: '{name}'
+    name: 'smart-proxy-{plugin}-test'
     concurrent: true
     project-type: matrix
     logrotate:
@@ -7,10 +7,10 @@
       numToKeep: -1
     properties:
       - github:
-          url: https://github.com/theforeman/{name}
+          url: 'https://github.com/theforeman/smart_proxy_{plugin}'
     scm:
       - git:
-          url: https://github.com/theforeman/{name}.git
+          url: 'https://github.com/theforeman/smart_proxy_{plugin}'
           wipe-workspace: true
           prune: true
           branches:
@@ -36,8 +36,24 @@
             - '2.2'
             - '2.3'
             - '2.4'
+            - '2.5'
     builders:
       - smart-proxy-plugin
     publishers:
       - gemset_cleanup
       - ircbot_freenode
+
+
+- project:
+    name: smart-proxy-plugin
+    plugin:
+      - abrt
+      - discovery
+      - dynflow
+      - monitoring
+      - omaha
+      - openscap
+      - pulp
+      - remote_execution_ssh
+    jobs:
+      - 'smart-proxy-{plugin}-test'
