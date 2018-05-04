@@ -50,7 +50,6 @@ class slave (
     group  => 'jenkins',
   }
   slave::pr_test_config { [
-    'foreman_packaging',
     'katello_packaging',
     'smart_proxy',
     'smart_proxy_abrt',
@@ -77,6 +76,7 @@ class slave (
       'foreman_monitoring',
       'foreman_omaha',
       'foreman_openscap',
+      'foreman_packaging',
       'foreman_pipeline',
       'foreman_remote_execution',
       'foreman_salt',
