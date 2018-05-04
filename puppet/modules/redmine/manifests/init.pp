@@ -11,6 +11,10 @@
 #
 # $data_dir::       Directory containing the data
 #
+# $servername::     The DNS name to use as servername
+#
+# $repo_url::       The git repo URL to clone from
+#
 # $username::       User to run under
 #
 # $db_name::        Name of the database
@@ -24,6 +28,8 @@ class redmine (
   String $email_password         = 'pass',
   Stdlib::Absolutepath $app_root = '/usr/share/redmine',
   Stdlib::Absolutepath $data_dir = '/var/lib/redmine_data',
+  String $servername             = 'projects.theforeman.org',
+  Stdlib::Httpsurl $repo_url     = 'https://github.com/theforeman/redmine',
   String $username               = 'redmine',
   String $db_name                = 'redmine',
   String $db_password            = cache_data('foreman_cache_data', 'db_password', random_password(32)),
@@ -37,6 +43,20 @@ class redmine (
     'shared_buffers'               => '512MB',
     'work_mem'                     => '4MB',
   }
+
+  # Needed for bundle install
+  $packages = [
+    'rubygem-bundler.noarch',
+    'ruby-devel',
+    'gcc',
+    'gcc-c++',
+    'libxml2-devel',
+    'ImageMagick-devel',
+    'postgresql-devel',
+    'sqlite-devel',
+  ]
+
+  ensure_packages($packages)
 
   # Prevents errors if run from /root etc.
   Postgresql_psql {
@@ -79,12 +99,23 @@ class redmine (
     content => template('redmine/secure_config.yaml.erb'),
   }
 
-  # TODO: handle cloning the redmine repo and bundle install...
-  file { $app_root:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
+  vcsrepo { $app_root:
+    ensure   => present,
+    provider => 'git',
+    source   => $repo_url,
+    user     => $username,
+    require  => File[$app_root],
+    notify   => Exec['install redmine'],
+  }
+
+  exec { 'install redmine':
+    command     => 'bundle install',
+    user        => $username,
+    cwd         => $app_root,
+    path        => $::path,
+    environment => ["HOME=${app_root}"],
+    unless      => 'bundle check',
+    require     => Package[$packages],
   }
 
   file { "${app_root}/config/database.yml":
@@ -93,6 +124,7 @@ class redmine (
     group   => 'root',
     mode    => '0644',
     content => template('redmine/database.yml.erb'),
+    require => Vcsrepo[$app_root],
   }
 
   file { $data_dir:
@@ -102,25 +134,10 @@ class redmine (
     mode   => '0750',
   }
 
-  # Needed for bundle install
-  $packages = [
-    'rubygem-bundler.noarch',
-    'ruby-devel',
-    'gcc',
-    'gcc-c++',
-    'libxml2-devel',
-    'ImageMagick-devel',
-    'postgresql-devel',
-    'sqlite-devel',
-  ]
-
-  ensure_packages($packages)
-
   # Apache / Passenger
 
   include ::web::base
 
-  $servername       = 'projects.theforeman.org'
   $redmine_url      = "http://${servername}/"
   $docroot          = "${app_root}/public"
   $min_instances    = 1
