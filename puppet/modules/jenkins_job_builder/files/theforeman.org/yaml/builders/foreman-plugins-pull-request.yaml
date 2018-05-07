@@ -31,7 +31,7 @@
           rvm gemset empty --force
           gem install bundler --no-ri --no-rdoc
 
-          bundle install --without development --retry 5
+          bundle install --without development --retry 5 --jobs 5
 
           # we need to install node modules for integration tests
           if [ -e "${{APP_ROOT}}/package.json" ]; then
@@ -41,9 +41,9 @@
 
           # Database environment
           (
-            sed "s/^test:/development:/; s/database:.*/database: ${{gemset}}-dev/" $HOME/${{database}}.db.yaml
+            sed "s/^test:/development:/; s/database:.*/database: ${{gemset}}-dev/" ${{HOME}}/${{database}}.db.yaml
             echo
-            sed "s/database:.*/database: ${{gemset}}-test/" $HOME/${{database}}.db.yaml
+            sed "s/database:.*/database: ${{gemset}}-test/" ${{HOME}}/${{database}}.db.yaml
           ) > ${{APP_ROOT}}/config/database.yml
 
           # Create DB first in development as migrate behaviour can change
@@ -59,7 +59,7 @@
           [ -e ${{PLUGIN_ROOT}}/gemfile.d/{plugin-name}.rb ] && cat ${{PLUGIN_ROOT}}/gemfile.d/{plugin-name}.rb >> bundler.d/Gemfile.local.rb
 
           # Update dependencies
-          bundle update --retry 5
+          bundle update --retry 5 --jobs 5
 
           # If the plugin contains npm deps, we need to install its specific modules
           if [ -e "${{PLUGIN_ROOT}}/package.json" ]; then

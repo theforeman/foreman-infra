@@ -2,7 +2,6 @@
     name: '{plugin}-pull-request'
     concurrent: true
     project-type: matrix
-    node: fast
     logrotate:
       daysToKeep: 30
       numToKeep: -1
@@ -35,6 +34,11 @@
             - postgresql
             - sqlite3
             - mysql
+      - axis:
+          type: slave
+          name: label
+          values:
+            - fast
     execution-strategy:
       combination-filter: >
         ((database == 'postgresql') && ((ruby == '2.3') || (ruby == '2.4') || (ruby == '2.5'))) || ((database == 'mysql') && (ruby == '2.4')) || ((database == 'sqlite3') && (ruby == '2.4'))
