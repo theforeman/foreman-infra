@@ -14,7 +14,7 @@
           wipe-workspace: true
           prune: true
           branches:
-            - master
+            - '{branch|master}' # default to 'master' if branch not set
     triggers:
       - github
       - pollscm:
@@ -48,7 +48,8 @@
     name: smart-proxy-plugin
     plugin:
       - abrt
-      - discovery
+      - discovery:
+          branch: develop # have to be the special child
       - dynflow
       - monitoring
       - omaha
