@@ -1,0 +1,57 @@
+- job-template:
+    name: 'smart-proxy-{plugin}-pull-request'
+    concurrent: true
+    project-type: matrix
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    properties:
+      - github:
+          url: 'https://github.com/theforeman/smart_proxy_{plugin}'
+    scm:
+      - git:
+          url: 'https://github.com/theforeman/smart_proxy_{plugin}'
+          wipe-workspace: true
+          prune: true
+          branches:
+            - '${ghprbActualCommit}'
+          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
+    triggers:
+      - github_pr:
+          context: 'smart-proxy-{plugin}'
+    wrappers:
+      - timeout:
+          type: absolute
+          abort: true
+          timeout: 60
+          write-description: 'Build timed out (after {{0}} minutes). Marking the build as aborted.'
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - '2.0.0'
+            - '2.1'
+            - '2.2'
+            - '2.3'
+            - '2.4'
+            - '2.5'
+    builders:
+      - smart-proxy-plugin
+    publishers:
+      - gemset_cleanup
+
+
+- project:
+    name: smart-proxy-plugin-pull-request
+    plugin:
+      - abrt
+      - discovery
+      - dynflow
+      - monitoring
+      - omaha
+      - openscap
+      - pulp
+      - remote_execution_ssh
+    jobs:
+      - 'smart-proxy-{plugin}-pull-request'
