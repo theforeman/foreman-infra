@@ -1,5 +1,5 @@
 - job:
-    name: test_katello_rubocop_temp
+    name: test_katello_rubocop
     description: |
       Run Katello Rubocop tests
     concurrent: true
