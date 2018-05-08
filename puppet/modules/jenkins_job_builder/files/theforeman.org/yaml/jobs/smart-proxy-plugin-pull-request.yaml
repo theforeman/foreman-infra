@@ -14,8 +14,8 @@
           wipe-workspace: true
           prune: true
           branches:
-            - '${ghprbActualCommit}'
-          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
+            - '${{ghprbActualCommit}}'
+          refspec: '+refs/pull/${{ghprbPullId}}/*:refs/remotes/origin/pr/${{ghprbPullId}}/*'
     triggers:
       - github_pr:
           context: 'smart-proxy-{plugin}'
