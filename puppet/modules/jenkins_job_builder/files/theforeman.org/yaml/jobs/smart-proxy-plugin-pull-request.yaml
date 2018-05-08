@@ -18,7 +18,7 @@
           refspec: '+refs/pull/${{ghprbPullId}}/*:refs/remotes/origin/pr/${{ghprbPullId}}/*'
     triggers:
       - github_pr:
-          context: 'smart-proxy-{plugin}'
+          context: 'smart_proxy_{plugin}'
     wrappers:
       - timeout:
           type: absolute
