@@ -1,6 +1,5 @@
 - job:
     name: foreman-mysql-nightly-systest
-    node: 'el && ipv6'
     project-type: matrix
     logrotate:
       daysToKeep: 8
@@ -16,6 +15,12 @@
             - centos7
             - debian9
             - ubuntu1604
+      - axis:
+          type: slave
+          name: label
+          values:
+            - el
+            - ipv6
     builders:
       - systest:
           repo: nightly

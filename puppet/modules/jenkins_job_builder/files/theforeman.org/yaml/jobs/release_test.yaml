@@ -1,7 +1,5 @@
-# Testing already-built RPMs from Koji and Debian packages in stagingdeb.
 - job:
     name: release_test
-    node: 'el && ipv6'
     project-type: matrix
     logrotate:
       daysToKeep: 8
@@ -31,6 +29,12 @@
           - debian8
           - debian9
           - ubuntu1604
+      - axis:
+          type: slave
+          name: label
+          values:
+            - el
+            - ipv6
     execution-strategy:
       combination-filter: 'os != "debian8" || major_version == "1.16"'
     wrappers:
