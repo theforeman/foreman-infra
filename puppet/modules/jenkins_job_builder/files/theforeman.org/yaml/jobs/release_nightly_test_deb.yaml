@@ -1,6 +1,5 @@
 - job:
     name: release_nightly_test_deb
-    node: 'el && ipv6'
     project-type: matrix
     block-downstream: true
     block-upstream: true
@@ -18,6 +17,12 @@
           values:
           - debian9
           - ubuntu1604
+      - axis:
+          type: slave
+          name: label
+          values:
+            - el
+            - ipv6
     builders:
       - systest:
           repo: nightly

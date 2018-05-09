@@ -1,6 +1,5 @@
 - job:
     name: foreman-hammer-nightly-systest
-    node: 'el && ipv6'
     project-type: matrix
     logrotate:
       daysToKeep: 8
@@ -15,6 +14,12 @@
           name: os
           values:
             - centos7
+      - axis:
+          type: slave
+          name: label
+          values:
+            - el
+            - ipv6
     builders:
       - systest:
           repo: nightly
