@@ -4,6 +4,9 @@ RewriteRule   ^/issues(.*)  https://projects.theforeman.org/issues$1  [R,L]
 RewriteRule   ^/versions(.*)  https://projects.theforeman.org/versions$1  [R,L]
 RewriteRule   ^/wiki(.*)  https://projects.theforeman.org/wiki$1  [R,L]
 
+RewriteRule   ^/events/all.ics https://community.theforeman.org/c/events/l/calendar.ics [R,L]
+RewriteRule   ^/events/? https://community.theforeman.org/c/events/l/calendar [R,L]
+
 <% if @https -%>
 RewriteCond   %{HTTPS} !=on
 RewriteRule   ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
