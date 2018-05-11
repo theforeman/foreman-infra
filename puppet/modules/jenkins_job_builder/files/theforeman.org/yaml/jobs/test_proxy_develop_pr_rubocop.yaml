@@ -32,8 +32,7 @@
           type: likely-stuck
           abort: true
           timeout: 60
-          timeout-var: 'BUILD_TIMEOUT'
-          write-description: "Build timed out (after ${BUILD_TIMEOUT} minutes). Marking the build as aborted."
+          write-description: "Build timed out (after {0} minutes). Marking the build as aborted."
     builders:
       - shell: !include-raw: scripts/test/test_proxy_develop_pr_rubocop.sh
     publishers:
