@@ -104,7 +104,6 @@ class redmine (
     provider => 'git',
     source   => $repo_url,
     user     => $username,
-    require  => File[$app_root],
     notify   => Exec['install redmine'],
   }
 
@@ -149,6 +148,7 @@ class redmine (
     manage_cron   => false,
     domains       => [$servername],
     webroot_paths => [$docroot],
+    require       => Vcsrepo[$app_root],
   }
 
   apache::vhost { $servername:
@@ -162,6 +162,7 @@ class redmine (
     passenger_start_timeout => $start_timeout,
     priority                => $priority,
     servername              => $servername,
+    require                 => Exec['install redmine'],
   }
 
   if $https {
@@ -180,12 +181,13 @@ class redmine (
       ssl_cert                => "/etc/letsencrypt/live/${servername}/fullchain.pem",
       ssl_chain               => "/etc/letsencrypt/live/${servername}/chain.pem",
       ssl_key                 => "/etc/letsencrypt/live/${servername}/privkey.pem",
-      require                 => Letsencrypt::Certonly[$servername],
+      require                 => [Letsencrypt::Certonly[$servername], Exec['install redmine']],
     }
   }
 
   file { ["${app_root}/config.ru", "${app_root}/config/environment.rb"]:
-    owner => $username,
+    owner   => $username,
+    require => Vcsrepo[$app_root],
   }
 
   # cron jobs ported from .openshift
