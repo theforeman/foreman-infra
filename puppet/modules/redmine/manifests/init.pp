@@ -137,7 +137,6 @@ class redmine (
 
   include ::web::base
 
-  $redmine_url      = "http://${servername}/"
   $docroot          = "${app_root}/public"
   $min_instances    = 1
   $start_timeout    = 600
