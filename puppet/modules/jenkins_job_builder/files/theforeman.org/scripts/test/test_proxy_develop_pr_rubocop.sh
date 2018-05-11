@@ -1,6 +1,5 @@
 #!/bin/bash -ex
 
-database=sqlite3
 APP_ROOT=`pwd`
 
 # setup basic settings file
