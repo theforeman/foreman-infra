@@ -16,11 +16,10 @@
             - debian9
             - ubuntu1604
       - axis:
-          type: slave
+          type: label-expression
           name: label
           values:
-            - el
-            - ipv6
+            - el&&ipv6
     builders:
       - systest:
           repo: nightly

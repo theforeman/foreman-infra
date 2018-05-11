@@ -30,11 +30,10 @@
           - debian9
           - ubuntu1604
       - axis:
-          type: slave
+          type: label-expression
           name: label
           values:
-            - el
-            - ipv6
+            - el&&ipv6
     execution-strategy:
       combination-filter: 'os != "debian8" || major_version == "1.16"'
     wrappers:
