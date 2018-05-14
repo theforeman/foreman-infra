@@ -10,7 +10,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: '${ghprbActualCommit}']],
                     doGenerateSubmoduleConfigurations: false,
-                    extensions: [[$class: 'PreBuildMerge', options: [fastForwardMode: 'FF', mergeRemote: 'origin', mergeStrategy: 'default', mergeTarget: '${ghprbTargetBranch}']]],
+                    extensions: [[$class: 'PreBuildMerge', options: [fastForwardMode: 'FF', mergeRemote: 'origin', mergeTarget: '${ghprbTargetBranch}']]],
                     userRemoteConfigs: [
                         [refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*', url: 'https://github.com/theforeman/forklift']
                     ]
