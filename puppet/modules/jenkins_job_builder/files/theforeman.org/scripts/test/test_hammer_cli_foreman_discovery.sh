@@ -15,5 +15,5 @@ echo 'gem "hammer_cli", :github => "theforeman/hammer-cli"' > Gemfile.local
 # Link hammer_cli_foreman from github
 echo 'gem "hammer_cli_foreman", :github => "theforeman/hammer-cli-foreman"' >> Gemfile.local
 
-bundle install --without development --retry 5
+bundle install --without development --jobs=5 --retry=5
 bundle exec rake ci:setup:minitest test TESTOPTS="-v"

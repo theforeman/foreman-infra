@@ -20,7 +20,7 @@ pipeline {
             steps {
 
                 git url: 'https://github.com/theforeman/foreman-infra'
-                dir('deploy') { withRVM(["bundle install"]) }
+                dir('deploy') { withRVM(["bundle install --jobs=5 --retry=5"]) }
             }
         }
         stage('Repoclosure and Push') {

@@ -26,14 +26,7 @@ set -x
 gem install bundler --no-ri --no-rdoc
 
 # Retry as rubygems (being external to us) can be intermittent
-while ! bundle install --without=development -j5; do
-  bundle clean --force || true
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --without=development --jobs=5 --retry=5
 
 # Database environment
 (
@@ -61,13 +54,7 @@ echo "gem '${plugin_name}', :path => '${PLUGIN_ROOT}'" >> bundler.d/Gemfile.loca
 [ -e ${PLUGIN_ROOT}/gemfile.d/${plugin_name}.rb ] && cat ${PLUGIN_ROOT}/gemfile.d/${plugin_name}.rb >> bundler.d/Gemfile.local.rb
 
 # Update dependencies
-while ! bundle update; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle update continually failed" >&2
-    exit 1
-  fi
-done
+bundle update --jobs=5 --retry=5
 
 # If the plugin contains npm deps, we need to install its specific modules
 # we need to install node modules for integration tests

@@ -47,14 +47,7 @@ gem install bundler --no-ri --no-rdoc
 # Now let's introduce the plugin
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb
 
-# Retry as rubygems (being external to us) can be intermittent
-while ! bundle install --without development -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --without development --jobs=5 --retry=5
 
 # Database environment
 (
@@ -68,13 +61,7 @@ bundle exec rake db:drop db:create
 ### END test_develop ###
 
 # Update dependencies
-while ! bundle update -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle update continually failed" >&2
-    exit 1
-  fi
-done
+bundle update --jobs=5 --retry=5
 
 # Now let's add the plugin migrations
 #bundle exec rake db:migrate
@@ -87,7 +74,7 @@ fi
 
 # Katello-specific tests
 cd $PLUGIN_ROOT/engines/bastion_katello
-bundle install
+bundle install --jobs=5 --retry=5
 bastion_install=`bundle show bastion`
 cp -rf $bastion_install .
 bastion_version=(${bastion_install//bastion-/ })

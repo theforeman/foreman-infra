@@ -19,13 +19,7 @@ set -x
 gem install bundler --no-ri --no-rdoc
 
 # Retry as rubygems (being external to us) can be intermittent
-while ! bundle install --without=development -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --without=development -jobs=5 --retry=5
 
 # we need to install node modules for integration tests (which only run on postgresql)
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
