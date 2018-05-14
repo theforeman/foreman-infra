@@ -11,15 +11,7 @@ rvm gemset empty --force
 set -x
 
 gem install bundler --no-ri --no-rdoc
-
-# Retry as rubygems (being external to us) can be intermittent
-while ! bundle install -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --jobs=5 --retry=5
 
 PAGER=/bin/cat git log | head -n 50
 rake pkg:generate_source

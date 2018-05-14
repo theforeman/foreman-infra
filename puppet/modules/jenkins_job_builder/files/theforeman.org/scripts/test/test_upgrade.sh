@@ -21,14 +21,7 @@ set -x
 gem install bundler --no-ri --no-rdoc
 
 # Retry as rubygems (being external to us) can be intermittent
-while ! bundle install --without=development -j5; do
-  bundle clean --force || true
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --without=development --jobs=5 --retry=5
 
 # Database environment
 (
@@ -45,14 +38,7 @@ bundle exec rake db:seed --trace
 git checkout -
 
 # Retry as rubygems (being external to us) can be intermittent
-while ! bundle update -j5; do
-  bundle clean --force || true
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle update continually failed" >&2
-    exit 1
-  fi
-done
+bundle update --jobs=5 --retry=5
 
 bundle exec rake db:migrate --trace
 bundle exec rake db:seed --trace

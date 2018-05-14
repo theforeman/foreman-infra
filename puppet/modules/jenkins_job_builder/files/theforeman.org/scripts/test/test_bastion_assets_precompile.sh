@@ -46,14 +46,7 @@ gem install bundler --no-ri --no-rdoc
 # Now let's introduce the plugin
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :bastion_dev" >> bundler.d/Gemfile.local.rb
 
-# Retry as rubygems (being external to us) can be intermittent
-while ! bundle install --without development -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle install continually failed" >&2
-    exit 1
-  fi
-done
+bundle install --without development --jobs=5 --retry=5
 
 # Database environment
 #(
@@ -67,12 +60,6 @@ done
 cp $APP_ROOT/config/database.yml.example $APP_ROOT/config/database.yml
 
 # Update dependencies
-while ! bundle update -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle update continually failed" >&2
-    exit 1
-  fi
-done
+bundle update --jobs=5 --retry=5
 
 bundle exec rake plugin:assets:precompile[bastion] --trace

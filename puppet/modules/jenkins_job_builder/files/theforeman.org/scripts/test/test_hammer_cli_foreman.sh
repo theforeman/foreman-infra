@@ -16,5 +16,5 @@ gem install bundler --no-ri --no-rdoc
 # Link hammer_cli from github
 echo 'gem "hammer_cli", :github => "theforeman/hammer-cli"' > Gemfile.local
 
-bundle install --without development --retry 5
+bundle install --without development --jobs=5 --retry=5
 bundle exec rake pkg:generate_source ci:setup:minitest test TESTOPTS="-v" --trace

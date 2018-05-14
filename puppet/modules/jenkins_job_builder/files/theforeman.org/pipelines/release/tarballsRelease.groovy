@@ -80,7 +80,7 @@ void build_tarball(project, version, ruby_ver) {
         env.setProperty('DEBUG_RESOLVER', '1')
 
         if (fileExists("Gemfile")) {
-            withRVM(["bundle install --without=development --retry=5"], ruby_ver)
+            withRVM(["bundle install --without=development --jobs=5 --retry=5"], ruby_ver)
             rake = "bundle exec rake"
         }
 

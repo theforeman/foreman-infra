@@ -48,13 +48,7 @@ gem install bundler --no-ri --no-rdoc
 # Now let's introduce the plugin
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb
 
-while ! bundle update -j 5; do
-  (( c += 1 ))
-  if [ $c -ge 5 ]; then
-    echo "bundle update continually failed" >&2
-    exit 1
-  fi
-done
+bundle update --jobs=5 --retry=5
 
 # Database environment
 (
