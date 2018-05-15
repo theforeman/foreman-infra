@@ -1,6 +1,7 @@
 def ruby = '2.4'
 def katello_versions = [
     'master': 'develop',
+    'KATELLO-3.7': '1.18-stable',
     'KATELLO-3.6': '1.17-stable',
     'KATELLO-3.5': '1.16-stable'
 ]
