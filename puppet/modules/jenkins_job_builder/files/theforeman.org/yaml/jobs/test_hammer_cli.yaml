@@ -7,11 +7,11 @@
       numToKeep: -1
     properties:
       - github:
-          url: https://github.com/theforeman/hammer_cli
+          url: https://github.com/theforeman/hammer-cli
       - rebuild
     scm:
       - git:
-          url: https://github.com/theforeman/hammer_cli
+          url: https://github.com/theforeman/hammer-cli
           per-build-tag: true
           wipe-workspace: true
           branch:
