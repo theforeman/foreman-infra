@@ -14,7 +14,7 @@
           url: https://github.com/theforeman/hammer-cli
           per-build-tag: true
           wipe-workspace: true
-          branch:
+          branches:
             - master
     triggers:
       - github
