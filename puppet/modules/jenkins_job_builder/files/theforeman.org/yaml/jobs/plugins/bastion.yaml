@@ -174,10 +174,9 @@
             - 2.4
     wrappers:
       - timeout:
-          elastic-percentage: 200
-          elastic-number-builds: 3
+          type: absolute
+          abort: true
           timeout: 60
-          fail: true
-          type: elastic
+          write-description: "Build timed out (after {0} minutes). Marking the build as aborted."
     publishers:
       - gemset_cleanup
