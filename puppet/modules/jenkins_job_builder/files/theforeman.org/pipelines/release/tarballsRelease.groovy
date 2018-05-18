@@ -57,7 +57,7 @@ pipeline {
 void verify_tag(project, version) {
     dir(project) {
         git url: "https://github.com/theforeman/${project}", branch: 'develop'
-        sh "test \"$(git tag -l ${version} | wc -l)\" -eq 1"
+        sh "git tag -l ${version} | grep ${version}"
     }
 }
 
