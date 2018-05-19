@@ -19,7 +19,7 @@ set -x
 gem install bundler --no-ri --no-rdoc
 
 # Retry as rubygems (being external to us) can be intermittent
-bundle install --without=development -jobs=5 --retry=5
+bundle install --without=development --jobs=5 --retry=5
 
 # we need to install node modules for integration tests (which only run on postgresql)
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
