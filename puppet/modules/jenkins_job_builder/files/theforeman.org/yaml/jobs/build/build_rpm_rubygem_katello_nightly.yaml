@@ -30,10 +30,3 @@
     jenkins_job: 'test_katello_core'
     jobs:
       - 'build_rpm_{name}_{version}'
-
-- project:
-    name: 'rubygem-hammer_cli_katello'
-    version: 'nightly'
-    jenkins_job: 'release_build_hammer_cli_katello'
-    jobs:
-      - 'build_rpm_{name}_{version}'
