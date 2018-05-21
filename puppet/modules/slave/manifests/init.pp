@@ -51,14 +51,6 @@ class slave (
   }
   slave::pr_test_config { [
     'katello_packaging',
-    'smart_proxy_abrt',
-    'smart_proxy_discovery',
-    'smart_proxy_dynflow',
-    'smart_proxy_monitoring',
-    'smart_proxy_omaha',
-    'smart_proxy_openscap',
-    'smart_proxy_pulp',
-    'smart_proxy_remote_execution_ssh',
   ]: }
 
   # Old jobs that were converted to JJB or removed
@@ -91,6 +83,14 @@ class slave (
       'katello',
       'puppetdb_foreman',
       'smart_proxy',
+      'smart_proxy_abrt',
+      'smart_proxy_discovery',
+      'smart_proxy_dynflow',
+      'smart_proxy_monitoring',
+      'smart_proxy_omaha',
+      'smart_proxy_openscap',
+      'smart_proxy_pulp',
+      'smart_proxy_remote_execution_ssh',
     ]:
       ensure => absent,
   }
