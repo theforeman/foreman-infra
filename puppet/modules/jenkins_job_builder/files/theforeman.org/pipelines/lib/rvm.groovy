@@ -9,9 +9,13 @@ def gemset(name) {
     base_name
 }
 
-def configureRVM(ruby = '2.0') {
-    withRVM(['rvm gemset empty --force'], ruby)
-    withRVM(['gem install bundler'], ruby)
+def configureRVM(ruby = '2.0', name = '') {
+    emptyGemset(name, ruby)
+    withRVM(['gem install bundler'], ruby, name)
+}
+
+def emptyGemset(name = '', ruby = '2.0') {
+    withRVM(["rvm gemset empty ${gemset(name)} --force"], ruby)
 }
 
 def cleanupRVM(name = '', ruby = '2.0') {
