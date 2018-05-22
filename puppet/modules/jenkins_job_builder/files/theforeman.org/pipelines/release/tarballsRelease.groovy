@@ -8,9 +8,11 @@ pipeline {
         ansiColor('xterm')
     }
 
-    def version = env.getProperty('version')
-    def major_version = env.getProperty('major_version')
-    def ruby_ver = '2.4.0'
+    environment {
+        version = env.getProperty('version')
+        major_version = env.getProperty('major_version')
+        ruby_ver = '2.4.0'
+    }
 
     stages {
         stage('Parallel') {
