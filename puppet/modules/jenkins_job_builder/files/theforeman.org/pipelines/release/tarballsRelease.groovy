@@ -64,7 +64,7 @@ void verify_tag(project, version) {
 }
 
 void build_tarball(project, version, ruby_ver) {
-    def base_dir = "/var/www/vhosts/downloads/htdocs/foreman"
+    def base_dir = "/var/www/vhosts/downloads/htdocs/${project}"
     def rake = "rake"
 
     dir(project) {
@@ -72,7 +72,7 @@ void build_tarball(project, version, ruby_ver) {
             userRemoteConfigs: [[url: "https://github.com/theforeman/${project}.git"]],
             branches: [[name: "refs/tags/${version}"]]], changelog: false, poll: false
 
-        configureRVM(ruby_ver)
+        configureRVM(ruby_ver, project)
 
         if (project == 'foreman') {
             sh "cat config/settings.yaml.example > config/settings.yaml"
@@ -82,15 +82,15 @@ void build_tarball(project, version, ruby_ver) {
         env.setProperty('DEBUG_RESOLVER', '1')
 
         if (fileExists("Gemfile")) {
-            withRVM(["bundle install --without=development --jobs=5 --retry=5"], ruby_ver)
+            withRVM(["bundle install --without=development --jobs=5 --retry=5"], ruby_ver, project)
             rake = "bundle exec rake"
         }
 
-        withRVM(["${rake} pkg:generate_source"], ruby_ver)
+        withRVM(["${rake} pkg:generate_source"], ruby_ver, project)
 
         sh "ssh root@theforeman.org \"mkdir -p ${base_dir}/\" || true"
         sh "rsync -v --ignore-existing pkg/* root@theforeman.org:${base_dir}/"
 
-        cleanupRVM('', ruby_ver)
+        cleanupRVM(project, ruby_ver)
     }
 }
