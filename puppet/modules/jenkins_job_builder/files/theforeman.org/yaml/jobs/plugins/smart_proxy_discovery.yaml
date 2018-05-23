@@ -1,6 +1,0 @@
-- project:
-    name: smart_proxy_discovery
-    defaults: proxy_plugin
-    branch: develop
-    jobs:
-      - 'test_proxy_plugin_{name}_{branch}'

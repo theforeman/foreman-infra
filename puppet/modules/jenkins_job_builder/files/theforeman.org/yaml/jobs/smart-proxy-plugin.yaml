@@ -1,0 +1,58 @@
+- job-template:
+    name: 'smart-proxy-{plugin}-test'
+    concurrent: true
+    project-type: matrix
+    logrotate:
+      daysToKeep: 45
+      numToKeep: -1
+    properties:
+      - github:
+          url: 'https://github.com/theforeman/smart_proxy_{plugin}'
+    scm:
+      - git:
+          url: 'https://github.com/theforeman/smart_proxy_{plugin}'
+          wipe-workspace: true
+          prune: true
+          branches:
+            - '{branch|master}' # default to 'master' if branch not set
+    triggers:
+      - github
+      - pollscm:
+          cron: 'H/15 * * * *'
+      - timed: 'H H * * H'
+    wrappers:
+      - timeout:
+          type: absolute
+          abort: true
+          timeout: 60
+          write-description: 'Build timed out (after {{0}} minutes). Marking the build as aborted.'
+    axes:
+      - axis:
+          type: user-defined
+          name: ruby
+          values:
+            - '2.0.0'
+            - '2.3'
+            - '2.4'
+            - '2.5'
+    builders:
+      - smart-proxy-plugin
+    publishers:
+      - gemset_cleanup
+      - ircbot_freenode
+
+
+- project:
+    name: smart-proxy-plugin
+    plugin:
+      - abrt
+      - discovery:
+          branch: develop # have to be the special child
+      - dynflow
+      - monitoring
+      - omaha
+      - openscap
+      - pulp
+      - remote_execution_ssh
+    jobs:
+      - 'smart-proxy-{plugin}-test'
