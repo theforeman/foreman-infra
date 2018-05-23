@@ -49,9 +49,6 @@ class slave (
     owner  => 'jenkins',
     group  => 'jenkins',
   }
-  slave::pr_test_config { [
-    'katello_packaging',
-  ]: }
 
   # Old jobs that were converted to JJB or removed
   slave::pr_test_config { [
@@ -81,6 +78,7 @@ class slave (
       'kafo',
       'kafo_parsers',
       'katello',
+      'katello_packaging',
       'puppetdb_foreman',
       'smart_proxy',
       'smart_proxy_abrt',
