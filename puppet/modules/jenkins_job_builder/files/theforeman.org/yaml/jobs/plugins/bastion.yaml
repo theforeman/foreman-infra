@@ -129,13 +129,6 @@
           values:
             - javascript
             - assets_precompile
-    publishers:
-      - trigger-parameterized-builds:
-        - project: pull_request_scanner
-          condition: ALWAYS
-          predefined-parameters: |
-            project=bastion
-            pr_number=${pr_number}
 
 - job:
     name: test_bastion_assets_precompile
