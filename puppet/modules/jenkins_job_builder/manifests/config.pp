@@ -27,10 +27,8 @@ define jenkins_job_builder::config (
   # test for a string here since it's annoyingly hard to pass a boolean from foreman via yaml
   if $run == 'false' {
     $subcmd = 'test'
-  }else{
-    $subcmd = 'update'
-    # eventually we may wish to nuke unmanaged jobs:
-    #$subcmd = 'update --delete-old'
+  } else {
+    $subcmd = 'update --delete-old'
   }
   $cmd = "jenkins-jobs --conf ${inifile} ${subcmd} /etc/jenkins_jobs/${config_name} > /var/cache/jjb.xml"
 
@@ -39,18 +37,15 @@ define jenkins_job_builder::config (
     timeout     => $jenkins_jobs_update_timeout,
     path        => '/bin:/usr/bin:/usr/local/bin',
     refreshonly => true,
-    require     => File[$inifile],
+    require     => [ File[$inifile], Exec["remove_unmanaged_jobs-${config_name}"] ],
   }
 
-  # copy of the first exec to run on a regular schedule, in the early morning
-  # this can be removed once all job changes are going through JJB, but for now
-  # it will ensure any manual changes to jobs will be reverted
-  exec { "jenkins_jobs_update_scheduled-${config_name}":
-    command  => $cmd,
-    timeout  => $jenkins_jobs_update_timeout,
-    path     => '/bin:/usr/bin:/usr/local/bin',
-    schedule => 'jenkins',
-    require  => File[$inifile],
+  exec { "remove_unmanaged_jobs-${config_name}":
+    command => "jenkins-jobs --conf ${inifile} delete --jobs-only $(ruby unmanaged_jobs.rb /etc/jenkins_jobs/${config_name})",
+    timeout => $jenkins_jobs_update_timeout,
+    path    => '/bin:/usr/bin:/usr/local/bin',
+    require => File[$inifile],
+    before  => Exec["jenkins_jobs_update-${config_name}"],
   }
 
 # TODO: We should put in  notify Exec['jenkins_jobs_update']
