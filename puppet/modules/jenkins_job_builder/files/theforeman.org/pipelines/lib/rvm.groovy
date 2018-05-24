@@ -15,11 +15,11 @@ def configureRVM(ruby = '2.0', name = '') {
 }
 
 def emptyGemset(name = '', ruby = '2.0') {
-    withRVM(["rvm gemset empty ${gemset(name)} --force"], ruby)
+    withRVM(["rvm gemset empty ${gemset(name)} --force"], ruby, name)
 }
 
 def cleanupRVM(name = '', ruby = '2.0') {
-    withRVM(["rvm gemset delete ${gemset(name)} --force"], ruby)
+    withRVM(["rvm gemset delete ${gemset(name)} --force"], ruby, name)
 }
 
 def withRVM(commands, ruby = '2.0', name = '') {
