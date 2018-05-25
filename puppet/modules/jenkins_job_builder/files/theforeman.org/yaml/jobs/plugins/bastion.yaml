@@ -51,7 +51,8 @@
     scm:
       - bastion
     triggers:
-      - pollscm: 'H/15 * * * *'
+      - pollscm:
+          cron: 'H/15 * * * *'
       - github
     axes:
       - axis:
