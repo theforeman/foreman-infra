@@ -15,7 +15,8 @@
             - master
     triggers:
       - github
-      - pollscm: 'H/15 * * * *'
+      - pollscm:
+          cron: 'H/15 * * * *'
     axes:
       - axis:
           type: user-defined
