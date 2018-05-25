@@ -41,7 +41,7 @@
           timeout_min: 120
     publishers:
       - trigger-parameterized-builds:
-          - project: 'release_push_deb, release_push_rpm'
-            condition: SUCCESS
-            current-parameters: true
+        - project: 'release_push_deb, release_push_rpm'
+          condition: SUCCESS
+          current-parameters: true
       - systest

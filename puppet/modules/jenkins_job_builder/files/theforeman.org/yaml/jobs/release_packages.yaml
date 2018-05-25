@@ -37,7 +37,7 @@
                   predefined-parameters: "repoowner=theforeman\nproject=${project}\nonlyos=all\nrepo=${major_version}\nversion=${major_version}\ngitrelease=false"
                   block: true
     publishers:
-      - trigger-parameterized-build:
-          project: release_mash
+      - trigger-parameterized-builds:
+        - project: release_mash
           condition: SUCCESS
           current-parameters: true
