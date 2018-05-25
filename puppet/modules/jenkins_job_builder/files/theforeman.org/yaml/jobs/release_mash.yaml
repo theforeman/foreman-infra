@@ -12,6 +12,6 @@
           block: true
     publishers:
       - trigger-parameterized-builds:
-          - project: release_test
-            condition: SUCCESS
-            current-parameters: true
+        - project: release_test
+          condition: SUCCESS
+          current-parameters: true
