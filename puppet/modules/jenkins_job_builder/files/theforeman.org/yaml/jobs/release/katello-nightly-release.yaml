@@ -1,6 +1,6 @@
 - job:
     name: katello-nightly-release
-    project-type: workflow
+    project-type: pipeline
     triggers:
       - timed: 'H 23 * * *'
     dsl:

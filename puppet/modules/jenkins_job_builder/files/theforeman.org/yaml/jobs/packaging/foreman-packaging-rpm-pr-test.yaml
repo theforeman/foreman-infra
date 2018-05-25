@@ -1,7 +1,7 @@
 ---
 - job:
     name: foreman-packaging-rpm-pr-test
-    project-type: workflow
+    project-type: pipeline
     properties:
       - github:
           url: https://github.com/theforeman/foreman-packaging

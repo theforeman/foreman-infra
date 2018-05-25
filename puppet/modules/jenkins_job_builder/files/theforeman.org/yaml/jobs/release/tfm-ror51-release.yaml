@@ -1,7 +1,7 @@
 ---
 - job:
     name: tfm-ror51-release
-    project-type: workflow
+    project-type: pipeline
     properties:
       - github:
           url: https://github.com/theforeman/tfm-ror51-packaging

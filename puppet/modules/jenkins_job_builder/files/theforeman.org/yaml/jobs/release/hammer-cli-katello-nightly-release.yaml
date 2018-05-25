@@ -1,6 +1,6 @@
 - job:
     name: hammer-cli-katello-nightly-release
-    project_type: workflow
+    project_type: pipeline
     sandbox: false
     triggers:
       - timed: '0 22 * * *'

@@ -1,6 +1,6 @@
 - job:
     name: foreman-nightly-release
-    project-type: workflow
+    project-type: pipeline
     triggers:
       - timed: 'H 21 * * *'
     dsl:
