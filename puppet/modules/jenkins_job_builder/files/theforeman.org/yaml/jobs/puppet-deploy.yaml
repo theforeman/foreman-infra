@@ -1,6 +1,6 @@
 - job:
     name: puppet-deploy
-    project-type: workflow
+    project-type: pipeline
     properties:
       - github:
           url: https://github.com/theforeman/foreman-infra

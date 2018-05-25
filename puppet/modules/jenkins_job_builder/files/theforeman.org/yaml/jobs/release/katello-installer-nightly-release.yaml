@@ -1,6 +1,6 @@
 - job:
     name: katello-installer-nightly-release
-    project-type: workflow
+    project-type: pipeline
     sandbox: false
     triggers:
       - timed: '0 22 * * *'

@@ -1,6 +1,6 @@
 - job:
     name: deploy_yum
-    project-type: workflow
+    project-type: pipeline
     parameters:
       - string:
           name: os

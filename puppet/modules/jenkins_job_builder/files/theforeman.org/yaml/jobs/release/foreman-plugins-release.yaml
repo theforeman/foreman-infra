@@ -1,6 +1,6 @@
 - job:
     name: foreman-plugins-release
-    project-type: workflow
+    project-type: pipeline
     triggers:
       - timed: 'H H * * *'
     dsl:

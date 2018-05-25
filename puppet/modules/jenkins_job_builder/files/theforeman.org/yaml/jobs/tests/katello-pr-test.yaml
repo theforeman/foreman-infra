@@ -1,6 +1,6 @@
 - job:
     name: katello-pr-test
-    project-type: workflow
+    project-type: pipeline
     concurrent: true
     properties:
       - github:

@@ -1,6 +1,6 @@
 - job:
     name: tarballs-release
-    project-type: workflow
+    project-type: pipeline
     parameters:
       - string:
           name: version
