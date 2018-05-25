@@ -9,8 +9,10 @@ def provision() {
 }
 
 def deprovision() {
-	dir('foreman-infra/puppet/modules/jenkins_job_builder/files/centos.org/ansible') {
-        runPlaybook('deprovision.yml', 'localhost')
+    if(fileExists('foreman-infra')) {
+        dir('foreman-infra/puppet/modules/jenkins_job_builder/files/centos.org/ansible') {
+            runPlaybook('deprovision.yml', 'localhost')
+        }
     }
 }
 
