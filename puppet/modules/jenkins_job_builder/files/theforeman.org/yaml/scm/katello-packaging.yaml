@@ -2,7 +2,7 @@
     name: katello-packaging
     scm:
       - git:
-          url: git://github.com/Katello/katello-packaging.git
+          url: https://github.com/Katello/katello-packaging.git
           submodule:
             recursive: true
           skip-tag: true

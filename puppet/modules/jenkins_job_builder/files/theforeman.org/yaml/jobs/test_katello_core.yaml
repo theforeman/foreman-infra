@@ -19,7 +19,7 @@
       - string:
           name: foreman_pr_git_url
           default:
-          description: 'GForeman it URL to PR to test, e.g. git://github.com/user/foo.git'
+          description: 'GForeman it URL to PR to test, e.g. https://github.com/user/foo.git'
       - string:
           name: foreman_pr_git_ref
           default:

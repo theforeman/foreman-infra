@@ -25,7 +25,7 @@ cd $APP_ROOT
 
 #cd ${PLUGIN_ROOT}/engines/bastion_katello
 
-#npm install git://github.com/Katello/bastion.git grunt
+#npm install https://github.com/Katello/bastion.git grunt
 
 
 #grunt ci

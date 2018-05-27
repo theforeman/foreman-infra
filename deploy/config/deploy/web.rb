@@ -1,5 +1,5 @@
 set :application, "theforeman.org"
-set :repository, "git://github.com/theforeman/theforeman.org.git"
+set :repository, "https://github.com/theforeman/theforeman.org.git"
 set :scm, :git
 set :host, "theforeman.org"
 set :user_sudo, false

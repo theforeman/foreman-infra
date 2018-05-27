@@ -2,7 +2,7 @@
     name: foreman-deb-packaging
     scm:
       - git:
-          url: 'git://github.com/${{repoowner}}/foreman-packaging.git'
+          url: 'https://github.com/${{repoowner}}/foreman-packaging.git'
           submodule:
             recursive: true
           skip-tag: true
@@ -14,7 +14,7 @@
     name: foreman-rpm-packaging
     scm:
       - git:
-          url: git://github.com/theforeman/foreman-packaging.git
+          url: https://github.com/theforeman/foreman-packaging.git
           submodule:
             recursive: true
           skip-tag: true
