@@ -2,7 +2,7 @@
     name: theforeman.org
     scm:
       - git:
-          url: git://github.com/theforeman/theforeman.org.git
+          url: https://github.com/theforeman/theforeman.org.git
           wipe-workspace: true
           branches:
             - gh-pages

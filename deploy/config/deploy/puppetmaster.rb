@@ -1,5 +1,5 @@
 set :application, "foreman-infra"
-set :repository, "git://github.com/theforeman/foreman-infra.git"
+set :repository, "https://github.com/theforeman/foreman-infra.git"
 set :scm, :git
 set :host, "puppetmaster.theforeman.org:8122"
 set :user_sudo, false

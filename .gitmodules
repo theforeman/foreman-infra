@@ -3,40 +3,40 @@
 	url = https://github.com/ripienaar/puppet-concat.git
 [submodule "puppet/modules/jenkins"]
 	path = puppet/modules/jenkins
-	url = git://github.com/jenkinsci/puppet-jenkins.git
+	url = https://github.com/jenkinsci/puppet-jenkins.git
 [submodule "puppet/modules/rvm"]
 	path = puppet/modules/rvm
-	url = git://github.com/maestrodev/puppet-rvm.git
+	url = https://github.com/maestrodev/puppet-rvm.git
 [submodule "puppet/modules/postgresql"]
 	path = puppet/modules/postgresql
-	url = git://github.com/puppetlabs/puppet-postgresql.git
+	url = https://github.com/puppetlabs/puppet-postgresql.git
 [submodule "puppet/modules/mysql"]
 	path = puppet/modules/mysql
-	url = git://github.com/puppetlabs/puppetlabs-mysql.git
+	url = https://github.com/puppetlabs/puppetlabs-mysql.git
 [submodule "puppet/modules/stdlib"]
 	path = puppet/modules/stdlib
-	url = git://github.com/puppetlabs/puppetlabs-stdlib.git
+	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
 [submodule "puppet/modules/sudo"]
 	path = puppet/modules/sudo
 	url = https://github.com/saz/puppet-sudo.git
 [submodule "puppet/modules/foreman_proxy"]
 	path = puppet/modules/foreman_proxy
-	url = git://github.com/theforeman/puppet-foreman_proxy.git
+	url = https://github.com/theforeman/puppet-foreman_proxy.git
 [submodule "puppet/modules/tftp"]
 	path = puppet/modules/tftp
-	url = git://github.com/theforeman/puppet-tftp.git
+	url = https://github.com/theforeman/puppet-tftp.git
 [submodule "puppet/modules/puppet"]
 	path = puppet/modules/puppet
-	url = git://github.com/theforeman/puppet-puppet.git
+	url = https://github.com/theforeman/puppet-puppet.git
 [submodule "puppet/modules/foreman"]
 	path = puppet/modules/foreman
-	url = git://github.com/theforeman/puppet-foreman.git
+	url = https://github.com/theforeman/puppet-foreman.git
 [submodule "puppet/modules/xinetd"]
 	path = puppet/modules/xinetd
-	url = git://github.com/puppetlabs/puppetlabs-xinetd.git
+	url = https://github.com/puppetlabs/puppetlabs-xinetd.git
 [submodule "puppet/modules/epel"]
 	path = puppet/modules/epel
-	url = git://github.com/stahnma/puppet-module-epel.git
+	url = https://github.com/stahnma/puppet-module-epel.git
 [submodule "puppet/modules/ssh_statickeys"]
 	path = puppet/modules/ssh_statickeys
 	url = https://github.com/GregSutcliffe/puppet-ssh_statickeys
