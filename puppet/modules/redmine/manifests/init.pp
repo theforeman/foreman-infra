@@ -151,17 +151,12 @@ class redmine (
   }
 
   apache::vhost { $servername:
-    add_default_charset     => 'UTF-8',
-    docroot                 => $docroot,
-    manage_docroot          => false,
-    port                    => 80,
-    options                 => ['SymLinksIfOwnerMatch'],
-    passenger_app_root      => $app_root,
-    passenger_min_instances => $min_instances,
-    passenger_start_timeout => $start_timeout,
-    priority                => $priority,
-    servername              => $servername,
-    require                 => Exec['install redmine'],
+    docroot        => $docroot,
+    manage_docroot => false,
+    port           => 80,
+    priority       => $priority,
+    servername     => $servername,
+    redirect_dest  => "https://${servername}/",
   }
 
   if $https {
@@ -180,6 +175,9 @@ class redmine (
       ssl_cert                => "/etc/letsencrypt/live/${servername}/fullchain.pem",
       ssl_chain               => "/etc/letsencrypt/live/${servername}/chain.pem",
       ssl_key                 => "/etc/letsencrypt/live/${servername}/privkey.pem",
+      headers                 => [
+        'Strict-Transport-Security: max-age=86400;',
+      ],
       require                 => [Letsencrypt::Certonly[$servername], Exec['install redmine']],
     }
   }
