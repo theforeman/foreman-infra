@@ -5,6 +5,8 @@
       daysToKeep: 8
     block-downstream: true
     block-upstream: true
+    scm:
+      - forklift
     parameters:
       - release_parameters
     builders:
