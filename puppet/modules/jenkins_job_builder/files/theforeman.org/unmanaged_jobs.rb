@@ -20,8 +20,7 @@ end
 def find_unmanaged_jobs_from_payload(json_payload)
   payload = JSON.parse(json_payload)
 
-  um_jobs = payload['jobs'].select { |job| !managed?(job) }
-  um_jobs
+  payload['jobs'].reject { |job| managed?(job) }
 end
 
 def format_jobs_for_output(jobs)
