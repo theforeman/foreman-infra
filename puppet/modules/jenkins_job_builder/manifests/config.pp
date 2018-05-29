@@ -36,7 +36,6 @@ define jenkins_job_builder::config (
     command     => $cmd,
     timeout     => $jenkins_jobs_update_timeout,
     path        => '/bin:/usr/bin:/usr/local/bin',
-    refreshonly => true,
     require     => [ File[$inifile], Exec["remove_unmanaged_jobs-${config_name}"] ],
   }
 
