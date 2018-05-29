@@ -12,8 +12,8 @@ def get_jenkins_url_from_ini(ini_file)
     file.readlines
   end
 
-  url_line = lines.select { |line| line.include?('url=') }.first
-  url = url_line.gsub(/url=(.*\/\/)?/, '').chomp
+  url_line = lines.select { |line| line.include?('url=') }&.first
+  url = url_line.gsub(/url=(.*\/\/)?/, '')&.chomp
   url
 end
 
@@ -29,6 +29,7 @@ end
 
 def main
   url = get_jenkins_url_from_ini(ARGV.pop)
+  fail "url is blank" unless url
 
   payload = Net::HTTP.get(url, '/api/json?tree=jobs[name,description]')
 
