@@ -22,11 +22,9 @@
     parameters:
       - string:
           name: project
-          default: 
           description: 'Name of the project GitHub repo to build'
       - string:
           name: jenkins_job
-          default: 
           description: 'Name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
       - string:
           name: jenkins_job_id
