@@ -18,7 +18,7 @@ def get_jenkins_url_from_ini(ini_file)
     file.readlines
   end
 
-  url_line = lines.select { |line| line =~ regex }&.first
+  url_line = lines.select { |line| line =~ regex }&.first || ""
   url = url_line.gsub(regex, '')&.chomp
   url
 end
