@@ -12,12 +12,14 @@ def managed?(job)
 end
 
 def get_jenkins_url_from_ini(ini_file)
+  regex = /url\s?=(.*\/\/)?/
+
   lines = File.open(ini_file, "r") do |file|
     file.readlines
   end
 
-  url_line = lines.select { |line| line.include?('url=') }&.first
-  url = url_line.gsub(/url=(.*\/\/)?/, '')&.chomp
+  url_line = lines.select { |line| line =~ regex }&.first
+  url = url_line.gsub(regex, '')&.chomp
   url
 end
 
