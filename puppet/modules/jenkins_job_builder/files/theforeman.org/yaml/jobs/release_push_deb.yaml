@@ -2,9 +2,6 @@
 - job:
     name: release_push_deb
     project-type: matrix
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 16
     block-downstream: true
     block-upstream: true
     parameters:

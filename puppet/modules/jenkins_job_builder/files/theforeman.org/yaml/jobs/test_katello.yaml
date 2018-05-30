@@ -9,9 +9,6 @@
 
       Afterwards, build the nightly RPM.
     project-type: matrix
-    logrotate:
-      daysToKeep: 60
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/Katello/katello/

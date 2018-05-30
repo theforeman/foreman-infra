@@ -1,9 +1,6 @@
 - job:
     name: test_proxy_develop
     project-type: matrix
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 16
     properties:
       - github:
           url: https://github.com/theforeman/smart-proxy

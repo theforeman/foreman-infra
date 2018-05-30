@@ -1,9 +1,6 @@
 - job:
     name: test_plugin_matrix
     project-type: matrix
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     parameters:
       - string:
           name: plugin_repo

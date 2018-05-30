@@ -2,12 +2,10 @@
     name: 'smart-proxy-{plugin}-pull-request'
     concurrent: true
     project-type: matrix
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     properties:
       - github:
           url: 'https://github.com/theforeman/smart_proxy_{plugin}'
+      - tfm-pull-request-build-discarder
     scm:
       - git:
           url: 'https://github.com/theforeman/smart_proxy_{plugin}'

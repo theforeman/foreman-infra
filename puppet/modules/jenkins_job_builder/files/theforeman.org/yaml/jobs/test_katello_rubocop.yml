@@ -3,9 +3,6 @@
     description: |
       Run Katello Rubocop tests
     concurrent: true
-    logrotate:
-      daysToKeep: 30
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/Katello/katello

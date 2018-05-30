@@ -1,9 +1,6 @@
 # Builds yum repos for releases on Koji.
 - job:
     name: release_mash
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 16
     block-downstream: true
     block-upstream: true
     parameters:

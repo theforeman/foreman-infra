@@ -1,9 +1,6 @@
 - job:
     name: deploy_deb
     node: 'debian'
-    logrotate:
-      daysToKeep: 2
-      numToKeep: -1
     properties:
       - throttle:
           max-per-node: 0

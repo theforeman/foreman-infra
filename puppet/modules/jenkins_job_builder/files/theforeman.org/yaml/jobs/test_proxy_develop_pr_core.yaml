@@ -4,12 +4,10 @@
       Tests a Smart Proxy pull request under each Ruby and Puppet configuration.
     project-type: matrix
     concurrent: true
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/smart-proxy/
+      - tfm-pull-request-build-discarder
     scm:
       - git:
           url: https://github.com/theforeman/smart-proxy/

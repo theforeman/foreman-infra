@@ -2,12 +2,10 @@
     name: '{plugin}-pull-request'
     concurrent: true
     project-type: matrix
-    logrotate:
-      daysToKeep: 30
-      numToKeep: -1
     properties:
       - github:
           url: '{repo}'
+      - tfm-pull-request-build-discarder
     scm:
       - git:
           url: https://github.com/theforeman/foreman

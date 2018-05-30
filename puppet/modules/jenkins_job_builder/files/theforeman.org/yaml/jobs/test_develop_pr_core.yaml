@@ -2,12 +2,10 @@
 - job:
     name: test_develop_pr_core
     project-type: matrix
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     concurrent: true
     properties:
       - github_foreman
+      - tfm-pull-request-build-discarder
     wrappers:
       - abort_build:
           timeout_min: 240

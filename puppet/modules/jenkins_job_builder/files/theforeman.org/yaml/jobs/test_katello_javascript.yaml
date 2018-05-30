@@ -2,9 +2,6 @@
     name: test_katello_javascript
     description: 'Run Katello Javascript tests with coverage'
     project-type: matrix
-    logrotate:
-      daysToKeep: 20
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/Katello/katello

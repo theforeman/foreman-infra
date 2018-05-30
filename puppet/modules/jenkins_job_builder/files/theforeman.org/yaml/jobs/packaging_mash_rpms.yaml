@@ -1,8 +1,5 @@
 - job:
     name: packaging_mash_rpms
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 16
     node: sshkey
     builders:
       - packaging_mash_rpms
