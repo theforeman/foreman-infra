@@ -3,6 +3,10 @@
 require 'net/http'
 require 'json'
 
+def help
+  puts "USAGE:\t#{__FILE__} JENKINS_JOB_BUILDER_INIFILE"
+end
+
 def managed?(job)
   job['description']&.include?('<!-- Managed by Jenkins Job Builder -->')
 end
@@ -28,6 +32,9 @@ def format_jobs_for_output(jobs)
 end
 
 def main
+  fail "must supply ini file" if ARGV.empty?
+  fail "too many arguments" if ARGV.size > 1
+
   url = get_jenkins_url_from_ini(ARGV.pop)
   fail "url is blank" unless url
 
@@ -39,5 +46,12 @@ def main
 end
 
 if __FILE__ == $0
-  main
+  begin
+    main
+  rescue RuntimeError => e
+    puts "ERROR BEEP BOOP:"
+    puts "\t#{e.message}"
+    puts
+    help
+  end
 end
