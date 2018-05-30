@@ -1,0 +1,9 @@
+- property:
+    name: tfm-build-discarder
+    properties:
+      build-discarder:
+        days-to-keep: 45
+        num-to-keep: 30
+        artifact-days-to-keep: 45
+        artifact-num-to-keep: 30
+
