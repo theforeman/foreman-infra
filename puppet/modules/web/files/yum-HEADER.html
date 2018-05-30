@@ -1,5 +1,4 @@
-<title>yum.theforeman.org</title>
-<head><h1>yum.theforeman.org</h1></head>
+<h1>yum.theforeman.org</h1>
 <body>
 
 <h3>Stable Foreman releases</h3>
@@ -7,15 +6,14 @@
 <p>Releases are available under <code>/releases/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/releases/1.15/el7/x86_64</li>
-  <li>/releases/1.15/f24/x86_64</li>
+  <li>/releases/1.17/el7/x86_64</li>
+  <li>/releases/nightly/el7/x86_64</li>
 </ul>
 
 <p>foreman-release RPMs containing an appropriate .repo file are available with fixed URLs:</p>
 
 <ul>
-  <li><a href="http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm">http://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm</a></li>
-  <li><a href="http://yum.theforeman.org/releases/latest/f24/x86_64/foreman-release.rpm">http://yum.theforeman.org/releases/latest/f24/x86_64/foreman-release.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/latest/el7/x86_64/foreman-release.rpm</a></li>
 </ul>
 
 <p>Release packages <a href="https://theforeman.org/security.html#GPGkeys">are signed with a new key for each major release</a>.  The public key is available in the RPM-GPG-KEY-foreman file within each version directory or the foreman-release RPMs.</p>
@@ -35,18 +33,19 @@
 <p>Plugin repos are structured by the Foreman version that they're compatible with in the format <code>/plugins/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/plugins/1.15/el7/x86_64</li>
-  <li>/plugins/nightly/f24/x86_64</li>
+  <li>/plugins/1.17/el7/x86_64</li>
+  <li>/plugins/nightly/el7/x86_64</li>
 </ul>
 
 <p>Plugin repos are not GPG signed.</p>
 
 <h3>Accessing this repo</h3>
 
-This repository is available over both HTTP and rsync:
+This repository is available over HTTP, HTTPS and rsync:
 
 <ul>
   <li>http://yum.theforeman.org</li>
+  <li>https://yum.theforeman.org</li>
   <li>rsync://rsync.theforeman.org/yum</li>
 </ul>
 
@@ -56,4 +55,3 @@ This repository is available over both HTTP and rsync:
 
 <p>If you have any issues, you can find the forum at <a href="https://community.theforeman.org/">community.theforeman.org</a> or on IRC (<a href="https://freenode.net/">freenode</a>, <a href="irc://chat.freenode.net/theforeman">#theforeman</a>)</p>
 <br/>
-</body>
