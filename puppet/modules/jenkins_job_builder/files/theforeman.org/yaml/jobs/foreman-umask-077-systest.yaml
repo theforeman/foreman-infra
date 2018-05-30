@@ -1,8 +1,6 @@
 - job:
     name: foreman-umask-077-systest
     project-type: matrix
-    logrotate:
-      daysToKeep: 8
     scm:
       - forklift
     triggers:

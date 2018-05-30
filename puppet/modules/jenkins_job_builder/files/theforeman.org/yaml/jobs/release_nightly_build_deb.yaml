@@ -3,9 +3,6 @@
     node: 'admin'
     block-downstream: true
     concurrent: true
-    logrotate:
-      daysToKeep: 7
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/foreman-packaging/

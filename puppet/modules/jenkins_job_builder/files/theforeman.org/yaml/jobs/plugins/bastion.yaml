@@ -12,9 +12,6 @@
 
 - job:
     name: test_bastion_javascript
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 32
     concurrent: true
     properties:
       - github:
@@ -42,9 +39,6 @@
 - job:
     name: test_bastion
     project-type: matrix
-    logrotate:
-      daysToKeep: 30
-      numToKeep: -1
     concurrent: true
     properties:
       - github:
@@ -77,12 +71,10 @@
     name: test_bastion_pull_request
     description: Run Bastion pull request tests, as an engine within Foreman under each supported database. Only Ruby 1.9.3 is supported.
     project-type: matrix
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 30
     properties:
       - github:
           url: https://github.com/Katello/bastion
+      - tfm-pull-request-build-discarder
     parameters:
       - string:
           name: branch
@@ -134,9 +126,6 @@
     name: test_bastion_assets_precompile
     project-type: matrix
     description: 'Run Bastion assets precompile to ensure assets can be generated properly for production.'
-    logrotate:
-      daysToKeep: 30
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/Katello/bastion

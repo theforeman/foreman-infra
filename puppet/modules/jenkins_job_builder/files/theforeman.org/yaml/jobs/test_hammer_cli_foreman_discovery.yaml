@@ -2,9 +2,6 @@
     name: test_hammer_cli_foreman_discovery
     project-type: matrix
     concurrent: true
-    logrotate:
-      daysToKeep: 14
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/hammer-cli-foreman-discovery

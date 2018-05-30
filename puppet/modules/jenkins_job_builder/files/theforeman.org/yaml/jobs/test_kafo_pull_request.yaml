@@ -1,12 +1,10 @@
 - job:
     name: test_kafo_master_pull_request
     project-type: matrix
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/kafo
+      - tfm-pull-request-build-discarder
     wrappers:
       - abort_build:
           timeout_min: 60

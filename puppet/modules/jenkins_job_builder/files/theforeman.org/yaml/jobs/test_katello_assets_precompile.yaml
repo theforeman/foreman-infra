@@ -4,9 +4,6 @@
       Run Katello assets precompile to ensure assets can be generated properly for production.
     concurrent: true
     project-type: matrix
-    logrotate:
-      daysToKeep: 30
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/Katello/katello/

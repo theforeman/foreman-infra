@@ -2,12 +2,10 @@
     name: katello-pr-test
     project-type: workflow
     concurrent: true
-    logrotate:
-      daysToKeep: 30
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/Katello/katello
+      - tfm-pull-request-build-discarder
     triggers:
       - github_pr_pipeline:
           context: 'katello'

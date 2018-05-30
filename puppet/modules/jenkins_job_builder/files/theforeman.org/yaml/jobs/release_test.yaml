@@ -1,8 +1,6 @@
 - job:
     name: release_test
     project-type: matrix
-    logrotate:
-      daysToKeep: 8
     block-downstream: true
     block-upstream: true
     scm:

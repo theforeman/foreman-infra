@@ -1,9 +1,6 @@
 - job:
     name: test_katello_core
     project-type: matrix
-    logrotate:
-      daysToKeep: -1
-      numToKeep: 32
     properties:
       - github_katello
     parameters:

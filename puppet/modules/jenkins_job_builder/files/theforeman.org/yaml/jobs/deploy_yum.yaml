@@ -1,9 +1,6 @@
 - job:
     name: deploy_yum
     project-type: workflow
-    logrotate:
-      daysToKeep: 2
-      numToKeep: -1
     parameters:
       - string:
           name: os

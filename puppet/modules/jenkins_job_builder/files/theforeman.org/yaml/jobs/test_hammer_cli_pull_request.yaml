@@ -4,12 +4,10 @@
       Test a Hammer CLI pull request under each Ruby version.
     project-type: matrix
     concurrent: true
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/hammer-cli
+      - tfm-pull-request-build-discarder
     parameters:
       - pr_parameters
     scm:

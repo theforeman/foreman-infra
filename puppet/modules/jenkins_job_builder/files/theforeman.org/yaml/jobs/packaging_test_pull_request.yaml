@@ -1,12 +1,10 @@
 - job:
     name: packaging_test_pull_request
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     concurrent: true
     properties:
       - github:
           url: https://github.com/theforeman/foreman-packaging
+      - tfm-pull-request-build-discarder
     scm:
       - foreman-rpm-packaging-pr
     triggers:

@@ -4,8 +4,6 @@
     block-downstream: true
     block-upstream: true
     quiet-period: 30
-    logrotate:
-      daysToKeep: 8
     scm:
       - forklift
     triggers:

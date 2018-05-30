@@ -5,9 +5,8 @@
 #   foreman_branch: foreman git repo branch to run on, e.g. develop
 - job-template:
     name: 'test_plugin_{name}_{branch}'
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
+    properties:
+      - tfm-build-discarder
     quiet-period: 1200
     scm:
       - foreman_plugin:

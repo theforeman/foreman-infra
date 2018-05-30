@@ -2,8 +2,6 @@
     name: hammer-cli-katello-nightly-release
     project_type: workflow
     sandbox: false
-    logrotate:
-      daysToKeep: 7
     triggers:
       - timed: '0 22 * * *'
     dsl:

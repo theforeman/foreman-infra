@@ -9,8 +9,8 @@
     name: global
     project-type: freestyle
     concurrent: false
-    logrotate:
-      numToKeep: 3
+    properties:
+      - tfm-build-discarder
     wrappers:
       - timestamps
 

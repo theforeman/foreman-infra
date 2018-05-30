@@ -4,9 +4,6 @@
 - job:
     name: packaging_build_deb_dependency
     project-type: matrix
-    logrotate:
-      daysToKeep: 7
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/foreman-packaging/

@@ -4,12 +4,10 @@
       Tests a Kafo Parsers pull request under each Ruby and Puppet configuration.
     concurrent: true
     project-type: matrix
-    logrotate:
-      daysToKeep: 45
-      numToKeep: -1
     properties:
       - github:
           url: https://github.com/theforeman/kafo_parsers
+      - tfm-pull-request-build-discarder
     scm:
       - git:
           url: https://github.com/theforeman/kafo_parsers
