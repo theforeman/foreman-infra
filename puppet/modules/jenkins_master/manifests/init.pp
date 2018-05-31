@@ -1,4 +1,11 @@
 class jenkins_master {
+
+  jenkins::config { 'config_hash':
+    'JENKINS_JAVA_OPTIONS' => {
+      'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx2048m',
+    }
+  }
+
   $plugins = {
     'ace-editor'                         => '1.1',
     'analysis-core'                      => '1.95',
