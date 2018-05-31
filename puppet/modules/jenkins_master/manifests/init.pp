@@ -1,4 +1,4 @@
-class () {
+class jenkins_master {
 
   jenkins::plugin { 'build-metrics':
     version => '1.3'
