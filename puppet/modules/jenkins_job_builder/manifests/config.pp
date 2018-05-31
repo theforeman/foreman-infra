@@ -1,6 +1,6 @@
 # Deploys a set of jobs to one Jenkins instance
 #
-# $run is our addition and is so named becuase noop is a bit too magic in puppet syntax...
+# $run is our addition and is so named because noop is a bit too magic in puppet syntax...
 #
 define jenkins_job_builder::config (
   $url,
@@ -10,9 +10,10 @@ define jenkins_job_builder::config (
   $jenkins_jobs_update_timeout = '600',
 ) {
   $config_name = $name
-  $inifile = "/etc/jenkins_jobs/jenkins_jobs_${config_name}.ini"
+  $directory = '/etc/jenkins_jobs'
+  $inifile = "${directory}/jenkins_jobs_${config_name}.ini"
 
-  file { "/etc/jenkins_jobs/${config_name}":
+  file { "${directory}/${config_name}":
     ensure  => directory,
     owner   => 'root',
     group   => 'root',
@@ -30,17 +31,17 @@ define jenkins_job_builder::config (
   } else {
     $subcmd = 'update --delete-old'
   }
-  $cmd = "jenkins-jobs --conf ${inifile} ${subcmd} /etc/jenkins_jobs/${config_name} > /var/cache/jjb.xml"
+  $cmd = "jenkins-jobs --conf ${inifile} ${subcmd} ${directory}/${config_name} > /var/cache/jjb.xml"
 
   exec { "jenkins_jobs_update-${config_name}":
-    command     => $cmd,
-    timeout     => $jenkins_jobs_update_timeout,
-    path        => '/bin:/usr/bin:/usr/local/bin',
-    require     => [ File[$inifile], Exec["remove_unmanaged_jobs-${config_name}"] ],
+    command => $cmd,
+    timeout => $jenkins_jobs_update_timeout,
+    path    => '/bin:/usr/bin:/usr/local/bin',
+    require => [ File[$inifile], Exec["remove_unmanaged_jobs-${config_name}"] ],
   }
 
   exec { "remove_unmanaged_jobs-${config_name}":
-    command => "jenkins-jobs --conf ${inifile} delete --jobs-only $(ruby unmanaged_jobs.rb /etc/jenkins_jobs/${config_name})",
+    command => "jenkins-jobs --conf ${inifile} delete --jobs-only $(ruby ${directory}/${config_name}/unmanaged_jobs.rb ${directory}/${config_name})",
     timeout => $jenkins_jobs_update_timeout,
     path    => '/bin:/usr/bin:/usr/local/bin',
     require => File[$inifile],
