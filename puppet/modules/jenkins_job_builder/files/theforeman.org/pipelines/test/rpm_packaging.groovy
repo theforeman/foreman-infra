@@ -32,6 +32,17 @@ pipeline {
             }
         }
 
+        stage('Lint Spec') {
+            when {
+                expression { packages_to_build }
+            }
+            steps {
+
+                obal(action: "lint", packages: packages_to_build)
+
+            }
+        }
+
         stage('Scratch Build Packages') {
             when {
                 expression { packages_to_build }
