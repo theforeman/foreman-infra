@@ -10,7 +10,7 @@
     builders:
       - trigger-builds:
         - project: packaging_repoclosure
-          predefined-parameters: "os=${os}\nrepo=foreman-${major_version}\npuppet_lookasides=${os}-puppet\nbranch=${major_version}"
+          predefined-parameters: "os=${os}\nrepo=foreman-${major_version}\nbranch=${major_version}"
           block: true
       - systest:
           repo: '${major_version}'

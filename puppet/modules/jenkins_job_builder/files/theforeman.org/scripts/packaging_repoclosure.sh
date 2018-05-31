@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/bin/bash -e
 
-if [ ${os#fedora} != $os ]; then
+if [[ ${os#fedora} != $os ]]; then
   os=f${os#fedora}
-elif [ ${os#centos} != $os ]; then
+elif [[ ${os#centos} != $os ]]; then
   os=el${os#centos}
 fi
 
-if [ ${os#f} != $os ]; then
+if [[ ${os#f} != $os ]]; then
   osname=Fedora
   osver=${os#f}
-elif [ ${os#el} != $os ]; then
+elif [[ ${os#el} != $os ]]; then
   osname=RHEL
   osver=${os#el}
 else
@@ -18,12 +18,13 @@ else
 fi
 
 foreman_lookaside=""
+foreman_lookasides="${foreman_lookasides} rails/${repo}"
 if [ -n "${foreman_lookasides}" ]; then
   lookaside_repos=$(echo $foreman_lookasides | tr "," "\n")
 
   for lookaside_repo in $lookaside_repos
   do
-      foreman_lookaside+="--repofrompath=${lookaside_repo},http://yum.theforeman.org/${lookaside_repo}/${os}/x86_64/ -l ${lookaside_repo} "
+      foreman_lookaside+="--repofrompath=${lookaside_repo},https://yum.theforeman.org/${lookaside_repo}/${os}/x86_64/ -l ${lookaside_repo} "
   done
 fi
 
@@ -47,22 +48,9 @@ if [ -n "${copr_lookasides}" ]; then
   done
 fi
 
-puppet_lookaside=""
-if [ -n "${puppet_lookasides}" ]; then
-  lookaside_repos=$(echo $puppet_lookasides | tr "," "\n")
-
-  for lookaside_repo in $lookaside_repos
-  do
-    if [ ${osname} == 'Fedora' ]; then
-      puppet_lookaside+="--repofrompath=${lookaside_repo}-pc1,http://yum.puppetlabs.com/fedora/${os}/PC1/x86_64/ -l ${lookaside_repo}-pc1"
-    else
-      puppet_lookaside+="--repofrompath=${lookaside_repo},http://yum.puppetlabs.com/el/${osver}/products/x86_64/ -l ${lookaside_repo} --repofrompath=${lookaside_repo}-pc1,http://yum.puppetlabs.com/el/${osver}/PC1/x86_64/ -l ${lookaside_repo}-pc1"
-    fi
-  done
-fi
-
 predefined_lookaside=""
-if [ -n "${predefined_lookasides}" ]; then
+predefined_lookasides="${predefined_lookasides} base updates extras epel scl scl-sclo puppet-5"
+if [[ -n $predefined_lookasides ]]; then
   lookaside_repos=$(echo $predefined_lookasides | tr "," "\n")
 
   for lookaside_repo in $lookaside_repos
@@ -71,7 +59,7 @@ if [ -n "${predefined_lookasides}" ]; then
   done
 fi
 
-options="yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ -l ${os}-base -l ${os}-updates -l ${os}-extras -l ${os}-epel -l ${os}-scl -l ${os}-scl-sclo -l ${os}-scl-ruby -l ${os}-tfm-ror51 -l ${os}-scl-v8 ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside} ${puppet_lookaside} ${predefined_lookaside}"
+options="yum_${os}.conf http://koji.katello.org/releases/yum/${repo}/${osname}/${osver}/x86_64/ ${koji_lookaside} ${foreman_lookaside} ${copr_lookaside} ${puppet_lookaside} ${predefined_lookaside}"
 
 if [[ $1 == '--dry-run' ]]; then
   echo $options

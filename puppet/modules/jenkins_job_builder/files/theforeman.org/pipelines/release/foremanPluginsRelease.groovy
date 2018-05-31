@@ -91,16 +91,14 @@ void repoclosure(repo, dist, additions = []) {
             "./repoclosure.sh yum_${dist}.conf",
             "http://koji.katello.org/releases/yum/foreman-plugins-${repo}/${os_ver}/x86_64/",
             "-l ${dist}-foreman-${repo}",
+            "-l ${dist}-foreman-rails-${repo}",
             "-l ${dist}-base",
             "-l ${dist}-updates",
             "-l ${dist}-epel",
             "-l ${dist}-extras",
-            "-l ${dist}-tfm-ror51",
             "-l ${dist}-scl",
             "-l ${dist}-scl-sclo",
-            "-l ${dist}-scl-ruby",
-            "-l ${dist}-scl-v8",
-            "-l ${dist}-puppet-4"
+            "-l ${dist}-puppet-5"
         ]
 
         command = command + additions
