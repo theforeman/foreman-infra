@@ -8,7 +8,8 @@ def help
 end
 
 def managed?(job)
-  job['description']&.include?('<!-- Managed by Jenkins Job Builder -->')
+  return false unless job['description']
+  job['description'].include?('<!-- Managed by Jenkins Job Builder -->')
 end
 
 def get_jenkins_url_from_ini(ini_file)
@@ -18,9 +19,10 @@ def get_jenkins_url_from_ini(ini_file)
     file.readlines
   end
 
-  url_line = lines.select { |line| line =~ regex }&.first || ""
-  url = url_line.gsub(regex, '')&.chomp
-  url
+  url_line = lines.select { |line| line =~ regex }
+  fail "no url found in [ #{ini_file} ]" if url_line.empty?
+
+  url_line.first.gsub(regex, '').chomp
 end
 
 def find_unmanaged_jobs_from_payload(json_payload)
