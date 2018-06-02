@@ -39,14 +39,18 @@ def main
   fail "must supply ini file" if ARGV.empty?
   fail "too many arguments" if ARGV.size > 1
 
-  url = get_jenkins_url_from_ini(ARGV.pop)
+  inifile = ARGV.pop
+
+  url = get_jenkins_url_from_ini(inifile)
   fail "url is blank" unless url
 
   payload = Net::HTTP.get(url, '/api/json?tree=jobs[name,description]')
 
   unmanaged_jobs = find_unmanaged_jobs_from_payload(payload)
 
-  puts format_jobs_for_output(unmanaged_jobs)
+  unless unmanaged_jobs.empty?
+    `jenkins-jobs --conf #{inifile} delete --jobs-only #{format_jobs_for_output(unmanaged_jobs)}`
+  end
 end
 
 if __FILE__ == $0

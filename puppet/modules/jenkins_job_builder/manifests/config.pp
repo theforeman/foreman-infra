@@ -41,7 +41,7 @@ define jenkins_job_builder::config (
   }
 
   exec { "remove_unmanaged_jobs-${config_name}":
-    command => "jenkins-jobs --conf ${inifile} delete --jobs-only $(ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile})",
+    command => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
     timeout => $jenkins_jobs_update_timeout,
     path    => '/bin:/usr/bin:/usr/local/bin',
     require => File[$inifile],
