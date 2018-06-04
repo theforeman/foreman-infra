@@ -29,23 +29,23 @@
           name: releaser
           choices:
             - koji-foreman
-            - koji-foreman-nightly
+            - koji-foreman-jenkins
             - koji-foreman-plugins
             - koji-katello
             - koji-katello-client
             - koji-katello-jenkins
-          description: 'tito releaser appropriate for the selected project.  Use koji-foreman for core projects and dependencies, use koji-foreman-plugins for plugins and their dependencies.  Use koji-foreman-nightly when building nightly packages with the nightly_* parameters.'
+          description: 'tito releaser appropriate for the selected project.  Use koji-foreman for core projects and dependencies, use koji-foreman-plugins for plugins and their dependencies.  Use koji-foreman-jenkins when building nightly packages with the nightly_* parameters.'
       - bool:
           name: gitrelease
           default: false
           description: 'When true it builds from the latest spec file, else from the latest tag.  Enable when testing untagged changes.  Equivalent to --test flag.'
       - string:
           name: nightly_jenkins_job
-          description: 'When using koji-foreman-nightly, name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
+          description: 'When using koji-foreman-jenkins, name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
       - string:
           name: nightly_jenkins_job_id
           default: lastSuccessfulBuild
-          description: 'When using koji-foreman-nightly, the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
+          description: 'When using koji-foreman-jenkins, the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
       - pr_parameters
     scm:
       - foreman-rpm-packaging:

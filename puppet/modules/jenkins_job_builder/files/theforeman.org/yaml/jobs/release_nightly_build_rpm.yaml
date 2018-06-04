@@ -12,7 +12,7 @@
         - project: packaging_build_rpm
           predefined-parameters: |
             project=${project}
-            releaser=koji-foreman-nightly
+            releaser=koji-foreman-jenkins
             nightly_jenkins_job=${jenkins_job}
             nightly_jenkins_job_id=${jenkins_job_id}
             gitrelease=false
