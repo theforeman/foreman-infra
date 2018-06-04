@@ -47,4 +47,11 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            deleteDir()
+            cleanupRVM('', '2.2')
+        }
+    }
 }

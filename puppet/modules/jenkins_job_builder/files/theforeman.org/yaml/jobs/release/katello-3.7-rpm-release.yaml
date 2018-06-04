@@ -1,0 +1,9 @@
+---
+- job:
+    name: katello-3.7-rpm-release
+    project-type: pipeline
+    dsl:
+      !include-raw:
+        - pipelines/lib/version_map.groovy
+        - pipelines/release/katello/3.7/rpmRelease.groovy
+        - pipelines/lib/rvm.groovy
