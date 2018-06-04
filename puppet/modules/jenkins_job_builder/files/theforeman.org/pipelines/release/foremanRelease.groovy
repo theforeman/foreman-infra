@@ -88,14 +88,14 @@ void repoclosure(repo, dist, additions = []) {
         def command = [
             "./repoclosure.sh yum_el${dist}.conf",
             "http://koji.katello.org/releases/yum/foreman-nightly/${repo}/${dist}/x86_64/",
-            "-l el${dist}-foreman-rails-nightly"
+            "-l el${dist}-foreman-rails-nightly",
             "-l el${dist}-base",
             "-l el${dist}-updates",
             "-l el${dist}-epel",
             "-l el${dist}-extras",
             "-l el${dist}-scl",
             "-l el${dist}-scl-sclo",
-            "-l el${dist}-puppet-5",
+            "-l el${dist}-puppet-5"
         ]
 
         command = command + additions
