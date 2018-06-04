@@ -70,7 +70,10 @@ void build_tarball(project, version, ruby_ver) {
     dir(project) {
         checkout scm: [$class: 'GitSCM',
             userRemoteConfigs: [[url: "https://github.com/theforeman/${project}.git"]],
-            branches: [[name: "refs/tags/${version}"]]], changelog: false, poll: false
+            branches: [[name: "refs/tags/${version}"]]],
+            changelog: false,
+            poll: false,
+            clearWorkspace: true
 
         configureRVM(ruby_ver, project)
 
