@@ -24,7 +24,7 @@ mkdir rel-eng/build
 args="-o $(pwd)/rel-eng/build/"
 [ -n "${tag}" ] && args="$args --tag=$tag"
 [ x"${scratch}" != xfalse ] && args="$args --scratch"
-[ x"${gitrelease}" != xfalse -a x${releaser} != xkoji-foreman-nightly ] && args="$args --test"
+[ x"${gitrelease}" != xfalse -a x${releaser} != xkoji-foreman-nightly -a x${releaser} != xkoji-foreman-jenkins ] && args="$args --test"
 [ -n "${nightly_jenkins_job}" ] && args="$args --arg jenkins_job=${nightly_jenkins_job}"
 [ -n "${nightly_jenkins_job_id}" ] && args="$args --arg jenkins_job_id=${nightly_jenkins_job_id}"
 
