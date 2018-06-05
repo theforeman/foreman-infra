@@ -49,7 +49,18 @@ pipeline {
             }
             steps {
 
-                obal(action: "scratch", extraVars: ['build_package_download_logs': 'True'], packages: packages_to_build)
+                obal(action: "scratch", extraVars: ['build_package_download_logs': 'True', 'build_package_download_rpms': 'True'], packages: packages_to_build)
+
+            }
+        }
+
+        stage('Repoclosure') {
+            when {
+                expression { packages_to_build }
+            }
+            steps {
+
+                obal(action: "repoclosure", packages: packages_to_build)
 
             }
         }
