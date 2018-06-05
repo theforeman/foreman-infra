@@ -51,7 +51,6 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
             - all
             - jessie
             - stretch
-            - trusty
             - xenial
           description: 'Restrict matrix job to just the one OS.'
       - string:
