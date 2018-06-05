@@ -29,4 +29,4 @@ TARGET_PATH="website@theforeman.org:rsync_cache/"
 # Export this to avoid quoting issues
 export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/rsync_web_key"
 
-/usr/bin/rsync -acvxz --delete-after ./_site/ $TARGET_PATH
+/usr/bin/rsync --archive --checksum --verbose --one-file-system --compress --stats --progress --delete-after ./_site/ $TARGET_PATH
