@@ -48,8 +48,8 @@ def main
 
   unmanaged_jobs = find_unmanaged_jobs_from_payload(payload)
 
-  unless unmanaged_jobs.empty?
-    `jenkins-jobs --conf #{inifile} delete --jobs-only #{format_jobs_for_output(unmanaged_jobs)}`
+  if Time.now.hour.zero? && !unmanaged_jobs.empty?
+    %x[jenkins-jobs --conf #{inifile} delete --jobs-only #{format_jobs_for_output(unmanaged_jobs)}]
   end
 end
 
