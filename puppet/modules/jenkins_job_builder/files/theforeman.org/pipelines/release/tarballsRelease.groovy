@@ -58,7 +58,7 @@ pipeline {
 
 void verify_tag(project, version) {
     dir(project) {
-        git url: "https://github.com/theforeman/${project}", branch: 'develop'
+        git url: "https://github.com/theforeman/${project}.git", branch: 'develop'
         sh "git tag -l ${version} | grep ${version}"
     }
 }
@@ -70,10 +70,10 @@ void build_tarball(project, version, ruby_ver) {
     dir(project) {
         checkout scm: [$class: 'GitSCM',
             userRemoteConfigs: [[url: "https://github.com/theforeman/${project}.git"]],
-            branches: [[name: "refs/tags/${version}"]]],
+            branches: [[name: "refs/tags/${version}"]],
+            extensions: [[$class: 'CleanCheckout']]],
             changelog: false,
-            poll: false,
-            clearWorkspace: true
+            poll: false
 
         configureRVM(ruby_ver, project)
 
