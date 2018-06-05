@@ -48,13 +48,14 @@ def main
 
   unmanaged_jobs = find_unmanaged_jobs_from_payload(payload)
 
-  if Time.now.hour.zero? && !unmanaged_jobs.empty?
+  unless unmanaged_jobs.empty?
     %x[jenkins-jobs --conf #{inifile} delete --jobs-only #{format_jobs_for_output(unmanaged_jobs)}]
   end
 end
 
 if __FILE__ == $0
   begin
+    exit 0 unless Time.now.hour.zero?
     main
   rescue RuntimeError => e
     puts "ERROR BEEP BOOP:"
