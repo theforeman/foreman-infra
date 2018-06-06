@@ -57,7 +57,8 @@ bundle install --without development --jobs=5 --retry=5
 ) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create
+bundle exec rake db:drop
+bundle exec rake db:create
 ### END test_develop ###
 
 # Update dependencies
