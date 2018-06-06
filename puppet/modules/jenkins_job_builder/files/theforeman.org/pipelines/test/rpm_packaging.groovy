@@ -1,4 +1,5 @@
 def packages_to_build
+def packages = [:]
 
 pipeline {
     agent { label 'rpmbuild' }
@@ -38,8 +39,16 @@ pipeline {
             }
             steps {
 
-                obal(action: "lint", packages: packages_to_build)
+                script {
+                    for(int i = 0; i < packages_to_build.size(); i++) {
+                        def index = i
+                        packages[packages_to_build[index]] = {
+                            obal(action: "lint", packages: packages_to_build[index])
+                        }
+                    }
 
+                    parallel packages
+                }
             }
         }
 
