@@ -180,6 +180,8 @@ class slave (
       };
     'asciidoc':
       ensure => present;
+    'bzip2':
+      ensure => present;
     'unzip':
       ensure => present;
     'ansible':
@@ -216,7 +218,8 @@ class slave (
   # packages only really available on EL6+
   if $::osfamily == 'RedHat' {
     package { 'npm':
-      ensure => present,
+      ensure  => present,
+      require => Package['bzip2'],
     } -> Package <| provider == 'npm' |>
 
     package { 'bower':
