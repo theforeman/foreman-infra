@@ -6,7 +6,8 @@ class slave::rvm {
 
   if $::rvm_installed == true {
     rvm::system_user { 'jenkins':
-      create => false,
+      create  => false,
+      require => User['jenkins'],
     }
 
     if $::architecture == 'x86_64' or $::architecture == 'amd64' {
