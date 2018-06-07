@@ -1,0 +1,33 @@
+- job:
+    name: rubygem-katello-nightly-release
+    node: fast
+    concurrent: false
+    properties:
+      - tfm-build-discarder
+    triggers:
+      - github
+    scm:
+      - git:
+          url: https://github.com/Katello/katello.git
+          wipe-workspace: true
+          branches:
+            - master
+    wrappers:
+      - abort_build:
+          timeout_min: 60
+      - ansicolor
+    builders:
+      - shell: !include-raw: scripts/rubygem-katello-nightly-release.sh
+    publishers:
+      - archive:
+          artifacts: 'pkg/*'
+      - trigger-parameterized-builds:
+        - project: packaging_build_rpm
+          condition: SUCCESS
+          predefined-parameters: |
+            project=packages/katello/rubygem-katello
+            gitrelease=false
+            scratch=false
+            releaser=koji-katello-jenkins
+            nightly_jenkins_job=${JOB_NAME}
+            nightly_jenkins_job_id=${BUILD_ID}
