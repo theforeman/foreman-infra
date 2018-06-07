@@ -33,7 +33,7 @@
 
             if [ $project = rubygem-katello ]; then
               releaser=koji-katello-jenkins
-              nightly_jenkins_job=test_katello_core
+              nightly_jenkins_job=rubygem-katello-nightly-release
               gitrelease=false
             fi
 
