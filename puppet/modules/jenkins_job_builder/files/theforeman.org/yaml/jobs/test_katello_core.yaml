@@ -45,7 +45,7 @@
       - test_katello
     publishers:
       - archive:
-          artifacts: 'plugin/pkg/*,Gemfile.lock'
+          artifacts: 'Gemfile.lock'
           only-if-success: false
       - gemset_cleanup
       - junit:

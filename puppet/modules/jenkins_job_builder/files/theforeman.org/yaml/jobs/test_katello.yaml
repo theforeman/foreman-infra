@@ -68,8 +68,4 @@
       - email:
           recipients: jlsherrill@gmail.com
       - ircbot_freenode
-      - trigger-parameterized-builds:
-        - project: build_rpm_rubygem-katello_nightly
-          condition: SUCCESS
-          trigger-with-no-params: true
 

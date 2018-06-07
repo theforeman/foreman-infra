@@ -84,10 +84,3 @@ fi
 
 # Clean up the database after use
 bundle exec rake db:drop || true
-
-cd $PLUGIN_ROOT
-
-rm -rf pkg/
-mkdir pkg
-gem build katello.gemspec
-cp katello-*.gem pkg/
