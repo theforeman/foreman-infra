@@ -6,15 +6,15 @@ if [ -n "${pr_git_url}" -a ${scratch} != true ]; then
 fi
 
 if ! tito release -l | grep -q "$releaser" ; then
-	if [[ $releaser == koji-katello* ]] ; then
-		# Starting 1.17 the katello packaging repo was merged. Before
-		# that we can safely ignore this.
-		echo "Releaser $releaser is not configured. Skipping"
-		exit 0
-	else
-		echo "ERROR: Releaser $releaser is not configured"
-		exit 1
-	fi
+    if [[ $releaser == koji-katello* ]] ; then
+        # Starting 1.17 the katello packaging repo was merged. Before
+        # that we can safely ignore this.
+        echo "Releaser $releaser is not configured. Skipping"
+        exit 0
+    else
+        echo "ERROR: Releaser $releaser is not configured"
+        exit 1
+    fi
 fi
 
 git clone https://github.com/theforeman/obal
