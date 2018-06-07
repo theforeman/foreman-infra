@@ -45,15 +45,6 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-            build job: 'release_packages', parameters: [
-                [$class: 'StringParameterValue', name: 'version', value: version],
-                [$class: 'StringParameterValue', name: 'major_version', value: major_version]
-            ]
-        }
-    }
 }
 
 void verify_tag(project, version) {
