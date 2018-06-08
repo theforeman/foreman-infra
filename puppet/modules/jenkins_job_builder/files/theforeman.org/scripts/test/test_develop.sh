@@ -24,7 +24,11 @@ bundle install --without=development --jobs=5 --retry=5
 # we need to install node modules for integration tests (which only run on postgresql)
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
   npm install npm@'<6.0.0' # first upgrade to newer npm
+
+  # Test asset precompile
   $APP_ROOT/node_modules/.bin/npm install
+  bundle exec rake assets:precompile RAILS_ENV=production
+  bundle exec rake webpack:compile RAILS_ENV=production
 fi
 
 # Database environment
