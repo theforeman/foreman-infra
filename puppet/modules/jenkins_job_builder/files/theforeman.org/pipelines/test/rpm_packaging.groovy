@@ -17,6 +17,7 @@ pipeline {
 
                 deleteDir()
                 ghprb_git_checkout()
+                setup_obal()
 
             }
         }

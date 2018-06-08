@@ -1,5 +1,6 @@
 def obal(args) {
-    def extra_vars_file = 'extra_vars.yaml'
+    def timestamp = new Date().getTime()
+    def extra_vars_file = 'extra_vars-' + timestamp.toString() + '.yaml'
 
     tags = args.tags ? "--tags ${args.tags}" : ""
     extra_vars = args.extraVars ?: [:]
@@ -10,8 +11,8 @@ def obal(args) {
 
     writeYaml file: extra_vars_file, data: extra_vars
 
-    dir('obal') {
-        git url: "https://github.com/theforeman/obal.git", branch: "master"
+    if (!fileExists('obal')) {
+        setup_obal()
     }
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
@@ -21,4 +22,10 @@ def obal(args) {
     }
 
     sh "rm ${extra_vars_file}"
+}
+
+def setup_obal() {
+    dir('obal') {
+        git url: "https://github.com/theforeman/obal.git", branch: "master"
+    }
 }
