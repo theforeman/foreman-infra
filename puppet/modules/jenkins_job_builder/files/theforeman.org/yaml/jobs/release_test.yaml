@@ -14,7 +14,7 @@
           block: true
       - systest:
           repo: '${major_version}'
-          repo_environment: release
+          repo_environment: staging
           pl_puppet: ''
           run_hammer_tests: false
           db_type: mysql
