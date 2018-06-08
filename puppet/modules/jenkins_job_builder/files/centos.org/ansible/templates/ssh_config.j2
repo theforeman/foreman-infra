@@ -1,0 +1,10 @@
+{% for host, value in cico_data.results.hosts.items() %}
+Host duffy_box
+  HostName {{ value.hostname  }}
+  User root
+  Port 22
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  GlobalKnownHostsFile=/dev/null
+
+{% endfor %}

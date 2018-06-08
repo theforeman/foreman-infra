@@ -1,0 +1,11 @@
+---
+- job:
+    name: 'foreman-katello-nightly-test'
+    project-type: 'pipeline'
+    sandbox: true
+    dsl:
+      !include-raw:
+        - pipelines/test/nightlyTest.groovy
+        - pipelines/lib/duffy.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/folderChanged.groovy
