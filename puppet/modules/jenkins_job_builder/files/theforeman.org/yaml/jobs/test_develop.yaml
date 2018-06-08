@@ -47,6 +47,3 @@
           project: packages/foreman/foreman
       - release_nightly_build_foreman_deb:
           project: foreman
-      - trigger-parameterized-builds:
-        - project: test_katello
-          condition: SUCCESS
