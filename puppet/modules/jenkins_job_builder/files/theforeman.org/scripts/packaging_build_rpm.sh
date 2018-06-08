@@ -17,6 +17,9 @@ if ! tito release -l | grep -q "$releaser" ; then
 	fi
 fi
 
+git clone https://github.com/theforeman/obal
+export PYTHONPATH=`pwd`/obal
+
 git-annex init
 ./setup_sources.sh $project
 
