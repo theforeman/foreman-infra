@@ -1,6 +1,8 @@
 class jenkins_master {
 
   jenkins { 'jenkins_master':
+    install_java => false,
+    lts => true,
     config_hash => {
       'JENKINS_JAVA_OPTIONS' => {
         'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx2048m',
