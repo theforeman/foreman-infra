@@ -1,6 +1,6 @@
 class jenkins_master {
 
-  jenkins { 'jenkins_master':
+  class { 'jenkins':
     install_java => false,
     lts => true,
     config_hash => {
@@ -61,7 +61,11 @@ class jenkins_master {
     'copy-to-slave'                      => '1.4.4',
     'copyartifact'                       => '1.39.1',
     'create-fingerprint'                 => '1.2',
-    'credentials'                        => '2.1.16',
+
+    # this is included by default from puppet-jenkins
+    # https://github.com/voxpupuli/puppet-jenkins/blob/ef41da82f100a10f2dcfd04c6286d504452d3988/manifests/params.pp#L29-L31
+    # 'credentials'                        => '2.1.16',
+
     'credentials-binding'                => '1.16',
     'custom-job-icon'                    => '0.2',
     'cvs'                                => '2.14',
