@@ -5,7 +5,7 @@ class slave::packaging::rpm (
   Optional[String] $copr_username = $slave::copr_username,
   Optional[String] $copr_token = $slave::copr_token,
 ) {
-  package { ['koji', 'rpm-build', 'git-annex', 'pyliblzma']:
+  package { ['koji', 'rpm-build', 'git-annex', 'pyliblzma', 'createrepo']:
     ensure => latest,
   }
 
