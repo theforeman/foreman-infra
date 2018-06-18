@@ -3,7 +3,7 @@
     project-type: pipeline
     sandbox: false
     triggers:
-      - timed: '0 22 * * *'
+      - github
     dsl:
       !include-raw:
         - pipelines/release/hammerCliKatelloNightlyRelease.groovy
