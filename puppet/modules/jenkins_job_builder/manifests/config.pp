@@ -25,11 +25,17 @@ define jenkins_job_builder::config (
     notify  => Exec["jenkins_jobs_update-${config_name}"],
   }
 
+  $current_hour = generate('/bin/date', '+%H')
+
   # test for a string here since it's annoyingly hard to pass a boolean from foreman via yaml
   if $run == 'false' {
     $subcmd = 'test'
   } else {
-    $subcmd = 'update --delete-old'
+    if $current_hour == "00" {
+      $subcmd = 'update --delete-old'
+    } else {
+      $subcmd = 'update'
+    }
   }
   $cmd = "jenkins-jobs --conf ${inifile} ${subcmd} ${directory}/${config_name} > /var/cache/jjb.xml"
 
