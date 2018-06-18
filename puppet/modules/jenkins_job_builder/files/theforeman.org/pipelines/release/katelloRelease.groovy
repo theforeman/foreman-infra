@@ -24,8 +24,7 @@ pipeline {
                 parallel(
                     'client/el7': { repoclosure('client', 'el7') },
                     'client/el6': { repoclosure('client', 'el6') },
-                    'client/fc25': { repoclosure('client', 'f25') },
-                    'client/fc26': { repoclosure('client', 'f26') }
+                    'client/fc27': { repoclosure('client', 'f27') }
                 )
 
             }
