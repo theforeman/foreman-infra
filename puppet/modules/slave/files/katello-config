@@ -9,7 +9,7 @@ server = http://koji.katello.org/kojihub
 weburl = http://koji.katello.org/koji
 
 ;url of package download site
-topurl = http://koji.katello.org/
+topurl = http://koji.katello.org/kojifiles
 
 ;path to the koji top directory
 ;topdir = /mnt/koji
