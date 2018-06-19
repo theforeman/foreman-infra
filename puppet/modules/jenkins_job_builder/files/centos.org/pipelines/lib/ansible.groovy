@@ -10,7 +10,7 @@ def runPlaybook(playbook, inventory, extraVars = [], options = []) {
     }
 
     if (extraVars) {
-        extraVars = "-e " + extraVars.join("-e ")
+        extraVars = "-e " + extraVars.join(" -e ")
         command.push(extraVars)
     }
 

@@ -6,3 +6,4 @@
     dsl:
       !include-raw:
         - pipelines/release/katelloRelease.groovy
+        - ../centos.org/pipelines/lib/ansible.groovy
