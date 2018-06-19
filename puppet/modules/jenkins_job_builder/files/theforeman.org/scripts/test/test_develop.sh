@@ -21,6 +21,13 @@ gem install bundler --no-ri --no-rdoc
 # Retry as rubygems (being external to us) can be intermittent
 bundle install --without=development --jobs=5 --retry=5
 
+# Database environment
+(
+  sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
+  echo
+  sed "s/database:.*/database: ${gemset}-test/" $HOME/${database}.db.yaml
+) > $APP_ROOT/config/database.yml
+
 # we need to install node modules for integration tests (which only run on postgresql)
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
   npm install npm@'<6.0.0' # first upgrade to newer npm
@@ -30,13 +37,6 @@ if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
   bundle exec rake assets:precompile RAILS_ENV=production
   bundle exec rake webpack:compile RAILS_ENV=production
 fi
-
-# Database environment
-(
-  sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
-  echo
-  sed "s/database:.*/database: ${gemset}-test/" $HOME/${database}.db.yaml
-) > $APP_ROOT/config/database.yml
 
 # Create DB first in development as migrate behaviour can change
 bundle exec rake db:drop db:create db:migrate --trace
