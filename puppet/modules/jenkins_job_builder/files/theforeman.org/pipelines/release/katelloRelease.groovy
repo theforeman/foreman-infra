@@ -59,33 +59,12 @@ pipeline {
         stage('Install Test') {
             agent { label 'el && ipv6' }
 
-            environment {
-                VAGRANT_DEFAULT_PROVIDER = 'openstack'
-            }
             steps {
 
-                git url: 'https://github.com/theforeman/forklift'
+                git url: 'https://github.com/theforeman/foreman-infra'
 
-                sh "cp -f vagrant/boxes.d/99-local.yaml.example vagrant/boxes.d/99-local.yaml"
-                sh "vagrant up centos7-katello-bats-ci"
-
-            }
-            post {
-                always {
-                    sh "mkdir debug"
-                    sh "vagrant ssh-config centos7-katello-bats-ci > ssh_config"
-
-                    sh "scp -F ssh_config centos7-katello-bats-ci:/root/bats_results/*.tap debug/ || true"
-                    sh "scp -F ssh_config centos7-katello-bats-ci:/root/last_logs debug/ || true"
-                    sh "scp -F ssh_config centos7-katello-bats-ci:/root/sosreport* debug/ || true"
-                    sh "scp -F ssh_config centos7-katello-bats-ci:/root/foreman-debug.tar.xz debug/ || true"
-                    sh "scp -F ssh_config centos7-katello-bats-ci:/var/log/foreman-installer/katello.log debug/ || true"
-
-                    sh "vagrant destroy centos7-katello-bats-ci"
-
-                    archive "debug/*"
-                    script { step([$class: "TapPublisher", testResults: "debug/*.tap"]) }
-                    deleteDir()
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jenkins-centos', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME']]) {
+                    runPlaybook('ci/centos.org/ansible/jenkins_job.yml', 'localhost', ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=${env.USERNAME}", "jenkins_password=${env.PASSWORD}"], ['-b'])
                 }
             }
         }
@@ -135,4 +114,3 @@ void repoclosure(repo, dist, additions = []) {
     }
 
 }
-
