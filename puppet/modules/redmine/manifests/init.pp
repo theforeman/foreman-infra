@@ -176,7 +176,7 @@ class redmine (
       ssl_chain               => "/etc/letsencrypt/live/${servername}/chain.pem",
       ssl_key                 => "/etc/letsencrypt/live/${servername}/privkey.pem",
       headers                 => [
-        'Strict-Transport-Security: max-age=86400;',
+        'set Strict-Transport-Security: max-age=86400;',
       ],
       require                 => [Letsencrypt::Certonly[$servername], Exec['install redmine']],
     }
