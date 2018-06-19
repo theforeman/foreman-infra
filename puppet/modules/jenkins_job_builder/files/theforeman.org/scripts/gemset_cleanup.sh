@@ -18,6 +18,7 @@ set -x
 
 # Env var works around Rails issue #28001 if DB migrations fail
 bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true
+bundle exec rake db:drop RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true
 
 echo "Delete gemset"
 set +x

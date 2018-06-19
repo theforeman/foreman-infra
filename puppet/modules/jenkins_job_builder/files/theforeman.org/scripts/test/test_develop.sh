@@ -25,6 +25,8 @@ bundle install --without=development --jobs=5 --retry=5
 (
   sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
   echo
+  sed "s/^test:/production:/; s/database:.*/database: ${gemset}-prod/" $HOME/${database}.db.yaml
+  echo
   sed "s/database:.*/database: ${gemset}-test/" $HOME/${database}.db.yaml
 ) > $APP_ROOT/config/database.yml
 
@@ -32,10 +34,7 @@ bundle install --without=development --jobs=5 --retry=5
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
   npm install npm@'<6.0.0' # first upgrade to newer npm
 
-  # Test asset precompile
   $APP_ROOT/node_modules/.bin/npm install
-  bundle exec rake assets:precompile RAILS_ENV=production
-  bundle exec rake webpack:compile RAILS_ENV=production
 fi
 
 # Create DB first in development as migrate behaviour can change
@@ -44,3 +43,11 @@ bundle exec rake db:drop db:create db:migrate --trace
 tasks="pkg:generate_source jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
 bundle exec rake $tasks TESTOPTS="-v" --trace
+
+# Test asset precompile
+if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
+  bundle exec rake db:drop db:create RAILS_ENV=production
+  bundle exec rake db:migrate RAILS_ENV=production
+  bundle exec rake assets:precompile RAILS_ENV=production
+  bundle exec rake webpack:compile RAILS_ENV=production
+fi
