@@ -1,0 +1,85 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    jenkins_host: 'https://ci.centos.org'
+    jenkins_job_name: ''
+    jenkins_username: ''
+    jenkins_password: ''
+    jenkins_job_token: ''
+  tasks:
+    - name: "Query Jenkins job queue until job has started"
+      uri:
+        force_basic_auth: yes
+        headers:
+          Content-Type: "application/json"
+        method: GET
+        return_content: yes
+        timeout: 3
+        user: "{{ jenkins_username }}"
+        password: "{{ jenkins_password }}"
+        url: "{{ jenkins_host }}/crumbIssuer/api/json"
+      register: crumb
+
+    - debug:
+        msg: "{{ crumb.json.crumb }}"
+
+    - name: "Start Jenkins job"
+      uri:
+        force_basic_auth: yes
+        headers:
+          Content-Type: "application/json"
+          Jenkins-Crumb: "{{ crumb.json.crumb }}"
+        method: POST
+        return_content: yes
+        status_code: 201
+        user: "{{ jenkins_username }}"
+        password: "{{ jenkins_password }}"
+        url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/build?TOKEN={{ jenkins_job_token }}"
+      register: start_job_result
+
+    - debug:
+        msg: "{{ start_job_result }}"
+
+    - name: "Query Jenkins job queue until job has started"
+      uri:
+        force_basic_auth: yes
+        headers:
+          Content-Type: "application/json"
+        method: GET
+        return_content: yes
+        timeout: 3
+        user: "{{ jenkins_username }}"
+        password: "{{ jenkins_password }}"
+        url: "{{ start_job_result.location }}api/json"
+      register: poll_result
+      until: poll_result.json.executable.number | default(0) | int > 0
+      retries: 10
+      delay: 4
+
+    - debug:
+        msg: "{{ poll_result }}"
+
+    - name: "Jenkins build job URL"
+      debug:
+        msg: "Build job: {{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/api/json"
+
+    - name: "Poll job until success or fail"
+      uri:
+        force_basic_auth: yes
+        headers:
+          Content-Type: "application/json"
+        method: GET
+        return_content: yes
+        timeout: 3
+        user: "{{ jenkins_username }}"
+        password: "{{ jenkins_password }}"
+        url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/api/json"
+      register: build_job_result
+      until: build_job_result.json.result == 'SUCCESS' or build_job_result.json.result == 'FAILURE'
+      retries: 280
+      delay: 20
+
+    - fail:
+        msg: "Build Job Failed"
+      when: build_job_result.json.result == 'FAILURE'
