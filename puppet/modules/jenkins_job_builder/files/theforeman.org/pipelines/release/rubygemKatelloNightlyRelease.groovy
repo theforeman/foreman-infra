@@ -1,10 +1,6 @@
 pipeline {
     agent { label 'admin' }
 
-    environment {
-        RUBY = '2.2'
-    }
-
     options {
         timestamps()
         timeout(time: 60, unit: 'MINUTES')
@@ -16,9 +12,8 @@ pipeline {
         stage ("Build Gem") {
             steps {
                 dir('katello') {
-                    configureRVM(env.RUBY)
                     git url: "https://github.com/Katello/katello", branch: 'master'
-                    withRVM(["gem build katello.gemspec"], env.RUBY)
+                    sh "gem build katello.gemspec"
                     archiveArtifacts artifacts: '*.gem'
                 }
             }

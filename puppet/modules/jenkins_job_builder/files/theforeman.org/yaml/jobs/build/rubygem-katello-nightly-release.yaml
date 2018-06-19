@@ -7,4 +7,3 @@
     dsl:
       !include-raw:
         - pipelines/release/rubygemKatelloNightlyRelease.groovy
-        - pipelines/lib/rvm.groovy
