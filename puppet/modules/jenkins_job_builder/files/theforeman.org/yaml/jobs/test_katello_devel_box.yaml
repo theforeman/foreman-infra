@@ -1,0 +1,11 @@
+- job:
+    name: test_katello_devel_box
+    node: 'admin && sshkey'
+    scm:
+      - forklift
+    triggers:
+      - github
+      - pollscm:
+          cron: '0 0 * * 1-5'
+    builders:
+      - katello_devel_box

@@ -1,0 +1,4 @@
+- builder:
+    name: katello_devel_box
+    builders:
+      - shell: !include-raw: scripts/katello_devel_box.sh
