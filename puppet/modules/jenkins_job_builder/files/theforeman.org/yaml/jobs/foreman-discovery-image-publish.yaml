@@ -1,10 +1,6 @@
 - job:
     name: foreman-discovery-image-publish
     node: 'admin && el && sshkey && ipv6'
-    scm:
-      - foreman-discovery-image
-    builders:
-      - foreman-discovery-image-publish
     parameters:
       - string:
           name: proxy_repository
@@ -22,6 +18,15 @@
           name: branch
           default: master
           description: 'Name of the branch in repoowner to use.'
+    scm:
+      - git:
+          url: "https://github.com/${repoowner}/foreman-discovery-image"
+          wipe-workspace: true
+          per-build-tag: true
+          branches:
+            - '${branch}'
+    builders:
+      - shell: !include-raw: scripts/foreman-discovery-image-publish.sh
     wrappers:
       - abort_build:
           timeout_min: 180
