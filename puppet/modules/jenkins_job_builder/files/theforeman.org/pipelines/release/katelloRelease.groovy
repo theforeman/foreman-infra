@@ -30,7 +30,7 @@ pipeline {
             }
         }
         stage('Pulp Repoclosure') {
-            agent { label 'el && ipv6' }
+            agent { label 'el' }
 
             steps {
 
@@ -57,7 +57,7 @@ pipeline {
             }
         }
         stage('Install Test') {
-            agent { label 'el' }
+            agent { label 'el && ipv6' }
 
             environment {
                 VAGRANT_DEFAULT_PROVIDER = 'openstack'
