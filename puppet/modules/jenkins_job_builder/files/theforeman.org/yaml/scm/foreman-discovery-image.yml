@@ -1,9 +1,0 @@
-- scm:
-    name: foreman-discovery-image
-    scm:
-      - git:
-          url: "https://github.com/{repoowner}/foreman-discovery-image"
-          wipe-workspace: true
-          per-build-tag: true
-          branches:
-            - '{branch}'
