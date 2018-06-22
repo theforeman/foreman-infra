@@ -1,22 +1,18 @@
 #!/bin/bash -xe
 
-# monkey patch vagrant-rackspace - bug https://github.com/mitchellh/vagrant-rackspace/pull/153
-sed -i 's/retryable(:on => Fog::Errors::TimeoutError, :tries => 200) do/retryable(:on => [Excon::Error::Timeout, Fog::Errors::TimeoutError], :tries => 200) do/' /home/jenkins/.vagrant.d/gems/gems/vagrant-rackspace-0*/lib/vagrant-rackspace/action/create_server.rb
-
 base_dir=/var/www/vhosts/downloads/htdocs/discovery
 
 cd aux/vagrant-build
 
 export distro=f27
 export proxy_repo=$(eval echo ${proxy_repository})
-export VAGRANT_DEFAULT_PROVIDER=rackspace
-trap "vagrant destroy" EXIT ERR
+export VAGRANT_DEFAULT_PROVIDER=openstack
+trap "vagrant destroy ${distro}" EXIT ERR
 
 # execute the build
-vagrant destroy
-vagrant up ${distro} --provision --debug
+vagrant up ${distro} --provision
 vagrant ssh-config ${distro} | tee vagrant-ssh-config.tmp
-mkdir tmp || true
+mkdir -p tmp
 rm -rf tmp/*
 scp -F vagrant-ssh-config.tmp ${distro}:foreman-discovery-image/fdi*tar tmp/
 scp -F vagrant-ssh-config.tmp ${distro}:foreman-discovery-image/fdi-bootable*iso tmp/
