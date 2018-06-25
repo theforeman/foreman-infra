@@ -22,7 +22,6 @@ class prprocessor (
   Stdlib::Absolutepath $app_root = '/usr/share/prprocessor',
   Boolean $https                 = false,
 ) {
-  # TODO: cron @weekly scripts/close_inactive.rb
 
   user { $username:
     ensure => 'present',
@@ -65,6 +64,15 @@ class prprocessor (
     environment => ["HOME=${app_root}"],
     unless      => 'bundle check',
     require     => Package[$packages],
+  }
+
+  cron { 'close inactive':
+    command     => "cd ${app_root} && bundle exec scripts/close_inactive.rb",
+    user        => $username,
+    environment => ["HOME=${app_root}", "GITHUB_OAUTH_TOKEN='${github_oauth_token}'"],
+    hour        => 1,
+    minute      => 23,
+    require     => Exec['install prprocessor']
   }
 
   # Apache / Passenger
