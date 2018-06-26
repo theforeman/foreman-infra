@@ -4,6 +4,7 @@
 # @param github_secret_token The github secret token
 # @param redmine_api_key The API key for Redmine
 # @param jenkins_token The token to use for the Jenkins API
+# @param sentry_dsn The Sentry DSN
 # @param username The unix username the PR processor should run as
 # @param servername The DNS name to use as servername
 # @param repo_url The git repo URL to clone from
@@ -14,6 +15,7 @@ class prprocessor (
   String $github_secret_token,
   String $redmine_api_key,
   String $jenkins_token,
+  String $sentry_dsn,
   String $username               = 'prprocessor',
   String $servername             = 'prprocessor.theforeman.org',
   Stdlib::Httpsurl $repo_url     = 'https://github.com/theforeman/prprocessor.git',
@@ -75,6 +77,7 @@ class prprocessor (
     "GITHUB_SECRET_TOKEN ${github_secret_token}",
     "REDMINE_API_KEY ${redmine_api_key}",
     "JENKINS_TOKEN ${jenkins_token}",
+    "SENTRY_DSN ${sentry_dsn}",
   ]
 
   letsencrypt::certonly { $servername:
