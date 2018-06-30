@@ -15,6 +15,7 @@
           type: user-defined
           name: os
           values:
+          - bionic
           - jessie
           - stretch
           - xenial
@@ -49,6 +50,7 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
           name: onlyos
           choices:
             - all
+            - bionic
             - jessie
             - stretch
             - xenial
