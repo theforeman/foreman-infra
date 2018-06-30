@@ -38,14 +38,12 @@ class debian {
           ensure     => present,
           arch       => 'amd64',
           release    => 'stretch',
-          puppetlabs => false,
           apturl     => 'http://ftp.us.debian.org/debian',
           aptcontent => "deb http://ftp.us.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ stretch main non-free contrib\n";
         'stretch32':
           ensure     => present,
           arch       => 'i386',
           release    => 'stretch',
-          puppetlabs => false,
           apturl     => 'http://ftp.us.debian.org/debian',
           aptcontent => "deb http://ftp.us.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ stretch main non-free contrib\n";
         'xenial64':
@@ -75,7 +73,6 @@ class debian {
           ensure     => present,
           arch       => 'armhf',
           release    => 'stretch',
-          puppetlabs => false,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
         'xenial':
@@ -105,7 +102,6 @@ class debian {
           ensure     => present,
           arch       => 'arm64',
           release    => 'stretch',
-          puppetlabs => false,
           apturl     => 'http://ftp.de.debian.org/debian',
           aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
         'xenial':
