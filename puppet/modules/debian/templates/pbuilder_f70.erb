@@ -239,10 +239,8 @@ EOF
 <% end -%>
 
 <% if @puppetlabs == true then %>
-# Puppet Labs
-echo "deb http://apt.puppetlabs.com <%= @release %> main" >> /etc/apt/sources.list
-echo "deb http://apt.puppetlabs.com <%= @release %> dependencies" >> /etc/apt/sources.list
-echo "deb http://apt.puppetlabs.com <%= @release %> PC1" >> /etc/apt/sources.list
+# Puppet5
+echo "deb http://apt.puppet.com <%= @release %> puppet5" >> /etc/apt/sources.list
 
 cat <<EOF | apt-key add -
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -271,31 +269,8 @@ GwlRUnuZP4OeSuoFNNJNb9PO6XFSP66eNHFbEpIoBU7phBzwWpTXNsW+kAcY8Rno
 8GzKR/2FRsxe5Nhfh8xy88U7BA0tqxWdqpk/ym+wDcgHBfSRt0dPFnbaHAiMRlgX
 J/NPHBQtkoEdQTKA+ICxcNTUMvsPDQgZcU1/ViLMN+6kZaGNDVcPeMgDvqxu0e/T
 b3uYiId38HYbHmD6rDrOQL/2VPPXbdGbxDGQUgX1DfdOuFXw1hSTilwI1KdXxUXD
-sCsZbchgliqGcI1l2En62+6pI2x5XQqqiJ7+uQINBFe2Iz4BEADzbs8WhdBxBa0t
-JBl4Vz0brDgU3YDqNkqnra/T17kVPI7s27VEhoHERmZJ17pKqb2pElpr9mN/FzuN
-0N9wvUaumd9gxzsOCam7DPTmuSIvwysk391mjCJkboo01bhuVXe2FBkgOPFzAJEH
-YFPxmu7tWOmCxNYiuuYtxLywU7lC/Zp6CZuq57xJqUWK47I5wDK9/iigkwSb3nDs
-6A2LpkDmCr+rcOwLh5bxDSei7vYW+3TNOkPlC/h6fO9dPeC9AfyW6qPdVFQq1mpZ
-Zcj1ALz7zFiciIB4NrD3PTjDlRnaJCWKPafVSsMbyIWmQaJ01ifuE0Owianrau8c
-I264VXmI5pA9C8k9f2aVBuJiLsXaLEb03CzFWz9JpBLttA9ccaam3feU2EmnC3sb
-9xD+Ibkxq5mKFN3lEzUAAIqbI1QYGZXPgLxMY7JSvoUxAqeHwpf/dO2LIUqYUpx0
-bF/GWRV9Uql8omNQbhwP0p2X/0Gfxj9Abg2IJM8LeOu3Xk0HACwwyVXgxcgk5FO+
-+KZpTN3iynjmbIzB9qcd9TeSzjVh/RDPSdn5K6Ao5ynubGYmaPwCk+DdVBRDlgWo
-7yNIF4N9rFuSMAEJxA1nS5TYFgIN9oDF3/GHngVGfFCv4EG3yS08Hk1tDV0biKdK
-ypcx402TAwVRWP5Pzmxc6/ZXU4ZhZQARAQABiQIlBBgBAgAPBQJXtiM+AhsMBQkJ
-ZgGAAAoJEH9DgoDvjTSfbWYQALwafIQK9avVNIuhMsyYPa/yHf6rUOLqrYO1GCmj
-vyG4cYmryzdxyfcXEmuE5QAIbEKSISrcO6Nvjt9PwLCjR/dUvco0f0YFTPv+kamn
-+Bwp2Zt6d3MenXC6mLXPHR4OqFjzCpUT8kFwycvGPsuqZQ/CO0qzLDmAGTY+4ly3
-9aQEsQyFhV3P+6SWnaC2TldWpfG/2pCSaSa8dbYbRe3SUNKXwT8kw3WoQYNofF6n
-or8oFVA+UIVlvHc5h7L3tfFylRy5CwtR5rBQtoBicRVxEQc7ARNmB1XWuPntMQl/
-N1Fcfc+KSILFblAR6eVv+6BhMvRqzxqe81AEAP+oKVVwJ7H+wTQun2UKAgZATDWP
-/LQsYinmLADpraDPqxT2WJe8kjszMDQZCK+jhsVrhZdkiw9EHAM0z7BKz6JERmLu
-TIEcickkTfzbJWXZgv40Bvl99yPMswnR1lQHD7TKxyHYrI7dzJQri4mbORg4lOnZ
-3Tyodv21Ocf4as2No1p6esZW+M46zjZeO8zzExmmENI2+P7/VUt+LWyQFiqRM0iW
-zGioYMWgVePywFGaTV51/0uF9ymHHC7BDIcLgUWHdg/1B67jR5YQfzPJUqLhnylt
-1sjDRQIlf+3U+ddvre2YxX/rYUI2gBT32QzQrv016KsiZO+N+Iya3B4D68s6xxQS
-3xJn
-=mMjt
+sCsZbchgliqGcI1l2En62+6pI2x5XQqqiJ7+
+=HpaX
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
 <% end -%>
