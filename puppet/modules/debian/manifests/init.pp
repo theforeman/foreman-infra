@@ -10,6 +10,18 @@ class debian {
   case $::architecture {
     'amd64': {
       debian::pbuilder_setup {
+        'bionic64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'bionic',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\n";
+        'bionic32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'bionic',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\n";
         'jessie64':
           ensure     => present,
           arch       => 'amd64',
@@ -77,6 +89,12 @@ class debian {
 
     'aarch64': {
       debian::pbuilder_setup {
+        'bionic':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'bionic',
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\n";
         'jessie':
           ensure     => present,
           arch       => 'arm64',
