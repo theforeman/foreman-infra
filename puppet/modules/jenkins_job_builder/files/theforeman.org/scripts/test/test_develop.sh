@@ -38,7 +38,8 @@ if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
 fi
 
 # Create DB first in development as migrate behaviour can change
-bundle exec rake db:drop db:create db:migrate --trace
+bundle exec rake db:drop || true
+bundle exec rake db:create db:migrate --trace
 
 tasks="pkg:generate_source jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
@@ -46,7 +47,8 @@ bundle exec rake $tasks TESTOPTS="-v" --trace
 
 # Test asset precompile
 if [ ${database} = postgresql -a -e "$APP_ROOT/package.json" ]; then
-  bundle exec rake db:drop db:create RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=true
+  bundle exec rake db:drop RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true
+  bundle exec rake db:create RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=true
   bundle exec rake db:migrate RAILS_ENV=production
   bundle exec rake assets:precompile RAILS_ENV=production
   bundle exec rake webpack:compile RAILS_ENV=production
