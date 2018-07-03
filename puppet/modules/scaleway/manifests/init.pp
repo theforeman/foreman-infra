@@ -10,7 +10,7 @@ class scaleway(
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',
-    mode   => 0700,
+    mode   => '0700',
   }
 
   file { '/usr/bin/scaleway-snapshot':
