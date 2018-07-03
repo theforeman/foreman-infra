@@ -10,15 +10,15 @@
 SERVER          = ARGV[0]
 exit 1 if SERVER.nil?
 
-SETTINGS        = YAML.load_file("/etc/scaleway/#{SERVER}.yaml")
-API_KEY         = SETTINGS[:api_key]
-ORG_ID          = SETTINGS[:org_id]
-
 require 'net/http'
 require 'json'
 require 'yaml'
 require 'date'
 require 'timeout'
+
+SETTINGS        = YAML.load_file("/etc/scaleway/#{SERVER}.yaml")
+API_KEY         = SETTINGS['api_key']
+ORG_ID          = SETTINGS['org_id']
 
 NUM_SNAPS = 3
 TIMEOUT   = 1800 # 30 min, snaps usually take ~10min

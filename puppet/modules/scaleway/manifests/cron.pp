@@ -11,7 +11,7 @@ define scaleway::cron (
     owner   => 'root',
     group   => 'root',
     mode    => '0700', #root only, contains API keys
-    content => "api_key: <%= @api_key -%>\norg_id: <%= @org_id  -%>\n",
+    content => "api_key: ${api_key}\norg_id: ${org_id}\n"
   }
 
   cron { "scaleway-snapshot-${name}":
