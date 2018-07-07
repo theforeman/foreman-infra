@@ -63,6 +63,12 @@ class debian {
 
     'armv7l': {
       debian::pbuilder_setup {
+        'bionic':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'bionic',
+          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
+          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\n";
         'jessie':
           ensure     => present,
           arch       => 'armhf',
