@@ -39,11 +39,11 @@ define debian::pbuilder_setup (
     content => template('debian/pbuilder_f70.erb'),
   }
 
-  # the result cache gets huge after a while - trim it to the last 7 days at 5am
+  # the result cache gets huge after a while - trim it to the last ~2 days at 5am
   file { "/etc/cron.d/cleanup-${name}":
     ensure  => file,
     mode    => '0644',
-    content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mtime +6 -delete\n",
+    content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mtime +1 -delete\n",
   }
 
 }
