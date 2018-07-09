@@ -1,32 +1,20 @@
-def runPlaybook(body) {
+def runPlaybook(playbook, inventory, extraVars = [], options = []) {
+    def command = [
+        "ansible-playbook",
+        "-i ${inventory}",
+        playbook
+    ]
 
-    def config = [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = config
-    body()
+    if (options) {
+        command += options
+    }
+
+    if (extraVars) {
+        extraVars = "-e " + extraVars.join(" -e ")
+        command.push(extraVars)
+    }
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-
-        def extraVars = [:]
-        def defaultVars = [:]
-        def inventory = config.inventory
-        def tags = config.tags
-        def limit = config.limit
-
-        if (config.extraVars) {
-            extraVars = defaultVars + config.extraVars
-        } else {
-            extraVars = defaultVars
-        }
-
-        ansiblePlaybook(
-            playbook: config.playbook,
-            inventory: inventory,
-            colorized: true,
-            limit: limit,
-            tags: tags,
-            extraVars: extraVars
-        )
-
+        sh "${command.join(' ')}"
     }
 }
