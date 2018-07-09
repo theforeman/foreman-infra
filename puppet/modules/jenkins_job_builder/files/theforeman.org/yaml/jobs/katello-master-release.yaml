@@ -1,11 +1,11 @@
 - job:
-    name: hammer-cli-katello-nightly-release
+    name: katello-master-release
     project-type: pipeline
     sandbox: false
     triggers:
       - github
     dsl:
       !include-raw:
-        - pipelines/vars/hammer-cli-katello-nightly-release.groovy
+        - pipelines/vars/katello-master-release.groovy
         - pipelines/release/rubygemRPMNightlyRelease.groovy
         - pipelines/lib/obal.groovy
