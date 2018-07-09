@@ -17,3 +17,8 @@ def find_changed_packages(diff_range) {
 
     return changed_packages.split()
 }
+
+def query_rpmspec(specfile, queryformat) {
+    result = sh(returnStdout: true, script: "rpmspec -q --srpm --undefine=dist --undefine=foremandist --queryformat=${queryformat} ${specfile}").trim()
+    return result
+}

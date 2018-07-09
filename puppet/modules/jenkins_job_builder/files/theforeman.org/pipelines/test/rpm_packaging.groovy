@@ -1,5 +1,8 @@
 def packages_to_build
 def packages = [:]
+def VERCMP_NEWER = 12
+def VERCMP_OLDER = 11
+def VERCMP_EQUAL = 0
 
 pipeline {
     agent { label 'rpmbuild' }
@@ -45,6 +48,63 @@ pipeline {
                         def index = i
                         packages[packages_to_build[index]] = {
                             obal(action: "lint", packages: packages_to_build[index])
+                        }
+                    }
+
+                    parallel packages
+                }
+            }
+        }
+
+        stage("Verify version and release"){
+            when {
+                expression { packages_to_build }
+            }
+            steps {
+                script {
+
+                    for(int i = 0; i < packages_to_build.size(); i++) {
+                        def index = i
+                        packages[packages_to_build[index]] = {
+                            package_name = packages_to_build[index]
+
+                            new_version = query_rpmspec("packages/**/${package_name}/*.spec", '%{VERSION}')
+                            new_release = query_rpmspec("packages/**/${package_name}/*.spec", '%{RELEASE}')
+
+                            sh "git checkout origin/${env.ghprbTargetBranch}"
+
+                            old_version = query_rpmspec("packages/**/${package_name}/*.spec", '%{VERSION}')
+                            old_release = query_rpmspec("packages/**/${package_name}/*.spec", '%{RELEASE}')
+
+                            sh "git checkout -"
+
+                            compare_version = sh(
+                              script: "rpmdev-vercmp ${old_version} ${new_version}",
+                              returnStatus: true
+                            )
+
+                            compare_release = sh(
+                              script: "rpmdev-vercmp ${old_release} ${new_release}",
+                              returnStatus: true
+                            )
+
+                            compare_new_to_one = sh(
+                              script: "rpmdev-vercmp 1 ${new_release}",
+                              returnStatus: true
+                            )
+
+                            if (compare_version != VERCMP_EQUAL && (compare_new_to_one == VERCMP_OLDER || compare_new_to_one == VERCMP_EQUAL)) {
+                                echo "New version and release is reset to 1"
+                            } else if (compare_version != VERCMP_EQUAL && compare_new_to_one == VERCMP_NEWER) {
+                                // new version, but release was not reset
+                                echo "Version updated but release was not reset back to 1"
+                                sh "exit 1" // this fails the stage
+                            } else if (compare_version == VERCMP_EQUAL && compare_release == VERCMP_NEWER) {
+                                echo "Version remained the same and release is reset to 1"
+                            } else {
+                                echo "Version or release needs updating"
+                                sh "exit 1"
+                            }
                         }
                     }
 
