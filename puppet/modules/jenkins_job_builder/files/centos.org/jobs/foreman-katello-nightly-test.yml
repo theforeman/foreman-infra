@@ -6,6 +6,6 @@
     dsl:
       !include-raw:
         - pipelines/test/nightlyTest.groovy
-        - pipelines/lib/duffy.groovy
-        - pipelines/lib/ansible.groovy
-        - pipelines/lib/folderChanged.groovy
+        - ../theforeman.org/pipelines/lib/duffy.groovy
+        - ../theforeman.org/pipelines/lib/ansible.groovy
+        - ../theforeman.org/pipelines/lib/folderChanged.groovy
