@@ -1,3 +1,22 @@
+/*
+ * this pipeline assumes you've set a handful of groovy variables
+ *
+ * owner_repo
+ * branch
+ * gemspec
+ * package_name
+ */
+
+def obalExtraVars = [
+    'build_package_tito_releaser_args': [
+        "--arg jenkins_job=${env.JOB_NAME}",
+        "--arg jenkins_job_id=${env.BUILD_ID}"
+    ],
+    'releasers': [
+        'koji-katello-jenkins'
+    ]
+]
+
 pipeline {
     agent { label 'rpmbuild' }
 
@@ -23,9 +42,16 @@ pipeline {
             steps {
                 dir('foreman-packaging') {
                     git(url: 'https://github.com/theforeman/foreman-packaging', branch: 'rpm/develop')
-                    obal(action: "release", extraVars: ['build_package_tito_releaser_args': ["--arg jenkins_job=${env.JOB_NAME}", "--arg jenkins_job_id=${env.BUILD_ID}"]], packages: package_name)
+                    obal(action: "scratch", extraVars: obalExtraVars, packages: package_name)
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up workspace"
+            deleteDir()
         }
     }
 }
