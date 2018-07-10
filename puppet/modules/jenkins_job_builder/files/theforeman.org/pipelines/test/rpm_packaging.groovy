@@ -78,7 +78,7 @@ pipeline {
 
     post {
         always {
-            status_koji_links("${currentBuild.getCurrentResult()}")
+            status_koji_links("${currentBuild.getCurrentResult()}", ghprbGhRepository.split('/')[1])
         }
     }
 }
