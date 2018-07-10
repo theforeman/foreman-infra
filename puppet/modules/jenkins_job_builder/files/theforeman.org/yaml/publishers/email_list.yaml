@@ -1,0 +1,6 @@
+- publisher:
+    name: email_list
+    publishers:
+    - email:
+        recipients: foreman-jenkins@googlegroups.com
+        notify-every-unstable-build: false

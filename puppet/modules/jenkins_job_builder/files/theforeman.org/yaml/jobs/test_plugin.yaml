@@ -29,6 +29,7 @@
           block: true
     publishers:
       - ircbot_freenode
+      - email_list
 
 - defaults:
     name: plugin
