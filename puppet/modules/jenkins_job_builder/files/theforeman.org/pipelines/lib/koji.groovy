@@ -1,7 +1,7 @@
-def status_koji_links(build_status) {
+def status_koji_links(build_status, repo) {
     def tasks = get_koji_tasks()
     for (String task: tasks) {
-        githubNotify credentialsId: 'github-token', account: 'theforeman', repo: 'foreman-packaging', sha: "${ghprbActualCommit}", context: "koji/${task}", description: "koji task #${task}" , status: build_status, targetUrl: "http://koji.katello.org/koji/taskinfo?taskID=${task}"
+        githubNotify credentialsId: 'github-token', account: 'theforeman', repo: repo, sha: "${ghprbActualCommit}", context: "koji/${task}", description: "koji task #${task}" , status: build_status, targetUrl: "http://koji.katello.org/koji/taskinfo?taskID=${task}"
     }
 }
 
