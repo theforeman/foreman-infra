@@ -10,6 +10,10 @@ pipeline {
         }
         stage('Provision Node') {
             steps {
+                dir('foreman-infra') {
+                    git url: 'https://github.com/theforeman/foreman-infra.git'
+                }
+  
                 provision()
             }
         }
