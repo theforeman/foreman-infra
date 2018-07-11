@@ -57,7 +57,7 @@ pipeline {
             }
         }
         stage('Install Test') {
-            agent { label 'el && ipv6' }
+            agent { label 'el' }
 
             steps {
 
