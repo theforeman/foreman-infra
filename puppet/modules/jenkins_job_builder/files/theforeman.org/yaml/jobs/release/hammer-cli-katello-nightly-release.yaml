@@ -1,9 +1,0 @@
-- job:
-    name: hammer-cli-katello-nightly-release
-    project-type: pipeline
-    sandbox: false
-    triggers:
-      - github
-    dsl:
-      !include-raw:
-        - pipelines/release/hammerCliKatelloNightlyRelease.groovy
