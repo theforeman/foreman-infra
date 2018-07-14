@@ -1,5 +1,5 @@
 - job:
-    name: katello-pr-test
+    name: katello-webpack-pr-test
     project-type: pipeline
     concurrent: true
     properties:
@@ -7,15 +7,16 @@
           url: https://github.com/Katello/katello
       - tfm-pull-request-build-discarder
     triggers:
-      - github_pr_pipeline:
-          context: 'katello'
-          excluded_regions:
+      - github_pr_katello:
+          context: 'katello/webpack'
+          included_regions:
             - ^webpack\/.+
+            - ^engines\/bastion_katello\/.+
             - ^app\/assets\/.+
             - package.json
     dsl:
       !include-raw:
-        - pipelines/test/testKatello.groovy
+        - pipelines/test/testKatelloWebpack.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
         - pipelines/lib/foreman.groovy

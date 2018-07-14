@@ -66,16 +66,6 @@ pipeline {
                         }
                     }
                 }
-                stage('react-ui') {
-                    when {
-                        expression { fileExists('package.json') }
-                    }
-                    steps {
-                        sh "npm install npm"
-                        sh "node_modules/.bin/npm install"
-                        sh 'npm test'
-                    }
-                }
                 stage('angular-ui') {
                     steps {
                         dir('foreman') {
@@ -97,15 +87,6 @@ pipeline {
                             sh "grunt ci"
                         }
                         sh "git checkout .eslintrc"
-                    }
-                }
-                stage('assets-precompile') {
-                    steps {
-                        dir('foreman') {
-                            sh "npm install npm"
-                            withRVM(["bundle exec node_modules/.bin/npm install"], ruby)
-                            withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production --trace'], ruby)
-                        }
                     }
                 }
             }

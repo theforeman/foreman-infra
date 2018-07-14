@@ -14,6 +14,10 @@
     status-add-test-results: true
     cancel-builds-on-update: true
 
+- ghprb_pipeline_defaults: &ghprb_pipeline_defaults
+    <<: *ghprb_defaults
+    status-url: https://ci.theforeman.org/blue/organizations/jenkins/$JOB_NAME/detail/$JOB_NAME/$BUILD_ID/pipeline
+
 - trigger:
     name: github_pr
     triggers:
@@ -46,6 +50,14 @@
       - github-pull-request:
           <<: *ghprb_defaults
           status-url: https://ci.theforeman.org/blue/organizations/jenkins/$JOB_NAME/detail/$JOB_NAME/$BUILD_ID/pipeline
+
+- trigger:
+    name: github_pr_katello
+    triggers:
+      - github-pull-request:
+          <<: *ghprb_pipeline_defaults
+          included-regions: "{obj:included_regions|}"
+          excluded-regions: "{obj:excluded_regions|}"
 
 - trigger:
     name: github_pr_rails_packaging
