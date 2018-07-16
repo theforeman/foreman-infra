@@ -7,3 +7,4 @@
       !include-raw:
         - pipelines/release/foremanRelease.groovy
         - pipelines/lib/rvm.groovy
+        - pipelines/lib/ansible.groovy
