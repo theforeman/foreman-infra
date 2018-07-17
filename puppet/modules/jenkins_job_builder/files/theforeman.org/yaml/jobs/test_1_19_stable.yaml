@@ -1,12 +1,12 @@
 - job:
-    name: test_1_16_stable
+    name: test_1_19_stable
     project-type: matrix
     quiet-period: 2700
     properties:
       - github_foreman
     scm:
       - foreman:
-          branch: '1.16-stable'
+          branch: '1.19-stable'
     triggers:
       - scm_fifteen_minutes
       - github
@@ -15,8 +15,6 @@
           type: user-defined
           name: ruby
           values:
-            - 2.1
-            - 2.2
             - 2.3
             - 2.4
       - axis:

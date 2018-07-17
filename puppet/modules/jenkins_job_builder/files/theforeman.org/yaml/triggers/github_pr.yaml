@@ -26,7 +26,6 @@
       - github-pull-request:
           <<: *ghprb_defaults
           white-list-target-branches:
-            - rpm/1.16
             - rpm/1.17
             - deb/.*
 
@@ -39,6 +38,7 @@
           white-list-target-branches:
             - rpm/develop
             - rpm/1.18
+            - rpm/1.19
 
 - trigger:
     name: github_pr_pipeline

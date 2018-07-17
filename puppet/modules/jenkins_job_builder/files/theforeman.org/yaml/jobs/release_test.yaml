@@ -26,16 +26,16 @@
           name: os
           values:
           - centos7
-          - debian8
           - debian9
           - ubuntu1604
+          - ubuntu1804
       - axis:
           type: label-expression
           name: label
           values:
             - el&&ipv6
     execution-strategy:
-      combination-filter: 'os != "debian8" || major_version == "1.16"'
+      combination-filter: '!(os == "ubuntu1804" && (major_version == "1.17" || major_version == "1.18"))'
     wrappers:
       - abort_build:
           timeout_min: 120

@@ -31,6 +31,10 @@ pipeline {
                         repoclosure('nightly', 'el7')
                         push_rpms('nightly', 'el7')
                     },
+                    '1.19/el7': {
+                        repoclosure('1.19', 'el7')
+                        push_rpms('1.19', 'el7')
+                    },
                     '1.18/el7': {
                         repoclosure('1.18', 'el7')
                         push_rpms('1.18', 'el7')
@@ -38,10 +42,6 @@ pipeline {
                     '1.17/el7': {
                         repoclosure('1.17', 'el7')
                         push_rpms('1.17', 'el7')
-                    },
-                    '1.16/el7': {
-                        repoclosure('1.16', 'el7')
-                        push_rpms('1.16', 'el7')
                     }
                 )
 

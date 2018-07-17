@@ -16,7 +16,6 @@
           name: os
           values:
           - bionic
-          - jessie
           - stretch
           - xenial
       - axis:
@@ -32,7 +31,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyos == "all") || onlyos == os) && !(version != "1.16" && os == "jessie")'
+      combination-filter: 'onlyos == "all" || onlyos == os'
     builders:
       - build_deb_dependency
     publishers:
@@ -51,7 +50,6 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
           choices:
             - all
             - bionic
-            - jessie
             - stretch
             - xenial
           description: 'Restrict matrix job to just the one OS.'

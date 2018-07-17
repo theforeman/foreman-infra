@@ -16,8 +16,8 @@
           type: user-defined
           name: os
           values:
-          - jessie
           - stretch
           - xenial
+          - bionic
     execution-strategy:
-      combination-filter: '(os == "jessie" && major_version == "1.16") || os == "xenial" || os == "stretch"'
+      combination-filter: '!(os == "bionic" && (major_version == "1.17" || major_version == "1.18"))'
