@@ -10,7 +10,8 @@ describe 'slave' do
       context "with default parameters" do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.not_to contain_class('slave::vagrant') }
-        it { is_expected.to contain_file('/home/jenkins/.vagrant.d/Vagrantfile').with_ensure('absent') }
+        it { is_expected.to contain_package('vagrant').with_ensure('absent') }
+        it { is_expected.to contain_file('/home/jenkins/.vagrant.d').with_ensure('absent') }
       end
 
       context "with vagrant" do
