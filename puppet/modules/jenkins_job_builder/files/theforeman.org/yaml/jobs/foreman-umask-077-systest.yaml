@@ -13,6 +13,7 @@
             - centos7
             - debian9
             - ubuntu1604
+            - ubuntu1804
       - axis:
           type: label-expression
           name: label
