@@ -23,7 +23,7 @@
     builders:
       - trigger-builds:
         - project: packaging_build_rpm
-          predefined-parameters: "branch=rpm/${major_version}\nproject=${project}\nscratch=false\ngitrelease=false"
+          predefined-parameters: "branch=rpm/${major_version}\nproject=packages/foreman/${project}\nscratch=false\ngitrelease=false"
           block: true
       - conditional-step:
           condition-kind: not
