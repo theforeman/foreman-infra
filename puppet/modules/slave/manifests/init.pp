@@ -50,49 +50,6 @@ class slave (
     group  => 'jenkins',
   }
 
-  # Old jobs that were converted to JJB or removed
-  slave::pr_test_config { [
-      'bastion',
-      'foreman_ansible',
-      'foreman_bootdisk',
-      'foreman_digitalocean',
-      'foreman_discovery',
-      'foreman_docker',
-      'foreman_expire_hosts',
-      'foreman_host_extra_validator',
-      'foreman_host_rundeck',
-      'foreman_monitoring',
-      'foreman_omaha',
-      'foreman_openscap',
-      'foreman_packaging',
-      'foreman_pipeline',
-      'foreman_remote_execution',
-      'foreman_salt',
-      'foreman_setup',
-      'foreman_tasks',
-      'foreman_templates',
-      'foreman_userdata',
-      'hammer_cli',
-      'hammer_cli_foreman',
-      'hammer_cli_foreman_discovery',
-      'kafo',
-      'kafo_parsers',
-      'katello',
-      'katello_packaging',
-      'puppetdb_foreman',
-      'smart_proxy',
-      'smart_proxy_abrt',
-      'smart_proxy_discovery',
-      'smart_proxy_dynflow',
-      'smart_proxy_monitoring',
-      'smart_proxy_omaha',
-      'smart_proxy_openscap',
-      'smart_proxy_pulp',
-      'smart_proxy_remote_execution_ssh',
-    ]:
-      ensure => absent,
-  }
-
   if $github_user and $github_oauth and $jenkins_build_token {
     file { '/home/jenkins/.config':
       ensure => directory,
