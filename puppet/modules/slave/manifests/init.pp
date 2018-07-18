@@ -292,7 +292,11 @@ class slave (
       tenant_name => Sensitive($rackspace_tenant),
     }
   } else {
-    file { '/home/jenkins/.vagrant.d/Vagrantfile':
+    package { 'vagrant':
+      ensure => absent,
+    }
+
+    file { '/home/jenkins/.vagrant.d':
       ensure => absent,
     }
   }
