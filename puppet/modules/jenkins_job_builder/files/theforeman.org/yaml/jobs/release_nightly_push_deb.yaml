@@ -14,5 +14,6 @@
           values:
           - stretch
           - xenial
+          - bionic
     publishers:
       - ircbot_freenode
