@@ -74,6 +74,7 @@ pipeline {
                     steps {
                         sh "npm install npm"
                         sh "node_modules/.bin/npm install"
+                        sh 'npm run lint'
                         sh 'npm test'
                     }
                 }
