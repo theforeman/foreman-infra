@@ -17,7 +17,7 @@
           repo_environment: staging
           pl_puppet: ''
           run_hammer_tests: false
-          db_type: mysql
+          db_type: ''
           umask: ''
           expected_version: '${version}'
     axes:
