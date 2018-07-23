@@ -45,7 +45,7 @@
               group: 'bats'
               variables:
                 bats_environment:
-                  - FOREMAN_EXPECTED_VERSION: ${{expected_version}}
+                  FOREMAN_EXPECTED_VERSION: ${{expected_version}}
                 foreman_installer_options:
                   - '${{args}}'
                 ${{umask:+umask_mode: ${{umask}}}}
