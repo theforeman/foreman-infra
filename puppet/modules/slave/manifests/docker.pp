@@ -17,4 +17,10 @@ class slave::docker {
       default  => 'docker',
     };
   }
+
+  group { 'docker':
+    ensure => 'present',
+  }
+
+  User<|title == 'jenkins'|>{groups +> ['docker']}
 }
