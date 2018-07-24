@@ -1,9 +1,9 @@
 - job:
-    name: katello-nightly-release
+    name: katello-3.8-release
     project-type: pipeline
     triggers:
       - timed: 'H 23 * * *'
     dsl:
       !include-raw:
-        - pipelines/release/katello/nightly.groovy
+        - pipelines/release/katello/3.8.groovy
         - pipelines/lib/ansible.groovy
