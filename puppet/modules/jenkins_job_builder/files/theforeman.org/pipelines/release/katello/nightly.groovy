@@ -55,7 +55,11 @@ pipeline {
                 git url: 'https://github.com/theforeman/foreman-infra'
 
                 withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                    runPlaybook('ci/centos.org/ansible/jenkins_job.yml', 'localhost', ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"], ['-b'])
+                    runPlaybook(
+                        playbook: 'ci/centos.org/ansible/jenkins_job.yml',
+                        extraVars: ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                        options: ['-b']
+                    )
                 }
             }
         }

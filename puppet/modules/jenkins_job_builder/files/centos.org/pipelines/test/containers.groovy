@@ -82,6 +82,11 @@ pipeline {
 
 def containerPlaybook(playbook) {
     dir('containers') {
-        runPlaybook(playbook, cico_inventory('../'), ['@vars/remote.yml'], ['-b'])
+        runPlaybook(
+            playbook: playbook,
+            inventory: cico_inventory('../'),
+            extraVars: ['@vars/remote.yml'],
+            options: ['-b']
+        )
     }
 }
