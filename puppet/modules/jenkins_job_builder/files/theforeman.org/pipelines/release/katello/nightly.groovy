@@ -47,19 +47,41 @@ pipeline {
 
             }
         }
-        stage('Install Test') {
+        stage('Install tests and Upgrade tests') {
             agent { label 'el' }
 
-            steps {
+            parallel {
 
-                git url: 'https://github.com/theforeman/foreman-infra'
+                stage('Install test') {
 
-                withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                    runPlaybook(
-                        playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                        extraVars: ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
-                        options: ['-b']
-                    )
+                    steps {
+
+                        git url: 'https://github.com/theforeman/foreman-infra'
+
+                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
+                            runPlaybook(
+                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
+                                extraVars: ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                options: ['-b']
+                            )
+                        }
+                    }
+                }
+
+                stage('Upgrade test') {
+
+                    steps {
+
+                        git url: 'https://github.com/theforeman/foreman-infra'
+
+                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
+                            runPlaybook(
+                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
+                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                options: ['-b']
+                            )
+                        }
+                    }
                 }
             }
         }
