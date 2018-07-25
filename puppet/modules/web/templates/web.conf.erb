@@ -13,4 +13,4 @@ RewriteRule   ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
 <% end -%>
 
 RewriteRule   ^/manuals/latest(.*) /manuals/<%= @stable -%>$1 [R,L]
-RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/<%= @latest -%>$1 [R,L]
+RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/nightly$1 [R,L]

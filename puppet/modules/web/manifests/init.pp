@@ -11,9 +11,9 @@
 #          certs have to exist, so keep SSL vhosts disabled until the certs are present via the HTTP
 #          vhost and only then enable the SSL vhosts.
 class web(
-  String $stable = '1.17',
-  String $latest = '1.18',
-  String $next = '1.19',
+  String $stable = '1.18',
+  String $latest = '1.19',
+  String $next = '1.20',
   Hash[String, Hash] $htpasswds = {},
   Boolean $https = false,
 ) {
