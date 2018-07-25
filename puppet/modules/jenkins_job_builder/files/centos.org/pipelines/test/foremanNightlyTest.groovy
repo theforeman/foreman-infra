@@ -19,7 +19,11 @@ pipeline {
         }
         stage('Install Pipeline Requirements') {
             steps {
-                runPlaybook('playbooks/setup_forklift.yml', cico_inventory('./'), [], ['-b'])
+                runPlaybook(
+                    playbook: 'playbooks/setup_forklift.yml',
+                    inventory: cico_inventory('./'),
+                    options: ['-b']
+                )
             }
         }
         stage('Run Pipeline') {
@@ -33,7 +37,12 @@ pipeline {
         always {
             script {
                 duffy_ssh('cd forklift && ansible-playbook playbooks/collect_debug.yml -l pipeline-foreman-nightly-centos7', 'duffy_box', './')
-                runPlaybook('foreman-infra/ci/centos.org/ansible/fetch_debug_files.yml', cico_inventory('./'), ["workspace=/home/foreman/workspace/${env.JOB_NAME}/debug"], ['-b'])
+                runPlaybook(
+                    playbook: 'foreman-infra/ci/centos.org/ansible/fetch_debug_files.yml',
+                    inventory: cico_inventory('./'),
+                    extraVars: ["workspace=/home/foreman/workspace/${env.JOB_NAME}/debug"],
+                    options: ['-b']
+                )
             }
 
             archiveArtifacts artifacts: 'debug/**/*.tap'

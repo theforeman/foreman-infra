@@ -4,14 +4,14 @@ def provision() {
     }
 
   	dir('foreman-infra/ci/centos.org/ansible') {
-        runPlaybook('provision.yml', 'localhost')
+        runPlaybook(playbook: 'provision.yml')
     }
 }
 
 def deprovision() {
     if (fileExists('foreman-infra')) {
         dir('foreman-infra/ci/centos.org/ansible') {
-            runPlaybook('deprovision.yml', 'localhost')
+            runPlaybook(playbook: 'deprovision.yml')
       	}
     }
 }
