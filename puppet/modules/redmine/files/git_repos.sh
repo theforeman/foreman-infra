@@ -28,6 +28,11 @@ update_repo() {
   popd >/dev/null
 }
 
+if [[ ! -n $CODE_DIR ]] || [[ ! -n $DATA_DIR ]] ; then
+  echo "Usage: $0 CODE_DIR DATA_DIR"
+  exit 1
+fi
+
 # Sync repositories for all known git repos
 curl -s $REDMINE_REPOS | ruby -rjson -e '
 JSON.load(STDIN).each do |project_name,repos|
@@ -42,7 +47,7 @@ done
 cd $CODE_DIR
 
 # Create repositories in the Redmine projects for all known git repos
-curl -s $REDMINE_REPOS | script/rails runner -e production '
+curl -s $REDMINE_REPOS | bin/rails runner -e production '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
@@ -53,4 +58,4 @@ JSON.load(STDIN).each do |project_name,repos|
 end'
 
 # Import the changesets
-script/rails runner "Repository.fetch_changesets" -e production
+bin/rails runner "Repository.fetch_changesets" -e production
