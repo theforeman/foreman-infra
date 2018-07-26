@@ -66,13 +66,20 @@ class prprocessor (
     require     => Package[$packages],
   }
 
+  # Cron
+
+  mailalias { $username:
+    ensure    => present,
+    recipient => 'sysadmins',
+  }
+
   cron { 'close inactive':
     command     => "cd ${app_root} && bundle exec scripts/close_inactive.rb",
     user        => $username,
     environment => ["HOME=${app_root}", "GITHUB_OAUTH_TOKEN='${github_oauth_token}'"],
     hour        => 1,
     minute      => 23,
-    require     => Exec['install prprocessor']
+    require     => Exec['install prprocessor'],
   }
 
   # Apache / Passenger
