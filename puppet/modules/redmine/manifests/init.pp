@@ -189,6 +189,11 @@ class redmine (
 
   # cron jobs ported from .openshift
 
+  mailalias { $username:
+    ensure    => present,
+    recipient => 'sysadmins',
+  }
+
   file { '/etc/cron.d/redmine':
     ensure  => file,
     owner   => 'root',
@@ -203,16 +208,6 @@ class redmine (
     group   => 'root',
     mode    => '0755',
     content => file('redmine/git_repos.sh'),
-  }
-
-  # Old crons
-
-  file { '/etc/cron.daily/redmine_backup':
-    ensure  => absent,
-  }
-
-  file { '/etc/cron.hourly/redmine_repos':
-    ensure  => absent,
   }
 
   # Logrotate
