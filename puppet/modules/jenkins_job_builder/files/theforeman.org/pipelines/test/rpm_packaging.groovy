@@ -67,14 +67,15 @@ pipeline {
                         def index = i
                         packages[packages_to_build[index]] = {
                             package_name = packages_to_build[index]
+                            spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
 
-                            new_version = query_rpmspec("packages/**/${package_name}/*.spec", '%{VERSION}')
-                            new_release = query_rpmspec("packages/**/${package_name}/*.spec", '%{RELEASE}')
+                            new_version = query_rpmspec(spec_path, '%{VERSION}')
+                            new_release = query_rpmspec(spec_path, '%{RELEASE}')
 
                             sh "git checkout origin/${env.ghprbTargetBranch}"
 
-                            old_version = query_rpmspec("packages/**/${package_name}/*.spec", '%{VERSION}')
-                            old_release = query_rpmspec("packages/**/${package_name}/*.spec", '%{RELEASE}')
+                            old_version = query_rpmspec(spec_path, '%{VERSION}')
+                            old_release = query_rpmspec(spec_path, '%{RELEASE}')
 
                             sh "git checkout -"
 
