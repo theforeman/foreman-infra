@@ -5,7 +5,8 @@ def folderChanged(folders) {
     files_changed = readFile('files_changed').split('\n')
 
     for (int i = 0; i < folders.size(); i++) {
-        changed = changed || !files_changed.findAll { it =~ folders[i] }.empty
+        find_all = files_changed.findAll { it =~ folders[i] }
+        changed = changed || find_all.size() > 0
     }
 
     return changed
