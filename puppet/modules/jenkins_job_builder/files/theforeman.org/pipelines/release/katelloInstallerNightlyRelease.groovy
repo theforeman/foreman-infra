@@ -37,7 +37,7 @@ pipeline {
         stage('Trigger RPM Build') {
             steps {
                 build job: 'packaging_build_rpm', propagate: true, parameters: [
-                    string(name: 'project', value: 'packages/katello/katello-installer'),
+                    string(name: 'project', value: 'packages/katello/katello-installer-base'),
                     booleanParam(name: 'gitrelease', value: false),
                     booleanParam(name: 'scratch', value: false),
                     string(name: 'releaser', value: 'koji-katello-jenkins'),
