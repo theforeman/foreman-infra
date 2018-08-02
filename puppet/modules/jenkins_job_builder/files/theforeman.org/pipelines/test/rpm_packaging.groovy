@@ -95,15 +95,15 @@ pipeline {
                             )
 
                             if (compare_version != VERCMP_EQUAL && (compare_new_to_one == VERCMP_OLDER || compare_new_to_one == VERCMP_EQUAL)) {
-                                echo "New version and release is reset to 1"
+                                echo "New version and release is reset to 1 for ${package_name}"
                             } else if (compare_version != VERCMP_EQUAL && compare_new_to_one == VERCMP_NEWER) {
                                 // new version, but release was not reset
-                                echo "Version updated but release was not reset back to 1"
+                                echo "Version updated but release was not reset back to 1 for ${package_name}"
                                 sh "exit 1" // this fails the stage
                             } else if (compare_version == VERCMP_EQUAL && compare_release == VERCMP_NEWER) {
-                                echo "Version remained the same and release is reset to 1"
+                                echo "Version remained the same and release is reset to 1 for ${package_name}"
                             } else {
-                                echo "Version or release needs updating"
+                                echo "Version or release needs updating for ${package_name}"
                                 sh "exit 1"
                             }
                         } else {
