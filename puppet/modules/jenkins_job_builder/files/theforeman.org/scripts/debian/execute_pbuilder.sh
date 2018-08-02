@@ -53,6 +53,9 @@ fi
 
 # Unpack
 tar xvjf ${project}_${VERSION}.orig.tar.bz2
+if [[ -d ${project}-${VERSION}-develop ]] ; then
+	mv ${project}-${VERSION}-develop ${project}-${VERSION}
+fi
 
 # Bring in the debian packaging files
 cp -r ../${project} ./${project}-${VERSION}/debian
