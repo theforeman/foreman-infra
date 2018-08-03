@@ -1,7 +1,8 @@
 ---
 - job:
     name: 'foreman-forklift-containers-pr-test'
-    node: 'foreman'
+    project-type: 'pipeline'
+    sandbox: true
     concurrent: true
     properties:
       - github:
@@ -17,16 +18,9 @@
           allow-whitelist-orgs-as-admins: true
           status-add-test-results: true
           cancel-builds-on-update: true
-    parameters:
-      - string:
-          name: ghprbPullId
-      - string:
-          name: ghprbActualCommit
-      - string:
-          name: ghprbTargetBranch
-          default: master
-    builders:
-      - trigger-builds:
-        - project: foreman-forklift-containers-test
-          current-parameters: true
-          block: true
+    dsl:
+      !include-raw:
+        - pipelines/test/containers.groovy
+        - ../theforeman.org/pipelines/lib/duffy.groovy
+        - ../theforeman.org/pipelines/lib/ansible.groovy
+        - ../theforeman.org/pipelines/lib/folderChanged.groovy
