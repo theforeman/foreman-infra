@@ -16,7 +16,7 @@ pipeline {
                 checkout([
                     $class : 'GitSCM',
                     branches : [[name: '*/tfm-ror52']],
-                    extensions: [[$class: 'CleanCheckout']]],
+                    extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [
                         [url: 'https://github.com/theforeman/rails-packaging']
                     ]
