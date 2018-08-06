@@ -17,7 +17,7 @@ def obal(args) {
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${pwd()}/obal"]) {
-            sh "python -m obal ${tags} -e @${extra_vars_file} ${args.action} ${packages}"
+            sh "python -m obal ${args.action} ${packages} ${tags} -e @${extra_vars_file}"
         }
     }
 
