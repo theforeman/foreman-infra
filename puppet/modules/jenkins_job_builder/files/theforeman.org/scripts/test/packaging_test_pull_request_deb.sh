@@ -3,10 +3,15 @@
 ### Debian builds
 [[ $ghprbTargetBranch == deb/* ]] || exit 0
 
+if [[ $ghprbSourceBranch != deb/* ]] ; then
+  echo "Source branch name must start with deb/"
+  exit 1
+fi
+
 mkdir -p test_builds/{debian,dependencies,plugins,smart_proxy_plugins,katello}
 
 # deb build jobs assume a deb/ branch prefix
-pr_git_short_ref=$ghprbSourceBranch
+pr_git_short_ref=${ghprbSourceBranch##deb/}
 
 # deb component
 branch_version=${ghprbTargetBranch##deb/}
