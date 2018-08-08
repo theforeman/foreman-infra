@@ -1,8 +1,6 @@
 - job:
     name: katello-3.8-release
     project-type: pipeline
-    triggers:
-      - timed: 'H 23 * * *'
     dsl:
       !include-raw:
         - pipelines/release/katello/3.8.groovy
