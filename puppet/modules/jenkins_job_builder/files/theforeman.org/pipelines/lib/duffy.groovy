@@ -1,4 +1,6 @@
 def provision() {
+    fix_ansible_config()
+
     dir('foreman-infra') {
         git url: 'https://github.com/theforeman/foreman-infra.git'
     }
@@ -6,6 +8,10 @@ def provision() {
   	dir('foreman-infra/ci/centos.org/ansible') {
         runPlaybook(playbook: 'provision.yml')
     }
+}
+
+def fix_ansible_config() {
+    sh "sed -i s/yaml/debug/g ansible.cfg"
 }
 
 def deprovision() {
