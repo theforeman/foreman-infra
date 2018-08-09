@@ -1,9 +1,11 @@
 def status_koji_links(repo) {
     def tasks = get_koji_tasks()
     for (String task: tasks) {
-        status = sh(returnStdout: true, script: "koji taskinfo ${task} |awk '/State:/ { print \$2 }'").trim()
-        build_status = (status == 'failed') ? 'FAILURE' : 'SUCCESS'
-        githubNotify credentialsId: 'github-token', account: 'theforeman', repo: repo, sha: "${ghprbActualCommit}", context: "koji/${task}", description: "koji task #${task}" , status: build_status, targetUrl: "http://koji.katello.org/koji/taskinfo?taskID=${task}"
+        taskinfo = sh(returnStdout: true, script: "koji taskinfo -v ${task}").trim()
+        taskinfo_yaml = readYaml text: taskinfo
+        build_status = (taskinfo_yaml["State"] == 'failed') ? 'FAILURE' : 'SUCCESS'
+        build_package = taskinfo_yaml["Request Parameters"]["Source"].split('/')[-1]
+        githubNotify credentialsId: 'github-token', account: 'theforeman', repo: repo, sha: "${ghprbActualCommit}", context: "koji/${build_package}", description: "koji task #${task} for ${build_package}" , status: build_status, targetUrl: "http://koji.katello.org/koji/taskinfo?taskID=${task}"
     }
 }
 
