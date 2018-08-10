@@ -48,12 +48,10 @@ pipeline {
             }
         }
         stage('Install tests and Upgrade tests') {
-            agent { label 'el' }
-
             parallel {
 
                 stage('Install test') {
-
+                    agent { label 'el' }
                     steps {
 
                         git url: 'https://github.com/theforeman/foreman-infra'
@@ -69,7 +67,7 @@ pipeline {
                 }
 
                 stage('Upgrade test') {
-
+                    agent { label 'el' }
                     steps {
 
                         git url: 'https://github.com/theforeman/foreman-infra'
