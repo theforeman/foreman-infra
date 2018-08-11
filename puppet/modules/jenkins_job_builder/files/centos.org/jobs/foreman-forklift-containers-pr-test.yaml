@@ -12,7 +12,7 @@
           org-list:
             - theforeman
           status-context: 'containers'
-          trigger-phrase: '.*\[test containers/deploy\].*'
+          trigger-phrase: '.*\[test containers\].*'
           permit-all: true
           github-hooks: true
           allow-whitelist-orgs-as-admins: true
