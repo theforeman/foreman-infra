@@ -10,7 +10,7 @@
           url: https://github.com/theforeman/foreman-packaging/
     scm:
       - foreman-deb-packaging:
-          branch: 'deb/${repo}'
+          branch: '${repo}'
     axes:
       - axis:
           type: user-defined
