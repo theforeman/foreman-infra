@@ -4,9 +4,8 @@ base_dir=/var/www/vhosts/downloads/htdocs/discovery
 
 cd aux/vagrant-build
 
-export distro=f27
+export distro=el7
 export proxy_repo=$(eval echo ${proxy_repository})
-export VAGRANT_DEFAULT_PROVIDER=openstack
 trap "vagrant destroy ${distro}" EXIT ERR
 
 # execute the build
