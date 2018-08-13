@@ -50,19 +50,38 @@ pipeline {
             }
         }
         stage('Install Test') {
-            agent { label 'el' }
+            parallel {
+                stage('Install test') {
+                    agent { label 'el' }
 
-            steps {
+                    steps {
 
-                git url: 'https://github.com/theforeman/foreman-infra'
+                        git url: 'https://github.com/theforeman/foreman-infra'
 
-                withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                    runPlaybook(
-                        playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                        inventory: 'localhost',
-                        extraVars: ["jenkins_job_name=foreman-katello-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
-                        options: ['-b']
-                    )
+                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
+                            runPlaybook(
+                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
+                                inventory: 'localhost',
+                                extraVars: ["jenkins_job_name=foreman-katello-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                options: ['-b']
+                            )
+                        }
+                    }
+                }
+                stage('Upgrade test') {
+                    agent { label 'el' }
+                    steps {
+
+                        git url: 'https://github.com/theforeman/foreman-infra'
+
+                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
+                            runPlaybook(
+                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
+                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                options: ['-b']
+                            )
+                        }
+                    }
                 }
             }
         }
