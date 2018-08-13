@@ -39,6 +39,7 @@ pipeline {
                 runPlaybook(
                     playbook: 'foreman-infra/ci/centos.org/ansible/fetch_debug_files.yml',
                     inventory: cico_inventory('./'),
+                    extraVars: ["workspace=${env.WORKSPACE}"],
                     options: ['-b']
                   )
             }
