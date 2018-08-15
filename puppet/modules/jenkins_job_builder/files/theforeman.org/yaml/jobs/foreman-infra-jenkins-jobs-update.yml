@@ -1,0 +1,8 @@
+- job:
+    name: foreman-infra-jenkins-jobs-update
+    project-type: 'pipeline'
+    sandbox: true
+    dsl:
+      !include-raw:
+        - pipelines/infra/updateJobs.groovy
+        - pipelines/lib/virtualEnv.groovy
