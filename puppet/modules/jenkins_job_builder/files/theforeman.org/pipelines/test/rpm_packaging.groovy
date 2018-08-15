@@ -75,6 +75,7 @@ pipeline {
                             old_release = query_rpmspec(spec_path, '%{RELEASE}')
 
                             sh "git checkout -"
+                            spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
 
                             new_version = query_rpmspec(spec_path, '%{VERSION}')
                             new_release = query_rpmspec(spec_path, '%{RELEASE}')
