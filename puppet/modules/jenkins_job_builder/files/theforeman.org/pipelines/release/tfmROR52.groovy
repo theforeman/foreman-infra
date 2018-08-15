@@ -56,6 +56,16 @@ pipeline {
 
             }
         }
+        stage('Mash Koji Repositories') {
+            agent { label 'sshkey' }
+
+            steps {
+
+                sh "koji regen-repo tfm-ror52-rhel7-build"
+                sh "ssh -o 'BatchMode yes' root@koji.katello.org tfm-ror52-mash-split.py"
+
+            }
+        }
     }
 
     post {
