@@ -123,7 +123,7 @@ pipeline {
 
                 dir('foreman') {
 
-                    withRVM(['bundle exec rake db:drop'], ruby)
+                    withRVM(['bundle exec rake db:drop || true'], ruby)
                     withRVM(['bundle exec rake db:create'], ruby)
                     withRVM(['bundle exec rake db:migrate'], ruby)
                     withRVM(['bundle exec rake db:seed'], ruby)
