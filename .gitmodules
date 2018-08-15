@@ -134,3 +134,6 @@
 [submodule "puppet/modules/reboot"]
 	path = puppet/modules/reboot
 	url = https://github.com/puppetlabs/puppetlabs-reboot.git
+[submodule "puppet/modules/powershell"]
+	path = puppet/modules/powershell
+	url = https://github.com/puppetlabs/puppetlabs-powershell.git
