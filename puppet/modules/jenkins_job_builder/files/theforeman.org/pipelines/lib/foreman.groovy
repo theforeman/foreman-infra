@@ -53,7 +53,7 @@ def configureDatabase(ruby) {
 def cleanup(ruby) {
     try {
 
-        withRVM(['bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true'], ruby)
+        withRVM(['bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true'], ruby)
 
     } finally {
 
