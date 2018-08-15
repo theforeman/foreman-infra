@@ -131,3 +131,6 @@
 [submodule "puppet/modules/docker"]
 	path = puppet/modules/docker
 	url = https://github.com/puppetlabs/puppetlabs-docker
+[submodule "puppet/modules/reboot"]
+	path = puppet/modules/reboot
+	url = https://github.com/puppetlabs/puppetlabs-reboot.git
