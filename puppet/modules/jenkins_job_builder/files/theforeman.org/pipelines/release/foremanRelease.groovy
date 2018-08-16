@@ -30,7 +30,7 @@ pipeline {
 
             steps {
 
-                git url: 'https://github.com/theforeman/foreman-infra'
+                git_clone_foreman_infra()
 
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jenkins-centos', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME']]) {
                     runPlaybook(
@@ -45,7 +45,7 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                git url: 'https://github.com/theforeman/foreman-infra'
+                git_clone_foreman_infra()
 
                 dir('deploy') {
 

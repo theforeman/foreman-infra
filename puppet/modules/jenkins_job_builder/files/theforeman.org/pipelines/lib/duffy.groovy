@@ -1,9 +1,6 @@
 def provision() {
     fix_ansible_config()
-
-    dir('foreman-infra') {
-        git url: 'https://github.com/theforeman/foreman-infra.git'
-    }
+    git_clone_foreman_infra(dir: 'foreman-infra')
 
   	dir('foreman-infra/ci/centos.org/ansible') {
         runPlaybook(playbook: 'provision.yml')

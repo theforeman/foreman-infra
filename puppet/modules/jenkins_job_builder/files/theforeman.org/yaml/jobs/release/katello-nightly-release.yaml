@@ -7,3 +7,4 @@
       !include-raw:
         - pipelines/release/katello/nightly.groovy
         - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy

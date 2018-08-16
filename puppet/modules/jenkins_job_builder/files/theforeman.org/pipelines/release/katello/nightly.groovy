@@ -53,8 +53,7 @@ pipeline {
                 stage('Install test') {
                     agent { label 'el' }
                     steps {
-
-                        git url: 'https://github.com/theforeman/foreman-infra'
+                        git_clone_foreman_infra()
 
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(
@@ -69,8 +68,7 @@ pipeline {
                 stage('Upgrade test') {
                     agent { label 'el' }
                     steps {
-
-                        git url: 'https://github.com/theforeman/foreman-infra'
+                        git_clone_foreman_infra()
 
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(

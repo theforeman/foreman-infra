@@ -7,3 +7,4 @@
       !include-raw:
         - pipelines/release/foremanPluginsRelease.groovy
         - pipelines/lib/rvm.groovy
+        - pipelines/lib/foreman_infra.groovy
