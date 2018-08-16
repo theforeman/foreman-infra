@@ -8,3 +8,4 @@
         - pipelines/release/foremanRelease.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy

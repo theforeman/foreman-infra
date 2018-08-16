@@ -26,3 +26,4 @@
       !include-raw:
         - pipelines/release/deployYum.groovy
         - pipelines/lib/rvm.groovy
+        - pipelines/lib/foreman_infra.groovy

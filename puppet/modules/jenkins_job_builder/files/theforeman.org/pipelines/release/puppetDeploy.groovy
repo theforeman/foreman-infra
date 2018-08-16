@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Execute shell') {
             steps {
-                git url: 'https://github.com/theforeman/foreman-infra.git'
+                git_clone_foreman_infra()
                 sh 'ssh -p 8122 deploypuppet@puppetmaster.theforeman.org -i /var/lib/workspace/workspace/deploy_key/deploy_key'
             }
         }
