@@ -54,6 +54,10 @@ class web(
     }
   }
 
+  # maximum connection per rsync target
+  # using a small value to try and reduce server load
+  $max_rsync_connections = 5
+
   # WWW
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
@@ -91,12 +95,13 @@ class web(
   }
 
   rsync::server::module { 'yum':
-    path      => '/var/www/vhosts/yum/htdocs',
-    list      => true,
-    read_only => true,
-    comment   => 'yum.theforeman.org',
-    uid       => 'nobody',
-    gid       => 'nobody',
+    path            => '/var/www/vhosts/yum/htdocs',
+    list            => true,
+    read_only       => true,
+    comment         => 'yum.theforeman.org',
+    uid             => 'nobody',
+    gid             => 'nobody',
+    max_connections => $max_rsync_connections,
   }
 
   if $::osfamily == 'RedHat' {
@@ -142,12 +147,13 @@ class web(
     docroot_mode => '2575',
   }
   rsync::server::module { 'downloads':
-    path      => '/var/www/vhosts/downloads/htdocs',
-    list      => true,
-    read_only => true,
-    comment   => 'downloads.theforeman.org',
-    uid       => 'nobody',
-    gid       => 'nobody',
+    path            => '/var/www/vhosts/downloads/htdocs',
+    list            => true,
+    read_only       => true,
+    comment         => 'downloads.theforeman.org',
+    uid             => 'nobody',
+    gid             => 'nobody',
+    max_connections => $max_rsync_connections,
   }
   file { '/var/www/vhosts/downloads/htdocs/HEADER.html':
     ensure => file,
