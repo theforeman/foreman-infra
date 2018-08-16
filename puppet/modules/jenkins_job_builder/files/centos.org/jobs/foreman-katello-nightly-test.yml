@@ -5,6 +5,7 @@
     sandbox: true
     dsl:
       !include-raw:
+        - pipelines/lib/foremanCentosJob.groovy
         - pipelines/test/katelloNightlyTest.groovy
         - ../theforeman.org/pipelines/lib/duffy.groovy
         - ../theforeman.org/pipelines/lib/ansible.groovy
