@@ -104,13 +104,14 @@ define freight::user (
 
   include ::rsync::server
   rsync::server::module { $vhost:
-    path      => $webdir,
-    list      => true,
-    read_only => true,
-    comment   => "${vhost}.theforeman.org",
-    require   => File[$webdir],
-    uid       => 'nobody',
-    gid       => 'nobody',
+    path            => $webdir,
+    list            => true,
+    read_only       => true,
+    comment         => "${vhost}.theforeman.org",
+    require         => File[$webdir],
+    uid             => 'nobody',
+    gid             => 'nobody',
+    max_connections => 5,
   }
   file { "${webdir}/HEADER.html":
     ensure  => file,
