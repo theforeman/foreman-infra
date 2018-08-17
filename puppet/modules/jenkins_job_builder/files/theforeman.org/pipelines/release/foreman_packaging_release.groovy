@@ -16,7 +16,7 @@ pipeline {
                 checkout([
                     $class : 'GitSCM',
                     branches : [[name: '*/rpm/develop']],
-                    extensions: [[$class: 'CleanCheckout']]],
+                    extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [
                         [url: 'https://github.com/theforeman/foreman-packaging']
                     ]
@@ -45,7 +45,7 @@ pipeline {
         }
         stage('Release Build Packages') {
             when {
-                expression { packages_to_build != '' }
+                expression { packages_to_build != [] }
             }
             steps {
 
@@ -67,7 +67,7 @@ pipeline {
         failure {
             emailext(
                 subject: "${env.JOB_NAME} failed for ${packages_to_build.join(',')}",
-                to: 'ericdhelms@gmail.com'
+                to: 'ericdhelms@gmail.com',
                 body: "Foreman packaging release job failed: ${env.BUILD_URL}"
             )
         }
