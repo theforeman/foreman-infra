@@ -23,3 +23,24 @@ def runPlaybook(args) {
         sh "${command.join(' ')}"
     }
 }
+
+def containerPlaybook(playbook) {
+    dir('containers') {
+        runPlaybook(
+            playbook: playbook,
+            inventory: cico_inventory('../'),
+            extraVars: ['@vars/remote.yml'],
+            options: ['-b']
+        )
+    }
+}
+
+def ansibleModulesPlaybook(playbook, route) {
+    dir('ansible-modules') {
+        runPlaybook(
+            playbook: playbook,
+            inventory: cico_inventory('../'),
+            extraVars: ['@../containers/vars/remote.yml', "foreman_server_url=https://${route}"],
+        )
+    }
+}
