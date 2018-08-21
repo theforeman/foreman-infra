@@ -22,6 +22,7 @@ define jenkins_job_builder::config (
     purge   => true,
     force   => true,
     source  => "puppet:///modules/jenkins_job_builder/${config_name}",
+    notify  => Exec["jenkins-jobs-update-${config_name}"],
   }
 
   cron { "jenkins-jobs-update-${config_name}-delete-old":
@@ -32,12 +33,11 @@ define jenkins_job_builder::config (
     require     => File[$inifile],
   }
 
-  cron { "jenkins-job-update-${config_name}":
-    command     => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} > /var/cache/jjb.xml",
-    hour        => ['1-23'],
-    minute      => 0,
-    environment => 'PATH=/bin:/usr/bin:/usr/sbin',
-    require     => File[$inifile],
+  exec { "jenkins-jobs-update-${config_name}":
+    command => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} > /var/cache/jjb.xml",
+    timeout => $jenkins_jobs_update_timeout,
+    path    => '/bin:/usr/bin:/usr/local/bin',
+    require => File[$inifile],
   }
 
   cron { "remove-unmanaged-jobs-${config_name}":
