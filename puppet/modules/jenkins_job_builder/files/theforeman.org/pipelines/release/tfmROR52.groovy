@@ -45,7 +45,7 @@ pipeline {
         }
         stage('Release Build Packages') {
             when {
-                expression { packages_to_build != '' }
+                expression { packages_to_build != [] }
             }
             steps {
 
