@@ -9,3 +9,4 @@
         - pipelines/test/katelloUpgradeNightly.groovy
         - ../theforeman.org/pipelines/lib/duffy.groovy
         - ../theforeman.org/pipelines/lib/ansible.groovy
+        - ../theforeman.org/pipelines/lib/foreman_infra.groovy
