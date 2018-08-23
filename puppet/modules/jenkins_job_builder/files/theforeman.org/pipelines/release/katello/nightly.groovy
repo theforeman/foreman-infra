@@ -69,6 +69,7 @@ pipeline {
                     agent { label 'el' }
                     steps {
                         git_clone_foreman_infra()
+                        sleep(5) //See https://bugs.centos.org/view.php?id=14920
 
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(
