@@ -55,7 +55,6 @@ end
 
 if __FILE__ == $0
   begin
-    exit 0 unless Time.now.hour.zero?
     main
   rescue RuntimeError => e
     puts "ERROR BEEP BOOP:"

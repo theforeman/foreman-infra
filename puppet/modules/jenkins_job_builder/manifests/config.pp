@@ -22,36 +22,30 @@ define jenkins_job_builder::config (
     purge   => true,
     force   => true,
     source  => "puppet:///modules/jenkins_job_builder/${config_name}",
-    notify  => Exec["jenkins_jobs_update-${config_name}"],
+    notify  => Exec["jenkins-jobs-update-${config_name}"],
   }
 
-  $current_hour = generate('/bin/date', '+%H')
-
-  # test for a string here since it's annoyingly hard to pass a boolean from foreman via yaml
-  if $run == 'false' {
-    $subcmd = 'test'
-  } else {
-    if $current_hour == "00" {
-      $subcmd = 'update --delete-old'
-    } else {
-      $subcmd = 'update'
-    }
-  }
-  $cmd = "jenkins-jobs --conf ${inifile} ${subcmd} ${directory}/${config_name} > /var/cache/jjb.xml"
-
-  exec { "jenkins_jobs_update-${config_name}":
-    command => $cmd,
-    timeout => $jenkins_jobs_update_timeout,
-    path    => '/bin:/usr/bin:/usr/local/bin',
-    require => [ File[$inifile], Exec["remove_unmanaged_jobs-${config_name}"] ],
+  cron { "jenkins-jobs-update-${config_name}-delete-old":
+    command     => "jenkins-jobs --conf ${inifile} update --delete-old ${directory}/${config_name} > /var/cache/jjb.xml",
+    hour        => 0,
+    minute      => 0,
+    environment => 'PATH=/bin:/usr/bin:/usr/sbin',
+    require     => File[$inifile],
   }
 
-  exec { "remove_unmanaged_jobs-${config_name}":
-    command => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
+  exec { "jenkins-jobs-update-${config_name}":
+    command => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} > /var/cache/jjb.xml",
     timeout => $jenkins_jobs_update_timeout,
     path    => '/bin:/usr/bin:/usr/local/bin',
     require => File[$inifile],
-    before  => Exec["jenkins_jobs_update-${config_name}"],
+  }
+
+  cron { "remove-unmanaged-jobs-${config_name}":
+    command     => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
+    hour        => 0,
+    minute      => 0,
+    environment => 'PATH=/bin:/usr/bin:/usr/sbin',
+    require     => File[$inifile],
   }
 
 # TODO: We should put in  notify Exec['jenkins_jobs_update']
