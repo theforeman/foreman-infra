@@ -1,11 +1,28 @@
-def ruby = '2.4'
 def katello_versions = [
-    'master': 'develop',
-    'KATELLO-3.8': '1.19-stable',
-    'KATELLO-3.7': '1.18-stable',
-    'KATELLO-3.6': '1.17-stable',
-    'KATELLO-3.5': '1.16-stable'
+    'master': {
+        'foreman': 'develop',
+        'ruby': '2.5',
+    },
+    'KATELLO-3.8': {
+        'foreman': '1.19-stable',
+        'ruby': '2.4'
+    },
+    'KATELLO-3.7': {
+        'foreman': '1.18-stable',
+        'ruby': '2.4'
+    },
+    'KATELLO-3.6': {
+        'foreman': '1.17-stable',
+        'ruby': '2.4'
+    },
+    'KATELLO-3.5': {
+        'foreman': '1.16-stable',
+        'ruby': '2.4'
+    }
 ]
+
+def ruby = katello_versions[ghprbTargetBranch]['ruby']
+def foreman_branch = katello_versions[ghprbTargetBranch]['foreman']
 
 pipeline {
     agent { label 'fast' }
@@ -17,7 +34,7 @@ pipeline {
                 ghprb_git_checkout()
 
                 dir('foreman') {
-                    git url: "https://github.com/theforeman/foreman", branch: katello_versions[ghprbTargetBranch]
+                   git url: "https://github.com/theforeman/foreman", branch: foreman_branch
                 }
             }
         }
