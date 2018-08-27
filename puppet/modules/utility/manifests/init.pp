@@ -1,34 +1,35 @@
 class utility($sysadmins = ['/dev/null']) {
   include motd
+  include unattended
 
-  package { "vim":
+  package { 'vim':
     ensure => present,
     name => $osfamily ? {
-      'RedHat' => "vim-enhanced",
-      default  => "vim"
+      'RedHat' => 'vim-enhanced',
+      default  => 'vim'
     }
   }
 
-  package { "htop":
+  package { 'htop':
     ensure => present
   }
 
-  package { "iftop":
+  package { 'iftop':
     ensure => present
   }
 
-  package { "screen":
+  package { 'screen':
     ensure => present
   }
 
   # Figure out how to not conflict with Dirvish
-  #package { "rsync":
+  #package { 'rsync':
   #  ensure => present
   #}
 
-  package { "ruby-shadow":
+  package { 'ruby-shadow':
     ensure => installed,
-    name   => "ruby-shadow",
+    name   => 'ruby-shadow',
   }
 
   mailalias { 'sysadmins':
