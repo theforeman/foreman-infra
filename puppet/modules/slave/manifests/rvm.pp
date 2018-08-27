@@ -1,7 +1,7 @@
 # Various RVM config
 class slave::rvm {
   class { '::rvm':
-    version => '1.26.11',
+    version => '1.29.4',
   }
 
   if $::rvm_installed == true {
