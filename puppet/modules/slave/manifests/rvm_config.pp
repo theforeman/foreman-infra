@@ -1,4 +1,4 @@
-define slave::rvm_config($version, $rubygems_version = '2.7.6') {
+define slave::rvm_config($version, $rubygems_version = '2.7.7') {
   $alias = $title
 
   rvm_system_ruby { $version:
