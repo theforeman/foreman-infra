@@ -1,6 +1,6 @@
 ---
 - job:
-    name: tfm-ror52-release
+    name: tfm-ror52-rpm-pipeline
     project-type: pipeline
     concurrent: false
     properties:

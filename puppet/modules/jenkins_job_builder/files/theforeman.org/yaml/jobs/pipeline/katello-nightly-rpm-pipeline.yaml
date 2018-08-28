@@ -1,5 +1,5 @@
 - job:
-    name: katello-nightly-release
+    name: katello-nightly-rpm-pipeline
     project-type: pipeline
     triggers:
       - timed: 'H 23 * * *'
