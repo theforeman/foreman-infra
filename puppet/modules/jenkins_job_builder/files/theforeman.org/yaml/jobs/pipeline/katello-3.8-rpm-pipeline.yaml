@@ -1,5 +1,5 @@
 - job:
-    name: katello-3.8-release
+    name: katello-3.8-rpm-pipeline
     project-type: pipeline
     dsl:
       !include-raw:

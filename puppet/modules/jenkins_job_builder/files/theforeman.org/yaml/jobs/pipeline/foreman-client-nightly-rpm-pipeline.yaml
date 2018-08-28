@@ -1,0 +1,11 @@
+- job:
+    name: foreman-client-nightly-rpm-pipeline
+    project-type: pipeline
+    triggers:
+      - timed: 'H 21 * * *'
+    dsl:
+      !include-raw:
+        - pipelines/release/foremanClientRelease.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/obal.groovy
