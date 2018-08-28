@@ -4,6 +4,9 @@ def provision() {
 
   	dir('foreman-infra/ci/centos.org/ansible') {
         runPlaybook(playbook: 'provision.yml')
+        archiveArtifacts artifacts: cico_data.json
+        archiveArtifacts artifacts: cico_inventory
+        archiveArtifacts artifacts: ssh_config
     }
 }
 
