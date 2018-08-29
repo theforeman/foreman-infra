@@ -25,27 +25,47 @@ pipeline {
             }
         }
         stage('Repoclosure and Push') {
-            steps {
-
-                parallel(
-                    'nightly/el7': {
-                        repoclosure('nightly', 'el7')
-                        push_rpms('nightly', 'el7')
-                    },
-                    '1.19/el7': {
-                        repoclosure('1.19', 'el7')
-                        push_rpms('1.19', 'el7')
-                    },
-                    '1.18/el7': {
-                        repoclosure('1.18', 'el7')
-                        push_rpms('1.18', 'el7')
-                    },
-                    '1.17/el7': {
-                        repoclosure('1.17', 'el7')
-                        push_rpms('1.17', 'el7')
+            parallel {
+                stage('nightly-el7') {
+                    stages {
+                        stage('repoclosure-nightly-el7') {
+                            steps { repoclosure('nightly', 'el7') }
+                        }
+                        stage('push-nightly-el7') {
+                            steps { push_rpms('nightly', 'el7') }
+                        }
                     }
-                )
-
+                }
+                stage('1.19-el7') {
+                    stages {
+                        stage('repoclosure-1.19-el7') {
+                            steps { repoclosure('1.19', 'el7') }
+                        }
+                        stage('push-1.19-el7') {
+                            steps { push_rpms('1.19', 'el7') }
+                        }
+                    }
+                }
+                stage('1.18-el7') {
+                    stages {
+                        stage('repoclosure-1.18-el7') {
+                            steps { repoclosure('1.18', 'el7') }
+                        }
+                        stage('push-1.18-el7') {
+                            steps { push_rpms('1.18', 'el7') }
+                        }
+                    }
+                }
+                stage('1.17-el7') {
+                    stages {
+                        stage('repoclosure-1.17-el7') {
+                            steps { repoclosure('1.17', 'el7') }
+                        }
+                        stage('push-1.17-el7') {
+                            steps { push_rpms('1.17', 'el7') }
+                        }
+                    }
+                }
             }
         }
     }
