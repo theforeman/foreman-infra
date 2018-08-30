@@ -43,7 +43,7 @@ define debian::pbuilder_setup (
   file { "/etc/cron.d/cleanup-${name}":
     ensure  => file,
     mode    => '0644',
-    content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mtime +1 -delete\n",
+    content => "11 5 * * * root find /var/cache/pbuilder/${name}/result/* -mtime +1 -delete\n",
   }
 
 }
