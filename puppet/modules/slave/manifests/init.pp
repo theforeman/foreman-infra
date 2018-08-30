@@ -143,6 +143,8 @@ class slave (
       ensure => present;
     'ansible':
       ensure => latest;
+    'python-virtualenv':
+      ensure => present;
     'libcurl-dev':
       ensure => present,
       name   => $::osfamily ? {
