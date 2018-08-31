@@ -16,5 +16,8 @@ matrix:
         - "2.7"
       git:
         submodules: false
-      install: pip install jenkins-job-builder
+      install:
+        - pip install jenkins-job-builder
+        - pip install lxml
+        - pip install requests
       script: ./.travis/jjb.sh
