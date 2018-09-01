@@ -59,8 +59,7 @@ bundle update --jobs=5 --retry=5
 # If the plugin contains npm deps, we need to install its specific modules
 # we need to install node modules for integration tests
 if [ -e "$APP_ROOT/package.json" ]; then
-  npm install npm@'<6.0.0' # first upgrade to newer npm
-  $APP_ROOT/node_modules/.bin/npm install
+  npm install
 fi
 
 # Now let's add the plugin migrations
