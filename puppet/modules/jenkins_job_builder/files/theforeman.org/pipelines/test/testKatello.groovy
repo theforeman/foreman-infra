@@ -89,8 +89,7 @@ pipeline {
                         expression { fileExists('package.json') }
                     }
                     steps {
-                        sh "npm install npm"
-                        sh "node_modules/.bin/npm install"
+                        sh "npm install"
                         sh 'npm run lint'
                         sh 'npm test'
                     }
@@ -110,8 +109,7 @@ pipeline {
 
                         sh "cp -rf \$(cat foreman/bastion-version) engines/bastion_katello/bastion-${bastion_version}"
                         dir('engines/bastion_katello') {
-                            sh "npm install npm"
-                            sh "node_modules/.bin/npm install bastion-${bastion_version}"
+                            sh "npm install bastion-${bastion_version}"
                             sh "grunt ci"
                         }
                     }
@@ -119,8 +117,7 @@ pipeline {
                 stage('assets-precompile') {
                     steps {
                         dir('foreman') {
-                            sh "npm install npm"
-                            withRVM(["bundle exec node_modules/.bin/npm install"], ruby)
+                            withRVM(["bundle exec npm install"], ruby)
                             withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production --trace'], ruby)
                         }
                     }
