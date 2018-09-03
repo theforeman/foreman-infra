@@ -3,11 +3,24 @@
   vars:
     api_key: "{{ lookup('file', '~/duffy.key') }}"
   tasks:
-    - name: 'Get list of nodes'
+    - name: 'Get a new node'
       cico:
         action: get
         api_key: "{{ api_key }}"
       register: cico_data
+
+    - name: 'Retry geting list of nodes'
+      cico:
+        action: list
+        api_key: "{{ api_key }}"
+        ssid: "{{ cico_data.results.ssid }}"
+      register: cico_data
+      when: len(cico_data.results.hosts) == 0
+
+    - name: 'Fail if no hosts returned'
+      fail:
+        msg: 'Could not get hosts from ci.centos.org'
+      when: len(cico_data.results.hosts) == 0
 
     - name: 'Write cico data locally'
       copy:
