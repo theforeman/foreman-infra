@@ -21,6 +21,9 @@ gem install bundler --no-ri --no-rdoc
 # Retry as rubygems (being external to us) can be intermittent
 bundle install --without=development --jobs=5 --retry=5
 
+# Rubocop
+bundle exec rake rubocop
+
 # Database environment
 (
   sed "s/^test:/development:/; s/database:.*/database: ${gemset}-dev/" $HOME/${database}.db.yaml
