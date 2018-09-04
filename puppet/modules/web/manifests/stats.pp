@@ -1,7 +1,17 @@
+# Class for configuring the Apache proxy in front of Shiny Server
+#
+# === Parameters:
+#
+# $hostname::       FQDN for LetsEncrypt
+#
+# $webroot::        Location of the DocumentRoot (htdocs etc) folder
+#
+# $https::          Whether to enable the https vhost. Also redirects traffic from http
+#
 class web::stats(
-  $hostname = 'stats.theforeman.org',
-  $webroot = '/var/www/vhosts/shiny/htdocs',
-  $https = false,
+  String $hostname              = 'stats.theforeman.org',
+  Stdlib::Absolutepath $webroot = '/var/www/vhosts/shiny/htdocs',
+  Boolean $https                = false,
 ) {
   include ::web::base
 
@@ -19,16 +29,15 @@ class web::stats(
     webroot_paths => [$webroot],
   }
 
-  apache::vhost { 'shiny_server':
-    port          => '80',
-    servername    => $hostname,
-    docroot       => $webroot,
-    docroot_owner => $::apache::user,
-    docroot_group => $::apache::group,
-    proxy_pass    => $proxy_pass,
-  }
-
   if $https {
+    apache::vhost { 'shiny-server':
+      port          => '80',
+      servername    => $hostname,
+      docroot       => $webroot,
+      docroot_owner => $::apache::user,
+      docroot_group => $::apache::group,
+      redirect_dest => "https://${servername}/",
+    }
     apache::vhost { 'shiny_server-https':
       port          => 443,
       servername    => $hostname,
@@ -42,5 +51,15 @@ class web::stats(
       ssl_key       => "/etc/letsencrypt/live/${hostname}/privkey.pem",
       require       => Letsencrypt::Certonly[$hostname],
     }
+  } else {
+    apache::vhost { 'shiny_server':
+      port          => '80',
+      servername    => $hostname,
+      docroot       => $webroot,
+      docroot_owner => $::apache::user,
+      docroot_group => $::apache::group,
+      proxy_pass    => $proxy_pass,
+    }
   }
+
 }
