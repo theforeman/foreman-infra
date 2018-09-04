@@ -15,12 +15,14 @@
         api_key: "{{ api_key }}"
         ssid: "{{ cico_data.results.ssid }}"
       register: cico_data
-      when: len(cico_data.results.hosts) == 0
+
+    - debug:
+        msg: "{{ cico_data }}"
 
     - name: 'Fail if no hosts returned'
       fail:
         msg: 'Could not get hosts from ci.centos.org'
-      when: len(cico_data.results.hosts) == 0
+      when: cico_data.results.hosts|length == 0
 
     - name: 'Write cico data locally'
       copy:
