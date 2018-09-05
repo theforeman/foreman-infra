@@ -26,14 +26,14 @@ class debian {
           ensure     => present,
           arch       => 'amd64',
           release    => 'stretch',
-          apturl     => 'http://ftp.us.debian.org/debian',
-          aptcontent => "deb http://ftp.us.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
         'stretch32':
           ensure     => present,
           arch       => 'i386',
           release    => 'stretch',
-          apturl     => 'http://ftp.us.debian.org/debian',
-          aptcontent => "deb http://ftp.us.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.us.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
         'xenial64':
           ensure     => present,
           arch       => 'amd64',
@@ -61,8 +61,8 @@ class debian {
           ensure     => present,
           arch       => 'armhf',
           release    => 'stretch',
-          apturl     => 'http://ftp.de.debian.org/debian',
-          aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'armhf',
@@ -84,8 +84,8 @@ class debian {
           ensure     => present,
           arch       => 'arm64',
           release    => 'stretch',
-          apturl     => 'http://ftp.de.debian.org/debian',
-          aptcontent => "deb http://ftp.de.debian.org/debian/ stretch main non-free contrib\ndeb-src http://ftp.de.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'arm64',
