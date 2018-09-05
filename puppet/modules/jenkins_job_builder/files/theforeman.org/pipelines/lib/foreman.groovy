@@ -57,7 +57,7 @@ def cleanup(ruby) {
 
     } finally {
 
-        cleanupRVM('', ruby)
+        cleanupRVM(ruby)
 
     }
 }

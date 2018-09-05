@@ -85,6 +85,6 @@ void build_tarball(project, version, ruby_ver) {
         sh "ssh root@theforeman.org \"mkdir -p ${base_dir}/\" || true"
         sh "rsync -v --ignore-existing pkg/* root@theforeman.org:${base_dir}/"
 
-        cleanupRVM(project, ruby_ver)
+        cleanupRVM(ruby_ver, project)
     }
 }
