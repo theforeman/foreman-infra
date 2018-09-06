@@ -154,7 +154,7 @@
           type: user-defined
           name: ruby
           values:
-            - 2.4
+            - 2.5
     wrappers:
       - timeout:
           type: absolute
