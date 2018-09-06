@@ -11,7 +11,7 @@ pipeline {
     environment {
         version = env.getProperty('version')
         major_version = env.getProperty('major_version')
-        ruby_ver = '2.4.0'
+        ruby_ver = '2.5'
     }
 
     stages {
