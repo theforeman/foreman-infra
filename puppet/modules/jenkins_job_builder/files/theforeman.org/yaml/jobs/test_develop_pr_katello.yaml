@@ -22,7 +22,7 @@
           type: user-defined
           name: ruby
           values:
-            - 2.4
+            - 2.5
       - axis:
           type: user-defined
           name: database
