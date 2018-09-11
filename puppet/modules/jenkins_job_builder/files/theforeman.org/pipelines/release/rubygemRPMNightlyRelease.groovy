@@ -17,6 +17,8 @@ def obalExtraVars = [
     ]
 ]
 
+def ruby_version = '2.5'
+
 pipeline {
     agent { label 'rpmbuild' }
 
@@ -32,7 +34,7 @@ pipeline {
             steps {
                 dir('gem-build') {
                     git(url: "https://github.com/${owner_repo}", branch: branch)
-                    sh("gem build ${gemspec}")
+                    withRVM(["gem build ${gemspec}"], ruby_version)
                     archiveArtifacts(artifacts: '*.gem')
                 }
             }
@@ -42,7 +44,7 @@ pipeline {
             steps {
                 dir('foreman-packaging') {
                     git(url: 'https://github.com/theforeman/foreman-packaging', branch: 'rpm/develop')
-                    obal(action: "scratch", extraVars: obalExtraVars, packages: package_name)
+                    obal(action: "nightly", extraVars: obalExtraVars, packages: package_name)
                 }
             }
         }
@@ -51,6 +53,7 @@ pipeline {
     post {
         always {
             echo "Cleaning up workspace"
+            cleanupRVM(ruby_version)
             deleteDir()
         }
     }
