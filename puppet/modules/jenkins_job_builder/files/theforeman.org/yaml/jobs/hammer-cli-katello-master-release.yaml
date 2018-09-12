@@ -9,3 +9,4 @@
         - pipelines/vars/hammer-cli-katello-master-release.groovy
         - pipelines/release/rubygemRPMNightlyRelease.groovy
         - pipelines/lib/obal.groovy
+        - pipelines/lib/rvm.groovy
