@@ -6,9 +6,9 @@
           url: https://github.com/theforeman/foreman-packaging
       - tfm-pull-request-build-discarder
     scm:
-      - foreman-rpm-packaging-pr
+      - foreman-packaging-pr
     triggers:
-      - github_pr_rpm_deb:
+      - github_pr_deb:
           context: 'packaging'
     builders:
       - shell: !include-raw: scripts/test/packaging_test_pull_request_deb.sh
@@ -41,17 +41,3 @@
           parameter-factories:
             - factory: filebuild
               file-pattern: test_builds/smart_proxy_plugins/*.properties
-      - shell: !include-raw: scripts/test/packaging_test_pull_request_rpm.sh
-      - trigger-builds:
-        - project: packaging_build_rpm
-          block: true
-          predefined-parameters: |
-            gitrelease=true
-            scratch=true
-            branch=${ghprbTargetBranch}
-            pr_number=${ghprbPullId}
-            pr_git_url=${ghprbAuthorRepoGitUrl}
-            pr_git_ref=${ghprbSourceBranch}
-          parameter-factories:
-            - factory: filebuild
-              file-pattern: test_builds/rpm/*.properties

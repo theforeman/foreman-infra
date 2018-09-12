@@ -21,7 +21,7 @@
           branches:
             - 'origin/{branch}'
 - scm:
-    name: foreman-rpm-packaging-pr
+    name: foreman-packaging-pr
     scm:
       - git:
           name: upstream
