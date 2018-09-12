@@ -11,9 +11,7 @@ def obal(args) {
 
     writeYaml file: extra_vars_file, data: extra_vars
 
-    if (!fileExists('obal')) {
-        setup_obal()
-    }
+    setup_obal()
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${pwd()}/obal"]) {
@@ -26,6 +24,13 @@ def obal(args) {
 
 def setup_obal() {
     dir('obal') {
-        git url: "https://github.com/theforeman/obal.git", branch: "master"
+        checkout([
+            $class : 'GitSCM',
+            branches : [[name: 'master']],
+            extensions: [[$class: 'CleanCheckout']],
+            userRemoteConfigs: [
+                [url: 'https://github.com/theforeman/obal']
+            ]
+        ])
     }
 }
