@@ -41,9 +41,7 @@
                 options:
                   disabled: true
             ansible:
-              playbook:
-                - 'playbooks/rackspace_hostname.yml'
-                - 'playbooks/bats_pipeline_foreman_nightly.yml'
+              playbook: 'playbooks/bats_pipeline_foreman_nightly.yml'
               group: 'bats'
               variables:
                 bats_environment:
