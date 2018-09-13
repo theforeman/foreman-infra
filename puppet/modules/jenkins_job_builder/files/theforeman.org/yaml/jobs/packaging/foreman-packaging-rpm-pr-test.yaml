@@ -8,6 +8,10 @@
     triggers:
       - github_pr_rpm:
           context: 'rpm'
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-days-to-keep: 30
     dsl:
       !include-raw:
         - pipelines/test/rpm_packaging.groovy
