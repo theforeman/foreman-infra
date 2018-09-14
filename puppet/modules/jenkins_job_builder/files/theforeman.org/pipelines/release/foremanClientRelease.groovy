@@ -38,21 +38,6 @@ pipeline {
 
             }
         }
-        stage('Install Test') {
-            agent { label 'el' }
-
-            steps {
-                git url: 'https://github.com/theforeman/foreman-infra'
-
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jenkins-centos', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME']]) {
-                    runPlaybook(
-                        playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                        extraVars: ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=${env.USERNAME}", "jenkins_password=${env.PASSWORD}"],
-                        options: ['-b']
-                    )
-                }
-            }
-        }
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
 
@@ -61,13 +46,13 @@ pipeline {
 
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/el7 -S repo_dest=client/el7"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/el6 -S repo_dest=client/el6"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/el5 -S repo_dest=client/el5"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/fc27 -S repo_dest=client/fc27"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/fc28 -S repo_dest=client/fc28"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/sles11 -S repo_dest=client/sles11"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-nightly/sles12 -S repo_dest=client/sles12"])
+                    push_rpms('nightly', 'el7')
+                    push_rpms('nightly', 'el6')
+                    push_rpms('nightly', 'el5')
+                    push_rpms('nightly', 'fc28')
+                    push_rpms('nightly', 'fc27')
+                    push_rpms('nightly', 'sles12')
+                    push_rpms('nightly', 'sles11')
                 }
             }
             post {
@@ -77,6 +62,10 @@ pipeline {
             }
         }
     }
+}
+
+void push_rpms(version, distro) {
+    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-${version}/${os} -S repo_dest=client/${version}/${distro}"])
 }
 
 void repoclosure(repo, dist) {
