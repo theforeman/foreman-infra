@@ -65,7 +65,7 @@ pipeline {
 }
 
 void push_rpms(version, distro) {
-    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-${version}/${os} -S repo_dest=client/${version}/${distro}"])
+    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-${version}/${distro} -S repo_dest=client/${version}/${distro}"])
 }
 
 void repoclosure(repo, dist) {
