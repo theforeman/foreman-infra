@@ -33,6 +33,12 @@
           name: slave
           values:
             - fast
+    wrappers:
+      - timeout:
+          type: absolute
+          abort: true
+          timeout: 120
+          write-description: 'Build timed out (after {{0}} minutes). Marking the build as aborted.'
     triggers:
       - github_pr:
           context: 'katello'
