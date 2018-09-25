@@ -49,6 +49,7 @@ pipeline {
             }
             steps {
 
+                setup_obal()
                 obal(
                     action: 'release',
                     packages: packages_to_build
