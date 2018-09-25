@@ -22,6 +22,7 @@ pipeline {
             agent { label 'el' }
             steps {
                 git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/develop"
+                setup_obal()
             }
         }
         stage('Repoclosure') {

@@ -22,6 +22,7 @@ pipeline {
                     ]
                 ])
 
+                setup_obal()
             }
         }
         stage('Find packages') {

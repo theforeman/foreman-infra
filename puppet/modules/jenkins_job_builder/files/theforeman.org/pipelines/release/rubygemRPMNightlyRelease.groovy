@@ -44,6 +44,7 @@ pipeline {
             steps {
                 dir('foreman-packaging') {
                     git(url: 'https://github.com/theforeman/foreman-packaging', branch: 'rpm/develop')
+                    setup_obal()
                     obal(action: "nightly", extraVars: obalExtraVars, packages: package_name)
                 }
             }
