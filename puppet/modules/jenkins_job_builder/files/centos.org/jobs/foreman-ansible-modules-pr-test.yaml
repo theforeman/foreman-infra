@@ -1,0 +1,27 @@
+---
+- job:
+    name: 'foreman-ansible-modules-pr-test'
+    project-type: 'pipeline'
+    sandbox: true
+    concurrent: true
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-ansible-modules
+    triggers:
+      - github-pull-request:
+          org-list:
+            - theforeman
+          status-context: 'integration'
+          trigger-phrase: '.*\[test integration\].*'
+          permit-all: true
+          github-hooks: true
+          allow-whitelist-orgs-as-admins: true
+          status-add-test-results: true
+          cancel-builds-on-update: true
+    dsl:
+      !include-raw:
+        - pipelines/test/containers.groovy
+        - ../theforeman.org/pipelines/lib/duffy.groovy
+        - ../theforeman.org/pipelines/lib/ansible.groovy
+        - ../theforeman.org/pipelines/lib/openshift.groovy
+        - ../theforeman.org/pipelines/lib/folderChanged.groovy
