@@ -36,7 +36,7 @@ class web::stats(
       docroot       => $webroot,
       docroot_owner => $::apache::user,
       docroot_group => $::apache::group,
-      redirect_dest => "https://${servername}/",
+      redirect_dest => "https://${hostname}/",
     }
     apache::vhost { 'shiny_server-https':
       port          => 443,
