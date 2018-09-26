@@ -2,9 +2,9 @@ def obal(args) {
     def timestamp = new Date().getTime()
     def extra_vars_file = 'extra_vars-' + timestamp.toString() + '.yaml'
 
-    tags = args.tags ? "--tags ${args.tags}" : ""
-    extra_vars = args.extraVars ?: [:]
-    packages = args.packages
+    def tags = args.tags ? "--tags ${args.tags}" : ""
+    def extra_vars = args.extraVars ?: [:]
+    def packages = args.packages
     if (packages instanceof String[]) {
         packages = packages.join(' ')
     }
