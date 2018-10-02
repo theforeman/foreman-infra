@@ -3,11 +3,14 @@
     builders:
       - shell: |+
           #!/bin/bash -ex
+
+          # make sure this is a scratch build if it's a PR build
           if [ -n "${pr_git_url}" -a ${scratch} != true ]; then
             echo "ERROR: scratch must be true for PR builds"
             exit 1
           fi
 
+          # confirm valid releaser
           if ! tito release -l | grep -q "$releaser" ; then
               if [[ $releaser == koji-katello* ]] ; then
                   # Starting 1.17 the katello packaging repo was merged. Before
@@ -23,9 +26,11 @@
           git clone https://github.com/theforeman/obal
           export PYTHONPATH=`pwd`/obal
 
+          # initialize git annex and setup sources
           git-annex init
           ./setup_sources.sh $project
 
+          # set up tito args and releaser
           mkdir rel-eng/build
           args="-o $(pwd)/rel-eng/build/"
           [ -n "${tag}" ] && args="$args --tag=$tag"
