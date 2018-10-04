@@ -3,7 +3,6 @@ define debian::pbuilder_setup (
   $backports  = false,
   $nodesource = true,
   $puppetlabs = true,
-  $yarn = true,
   $arch,
   $release,
   $apturl,
