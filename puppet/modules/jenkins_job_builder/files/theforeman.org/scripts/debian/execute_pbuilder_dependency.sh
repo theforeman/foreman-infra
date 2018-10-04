@@ -48,13 +48,9 @@ if [ $arch = x86 ]; then
   sudo pdebuild-${os}64
 fi
 
-# Only build on i386 and non-x86 arches when the binary differs
+# Only build on non-x86 arches when the binary differs
 if grep -qe "Architecture:\s\+any" debian/control; then
-  if [ $arch = x86 ]; then
-    sudo pdebuild-${os}32
-  else
-    sudo pdebuild-${os}
-  fi
+  sudo pdebuild-${os}
 fi
 
 # Cleanup, pdebuild uses root
