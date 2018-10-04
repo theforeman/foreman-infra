@@ -18,17 +18,6 @@ pipeline {
 
             }
         }
-        stage('Client Repoclosure') {
-            steps {
-
-                parallel(
-                    'client/el7': { repoclosure('client', 'el7') },
-                    'client/el6': { repoclosure('client', 'el6') },
-                    'client/fc27': { repoclosure('client', 'f27') }
-                )
-
-            }
-        }
         stage('Candlepin Repoclosure') {
             agent { label 'el' }
 
@@ -121,8 +110,6 @@ void repoclosure(repo, dist, additions = []) {
             "-l ${dist}-scl",
             "-l ${dist}-scl-sclo",
             "-l ${dist}-puppet-5",
-            "-l ${dist}-subscription-manager",
-            "-l ${dist}-qpid",
             "-l ${dist}-katello-pulp-nightly",
             "-l ${dist}-katello-candlepin-nightly"
         ]
