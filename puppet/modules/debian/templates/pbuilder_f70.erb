@@ -19,7 +19,7 @@ echo "deb http://backports.debian.org/debian-backports/ <%= @release %>-backport
 
 <% if @nodesource == true then -%>
 # Nodesource
-echo "deb http://deb.nodesource.com/node_10.x <%= @release %> main" >> /etc/apt/sources.list
+echo "deb http://deb.nodesource.com/node_8.x <%= @release %> main" >> /etc/apt/sources.list
 
 cat <<EOF | apt-key add -
 -----BEGIN PGP PUBLIC KEY BLOCK-----
