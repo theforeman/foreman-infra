@@ -2,9 +2,6 @@
     name: packaging_build_rpm_new_hotness
     project-type: pipeline
     sandbox: false
-    properties:
-      - github:
-          url: https://github.com/theforeman/foreman-packaging/
     parameters:
       - string:
           name: branch
@@ -42,9 +39,6 @@
           default: lastSuccessfulBuild
           description: 'When using koji-foreman-jenkins, the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
       - pr_parameters
-    scm:
-      - foreman-rpm-packaging:
-          branch: '${branch}'
     dsl:
       !include-raw:
         - pipelines/lib/packaging_build_rpm_new_hotness.groovy
