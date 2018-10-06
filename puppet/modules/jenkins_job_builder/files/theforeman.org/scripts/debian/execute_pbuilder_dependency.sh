@@ -52,6 +52,9 @@ fi
 if grep -qe "Architecture:\s\+any" debian/control; then
   if [ $arch != x86 ]; then
     sudo pdebuild-${os}
+  else
+    # we are on x86 and build i386 DEBs (for dependencies, but not for the heavy weight core packages)
+    sudo pdebuild-${os}32
   fi
 fi
 
