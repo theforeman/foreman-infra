@@ -16,6 +16,19 @@ pipeline {
             }
         }
 
+        stage("Apply Pull Request Changes") {
+            when {
+                expression { env.pr_git_url != null && env.pr_git_ref != null }
+            }
+            steps {
+                sh("""
+                    git remote add pr ${env.pr_git_url}
+                    git fetch pr
+                    git merge pr/${env.pr_git_ref}
+                """)
+            }
+        }
+
         stage("Build RPM") {
             when {
                 anyOf {
