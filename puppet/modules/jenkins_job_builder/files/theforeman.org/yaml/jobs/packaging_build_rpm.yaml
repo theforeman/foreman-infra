@@ -1,15 +1,7 @@
-# Builds a single Foreman (sub)project or dependency from the foreman-packaging
-# repository, using Koji.
-#
-# See https://projects.theforeman.org/projects/foreman/wiki/RPM_Packaging#Project-sources-version-3
-# or the help text on the build page for usage.
 - job:
-    name: packaging_build_rpm
-    concurrent: true
-    node: rpmbuild
-    properties:
-      - github:
-          url: https://github.com/theforeman/foreman-packaging/
+    name: packaging_build_rpm_new_hotness
+    project-type: pipeline
+    sandbox: false
     parameters:
       - string:
           name: branch
@@ -47,9 +39,7 @@
           default: lastSuccessfulBuild
           description: 'When using koji-foreman-jenkins, the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
       - pr_parameters
-    scm:
-      - foreman-rpm-packaging:
-          branch: '${branch}'
-    builders:
-      - pr_checkout
-      - packaging_build_rpm
+    dsl:
+      !include-raw:
+        - pipelines/lib/packaging_build_rpm_new_hotness.groovy
+        - pipelines/lib/obal.groovy
