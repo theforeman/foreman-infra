@@ -1,5 +1,5 @@
 - job:
-    name: packaging_build_rpm_new_hotness
+    name: packaging_build_rpm
     project-type: pipeline
     sandbox: false
     parameters:
@@ -41,5 +41,5 @@
       - pr_parameters
     dsl:
       !include-raw:
-        - pipelines/lib/packaging_build_rpm_new_hotness.groovy
+        - pipelines/release/packaging_build_rpm.groovy
         - pipelines/lib/obal.groovy
