@@ -60,6 +60,15 @@ pipeline {
             }
         }
     }
+    post {
+        failure {
+            emailext(
+                subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
+                to: 'ci@community.theforeman.org',
+                body: "Foreman nightly pipeline failed: \n\n${env.BUILD_URL}"
+            )
+        }
+    }
 }
 
 void repoclosure(repo, dist, additions = []) {
