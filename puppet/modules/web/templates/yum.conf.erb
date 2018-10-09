@@ -1,11 +1,3 @@
-<Directory /var/www/vhosts/yum/htdocs>
-  <IfModule mod_rewrite.c>
-    # rewrite /fc42/ -> /f42/
-    RewriteEngine On
-    RewriteRule (.*)/fc(\d+)/(.*) $1/f$2/$3
-  </IfModule>
-</Directory>
-
 # Prevent top-level repodata file being cached
 <IfModule mod_expires.c>
   <Files "repomd.xml">
