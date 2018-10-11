@@ -1,3 +1,5 @@
+def versions = [:]
+
 pipeline {
     agent { label 'admin && sshkey' }
 
@@ -24,45 +26,97 @@ pipeline {
 
             }
         }
-        stage('Repoclosure and Push') {
+        stage('repoclosure-nightly-el7') {
+            steps {
+                script {
+                    try {
+                        repoclosure('nightly', 'el7')
+                        versions['nightly'] = true
+                    } catch(Exception ex) {
+                        versions['nightly'] = false
+                    }
+                }
+            }
+        }
+        stage('repoclosure-1.19-el7') {
+            steps {
+                script {
+                    try {
+                        repoclosure('1.19', 'el7')
+                        versions['1.19'] = true
+                    } catch(Exception ex) {
+                        versions['1.19'] = false
+                    }
+                }
+            }
+        }
+        stage('repoclosure-1.18-el7') {
+            steps {
+                script {
+                    try {
+                        repoclosure('1.18', 'el7')
+                        versions['1.18'] = true
+                    } catch(Exception ex) {
+                        versions['1.18'] = false
+                    }
+                }
+            }
+        }
+        stage('repoclosure-1.17-el7') {
+            steps {
+                script {
+                    try {
+                        repoclosure('1.17', 'el7')
+                        versions['1.17'] = true
+                    } catch(Exception ex) {
+                        versions['1.17'] = false
+                    }
+                }
+            }
+        }
+        stage('push-rpms') {
             parallel {
-                stage('nightly-el7') {
-                    stages {
-                        stage('repoclosure-nightly-el7') {
-                            steps { repoclosure('nightly', 'el7') }
-                        }
-                        stage('push-nightly-el7') {
-                            steps { push_rpms('nightly', 'el7') }
-                        }
-                    }
-                }
-                stage('1.19-el7') {
-                    stages {
-                        stage('repoclosure-1.19-el7') {
-                            steps { repoclosure('1.19', 'el7') }
-                        }
-                        stage('push-1.19-el7') {
-                            steps { push_rpms('1.19', 'el7') }
+                stage('push-nightly-el7') {
+                    steps {
+                        script {
+                            if (versions['nightly']) {
+                                push_rpms('nightly', 'el7')
+                            } else {
+                                sh "exit 1"
+                            }
                         }
                     }
                 }
-                stage('1.18-el7') {
-                    stages {
-                        stage('repoclosure-1.18-el7') {
-                            steps { repoclosure('1.18', 'el7') }
-                        }
-                        stage('push-1.18-el7') {
-                            steps { push_rpms('1.18', 'el7') }
+                stage('push-1.19-el7') {
+                    steps {
+                        script {
+                            if (versions['1.19']) {
+                                push_rpms('1.19', 'el7')
+                            } else {
+                                sh "exit 1"
+                            }
                         }
                     }
                 }
-                stage('1.17-el7') {
-                    stages {
-                        stage('repoclosure-1.17-el7') {
-                            steps { repoclosure('1.17', 'el7') }
+                stage('push-1.18-el7') {
+                    steps {
+                        script {
+                            if (versions['1.19']) {
+                                push_rpms('1.18', 'el7')
+                            } else {
+                                sh "exit 1"
+                            }
                         }
-                        stage('push-1.17-el7') {
-                            steps { push_rpms('1.17', 'el7') }
+                    }
+                }
+                stage('push-1.17-el7') {
+                    steps {
+                        script {
+                            if (versions['1.19']) {
+                                push_rpms('1.17', 'el7')
+                            } else {
+                                sh "exit 1"
+                            }
                         }
                     }
                 }
