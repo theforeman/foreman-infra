@@ -5,32 +5,8 @@
     concurrent: true
     parameters:
       - string:
-          name: branch
-          default: rpm/develop
-          description: 'git branch of foreman-packaging to base on, e.g. rpm/develop, rpm/1.6'
-      - string:
           name: project
           description: 'Name of the project to build from foreman-packaging.'
-      - string:
-          name: tag
-          description: 'tito/git tag name to build specifically, default will be the latest tagged build available, e.g. rubygem-fog-1.21.0-1'
-      - choice:
-          name: releaser
-          choices:
-            - koji-foreman
-            - koji-foreman-jenkins
-            - koji-foreman-plugins
-            - koji-katello
-            - koji-katello-client
-            - koji-katello-jenkins
-          description: 'tito releaser appropriate for the selected project.  Use koji-foreman for core projects and dependencies, use koji-foreman-plugins for plugins and their dependencies.  Use koji-foreman-jenkins when building nightly packages with the nightly_* parameters.'
-      - string:
-          name: nightly_jenkins_job
-          description: 'When using koji-foreman-jenkins, name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
-      - string:
-          name: nightly_jenkins_job_id
-          default: lastSuccessfulBuild
-          description: 'When using koji-foreman-jenkins, the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
     dsl:
       !include-raw:
         - pipelines/release/packaging_build_rpm.groovy
