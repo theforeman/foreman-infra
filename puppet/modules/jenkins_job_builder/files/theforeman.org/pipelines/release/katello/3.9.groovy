@@ -14,18 +14,7 @@ pipeline {
 
             steps {
 
-                sh "ssh -o 'BatchMode yes' root@koji.katello.org katello-mash-split-3.8.py"
-
-            }
-        }
-        stage('Client Repoclosure') {
-            steps {
-
-                parallel(
-                    'client/el7': { repoclosure('client', 'el7') },
-                    'client/el6': { repoclosure('client', 'el6') },
-                    'client/fc27': { repoclosure('client', 'f27') }
-                )
+                sh "ssh -o 'BatchMode yes' root@koji.katello.org katello-mash-split-3.9.py"
 
             }
         }
@@ -60,7 +49,7 @@ pipeline {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                                 inventory: 'localhost',
-                                extraVars: ["jenkins_job_name=foreman-katello-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                extraVars: ["jenkins_job_name=foreman-katello-3.9-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
                                 options: ['-b']
                             )
                         }
@@ -76,7 +65,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-3.9-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
                                 options: ['-b']
                             )
                         }
@@ -89,7 +78,7 @@ pipeline {
 
             steps {
 
-                sh "ssh -i /var/lib/workspace/workspace/deploy_katello_repos_key/deploy_katello_repos_key katelloproject@fedorapeople.org \"cd /project/katello/bin && sh rsync-repos-from-koji 3.8\""
+                sh "ssh -i /var/lib/workspace/workspace/deploy_katello_repos_key/deploy_katello_repos_key katelloproject@fedorapeople.org \"cd /project/katello/bin && sh rsync-repos-from-koji 3.9\""
 
             }
         }
@@ -103,7 +92,7 @@ void repoclosure(repo, dist, additions = []) {
 
         def command = [
             "./repoclosure.sh yum_${dist}.conf",
-            "http://koji.katello.org/releases/yum/katello-3.8/${repo}/${dist}/x86_64/",
+            "http://koji.katello.org/releases/yum/katello-3.9/${repo}/${dist}/x86_64/",
             "-l ${dist}-foreman-1.19",
             "-l ${dist}-foreman-plugins-1.19",
             "-l ${dist}-foreman-rails-1.19",
@@ -116,8 +105,8 @@ void repoclosure(repo, dist, additions = []) {
             "-l ${dist}-puppet-5",
             "-l ${dist}-subscription-manager",
             "-l ${dist}-qpid",
-            "-l ${dist}-katello-pulp-3.8",
-            "-l ${dist}-katello-candlepin-3.8"
+            "-l ${dist}-katello-pulp-3.9",
+            "-l ${dist}-katello-candlepin-3.9"
         ]
 
         command = command + additions

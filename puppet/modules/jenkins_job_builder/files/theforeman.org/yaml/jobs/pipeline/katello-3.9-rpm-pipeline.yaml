@@ -1,0 +1,8 @@
+- job:
+    name: katello-3.9-rpm-pipeline
+    project-type: pipeline
+    dsl:
+      !include-raw:
+        - pipelines/release/katello/3.9.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy
