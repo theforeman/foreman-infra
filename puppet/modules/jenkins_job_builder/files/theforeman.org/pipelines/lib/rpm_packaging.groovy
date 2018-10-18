@@ -22,3 +22,10 @@ def query_rpmspec(specfile, queryformat) {
     result = sh(returnStdout: true, script: "rpmspec -q --srpm --undefine=dist --undefine=foremandist --queryformat=${queryformat} ${specfile}").trim()
     return result
 }
+
+def repoclosure(repo, dist) {
+    obal(
+        action: 'repoclosure',
+        packages: "${repo}-repoclosure-${dist}"
+    )
+}
