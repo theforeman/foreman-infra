@@ -14,14 +14,14 @@ pipeline {
 
             steps {
 
-                sh "ssh -o 'BatchMode yes' root@koji.katello.org foreman-client-mash-split.py"
+                mash("foreman-client-mash-split-1.20.py")
 
             }
         }
         stage('Clone packaging') {
             agent { label 'el' }
             steps {
-                git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/develop"
+                git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/1.20"
                 setup_obal()
             }
         }
@@ -47,13 +47,13 @@ pipeline {
 
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    push_rpms('nightly', 'el7')
-                    push_rpms('nightly', 'el6')
-                    push_rpms('nightly', 'el5')
-                    push_rpms('nightly', 'fc28')
-                    push_rpms('nightly', 'fc27')
-                    push_rpms('nightly', 'sles12')
-                    push_rpms('nightly', 'sles11')
+                    push_rpms('client', '1.20', 'el7')
+                    push_rpms('client', '1.20', 'el6')
+                    push_rpms('client', '1.20', 'el5')
+                    push_rpms('client', '1.20', 'fc28')
+                    push_rpms('client', '1.20', 'fc27')
+                    push_rpms('client', '1.20', 'sles12')
+                    push_rpms('client', '1.20', 'sles11')
                 }
             }
             post {
@@ -63,15 +63,4 @@ pipeline {
             }
         }
     }
-}
-
-void push_rpms(version, distro) {
-    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-client-${version}/${distro} -S repo_dest=client/${version}/${distro}"])
-}
-
-void repoclosure(repo, dist) {
-    obal(
-        action: 'repoclosure',
-        packages: "${repo}-repoclosure-${dist}"
-    )
 }
