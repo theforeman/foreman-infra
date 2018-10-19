@@ -1,7 +1,6 @@
 - job:
     name: packaging_build_rpm
     project-type: pipeline
-    sandbox: false
     concurrent: true
     parameters:
       - string:
