@@ -10,6 +10,7 @@ def obal(args) {
     }
 
     writeYaml file: extra_vars_file, data: extra_vars
+    archiveArtifacts artifacts: extra_vars_file
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${pwd()}/obal"]) {
