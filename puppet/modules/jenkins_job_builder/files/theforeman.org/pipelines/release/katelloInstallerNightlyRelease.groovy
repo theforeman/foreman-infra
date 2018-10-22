@@ -32,7 +32,7 @@ pipeline {
         stage('Build Tarball') {
             steps {
                 dir('katello-installer') {
-                    withRVM(['bundle exec rake pkg:generate_source'], 'ruby_version)
+                    withRVM(['bundle exec rake pkg:generate_source'], ruby_version)
                     archiveArtifacts artifacts: 'pkg/*'
                 }
             }
