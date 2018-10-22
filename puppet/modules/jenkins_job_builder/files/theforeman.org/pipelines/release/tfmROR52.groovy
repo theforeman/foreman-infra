@@ -67,6 +67,23 @@ pipeline {
 
             }
         }
+        stage('Push RPMs') {
+            agent { label 'admin && sshkey' }
+
+            steps {
+                git url: 'https://github.com/theforeman/foreman-infra'
+
+                dir('deploy') {
+                    withRVM(["bundle install --jobs=5 --retry=5"])
+                    push_rpms('rails', 'foreman-nightly', 'el7')
+                }
+            }
+            post {
+                always {
+                    deleteDir()
+                }
+            }
+        }
     }
 
     post {
