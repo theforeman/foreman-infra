@@ -88,14 +88,14 @@ pipeline {
 void repoclosure(repo, dist, additions = []) {
 
     node('el') {
-        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/1.19"
+        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/1.20"
 
         def command = [
             "./repoclosure.sh yum_${dist}.conf",
             "http://koji.katello.org/releases/yum/katello-3.9/${repo}/${dist}/x86_64/",
-            "-l ${dist}-foreman-1.19",
-            "-l ${dist}-foreman-plugins-1.19",
-            "-l ${dist}-foreman-rails-1.19",
+            "-l ${dist}-foreman-1.20",
+            "-l ${dist}-foreman-plugins-1.20",
+            "-l ${dist}-foreman-rails-1.20",
             "-l ${dist}-base",
             "-l ${dist}-updates",
             "-l ${dist}-epel",
