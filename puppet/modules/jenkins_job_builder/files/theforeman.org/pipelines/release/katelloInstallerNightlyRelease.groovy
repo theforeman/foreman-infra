@@ -8,13 +8,17 @@ pipeline {
         ansiColor('xterm')
     }
 
+    environment {
+        ruby_version = '2.4'
+    }
+
     stages {
         stage('Setup Environment') {
             steps {
                 dir('katello-installer') {
-                    configureRVM('2.2')
+                    configureRVM(ruby_version)
                     git url: 'https://github.com/Katello/katello-installer', branch: 'master'
-                    withRVM(['bundle install --without development --jobs=5 --retry 5'], '2.2')
+                    withRVM(['bundle install --without development --jobs=5 --retry 5'], ruby_version)
 
                     script {
                         if (fileExists('Puppetfile.lock')) {
@@ -28,7 +32,7 @@ pipeline {
         stage('Build Tarball') {
             steps {
                 dir('katello-installer') {
-                    withRVM(['bundle exec rake pkg:generate_source'], '2.2')
+                    withRVM(['bundle exec rake pkg:generate_source'], 'ruby_version)
                     archiveArtifacts artifacts: 'pkg/*'
                 }
             }
