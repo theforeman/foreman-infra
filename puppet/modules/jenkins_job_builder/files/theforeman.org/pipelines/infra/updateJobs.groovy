@@ -6,7 +6,7 @@ pipeline {
             steps {
                 checkout([
                     $class : 'GitSCM',
-                    branches : [[name: 'update_jobs']],
+                    branches : [[name: 'master']],
                     extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [
                         [url: 'https://github.com/theforeman/foreman-infra.git']
