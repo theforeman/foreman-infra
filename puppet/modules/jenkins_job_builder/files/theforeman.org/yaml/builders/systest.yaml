@@ -45,11 +45,11 @@
               group: 'bats'
               variables:
                 bats_environment:
-                  FOREMAN_EXPECTED_VERSION: ${{expected_version}}
+                  FOREMAN_EXPECTED_VERSION: '${{expected_version}}'
                 foreman_installer_options:
                   - '${{args}}'
                 ${{umask:+umask_mode: ${{umask}}}}
-                ${{repo:+foreman_repositories_version: ${{repo}}}}
+                ${{repo:+foreman_repositories_version: '${{repo}}'}}
                 ${{repo_environment:+foreman_repositories_environment: ${{repo_environment}}}}
                 ${{pl_puppet:+puppet_repositories_version: ${{pl_puppet}}}}
                 ${{run_hammer_tests:+foreman_testing_hammer_tests: ${{run_hammer_tests}}}}
