@@ -1,4 +1,0 @@
-- builder:
-    name: packaging_build_rpm
-    builders:
-      - shell: !include-raw: scripts/packaging_build_rpm.sh

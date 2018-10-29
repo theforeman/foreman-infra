@@ -1,55 +1,12 @@
-# Builds a single Foreman (sub)project or dependency from the foreman-packaging
-# repository, using Koji.
-#
-# See https://projects.theforeman.org/projects/foreman/wiki/RPM_Packaging#Project-sources-version-3
-# or the help text on the build page for usage.
 - job:
     name: packaging_build_rpm
+    project-type: pipeline
     concurrent: true
-    node: rpmbuild
-    properties:
-      - github:
-          url: https://github.com/theforeman/foreman-packaging/
     parameters:
-      - string:
-          name: branch
-          default: rpm/develop
-          description: 'git branch of foreman-packaging to base on, e.g. rpm/develop, rpm/1.6'
       - string:
           name: project
           description: 'Name of the project to build from foreman-packaging.'
-      - string:
-          name: tag
-          description: 'tito/git tag name to build specifically, default will be the latest tagged build available, e.g. rubygem-fog-1.21.0-1'
-      - bool:
-          name: scratch
-          default: true
-          description: 'Scratch (throw away) build for testing, if false will be an official build and pushed to project repositories.  Must be true if pr_git_* is used.  Equivalent to --scratch flag.'
-      - choice:
-          name: releaser
-          choices:
-            - koji-foreman
-            - koji-foreman-jenkins
-            - koji-foreman-plugins
-            - koji-katello
-            - koji-katello-client
-            - koji-katello-jenkins
-          description: 'tito releaser appropriate for the selected project.  Use koji-foreman for core projects and dependencies, use koji-foreman-plugins for plugins and their dependencies.  Use koji-foreman-jenkins when building nightly packages with the nightly_* parameters.'
-      - bool:
-          name: gitrelease
-          default: false
-          description: 'When true it builds from the latest spec file, else from the latest tag.  Enable when testing untagged changes.  Equivalent to --test flag.'
-      - string:
-          name: nightly_jenkins_job
-          description: 'When using koji-foreman-jenkins, name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
-      - string:
-          name: nightly_jenkins_job_id
-          default: lastSuccessfulBuild
-          description: 'When using koji-foreman-jenkins, the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
-      - pr_parameters
-    scm:
-      - foreman-rpm-packaging:
-          branch: '${branch}'
-    builders:
-      - pr_checkout
-      - packaging_build_rpm
+    dsl:
+      !include-raw:
+        - pipelines/release/packaging_build_rpm.groovy
+        - pipelines/lib/obal.groovy
