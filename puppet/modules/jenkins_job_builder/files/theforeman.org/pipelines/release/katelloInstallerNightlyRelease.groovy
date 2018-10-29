@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'admin' }
+    agent { label 'rpmbuild' }
 
     options {
         timestamps()
@@ -26,6 +26,10 @@ pipeline {
                         }
                     }
                 }
+                dir('foreman-packaging') {
+                    git url: 'https://github.com/theforeman/foreman-packaging/', branch: 'rpm/develop'
+                }
+                setup_obal()
             }
         }
 
@@ -38,16 +42,15 @@ pipeline {
             }
         }
 
-        stage('Trigger RPM Build') {
+        stage('Build RPM') {
             steps {
-                build job: 'packaging_build_rpm', propagate: true, parameters: [
-                    string(name: 'project', value: 'packages/katello/katello-installer-base'),
-                    booleanParam(name: 'gitrelease', value: false),
-                    booleanParam(name: 'scratch', value: false),
-                    string(name: 'releaser', value: 'koji-katello-jenkins'),
-                    string(name: 'nightly_jenkins_job', value: env.getProperty('JOB_NAME')),
-                    string(name: 'nightly_jenkins_job_id', value: env.getProperty('BUILD_ID'))
-                ]
+                dir('foreman-packaging') {
+                    obal(
+                        action: 'release',
+                        packages: 'katello-installer-base',
+                        extraVars: ['build_package_tito_releaser_args': ["--arg jenkins_job=${env.JOB_NAME} --arg jenkins_job_id=${env.BUILD_ID}"]]
+                    )
+                }
             }
         }
     }
