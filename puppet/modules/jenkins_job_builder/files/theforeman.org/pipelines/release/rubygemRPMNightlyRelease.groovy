@@ -39,12 +39,17 @@ pipeline {
                 }
             }
         }
-
-        stage('Build RPM') {
+        stage('Setup Build Environment') {
             steps {
                 dir('foreman-packaging') {
                     git(url: 'https://github.com/theforeman/foreman-packaging', branch: 'rpm/develop')
-                    setup_obal()
+                }
+                setup_obal()
+            }
+        }
+        stage('Build RPM') {
+            steps {
+                dir('foreman-packaging') {
                     obal(action: "nightly", extraVars: obalExtraVars, packages: package_name)
                 }
             }
