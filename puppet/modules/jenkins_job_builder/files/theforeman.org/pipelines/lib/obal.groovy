@@ -13,7 +13,7 @@ def obal(args) {
     archiveArtifacts artifacts: extra_vars_file
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-        withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${pwd()}/obal"]) {
+        withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${env.WORKSPACE}/obal"]) {
             sh "python -m obal ${args.action} ${packages} ${tags} -e @${extra_vars_file}"
         }
     }
@@ -22,7 +22,7 @@ def obal(args) {
 }
 
 def setup_obal() {
-    dir('obal') {
+    dir("${env.WORKSPACE}/obal") {
         checkout([
             $class : 'GitSCM',
             branches : [[name: 'master']],
