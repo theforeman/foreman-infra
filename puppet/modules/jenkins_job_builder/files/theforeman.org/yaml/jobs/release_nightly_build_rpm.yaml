@@ -1,23 +1,7 @@
-# Builds and releases single Foreman (sub)project for all RPM-based operating systems using
-# Koji, straight into the nightly tags.
 - job:
     name: release_nightly_build_rpm
-    block-downstream: true
+    project-type: pipeline
     concurrent: true
-    properties:
-      - github:
-          url: https://github.com/theforeman/foreman-packaging/
-    builders:
-      - trigger-builds:
-        - project: packaging_build_rpm
-          predefined-parameters: |
-            project=${project}
-            releaser=koji-foreman-jenkins
-            nightly_jenkins_job=${jenkins_job}
-            nightly_jenkins_job_id=${jenkins_job_id}
-            gitrelease=false
-            scratch=false
-          block: true
     parameters:
       - string:
           name: project
@@ -33,3 +17,7 @@
           description: 'When building nightly (develop), the build number for the Jenkins job (above) or an alias, e.g. 123, lastSuccessfulBuild'
     publishers:
       - ircbot_freenode
+    dsl:
+      !include-raw:
+        - pipelines/release/release-nightly-build-rpm.groovy
+        - pipelines/lib/obal.groovy
