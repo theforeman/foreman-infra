@@ -23,8 +23,9 @@ class foreman_debug_rsync::config {
     selinux::boolean { 'allow_rsync_anon_write': }
 
     selinux::module { 'rsync_debug':
-      ensure => 'present',
-      source => 'puppet:///modules/foreman_debug_rsync/rsync_debug.te',
+      ensure  => 'present',
+      source  => 'puppet:///modules/foreman_debug_rsync/rsync_debug.te',
+      builder => 'refpolicy',
     }
   }
 }
