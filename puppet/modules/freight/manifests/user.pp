@@ -132,8 +132,8 @@ define freight::user (
 
     # Ensure contexts are correct for content copied between webroot and staging area
     selinux::fcontext { "fcontext-${user}":
-      context  => 'public_content_t',
-      pathname => "/var/www/${user}(/.*)?",
+      seltype  => 'public_content_t',
+      pathspec => "/var/www/${user}(/.*)?",
     }
   }
 }
