@@ -49,8 +49,8 @@ class web(
 
     # Use a non-HTTP specific context to be shared with rsync
     selinux::fcontext { 'fcontext-www':
-      context  => 'public_content_t',
-      pathname => '/var/www(/.*)?',
+      seltype  => 'public_content_t',
+      pathspec => '/var/www(/.*)?',
     }
   }
 
