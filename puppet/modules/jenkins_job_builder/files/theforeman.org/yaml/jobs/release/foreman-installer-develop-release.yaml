@@ -1,0 +1,18 @@
+- job:
+    name: foreman-installer-develop-release-test
+    project-type: pipeline
+    concurrent: true
+#    scm:
+#      - foreman-installer:
+#          branch: 'develop'
+#    triggers:
+#      - timed: 'H 3 * * 1-5'
+#      - scm_fifteen_minutes
+#      - github
+#    publishers:
+#      - ircbot_freenode
+    dsl:
+      !include-raw:
+        - pipelines/release/foreman-installer-develop-release.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/obal.groovy
