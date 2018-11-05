@@ -33,7 +33,7 @@ EOF
   [ $p = foreman ] && echo "nightly_jenkins_job=test_develop" >> test_builds/debian/${p}.properties || true
   [ $p = foreman-proxy ] && echo "nightly_jenkins_job=test_proxy_develop" >> test_builds/debian/${p}.properties || true
   [ $p = foreman-selinux ] && echo "nightly_jenkins_job=packaging_trigger_selinux_develop" >> test_builds/debian/${p}.properties || true
-  [ $p = foreman-installer ] && echo "nightly_jenkins_job=packaging_trigger_installer_develop" >> test_builds/debian/${p}.properties || true
+  [ $p = foreman-installer ] && echo "nightly_jenkins_job=foreman-installer-develop-release" >> test_builds/debian/${p}.properties || true
 done
 
 # identify changed dependencies, 5 at most!
