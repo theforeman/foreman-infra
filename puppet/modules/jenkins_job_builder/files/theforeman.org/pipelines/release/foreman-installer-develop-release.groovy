@@ -48,7 +48,6 @@ pipeline {
                                 action: 'nightly',
                                 packages: 'foreman-installer',
                                 extraVars: [
-                                    'build_package_scratch': true,
                                     'releasers': [ 'koji-foreman' ], // TODO: remove releasers once foreman-installer is set to `{}` in foreman-packaging
                                     'nightly_sourcefiles': [ "${env.WORKSPACE}/foreman-installer/pkg/${sourcefile}" ],
                                     'nightly_githash': commit_hash
