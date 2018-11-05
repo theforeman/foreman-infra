@@ -59,7 +59,15 @@ pipeline {
                 }
                 stage('Build DEB') {
                     steps {
-                        echo "TODO: Build DEB"
+                        build(
+                            job: 'release_nightly_build_deb',
+                            propogate: true,
+                            parameters: [
+                               string(name: 'project', value: 'foreman-installer'),
+                               string(name: 'jenkins_job', value: env.JOB_NAME),
+                               string(name: 'jenkins_job_id', value: env.BUILD_ID)
+                            ]
+                        )
                     }
                 }
             }
