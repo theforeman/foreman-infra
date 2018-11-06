@@ -34,7 +34,7 @@ pipeline {
                     withRVM(["bundle exec rake pkg:generate_source"], env.ruby_version)
                     archiveArtifacts(artifacts: 'pkg/*')
                     dir('pkg') {
-                        script { sourcefile = sh(script: "ls", returnStdout: true).trim() } // i could probably do this with a better built-in
+                        script { sourcefile = sh(script: "ls", returnStdout: true).trim() }
                     }
                 }
             }
