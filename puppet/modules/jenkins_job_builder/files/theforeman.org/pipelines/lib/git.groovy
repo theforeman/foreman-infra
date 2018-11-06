@@ -10,3 +10,9 @@ def ghprb_git_checkout() {
         ]
     ]
 }
+
+def archive_git_hash(ref = 'HEAD') {
+    def hash = sh(script: "git rev-parse ${ref} | tee commit", returnStdout: true).trim()
+    archiveArtifacts(artifacts: 'commit')
+    return hash
+}
