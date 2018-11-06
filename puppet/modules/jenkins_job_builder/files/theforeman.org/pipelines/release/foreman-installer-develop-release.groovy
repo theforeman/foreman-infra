@@ -60,7 +60,7 @@ pipeline {
                     steps {
                         build(
                             job: 'release_nightly_build_deb',
-                            propogate: true,
+                            propagate: true,
                             parameters: [
                                string(name: 'project', value: 'foreman-installer'),
                                string(name: 'jenkins_job', value: env.JOB_NAME),
