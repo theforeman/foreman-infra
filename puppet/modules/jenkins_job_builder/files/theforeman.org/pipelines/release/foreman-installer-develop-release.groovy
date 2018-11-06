@@ -20,7 +20,6 @@ pipeline {
                 dir('foreman-installer') {
                     git(url: 'https://github.com/theforeman/foreman-installer.git', branch: 'develop')
                     script { commit_hash = archive_git_hash() }
-                    archiveArtifacts(artifacts: 'commit')
                 }
                 dir('foreman-packaging') { git(url: 'https://github.com/theforeman/foreman-packaging.git', branch: 'rpm/develop') }
                 setup_obal()
