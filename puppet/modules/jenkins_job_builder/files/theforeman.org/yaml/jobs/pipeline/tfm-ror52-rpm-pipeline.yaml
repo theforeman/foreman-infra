@@ -11,6 +11,7 @@
     dsl:
       !include-raw:
         - pipelines/release/tfmROR52.groovy
+        - pipelines/lib/git.groovy
         - pipelines/lib/obal.groovy
         - pipelines/lib/rpm_packaging.groovy
         - pipelines/lib/release.groovy

@@ -88,9 +88,7 @@ pipeline {
 
     post {
         success {
-            // Save current commit hash for use by the next release run
-            sh "git rev-parse HEAD > commit"
-            archiveArtifacts artifacts: 'commit'
+            archive_git_hash()
         }
     }
 }

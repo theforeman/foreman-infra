@@ -1,0 +1,19 @@
+- job:
+    name: foreman-installer-develop-release
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - github:
+          url: 'https://github.com/theforeman/foreman-installer'
+    triggers:
+      - timed: 'H 3 * * 1-5'
+      - scm_fifteen_minutes
+      - github
+    publishers:
+      - ircbot_freenode
+    dsl:
+      !include-raw:
+        - pipelines/release/foreman-installer-develop-release.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/obal.groovy
+        - pipelines/lib/git.groovy
