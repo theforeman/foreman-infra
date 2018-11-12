@@ -53,7 +53,7 @@
         password: "{{ jenkins_password }}"
         url: "{{ start_job_result.location }}api/json"
       register: poll_result
-      until: (poll_result.json is defined) and (poll_result.json.executable.number | default(0) | int > 0)
+      until: (poll_result.json is defined) and (poll_result.json.executable is defined) and (poll_result.json.executable.number | default(0) | int > 0)
       retries: 10
       delay: 4
 
