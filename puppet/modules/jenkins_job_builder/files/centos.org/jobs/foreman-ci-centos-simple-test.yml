@@ -1,0 +1,9 @@
+---
+- job:
+    name: 'foreman-ci-centos-simple-test'
+    project-type: 'pipeline'
+    sandbox: true
+    concurrent: true
+    dsl:
+      !include-raw:
+        - pipelines/test/simple.groovy

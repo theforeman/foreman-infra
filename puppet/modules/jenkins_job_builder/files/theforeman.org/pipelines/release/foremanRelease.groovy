@@ -35,7 +35,12 @@ pipeline {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jenkins-centos', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME']]) {
                     runPlaybook(
                         playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                        extraVars: ["jenkins_job_name=foreman-nightly-test", "jenkins_username=${env.USERNAME}", "jenkins_password=${env.PASSWORD}"],
+                        extraVars: [
+                            "jenkins_job_name=foreman-nightly-test",
+                            "jenkins_username=${env.USERNAME}",
+                            "jenkins_password=${env.PASSWORD}",
+                            "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-nightly-test"
+                        ],
                         options: ['-b']
                     )
                 }
@@ -61,6 +66,11 @@ pipeline {
         }
     }
     post {
+        always {
+            script {
+                set_job_build_description()
+            }
+        }
         failure {
             emailext(
                 subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",

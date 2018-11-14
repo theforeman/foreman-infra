@@ -42,12 +42,18 @@ pipeline {
                 stage('Install test') {
                     agent { label 'el' }
                     steps {
+                        sh "mkdir -p jobs/"
                         git_clone_foreman_infra()
 
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: ["jenkins_job_name=foreman-katello-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                extraVars: [
+                                    "jenkins_job_name=foreman-katello-nightly-test",
+                                    "jenkins_username=foreman",
+                                    "jenkins_password=${env.PASSWORD}",
+                                    "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-katello-nightly-test"
+                                ],
                                 options: ['-b']
                             )
                         }
@@ -57,13 +63,19 @@ pipeline {
                 stage('Upgrade test') {
                     agent { label 'el' }
                     steps {
+                        sh "mkdir -p jobs/"
                         git_clone_foreman_infra()
                         sleep(5) //See https://bugs.centos.org/view.php?id=14920
 
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-nightly-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
+                                extraVars: [
+                                    "jenkins_job_name=foreman-katello-upgrade-nightly-test",
+                                    "jenkins_username=foreman",
+                                    "jenkins_password=${env.PASSWORD}",
+                                    "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-katello-upgrade-nightly-test"
+                                ],
                                 options: ['-b']
                             )
                         }
@@ -82,6 +94,11 @@ pipeline {
         }
     }
     post {
+        always {
+            script {
+                set_job_build_description()
+            }
+        }
         failure {
             emailext(
                 subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
