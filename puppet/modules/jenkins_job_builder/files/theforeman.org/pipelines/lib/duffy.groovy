@@ -43,3 +43,15 @@ def duffy_ssh(command, box_name, relative_dir = '') {
 def duffy_scp(file_path, file_dest, box_name, relative_dir = '') {
     color_shell "scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r -F ${ssh_config(relative_dir)} ${box_name}:${file_path} ${file_dest}"
 }
+
+def set_job_build_description() {
+    def build_description = ""
+    def files_list = sh(script: "ls jobs/ -1", returnStdout: true).trim().split()
+
+    for (i = 0; i < files_list.size(); i++) {
+       link = readFile("jobs/${files_list[i]}")
+       build_description += "<a href=\"${link}\">${files_list[i]}</a><br/>"
+    }
+
+    currentBuild.description = build_description
+}

@@ -1,0 +1,10 @@
+- job:
+    name: ci-centos-integration-test
+    project-type: pipeline
+    triggers:
+      - timed: 'H 23 * * *'
+    dsl:
+      !include-raw:
+        - pipelines/test/ci_centos_integration_test.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy
