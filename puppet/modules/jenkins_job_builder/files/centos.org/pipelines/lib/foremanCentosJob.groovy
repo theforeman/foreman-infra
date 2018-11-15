@@ -47,6 +47,8 @@ pipeline {
             archiveArtifacts artifacts: 'debug/**/*.tap'
             archiveArtifacts artifacts: 'debug/**/*.tar.xz'
 
+            step([$class: "TapPublisher", testResults: "debug/**/*.tap"])
+
             deprovision()
             deleteDir()
         }
