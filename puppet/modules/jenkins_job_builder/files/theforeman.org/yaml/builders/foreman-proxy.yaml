@@ -1,4 +1,4 @@
 - builder:
-    name: test_proxy
+    name: foreman-proxy
     builders:
       - shell: !include-raw: scripts/test/proxy.sh
