@@ -1,5 +1,5 @@
 - job:
-    name: test_proxy_develop
+    name: foreman-proxy-develop-test
     project-type: matrix
     properties:
       - github:
