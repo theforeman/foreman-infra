@@ -1,4 +1,0 @@
-- builder:
-    name: pkg_generate_source
-    builders:
-      - shell: !include-raw: scripts/pkg_generate_source.sh

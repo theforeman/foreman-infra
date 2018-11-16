@@ -6,6 +6,10 @@ void git_clone_foreman_infra(args = [:]) {
     }
 }
 
+def list_files(glob = '') {
+    sh(script: "ls -1 ${glob}", returnStdout: true).trim().split()
+}
+
 def set_job_build_description(job_name) {
     def build_description = ""
     def file_name = "jobs/${job_name}"

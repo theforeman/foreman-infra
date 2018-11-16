@@ -17,38 +17,48 @@ pipeline {
     stages {
         stage('Setup Environment') {
             steps {
-                dir('foreman-installer') {
-                    git(url: 'https://github.com/theforeman/foreman-installer.git', branch: 'develop')
-                    script { commit_hash = archive_git_hash() }
+                script {
+                    if ( env.git_ref?.isAllWhitespace() ) {
+                        error("git_ref parameter is blank")
+                    }
                 }
-                dir('foreman-packaging') { git(url: 'https://github.com/theforeman/foreman-packaging.git', branch: 'rpm/develop', poll: false) }
-                setup_obal()
-                configureRVM(env.ruby_version)
+                setup_nightly_build_environment(
+                    git_url: git_url,
+                    git_ref: env.git_ref,
+                    project_name: project_name
+                )
+            }
+        }
+        stage('Archive Git Commit') {
+            steps {
+                script {
+                    dir(project_name) {
+                        commit_hash = archive_git_hash()
+                    }
+                }
             }
         }
         stage('Build and Archive Source') {
             steps {
-                dir('foreman-installer') {
-                    withRVM(["bundle install --jobs 5 --retry 5"], env.ruby_version)
-                    withRVM(["bundle exec rake pkg:generate_source"], env.ruby_version)
-                    archiveArtifacts(artifacts: 'pkg/*')
-                    dir('pkg') {
-                        script { sourcefile = sh(script: "ls", returnStdout: true).trim() }
-                    }
+                script {
+                    sourcefile_paths = generate_sourcefiles(project_name: project_name)
                 }
             }
         }
         stage('Build Package') {
             parallel {
                 stage('Build RPM') {
+                    when {
+                        expression { build_rpm }
+                    }
                     steps {
                         dir('foreman-packaging') {
                             obal(
                                 action: 'nightly',
-                                packages: 'foreman-installer',
+                                packages: project_name,
                                 extraVars: [
-                                    'releasers': [ 'koji-foreman' ], // TODO: remove releasers once foreman-installer is set to `{}` in foreman-packaging
-                                    'nightly_sourcefiles': [ "${env.WORKSPACE}/foreman-installer/pkg/${sourcefile}" ],
+                                    'releasers': [ 'koji-foreman' ],
+                                    'nightly_sourcefiles': sourcefile_paths,
                                     'nightly_githash': commit_hash
                                 ]
                             )
@@ -56,12 +66,15 @@ pipeline {
                     }
                 }
                 stage('Build DEB') {
+                    when {
+                        expression { build_deb }
+                    }
                     steps {
                         build(
                             job: 'release_nightly_build_deb',
                             propagate: true,
                             parameters: [
-                               string(name: 'project', value: 'foreman-installer'),
+                               string(name: 'project', value: project_name),
                                string(name: 'jenkins_job', value: env.JOB_NAME),
                                string(name: 'jenkins_job_id', value: env.BUILD_ID)
                             ]

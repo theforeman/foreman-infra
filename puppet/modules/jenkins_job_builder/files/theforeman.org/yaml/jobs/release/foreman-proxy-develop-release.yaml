@@ -1,22 +1,24 @@
 - job:
-    name: foreman-installer-develop-release
+    name: foreman-proxy-develop-release
     project-type: pipeline
     concurrent: true
     properties:
       - github:
-          url: 'https://github.com/theforeman/foreman-installer'
+          url: 'https://github.com/theforeman/smart-proxy'
     triggers:
-      - timed: 'H 3 * * 1-5'
       - github
-    publishers:
-      - ircbot_freenode
+    parameters:
+      - string:
+          name: git_ref
+          description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
     dsl:
       !include-raw:
-        - pipelines/vars/foreman-installer-develop-release.groovy
+        - pipelines/vars/foreman-proxy-develop-release.groovy
         - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
-        - pipelines/lib/ansible.groovy
         - pipelines/lib/obal.groovy
         - pipelines/lib/git.groovy
         - pipelines/lib/nightly_packaging.groovy
+    publishers:
+      - ircbot_freenode
