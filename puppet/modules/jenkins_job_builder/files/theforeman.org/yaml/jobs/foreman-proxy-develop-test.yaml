@@ -1,0 +1,16 @@
+- job:
+    name: foreman-proxy-develop-test
+    project-type: pipeline
+    concurrent: true
+    properties:
+      - github:
+          url: https://github.com/theforeman/smart-proxy
+    triggers:
+      - github
+    dsl:
+      !include-raw:
+        - pipelines/test/foreman-proxy-develop-test.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy
+    publishers:
+      - ircbot_freenode

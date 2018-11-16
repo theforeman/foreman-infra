@@ -1,22 +1,21 @@
 - job:
-    name: foreman-installer-develop-release
+    name: foreman-selinux-develop-release
     project-type: pipeline
-    concurrent: false
+    concurrent: true
     properties:
       - github:
-          url: 'https://github.com/theforeman/foreman-installer'
+          url: 'https://github.com/theforeman/foreman-selinux'
     triggers:
-      - timed: 'H 3 * * 1-5'
+      - timed: 'H 3 * * 1'
       - github
     publishers:
       - ircbot_freenode
     dsl:
       !include-raw:
-        - pipelines/vars/foreman-installer-develop-release.groovy
+        - pipelines/vars/foreman-selinux-develop-release.groovy
         - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
-        - pipelines/lib/ansible.groovy
         - pipelines/lib/obal.groovy
         - pipelines/lib/git.groovy
         - pipelines/lib/nightly_packaging.groovy
