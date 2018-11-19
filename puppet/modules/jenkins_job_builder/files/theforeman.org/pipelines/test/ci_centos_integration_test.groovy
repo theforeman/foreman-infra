@@ -22,8 +22,7 @@ pipeline {
                             "jenkins_username=foreman",
                             "jenkins_password=${env.PASSWORD}",
                             "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test"
-                        ],
-                        options: ['-b']
+                        ]
                     )
                 }
 
@@ -35,8 +34,7 @@ pipeline {
                             "jenkins_username=foreman",
                             "jenkins_password=${env.PASSWORD}",
                             "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test-2"
-                        ],
-                        options: ['-b']
+                        ]
                     )
                 }
             }
