@@ -15,5 +15,9 @@ def set_job_build_description() {
        build_description += "<a href=\"${link}\">${files_list[i]}</a><br/>"
     }
 
-    currentBuild.description = build_description
+    if (currentBuild.description == null) {
+        currentBuild.description = ''
+    }
+
+    currentBuild.description += build_description
 }

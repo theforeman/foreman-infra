@@ -57,6 +57,13 @@ pipeline {
                             )
                         }
                     }
+                    post {
+                        always {
+                            script {
+                                set_job_build_description()
+                            }
+                        }
+                    }
                 }
 
                 stage('Upgrade test') {
@@ -78,6 +85,13 @@ pipeline {
                             )
                         }
                     }
+                    post {
+                        always {
+                            script {
+                                set_job_build_description()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -92,11 +106,6 @@ pipeline {
         }
     }
     post {
-        always {
-            script {
-                set_job_build_description()
-            }
-        }
         failure {
             emailext(
                 subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
