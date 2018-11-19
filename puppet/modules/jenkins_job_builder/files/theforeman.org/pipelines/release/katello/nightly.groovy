@@ -42,7 +42,6 @@ pipeline {
                 stage('Install test') {
                     agent { label 'el' }
                     steps {
-                        sh "mkdir -p jobs/"
                         git_clone_foreman_infra()
 
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
@@ -63,7 +62,6 @@ pipeline {
                 stage('Upgrade test') {
                     agent { label 'el' }
                     steps {
-                        sh "mkdir -p jobs/"
                         git_clone_foreman_infra()
                         sleep(5) //See https://bugs.centos.org/view.php?id=14920
 
