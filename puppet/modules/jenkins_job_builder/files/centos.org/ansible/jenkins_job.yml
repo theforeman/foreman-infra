@@ -64,6 +64,12 @@
       debug:
         msg: "Build job: {{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/api/json"
 
+    - name: Create folder for job link files
+      file:
+        state: directory
+        path: "{{ jenkins_job_link_file | dirname }}"
+      when: jenkins_job_link_file is defined
+
     - name: Write job link to a file
       copy:
         dest: "{{ jenkins_job_link_file }}"

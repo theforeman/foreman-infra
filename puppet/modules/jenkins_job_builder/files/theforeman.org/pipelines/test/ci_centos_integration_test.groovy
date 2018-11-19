@@ -13,7 +13,6 @@ pipeline {
             steps {
                 deleteDir()
                 git_clone_foreman_infra()
-                sh "mkdir jobs"
 
                 withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                     runPlaybook(
