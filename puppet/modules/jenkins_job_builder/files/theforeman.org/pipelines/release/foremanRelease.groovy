@@ -42,8 +42,7 @@ pipeline {
                             "jenkins_username=${env.USERNAME}",
                             "jenkins_password=${env.PASSWORD}",
                             "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-nightly-test"
-                        ],
-                        options: ['-b']
+                        ]
                     )
                 }
             }
