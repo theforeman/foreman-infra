@@ -40,12 +40,12 @@ pipeline {
                     )
                 }
             }
-        }
-    }
-    post {
-        always {
-            script {
-                set_job_build_description()
+            post {
+                always {
+                    script {
+                        set_job_build_description()
+                    }
+                }
             }
         }
     }

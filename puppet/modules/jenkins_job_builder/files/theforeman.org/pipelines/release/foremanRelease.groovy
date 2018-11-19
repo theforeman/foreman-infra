@@ -19,6 +19,8 @@ pipeline {
             }
         }
         stage('Repoclosure') {
+            agent { label 'el' }
+
             steps {
 
                 repoclosure('RHEL', '7')
@@ -45,6 +47,13 @@ pipeline {
                     )
                 }
             }
+            post {
+                always {
+                    script {
+                        set_job_build_description()
+                    }
+                }
+            }
         }
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
@@ -66,11 +75,6 @@ pipeline {
         }
     }
     post {
-        always {
-            script {
-                set_job_build_description()
-            }
-        }
         failure {
             emailext(
                 subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
