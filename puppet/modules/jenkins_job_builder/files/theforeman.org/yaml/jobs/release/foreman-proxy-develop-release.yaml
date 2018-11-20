@@ -1,5 +1,5 @@
 - job:
-    name: foreman-proxy-develop-release-test
+    name: foreman-proxy-develop-release
     project-type: pipeline
     concurrent: true
     properties:
@@ -11,7 +11,8 @@
       - ircbot_freenode
     dsl:
       !include-raw:
-        - pipelines/release/foreman-proxy-develop-release.groovy
+        - pipelines/vars/foreman-proxy-develop-release.groovy
+        - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/obal.groovy
         - pipelines/lib/git.groovy

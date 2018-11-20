@@ -19,7 +19,8 @@ pipeline {
             steps {
                 script {
                     commit_hash = setup_nightly_build_environment(
-                        github_repo: 'theforeman/foreman-installer'
+                        github_repo: github_repo,
+                        package_name: package_name
                     )
                 }
             }
@@ -28,7 +29,7 @@ pipeline {
             steps {
                 script {
                     sourcefile_paths = generate_nightly_sourcefiles(
-                        package_name: 'foreman-installer'
+                        package_name: package_name
                     )
                 }
             }
@@ -40,7 +41,7 @@ pipeline {
                         dir('foreman-packaging') {
                             obal(
                                 action: 'nightly',
-                                packages: 'foreman-installer',
+                                packages: package_name,
                                 extraVars: [
                                     'releasers': [ 'koji-foreman' ],
                                     'nightly_sourcefiles': sourcefile_paths,
@@ -56,7 +57,7 @@ pipeline {
                             job: 'release_nightly_build_deb',
                             propagate: true,
                             parameters: [
-                               string(name: 'project', value: 'foreman-installer'),
+                               string(name: 'project', value: package_name),
                                string(name: 'jenkins_job', value: env.JOB_NAME),
                                string(name: 'jenkins_job_id', value: env.BUILD_ID)
                             ]
