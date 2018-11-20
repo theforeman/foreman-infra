@@ -19,7 +19,8 @@ pipeline {
             steps {
                 script {
                     commit_hash = setup_nightly_build_environment(
-                        github_repo: 'theforeman/foreman-installer'
+                        github_repo: 'theforeman/smart-proxy',
+                        package_name: 'foreman-proxy',
                     )
                 }
             }
@@ -28,7 +29,7 @@ pipeline {
             steps {
                 script {
                     sourcefile_paths = generate_nightly_sourcefiles(
-                        package_name: 'foreman-installer'
+                        package_name: 'foreman-proxy'
                     )
                 }
             }
@@ -40,11 +41,12 @@ pipeline {
                         dir('foreman-packaging') {
                             obal(
                                 action: 'nightly',
-                                packages: 'foreman-installer',
+                                packages: 'foreman-proxy',
                                 extraVars: [
                                     'releasers': [ 'koji-foreman' ],
                                     'nightly_sourcefiles': sourcefile_paths,
-                                    'nightly_githash': commit_hash
+                                    'nightly_githash': commit_hash,
+                                    'build_package_scratch': true
                                 ]
                             )
                         }
@@ -52,15 +54,16 @@ pipeline {
                 }
                 stage('Build DEB') {
                     steps {
-                        build(
-                            job: 'release_nightly_build_deb',
-                            propagate: true,
-                            parameters: [
-                               string(name: 'project', value: 'foreman-installer'),
-                               string(name: 'jenkins_job', value: env.JOB_NAME),
-                               string(name: 'jenkins_job_id', value: env.BUILD_ID)
-                            ]
-                        )
+                        echo "TODO"
+                        // build(
+                        //     job: 'release_nightly_build_deb',
+                        //     propagate: true,
+                        //     parameters: [
+                        //         string(name: 'project', value: 'foreman-proxy'),
+                        //         string(name: 'jenkins_job', value: env.JOB_NAME),
+                        //         string(name: 'jenkins_job_id', value: env.BUILD_ID)
+                        //     ]
+                        // )
                     }
                 }
             }
