@@ -20,7 +20,7 @@
           type: user-defined
           name: ruby
           values:
-          - '2.0'
+          - '2.0.0'
           - '2.1'
           - '2.2'
           - '2.3'
