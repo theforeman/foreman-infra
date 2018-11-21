@@ -23,3 +23,14 @@ def runPlaybook(args) {
         sh "${command.join(' ')}"
     }
 }
+
+def writeExtraVars(args) {
+    def timestamp = new Date().getTime()
+    def extra_vars_file = 'extra_vars-' + timestamp.toString() + '.yaml'
+    def extra_vars = args.extraVars ?: [:]
+
+    writeYaml file: extra_vars_file, data: extra_vars
+    archiveArtifacts artifacts: extra_vars_file
+
+    return extra_vars_file
+}

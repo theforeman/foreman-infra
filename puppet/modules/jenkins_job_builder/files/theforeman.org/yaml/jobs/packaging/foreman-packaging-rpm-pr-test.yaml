@@ -17,4 +17,5 @@
         - pipelines/lib/rpm_packaging.groovy
         - pipelines/lib/koji.groovy
         - pipelines/lib/git.groovy
+        - pipelines/lib/ansible.groovy
         - pipelines/lib/obal.groovy

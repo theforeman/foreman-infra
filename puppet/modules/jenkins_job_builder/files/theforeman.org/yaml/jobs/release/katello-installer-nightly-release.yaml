@@ -8,4 +8,5 @@
       !include-raw:
         - pipelines/release/katelloInstallerNightlyRelease.groovy
         - pipelines/lib/rvm.groovy
+        - pipelines/lib/ansible.groovy
         - pipelines/lib/obal.groovy

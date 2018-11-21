@@ -8,5 +8,6 @@
       !include-raw:
         - pipelines/vars/katello-master-release.groovy
         - pipelines/release/rubygemRPMNightlyRelease.groovy
+        - pipelines/lib/ansible.groovy
         - pipelines/lib/obal.groovy
         - pipelines/lib/rvm.groovy
