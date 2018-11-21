@@ -18,10 +18,10 @@ pipeline {
                     runPlaybook(
                         playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                         extraVars: [
-                            "jenkins_job_name=foreman-ci-centos-simple-test",
-                            "jenkins_username=foreman",
-                            "jenkins_password=${env.PASSWORD}",
-                            "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test"
+                            "jenkins_job_name": "foreman-ci-centos-simple-test",
+                            "jenkins_username": "foreman",
+                            "jenkins_password": "${env.PASSWORD}",
+                            "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test"
                         ]
                     )
                 }
@@ -30,10 +30,10 @@ pipeline {
                     runPlaybook(
                         playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                         extraVars: [
-                            "jenkins_job_name=foreman-ci-centos-simple-test",
-                            "jenkins_username=foreman",
-                            "jenkins_password=${env.PASSWORD}",
-                            "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test-2"
+                            "jenkins_job_name": "foreman-ci-centos-simple-test",
+                            "jenkins_username": "foreman",
+                            "jenkins_password": "${env.PASSWORD}",
+                            "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test-2"
                         ]
                     )
                 }

@@ -1,7 +1,7 @@
 def runPlaybook(args) {
     playbook = args.playbook
     inventory = args.inventory ?: 'localhost'
-    extraVars = args.extraVars ?: []
+    extraVars = args.extraVars ?: [:]
     options = args.options ?: []
 
     def command = [
@@ -15,8 +15,8 @@ def runPlaybook(args) {
     }
 
     if (extraVars) {
-        extraVars = "-e " + extraVars.join(" -e ")
-        command.push(extraVars)
+        extra_vars_file = writeExtraVars(extraVars: extraVars)
+        command.push("-e@${extra_vars_file}")
     }
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {

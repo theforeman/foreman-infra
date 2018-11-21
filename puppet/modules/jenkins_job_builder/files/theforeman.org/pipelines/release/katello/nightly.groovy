@@ -48,10 +48,10 @@ pipeline {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                                 extraVars: [
-                                    "jenkins_job_name=foreman-katello-nightly-test",
-                                    "jenkins_username=foreman",
-                                    "jenkins_password=${env.PASSWORD}",
-                                    "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-katello-nightly-test"
+                                    "jenkins_job_name": "foreman-katello-nightly-test",
+                                    "jenkins_username": "foreman",
+                                    "jenkins_password": "${env.PASSWORD}",
+                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-katello-nightly-test"
                                 ]
                             )
                         }
@@ -75,10 +75,10 @@ pipeline {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                                 extraVars: [
-                                    "jenkins_job_name=foreman-katello-upgrade-nightly-test",
-                                    "jenkins_username=foreman",
-                                    "jenkins_password=${env.PASSWORD}",
-                                    "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-katello-upgrade-nightly-test"
+                                    "jenkins_job_name": "foreman-katello-upgrade-nightly-test",
+                                    "jenkins_username": "foreman",
+                                    "jenkins_password": "${env.PASSWORD}",
+                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-katello-upgrade-nightly-test"
                                 ]
                             )
                         }
