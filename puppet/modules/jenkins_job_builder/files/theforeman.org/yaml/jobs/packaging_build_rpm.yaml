@@ -13,4 +13,5 @@
     dsl:
       !include-raw:
         - pipelines/release/packaging_build_rpm.groovy
+        - pipelines/lib/ansible.groovy
         - pipelines/lib/obal.groovy
