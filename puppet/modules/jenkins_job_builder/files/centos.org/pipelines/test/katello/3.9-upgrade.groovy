@@ -1,4 +1,4 @@
 def playBookVars() {
-    playBook = ['boxes': ['pipeline-upgrade-centos7'], 'pipeline': 'pipeline_katello_upgrade_39.yml']
+    playBook = ['boxes': ['pipeline-upgrade-centos7'], 'pipeline': 'katello_upgrade_pipeline.yml', 'extraVars': ['katello_version': '3.9']]
     return playBook
 }
