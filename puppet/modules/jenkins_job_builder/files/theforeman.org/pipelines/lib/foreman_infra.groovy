@@ -6,9 +6,13 @@ void git_clone_foreman_infra(args = [:]) {
     }
 }
 
+def list_files(glob = '') {
+    sh(script: "ls -1 ${glob}", returnStdout: true).trim().split()
+}
+
 def set_job_build_description() {
     def build_description = ""
-    def files_list = sh(script: "ls jobs/ -1", returnStdout: true).trim().split()
+    def files_list = list_files("jobs/")
 
     for (i = 0; i < files_list.size(); i++) {
        link = readFile("jobs/${files_list[i]}")
