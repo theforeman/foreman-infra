@@ -1,18 +1,18 @@
 - job:
-    name: foreman-proxy-develop-release
+    name: foreman-selinux-develop-release-test
     project-type: pipeline
     concurrent: true
     properties:
       - github:
-          url: 'https://github.com/theforeman/smart-proxy'
+          url: 'https://github.com/theforeman/foreman-selinux'
     triggers:
       - github
     publishers:
       - ircbot_freenode
     dsl:
       !include-raw:
-        - pipelines/vars/foreman-proxy-develop-release.groovy
-        - pipelines/release/foreman-x-develop-release-rpm-deb.groovy
+        - pipelines/vars/foreman-selinux-develop-release.groovy
+        - pipelines/release/foreman-x-develop-release-rpm.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/obal.groovy

@@ -13,7 +13,7 @@
     dsl:
       !include-raw:
         - pipelines/vars/foreman-installer-develop-release.groovy
-        - pipelines/release/foreman-x-develop-release.groovy
+        - pipelines/release/foreman-x-develop-release-rpm-deb.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/obal.groovy
