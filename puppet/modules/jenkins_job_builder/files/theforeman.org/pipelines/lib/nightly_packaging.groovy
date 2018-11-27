@@ -1,11 +1,11 @@
 def setup_nightly_build_environment(args) {
     def commit_hash = ''
-    def package_name = args.package_name
+    def project_name = args.project_name
     def git_url = args.git_url
     def branch = args.branch
     def ruby_version = args.ruby_version ?: env.ruby_version
 
-    dir(package_name) {
+    dir(project_name) {
         git(url: git_url, branch: branch)
         commit_hash = archive_git_hash()
     }
@@ -20,10 +20,10 @@ def setup_nightly_build_environment(args) {
 
 def generate_nightly_sourcefiles(args) {
     def sourcefile_paths = []
-    def package_name = args.package_name
+    def project_name = args.project_name
     def ruby_version = args.ruby_version ?: env.ruby_version
 
-    dir(package_name) {
+    dir(project_name) {
         withRVM(["bundle install --jobs 5 --retry 5"], ruby_version)
         withRVM(["bundle exec rake pkg:generate_source"], ruby_version)
         archiveArtifacts(artifacts: 'pkg/*')

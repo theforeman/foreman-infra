@@ -20,7 +20,7 @@ pipeline {
                 script {
                     commit_hash = setup_nightly_build_environment(
                         git_url: git_url,
-                        package_name: package_name,
+                        project_name: project_name,
                         branch: branch
                     )
                 }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     sourcefile_paths = generate_nightly_sourcefiles(
-                        package_name: package_name
+                        project_name: project_name
                     )
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
                         dir('foreman-packaging') {
                             obal(
                                 action: 'nightly',
-                                packages: package_name,
+                                packages: project_name,
                                 extraVars: [
                                     'releasers': [ 'koji-foreman' ],
                                     'nightly_sourcefiles': sourcefile_paths,
@@ -58,7 +58,7 @@ pipeline {
                             job: 'release_nightly_build_deb',
                             propagate: true,
                             parameters: [
-                               string(name: 'project', value: package_name),
+                               string(name: 'project', value: project_name),
                                string(name: 'jenkins_job', value: env.JOB_NAME),
                                string(name: 'jenkins_job_id', value: env.BUILD_ID)
                             ]
