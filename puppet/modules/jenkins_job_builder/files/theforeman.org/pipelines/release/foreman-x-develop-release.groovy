@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     commit_hash = setup_nightly_build_environment(
-                        github_repo: github_repo,
+                        git_url: git_url,
                         package_name: package_name,
                         branch: branch
                     )

@@ -1,12 +1,12 @@
 def setup_nightly_build_environment(args) {
     def commit_hash = ''
     def package_name = args.package_name
-    def github_repo = args.github_repo
+    def git_url = args.git_url
     def branch = args.branch
     def ruby_version = args.ruby_version ?: env.ruby_version
 
     dir(package_name) {
-        git(url: "https://github.com/${github_repo}.git", branch: branch)
+        git(url: git_url, branch: branch)
         commit_hash = archive_git_hash()
     }
     dir('foreman-packaging') {
