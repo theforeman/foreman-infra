@@ -38,6 +38,9 @@ pipeline {
         stage('Build Package') {
             parallel {
                 stage('Build RPM') {
+                    when {
+                        expression { build_rpm }
+                    }
                     steps {
                         dir('foreman-packaging') {
                             obal(
@@ -53,6 +56,9 @@ pipeline {
                     }
                 }
                 stage('Build DEB') {
+                    when {
+                        expression { build_deb }
+                    }
                     steps {
                         build(
                             job: 'release_nightly_build_deb',

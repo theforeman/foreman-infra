@@ -1,5 +1,5 @@
 - job:
-    name: foreman-selinux-develop-release-test
+    name: foreman-selinux-develop-release
     project-type: pipeline
     concurrent: true
     properties:
@@ -13,7 +13,7 @@
     dsl:
       !include-raw:
         - pipelines/vars/foreman-selinux-develop-release.groovy
-        - pipelines/release/foreman-x-develop-release-rpm.groovy
+        - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/obal.groovy
