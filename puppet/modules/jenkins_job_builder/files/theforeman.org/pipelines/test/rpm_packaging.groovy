@@ -68,17 +68,21 @@ pipeline {
 
                         sh "git checkout origin/${env.ghprbTargetBranch}"
 
-                        spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
+                        old_spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
 
-                        if (spec_path) {
-                            old_version = query_rpmspec(spec_path, '%{VERSION}')
-                            old_release = query_rpmspec(spec_path, '%{RELEASE}')
+                        if (old_spec_path) {
+                            old_version = query_rpmspec(old_spec_path, '%{VERSION}')
+                            old_release = query_rpmspec(old_spec_path, '%{RELEASE}')
 
                             sh "git checkout -"
-                            spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
+                            new_spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
 
-                            new_version = query_rpmspec(spec_path, '%{VERSION}')
-                            new_release = query_rpmspec(spec_path, '%{RELEASE}')
+                            if (old_spec_path != new_spec_path) {
+                              continue
+                            }
+
+                            new_version = query_rpmspec(new_spec_path, '%{VERSION}')
+                            new_release = query_rpmspec(new_spec_path, '%{RELEASE}')
 
                             compare_version = sh(
                               script: "rpmdev-vercmp ${old_version} ${new_version}",
