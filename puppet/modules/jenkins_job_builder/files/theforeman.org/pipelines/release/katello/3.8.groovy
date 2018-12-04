@@ -60,8 +60,7 @@ pipeline {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                                 inventory: 'localhost',
-                                extraVars: ["jenkins_job_name=foreman-katello-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
-                                options: ['-b']
+                                extraVars: ["jenkins_job_name=foreman-katello-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"]
                             )
                         }
                     }
@@ -76,8 +75,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"],
-                                options: ['-b']
+                                extraVars: ["jenkins_job_name=foreman-katello-upgrade-3.8-test", "jenkins_username=foreman", "jenkins_password=${env.PASSWORD}"]
                             )
                         }
                     }

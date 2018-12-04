@@ -52,8 +52,7 @@ pipeline {
                                     "jenkins_username=foreman",
                                     "jenkins_password=${env.PASSWORD}",
                                     "jenkins_job_link_file=${env.WORKSPACE}/jobs/foreman-katello-nightly-test"
-                                ],
-                                options: ['-b']
+                                ]
                             )
                         }
                     }
