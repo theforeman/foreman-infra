@@ -40,9 +40,9 @@ pipeline {
                         extraVars: [
                             "jenkins_job_name": "foreman-nightly-test",
                             "jenkins_username": "${env.USERNAME}",
-                            "jenkins_password": "${env.PASSWORD}",
                             "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-nightly-test"
-                        ]
+                        ],
+                        sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                     )
                 }
             }

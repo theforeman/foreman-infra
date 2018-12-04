@@ -20,9 +20,9 @@ pipeline {
                         extraVars: [
                             "jenkins_job_name": "foreman-ci-centos-simple-test",
                             "jenkins_username": "foreman",
-                            "jenkins_password": "${env.PASSWORD}",
                             "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test"
-                        ]
+                        ],
+                        sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                     )
                 }
 
@@ -34,7 +34,8 @@ pipeline {
                             "jenkins_username": "foreman",
                             "jenkins_password": "${env.PASSWORD}",
                             "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-ci-centos-simple-test-2"
-                        ]
+                        ],
+                        sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                     )
                 }
             }

@@ -50,9 +50,9 @@ pipeline {
                                 extraVars: [
                                     "jenkins_job_name": "foreman-katello-nightly-test",
                                     "jenkins_username": "foreman",
-                                    "jenkins_password": "${env.PASSWORD}",
                                     "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-katello-nightly-test"
-                                ]
+                                ],
+                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                             )
                         }
                     }
@@ -77,9 +77,9 @@ pipeline {
                                 extraVars: [
                                     "jenkins_job_name": "foreman-katello-upgrade-nightly-test",
                                     "jenkins_username": "foreman",
-                                    "jenkins_password": "${env.PASSWORD}",
                                     "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-katello-upgrade-nightly-test"
-                                ]
+                                ],
+                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                             )
                         }
                     }
