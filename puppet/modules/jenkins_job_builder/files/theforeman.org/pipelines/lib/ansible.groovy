@@ -17,12 +17,12 @@ def runPlaybook(args) {
 
     if (extraVars) {
         extra_vars_file = writeExtraVars(extraVars: extraVars)
-        command.push("-e@${extra_vars_file}")
+        command.push("-e @${extra_vars_file}")
     }
 
     if (sensitiveExtraVars) {
         sensitive_extra_vars_file = writeExtraVars(extraVars: sensitiveExtraVars, archiveExtraVars: false)
-        command.push("-e@${sensitive_extra_vars_file}")
+        command.push("-e @${sensitive_extra_vars_file}")
     }
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
