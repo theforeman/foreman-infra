@@ -34,7 +34,7 @@ def writeExtraVars(args) {
     def timestamp = new Date().getTime()
     def extra_vars_file = 'extra_vars-' + timestamp.toString() + '.yaml'
     def extra_vars = args.extraVars ?: [:]
-    def archive_extra_vars = args.archiveExtraVars ?: true
+    def archive_extra_vars = (args.archiveExtraVars != null) ? args.archiveExtraVars : true
 
     writeYaml file: extra_vars_file, data: extra_vars
     if (archive_extra_vars) {
