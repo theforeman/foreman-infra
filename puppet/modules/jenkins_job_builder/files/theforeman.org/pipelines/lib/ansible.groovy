@@ -31,8 +31,14 @@ def runPlaybook(args) {
 }
 
 def writeExtraVars(args) {
-    def timestamp = new Date().getTime()
-    def extra_vars_file = 'extra_vars-' + timestamp.toString() + '.yaml'
+    def suffix
+    try {
+        def timestamp = new Date().getTime()
+        suffix = timestamp.toString()
+    } catch(Exception ex) {
+        suffix = 'no_timestamp'
+    }
+    def extra_vars_file = 'extra_vars-' + suffix + '.yaml'
     def extra_vars = args.extraVars ?: [:]
     def archive_extra_vars = (args.archiveExtraVars != null) ? args.archiveExtraVars : true
 
