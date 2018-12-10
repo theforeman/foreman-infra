@@ -20,6 +20,7 @@
             - foreman-proxy
             - foreman-selinux
             - foreman-installer
+            - foreman-release
     builders:
       - trigger-builds:
         - project: packaging_build_rpm
@@ -28,9 +29,9 @@
       - conditional-step:
           condition-kind: not
           condition-operand:
-              condition-kind: strings-match
-              condition-string1: '${ENV,var="project"}'
-              condition-string2: foreman-selinux
+              condition-kind: regex-match
+              label: '${ENV,var="project"}'
+              regex: '^foreman-(selinux|release)$'
           steps:
             - trigger-builds:
                 - project: packaging_build_deb_coreproject
