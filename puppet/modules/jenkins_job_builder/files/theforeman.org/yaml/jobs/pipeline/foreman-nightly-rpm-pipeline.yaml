@@ -3,6 +3,12 @@
     project-type: pipeline
     triggers:
       - timed: 'H 21 * * *'
+      - build-result:
+           groups:
+            - jobs:
+                - foreman-installer-develop-release
+              results:
+                - success
     dsl:
       !include-raw:
         - pipelines/release/foremanRelease.groovy

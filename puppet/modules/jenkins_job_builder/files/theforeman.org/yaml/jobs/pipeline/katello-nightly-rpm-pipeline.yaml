@@ -2,7 +2,12 @@
     name: katello-nightly-rpm-pipeline
     project-type: pipeline
     triggers:
-      - timed: 'H 23 * * *'
+      - build-result:
+           groups:
+            - jobs:
+                - foreman-nightly-rpm-pipeline
+              results:
+                - success
     dsl:
       !include-raw:
         - pipelines/release/katello/nightly.groovy
