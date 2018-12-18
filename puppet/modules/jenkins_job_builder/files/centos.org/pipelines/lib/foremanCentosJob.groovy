@@ -27,7 +27,10 @@ pipeline {
         }
         stage('Run Pipeline') {
             steps {
-                duffy_ssh("cd forklift && ansible-playbook pipelines/${playBook['pipeline']} -e forklift_state=up", 'duffy_box', './')
+                script {
+                    extra_vars = buildExtraVars(extraVars: playBook['extraVars'])
+                    duffy_ssh("cd forklift && ansible-playbook pipelines/${playBook['pipeline']} -e forklift_state=up ${extra_vars}", 'duffy_box', './')
+                }
             }
         }
     }
