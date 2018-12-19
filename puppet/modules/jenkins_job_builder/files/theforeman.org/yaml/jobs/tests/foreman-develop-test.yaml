@@ -1,0 +1,10 @@
+- job:
+    name: foreman-develop-test
+    project-type: pipeline
+    concurrent: false
+    dsl:
+      !include-raw:
+        - pipelines/test/test_foreman.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy
+        - pipelines/lib/foreman.groovy

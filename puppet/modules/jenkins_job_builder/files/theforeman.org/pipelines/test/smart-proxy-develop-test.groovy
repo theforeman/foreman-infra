@@ -68,6 +68,7 @@ pipeline {
                 build(
                     job: 'smart-proxy-develop-release',
                     propagate: false,
+                    wait: false,
                     parameters: [
                         string(name: 'git_ref', value: commit_hash)
                     ]
