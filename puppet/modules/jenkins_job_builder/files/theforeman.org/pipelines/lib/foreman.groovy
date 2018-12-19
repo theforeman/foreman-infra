@@ -1,30 +1,12 @@
-def databaseFile (id) {
-    writeFile(file: 'config/database.yml', text: """
-test:
-  adapter: postgresql
-  database: ${id}-test
-  username: foreman
-  password: foreman
-  host: localhost
-  template: template0
-
-development:
-  adapter: postgresql
-  database: ${id}-development
-  username: foreman
-  password: foreman
-  host: localhost
-  template: template0
-
-production:
-  adapter: postgresql
-  database: ${id}-development
-  username: foreman
-  password: foreman
-  host: localhost
-  template: template0
-""")
-
+def databaseFile(id, database = 'postgresql') {
+    if (database == 'sqlite3') {
+        text = sqliteTemplate()
+    } else if (database == 'mysql') {
+        text = mysqlTemplate(id)
+    } else {
+        text = postgresqlTemplate(id)
+    }
+    writeFile(file: 'config/database.yml', text: text)
 }
 
 def addGem() {
@@ -35,21 +17,90 @@ def addSettings(settings) {
     sh "cp config/settings.yaml.example config/settings.yaml"
 }
 
-def configureDatabase(ruby) {
-    withRVM(['bundle install --jobs=5 --retry=5'], ruby)
-    withRVM(['bundle exec rake db:drop -q || true'], ruby)
-    withRVM(['bundle exec rake db:create -q'], ruby)
-    withRVM(['bundle exec rake db:migrate -q'], ruby)
+def configureDatabase(ruby, name = '') {
+    withRVM(['bundle install --without=development --jobs=5 --retry=5'], ruby, name)
+    withRVM(['bundle exec rake db:drop || true'], ruby, name)
+    withRVM(['bundle exec rake db:create --trace'], ruby, name)
+    withRVM(['bundle exec rake db:migrate --trace'], ruby, name)
 }
 
-def cleanup(ruby) {
+def cleanup(ruby, name = '') {
     try {
 
-        withRVM(['bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true'], ruby)
+        withRVM(['bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true'], ruby, name)
 
     } finally {
 
-        cleanupRVM(ruby)
+        cleanupRVM(ruby, name)
 
     }
+}
+
+def postgresqlTemplate(id) {
+  return """
+test:
+  adapter: postgresql
+  database: test-${id}-test
+  username: foreman
+  password: foreman
+  host: localhost
+  template: template0
+
+development:
+  adapter: postgresql
+  database: test-${id}-development
+  username: foreman
+  password: foreman
+  host: localhost
+  template: template0
+
+production:
+  adapter: postgresql
+  database: test-${id}-production
+  username: foreman
+  password: foreman
+  host: localhost
+  template: template0
+"""
+}
+
+def mysqlTemplate(id) {
+  return """
+test:
+  adapter: mysql2
+  database: test-${id}-test
+  username: foreman
+  password: foreman
+  host: localhost
+
+development:
+  adapter: mysql2
+  database: test-${id}-development
+  username: foreman
+  password: foreman
+  host: localhost
+
+production:
+  adapter: mysql2
+  database: test-${id}-production
+  username: foreman
+  password: foreman
+  host: localhost
+"""
+}
+
+def sqliteTemplate() {
+  return """
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+"""
 }

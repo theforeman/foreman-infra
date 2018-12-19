@@ -3,7 +3,7 @@ def gemset(name = null) {
     def base_name = "${JOB_NAME}-${BUILD_ID}"
 
     if (name) {
-        base_name = base_name + '-' + name
+        base_name = base_name + '-' + name.replace(".", "-")
     }
 
     base_name
