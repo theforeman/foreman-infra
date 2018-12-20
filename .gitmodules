@@ -122,9 +122,6 @@
 [submodule "puppet/modules/hocon"]
 	path = puppet/modules/hocon
 	url = https://github.com/puppetlabs/puppetlabs-hocon.git
-[submodule "puppet/modules/puppet_authorization"]
-	path = puppet/modules/puppet_authorization
-	url = https://github.com/puppetlabs/puppetlabs-puppet_authorization.git
 [submodule "puppet/modules/translate"]
 	path = puppet/modules/translate
 	url = https://github.com/puppetlabs/puppetlabs-translate.git
