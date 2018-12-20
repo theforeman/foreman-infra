@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'puppet', '~> 4.10', :require => false
+gem 'puppet', '~> 5.5', :require => false
 gem 'puppet-syntax', :require => false
 gem 'puppetlabs_spec_helper', :require => false
 gem 'rspec-puppet-facts', :require => false
