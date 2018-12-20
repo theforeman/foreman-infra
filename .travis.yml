@@ -4,7 +4,7 @@ matrix:
   include:
     - language: ruby
       rvm:
-        - 2.1.9
+        - 2.4.1
       install: (cd puppet && bundle install)
       script: ./.travis/puppet.sh
       addons:
