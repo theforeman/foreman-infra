@@ -11,7 +11,7 @@ rvm gemset empty --force
 set -x
 
 gem update --no-ri --no-rdoc
-gem install bundler --no-ri --no-rdoc
+gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
 bundle install --without=development --jobs=5 --retry=5
 bundle exec rake pkg:generate_source ci:setup:minitest test TESTOPTS="-v"

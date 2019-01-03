@@ -18,7 +18,7 @@ rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
 set -x
 
-gem install bundler --no-ri --no-rdoc
+gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
 # Retry as rubygems (being external to us) can be intermittent
 bundle install --without=development --jobs=5 --retry=5

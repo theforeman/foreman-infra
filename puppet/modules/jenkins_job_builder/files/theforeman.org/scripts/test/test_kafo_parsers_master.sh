@@ -12,7 +12,7 @@ rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
 set -x
 
-gem install bundler --no-ri --no-rdoc
+gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
 # rename axis for Gemfile env var
 export PUPPET_VERSION=$puppet

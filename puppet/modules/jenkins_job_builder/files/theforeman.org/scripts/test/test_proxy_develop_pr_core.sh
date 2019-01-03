@@ -17,7 +17,7 @@ set -x
 
 # Update any gems from the global gemset
 #gem update --no-ri --no-rdoc
-gem install bundler --no-ri --no-rdoc
+gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
 # Puppet environment
 sed -i "/^\s*gem.*puppet/ s/\$/, '~> $puppet'/" $APP_ROOT/bundler.d/puppet.rb

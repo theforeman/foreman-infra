@@ -12,7 +12,7 @@ rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
 set -x
 
-gem install bundler --no-ri --no-rdoc
+gem install bundler -v '< 2.0' --no-ri --no-rdoc
 bundle install --jobs=5 --retry=5
 
 # compile site on slave
