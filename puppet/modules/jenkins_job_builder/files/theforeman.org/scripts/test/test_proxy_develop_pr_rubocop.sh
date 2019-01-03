@@ -16,7 +16,7 @@ set -x
 
 # Update any gems from the global gemset
 gem update --no-ri --no-rdoc
-gem install bundler --no-ri --no-rdoc
+gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
 bundle install --with=test --without='development puppet windows bmc' --retry 5 --jobs 5
 bundle exec rake jenkins:rubocop TESTOPTS="-v"
