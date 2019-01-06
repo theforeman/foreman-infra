@@ -23,10 +23,6 @@
 
           args=""
 
-          if [[ ${{run_hammer_tests}} == true ]]; then
-            args+=" --foreman-organizations-enabled=true --foreman-locations-enabled=true"
-          fi
-
           if [[ -n "${{db_type}}" ]]; then
             args+=" --foreman-db-type=${{db_type}}"
           fi

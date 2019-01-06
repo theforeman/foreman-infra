@@ -33,14 +33,6 @@ def addGem() {
 
 def addSettings(settings) {
     sh "cp config/settings.yaml.example config/settings.yaml"
-
-    if (settings['locations']) {
-        sh "sed -i 's/:locations_enabled: false/:locations_enabled: true/' config/settings.yaml"
-    }
-
-    if (settings['organizations']) {
-        sh "sed -i 's/:organizations_enabled: false/:organizations_enabled: true/' config/settings.yaml"
-    }
 }
 
 def configureDatabase(ruby) {

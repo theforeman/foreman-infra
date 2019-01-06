@@ -10,8 +10,7 @@ cd $APP_ROOT
 # This section is from test_develop, please keep it in sync
 
 # setup basic settings file
-sed -e 's/:locations_enabled: false/:locations_enabled: true/' $APP_ROOT/config/settings.yaml.example > $APP_ROOT/config/settings.yaml
-sed -i 's/:organizations_enabled: false/:organizations_enabled: true/' $APP_ROOT/config/settings.yaml
+cp $APP_ROOT/config/settings.yaml.example $APP_ROOT/config/settings.yaml
 
 echo "Setting up RVM environment."
 set +x

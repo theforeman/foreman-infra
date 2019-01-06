@@ -64,10 +64,6 @@ pipeline {
             steps {
 
                 dir('foreman') {
-                    addSettings([
-                        organizations: true,
-                        locations: true
-                    ])
                     addGem()
                     databaseFile(gemset())
                 }
