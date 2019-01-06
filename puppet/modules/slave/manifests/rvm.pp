@@ -8,7 +8,7 @@ class slave::rvm {
     key_type   => public,
   } ->
   class { '::rvm':
-    version => '1.29.7',
+    version => '1.29.4',
   }
 
   if $::rvm_installed == true {
