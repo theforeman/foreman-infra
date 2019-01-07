@@ -75,7 +75,7 @@ pipeline {
 
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    push_rpms('rails', 'foreman-nightly', 'el7')
+                    push_rpms('tfm-ror52', 'rails', 'foreman-nightly', 'el7')
                 }
             }
             post {

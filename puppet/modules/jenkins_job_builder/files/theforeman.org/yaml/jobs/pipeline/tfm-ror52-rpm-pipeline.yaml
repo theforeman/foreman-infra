@@ -16,3 +16,4 @@
         - pipelines/lib/obal.groovy
         - pipelines/lib/rpm_packaging.groovy
         - pipelines/lib/release.groovy
+        - pipelines/lib/rvm.groovy

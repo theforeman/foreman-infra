@@ -47,13 +47,13 @@ pipeline {
 
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    push_rpms('client', '1.20', 'el7')
-                    push_rpms('client', '1.20', 'el6')
-                    push_rpms('client', '1.20', 'el5')
-                    push_rpms('client', '1.20', 'fc28')
-                    push_rpms('client', '1.20', 'fc27')
-                    push_rpms('client', '1.20', 'sles12')
-                    push_rpms('client', '1.20', 'sles11')
+                    push_foreman_rpms('client', '1.20', 'el7')
+                    push_foreman_rpms('client', '1.20', 'el6')
+                    push_foreman_rpms('client', '1.20', 'el5')
+                    push_foreman_rpms('client', '1.20', 'fc28')
+                    push_foreman_rpms('client', '1.20', 'fc27')
+                    push_foreman_rpms('client', '1.20', 'sles12')
+                    push_foreman_rpms('client', '1.20', 'sles11')
                 }
             }
             post {
