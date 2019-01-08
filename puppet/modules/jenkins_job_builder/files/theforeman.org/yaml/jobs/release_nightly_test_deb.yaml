@@ -14,9 +14,8 @@
           name: os
           values:
           - debian9
-          # TODO: nova provisioning is broken on rackspace
-          #- ubuntu1604
-          #- ubuntu1804
+          - ubuntu1604
+          - ubuntu1804
       - axis:
           type: label-expression
           name: label
