@@ -149,6 +149,7 @@ class web(
     servername   => 'downloads.theforeman.org',
     docroot      => '/var/www/vhosts/downloads/htdocs',
     docroot_mode => '2575',
+    headers      => 'Set Cache-Control "public, max-age=2592000"',
   }
   rsync::server::module { 'downloads':
     path            => '/var/www/vhosts/downloads/htdocs',
