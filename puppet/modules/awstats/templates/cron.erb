@@ -4,7 +4,7 @@
 # Cron to update the AWstats pages for the vhosts
 
 # Import new stats from log files
-perl /usr/share/awstats/wwwroot/cgi-bin/awstats.pl -config=<%= @name %> -update >> /var/log/awstats.log
+nice perl /usr/share/awstats/wwwroot/cgi-bin/awstats.pl -config=<%= @name %> -update >> /var/log/awstats.log
 
 # Generate new output
-perl /usr/share/awstats/wwwroot/cgi-bin/awstats.pl -config=<%= @name %> -output -staticlinks > /var/www/vhosts/debugs/htdocs/awstats/<%= @name %>.html
+nice perl /usr/share/awstats/wwwroot/cgi-bin/awstats.pl -config=<%= @name %> -output -staticlinks > /var/www/vhosts/debugs/htdocs/awstats/<%= @name %>.html
