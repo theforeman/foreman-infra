@@ -21,7 +21,7 @@ pipeline {
         stage('Clone packaging') {
             agent { label 'el' }
             steps {
-                git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/1.20"
+                git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/1.20", poll: false
                 setup_obal()
             }
         }
@@ -43,7 +43,7 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                git url: 'https://github.com/theforeman/foreman-infra'
+                git url: 'https://github.com/theforeman/foreman-infra', poll: false
 
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])

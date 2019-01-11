@@ -49,7 +49,7 @@ pipeline {
 
 void verify_tag(project, version) {
     dir(project) {
-        git url: "https://github.com/theforeman/${project}.git", branch: 'develop'
+        git url: "https://github.com/theforeman/${project}.git", branch: 'develop', poll: false
         sh "git tag -l ${version} | grep ${version}"
     }
 }

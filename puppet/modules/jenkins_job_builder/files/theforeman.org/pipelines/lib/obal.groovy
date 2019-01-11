@@ -19,6 +19,7 @@ def setup_obal() {
     dir("${env.WORKSPACE}/obal") {
         checkout([
             $class : 'GitSCM',
+            poll: false,
             branches : [[name: 'master']],
             extensions: [[$class: 'CleanCheckout']],
             userRemoteConfigs: [

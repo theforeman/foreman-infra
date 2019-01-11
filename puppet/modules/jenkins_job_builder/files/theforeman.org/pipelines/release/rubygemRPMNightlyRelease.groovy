@@ -42,7 +42,7 @@ pipeline {
         stage('Setup Build Environment') {
             steps {
                 dir('foreman-packaging') {
-                    git(url: 'https://github.com/theforeman/foreman-packaging', branch: 'rpm/develop')
+                    git(url: 'https://github.com/theforeman/foreman-packaging', branch: 'rpm/develop', poll: false)
                 }
                 setup_obal()
             }

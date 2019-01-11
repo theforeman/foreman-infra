@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage("Setup Environment") {
             steps {
-                git(url: 'https://github.com/theforeman/foreman-packaging/', branch: 'rpm/develop')
+                git(url: 'https://github.com/theforeman/foreman-packaging/', branch: 'rpm/develop', poll: false)
                 setup_obal()
             }
         }

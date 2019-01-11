@@ -173,7 +173,7 @@ void repoclosure(repo, dist, additions = []) {
     node('el') {
         def git_branch = (repo == 'nightly') ? 'develop' : repo
 
-        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/${git_branch}"
+        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/${git_branch}", poll: false
 
         def os_ver = 'RHEL/7'
 
