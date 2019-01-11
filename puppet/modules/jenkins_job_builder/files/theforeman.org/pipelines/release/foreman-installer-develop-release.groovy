@@ -21,7 +21,7 @@ pipeline {
                     git(url: 'https://github.com/theforeman/foreman-installer.git', branch: 'develop')
                     script { commit_hash = archive_git_hash() }
                 }
-                dir('foreman-packaging') { git(url: 'https://github.com/theforeman/foreman-packaging.git', branch: 'rpm/develop') }
+                dir('foreman-packaging') { git(url: 'https://github.com/theforeman/foreman-packaging.git', branch: 'rpm/develop', poll: false) }
                 setup_obal()
                 configureRVM(env.ruby_version)
             }

@@ -48,7 +48,7 @@ pipeline {
                 ghprb_git_checkout()
 
                 dir('foreman') {
-                   git url: "https://github.com/theforeman/foreman", branch: foreman_branch
+                   git url: "https://github.com/theforeman/foreman", branch: foreman_branch, poll: false
                 }
             }
         }

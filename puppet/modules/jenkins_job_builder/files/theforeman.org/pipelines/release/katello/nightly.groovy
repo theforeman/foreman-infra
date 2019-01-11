@@ -117,7 +117,7 @@ pipeline {
 void repoclosure(repo, dist, additions = []) {
 
     node('el') {
-        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/develop"
+        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/develop", poll: false
 
         def command = [
             "./repoclosure.sh yum_${dist}.conf",
