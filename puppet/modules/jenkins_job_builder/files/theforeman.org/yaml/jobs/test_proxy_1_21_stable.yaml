@@ -1,12 +1,12 @@
 - job:
-    name: test_proxy_1_17_stable
+    name: test_proxy_1_21_stable
     project-type: matrix
     properties:
       - github:
           url: https://github.com/theforeman/smart-proxy
     scm:
       - foreman-proxy:
-          branch: '1.17-stable'
+          branch: '1.21-stable'
     triggers:
       - scm_fifteen_minutes
       - github
@@ -15,11 +15,12 @@
           type: user-defined
           name: ruby
           values:
-          - 2.0
+          - 2.0.0
           - 2.1
           - 2.2
           - 2.3
           - 2.4
+          - 2.5
       - axis:
           type: user-defined
           name: puppet
