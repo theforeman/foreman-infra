@@ -29,7 +29,8 @@ pipeline {
             steps {
                 script {
                     extra_vars = buildExtraVars(extraVars: playBook['extraVars'])
-                    duffy_ssh("cd forklift && ansible-playbook pipelines/${playBook['pipeline']} -e forklift_state=up ${extra_vars}", 'duffy_box', './')
+                    skip_tags = buildSkipTags(skipTags: playBook['skipTags'])
+                    duffy_ssh("cd forklift && ansible-playbook pipelines/${playBook['pipeline']} -e forklift_state=up ${extra_vars} ${skip_tags}", 'duffy_box', './')
                 }
             }
         }

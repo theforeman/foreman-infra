@@ -69,3 +69,13 @@ def buildExtraVars(args) {
 
     return extra_vars_string
 }
+
+def buildSkipTags(args) {
+  def skip_tags = args.skipTags ?: []
+
+  if (skip_tags.size() == 0) {
+    return ''
+  }
+
+  return '--skip-tags=' + skip_tags.join(',')
+}
