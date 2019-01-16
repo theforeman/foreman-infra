@@ -42,7 +42,8 @@ pipeline {
             post {
                 always {
                     script {
-                        set_job_build_description()
+                        set_job_build_description("foreman-ci-centos-simple-test")
+                        set_job_build_description("foreman-ci-centos-simple-test-2")
                     }
                 }
             }

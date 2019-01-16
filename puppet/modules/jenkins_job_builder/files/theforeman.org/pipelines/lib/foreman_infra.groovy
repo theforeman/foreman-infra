@@ -6,13 +6,13 @@ void git_clone_foreman_infra(args = [:]) {
     }
 }
 
-def set_job_build_description() {
+def set_job_build_description(job_name) {
     def build_description = ""
-    def files_list = sh(script: "ls jobs/ -1", returnStdout: true).trim().split()
+    def file_name = "jobs/${job_name}"
 
-    for (i = 0; i < files_list.size(); i++) {
-       link = readFile("jobs/${files_list[i]}")
-       build_description += "<a href=\"${link}\">${files_list[i]}</a><br/>"
+    if (fileExists(file_name)) {
+       link = readFile(file_name)
+       build_description += "<a href=\"${link}\">${job_name}</a><br/>"
     }
 
     if (currentBuild.description == null) {

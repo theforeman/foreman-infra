@@ -59,7 +59,7 @@ pipeline {
                     post {
                         always {
                             script {
-                                set_job_build_description()
+                                set_job_build_description("foreman-katello-nightly-test")
                             }
                         }
                     }
@@ -86,7 +86,7 @@ pipeline {
                     post {
                         always {
                             script {
-                                set_job_build_description()
+                                set_job_build_description("foreman-katello-upgrade-nightly-test")
                             }
                         }
                     }
