@@ -38,6 +38,18 @@ pipeline {
                 }
             }
         }
+        stage('repoclosure-1.21-el7') {
+            steps {
+                script {
+                    try {
+                        repoclosure('1.21', 'el7')
+                        versions['1.21'] = true
+                    } catch(Exception ex) {
+                        versions['1.21'] = false
+                    }
+                }
+            }
+        }
         stage('repoclosure-1.20-el7') {
             steps {
                 script {
@@ -93,6 +105,17 @@ pipeline {
                         script {
                             if (versions['nightly']) {
                                 push_rpms('nightly', 'el7')
+                            } else {
+                                sh "exit 1"
+                            }
+                        }
+                    }
+                }
+                stage('push-1.21-el7') {
+                    steps {
+                        script {
+                            if (versions['1.21']) {
+                                push_rpms('1.21', 'el7')
                             } else {
                                 sh "exit 1"
                             }
