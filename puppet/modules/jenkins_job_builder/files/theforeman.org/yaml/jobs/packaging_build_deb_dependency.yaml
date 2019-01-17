@@ -23,7 +23,6 @@
           name: arch
           values:
           - x86
-          - armv7
           - armv8
       - axis:
           type: slave

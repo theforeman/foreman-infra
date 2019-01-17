@@ -19,5 +19,3 @@
           - stretch
           - xenial
           - bionic
-    execution-strategy:
-      combination-filter: '!(os == "bionic" && (major_version == "1.17" || major_version == "1.18"))'
