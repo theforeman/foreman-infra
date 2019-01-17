@@ -34,8 +34,6 @@
           name: label
           values:
             - el&&ipv6
-    execution-strategy:
-      combination-filter: '!(os == "ubuntu1804" && (major_version == "1.17" || major_version == "1.18"))'
     wrappers:
       - abort_build:
           timeout_min: 120
