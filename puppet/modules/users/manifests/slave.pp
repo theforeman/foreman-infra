@@ -1,8 +1,14 @@
 class users::slave {
   include ::sudo
 
+  # On Debian we use pbuilder with sudo
+  $sudo = $facts['osfamily'] ? {
+    'Debian' => 'ALL=NOPASSWD: ALL',
+    default  => '',
+  }
+
   users::account { 'jenkins':
-    sudo => 'ALL=NOPASSWD: ALL',
+    sudo => $sudo,
   }
 
   file { '/home/jenkins/.ssh/config':
