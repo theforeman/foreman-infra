@@ -29,6 +29,9 @@ pipeline {
         }
         stage('Install Test') {
             agent { label 'el' }
+            environment {
+                cico_job_name = "foreman-nightly-test"
+            }
 
             steps {
 
@@ -38,9 +41,9 @@ pipeline {
                     runPlaybook(
                         playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                         extraVars: [
-                            "jenkins_job_name": "foreman-nightly-test",
+                            "jenkins_job_name": "${env.cico_job_name}",
                             "jenkins_username": "${env.USERNAME}",
-                            "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-nightly-test"
+                            "jenkins_job_link_file": "${env.WORKSPACE}/jobs/${env.cico_job_name}"
                         ],
                         sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                     )
@@ -49,7 +52,7 @@ pipeline {
             post {
                 always {
                     script {
-                        set_job_build_description()
+                        set_job_build_description("${env.cico_job_name}")
                     }
                 }
             }

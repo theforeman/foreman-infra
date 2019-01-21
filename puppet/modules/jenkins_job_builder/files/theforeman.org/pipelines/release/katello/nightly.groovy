@@ -41,6 +41,10 @@ pipeline {
 
                 stage('Install test') {
                     agent { label 'el' }
+                    environment {
+                        cico_job_name = "foreman-katello-nightly-test"
+                    }
+
                     steps {
                         git_clone_foreman_infra()
 
@@ -48,9 +52,9 @@ pipeline {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                                 extraVars: [
-                                    "jenkins_job_name": "foreman-katello-nightly-test",
+                                    "jenkins_job_name": "${env.cico_job_name}",
                                     "jenkins_username": "foreman",
-                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-katello-nightly-test"
+                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/${env.cico_job_name}"
                                 ],
                                 sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                             )
@@ -59,7 +63,7 @@ pipeline {
                     post {
                         always {
                             script {
-                                set_job_build_description()
+                                set_job_build_description("${env.cico_job_name}")
                             }
                         }
                     }
@@ -67,6 +71,10 @@ pipeline {
 
                 stage('Upgrade test') {
                     agent { label 'el' }
+                    environment {
+                        cico_job_name = "foreman-katello-upgrade-nightly-test"
+                    }
+
                     steps {
                         git_clone_foreman_infra()
                         sleep(5) //See https://bugs.centos.org/view.php?id=14920
@@ -75,9 +83,9 @@ pipeline {
                             runPlaybook(
                                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
                                 extraVars: [
-                                    "jenkins_job_name": "foreman-katello-upgrade-nightly-test",
+                                    "jenkins_job_name": "${env.cico_job_name}",
                                     "jenkins_username": "foreman",
-                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/foreman-katello-upgrade-nightly-test"
+                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/${env.cico_job_name}"
                                 ],
                                 sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
                             )
@@ -86,7 +94,7 @@ pipeline {
                     post {
                         always {
                             script {
-                                set_job_build_description()
+                                set_job_build_description("${env.cico_job_name}")
                             }
                         }
                     }
