@@ -74,30 +74,6 @@ pipeline {
                 }
             }
         }
-        stage('repoclosure-1.18-el7') {
-            steps {
-                script {
-                    try {
-                        repoclosure('1.18', 'el7')
-                        versions['1.18'] = true
-                    } catch(Exception ex) {
-                        versions['1.18'] = false
-                    }
-                }
-            }
-        }
-        stage('repoclosure-1.17-el7') {
-            steps {
-                script {
-                    try {
-                        repoclosure('1.17', 'el7')
-                        versions['1.17'] = true
-                    } catch(Exception ex) {
-                        versions['1.17'] = false
-                    }
-                }
-            }
-        }
         stage('push-rpms') {
             parallel {
                 stage('push-nightly-el7') {
@@ -138,28 +114,6 @@ pipeline {
                         script {
                             if (versions['1.19']) {
                                 push_rpms('1.19', 'el7')
-                            } else {
-                                sh "exit 1"
-                            }
-                        }
-                    }
-                }
-                stage('push-1.18-el7') {
-                    steps {
-                        script {
-                            if (versions['1.18']) {
-                                push_rpms('1.18', 'el7')
-                            } else {
-                                sh "exit 1"
-                            }
-                        }
-                    }
-                }
-                stage('push-1.17-el7') {
-                    steps {
-                        script {
-                            if (versions['1.17']) {
-                                push_rpms('1.17', 'el7')
                             } else {
                                 sh "exit 1"
                             }
