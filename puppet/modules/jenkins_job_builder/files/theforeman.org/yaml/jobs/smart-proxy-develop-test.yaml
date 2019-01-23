@@ -1,5 +1,5 @@
 - job:
-    name: foreman-proxy-develop-test
+    name: smart-proxy-develop-test
     project-type: pipeline
     concurrent: true
     properties:
@@ -9,7 +9,7 @@
       - github
     dsl:
       !include-raw:
-        - pipelines/test/foreman-proxy-develop-test.groovy
+        - pipelines/test/smart-proxy-develop-test.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
     publishers:
