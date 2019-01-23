@@ -80,6 +80,10 @@ void build_tarball(project, version, ruby_ver) {
             rake = "bundle exec rake"
         }
 
+        if (project == 'foreman-installer') {
+            withRVM(["${rake} clean"], ruby_ver, project)
+        }
+
         withRVM(["${rake} pkg:generate_source"], ruby_ver, project)
 
         sh "ssh root@theforeman.org \"mkdir -p ${base_dir}/\" || true"
