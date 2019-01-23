@@ -6,8 +6,20 @@ def update_build_description_from_packages(packages_to_build) {
     currentBuild.description = build_description
 }
 
+def diff_filter(range, filter, path) {
+    return sh(returnStdout: true, script: "git diff ${range} --name-only --diff-filter=${filter} -- '${path}'").trim()
+}
+
+def find_added_or_changed_files(diff_range, path) {
+    return diff_filter(diff_range, 'ACMRTUXB', path)
+}
+
+def find_deleted_files(diff_range, path) {
+    return diff_filter(diff_range, 'D', path)
+}
+
 def find_changed_packages(diff_range) {
-    def changed_packages = sh(returnStdout: true, script: "git diff ${diff_range} --name-only --diff-filter=ACMRTUXB -- 'packages/**.spec'").trim()
+    def changed_packages = find_added_or_changed_files(diff_range, 'packages/**.spec')
 
     if (changed_packages) {
         changed_packages = sh(returnStdout: true, script: "echo '${changed_packages}' | xargs dirname | xargs -n1 basename |sort -u").trim()
