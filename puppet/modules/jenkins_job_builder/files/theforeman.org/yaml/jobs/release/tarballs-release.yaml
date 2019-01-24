@@ -1,6 +1,7 @@
 - job:
     name: tarballs-release
     project-type: pipeline
+    concurrent: false
     parameters:
       - string:
           name: version
