@@ -2,6 +2,7 @@
     name: hammer-cli-katello-master-release
     project-type: pipeline
     sandbox: false
+    concurrent: false
     triggers:
       - github
     dsl:
