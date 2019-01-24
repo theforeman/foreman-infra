@@ -66,7 +66,7 @@ pipeline {
         stage("Release Nightly Package") {
             steps {
                 build(
-                    job: 'foreman-proxy-develop-release',
+                    job: 'smart-proxy-develop-release',
                     propagate: false,
                     parameters: [
                         string(name: 'git_ref', value: commit_hash)
