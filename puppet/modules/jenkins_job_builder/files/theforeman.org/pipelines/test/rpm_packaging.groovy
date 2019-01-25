@@ -74,17 +74,16 @@ pipeline {
 
 
                         if (old_spec_path) {
-                            sh "git checkout origin/${env.ghprbTargetBranch}"
-                            old_version = query_rpmspec(old_spec_path, '%{VERSION}')
-                            old_release = query_rpmspec(old_spec_path, '%{RELEASE}')
-                            sh "git checkout -"
-
                             new_spec_path = find_added_or_changed_files("origin/${env.ghprbTargetBranch}", spec_pattern)
-
                             if (old_spec_path != new_spec_path) {
                               continue
                             }
 
+                            sh "git checkout origin/${env.ghprbTargetBranch}"
+                            old_version = query_rpmspec(old_spec_path, '%{VERSION}')
+                            old_release = query_rpmspec(old_spec_path, '%{RELEASE}')
+
+                            sh "git checkout -"
                             new_version = query_rpmspec(new_spec_path, '%{VERSION}')
                             new_release = query_rpmspec(new_spec_path, '%{RELEASE}')
 
