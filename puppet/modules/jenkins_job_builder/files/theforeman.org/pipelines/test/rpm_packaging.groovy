@@ -65,17 +65,21 @@ pipeline {
 
                     for(int i = 0; i < packages_to_build.size(); i++) {
                         package_name = packages_to_build[i]
+                        spec_pattern = "packages/**/${package_name}.spec"
 
-                        sh "git checkout origin/${env.ghprbTargetBranch}"
+                        old_spec_path = find_deleted_files("origin/${env.ghprbTargetBranch}", spec_pattern)
+                        if (! old_spec_path) {
+                            old_spec_path = find_added_or_changed_files("origin/${env.ghprbTargetBranch}", spec_pattern)
+                        }
 
-                        old_spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
 
                         if (old_spec_path) {
+                            sh "git checkout origin/${env.ghprbTargetBranch}"
                             old_version = query_rpmspec(old_spec_path, '%{VERSION}')
                             old_release = query_rpmspec(old_spec_path, '%{RELEASE}')
-
                             sh "git checkout -"
-                            new_spec_path = sh(returnStdout: true, script: "find -name \"${package_name}\\.spec\"").trim()
+
+                            new_spec_path = find_added_or_changed_files("origin/${env.ghprbTargetBranch}", spec_pattern)
 
                             if (old_spec_path != new_spec_path) {
                               continue
@@ -115,13 +119,8 @@ pipeline {
                                     exit 1
                                 """
                             }
-                        } else {
-
-                            sh "git checkout -"
-
                         }
                     }
-
                 }
             }
         }
