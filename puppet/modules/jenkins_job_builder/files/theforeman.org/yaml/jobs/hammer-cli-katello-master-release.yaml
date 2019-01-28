@@ -1,6 +1,7 @@
 - job:
     name: hammer-cli-katello-master-release
     project-type: pipeline
+    concurrent: false
     sandbox: false
     triggers:
       - github
