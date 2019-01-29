@@ -75,7 +75,7 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
       - choice:
           name: nightly_jenkins_job
           choices:
-            - test_develop
+            - foreman-develop-release
             - smart-proxy-develop-release
             - foreman-installer-develop-release
           description: 'When building nightly (develop), name of the Jenkins job that contains the source file(s) (tarballs, gems) to build, e.g. test_develop'
