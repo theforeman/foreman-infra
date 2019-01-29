@@ -1,0 +1,8 @@
+- publisher:
+    name: foreman-develop-release
+    publishers:
+      - trigger-parameterized-builds:
+        - project: foreman-develop-release
+          condition: SUCCESS
+          predefined-parameters: |
+            git_ref=${{GIT_COMMIT}}

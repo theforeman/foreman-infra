@@ -43,7 +43,4 @@
           only-if-success: false
       - junit:
           results: 'jenkins/reports/unit/*.xml'
-      - release_nightly_build_foreman_rpm:
-          project: packages/foreman/foreman
-      - release_nightly_build_foreman_deb:
-          project: foreman
+      - foreman-develop-release
