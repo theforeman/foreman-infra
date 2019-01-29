@@ -5,8 +5,6 @@
     properties:
       - github:
           url: 'https://github.com/theforeman/smart-proxy'
-    triggers:
-      - github
     parameters:
       - string:
           name: git_ref
