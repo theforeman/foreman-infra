@@ -5,4 +5,4 @@
         - project: foreman-develop-release
           condition: SUCCESS
           predefined-parameters: |
-            git_ref=${{GIT_COMMIT}}
+            git_ref=${GIT_COMMIT}
