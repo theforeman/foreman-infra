@@ -24,7 +24,7 @@ pipeline {
                 }
                 setup_nightly_build_environment(
                     git_url: git_url,
-                    git_ref: env.git_ref,
+                    git_ref: env.git_ref ?: git_ref,
                     project_name: project_name
                 )
             }
