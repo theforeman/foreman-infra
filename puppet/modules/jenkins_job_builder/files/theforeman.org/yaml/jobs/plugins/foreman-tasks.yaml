@@ -4,7 +4,5 @@
     branch:
       - master:
           foreman_branch: develop
-      - 0.13.x:
-          foreman_branch: 1.18-stable
     jobs:
       - 'test_plugin_{name}_{branch}'
