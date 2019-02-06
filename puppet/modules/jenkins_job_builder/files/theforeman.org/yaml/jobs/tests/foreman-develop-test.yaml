@@ -2,6 +2,8 @@
     name: foreman-develop-test
     project-type: pipeline
     concurrent: false
+    triggers:
+      - github
     dsl:
       !include-raw:
         - pipelines/test/test_foreman.groovy
