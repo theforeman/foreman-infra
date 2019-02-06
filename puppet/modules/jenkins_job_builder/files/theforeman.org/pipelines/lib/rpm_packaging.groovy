@@ -18,6 +18,10 @@ def find_deleted_files(diff_range, path) {
     return diff_filter(diff_range, 'D', path)
 }
 
+def find_changed_files(diff_range, path) {
+    return diff_filter(diff_range, 'M', path)
+}
+
 def find_changed_packages(diff_range) {
     def changed_packages = find_added_or_changed_files(diff_range, 'packages/**.spec')
 

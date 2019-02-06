@@ -69,7 +69,7 @@ pipeline {
 
                         old_spec_path = find_deleted_files("origin/${env.ghprbTargetBranch}", spec_pattern)
                         if (! old_spec_path) {
-                            old_spec_path = find_added_or_changed_files("origin/${env.ghprbTargetBranch}", spec_pattern)
+                            old_spec_path = find_changed_files("origin/${env.ghprbTargetBranch}", spec_pattern)
                         }
 
 
