@@ -1,10 +1,8 @@
 ---
 - job:
-    name: 'foreman-forklift-centos-devel-test'
+    name: 'foreman-katello-devel-test'
     project-type: 'pipeline'
     sandbox: true
-    triggers:
-      - timed: '0 */6 * * *'
     dsl:
       !include-raw:
         - pipelines/lib/foremanCentosJob.groovy
