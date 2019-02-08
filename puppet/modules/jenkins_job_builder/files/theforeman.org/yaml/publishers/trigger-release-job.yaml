@@ -1,8 +1,8 @@
 - publisher:
-    name: foreman-develop-release
+    name: trigger-release-job
     publishers:
       - trigger-parameterized-builds:
-        - project: foreman-develop-release
+        - project: '{job}'
           condition: SUCCESS
           predefined-parameters: |
-            git_ref=${GIT_COMMIT}
+            git_ref=${{GIT_COMMIT}}

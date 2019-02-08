@@ -43,4 +43,5 @@
           only-if-success: false
       - junit:
           results: 'jenkins/reports/unit/*.xml'
-      - foreman-develop-release
+      - trigger-release-job:
+          job: foreman-develop-release

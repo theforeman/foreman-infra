@@ -1,0 +1,14 @@
+- job:
+    name: hammer-cli-master-test
+    project-type: pipeline
+    concurrent: false
+    properties:
+      - github:
+          url: 'https://github.com/theforeman/hammer-cli'
+    triggers:
+      - github
+    dsl:
+      !include-raw:
+        - pipelines/test/test_hammer_cli.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy
