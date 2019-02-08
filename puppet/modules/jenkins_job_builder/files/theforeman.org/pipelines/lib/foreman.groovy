@@ -21,6 +21,7 @@ def configureDatabase(ruby, name = '') {
     withRVM(['bundle install --without=development --jobs=5 --retry=5'], ruby, name)
     withRVM(['bundle exec rake db:drop || true'], ruby, name)
     withRVM(['bundle exec rake db:create --trace'], ruby, name)
+    withRVM(['RAILS_ENV=production bundle exec rake db:create --trace'], ruby, name)
     withRVM(['bundle exec rake db:migrate --trace'], ruby, name)
 }
 
@@ -100,6 +101,12 @@ test:
 development:
   adapter: sqlite3
   database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3
   pool: 5
   timeout: 5000
 """
