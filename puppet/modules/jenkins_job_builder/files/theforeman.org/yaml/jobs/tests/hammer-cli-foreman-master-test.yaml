@@ -1,15 +1,15 @@
 - job:
-    name: hammer-cli-master-test
+    name: hammer-cli-foreman-master-test
     project-type: pipeline
     concurrent: false
     properties:
       - github:
-          url: 'https://github.com/theforeman/hammer-cli'
+          url: 'https://github.com/theforeman/hammer-cli-foreman'
     triggers:
       - github
     dsl:
       !include-raw:
-        - pipelines/vars/hammer-cli-master-test.groovy
+        - pipelines/vars/hammer-cli-foreman-master-test.groovy
         - pipelines/test/hammer-cli-x-test.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy

@@ -12,10 +12,11 @@ pipeline {
     stages {
         stage("Collect Git Hash") {
             steps {
-                git(url: 'https://github.com/theforeman/hammer-cli', branch: 'master')
+                git(url: git_url, branch: git_ref)
                 script {
                     commit_hash = archive_git_hash()
                 }
+                add_hammer_cli_git_repos(hammer_cli_git_repos)
             }
         }
         stage("test-ruby-2.3") {
@@ -36,7 +37,7 @@ pipeline {
         stage("Release Nightly Package") {
             steps {
                 build(
-                    job: 'hammer-cli-master-release',
+                    job: release_job,
                     propagate: false,
                     wait: false,
                     parameters: [
@@ -50,6 +51,12 @@ pipeline {
         always {
             deleteDir()
         }
+    }
+}
+
+def add_hammer_cli_git_repos(repos = []) {
+    for(i = 0; i < repos.size(); i++) {
+      sh "echo 'gem \"${repos[i].replace('-', '_')}\", :github => \"theforeman/${repos[i]}\"' > Gemfile.local"
     }
 }
 
