@@ -1,4 +1,0 @@
-- builder:
-    name: test_hammer_cli_foreman
-    builders:
-      - shell: !include-raw: scripts/test/test_hammer_cli_foreman.sh
