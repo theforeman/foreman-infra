@@ -1,0 +1,14 @@
+
+- job:
+    name: katello-devel-forklift-test
+    project-type: pipeline
+    triggers:
+      - reverse:
+          jobs:
+            - katello-nightly-rpm-pipeline
+          result: failure
+    dsl:
+      !include-raw:
+        - pipelines/test/katelloDevel.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy
