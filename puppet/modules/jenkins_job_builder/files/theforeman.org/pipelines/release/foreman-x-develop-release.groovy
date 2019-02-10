@@ -57,7 +57,7 @@ pipeline {
                                 action: 'nightly',
                                 packages: obal_package_name ?: project_name,
                                 extraVars: [
-                                    'releasers': [ 'koji-foreman' ],
+                                    'releasers': releasers ?: [ 'koji-foreman' ],
                                     'nightly_sourcefiles': sourcefile_paths,
                                     'nightly_githash': commit_hash
                                 ]
