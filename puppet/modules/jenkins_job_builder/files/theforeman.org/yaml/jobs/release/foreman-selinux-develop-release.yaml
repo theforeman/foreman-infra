@@ -17,5 +17,6 @@
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/obal.groovy
+        - pipelines/lib/ansible.groovy
         - pipelines/lib/git.groovy
         - pipelines/lib/nightly_packaging.groovy
