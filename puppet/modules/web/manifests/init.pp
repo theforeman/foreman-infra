@@ -145,14 +145,27 @@ class web(
   }
 
   # DOWNLOADS
+  $downloads_directory = '/var/www/vhosts/downloads/htdocs'
+  $downloads_directory_config = [
+    {
+      path    => $downloads_directory,
+      options => ['Indexes', 'FollowSymLinks'],
+    },
+    {
+      path     => '.+\.(bz2|csv|gem|gz|img|iso|iso-img|iso-vmlinuz|pdf|tar|webm|rpm|deb)$',
+      provider => 'filesmatch',
+      headers  => 'Set Cache-Control "public, max-age=2592000"',
+    },
+  ]
+
   $downloads_attrs = {
     servername   => 'downloads.theforeman.org',
-    docroot      => '/var/www/vhosts/downloads/htdocs',
+    docroot      => $downloads_directory,
     docroot_mode => '2575',
-    headers      => 'Set Cache-Control "public, max-age=2592000"',
+    directories  => $downloads_directory_config,
   }
   rsync::server::module { 'downloads':
-    path            => '/var/www/vhosts/downloads/htdocs',
+    path            => $downloads_directory,
     list            => true,
     read_only       => true,
     comment         => 'downloads.theforeman.org',
@@ -160,7 +173,7 @@ class web(
     gid             => 'nobody',
     max_connections => $max_rsync_connections,
   }
-  file { '/var/www/vhosts/downloads/htdocs/HEADER.html':
+  file { "${downloads_directory}/HEADER.html":
     ensure => file,
     owner  => 'root',
     group  => 'root',
