@@ -149,7 +149,7 @@ class web(
   $downloads_directory_config = [
     {
       path    => $downloads_directory,
-      options => ['Indexes', 'FollowSymLinks'],
+      options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
     },
     {
       path     => '.+\.(bz2|csv|gem|gz|img|iso|iso-img|iso-vmlinuz|pdf|tar|webm|rpm|deb)$',
