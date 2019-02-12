@@ -30,8 +30,8 @@ repo=${pr_git_short_ref}
 version=${branch_version}
 EOF
 
-  [ $p = foreman ] && echo "nightly_jenkins_job=test_develop" >> test_builds/debian/${p}.properties || true
-  [ $p = foreman-proxy ] && echo "nightly_jenkins_job=smart-proxy-develop-test" >> test_builds/debian/${p}.properties || true
+  [ $p = foreman ] && echo "nightly_jenkins_job=foreman-develop-release" >> test_builds/debian/${p}.properties || true
+  [ $p = foreman-proxy ] && echo "nightly_jenkins_job=smart-proxy-develop-release" >> test_builds/debian/${p}.properties || true
   [ $p = foreman-selinux ] && echo "nightly_jenkins_job=foreman-selinux-develop-release" >> test_builds/debian/${p}.properties || true
   [ $p = foreman-installer ] && echo "nightly_jenkins_job=foreman-installer-develop-release" >> test_builds/debian/${p}.properties || true
 done
