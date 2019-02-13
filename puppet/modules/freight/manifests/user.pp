@@ -68,6 +68,10 @@ define freight::user (
       headers => 'Set Cache-Control "public, max-age=120"',
     },
     {
+      path    => "${webdir}/dists/*/.refs/",
+      deny    => 'from all',
+    },
+    {
       path    => "${webdir}/pool",
       headers => 'Set Cache-Control "public, max-age=2592000"',
     },
@@ -112,6 +116,7 @@ define freight::user (
     uid             => 'nobody',
     gid             => 'nobody',
     max_connections => 5,
+    exclude         => ['/dists/*/.refs/'],
   }
   file { "${webdir}/HEADER.html":
     ensure  => file,
