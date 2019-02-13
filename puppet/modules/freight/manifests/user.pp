@@ -69,7 +69,7 @@ define freight::user (
     },
     {
       path    => "${webdir}/dists/*/.refs/",
-      deny    => 'from all',
+      require => 'all denied',
     },
     {
       path    => "${webdir}/pool",
