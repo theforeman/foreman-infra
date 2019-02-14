@@ -4,4 +4,5 @@ def obal_package_name = 'rubygem-katello'
 def project_name = 'katello'
 def build_rpm = true
 def build_deb = false
+def source_type = 'gem'
 def releasers = ['koji-katello']
