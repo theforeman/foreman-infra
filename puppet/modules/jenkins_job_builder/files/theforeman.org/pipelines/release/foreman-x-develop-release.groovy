@@ -55,7 +55,7 @@ pipeline {
                         dir('foreman-packaging') {
                             obal(
                                 action: 'nightly',
-                                packages: obal_package_name ?: project_name,
+                                packages: obal_package_name,
                                 extraVars: [
                                     'releasers': releasers ?: [ 'koji-foreman' ],
                                     'nightly_sourcefiles': sourcefile_paths,
