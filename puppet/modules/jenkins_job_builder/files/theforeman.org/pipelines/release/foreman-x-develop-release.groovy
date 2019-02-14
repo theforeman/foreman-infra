@@ -41,7 +41,7 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 script {
-                    sourcefile_paths = generate_sourcefiles(project_name: project_name)
+                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline {
                                 action: 'nightly',
                                 packages: obal_package_name,
                                 extraVars: [
-                                    'releasers': releasers ?: [ 'koji-foreman' ],
+                                    'releasers': releasers,
                                     'nightly_sourcefiles': sourcefile_paths,
                                     'nightly_githash': commit_hash
                                 ]
