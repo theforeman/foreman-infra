@@ -48,8 +48,8 @@ pipeline {
                   )
             }
 
-            archiveArtifacts artifacts: 'debug/**/*.tap'
-            archiveArtifacts artifacts: 'debug/**/*.tar.xz'
+            archiveArtifacts artifacts: 'debug/**/*.tap', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'debug/**/*.tar.xz', allowEmptyArchive: true
 
             step([$class: "TapPublisher", testResults: "debug/**/*.tap"])
 
