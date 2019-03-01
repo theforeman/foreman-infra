@@ -1,5 +1,4 @@
 def obal(args) {
-    def tags = args.tags ? "--tags ${args.tags}" : ""
     def extra_vars_file = writeExtraVars(extraVars: args.extraVars)
     def packages = args.packages
     if (packages instanceof String[]) {
@@ -8,7 +7,7 @@ def obal(args) {
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${env.WORKSPACE}/obal"]) {
-            sh "python -m obal ${args.action} ${packages} ${tags} -e @${extra_vars_file}"
+            sh "python -m obal ${args.action} ${packages} -e @${extra_vars_file}"
         }
     }
 
