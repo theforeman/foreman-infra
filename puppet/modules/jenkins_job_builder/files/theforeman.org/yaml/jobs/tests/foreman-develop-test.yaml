@@ -1,6 +1,9 @@
 - job:
     name: foreman-develop-test
     project-type: pipeline
+    quiet-period: 2700
+    properties:
+      - github_foreman
     concurrent: false
     triggers:
       - github
