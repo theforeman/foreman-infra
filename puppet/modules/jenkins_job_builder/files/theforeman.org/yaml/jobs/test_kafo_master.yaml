@@ -20,16 +20,18 @@
           - '2.2'
           - '2.3'
           - '2.4'
+          - '2.5'
       - axis:
           type: user-defined
           name: puppet
           values:
           - '4.10'
           - '5.0'
+          - '6.0'
     execution-strategy:
-      combination-filter: '!(ruby ==~ /^2\.[0-3]/ && puppet ==~ /^5\..*/)'
+      combination-filter: '!(ruby ==~ /^2\.[0-3].*/ && puppet ==~ /^[56]\..*/)'
       touchstone:
-        expr: 'ruby=="2.1" && puppet=="4.10"'
+        expr: 'ruby=="2.5" && puppet=="6.0"'
         result: 'stable'
     builders:
       - test_kafo
