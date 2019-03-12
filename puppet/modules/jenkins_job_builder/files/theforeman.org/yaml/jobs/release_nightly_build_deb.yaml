@@ -12,6 +12,7 @@
           predefined-parameters: |
             repoowner=theforeman
             project=${project}
+            onlyarch=x86
             onlyos=all
             repo=develop
             version=nightly
@@ -19,6 +20,18 @@
             nightly_jenkins_job=${jenkins_job}
             nightly_jenkins_job_id=${jenkins_job_id}
           block: true
+        - project: packaging_build_deb_coreproject
+          predefined-parameters: |
+            repoowner=theforeman
+            project=${project}
+            onlyarch=armv8
+            onlyos=all
+            repo=develop
+            version=nightly
+            gitrelease=true
+            nightly_jenkins_job=${jenkins_job}
+            nightly_jenkins_job_id=${jenkins_job_id}
+          block: false
     parameters:
       - string:
           name: project
