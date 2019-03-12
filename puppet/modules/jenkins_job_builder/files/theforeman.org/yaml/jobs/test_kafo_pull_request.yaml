@@ -34,7 +34,7 @@
           - '5.0'
           - '6.0'
     execution-strategy:
-      combination-filter: '!(ruby ==~ /^2\.[0-3]/ && puppet ==~ /^[56]\..*/)'
+      combination-filter: '!(ruby ==~ /^2\.[0-3].*/ && puppet ==~ /^[56]\..*/)'
       touchstone:
         expr: 'ruby=="2.5" && puppet=="6.0"'
         result: 'stable'
