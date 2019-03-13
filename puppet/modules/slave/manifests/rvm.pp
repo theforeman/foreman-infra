@@ -19,7 +19,7 @@ class slave::rvm {
 
     if $::architecture == 'x86_64' or $::architecture == 'amd64' {
       slave::rvm_config { 'ruby-2.0.0':
-        version => 'ruby-2.0.0-p643',
+        version => 'ruby-2.0.0-p648',
       }
     }
     slave::rvm_config { 'ruby-2.1':
