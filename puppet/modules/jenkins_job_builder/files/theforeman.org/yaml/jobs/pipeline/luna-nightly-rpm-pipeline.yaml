@@ -1,0 +1,13 @@
+- job:
+    name: luna-nightly-rpm-pipeline
+    project-type: pipeline
+    triggers:
+      - reverse:
+          jobs:
+            - katello-nightly-rpm-pipeline
+          result: success
+    dsl:
+      !include-raw:
+        - pipelines/release/luna/nightly.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy
