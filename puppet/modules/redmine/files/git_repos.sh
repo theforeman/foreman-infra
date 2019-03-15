@@ -1,4 +1,6 @@
-#!/bin/bash -e
+#!/bin/bash
+
+set -e -o pipefail
 
 CODE_DIR=$1
 DATA_DIR=$2
@@ -34,7 +36,7 @@ if [[ ! -n $CODE_DIR ]] || [[ ! -n $DATA_DIR ]] ; then
 fi
 
 # Sync repositories for all known git repos
-curl -s $REDMINE_REPOS | ruby -rjson -e '
+curl --fail --silent $REDMINE_REPOS | ruby -rjson -e '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
@@ -47,7 +49,7 @@ done
 cd $CODE_DIR
 
 # Create repositories in the Redmine projects for all known git repos
-curl -s $REDMINE_REPOS | bin/rails runner -e production '
+curl --fail --silent $REDMINE_REPOS | bin/rails runner -e production '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
