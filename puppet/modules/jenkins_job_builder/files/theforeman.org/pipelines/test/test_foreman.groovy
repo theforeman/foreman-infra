@@ -172,16 +172,6 @@ pipeline {
         stage('packaging') {
             steps {
                 build(
-                    job: 'release_nightly_build_deb',
-                    propagate: false,
-                    wait: false,
-                    parameters: [
-                        string(name: 'project', value: 'foreman'),
-                        string(name: 'jenkins_job', value: env.JOB_NAME),
-                        string(name: 'jenkins_job_id', value: env.BUILD_ID)
-                    ]
-                )
-                build(
                     job: 'foreman-develop-release',
                     propagate: false,
                     wait: false,
