@@ -16,7 +16,7 @@ pipeline {
                 stage('ruby-2.5-postgres') {
                     agent { label 'fast' }
                     environment {
-                        RUBY = '2.5'
+                        RUBY_VER = '2.5'
                         GEMSET = 'ruby-2.5-postgres'
                     }
                     stages {
@@ -26,31 +26,31 @@ pipeline {
                                 script {
                                     commit_hash = archive_git_hash()
                                 }
-                                configureRVM(env.RUBY, env.GEMSET)
+                                configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
-                                configureDatabase(env.RUBY, env.GEMSET)
-                                withRVM(['npm install'], env.RUBY, env.GEMSET)
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
+                                withRVM(['npm install'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("unit-tests-2.5-postgres") {
                             steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("integration-tests-2.5-postgres") {
                             steps {
-                                withRVM(['bundle exec rake jenkins:integration TESTOPTS="-v" --trace'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake jenkins:integration TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("assets-precompile-2.5-postgres") {
                             steps {
-                                withRVM(['bundle exec rake assets:precompile RAILS_ENV=production'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake assets:precompile RAILS_ENV=production'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                     }
                     post {
                         always {
-                            cleanup(env.RUBY, env.GEMSET)
+                            cleanup(env.RUBY_VER, env.GEMSET)
                             deleteDir()
                         }
                     }
@@ -58,27 +58,27 @@ pipeline {
                 stage('ruby-2.4-postgres') {
                     agent { label 'fast' }
                     environment {
-                        RUBY = '2.4'
+                        RUBY_VER = '2.4'
                         GEMSET = 'ruby-2.4-postgres'
                     }
                     stages {
                         stage("setup-2.4-postgres") {
                             steps {
                                 git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                configureRVM(env.RUBY, env.GEMSET)
+                                configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
-                                configureDatabase(env.RUBY, env.GEMSET)
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("unit-tests-2.4-postgres") {
                             steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                     }
                     post {
                         always {
-                            cleanup(env.RUBY, env.GEMSET)
+                            cleanup(env.RUBY_VER, env.GEMSET)
                             deleteDir()
                         }
                     }
@@ -86,27 +86,27 @@ pipeline {
                 stage('ruby-2.3-postgres') {
                     agent { label 'fast' }
                     environment {
-                        RUBY = '2.3'
+                        RUBY_VER = '2.3'
                         GEMSET = 'ruby-2.3-postgres'
                     }
                     stages {
                         stage("setup-2.3-postgres") {
                             steps {
                                 git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                configureRVM(env.RUBY, env.GEMSET)
+                                configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
-                                configureDatabase(env.RUBY, env.GEMSET)
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("unit-tests-2.3-postgres") {
                             steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                     }
                     post {
                         always {
-                            cleanup(env.RUBY, env.GEMSET)
+                            cleanup(env.RUBY_VER, env.GEMSET)
                             deleteDir()
                         }
                     }
@@ -114,27 +114,27 @@ pipeline {
                 stage('ruby-2.5-mysql') {
                     agent { label 'fast' }
                     environment {
-                        RUBY = '2.5'
+                        RUBY_VER = '2.5'
                         GEMSET = 'ruby-2.5-mysql'
                     }
                     stages {
                         stage("setup-2.5-mysql") {
                             steps {
                                 git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                configureRVM(env.RUBY, env.GEMSET)
+                                configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET), 'mysql')
-                                configureDatabase(env.RUBY, env.GEMSET)
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("unit-tests-2.5-mysql") {
                             steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                     }
                     post {
                         always {
-                            cleanup(env.RUBY, env.GEMSET)
+                            cleanup(env.RUBY_VER, env.GEMSET)
                             deleteDir()
                         }
                     }
@@ -142,27 +142,27 @@ pipeline {
                 stage('ruby-2.5-sqlite3') {
                     agent { label 'fast' }
                     environment {
-                        RUBY = '2.5'
+                        RUBY_VER = '2.5'
                         GEMSET = 'ruby-2.5-sqlite3'
                     }
                     stages {
                         stage("setup-2.5-sqlite3") {
                             steps {
                                 git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                configureRVM(env.RUBY, env.GEMSET)
+                                configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET), 'sqlite3')
-                                configureDatabase(env.RUBY, env.GEMSET)
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("unit-tests-2.5-sqlite3") {
                             steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY, env.GEMSET)
+                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                     }
                     post {
                         always {
-                            cleanup(env.RUBY, env.GEMSET)
+                            cleanup(env.RUBY_VER, env.GEMSET)
                             deleteDir()
                         }
                     }
