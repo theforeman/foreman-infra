@@ -29,7 +29,6 @@ pipeline {
                                 configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
                                 configureDatabase(env.RUBY_VER, env.GEMSET)
-                                withRVM(['npm install'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                         stage("unit-tests-2.5-postgres") {
@@ -37,12 +36,36 @@ pipeline {
                                 withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
-                        stage("integration-tests-2.5-postgres") {
+                    }
+                    post {
+                        always {
+                            cleanup(env.RUBY_VER, env.GEMSET)
+                            deleteDir()
+                        }
+                    }
+                }
+                stage('ruby-2.5-postgres-integrations') {
+                    agent { label 'fast' }
+                    environment {
+                        RUBY_VER = '2.5'
+                        GEMSET = 'ruby-2.5-postgres-ui'
+                    }
+                    stages {
+                        stage("setup-2.5-postgres-ui") {
+                            steps {
+                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                                configureRVM(env.RUBY_VER, env.GEMSET)
+                                databaseFile(gemset(env.GEMSET))
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
+                                withRVM(['npm install'], env.RUBY_VER, env.GEMSET)
+                            }
+                        }
+                        stage("integration-tests-2.5-postgres-ui") {
                             steps {
                                 withRVM(['bundle exec rake jenkins:integration TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
-                        stage("assets-precompile-2.5-postgres") {
+                        stage("assets-precompile-2.5-postgres-ui") {
                             steps {
                                 withRVM(['bundle exec rake assets:precompile RAILS_ENV=production'], env.RUBY_VER, env.GEMSET)
                             }
