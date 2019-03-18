@@ -45,7 +45,7 @@ if [ -n "${copr_lookasides}" ]; then
 fi
 
 predefined_lookaside=""
-predefined_lookasides="${predefined_lookasides} base updates extras epel scl scl-sclo puppet-5"
+predefined_lookasides="${predefined_lookasides} base updates extras epel scl puppet-5"
 if [[ -n $predefined_lookasides ]]; then
   lookaside_repos=$(echo $predefined_lookasides | tr "," "\n")
 

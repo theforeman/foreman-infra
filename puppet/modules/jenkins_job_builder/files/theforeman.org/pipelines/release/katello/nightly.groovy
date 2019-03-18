@@ -138,7 +138,6 @@ void repoclosure(repo, dist, additions = []) {
             "-l ${dist}-epel",
             "-l ${dist}-extras",
             "-l ${dist}-scl",
-            "-l ${dist}-scl-sclo",
             "-l ${dist}-puppet-5",
             "-l ${dist}-katello-pulp-nightly",
             "-l ${dist}-katello-candlepin-nightly"
