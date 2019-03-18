@@ -101,7 +101,6 @@ void repoclosure(repo, dist, additions = []) {
             "-l el${dist}-epel",
             "-l el${dist}-extras",
             "-l el${dist}-scl",
-            "-l el${dist}-scl-sclo",
             "-l el${dist}-puppet-5"
         ]
 
