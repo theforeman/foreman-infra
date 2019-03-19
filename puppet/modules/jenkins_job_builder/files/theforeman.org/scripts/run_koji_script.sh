@@ -1,2 +1,2 @@
 #!/bin/bash
-ssh -o "BatchMode yes" root@koji.katello.org "${script}"
+ssh -o "BatchMode yes" root@koji.katello.org "${script}" "${version}"

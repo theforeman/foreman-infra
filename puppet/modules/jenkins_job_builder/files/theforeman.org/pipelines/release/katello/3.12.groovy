@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-                mash("katello-mash-split-3.12.py")
+                mash("katello-mash-split.py", "3.12")
 
             }
         }

@@ -7,4 +7,8 @@
       - string:
           name: script
           default: 'foreman-mash-split.py'
-          description: 'Change for specific versions, e.g. foreman-mash-split-1.6.py'
+          description: 'Change for different repositories'
+      - string:
+          name: version
+          default: 'nightly'
+          description: 'The version to mash, e.g. nightly or 1.21'

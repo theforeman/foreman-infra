@@ -8,7 +8,7 @@
     builders:
       - trigger-builds:
         - project: packaging_mash_rpms
-          predefined-parameters: "script=foreman-mash-split-${major_version}.py"
+          predefined-parameters: "script=foreman-mash-split.py version=${major_version}"
           block: true
     publishers:
       - trigger-parameterized-builds:

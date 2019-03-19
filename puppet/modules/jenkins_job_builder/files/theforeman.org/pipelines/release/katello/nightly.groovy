@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-                mash("katello-mash-split.py")
+                mash("katello-mash-split.py", "nightly")
 
             }
         }
