@@ -2,6 +2,7 @@
     name: luna-nightly-rpm-pipeline
     project-type: pipeline
     triggers:
+      - timed: 'H 23 * * Wed'
       - reverse:
           jobs:
             - katello-nightly-rpm-pipeline
