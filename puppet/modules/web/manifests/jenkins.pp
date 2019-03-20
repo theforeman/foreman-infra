@@ -19,16 +19,15 @@ class web::jenkins(
     webroot_paths => [$webroot],
   }
 
-  apache::vhost { 'jenkins':
-    port          => '80',
-    servername    => $hostname,
-    docroot       => $webroot,
-    docroot_owner => $::apache::user,
-    docroot_group => $::apache::group,
-    proxy_pass    => $proxy_pass,
-  }
-
   if $https {
+    apache::vhost { 'jenkins':
+      port          => 80,
+      servername    => $hostname,
+      docroot       => $webroot,
+      docroot_owner => $::apache::user,
+      docroot_group => $::apache::group,
+      redirect_dest => "https://${hostname}/",
+    }
     apache::vhost { 'jenkins-https':
       port          => 443,
       servername    => $hostname,
@@ -41,6 +40,15 @@ class web::jenkins(
       ssl_chain     => "/etc/letsencrypt/live/${hostname}/chain.pem",
       ssl_key       => "/etc/letsencrypt/live/${hostname}/privkey.pem",
       require       => Letsencrypt::Certonly[$hostname],
+    }
+  } else {
+    apache::vhost { 'jenkins':
+      port          => 80,
+      servername    => $hostname,
+      docroot       => $webroot,
+      docroot_owner => $::apache::user,
+      docroot_group => $::apache::group,
+      proxy_pass    => $proxy_pass,
     }
   }
 }
