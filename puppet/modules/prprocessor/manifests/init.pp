@@ -101,7 +101,6 @@ class prprocessor (
 
   letsencrypt::certonly { $servername:
     plugin        => 'webroot',
-    manage_cron   => false,
     domains       => [$servername],
     webroot_paths => [$docroot],
     require       => Apache::Vhost[$servername],

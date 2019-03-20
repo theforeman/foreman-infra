@@ -22,7 +22,6 @@ class web(
 
   letsencrypt::certonly { 'theforeman.org':
     plugin        => 'webroot',
-    manage_cron   => false,
     # domain / webroot_paths must match exactly
     domains       => [
       'theforeman.org',

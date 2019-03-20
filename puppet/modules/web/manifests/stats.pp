@@ -24,7 +24,6 @@ class web::stats(
 
   letsencrypt::certonly { $hostname:
     plugin        => 'webroot',
-    manage_cron   => false,
     domains       => [$hostname],
     webroot_paths => [$webroot],
   }

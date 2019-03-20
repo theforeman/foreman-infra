@@ -144,7 +144,6 @@ class redmine (
 
   letsencrypt::certonly { $servername:
     plugin        => 'webroot',
-    manage_cron   => false,
     domains       => [$servername],
     webroot_paths => [$docroot],
     require       => Vcsrepo[$app_root],
