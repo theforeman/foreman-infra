@@ -134,3 +134,9 @@
 [submodule "puppet/modules/unattended_upgrades"]
 	path = puppet/modules/unattended_upgrades
 	url = https://github.com/voxpupuli/puppet-unattended_upgrades.git
+[submodule "puppet/modules/systemd"]
+	path = puppet/modules/systemd
+	url = https://github.com/camptocamp/puppet-systemd
+[submodule "puppet/modules/transition"]
+	path = puppet/modules/transition
+	url = https://github.com/puppetlabs/puppetlabs-transition
