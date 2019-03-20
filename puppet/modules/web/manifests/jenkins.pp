@@ -18,6 +18,13 @@ class web::jenkins(
     webroot_paths => [$webroot],
   }
 
+  if $facts['selinux'] {
+    selboolean { 'httpd_can_network_connect':
+      persistent => true,
+      value      => 'on',
+    }
+  }
+
   if $https {
     apache::vhost { 'jenkins':
       port          => 80,
@@ -35,6 +42,7 @@ class web::jenkins(
       docroot_group         => $::apache::group,
       proxy_pass            => $proxy_pass,
       allow_encoded_slashes => 'nodecode',
+      request_headers       => ['set X_FORWARDED_PROTO "https"'],
       ssl                   => true,
       ssl_cert              => "/etc/letsencrypt/live/${hostname}/fullchain.pem",
       ssl_chain             => "/etc/letsencrypt/live/${hostname}/chain.pem",
