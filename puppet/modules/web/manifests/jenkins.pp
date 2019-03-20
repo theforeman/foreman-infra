@@ -42,7 +42,7 @@ class web::jenkins(
       docroot_group         => $::apache::group,
       proxy_pass            => $proxy_pass,
       allow_encoded_slashes => 'nodecode',
-      request_headers       => ['set X_FORWARDED_PROTO "https"'],
+      request_headers       => ['set X-Forwarded-Proto "https"'],
       ssl                   => true,
       ssl_cert              => "/etc/letsencrypt/live/${hostname}/fullchain.pem",
       ssl_chain             => "/etc/letsencrypt/live/${hostname}/chain.pem",
