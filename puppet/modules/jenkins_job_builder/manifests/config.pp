@@ -26,7 +26,7 @@ define jenkins_job_builder::config (
   }
 
   cron { "jenkins-jobs-update-${config_name}-delete-old":
-    command     => "jenkins-jobs --conf ${inifile} update --delete-old ${directory}/${config_name} > /var/cache/jjb.xml",
+    command     => "timeout 1h jenkins-jobs --conf ${inifile} update --delete-old ${directory}/${config_name} > /var/cache/jjb.xml",
     hour        => 0,
     minute      => 0,
     environment => 'PATH=/bin:/usr/bin:/usr/sbin',
