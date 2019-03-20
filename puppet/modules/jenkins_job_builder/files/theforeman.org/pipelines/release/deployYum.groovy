@@ -28,7 +28,7 @@ pipeline {
         stage("Push RPMs") {
             steps {
                 dir('deploy') {
-                    withRVM(["cap yum repo:sync -S overwrite=${overwrite} -S merge=${merge} -S repo_source=${repo_source}/${osname}/${osver} -S repo_dest=${repo_dest}/${os}"])
+                    push_rpms_direct("${repo_source}/${osname}/${osver}", "${repo_dest}/${os}", overwrite, merge)
                 }
             }
         }

@@ -139,7 +139,7 @@ void push_rpms(version, distro) {
             os = 'Fedora/24'
         }
 
-        withRVM(["cap yum repo:sync -S overwrite=false -S merge=true -S repo_source=foreman-plugins-${version}/${os} -S repo_dest=plugins/${version}/${distro}"])
+        push_rpms_direct("foreman-plugins-${version}/${os}", "plugins/${version}/${distro}", false, true)
 
     }
 

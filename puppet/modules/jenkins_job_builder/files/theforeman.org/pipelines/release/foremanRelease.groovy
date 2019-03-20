@@ -64,7 +64,7 @@ pipeline {
                 dir('deploy') {
 
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    withRVM(["cap yum repo:sync -S overwrite=true -S merge=false -S repo_source=foreman-nightly/RHEL/7 -S repo_dest=nightly/el7"])
+                    push_rpms_direct("foreman-nightly/RHEL/7", "repo_dest=nightly/el7")
                 }
             }
             post {
