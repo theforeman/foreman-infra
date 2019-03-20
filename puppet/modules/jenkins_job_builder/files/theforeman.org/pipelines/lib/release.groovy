@@ -7,5 +7,7 @@ void push_rpms(repo_src, repo_dest, version, distro) {
 }
 
 void mash(filename) {
-    sh "ssh -o 'BatchMode yes' root@koji.katello.org ${filename}"
+    sshagent(['mash']) {
+        sh "ssh -o 'BatchMode yes' root@koji.katello.org ${filename}"
+    }
 }

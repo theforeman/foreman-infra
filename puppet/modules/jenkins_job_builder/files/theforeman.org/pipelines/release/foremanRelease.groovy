@@ -13,9 +13,7 @@ pipeline {
             agent { label 'sshkey' }
 
             steps {
-
-                sh "ssh -o 'BatchMode yes' root@koji.katello.org foreman-mash-split.py"
-
+                mash('foreman-mash-split.py')
             }
         }
         stage('Repoclosure') {

@@ -4,5 +4,6 @@
     dsl:
       !include-raw:
         - pipelines/release/katello/3.8.groovy
+        - pipelines/lib/release.groovy
         - pipelines/lib/ansible.groovy
         - pipelines/lib/foreman_infra.groovy

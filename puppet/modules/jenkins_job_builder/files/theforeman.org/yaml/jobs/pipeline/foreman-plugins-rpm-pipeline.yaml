@@ -6,5 +6,6 @@
     dsl:
       !include-raw:
         - pipelines/release/foremanPluginsRelease.groovy
+        - pipelines/lib/release.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/foreman_infra.groovy

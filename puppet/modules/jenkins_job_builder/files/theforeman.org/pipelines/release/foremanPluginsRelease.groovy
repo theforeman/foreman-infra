@@ -14,7 +14,7 @@ pipeline {
         stage('Mash Koji Repositories') {
             steps {
 
-                sh "ssh -o 'BatchMode yes' root@koji.katello.org foreman-mash-split-plugins.py"
+                mash("foreman-mash-split-plugins.py")
 
             }
         }

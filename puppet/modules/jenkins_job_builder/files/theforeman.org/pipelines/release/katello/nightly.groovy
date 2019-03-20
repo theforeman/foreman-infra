@@ -14,7 +14,7 @@ pipeline {
 
             steps {
 
-                sh "ssh -o 'BatchMode yes' root@koji.katello.org katello-mash-split.py"
+                mash("katello-mash-split.py")
 
             }
         }
