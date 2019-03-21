@@ -12,6 +12,12 @@ void push_rpms_direct(repo_source, repo_dest, overwrite = true, merge = false) {
     }
 }
 
+void push_debs_direct(os, repo) {
+    sshagent(['repo-sync']) {
+        sh "ssh freight@deb.theforeman.org deploy ${os} ${repo}"
+    }
+}
+
 void mash(filename) {
     sshagent(['mash']) {
         sh "ssh -o 'BatchMode yes' root@koji.katello.org ${filename}"
