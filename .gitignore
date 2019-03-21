@@ -2,3 +2,4 @@ ssl/*
 yaml/*
 puppet/puppet.conf
 .idea
+.vagrant
