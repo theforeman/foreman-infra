@@ -1,7 +1,7 @@
 class web::jenkins(
-  $hostname = 'ci.theforeman.org',
-  $webroot = '/var/www/vhosts/jenkins/htdocs',
-  $https = false,
+  Stdlib::Fqdn $hostname = 'ci.theforeman.org',
+  Stdlib::Absolutepath $webroot = '/var/www/vhosts/jenkins/htdocs',
+  Boolean $https = false,
 ) {
   include ::web::base
 
@@ -12,10 +12,12 @@ class web::jenkins(
     'no_proxy_uris' => ['/.well-known'],
   }
 
-  letsencrypt::certonly { $hostname:
-    plugin        => 'webroot',
-    domains       => [$hostname],
-    webroot_paths => [$webroot],
+  if $web::base::letsencrypt {
+    letsencrypt::certonly { $hostname:
+      plugin        => 'webroot',
+      domains       => [$hostname],
+      webroot_paths => [$webroot],
+    }
   }
 
   if $facts['selinux'] {
@@ -25,7 +27,14 @@ class web::jenkins(
     }
   }
 
-  if $https {
+  file { dirname($webroot):
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  if $web::base::letsencrypt and $https {
     apache::vhost { 'jenkins':
       port          => 80,
       servername    => $hostname,
