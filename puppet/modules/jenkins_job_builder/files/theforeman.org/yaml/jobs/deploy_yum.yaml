@@ -24,6 +24,6 @@
           description: 'When true, will only add to and not delete the existing repo, then will run <code>createrepo</code> to merge the new packages into the existing repo.'
     dsl:
       !include-raw:
-        - pipelines/release/deployYum.groovy
+        - pipelines/deploy/yum.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/foreman_infra.groovy
