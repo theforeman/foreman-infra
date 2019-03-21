@@ -1,21 +1,12 @@
 # Push tested stagingdeb repos to public repos.
 - job:
     name: release_push_deb
-    project-type: matrix
+    project-type: pipeline
     block-downstream: true
     block-upstream: true
     parameters:
       - release_parameters
-    builders:
-      - trigger-builds:
-        - project: deploy_deb
-          predefined-parameters: "os=${os}\nrepo=${major_version}"
-          block: true
-    axes:
-      - axis:
-          type: user-defined
-          name: os
-          values:
-          - stretch
-          - xenial
-          - bionic
+    dsl:
+      !include-raw:
+        - pipelines/release/debian/release.groovy
+        - pipelines/lib/release.groovy

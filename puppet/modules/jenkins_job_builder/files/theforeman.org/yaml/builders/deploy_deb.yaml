@@ -1,4 +1,0 @@
-- builder:
-    name: deploy_deb
-    builders:
-      - shell: !include-raw: scripts/debian/deploy_deb.sh
