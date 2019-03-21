@@ -108,9 +108,9 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                push_debs_direct("debian9", "nightly")
-                push_debs_direct("ubuntu1604", "nightly")
-                push_debs_direct("ubuntu1804", "nightly")
+                push_debs_direct("stretch", "nightly")
+                push_debs_direct("xenial", "nightly")
+                push_debs_direct("bionic", "nightly")
             }
             post {
                 always {
