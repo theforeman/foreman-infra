@@ -28,7 +28,7 @@ pipeline {
         stage('Install Test') {
             agent { label 'el' }
             environment {
-                cico_job_name = "foreman-nightly-test"
+                cico_job_name = "foreman-nightly-centos7-test"
             }
 
             steps {
@@ -79,7 +79,7 @@ pipeline {
             emailext(
                 subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
                 to: 'ci@community.theforeman.org',
-                body: "Foreman nightly pipeline failed: \n\n${env.BUILD_URL}"
+                body: "Foreman RPM nightly pipeline failed: \n\n${env.BUILD_URL}"
             )
         }
     }

@@ -1,11 +1,11 @@
 - job:
-    name: foreman-nightly-rpm-pipeline
+    name: foreman-nightly-deb-pipeline
     project-type: pipeline
     triggers:
-      - timed: 'H 21 * * *'
+      - timed: 'H 07 * * 1-5'
     dsl:
       !include-raw:
-        - pipelines/release/foreman-rpm.groovy
+        - pipelines/release/foreman-deb.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/ansible.groovy
         - pipelines/lib/foreman_infra.groovy
