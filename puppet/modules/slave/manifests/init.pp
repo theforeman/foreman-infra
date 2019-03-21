@@ -117,12 +117,6 @@ class slave (
         'Debian' => 'iceweasel',
         default  => 'firefox'
       };
-    'xvfb':
-      ensure => present,
-      name   => $::osfamily ? {
-        'Debian' => 'xvfb',
-        default  => 'xorg-x11-server-Xvfb'
-      };
     'augeas-dev':
       ensure => present,
       name   => $::osfamily ? {
