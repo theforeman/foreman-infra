@@ -1,19 +1,17 @@
 - job:
     name: deploy_web
-    node: 'admin && sshkey'
-    scm:
-      - theforeman.org
+    project-type: pipeline
+    concurrent: false
+    properties:
+      - github:
+          url: 'https://github.com/theforeman/theforeman.org'
     triggers:
       - github
       - pollscm:
           cron: '*/5 * * * *'
-    parameters:
-      - string:
-          name: ruby
-          default: '2.5'
-          description: "Ruby version to run rake generate task under"
-    builders:
-      - deploy_web
     publishers:
-      - gemset_cleanup
       - ircbot_freenode
+    dsl:
+      !include-raw:
+        - pipelines/deploy/website.groovy
+        - pipelines/lib/rvm.groovy

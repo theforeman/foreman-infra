@@ -1,4 +1,0 @@
-- builder:
-    name: deploy_web
-    builders:
-      - shell: !include-raw: scripts/deploy_web.sh
