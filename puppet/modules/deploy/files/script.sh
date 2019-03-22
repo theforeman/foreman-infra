@@ -3,9 +3,6 @@ set -e # dont rsync if clone fails
 echo "Deploy started at `date`"
 dir=`mktemp -d`
 trap "rm -rf $dir" EXIT
-git clone https://github.com/theforeman/foreman-infra $dir/
-(cd $dir && git submodule update --init)
+git clone --recurse-submodules https://github.com/theforeman/foreman-infra $dir/
 rsync -aqx --delete-after --exclude=.git $dir/puppet/modules/ /etc/puppetlabs/code/environments/production/modules/
 echo "Deploy complete at `date`"
-# ERB highlighting looks terrible in this script...
-# vim: set ft=sh : #
