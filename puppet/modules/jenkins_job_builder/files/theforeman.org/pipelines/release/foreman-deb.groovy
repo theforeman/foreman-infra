@@ -105,7 +105,7 @@ pipeline {
             }
         }
         stage('Push DEBs') {
-            agent { label 'admin && sshkey' }
+            agent { label 'debian' }
 
             steps {
                 push_debs_direct("stretch", "nightly")

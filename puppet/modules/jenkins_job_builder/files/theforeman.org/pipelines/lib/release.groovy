@@ -19,7 +19,7 @@ void push_rpms_katello(version) {
 }
 
 void push_debs_direct(os, repo) {
-    sshagent(['repo-sync']) {
+    sshagent(['freight']) {
         sh "ssh freight@deb.theforeman.org deploy ${os} ${repo}"
     }
 }
