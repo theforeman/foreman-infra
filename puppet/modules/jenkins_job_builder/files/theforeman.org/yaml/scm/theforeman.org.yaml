@@ -1,8 +1,0 @@
-- scm:
-    name: theforeman.org
-    scm:
-      - git:
-          url: https://github.com/theforeman/theforeman.org.git
-          wipe-workspace: true
-          branches:
-            - gh-pages
