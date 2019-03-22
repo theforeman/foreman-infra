@@ -1,30 +1,31 @@
 # Define which deploys the key for a specific user
 #
-# === Parameters:
+# @param user
+#   User to own the key
 #
-# $name:           name of the key (required)
+# @param script_content
+#   Content of a script that'll be run by sshd when the user connects with the
+#   key
 #
-# $user:           user to own the key (required)
+# @param homedir
+#   Home directory the user
 #
-# $homedir:        home directory the user
+# @param allowed_ips
+#   List of allowed ips in the authorized keys file. Unused if $foreman_search
+#   is provided
 #
-# $allowed_ips:    list of allowed ips in the authorized keys file
-#                  not used if $foreman_search is provided
-#
-# $foreman_search: string to search in the foreman API, unused by default
-#                  if specified, uses the foreman search puppet function to
-#                  get IP addresses matching the required string.
-#
-# $script_content: content of a script that'll be run by sshd when the user
-#                  connects with the key
+# @param foreman_search
+#   String to search in the foreman API, unused by default if specified, uses
+#   the foreman search puppet function to get IP addresses matching the
+#   required string.
 #
 define secure_ssh::receiver_setup (
-  $user,
-  $homedir        = "/home/${user}",
-  $foreman_search = false,
-  $allowed_ips    = [],
-  $script_content,
-  $ssh_key_name   = "${name}_key",
+  String $user,
+  String $script_content,
+  Stdlib::Absolutepath $homedir = "/home/${user}",
+  Optional[String] $foreman_search = undef,
+  Array[Stdlib::IP::Address] $allowed_ips = [],
+  String $ssh_key_name = "${name}_key",
 ) {
 
   # Disable password, we want this to be keys only
