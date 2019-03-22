@@ -19,8 +19,8 @@ pipeline {
 
         stage('Update ci.centos.org jobs') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jenkins-centos', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME']]) {
-                    virtEnv('./ci', "cd ./centos.org && jenkins-jobs --conf ./centos_jenkins.ini --user '${env.USERNAME}' --password '${env.PASSWORD}' update -r ./jobs")
+                withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
+                    virtEnv('./ci', "cd ./centos.org && jenkins-jobs --conf ./centos_jenkins.ini --user 'foreman' --password '${env.PASSWORD}' update -r ./jobs")
                 }
             }
         }
