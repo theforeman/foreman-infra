@@ -38,6 +38,7 @@ pipeline {
                             script {
                                 set_job_build_description("${env.cico_job_name}")
                             }
+                            deleteDir()
                         }
                     }
                 }
@@ -68,6 +69,7 @@ pipeline {
                             script {
                                 set_job_build_description("${env.cico_job_name}")
                             }
+                            deleteDir()
                         }
                     }
                 }
@@ -98,10 +100,10 @@ pipeline {
                             script {
                                 set_job_build_description("${env.cico_job_name}")
                             }
+                            deleteDir()
                         }
                     }
                 }
-
             }
         }
         stage('Push DEBs') {
@@ -111,11 +113,6 @@ pipeline {
                 push_debs_direct("stretch", "nightly")
                 push_debs_direct("xenial", "nightly")
                 push_debs_direct("bionic", "nightly")
-            }
-            post {
-                always {
-                    deleteDir()
-                }
             }
         }
     }
