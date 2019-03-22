@@ -1,6 +1,7 @@
 - job:
     name: katello-pr-test
     project-type: pipeline
+    sandbox: true
     concurrent: true
     properties:
       - github:

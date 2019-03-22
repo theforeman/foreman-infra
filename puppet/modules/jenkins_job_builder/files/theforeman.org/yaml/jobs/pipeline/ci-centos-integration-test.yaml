@@ -1,6 +1,7 @@
 - job:
     name: ci-centos-integration-test
     project-type: pipeline
+    sandbox: true
     triggers:
       - timed: 'H 23 * * *'
     dsl:

@@ -2,6 +2,7 @@
 - job:
     name: foreman-packaging-release
     project-type: pipeline
+    sandbox: true
     concurrent: false
     properties:
       - github:

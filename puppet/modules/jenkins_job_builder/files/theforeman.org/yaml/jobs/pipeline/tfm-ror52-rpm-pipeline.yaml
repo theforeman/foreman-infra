@@ -2,6 +2,7 @@
 - job:
     name: tfm-ror52-rpm-pipeline
     project-type: pipeline
+    sandbox: true
     concurrent: false
     properties:
       - github:

@@ -1,6 +1,7 @@
 - job:
     name: puppet-deploy
     project-type: pipeline
+    sandbox: true
     properties:
       - github:
           url: https://github.com/theforeman/foreman-infra

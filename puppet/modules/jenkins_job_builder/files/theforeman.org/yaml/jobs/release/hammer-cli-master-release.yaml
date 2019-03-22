@@ -1,6 +1,7 @@
 - job:
     name: hammer-cli-master-release
     project-type: pipeline
+    sandbox: true
     concurrent: false
     properties:
       - github:

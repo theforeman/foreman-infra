@@ -1,6 +1,7 @@
 - job:
     name: foreman-nightly-rpm-pipeline
     project-type: pipeline
+    sandbox: true
     triggers:
       - timed: 'H 21 * * *'
     dsl:

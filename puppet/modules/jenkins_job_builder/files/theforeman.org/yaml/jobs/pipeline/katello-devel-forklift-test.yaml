@@ -2,6 +2,7 @@
 - job:
     name: katello-devel-forklift-test
     project-type: pipeline
+    sandbox: true
     triggers:
       - reverse:
           jobs:

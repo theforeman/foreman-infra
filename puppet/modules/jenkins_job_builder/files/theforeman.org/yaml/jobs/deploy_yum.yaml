@@ -1,6 +1,7 @@
 - job:
     name: deploy_yum
     project-type: pipeline
+    sandbox: true
     parameters:
       - string:
           name: os

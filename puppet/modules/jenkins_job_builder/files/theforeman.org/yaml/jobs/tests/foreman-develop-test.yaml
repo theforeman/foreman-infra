@@ -1,6 +1,7 @@
 - job:
     name: foreman-develop-test
     project-type: pipeline
+    sandbox: true
     quiet-period: 2700
     properties:
       - github_foreman

@@ -1,6 +1,7 @@
 - job:
     name: luna-nightly-rpm-pipeline
     project-type: pipeline
+    sandbox: true
     triggers:
       - reverse:
           jobs:
