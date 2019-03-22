@@ -83,9 +83,7 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-
-                sh "ssh -i /var/lib/workspace/workspace/deploy_katello_repos_key/deploy_katello_repos_key katelloproject@fedorapeople.org \"cd /project/katello/bin && sh rsync-repos-from-koji 3.10\""
-
+                push_rpms_katello("3.10")
             }
         }
     }
