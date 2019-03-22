@@ -1,6 +1,7 @@
 - job:
     name: katello-nightly-rpm-pipeline
     project-type: pipeline
+    sandbox: true
     triggers:
       - reverse:
           jobs:

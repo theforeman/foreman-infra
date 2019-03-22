@@ -1,6 +1,7 @@
 - job:
     name: deploy_web
     project-type: pipeline
+    sandbox: true
     concurrent: false
     properties:
       - github:

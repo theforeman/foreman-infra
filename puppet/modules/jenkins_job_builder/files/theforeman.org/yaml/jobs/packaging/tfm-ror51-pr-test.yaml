@@ -2,6 +2,7 @@
 - job:
     name: tfm-ror51-pr-test
     project-type: pipeline
+    sandbox: true
     properties:
       - github:
           url: https://github.com/theforeman/tfm-ror51-packaging

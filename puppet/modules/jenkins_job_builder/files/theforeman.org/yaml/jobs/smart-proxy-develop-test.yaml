@@ -1,6 +1,7 @@
 - job:
     name: smart-proxy-develop-test
     project-type: pipeline
+    sandbox: true
     concurrent: false
     properties:
       - github:

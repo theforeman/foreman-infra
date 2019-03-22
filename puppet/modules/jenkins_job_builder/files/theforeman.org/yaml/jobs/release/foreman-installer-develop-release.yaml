@@ -1,6 +1,7 @@
 - job:
     name: foreman-installer-develop-release
     project-type: pipeline
+    sandbox: true
     concurrent: false
     properties:
       - github:

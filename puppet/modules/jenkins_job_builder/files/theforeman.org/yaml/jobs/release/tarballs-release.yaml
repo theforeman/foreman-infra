@@ -1,6 +1,7 @@
 - job:
     name: tarballs-release
     project-type: pipeline
+    sandbox: true
     concurrent: false
     parameters:
       - string:

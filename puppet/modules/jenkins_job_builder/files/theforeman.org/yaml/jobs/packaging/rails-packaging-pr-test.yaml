@@ -2,6 +2,7 @@
 - job:
     name: rails-packaging-pr-test
     project-type: pipeline
+    sandbox: true
     properties:
       - github:
           url: https://github.com/theforeman/rails-packaging

@@ -2,6 +2,7 @@
 - job:
     name: release_push_deb
     project-type: pipeline
+    sandbox: true
     block-downstream: true
     block-upstream: true
     parameters:
