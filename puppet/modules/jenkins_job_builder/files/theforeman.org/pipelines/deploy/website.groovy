@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Deploy website') {
             steps {
-                git url: 'https://github.com/theforeman/theforeman.org'
+                git url: 'https://github.com/theforeman/theforeman.org', branch: 'gh-pages'
 
                 script {
                     try {
