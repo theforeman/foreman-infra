@@ -24,7 +24,7 @@ pipeline {
             steps {
 
                 deleteDir()
-                git url: 'https://github.com/theforeman/tfm-ror51-packaging', branch: 'master', poll: false
+                git url: 'https://github.com/theforeman/rails-packaging', branch: 'tfm-ror51', poll: false
 
             }
         }
