@@ -64,7 +64,7 @@ pipeline {
                 dir('deploy') {
 
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    push_rpms_direct("foreman-nightly/RHEL/7", "repo_dest=nightly/el7")
+                    push_rpms_direct("foreman-nightly/RHEL/7", "nightly/el7")
                 }
             }
             post {
