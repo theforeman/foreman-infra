@@ -37,45 +37,12 @@ pipeline {
             }
         }
         stage('Install Test') {
-            parallel {
-                stage('Install test') {
-                    agent { label 'el' }
-
-                    steps {
-
-                        git_clone_foreman_infra()
-
-                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                            runPlaybook(
-                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                inventory: 'localhost',
-                                extraVars: [
-                                  "jenkins_job_name": "foreman-katello-3.10-test",
-                                  "jenkins_username": "foreman"
-                                ],
-                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
-                            )
-                        }
-                    }
-                }
-                stage('Upgrade test') {
-                    agent { label 'el' }
-                    steps {
-
-                        git_clone_foreman_infra()
-                        sleep(5) //See https://bugs.centos.org/view.php?id=14920
-
-                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                            runPlaybook(
-                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: [
-                                  "jenkins_job_name": "foreman-katello-upgrade-3.10-test",
-                                  "jenkins_username": "foreman"
-                                 ],
-                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
-                            )
-                        }
-                    }
+            steps {
+                script {
+                    runCicoJobsInParallel([
+                        ['name': 'Install test', 'job': 'foreman-katello-3.10-test'],
+                        ['name': 'Upgrade test', 'job': 'foreman-katello-upgrade-3.10-test']
+                    ])
                 }
             }
         }
