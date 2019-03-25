@@ -110,9 +110,11 @@ pipeline {
             agent { label 'debian' }
 
             steps {
-                push_debs_direct("stretch", "nightly")
-                push_debs_direct("xenial", "nightly")
-                push_debs_direct("bionic", "nightly")
+                parallel(
+                    "stretch": { push_debs_direct('stretch', 'nightly') },
+                    "xenial": { push_debs_direct('xenial', 'nightly') },
+                    "bionic": { push_debs_direct('bionic', 'nightly') }
+                )
             }
         }
     }
