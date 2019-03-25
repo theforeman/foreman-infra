@@ -10,99 +10,13 @@ pipeline {
 
     stages {
         stage('Install tests') {
-            parallel {
-
-                stage('debian9') {
-                    agent { label 'el' }
-                    environment {
-                        cico_job_name = "foreman-nightly-debian9-test"
-                    }
-
-                    steps {
-                        git_clone_foreman_infra()
-
-                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                            runPlaybook(
-                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: [
-                                    "jenkins_job_name": "${env.cico_job_name}",
-                                    "jenkins_username": "foreman",
-                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/${env.cico_job_name}"
-                                ],
-                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
-                            )
-                        }
-                    }
-                    post {
-                        always {
-                            script {
-                                set_job_build_description("${env.cico_job_name}")
-                            }
-                            deleteDir()
-                        }
-                    }
-                }
-
-                stage('ubuntu1604') {
-                    agent { label 'el' }
-                    environment {
-                        cico_job_name = "foreman-nightly-ubuntu1604-test"
-                    }
-
-                    steps {
-                        git_clone_foreman_infra()
-
-                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                            runPlaybook(
-                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: [
-                                    "jenkins_job_name": "${env.cico_job_name}",
-                                    "jenkins_username": "foreman",
-                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/${env.cico_job_name}"
-                                ],
-                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
-                            )
-                        }
-                    }
-                    post {
-                        always {
-                            script {
-                                set_job_build_description("${env.cico_job_name}")
-                            }
-                            deleteDir()
-                        }
-                    }
-                }
-
-                stage('ubuntu1804') {
-                    agent { label 'el' }
-                    environment {
-                        cico_job_name = "foreman-nightly-ubuntu1804-test"
-                    }
-
-                    steps {
-                        git_clone_foreman_infra()
-
-                        withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                            runPlaybook(
-                                playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                                extraVars: [
-                                    "jenkins_job_name": "${env.cico_job_name}",
-                                    "jenkins_username": "foreman",
-                                    "jenkins_job_link_file": "${env.WORKSPACE}/jobs/${env.cico_job_name}"
-                                ],
-                                sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
-                            )
-                        }
-                    }
-                    post {
-                        always {
-                            script {
-                                set_job_build_description("${env.cico_job_name}")
-                            }
-                            deleteDir()
-                        }
-                    }
+            steps {
+                script {
+                    runCicoJobsInParallel([
+                        ['name': 'debian9', 'job': 'foreman-nightly-debian9-test'],
+                        ['name': 'ubuntu1604', 'job': 'foreman-nightly-ubuntu1604-test'],
+                        ['name': 'ubuntu1804', 'job': 'foreman-nightly-ubuntu1804-test']
+                    ])
                 }
             }
         }
