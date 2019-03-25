@@ -5,12 +5,7 @@
     block-downstream: true
     block-upstream: true
     parameters:
-      - string:
-          name: version
-          description: '1.5.2, 1.6.0-RC1 etc.'
-      - string:
-          name: major_version
-          description: '1.5, 1.6 etc.'
+      - release_parameters
     axes:
       - axis:
           type: user-defined
