@@ -1,13 +1,10 @@
 # Deploys a set of jobs to one Jenkins instance
 #
-# $run is our addition and is so named because noop is a bit too magic in puppet syntax...
-#
 define jenkins_job_builder::config (
-  $url,
-  $username,
-  $password,
-  $run = 'false',
-  $jenkins_jobs_update_timeout = '600',
+  Stdlib::Httpurl $url,
+  String $username,
+  String $password,
+  Integer[0] $jenkins_jobs_update_timeout = 600,
 ) {
   $config_name = $name
   $directory = '/etc/jenkins_jobs'
