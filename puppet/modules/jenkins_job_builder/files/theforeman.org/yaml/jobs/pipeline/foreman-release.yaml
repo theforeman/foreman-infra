@@ -1,0 +1,29 @@
+- job-template:
+    name: 'foreman-{version}-release-pipeline'
+    project-type: pipeline
+    sandbox: true
+    parameters:
+      - string:
+          name: expected_version
+          description: 'The exact expected version'
+          default: '{version}.'
+    dsl:
+      !include-raw:
+        - 'pipelines/vars/foreman/{version}.groovy'
+        - 'pipelines/release/foreman-pipeline.groovy{empty}'
+        - 'pipelines/lib/release.groovy{empty}'
+        - 'pipelines/lib/obal.groovy{empty}'
+        - 'pipelines/lib/rpm_packaging.groovy{empty}'
+        - 'pipelines/lib/rvm.groovy{empty}'
+        - 'pipelines/lib/ansible.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
+
+- project:
+    name: foreman
+    jobs:
+      - 'foreman-{version}-release-pipeline'
+    empty: ''
+    version:
+      - '1.21'
+      - '1.22'
+      - '1.23'
