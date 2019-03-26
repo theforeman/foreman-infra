@@ -5,14 +5,7 @@ class rbot::package {
   }
 
   case $::osfamily {
-    'RedHat':  { $packages = [ 'db4', 'db4-utils', 'gettext', 'gettext-devel'] }
-    'Debian':  { $packages = [ 'libdb-ruby1.8' ]
-      package { 'gettext-ruby':
-        ensure   => 'present',
-        name     => 'gettext',
-        provider => 'gem',
-      }
-    }
+    'RedHat':  { $packages = [ 'db4', 'db4-utils', 'gettext', 'gettext-devel', 'rubygems' ] }
     default: { fail ("OS $::osfamily is not supported") }
   }
 
