@@ -40,6 +40,7 @@ pipeline {
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
@@ -74,6 +75,7 @@ pipeline {
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
@@ -102,6 +104,7 @@ pipeline {
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
@@ -130,6 +133,7 @@ pipeline {
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
@@ -158,6 +162,7 @@ pipeline {
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
@@ -186,6 +191,7 @@ pipeline {
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
