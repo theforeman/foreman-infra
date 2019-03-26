@@ -25,7 +25,7 @@ bundle exec rake rubocop
 
 # setup UI testing
 
-if [ "$database" = 'postgres-integrations' ]; then
+if [ "$database" = 'postgresql-integrations' ]; then
   export database='postgresql'
   export UI="true"
 fi
