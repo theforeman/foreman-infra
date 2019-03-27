@@ -1,0 +1,16 @@
+- job:
+    name: hammer-cli-katello-master-test
+    project-type: pipeline
+    sandbox: true
+    concurrent: false
+    properties:
+      - github:
+          url: 'https://github.com/Katello/hammer-cli-katello'
+    triggers:
+      - github
+    dsl:
+      !include-raw:
+        - pipelines/vars/hammer-cli-katello-master-test.groovy
+        - pipelines/test/hammer-cli-x-test.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy

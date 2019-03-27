@@ -11,8 +11,6 @@
           name: git_ref
           default: master
           description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
-    triggers:
-      - github
     dsl:
       !include-raw:
         - pipelines/vars/hammer-cli-katello-master-release.groovy
