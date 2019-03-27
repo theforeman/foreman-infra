@@ -18,7 +18,7 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 script {
-                    if ( env.git_ref?.isAllWhitespace() ) {
+                    if ( env.git_ref == null || env.git_ref == '' ) {
                         error("git_ref parameter is blank")
                     }
                 }
