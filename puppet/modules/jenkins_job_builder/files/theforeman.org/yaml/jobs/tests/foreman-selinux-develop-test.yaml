@@ -1,0 +1,16 @@
+- job:
+    name: foreman-selinux-develop-test
+    project-type: pipeline
+    sandbox: true
+    quiet-period: 600
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-selinux
+    concurrent: false
+    triggers:
+      - github
+    dsl:
+      !include-raw:
+        - pipelines/test/foreman-selinux-develop-test.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy
