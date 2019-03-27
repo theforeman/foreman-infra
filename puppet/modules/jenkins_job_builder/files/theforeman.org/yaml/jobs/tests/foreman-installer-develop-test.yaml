@@ -1,0 +1,17 @@
+- job:
+    name: foreman-installer-develop-test
+    project-type: pipeline
+    sandbox: true
+    quiet-period: 600
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-installer
+    concurrent: false
+    triggers:
+      - timed: 'H 3 * * 1-5'
+      - github
+    dsl:
+      !include-raw:
+        - pipelines/test/foreman-installer-develop-test.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/git.groovy
