@@ -110,21 +110,34 @@ pipeline {
                 }
                 stage('angular-ui') {
                     steps {
-                        dir('foreman') {
-                            withRVM(['bundle show bastion > bastion-version'], ruby)
+                        script {
+                            if (!fileExists('engines/bastion')) {
+                                dir('foreman') {
+                                    withRVM(['bundle show bastion > bastion-version'], ruby)
 
-                            script {
-                                bastion_install = readFile('bastion-version')
-                                bastion_version = bastion_install.split('bastion-')[1]
-                                echo bastion_install
-                                echo bastion_version
+                                    script {
+                                        bastion_install = readFile('bastion-version')
+                                        bastion_version = bastion_install.split('bastion-')[1]
+                                        echo bastion_install
+                                        echo bastion_version
+                                    }
+                                }
+
+                                sh "cp -rf \$(cat foreman/bastion-version) engines/bastion_katello/bastion-${bastion_version}"
+                                dir('engines/bastion_katello') {
+                                    sh "npm install bastion-${bastion_version}"
+                                    sh "grunt ci"
+                                }
+                            } else {
+                                dir('engines/bastion') {
+                                    sh "npm install"
+                                    sh "grunt ci"
+                                }
+                                dir('engines/bastion_katello') {
+                                    sh "npm install"
+                                    sh "grunt ci"
+                                }
                             }
-                        }
-
-                        sh "cp -rf \$(cat foreman/bastion-version) engines/bastion_katello/bastion-${bastion_version}"
-                        dir('engines/bastion_katello') {
-                            sh "npm install bastion-${bastion_version}"
-                            sh "grunt ci"
                         }
                     }
                 }
