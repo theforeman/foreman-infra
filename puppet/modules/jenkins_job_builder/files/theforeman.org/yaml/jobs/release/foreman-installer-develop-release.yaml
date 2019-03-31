@@ -6,6 +6,10 @@
     properties:
       - github:
           url: 'https://github.com/theforeman/foreman-installer'
+    parameters:
+      - string:
+          name: git_ref
+          description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
     triggers:
       - timed: 'H 3 * * 1-5'
       - github
