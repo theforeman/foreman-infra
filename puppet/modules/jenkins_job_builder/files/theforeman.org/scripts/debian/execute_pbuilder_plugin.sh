@@ -16,6 +16,7 @@ cd ${project}
 if [ x$gitrelease = xtrue ] || [ x$pr_number != x ]; then
   PACKAGE_NAME=$(head -n1 debian/changelog|awk '{print $1}')
   DATE=$(date -R)
+  BUILD_TIMESTAMP=$(date +%Y%m%d%H%M%S)
   RELEASE="9999-plugin+scratchbuild+${BUILD_TIMESTAMP}"
   MAINTAINER="${repoowner} <no-reply@theforeman.org>"
   mv debian/changelog debian/changelog.tmp
