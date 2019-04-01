@@ -189,7 +189,6 @@ class jenkins_master {
     'workflow-step-api'                  => {},
     'workflow-support'                   => {},
     'xunit'                              => {},
-    'xvfb'                               => {},
     'zentimestamp'                       => {},
   }
 

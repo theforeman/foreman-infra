@@ -117,12 +117,6 @@ class slave (
         'Debian' => 'iceweasel',
         default  => 'firefox'
       };
-    'xvfb':
-      ensure => present,
-      name   => $::osfamily ? {
-        'Debian' => 'xvfb',
-        default  => 'xorg-x11-server-Xvfb'
-      };
     'augeas-dev':
       ensure => present,
       name   => $::osfamily ? {
@@ -305,11 +299,7 @@ class slave (
 
   # Cleanup Jenkins Xvfb processes from aborted builds after a day
   file { '/etc/cron.daily/xvfb_cleaner':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /Xvfb/) { print \$1 }' | xargs kill >/dev/null 2>&1 || true\n",
+    ensure  => absent,
   }
 
   # Cleanup Jenkins Ruby processes from aborted builds after a day
