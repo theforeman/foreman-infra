@@ -222,6 +222,11 @@ class slave (
     }
   }
 
+  # Needed for foreman-selinux testing
+  if $::osfamily == 'RedHat' {
+    ensure_packages(['selinux-policy-devel'])
+  }
+
   # needed by katello gem dependency qpid-messaging
   # to interface with candlepin's event topic
   if $::osfamily == 'RedHat' {
