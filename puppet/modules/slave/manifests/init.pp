@@ -299,7 +299,7 @@ class slave (
 
   # Cleanup Jenkins Xvfb processes from aborted builds after a day
   file { '/etc/cron.daily/xvfb_cleaner':
-    ensure  => absent,
+    ensure => absent,
   }
 
   # Cleanup Jenkins Ruby processes from aborted builds after a day
