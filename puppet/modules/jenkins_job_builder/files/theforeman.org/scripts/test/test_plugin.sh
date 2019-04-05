@@ -24,6 +24,17 @@ rvm gemset empty --force
 set -x
 gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
+if [ -f ${PLUGIN_ROOT}/.rubocop.yml ]; then
+  cd ${PLUGIN_ROOT}
+
+  # Retry as rubygems (being external to us) can be intermittent
+  bundle install --jobs=5 --retry=5
+
+  bundle exec rubocop
+
+  cd $APP_ROOT
+fi
+
 # Retry as rubygems (being external to us) can be intermittent
 bundle install --without=development --jobs=5 --retry=5
 
