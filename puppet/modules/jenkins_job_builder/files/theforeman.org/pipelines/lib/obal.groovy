@@ -30,7 +30,7 @@ def setup_obal() {
         checkout([
             $class : 'GitSCM',
             poll: false,
-            branches : [[name: 'master']],
+            branches : [[name: '2e0c8373c02a7a29828aa75ffd373e4c3c63c264']],
             extensions: [[$class: 'CleanCheckout']],
             userRemoteConfigs: [
                 [url: 'https://github.com/theforeman/obal']
