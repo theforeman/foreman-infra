@@ -1,5 +1,5 @@
 - job:
-    name: foreman-develop-release
+    name: foreman-develop-package-release
     project-type: pipeline
     sandbox: true
     concurrent: false

@@ -1,5 +1,7 @@
 def commit_hash = ''
 foreman_branch = 'develop'
+project_name = 'foreman'
+source_type = 'rake'
 
 pipeline {
     agent { label 'fast' }
@@ -198,10 +200,20 @@ pipeline {
                 }
             }
         }
+        stage('Build and Archive Source') {
+            steps {
+                dir(project_name) {
+                    git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                }
+                script {
+                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
+                }
+            }
+        }
         stage('packaging') {
             steps {
                 build(
-                    job: 'foreman-develop-release',
+                    job: 'foreman-develop-package-release',
                     propagate: false,
                     wait: false,
                     parameters: [

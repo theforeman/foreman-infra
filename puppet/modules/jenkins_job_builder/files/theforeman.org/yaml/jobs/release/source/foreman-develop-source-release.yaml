@@ -1,5 +1,5 @@
 - job:
-    name: foreman-develop-test
+    name: foreman-develop-source-release
     project-type: pipeline
     sandbox: true
     quiet-period: 2700
@@ -10,7 +10,9 @@
       - github
     dsl:
       !include-raw:
-        - pipelines/test/test_foreman.groovy
+        - pipelines/release/source/foreman.groovy
+        - pipelines/lib/nightly_packaging.groovy
+        - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
         - pipelines/lib/foreman.groovy
