@@ -24,7 +24,7 @@ def setup_nightly_build_environment(args) {
 def generate_sourcefiles(args) {
     def sourcefile_paths = []
     def project_name = args.project_name
-    def ruby_version = args.ruby_version ?: env.ruby_version
+    def ruby_version = args.ruby_version ?: '2.5'
     def source_type = args.source_type
 
     dir(project_name) {
@@ -36,11 +36,16 @@ def generate_sourcefiles(args) {
             archiveArtifacts(artifacts: sourcefiles.join(','))
             sourcefile_paths = sourcefiles.collect { "${pwd()}/${it}" }
         } else {
-            withRVM(["bundle install --jobs 5 --retry 5"], ruby_version)
-            withRVM(["bundle exec rake pkg:generate_source"], ruby_version)
-            archiveArtifacts(artifacts: 'pkg/*')
-            sourcefile_paths = list_files('pkg/').collect {
-                "${pwd()}/pkg/${it}"
+            try {
+                configureRVM(ruby_version)
+                withRVM(["bundle install --jobs 5 --retry 5"], ruby_version)
+                withRVM(["bundle exec rake pkg:generate_source"], ruby_version)
+                archiveArtifacts(artifacts: 'pkg/*')
+                sourcefile_paths = list_files('pkg/').collect {
+                    "${pwd()}/pkg/${it}"
+                }
+            } finally {
+                cleanupRVM(ruby_version)
             }
         }
     }
