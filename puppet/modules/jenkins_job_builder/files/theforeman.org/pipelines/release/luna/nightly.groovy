@@ -24,7 +24,7 @@ pipeline {
         failure {
             emailext(
                 subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
-                to: 'evgeni@redhat.com',
+                to: 'ci@community.theforeman.org',
                 body: "Luna nightly pipeline failed: \n\n${env.BUILD_URL}"
             )
         }
