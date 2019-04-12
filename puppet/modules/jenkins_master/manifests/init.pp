@@ -47,6 +47,7 @@ class jenkins_master {
     'build-metrics'                      => {},
     'build-pipeline-plugin'              => {},
     'build-timeout'                      => {},
+    'build-timestamp'                    => {},
     'buildgraph-view'                    => {},
     'bulk-builder'                       => {},
     'checkstyle'                         => {},
