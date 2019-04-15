@@ -36,8 +36,8 @@ pipeline {
                             'client/el7': { repoclosure('foreman-client', 'el7') },
                             'client/el6': { repoclosure('foreman-client', 'el6') },
                             'client/el5': { repoclosure('foreman-client', 'el5') },
-                            'client/fc28': { repoclosure('foreman-client', 'f28') },
-                            'client/fc27': { repoclosure('foreman-client', 'f27') }
+                            'client/fc29': { repoclosure('foreman-client', 'f29') },
+                            'client/fc28': { repoclosure('foreman-client', 'f28') }
                         )
                     }
                 }
@@ -59,8 +59,8 @@ pipeline {
                     push_foreman_rpms('client', env.version, 'el7')
                     push_foreman_rpms('client', env.version, 'el6')
                     push_foreman_rpms('client', env.version, 'el5')
+                    push_foreman_rpms('client', env.version, 'fc29')
                     push_foreman_rpms('client', env.version, 'fc28')
-                    push_foreman_rpms('client', env.version, 'fc27')
                     push_foreman_rpms('client', env.version, 'sles12')
                     push_foreman_rpms('client', env.version, 'sles11')
                 }
