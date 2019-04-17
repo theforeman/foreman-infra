@@ -14,7 +14,9 @@ gem update --no-ri --no-rdoc
 gem install bundler -v '< 2.0' --no-ri --no-rdoc
 
 # Link hammer_cli from github
-echo 'gem "hammer_cli", :github => "theforeman/hammer-cli"' > Gemfile.local
+if [ "$ghprbTargetBranch" = "master" ]; then
+  echo 'gem "hammer_cli", :github => "theforeman/hammer-cli"' > Gemfile.local
+fi
 
 bundle install --without=development --jobs=5 --retry=5
 bundle exec rake ci:setup:minitest test TESTOPTS="-v"
