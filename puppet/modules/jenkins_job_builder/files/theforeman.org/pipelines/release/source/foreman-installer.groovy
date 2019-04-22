@@ -1,4 +1,7 @@
 def commit_hash = ''
+source_type = 'rake'
+foreman_branch = 'develop'
+project_name = 'foreman-installer'
 
 pipeline {
     agent any
@@ -12,7 +15,7 @@ pipeline {
     stages {
         stage("Collect Git Hash") {
             steps {
-                git(url: 'https://github.com/theforeman/foreman-installer', branch: 'develop')
+                git(url: 'https://github.com/theforeman/foreman-installer', branch: foreman_branch)
                 script {
                     commit_hash = archive_git_hash()
                 }
@@ -33,10 +36,20 @@ pipeline {
                 run_test(ruby: '2.5', puppet: '6.3')
             }
         }
-        stage("Release Nightly Package") {
+        stage('Build and Archive Source') {
+            steps {
+                dir(project_name) {
+                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                }
+                script {
+                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
+                }
+            }
+        }
+        stage('Build Packages') {
             steps {
                 build(
-                    job: 'foreman-installer-develop-release',
+                    job: "${project_name}-${foreman_branch}-package-release",
                     propagate: false,
                     wait: false,
                     parameters: [

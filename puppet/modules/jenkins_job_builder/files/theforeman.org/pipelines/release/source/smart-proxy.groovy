@@ -1,4 +1,7 @@
 def commit_hash = ''
+foreman_branch = 'develop'
+project_name = 'smart-proxy'
+source_type = 'rake'
 
 pipeline {
     agent any
@@ -63,10 +66,20 @@ pipeline {
                 run_test(ruby: '2.5', puppet: '5.3.3')
             }
         }
-        stage("Release Nightly Package") {
+        stage('Build and Archive Source') {
+            steps {
+                dir(project_name) {
+                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                }
+                script {
+                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
+                }
+            }
+        }
+        stage('Build Packages') {
             steps {
                 build(
-                    job: 'smart-proxy-develop-release',
+                    job: "${project_name}-${foreman_branch}-package-release",
                     propagate: false,
                     wait: false,
                     parameters: [
