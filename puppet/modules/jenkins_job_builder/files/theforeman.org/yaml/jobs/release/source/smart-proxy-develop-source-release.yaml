@@ -11,6 +11,8 @@
     dsl:
       !include-raw:
         - pipelines/release/source/smart-proxy.groovy
+        - pipelines/lib/nightly_packaging.groovy
+        - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
     publishers:

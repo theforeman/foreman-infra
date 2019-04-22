@@ -1,5 +1,5 @@
 - job:
-    name: smart-proxy-develop-release
+    name: smart-proxy-develop-package-release
     project-type: pipeline
     sandbox: true
     concurrent: false

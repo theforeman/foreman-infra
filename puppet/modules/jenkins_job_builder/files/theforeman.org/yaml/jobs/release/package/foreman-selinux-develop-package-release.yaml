@@ -1,5 +1,5 @@
 - job:
-    name: foreman-selinux-develop-release
+    name: foreman-selinux-develop-package-release
     project-type: pipeline
     sandbox: true
     concurrent: false
