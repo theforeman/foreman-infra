@@ -12,5 +12,7 @@
     dsl:
       !include-raw:
         - pipelines/release/source/foreman-selinux.groovy
+        - pipelines/lib/nightly_packaging.groovy
+        - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
