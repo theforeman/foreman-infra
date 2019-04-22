@@ -203,17 +203,17 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
-                    git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
                 }
                 script {
                     sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
                 }
             }
         }
-        stage('packaging') {
+        stage('Build Packages') {
             steps {
                 build(
-                    job: 'foreman-develop-package-release',
+                    job: "${project_name}-${foreman_branch}-package-release",
                     propagate: false,
                     wait: false,
                     parameters: [

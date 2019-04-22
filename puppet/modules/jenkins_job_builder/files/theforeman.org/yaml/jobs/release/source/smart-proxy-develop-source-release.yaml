@@ -1,5 +1,5 @@
 - job:
-    name: smart-proxy-develop-test
+    name: smart-proxy-develop-source-release
     project-type: pipeline
     sandbox: true
     concurrent: false
@@ -10,7 +10,7 @@
       - github
     dsl:
       !include-raw:
-        - pipelines/test/smart-proxy-develop-test.groovy
+        - pipelines/release/source/smart-proxy.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
     publishers:
