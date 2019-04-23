@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage("Collect Git Hash") {
             steps {
-                git(url: 'https://github.com/theforeman/foreman-installer', branch: foreman_branch)
+                git(url: "https://github.com/theforeman/${project_name}", branch: foreman_branch)
                 script {
                     commit_hash = archive_git_hash()
                 }
