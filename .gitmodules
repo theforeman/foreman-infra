@@ -142,4 +142,5 @@
 	url = https://github.com/puppetlabs/puppetlabs-transition
 [submodule "ansible/roles/Jimdo.fastly"]
 	path = ansible/roles/Jimdo.fastly
-	url = https://github.com/Jimdo/ansible-fastly
+	url = https://github.com/evgeni/ansible-fastly
+	branch = theforeman
