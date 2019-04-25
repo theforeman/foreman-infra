@@ -1,0 +1,14 @@
+- job:
+    name: foreman-client-1.22-rpm-pipeline
+    project-type: pipeline
+    sandbox: true
+    triggers:
+      - timed: 'H 21 * * *'
+    dsl:
+      !include-raw:
+        - pipelines/release/client/1.22.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/obal.groovy
+        - pipelines/lib/rpm_packaging.groovy
+        - pipelines/lib/release.groovy
