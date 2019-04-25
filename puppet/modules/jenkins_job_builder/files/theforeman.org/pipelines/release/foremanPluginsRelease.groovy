@@ -82,6 +82,7 @@ pipeline {
                             if (versions['nightly']) {
                                 push_rpms('nightly', 'el7')
                             } else {
+                                sh "echo nightly el7 repoclosure failed"
                                 sh "exit 1"
                             }
                         }
@@ -93,6 +94,7 @@ pipeline {
                             if (versions['1.22']) {
                                 push_rpms('1.22', 'el7')
                             } else {
+                                sh "echo 1.22 el7 repoclosure failed"
                                 sh "exit 1"
                             }
                         }
@@ -104,6 +106,7 @@ pipeline {
                             if (versions['1.21']) {
                                 push_rpms('1.21', 'el7')
                             } else {
+                                sh "echo 1.21 el7 repoclosure failed"
                                 sh "exit 1"
                             }
                         }
@@ -115,6 +118,7 @@ pipeline {
                             if (versions['1.20']) {
                                 push_rpms('1.20', 'el7')
                             } else {
+                                sh "echo 1.20 el7 repoclosure failed"
                                 sh "exit 1"
                             }
                         }
