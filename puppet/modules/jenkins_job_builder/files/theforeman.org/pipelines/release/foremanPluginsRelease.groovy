@@ -38,6 +38,18 @@ pipeline {
                 }
             }
         }
+        stage('repoclosure-1.22-el7') {
+            steps {
+                script {
+                    try {
+                        repoclosure('1.22', 'el7')
+                        versions['1.22'] = true
+                    } catch(Exception ex) {
+                        versions['1.22'] = false
+                    }
+                }
+            }
+        }
         stage('repoclosure-1.21-el7') {
             steps {
                 script {
@@ -62,18 +74,6 @@ pipeline {
                 }
             }
         }
-        stage('repoclosure-1.19-el7') {
-            steps {
-                script {
-                    try {
-                        repoclosure('1.19', 'el7')
-                        versions['1.19'] = true
-                    } catch(Exception ex) {
-                        versions['1.19'] = false
-                    }
-                }
-            }
-        }
         stage('push-rpms') {
             parallel {
                 stage('push-nightly-el7') {
@@ -81,6 +81,17 @@ pipeline {
                         script {
                             if (versions['nightly']) {
                                 push_rpms('nightly', 'el7')
+                            } else {
+                                sh "exit 1"
+                            }
+                        }
+                    }
+                }
+                stage('push-1.22-el7') {
+                    steps {
+                        script {
+                            if (versions['1.22']) {
+                                push_rpms('1.22', 'el7')
                             } else {
                                 sh "exit 1"
                             }
@@ -103,17 +114,6 @@ pipeline {
                         script {
                             if (versions['1.20']) {
                                 push_rpms('1.20', 'el7')
-                            } else {
-                                sh "exit 1"
-                            }
-                        }
-                    }
-                }
-                stage('push-1.19-el7') {
-                    steps {
-                        script {
-                            if (versions['1.19']) {
-                                push_rpms('1.19', 'el7')
                             } else {
                                 sh "exit 1"
                             }
