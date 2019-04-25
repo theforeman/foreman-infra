@@ -49,7 +49,7 @@ test:
 
 development:
   adapter: postgresql
-  database: test-${id}-development
+  database: test-${id}-dev
   username: foreman
   password: foreman
   host: localhost
@@ -57,7 +57,7 @@ development:
 
 production:
   adapter: postgresql
-  database: test-${id}-production
+  database: test-${id}-prod
   username: foreman
   password: foreman
   host: localhost
@@ -76,14 +76,14 @@ test:
 
 development:
   adapter: mysql2
-  database: test-${id}-development
+  database: test-${id}-dev
   username: foreman
   password: foreman
   host: localhost
 
 production:
   adapter: mysql2
-  database: test-${id}-production
+  database: test-${id}-prod
   username: foreman
   password: foreman
   host: localhost
