@@ -18,12 +18,38 @@
         - 'pipelines/lib/ansible.groovy{empty}'
         - 'pipelines/lib/foreman_infra.groovy{empty}'
 
+- job-template:
+    name: 'foreman-client-{version}-rpm-pipeline'
+    project-type: pipeline
+    sandbox: true
+    triggers:
+      - timed: 'H 21 * * *'
+    dsl:
+      !include-raw:
+        - 'pipelines/vars/foreman/{version}.groovy'
+        - 'pipelines/release/client.groovy{empty}'
+        - 'pipelines/lib/rvm.groovy{empty}'
+        - 'pipelines/lib/ansible.groovy{empty}'
+        - 'pipelines/lib/obal.groovy{empty}'
+        - 'pipelines/lib/rpm_packaging.groovy{empty}'
+        - 'pipelines/lib/release.groovy{empty}'
+
 - project:
     name: foreman
     jobs:
       - 'foreman-{version}-release-pipeline'
+      - 'foreman-client-{version}-rpm-pipeline'
     empty: ''
     version:
       - '1.21'
       - '1.22'
       - '1.23'
+
+# There is no unified foreman-nightly-release-pipeline
+- project:
+    name: foreman-nightly
+    jobs:
+      - 'foreman-client-{version}-rpm-pipeline'
+    empty: ''
+    version:
+      - 'nightly'
