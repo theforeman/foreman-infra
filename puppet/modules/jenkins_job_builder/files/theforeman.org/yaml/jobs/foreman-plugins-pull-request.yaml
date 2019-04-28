@@ -92,5 +92,9 @@
           repo: 'https://github.com/theforeman/foreman_userdata'
       - puppetdb_foreman:
           repo: 'https://github.com/theforeman/puppetdb_foreman'
+      - foreman_kubevirt:
+          repo: 'https://github.com/theforeman/foreman_kubevirt.git'
+      - hammer-cli-foreman-kubevirt:
+          repo: 'https://github.com/theforeman/hammer-cli-foreman-kubevirt.git'
     jobs:
       - '{plugin}-pull-request'
