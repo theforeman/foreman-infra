@@ -34,10 +34,20 @@ pipeline {
                 run_test(ruby: '2.5')
             }
         }
-        stage("Release Nightly Package") {
+        stage('Build and Archive Source') {
+            steps {
+                dir(project_name) {
+                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                }
+                script {
+                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
+                }
+            }
+        }
+        stage('Build Packages') {
             steps {
                 build(
-                    job: release_job,
+                    job: "${project_name}-${foreman_branch}-package-release",
                     propagate: false,
                     wait: false,
                     parameters: [

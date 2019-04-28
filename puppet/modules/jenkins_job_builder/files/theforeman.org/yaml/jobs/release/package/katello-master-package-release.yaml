@@ -1,11 +1,13 @@
 - job:
-    name: hammer-cli-katello-master-release
+    name: katello-master-package-release
     project-type: pipeline
     sandbox: true
     concurrent: false
+    triggers:
+      - github
     properties:
       - github:
-          url: 'https://github.com/katello/hammer-cli-katello'
+          url: 'https://github.com/katello/katello'
     parameters:
       - string:
           name: git_ref
@@ -13,7 +15,7 @@
           description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
     dsl:
       !include-raw:
-        - pipelines/vars/hammer-cli-katello-master-release.groovy
+        - pipelines/vars/katello-master-release.groovy
         - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy

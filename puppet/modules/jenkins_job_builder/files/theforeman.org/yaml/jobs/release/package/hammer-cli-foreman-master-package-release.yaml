@@ -1,5 +1,5 @@
 - job:
-    name: hammer-cli-foreman-master-release
+    name: hammer-cli-foreman-master-package-release
     project-type: pipeline
     sandbox: true
     concurrent: false
