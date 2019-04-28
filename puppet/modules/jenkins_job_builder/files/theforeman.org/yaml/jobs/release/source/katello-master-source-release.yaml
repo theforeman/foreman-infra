@@ -1,20 +1,19 @@
 - job:
-    name: smart-proxy-develop-source-release
+    name: katello-master-source-release
     project-type: pipeline
     sandbox: true
-    concurrent: false
-    quiet-period: 600
+    quiet-period: 2700
     properties:
       - github:
-          url: https://github.com/theforeman/smart-proxy
+          url: https://github.com/Katello/katello
     triggers:
-      - github
+      - github_pr_pipeline:
+          context: 'katello'
     dsl:
       !include-raw:
-        - pipelines/release/source/smart-proxy.groovy
+        - pipelines/release/source/katello.groovy
         - pipelines/lib/nightly_packaging.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
-    publishers:
-      - ircbot_freenode
+        - pipelines/lib/foreman.groovy

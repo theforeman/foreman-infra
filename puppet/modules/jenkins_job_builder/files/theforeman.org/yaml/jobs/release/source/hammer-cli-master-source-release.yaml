@@ -1,8 +1,9 @@
 - job:
-    name: hammer-cli-master-test
+    name: hammer-cli-master-source-release
     project-type: pipeline
     sandbox: true
     concurrent: false
+    quiet-period: 600
     properties:
       - github:
           url: 'https://github.com/theforeman/hammer-cli'
@@ -11,6 +12,8 @@
     dsl:
       !include-raw:
         - pipelines/vars/hammer-cli-master-test.groovy
-        - pipelines/test/hammer-cli-x-test.groovy
+        - pipelines/release/source/hammer-cli-x.groovy
+        - pipelines/lib/nightly_packaging.groovy
+        - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/git.groovy
