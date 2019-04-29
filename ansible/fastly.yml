@@ -1,0 +1,66 @@
+---
+- hosts: localhost
+  gather_facts: False
+  roles:
+    - Jimdo.fastly
+  vars_files:
+    - secrets.yml
+  tasks:
+    - name: configure fastly service
+      fastly_service:
+        name: "{{ item }}.theforeman.org"
+        fastly_api_key: "{{ fastly_api_key }}"
+        domains:
+          - name: "{{ item }}.theforeman.org"
+        backends:
+          - name: web02.theforeman.org
+            address: web02.theforeman.org
+            port: 443
+            shield: iad-va-us
+            ssl_cert_hostname: "{{ item }}.theforeman.org"
+        conditions:
+          - name: error log
+            statement: fastly_info.state == "ERROR" || (resp.status >= 400 && resp.status < 600)
+            type: RESPONSE
+            priority: 10
+        healthchecks:
+          - name: HEADER.html
+            host: "{{ item }}.theforeman.org"
+            path: "/HEADER.html"
+            threshold: 1
+            timeout: 5000
+            window: 2
+            initial: 1
+            check_interval: 60000
+        cloudfiles:
+          - name: "{{ item }} error logging"
+            access_key: "{{ cloudfiles_access_key }}"
+            bucket_name: "fastly_errorlogs_{{ item }}"
+            format: '%h %l %u %t "%r" %>s %b'
+            format_version: '2'
+            gzip_level: '0'
+            message_type: classic
+            path: "/"
+            period: '3600'
+            placement:
+            public_key:
+            response_condition: error log
+            timestamp_format: "%Y-%m-%dT%H:%M:%S.000"
+            user: foremanfastlylogger
+          - name: "{{ item }} logging"
+            access_key: "{{ cloudfiles_access_key }}"
+            bucket_name: "fastly_logs_{{ item }}"
+            format: '%{client.geo.country_code}V %l %u %t "%r" %>s %b'
+            format_version: '2'
+            gzip_level: '0'
+            message_type: classic
+            path: "/"
+            period: '3600'
+            placement:
+            public_key:
+            response_condition: ''
+            timestamp_format: "%Y-%m-%dT%H:%M:%S.000"
+            user: foremanfastlylogger
+      with_items:
+        - downloads
+        - stagingdeb
