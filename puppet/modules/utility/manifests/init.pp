@@ -8,7 +8,9 @@ class utility($sysadmins = ['/dev/null']) {
     default  => 'vim',
   }
 
-  ensure_packages([$vim, 'htop', 'iftop', 'screen', 'rsync', 'ruby-shadow'])
+  ensure_packages([$vim, 'htop', 'iftop', 'screen', 'ruby-shadow'])
+
+  # TODO: rsync package is managed by puppetlabs-rsync
 
   mailalias { 'sysadmins':
     ensure    => present,
