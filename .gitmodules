@@ -144,3 +144,6 @@
 	path = ansible/roles/Jimdo.fastly
 	url = https://github.com/evgeni/ansible-fastly
 	branch = theforeman
+[submodule "puppet/modules/yum_cron"]
+	path = puppet/modules/yum_cron
+	url = https://github.com/treydock/puppet-yum_cron.git

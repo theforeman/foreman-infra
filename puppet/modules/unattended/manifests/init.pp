@@ -16,4 +16,14 @@ class unattended {
       mail      => { 'to' => 'sysadmins', },
     }
   }
+
+  if $::osfamily == 'RedHat' {
+    class { 'yum_cron':
+      apply_updates => true,
+      mailto        => 'sysadmins',
+      extra_configs => {
+        'base/excludes' => { 'value' => 'kernel* java* jenkins' }
+      }
+    }
+  }
 }
