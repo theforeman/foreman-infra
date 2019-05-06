@@ -64,3 +64,4 @@
       with_items:
         - downloads
         - stagingdeb
+        - yum
