@@ -13,7 +13,7 @@ def managed?(job)
 end
 
 def get_jenkins_url_from_ini(ini_file)
-  regex = /url\s?=(.*\/\/)?/
+  regex = /url\s*=\s*/
 
   lines = File.open(ini_file, "r") do |file|
     file.readlines
@@ -44,7 +44,8 @@ def main
   url = get_jenkins_url_from_ini(inifile)
   fail "url is blank" unless url
 
-  payload = Net::HTTP.get(url, '/api/json?tree=jobs[name,description]')
+  uri = URI("#{url}/api/json?tree=jobs[name,description]")
+  payload = Net::HTTP.get(uri)
 
   unmanaged_jobs = find_unmanaged_jobs_from_payload(payload)
 
