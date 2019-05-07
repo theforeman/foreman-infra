@@ -74,7 +74,7 @@ void repoclosure(repo, dist, additions = []) {
             "-l el${dist}-epel",
             "-l el${dist}-extras",
             "-l el${dist}-scl",
-            "-l el${dist}-puppet-5"
+            "-l el${dist}-puppet-6"
         ]
 
         command = command + additions
