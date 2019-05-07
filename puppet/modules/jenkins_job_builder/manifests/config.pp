@@ -39,7 +39,7 @@ define jenkins_job_builder::config (
 
   cron { "remove-unmanaged-jobs-${config_name}":
     command     => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
-    hour        => 0,
+    hour        => 1,
     minute      => 0,
     environment => 'PATH=/bin:/usr/bin:/usr/sbin',
     require     => File[$inifile],
