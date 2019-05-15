@@ -11,7 +11,7 @@
       - github
     dsl:
       !include-raw:
-        - pipelines/vars/hammer-cli-katello-master-test.groovy
+        - pipelines/vars/hammer-cli-katello-master.groovy
         - pipelines/release/source/hammer-cli-x.groovy
         - pipelines/lib/nightly_packaging.groovy
         - pipelines/lib/foreman_infra.groovy

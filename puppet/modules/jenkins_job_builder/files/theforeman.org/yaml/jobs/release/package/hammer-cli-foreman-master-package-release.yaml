@@ -13,7 +13,7 @@
           description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
     dsl:
       !include-raw:
-        - pipelines/vars/hammer-cli-foreman-master-release.groovy
+        - pipelines/vars/hammer-cli-foreman-master.groovy
         - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
