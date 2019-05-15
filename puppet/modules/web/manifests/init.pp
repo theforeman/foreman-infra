@@ -138,6 +138,10 @@ class web(
     ensure => link,
     target => $stable,
   }
+  file { '/var/www/vhosts/yum/htdocs/client/latest':
+    ensure => link,
+    target => $stable,
+  }
   file { '/var/www/vhosts/yum/htdocs/rails/latest':
     ensure => link,
     target => "foreman-${stable}",
