@@ -6,11 +6,6 @@
     properties:
       - github:
           url: 'https://github.com/katello/hammer-cli-katello'
-    parameters:
-      - string:
-          name: git_ref
-          default: master
-          description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
     dsl:
       !include-raw:
         - pipelines/vars/hammer-cli-katello-master.groovy
