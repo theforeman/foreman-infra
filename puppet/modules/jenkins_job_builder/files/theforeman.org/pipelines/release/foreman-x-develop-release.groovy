@@ -11,7 +11,7 @@ pipeline {
     }
 
     environment {
-        ruby_version = "2.4"
+        ruby_version = "2.5"
     }
 
     stages {

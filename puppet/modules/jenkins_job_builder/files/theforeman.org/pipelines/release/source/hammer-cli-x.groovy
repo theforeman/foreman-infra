@@ -24,11 +24,6 @@ pipeline {
                 run_test(ruby: '2.3')
             }
         }
-        stage("test-ruby-2.4") {
-            steps {
-                run_test(ruby: '2.4')
-            }
-        }
         stage("test-ruby-2.5") {
             steps {
                 run_test(ruby: '2.5')

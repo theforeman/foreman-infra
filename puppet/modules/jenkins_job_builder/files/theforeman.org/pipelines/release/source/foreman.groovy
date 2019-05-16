@@ -82,35 +82,6 @@ pipeline {
                         }
                     }
                 }
-                stage('ruby-2.4-postgres') {
-                    agent { label 'fast' }
-                    environment {
-                        RUBY_VER = '2.4'
-                        GEMSET = 'ruby-2.4-postgres'
-                    }
-                    stages {
-                        stage("setup-2.4-postgres") {
-                            steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                configureRVM(env.RUBY_VER, env.GEMSET)
-                                databaseFile(gemset(env.GEMSET))
-                                configureDatabase(env.RUBY_VER, env.GEMSET)
-                            }
-                        }
-                        stage("unit-tests-2.4-postgres") {
-                            steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
-                            }
-                        }
-                    }
-                    post {
-                        always {
-                            cleanup(env.RUBY_VER, env.GEMSET)
-                            junit(testResults: 'jenkins/reports/unit/*.xml')
-                            deleteDir()
-                        }
-                    }
-                }
                 stage('ruby-2.3-postgres') {
                     agent { label 'fast' }
                     environment {
