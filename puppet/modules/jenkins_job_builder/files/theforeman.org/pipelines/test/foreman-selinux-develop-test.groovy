@@ -32,10 +32,7 @@ pipeline {
                 build(
                     job: 'foreman-selinux-develop-release',
                     propagate: false,
-                    wait: false,
-                    parameters: [
-                        string(name: 'git_ref', value: commit_hash)
-                    ]
+                    wait: false
                 )
             }
         }

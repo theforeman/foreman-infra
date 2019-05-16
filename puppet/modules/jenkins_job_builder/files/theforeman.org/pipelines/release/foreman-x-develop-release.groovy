@@ -15,33 +15,12 @@ pipeline {
     }
 
     stages {
-        stage('Setup Environment') {
+        stage('Copy Source') {
             steps {
                 script {
-                    if ( env.git_ref == null || env.git_ref == '' ) {
-                        error("git_ref parameter is blank")
-                    }
-                }
-                setup_nightly_build_environment(
-                    git_url: git_url,
-                    git_ref: env.git_ref ?: git_ref,
-                    project_name: project_name
-                )
-            }
-        }
-        stage('Archive Git Commit') {
-            steps {
-                script {
-                    dir(project_name) {
-                        commit_hash = archive_git_hash()
-                    }
-                }
-            }
-        }
-        stage('Build and Archive Source') {
-            steps {
-                script {
-                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
+                    sourcefile_paths = pwd(tmp: true)
+                    source_project_name = "${project_name}-${git_ref}-source-release"
+                    copyArtifacts(projectName: source_project_name, target: sourcefile_paths, selector: {lastSuccessful: true})
                 }
             }
         }
@@ -75,8 +54,7 @@ pipeline {
                             propagate: true,
                             parameters: [
                                string(name: 'project', value: project_name),
-                               string(name: 'jenkins_job', value: env.JOB_NAME),
-                               string(name: 'jenkins_job_id', value: env.BUILD_ID)
+                               string(name: 'jenkins_job', value: source_project_name),
                             ]
                         )
                     }

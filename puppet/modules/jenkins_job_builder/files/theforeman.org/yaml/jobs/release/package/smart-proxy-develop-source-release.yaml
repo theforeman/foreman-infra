@@ -6,10 +6,6 @@
     properties:
       - github:
           url: 'https://github.com/theforeman/smart-proxy'
-    parameters:
-      - string:
-          name: git_ref
-          description: Branch name, tag, or git hash. Defaults to project's development branch if left blank.
     dsl:
       !include-raw:
         - pipelines/vars/smart-proxy-develop-release.groovy

@@ -160,10 +160,7 @@ pipeline {
                 build(
                     job: "${project_name}-${foreman_branch}-package-release",
                     propagate: false,
-                    wait: false,
-                    parameters: [
-                        string(name: 'git_ref', value: commit_hash)
-                    ]
+                    wait: false
                 )
             }
         }
