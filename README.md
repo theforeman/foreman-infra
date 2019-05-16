@@ -25,8 +25,9 @@ We're starting to implement some some job naming conventions.
 
 **Note** Because `centos.org` is a shared environment all jobs are prefixed by `foreman-` to denote they're ours.
 
-| **Name**                | **Convention**                        | **Example 1**            | **Example 2**                     |
-|-------------------------|---------------------------------------|--------------------------|-----------------------------------|
-| Nightly Package Builder | {git-repo}-{git-branch}-release       | foreman-develop-release  | hammer-cli-katello-master-release |
-| CI pipeline             | {repository}-{environment}-pipeline   | foreman-nightly-pipeline | plugins-nightly-pipeline          |
-| Pull Request testing    | {git-repo}-{optional-concern}-pr-test | katello-pr-test          | foreman-packaging-rpm-pr-test     |
+| **Name**                | **Convention**                                         | **Example 1**                   | **Example 2**                             |
+|-------------------------|--------------------------------------------------------|---------------------------------|-------------------------------------------|
+| Nightly Source Builder  | {git-repo}-{git-branch}-source-release                 | foreman-develop-source-release  | hammer-cli-katello-master-source-release  |
+| Nightly Package Builder | {git-repo}-{git-branch}-package-release                | foreman-develop-package-release | hammer-cli-katello-master-package-release |
+| CI pipeline             | {repository}-{environment}-{optional-concern}-pipeline | foreman-nightly-rpm-pipeline    | foreman-nightly-deb-pipeline              |
+| Pull Request testing    | test_{git-repo}_{optional-concern}_pull_request        | katello-pr-test                 | foreman-packaging-rpm-pr-test             |
