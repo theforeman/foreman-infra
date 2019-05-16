@@ -1,8 +1,0 @@
-- publisher:
-    name: trigger-release-job
-    publishers:
-      - trigger-parameterized-builds:
-        - project: '{job}'
-          condition: SUCCESS
-          predefined-parameters: |
-            git_ref=${{GIT_COMMIT}}
