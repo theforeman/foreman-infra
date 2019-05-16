@@ -27,7 +27,6 @@
           name: ruby
           values:
             - 2.3
-            - 2.4
             - 2.5
     builders:
       - shell: !include-raw: scripts/test/test_hammer_cli_pull_request.sh
