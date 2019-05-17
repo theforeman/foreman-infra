@@ -40,7 +40,7 @@
             format_version: '2'
             gzip_level: '0'
             message_type: classic
-            path: "/"
+            path: ""
             period: '3600'
             placement:
             public_key:
@@ -54,7 +54,7 @@
             format_version: '2'
             gzip_level: '0'
             message_type: classic
-            path: "/"
+            path: ""
             period: '3600'
             placement:
             public_key:
