@@ -38,7 +38,8 @@ class slave::rvm {
       version => 'ruby-2.5.1',
     }
     slave::rvm_config { 'ruby-2.6':
-      version => 'ruby-2.6.3',
+      version          => 'ruby-2.6.3',
+      rubygems_version => '3.0.3',
     }
 
     # Cleanup log dirs
