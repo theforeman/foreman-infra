@@ -36,11 +36,6 @@ pipeline {
                 run_test(ruby: '2.1', puppet: '4.10.9')
             }
         }
-        stage("test ruby-2.2 & puppet-4.10.9") {
-            steps {
-                run_test(ruby: '2.2', puppet: '4.10.9')
-            }
-        }
         stage("test ruby-2.3 & puppet-4.10.9") {
             steps {
                 run_test(ruby: '2.3', puppet: '4.10.9')
