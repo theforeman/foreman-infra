@@ -29,6 +29,11 @@ pipeline {
                 run_test(ruby: '2.5')
             }
         }
+        stage("test-ruby-2.6") {
+            steps {
+                run_test(ruby: '2.6')
+            }
+        }
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
