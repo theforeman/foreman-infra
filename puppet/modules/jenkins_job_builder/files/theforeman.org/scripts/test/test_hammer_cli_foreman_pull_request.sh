@@ -10,8 +10,8 @@ rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
 set -x
 
-gem update --no-ri --no-rdoc
-gem install bundler -v '< 2.0' --no-ri --no-rdoc
+gem update --no-document
+gem install bundler -v '< 2.0' --no-document
 
 # Link hammer_cli from github
 if [ "$ghprbTargetBranch" = "master" ]; then

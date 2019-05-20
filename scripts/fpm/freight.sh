@@ -20,7 +20,7 @@ else
   $GIT clone $FREIGHT_GIT
 fi
 
-gem install fpm --no-ri --no-rdoc
+gem install fpm --no-document
 
 if [ -e $TMP_DIR ]; then
   echo "Removing the old tmp directory..."
