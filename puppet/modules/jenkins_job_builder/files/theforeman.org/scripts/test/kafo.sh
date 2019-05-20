@@ -13,8 +13,8 @@ rvm gemset empty --force
 set -x
 
 # Update any gems from the global gemset
-gem update --no-ri --no-rdoc
-gem install bundler -v '< 2.0' --no-ri --no-rdoc
+gem update --no-document
+gem install bundler -v '< 2.0' --no-document
 
 # rename axis for Gemfile env var
 export PUPPET_VERSION=$puppet
