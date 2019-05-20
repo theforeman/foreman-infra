@@ -7,8 +7,7 @@
       - github:
           url: https://github.com/Katello/katello
     triggers:
-      - github_pr_pipeline:
-          context: 'katello'
+      - github
     dsl:
       !include-raw:
         - pipelines/release/source/katello.groovy
