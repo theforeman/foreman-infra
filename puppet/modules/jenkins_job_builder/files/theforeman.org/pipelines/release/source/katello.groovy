@@ -1,4 +1,3 @@
-def commit_hash = ''
 foreman_branch = 'master'
 project_name = 'katello'
 source_type = 'gem'
@@ -139,7 +138,7 @@ pipeline {
                     propagate: false,
                     wait: false,
                     parameters: [
-                        string(name: 'git_ref', value: commit_hash)
+                        string(name: 'git_ref', value: foreman_branch)
                     ]
                 )
             }
