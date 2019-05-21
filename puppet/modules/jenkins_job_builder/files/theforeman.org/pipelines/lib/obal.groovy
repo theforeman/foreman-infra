@@ -14,6 +14,10 @@ def obal(args) {
         cmd = "${cmd} -e @${extra_vars_file}"
     }
 
+    if (args.action == 'release' || args.action == 'scratch') {
+        cmd = "${cmd} --skip-koji-whitelist-check"
+    }
+
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${env.WORKSPACE}/obal"]) {
             sh "${cmd}"
