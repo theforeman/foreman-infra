@@ -18,6 +18,9 @@ pipeline {
             steps {
                 deleteDir()
                 git url: "https://github.com/katello/${project_name}", branch: foreman_branch, poll: false
+                script {
+                    commit_hash = archive_git_hash()
+                }
 
                 dir('foreman') {
                    git url: "https://github.com/theforeman/foreman", branch: 'develop', poll: false
