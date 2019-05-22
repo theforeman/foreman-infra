@@ -14,7 +14,7 @@ def obal(args) {
         cmd = "${cmd} -e @${extra_vars_file}"
     }
 
-    if (args.action == 'release' || args.action == 'scratch') {
+    if (args.action == 'release' || args.action == 'scratch' || args.action == 'nightly') {
         cmd = "${cmd} --skip-koji-whitelist-check"
     }
 
