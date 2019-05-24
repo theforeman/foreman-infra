@@ -1,6 +1,10 @@
 pipeline {
     agent none
 
+    environment {
+        foreman_version = 'develop'
+    }
+
     options {
         timestamps()
         timeout(time: 2, unit: 'HOURS')
@@ -21,7 +25,7 @@ pipeline {
 
             steps {
 
-                repoclosure('RHEL', '7')
+                repoclosure('foreman', 'el7', env.foreman_version)
 
             }
         }
@@ -60,30 +64,3 @@ pipeline {
     }
 }
 
-void repoclosure(repo, dist, additions = []) {
-
-    node('el') {
-        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/develop", poll: false
-
-        def command = [
-            "./repoclosure.sh yum_el${dist}.conf",
-            "http://koji.katello.org/releases/yum/foreman-nightly/${repo}/${dist}/x86_64/",
-            "-l el${dist}-foreman-rails-nightly",
-            "-l el${dist}-base",
-            "-l el${dist}-updates",
-            "-l el${dist}-epel",
-            "-l el${dist}-extras",
-            "-l el${dist}-scl",
-            "-l el${dist}-puppet-6"
-        ]
-
-        command = command + additions
-
-        dir('repoclosure') {
-            sh command.join(" ")
-        }
-
-        deleteDir()
-    }
-
-}

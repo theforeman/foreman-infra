@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        repoclosure('nightly', 'el7')
+                        repoclosure('plugins', 'el7', 'nightly')
                         versions['nightly'] = true
                     } catch(Exception ex) {
                         versions['nightly'] = false
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        repoclosure('1.22', 'el7')
+                        repoclosure('plugins', 'el7', '1.22')
                         versions['1.22'] = true
                     } catch(Exception ex) {
                         versions['1.22'] = false
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        repoclosure('1.21', 'el7')
+                        repoclosure('plugins', 'el7', '1.21')
                         versions['1.21'] = true
                     } catch(Exception ex) {
                         versions['1.21'] = false
@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        repoclosure('1.20', 'el7')
+                        repoclosure('plugins', 'el7', '1.20')
                         versions['1.20'] = true
                     } catch(Exception ex) {
                         versions['1.20'] = false
@@ -145,43 +145,6 @@ void push_rpms(version, distro) {
 
         push_rpms_direct("foreman-plugins-${version}/${os}", "plugins/${version}/${distro}", false, true)
 
-    }
-
-}
-
-void repoclosure(repo, dist, additions = []) {
-
-    node('el') {
-        def git_branch = (repo == 'nightly') ? 'develop' : repo
-
-        git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/${git_branch}", poll: false
-
-        def os_ver = 'RHEL/7'
-
-        if (dist == 'f24') {
-            os_ver = 'Fedora/24'
-        }
-
-        def command = [
-            "./repoclosure.sh yum_${dist}.conf",
-            "http://koji.katello.org/releases/yum/foreman-plugins-${repo}/${os_ver}/x86_64/",
-            "-l ${dist}-foreman-${repo}",
-            "-l ${dist}-foreman-rails-${repo}",
-            "-l ${dist}-base",
-            "-l ${dist}-updates",
-            "-l ${dist}-epel",
-            "-l ${dist}-extras",
-            "-l ${dist}-scl",
-            "-l ${dist}-puppet-6"
-        ]
-
-        command = command + additions
-
-        dir('repoclosure') {
-            sh command.join(" ")
-        }
-
-        deleteDir()
     }
 
 }

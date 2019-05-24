@@ -39,7 +39,9 @@ def query_rpmspec(specfile, queryformat) {
     return result
 }
 
-def repoclosure(repo, dist) {
+def repoclosure(repo, dist, version) {
+    git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/${version}", poll: false
+    setup_obal()
     obal(
         action: 'repoclosure',
         packages: "${repo}-repoclosure-${dist}"

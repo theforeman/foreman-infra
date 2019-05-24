@@ -1,4 +1,5 @@
 void push_foreman_rpms(repo_type, version, distro) {
+    version = version == 'develop' ? 'nightly' : version
     push_rpms("foreman-${repo_type}-${version}", repo_type, version, distro)
 }
 
