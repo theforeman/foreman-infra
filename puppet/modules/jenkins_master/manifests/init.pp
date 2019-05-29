@@ -203,7 +203,7 @@ class jenkins_master {
     plugin_hash       => $plugins,
     config_hash       => {
       'JENKINS_JAVA_OPTIONS' => {
-        'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms3072m -Xmx3072m',
+        'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx2048m',
       }
     },
     require           => Package[$packages],
