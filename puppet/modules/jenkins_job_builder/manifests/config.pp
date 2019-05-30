@@ -25,7 +25,7 @@ define jenkins_job_builder::config (
   cron { "jenkins-jobs-update-${config_name}-delete-old":
     command     => "timeout 1h jenkins-jobs --conf ${inifile} update --delete-old ${directory}/${config_name} > /var/cache/jjb.xml",
     hour        => 0,
-    minute      => 0,
+    minute      => 10,
     environment => 'PATH=/bin:/usr/bin:/usr/sbin',
     require     => File[$inifile],
   }
@@ -40,7 +40,7 @@ define jenkins_job_builder::config (
   cron { "remove-unmanaged-jobs-${config_name}":
     command     => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
     hour        => 1,
-    minute      => 0,
+    minute      => 10,
     environment => 'PATH=/bin:/usr/bin:/usr/sbin',
     require     => File[$inifile],
   }
