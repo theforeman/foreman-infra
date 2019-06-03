@@ -11,3 +11,5 @@
         - pipelines/lib/rvm.groovy
         - pipelines/lib/ansible.groovy
         - pipelines/lib/foreman_infra.groovy
+        - pipelines/lib/rpm_packaging.groovy
+        - pipelines/lib/obal.groovy
