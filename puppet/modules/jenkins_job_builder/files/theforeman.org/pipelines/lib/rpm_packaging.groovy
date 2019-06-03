@@ -40,6 +40,7 @@ def query_rpmspec(specfile, queryformat) {
 }
 
 def repoclosure(repo, dist, version) {
+    version = version == 'nightly' ? 'develop' : version
     git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/${version}", poll: false
     setup_obal()
     obal(
