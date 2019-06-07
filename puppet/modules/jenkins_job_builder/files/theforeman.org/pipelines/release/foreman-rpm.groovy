@@ -55,11 +55,7 @@ pipeline {
     }
     post {
         failure {
-            emailext(
-                subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
-                to: 'ci@community.theforeman.org',
-                body: "Foreman RPM nightly pipeline failed: \n\n${env.BUILD_URL}"
-            )
+            notifyDiscourse(env, 'Foreman RPM nightly pipeline failed:', currentBuild.description)
         }
     }
 }

@@ -22,11 +22,7 @@ pipeline {
     }
     post {
         failure {
-            emailext(
-                subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
-                to: 'ci@community.theforeman.org',
-                body: "Luna nightly pipeline failed: \n\n${env.BUILD_URL}"
-            )
+            notifyDiscourse(env, 'Luna nightly pipeline failed:', currentBuild.description)
         }
     }
 }
