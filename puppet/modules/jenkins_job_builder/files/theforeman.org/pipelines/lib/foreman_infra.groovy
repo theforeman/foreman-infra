@@ -80,3 +80,11 @@ def runCicoJobsInParallel(jobs) {
         }
     }
 }
+
+def notifyDiscourse(env, introText, description) {
+    emailext(
+        subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
+        to: 'ci@community.theforeman.org',
+        body: [introText, env.BUILD_URL, description].join('\n\n')
+    )
+}

@@ -51,11 +51,7 @@ pipeline {
     }
     post {
         failure {
-            emailext(
-                subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
-                to: 'ci@community.theforeman.org',
-                body: "Katello nightly pipeline failed: \n\n${env.BUILD_URL}"
-            )
+            notifyDiscourse(env, 'Katello nightly pipeline failed:', currentBuild.description)
         }
     }
 }
