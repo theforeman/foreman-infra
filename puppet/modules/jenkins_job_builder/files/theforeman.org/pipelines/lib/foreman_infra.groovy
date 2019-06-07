@@ -10,13 +10,13 @@ def list_files(glob = '') {
     sh(script: "ls -1 ${glob}", returnStdout: true).trim().split()
 }
 
-def set_job_build_description(job_name) {
+def set_job_build_description(job_name, status) {
     def build_description = ""
     def file_name = "jobs/${job_name}"
 
     if (fileExists(file_name)) {
        link = readFile(file_name)
-       build_description += "<a href=\"${link}\">${job_name}</a><br/>"
+       build_description += "<a href=\"${link}\">${job_name}</a> (${status})<br/>"
     }
 
     if (currentBuild.description == null) {
@@ -27,6 +27,7 @@ def set_job_build_description(job_name) {
 }
 
 def runIndividualCicoJob(job_name, number = 0) {
+    def status = 'unknown'
     sleep(number * 5) //See https://bugs.centos.org/view.php?id=14920
     try {
         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
@@ -40,9 +41,13 @@ def runIndividualCicoJob(job_name, number = 0) {
                 sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
             )
         }
+        status = 'passed'
+    } catch(Exception ex) {
+        status = 'failed'
+        throw ex
     } finally {
         script {
-            set_job_build_description(job_name)
+            set_job_build_description(job_name, status)
         }
     }
 }
