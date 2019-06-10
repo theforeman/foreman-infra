@@ -17,7 +17,7 @@ pipeline {
         stage('Setup Git Repos') {
             steps {
                 deleteDir()
-                git url: "https://github.com/katello/${project_name}", branch: foreman_branch, poll: false
+                git url: "https://github.com/Katello/${project_name}", branch: foreman_branch
                 script {
                     commit_hash = archive_git_hash()
                 }
