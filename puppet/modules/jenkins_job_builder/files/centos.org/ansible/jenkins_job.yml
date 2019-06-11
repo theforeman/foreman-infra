@@ -90,7 +90,7 @@
       register: build_job_result
       until: (build_job_result.json is defined) and (build_job_result.json.result == 'SUCCESS' or build_job_result.json.result == 'FAILURE')
       retries: 360
-      delay: 20
+      delay: 30
 
     - fail:
         msg: "Build Job Failed"
