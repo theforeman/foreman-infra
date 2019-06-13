@@ -42,7 +42,6 @@
 - project:
     name: smart-proxy-plugin
     plugin:
-      - abrt
       - discovery:
           branch: develop # have to be the special child
       - dynflow

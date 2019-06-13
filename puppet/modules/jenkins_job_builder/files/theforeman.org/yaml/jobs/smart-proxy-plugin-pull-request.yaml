@@ -41,7 +41,6 @@
 - project:
     name: smart-proxy-plugin-pull-request
     plugin:
-      - abrt
       - discovery
       - dynflow
       - monitoring
