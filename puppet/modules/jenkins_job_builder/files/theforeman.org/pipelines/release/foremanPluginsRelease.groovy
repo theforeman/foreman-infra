@@ -43,7 +43,9 @@ pipeline {
                             pushVersions["push-${version}-${distro}"] = {
                                 script {
                                     if (results["${version}-${distro}"] == true) {
-                                        push_rpms_direct("foreman-plugins-${version}/${os}", "plugins/${version}/${distro}", false, true)
+                                        dir('deploy') {
+                                            push_rpms_direct("foreman-plugins-${version}/${os}", "plugins/${version}/${distro}", false, true)
+                                        }
                                     } else {
                                         echo "${version} ${distro} repoclosure failed: ${results[version]}"
                                         throw results["${version}-${distro}"]
