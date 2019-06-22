@@ -153,7 +153,6 @@ class jenkins_master {
     'ruby-runtime'                       => {},
     'rubyMetrics'                        => {},
     'run-condition'                      => {},
-    'rvm'                                => {},
     'saferestart'                        => {},
     'schedule-failed-builds'             => {'version' => '1.1'},
     'scm-api'                            => {},
