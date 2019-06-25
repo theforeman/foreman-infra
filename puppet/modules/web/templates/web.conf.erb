@@ -15,5 +15,7 @@ RewriteRule   ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
 RewriteRule   ^/manuals/latest(.*) /manuals/<%= @stable -%>$1 [R,L]
 RewriteRule   ^/manuals/<%= @next %>(.*) /manuals/nightly$1 [R,L]
 
+RewriteRule   ^/api/latest(.*) /api/<%= @stable -%>$1 [R,L]
+
 # Handle deleted content (manuals etc) in a nice way with a custom page
 ErrorDocument 404 /404.html
