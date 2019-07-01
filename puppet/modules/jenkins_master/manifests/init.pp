@@ -102,7 +102,6 @@ class jenkins_master {
     'jdk-tool'                           => {},
     'jenkins-design-language'            => {},
     'jira'                               => {},
-    'jobConfigHistory'                   => {},
     'jquery'                             => {},
     'jquery-detached'                    => {},
     'jsch'                               => {},
