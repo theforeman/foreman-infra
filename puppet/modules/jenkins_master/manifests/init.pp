@@ -1,6 +1,7 @@
 class jenkins_master {
   # Devel is needed for jar unpacking support
-  $packages = ['java-1.8.0-openjdk-headless', 'java-1.8.0-openjdk-devel', 'fontconfig']
+  $packages     = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig']
+  $old_packages = ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-headless', 'java-1.8.0-openjdk-devel']
 
   # Get the list by going to /script on jenkins and running:
   # Jenkins.instance.pluginManager.plugins.toArray().sort{ plugin -> plugin.getShortName()}.each{
@@ -193,6 +194,11 @@ class jenkins_master {
 
   ensure_packages($packages)
 
+  package { $old_packages:
+    ensure  => 'absent',
+    require => Package[$packages],
+  }
+
   class { 'jenkins':
     install_java      => false,
     lts               => true,
@@ -205,6 +211,7 @@ class jenkins_master {
       }
     },
     require           => Package[$packages],
+    subscribe         => Package[$old_packages],
   }
 
 }
