@@ -150,7 +150,6 @@ class jenkins_master {
     'redmine'                            => {},
     'regression-report-plugin'           => {},
     'ruby'                               => {'version' => '1.2'},
-    'ruby-runtime'                       => {},
     'rubyMetrics'                        => {},
     'run-condition'                      => {},
     'saferestart'                        => {},
