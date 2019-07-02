@@ -150,6 +150,9 @@ pipeline {
     }
 
     post {
+        failure {
+            notifyDiscourse(env, "${project_name} source release pipeline failed:", currentBuild.description)
+        }
         always {
             dir('foreman') {
                 cleanup(ruby)
