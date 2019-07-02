@@ -86,6 +86,9 @@ pipeline {
     }
 
     post {
+        failure {
+            notifyDiscourse(env, "${project_name} package release pipeline failed:", currentBuild.description)
+        }
         always {
             echo "Cleaning up workspace"
             cleanupRVM(env.ruby_version)
