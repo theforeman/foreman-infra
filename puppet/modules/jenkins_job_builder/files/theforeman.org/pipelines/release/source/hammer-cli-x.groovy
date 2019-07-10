@@ -80,6 +80,7 @@ def run_test(args) {
     try {
         configureRVM(ruby, gemset)
         withRVM(['bundle install --without=development --jobs=5 --retry=5'], ruby, gemset)
+        withRVM(['bundle show'], ruby, gemset)
         withRVM(['bundle exec rake ci:setup:minitest test TESTOPTS="-v"'], ruby, gemset)
     } finally {
         cleanupRVM(ruby, gemset)
