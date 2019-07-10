@@ -68,9 +68,11 @@ pipeline {
 }
 
 def add_hammer_cli_git_repos(repos = []) {
+    content = ''
     for(i = 0; i < repos.size(); i++) {
-      sh "echo 'gem \"${repos[i].replace('-', '_')}\", :github => \"theforeman/${repos[i]}\"' > Gemfile.local"
+      content += "gem '${repos[i].replace('-', '_')}', :github => 'theforeman/${repos[i]}'\n"
     }
+    writeFile(file: 'Gemfile.local', text: content)
 }
 
 def run_test(args) {
