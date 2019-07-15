@@ -21,44 +21,24 @@ pipeline {
                 }
             }
         }
-        stage("test ruby-2.0.0 & puppet-3.8.0") {
+        stage("test ruby-2.0") {
             steps {
-                run_test(ruby: '2.0.0', puppet: '3.8.0')
+                run_test(ruby: '2.0.0')
             }
         }
-        stage("test ruby-2.1 & puppet-3.8.0") {
+        stage("test ruby-2.3") {
             steps {
-                run_test(ruby: '2.1', puppet: '3.8.0')
+                run_test(ruby: '2.3')
             }
         }
-        stage("test ruby-2.1 & puppet-4.10.9") {
+        stage("test ruby-2.5") {
             steps {
-                run_test(ruby: '2.1', puppet: '4.10.9')
+                run_test(ruby: '2.5')
             }
         }
-        stage("test ruby-2.3 & puppet-4.10.9") {
+        stage("test ruby-2.6") {
             steps {
-                run_test(ruby: '2.3', puppet: '4.10.9')
-            }
-        }
-        stage("test ruby-2.4 & puppet-4.10.9") {
-            steps {
-                run_test(ruby: '2.4', puppet: '4.10.9')
-            }
-        }
-        stage("test ruby-2.4 & puppet-5.3.3") {
-            steps {
-                run_test(ruby: '2.4', puppet: '5.3.3')
-            }
-        }
-        stage("test ruby-2.5 & puppet-4.10.9") {
-            steps {
-                run_test(ruby: '2.5', puppet: '4.10.9')
-            }
-        }
-        stage("test ruby-2.5 & puppet-5.3.3") {
-            steps {
-                run_test(ruby: '2.5', puppet: '5.3.3')
+                run_test(ruby: '2.6')
             }
         }
         stage('Build and Archive Source') {
@@ -96,14 +76,13 @@ pipeline {
 
 def run_test(args) {
     def ruby = args.ruby
-    def puppet = args.puppet
-    def gemset = "ruby-${ruby}-puppet-${puppet}"
+    def gemset = "ruby-${ruby}"
 
     try {
         configureRVM(ruby, gemset)
         withRVM(["cp config/settings.yml.example config/settings.yml"], ruby, gemset)
-        withRVM(["PUPPET_VERSION='${puppet}' bundle install --without=development --jobs=5 --retry=5"], ruby, gemset)
-        withRVM(["PUPPET_VERSION='${puppet}' bundle exec rake jenkins:unit --trace"], ruby, gemset)
+        withRVM(["bundle install --without=development --jobs=5 --retry=5"], ruby, gemset)
+        withRVM(["bundle exec rake jenkins:unit --trace"], ruby, gemset)
     } finally {
         cleanupRVM(ruby, gemset)
         junit(testResults: 'jenkins/reports/unit/*.xml')
