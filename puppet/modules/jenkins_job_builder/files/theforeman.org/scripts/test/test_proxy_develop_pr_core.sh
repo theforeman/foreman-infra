@@ -19,10 +19,5 @@ set -x
 #gem update --no-document
 gem install bundler -v '< 2.0' --no-document
 
-# Puppet environment
-if [ -e $APP_ROOT/bundler.d/puppet.rb ] ; then
-	sed -i "/^\s*gem.*puppet/ s/\$/, '~> $puppet'/" $APP_ROOT/bundler.d/puppet.rb
-fi
-
 bundle install --without=development --jobs=5 --retry=5
-bundle exec rake pkg:generate_source jenkins:unit
+bundle exec rake jenkins:unit
