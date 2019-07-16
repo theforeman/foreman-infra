@@ -55,14 +55,15 @@ echo "gem '${plugin_name}', :path => '${PLUGIN_ROOT}'" >> bundler.d/Gemfile.loca
 # Update dependencies
 bundle update --jobs=5 --retry=5
 
-# If the plugin contains npm deps, we need to install its specific modules
-# we need to install node modules for integration tests
-if [ -e "$APP_ROOT/package.json" ]; then
-  npm install
-fi
-
 # Now let's add the plugin migrations
 bundle exec rake db:migrate RAILS_ENV=development --trace
+
+# If the plugin contains integration tests or triggers core integration tests,
+# we need to install node modules and compile webpack
+if [ -d "${PLUGIN_ROOT}/test/integration" ] || [ ${database} = postgresql ]; then
+  npm install
+  bundle exec rake webpack:compile
+fi
 
 tasks="jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
