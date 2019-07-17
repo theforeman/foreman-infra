@@ -58,14 +58,15 @@ bundle update --jobs=5 --retry=5
 # Now let's add the plugin migrations
 bundle exec rake db:migrate RAILS_ENV=development --trace
 
+tasks="jenkins:unit"
+
 # If the plugin contains integration tests or triggers core integration tests,
 # we need to install node modules and compile webpack
 if [ -d "${PLUGIN_ROOT}/test/integration" ] || [ ${database} = postgresql ]; then
   npm install
-  bundle exec rake webpack:compile
+  tasks="webpack:compile $tasks"
 fi
 
-tasks="jenkins:unit"
 [ ${database} = postgresql ] && tasks="$tasks jenkins:integration"
 bundle exec rake $tasks TESTOPTS="-v" --trace
 
