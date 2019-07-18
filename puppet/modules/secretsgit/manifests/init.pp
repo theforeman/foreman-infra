@@ -5,14 +5,14 @@ class secretsgit(
 ) {
 
   group { $group:
-    ensure => present
+    ensure => present,
   }
 
   file { $path:
     ensure => directory,
-    owner => 'root',
-    group => $group,
-    mode => '2770',
+    owner  => 'root',
+    group  => $group,
+    mode   => '2770',
   }
 
   $users.each |String $user| {
