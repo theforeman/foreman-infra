@@ -90,6 +90,6 @@ def notifyDiscourse(env, introText, description) {
     emailext(
         subject: "${env.JOB_NAME} ${env.BUILD_ID} failed",
         to: 'ci@community.theforeman.org',
-        body: [introText, env.BUILD_URL, description].findAll().join('\n\n')
+        body: [introText, env.BUILD_URL, description].minus(null).join('\n\n')
     )
 }
