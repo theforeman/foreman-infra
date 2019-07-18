@@ -1,7 +1,7 @@
 class secretsgit(
   String $group = 'secretsgit',
   Stdlib::Absolutepath $path = '/srv/secretsgit',
-  Array[String] $users = []
+  Array[String] $users = [],
 ) {
 
   group { $group:
