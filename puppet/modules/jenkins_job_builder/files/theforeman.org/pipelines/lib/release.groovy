@@ -25,8 +25,8 @@ void push_debs_direct(os, repo) {
     }
 }
 
-void mash(filename) {
+void mash(filename, version = '') {
     sshagent(['mash']) {
-        sh "ssh -o 'BatchMode yes' root@koji.katello.org ${filename}"
+        sh "ssh -o 'BatchMode yes' root@koji.katello.org ${filename} ${version}"
     }
 }
