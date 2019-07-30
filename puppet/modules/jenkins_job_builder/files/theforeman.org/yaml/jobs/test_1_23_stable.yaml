@@ -1,12 +1,12 @@
 - job:
-    name: test_1_20_stable
+    name: test_1_23_stable
     project-type: matrix
     quiet-period: 2700
     properties:
       - github_foreman
     scm:
       - foreman:
-          branch: '1.20-stable'
+          branch: '1.23-stable'
     triggers:
       - scm_fifteen_minutes
       - github
@@ -16,8 +16,8 @@
           name: ruby
           values:
             - 2.3
-            - 2.4
             - 2.5
+            - 2.6
       - axis:
           type: user-defined
           name: database
