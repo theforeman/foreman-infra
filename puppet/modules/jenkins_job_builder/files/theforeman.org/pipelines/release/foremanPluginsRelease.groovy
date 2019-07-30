@@ -1,8 +1,8 @@
 def versions = [
     "nightly": ["el7": "RHEL/7"],
+    "1.23": ["el7": "RHEL/7"],
     "1.22": ["el7": "RHEL/7"],
     "1.21": ["el7": "RHEL/7"],
-    "1.20": ["el7": "RHEL/7"]
 ]
 
 pipeline {
