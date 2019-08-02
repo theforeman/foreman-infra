@@ -45,8 +45,8 @@ pipeline {
             post {
                 always {
                     script {
-                        set_job_build_description("${env.cico_job_name}", 'first')
-                        set_job_build_description("${env.cico_job_name}-2", 'second')
+                        set_job_build_description("${env.cico_job_name}", 'first', "${env.WORKSPACE}/jobs/${cico_job_name}")
+                        set_job_build_description("${env.cico_job_name}-2", 'second', "${env.WORKSPACE}/jobs/${env.cico_job_name}-2")
                     }
                 }
             }
