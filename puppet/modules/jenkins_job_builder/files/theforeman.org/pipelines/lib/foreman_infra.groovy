@@ -25,20 +25,24 @@ def set_job_build_description(job_name, status, file_name) {
     currentBuild.description += build_description
 }
 
-def runIndividualCicoJob(job_name, number = 0) {
+def runIndividualCicoJob(job_name, number = 0, job_parameters = null) {
     def status = 'unknown'
     def link_file_name = "${env.WORKSPACE}/jobs/${job_name}-${number}"
+    def extra_vars = [
+        "jenkins_job_name": "${job_name}",
+        "jenkins_username": "foreman",
+        "jenkins_job_link_file": link_file_name
+    ]
+    if (job_parameters) {
+        extra_vars["jenkins_job_parameters"] = job_parameters
+    }
 
     sleep(number * 5) //See https://bugs.centos.org/view.php?id=14920
     try {
         withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
             runPlaybook(
                 playbook: 'ci/centos.org/ansible/jenkins_job.yml',
-                extraVars: [
-                    "jenkins_job_name": "${job_name}",
-                    "jenkins_username": "foreman",
-                    "jenkins_job_link_file": link_file_name
-                ],
+                extraVars: extra_vars,
                 sensitiveExtraVars: ["jenkins_password": "${env.PASSWORD}"]
             )
         }
@@ -71,7 +75,7 @@ def runCicoJobsInParallel(jobs) {
     for (int i = 0; i < jobs.size(); i++) {
         def index = i // fresh variable per iteration; i will be mutated
         branches[jobs[index]['name']] = {
-            runIndividualCicoJob(jobs[index]['job'], index)
+            runIndividualCicoJob(jobs[index]['job'], index, jobs[index]['parameters'])
         }
     }
 
