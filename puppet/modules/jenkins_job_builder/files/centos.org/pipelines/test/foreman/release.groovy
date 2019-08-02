@@ -1,6 +1,6 @@
 def playBookVars() {
     playBook = [
-        'boxes': ["pipeline-foreman-${params.foreman_version}-${params.distro}"],
+        'boxes': ["pipeline-foreman-server-${params.foreman_version}-${params.distro}"],
         'pipeline': 'install_pipeline.yml',
         'extraVars': [
             'pipeline_version': params.foreman_version,
