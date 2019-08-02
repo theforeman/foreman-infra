@@ -65,7 +65,7 @@ def repoclosures(repo, versions) {
                 stage("repoclosure-${version}-${distro}") {
                     script {
                         try {
-                            repoclosure('plugins', distro, version)
+                            repoclosure(repo, distro, version)
                             results["${version}-${distro}"] = true
                         } catch(Exception ex) {
                             results["${version}-${distro}"] = ex
