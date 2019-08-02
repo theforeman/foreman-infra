@@ -7,6 +7,7 @@
     jenkins_username: ''
     jenkins_password: ''
     jenkins_job_token: ''
+    jenkins_job_parameters: {}
   tasks:
     - name: "Query Jenkins job queue until job has started"
       uri:
@@ -35,7 +36,9 @@
         status_code: 201
         user: "{{ jenkins_username }}"
         password: "{{ jenkins_password }}"
-        url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/build?TOKEN={{ jenkins_job_token }}"
+        url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/buildWithParameters?TOKEN={{ jenkins_job_token }}"
+        body: "{{ jenkins_job_parameters }}"
+        body_format: "json"
       register: start_job_result
 
     - debug:

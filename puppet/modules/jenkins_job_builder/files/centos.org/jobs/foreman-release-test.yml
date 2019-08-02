@@ -1,0 +1,38 @@
+---
+- job-template:
+    name: foreman-{foreman_version}-{distro}-release-test
+    project-type: 'pipeline'
+    sandbox: true
+    parameters:
+      - string:
+          name: expected_version
+          default: 'UNKNOWN'
+      - string:
+          name: foreman_version
+          default: '{foreman_version}'
+      - string:
+          name: distro
+          default: '{distro}'
+    dsl:
+      !include-raw:
+        - pipelines/test/foreman/release.groovy{empty}
+        - pipelines/lib/foremanCentosJob.groovy{empty}
+        - ../theforeman.org/pipelines/lib/duffy.groovy{empty}
+        - ../theforeman.org/pipelines/lib/ansible.groovy{empty}
+        - ../theforeman.org/pipelines/lib/folderChanged.groovy{empty}
+        - ../theforeman.org/pipelines/lib/foreman_infra.groovy{empty}
+
+- project:
+    name: foreman-release-test
+    jobs:
+      - 'foreman-{foreman_version}-{distro}-release-test'
+    empty: ''
+    distro:
+      - centos7
+      - debian9
+      - ubuntu1604
+      - ubuntu1804
+    foreman_version:
+      - '1.21'
+      - '1.22'
+      - '1.23'
