@@ -45,7 +45,8 @@ def runPlaybook(args) {
 
 def writeExtraVars(args) {
     def timestamp = System.currentTimeMillis()
-    def extra_vars_file = 'extra_vars-' + timestamp.toString() + '.yaml'
+    def uuid = UUID.randomUUID()
+    def extra_vars_file = 'extra_vars-' + timestamp.toString() + '-' + uuid.toString() + '.yaml'
     def extra_vars = args.extraVars ?: [:]
     def archive_extra_vars = (args.archiveExtraVars != null) ? args.archiveExtraVars : true
 
@@ -59,7 +60,8 @@ def writeExtraVars(args) {
 
 def buildExtraVars(args) {
     def timestamp = System.currentTimeMillis()
-    def extra_vars_file = 'extra_vars-' + timestamp.toString()
+    def uuid = UUID.randomUUID()
+    def extra_vars_file = 'extra_vars-' + timestamp.toString() + '-' + uuid.toString()
     def extra_vars = args.extraVars ?: [:]
     def extra_vars_string = ''
     def archive_extra_vars = (args.archiveExtraVars != null) ? args.archiveExtraVars : true
