@@ -2,7 +2,7 @@ pipeline {
     agent none
 
     environment {
-        foreman_version = "1.22"
+        foreman_version = "1.23"
     }
 
     options {
