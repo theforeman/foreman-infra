@@ -285,20 +285,13 @@ class slave (
     include slave::docker
   }
 
-  if $rackspace_username and $rackspace_password and $rackspace_tenant and ($::architecture == 'x86_64' or $::architecture == 'amd64') {
-    class { '::slave::vagrant':
-      username    => Sensitive($rackspace_username),
-      password    => Sensitive($rackspace_password),
-      tenant_name => Sensitive($rackspace_tenant),
-    }
-  } else {
-    package { 'vagrant':
-      ensure => absent,
-    }
+  # Vagrant has been removed - clean it up
+  package { 'vagrant':
+    ensure => absent,
+  }
 
-    file { '/home/jenkins/.vagrant.d':
-      ensure => absent,
-    }
+  file { ['/home/jenkins/.vagrant.d', '/root/vagrant-package-2.0.2']:
+    ensure => absent,
   }
 
   # Cleanup Jenkins Xvfb processes from aborted builds after a day
