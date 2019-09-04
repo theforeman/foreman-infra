@@ -4,6 +4,7 @@
     project-type: pipeline
     sandbox: true
     triggers:
+      - timed: "H 12 * * *"
       - reverse:
           jobs:
             - katello-nightly-rpm-pipeline
