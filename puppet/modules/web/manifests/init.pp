@@ -60,7 +60,7 @@ class web(
   # WWW
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
-    foreman_search => 'host.name ~ slave*.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
+    foreman_search => 'host ~ slave*.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
     script_content => file('web/rsync.sh'),
   }
   $web_attrs = {
