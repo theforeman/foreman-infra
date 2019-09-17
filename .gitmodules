@@ -150,3 +150,6 @@
 [submodule "puppet/modules/mailalias_core"]
 	path = puppet/modules/mailalias_core
 	url = https://github.com/puppetlabs/puppetlabs-mailalias_core.git
+[submodule "puppet/modules/yumrepo_core"]
+	path = puppet/modules/yumrepo_core
+	url = https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
