@@ -1,6 +1,5 @@
 # $stable::   latest release that users expect
-# $latest::   latest release that we have a manual for, change after copying it
-# $next::     latest release that we don't have a manual for, before copying it
+# $next::     next release (current nightly)
 #
 # $htpasswds:: Which htpasswds to create.
 #
@@ -12,7 +11,6 @@
 #          vhost and only then enable the SSL vhosts.
 class web(
   String $stable = '1.23',
-  String $latest = '1.23',
   String $next = '1.24',
   Hash[String, Hash] $htpasswds = {},
   Boolean $https = false,
