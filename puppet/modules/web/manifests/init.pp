@@ -1,5 +1,5 @@
 # $stable::   latest release that users expect
-# $next::     next release (current nightly)
+# $next::     Next release (current nightly). To be updated as part of branching.
 #
 # $htpasswds:: Which htpasswds to create.
 #
