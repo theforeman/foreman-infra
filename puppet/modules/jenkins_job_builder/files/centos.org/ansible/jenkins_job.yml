@@ -7,6 +7,8 @@
     jenkins_username: ''
     jenkins_password: ''
     jenkins_job_token: ''
+    jenkins_download_artifacts: false
+    jenkins_artifacts_folder: './artifacts'
   tasks:
     - name: "Query Jenkins job queue until job has started"
       uri:
@@ -100,6 +102,20 @@
       until: (build_job_result.json is defined) and (build_job_result.json.result == 'SUCCESS' or build_job_result.json.result == 'FAILURE')
       retries: 360
       delay: 30
+
+    - name: "Create artifacts directory"
+      file:
+        path: "{{ jenkins_artifacts_folder }"
+        state: directory
+      when: jenkins_download_artifacts | bool
+
+    - name: "Fetch remote artifacts"
+      get_url:
+        url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/artifact/{{ item.relativePath }}"
+        dest: "{{ jenkins_artifacts_folder}}/{{ item.fileName }}"
+      loop:
+        - "{{ build_job_result.json.artifacts }}"
+      when: jenkins_download_artifacts | bool
 
     - fail:
         msg: "Build Job Failed"
