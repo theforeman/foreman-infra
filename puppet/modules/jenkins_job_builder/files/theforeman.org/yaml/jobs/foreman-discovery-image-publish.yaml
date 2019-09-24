@@ -1,6 +1,8 @@
 - job:
     name: foreman-discovery-image-publish
-    node: 'admin && el && sshkey && ipv6'
+    project-type: pipeline
+    sandbox: true
+    concurrent: false
     parameters:
       - string:
           name: proxy_repository
@@ -18,15 +20,8 @@
           name: branch
           default: master
           description: 'Name of the branch in repoowner to use.'
-    scm:
-      - git:
-          url: "https://github.com/${repoowner}/foreman-discovery-image"
-          wipe-workspace: true
-          per-build-tag: true
-          branches:
-            - '${branch}'
-    builders:
-      - shell: !include-raw: scripts/foreman-discovery-image-publish.sh
-    wrappers:
-      - abort_build:
-          timeout_min: 180
+    dsl:
+      !include-raw:
+        - pipelines/release/foreman-discovery-image.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy
