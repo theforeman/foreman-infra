@@ -57,12 +57,12 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null) {
     }
 }
 
-def runCicoJob(job_name) {
+def runCicoJob(job_name, job_parameters = null) {
     node('el') {
         script {
             git_clone_foreman_infra()
             try {
-                runIndividualCicoJob(job_name)
+                runIndividualCicoJob(job_name, 0, job_parameters)
             } finally {
                 deleteDir()
             }
