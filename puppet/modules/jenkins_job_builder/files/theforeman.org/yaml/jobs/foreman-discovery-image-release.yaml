@@ -13,13 +13,9 @@
           default: nightly
           description: 'Name of the directory for images published here http://downloads.theforeman.org/discovery/  (usually "nightly" or "releases/0.6" or "scratch/lzap/xyz). WARNING: Target folder is DELETED prior to starting the build process. You can use any string in the format of "scratch-myname" to create your own directory at downloads.tf.org/discovery site.'
       - string:
-          name: repoowner
-          default: theforeman
-          description: 'GitHub username to build against. Useful to change for scratch builds.'
-      - string:
           name: branch
           default: master
-          description: 'Name of the branch in repoowner to use.'
+          description: 'Name of the branch to use.'
     dsl:
       !include-raw:
         - pipelines/release/foreman-discovery-image.groovy

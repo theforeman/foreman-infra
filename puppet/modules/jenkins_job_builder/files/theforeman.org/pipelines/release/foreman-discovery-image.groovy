@@ -15,7 +15,6 @@ pipeline {
                 script {
                     job_parameters = [
                         proxy_repository: env.proxy_repository,
-                        repoowner: env.repoowner,
                         branch: env.branch,
                     ]
                     runCicoJob("foreman-discovery-image-build", job_parameters)
