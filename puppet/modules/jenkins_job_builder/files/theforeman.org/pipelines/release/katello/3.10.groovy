@@ -35,8 +35,7 @@ pipeline {
             steps {
                 script {
                     runCicoJobsInParallel([
-                        ['name': 'Install test', 'job': 'foreman-katello-3.10-test'],
-                        ['name': 'Upgrade test', 'job': 'foreman-katello-upgrade-3.10-test']
+                        ['name': 'Install test', 'job': 'foreman-katello-3.10-test']
                     ])
                 }
             }
