@@ -23,7 +23,7 @@ pipeline {
                 script {
                     def parallelStagesMap = [:]
                     def name = 'foreman-client'
-                    for (distro in foreman_client_distros) {
+                    foreman_client_distros.each { distro ->
                         if (distro.startsWith('el')) {
                             parallelStagesMap[distro] = { repoclosure(name, distro, foreman_version) }
                         } else if (distro.startsWith('fc')) {
@@ -48,7 +48,7 @@ pipeline {
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
                     script {
-                        for (distro in distros) {
+                        foreman_client_distros.each { distro ->
                             push_foreman_rpms('client', foreman_version, distro)
                         }
                     }
