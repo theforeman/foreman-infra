@@ -26,21 +26,23 @@ pipeline {
         stage('Publish FDI build') {
             steps {
                 script {
+                    destination_user = 'root'
+                    destination_server = 'web02.theforeman.org'
                     base_dir = "/var/www/vhosts/downloads/htdocs/discovery"
 
                     sshagent(['deploy-downloads']) {
                         // delete old files in the target folder
-                        sh "ssh root@web02.theforeman.org 'mkdir -p ${base_dir}/${output_dir}/ ; rm -f ${base_dir}/${output_dir}/*' || true"
+                        sh "ssh ${destination_user}@${destination_server} 'mkdir -p ${base_dir}/${output_dir}/ ; rm -f ${base_dir}/${output_dir}/*' || true"
 
                         // publish on web
-                        sh "scp fdi*tar fdi*iso root@web02.theforeman.org:${base_dir}/${output_dir}/"
+                        sh "scp fdi*tar fdi*iso ${destination_user}@${destination_server}:${base_dir}/${output_dir}/"
 
                         // create symlinks
-                        sh "ssh root@web02.theforeman.org 'pushd ${base_dir}/releases/ && rm -f latest; ln -snf \$(ls -t | head -n 1) latest; popd' || true"
-                        sh "ssh root@web02.theforeman.org 'pushd ${base_dir}/${output_dir}/ && ln -sf fdi*tar fdi-image-latest.tar && popd' || true"
+                        sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/releases/ && rm -f latest; ln -snf \$(ls -t | head -n 1) latest; popd' || true"
+                        sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/${output_dir}/ && ln -sf fdi*tar fdi-image-latest.tar && popd' || true"
 
                         // create sums
-                        sh "ssh root@web02.theforeman.org 'pushd ${base_dir}/${output_dir}/ && md5sum * > MD5SUMS; popd' || true"
+                        sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/${output_dir}/ && md5sum * > MD5SUMS; popd' || true"
                     }
                 }
             }
