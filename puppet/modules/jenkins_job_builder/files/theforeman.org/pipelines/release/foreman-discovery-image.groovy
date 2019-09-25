@@ -38,7 +38,7 @@ pipeline {
 
                         // create symlinks
                         sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/releases/ && rm -f latest; ln -snf \$(ls -t | head -n 1) latest; popd' || true"
-                        sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/${output_dir}/ && ln -sf fdi*tar fdi-image-latest.tar && popd' || true"
+                        sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/${output_dir}/ && ln -snf fdi*tar fdi-image-latest.tar && popd' || true"
 
                         // create sums
                         sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/${output_dir}/ && md5sum * > MD5SUMS; popd' || true"
