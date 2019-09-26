@@ -25,7 +25,7 @@ def set_job_build_description(job_name, status, file_name) {
     currentBuild.description += build_description
 }
 
-def runIndividualCicoJob(job_name, number = 0, job_parameters = null) {
+def runIndividualCicoJob(job_name, number = 0, job_parameters = null, job_extra_vars = null) {
     def status = 'unknown'
     def link_file_name = "${env.WORKSPACE}/jobs/${job_name}-${number}"
     def extra_vars = [
@@ -35,6 +35,9 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null) {
     ]
     if (job_parameters) {
         extra_vars["jenkins_job_parameters"] = job_parameters
+    }
+    if (job_extra_vars) {
+        extra_vars += job_extra_vars
     }
 
     sleep(number * 5) //See https://bugs.centos.org/view.php?id=14920
@@ -57,12 +60,12 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null) {
     }
 }
 
-def runCicoJob(job_name, job_parameters = null) {
+def runCicoJob(job_name, job_parameters = null, job_extra_vars = null) {
     node('el') {
         script {
             git_clone_foreman_infra()
             try {
-                runIndividualCicoJob(job_name, 0, job_parameters)
+                runIndividualCicoJob(job_name, 0, job_parameters, job_extra_vars)
             } finally {
                 deleteDir()
             }
@@ -75,7 +78,7 @@ def runCicoJobsInParallel(jobs) {
     for (int i = 0; i < jobs.size(); i++) {
         def index = i // fresh variable per iteration; i will be mutated
         branches[jobs[index]['name']] = {
-            runIndividualCicoJob(jobs[index]['job'], index, jobs[index]['parameters'])
+            runIndividualCicoJob(jobs[index]['job'], index, jobs[index]['parameters'], jobs[index]['extra_vars'])
         }
     }
 
