@@ -8,7 +8,7 @@
     jenkins_password: ''
     jenkins_job_token: ''
     jenkins_download_artifacts: false
-    jenkins_artifacts_folder: './artifacts'
+    jenkins_artifacts_directory: './artifacts'
   tasks:
     - name: "Query Jenkins job queue until job has started"
       uri:
@@ -105,14 +105,14 @@
 
     - name: "Create artifacts directory"
       file:
-        path: "{{ jenkins_artifacts_folder }"
+        path: "{{ jenkins_artifacts_directory }"
         state: directory
       when: jenkins_download_artifacts | bool
 
     - name: "Fetch remote artifacts"
       get_url:
         url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/artifact/{{ item.relativePath }}"
-        dest: "{{ jenkins_artifacts_folder}}/{{ item.fileName }}"
+        dest: "{{ jenkins_artifacts_directory}}/{{ item.fileName }}"
       loop:
         - "{{ build_job_result.json.artifacts }}"
       when: jenkins_download_artifacts | bool
