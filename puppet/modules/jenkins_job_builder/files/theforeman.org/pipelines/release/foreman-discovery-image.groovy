@@ -28,6 +28,17 @@ pipeline {
             }
         }
 
+        stage('Prepare FDI upload') {
+            steps {
+                sh """
+                pushd result
+                ln -snf fdi*tar fdi-image-latest.tar
+                md5sum fdi*tar fdi*iso > MD5SUMS
+                popd
+                """
+            }
+        }
+
         stage('Publish FDI build') {
             steps {
                 script {
@@ -35,14 +46,6 @@ pipeline {
                     destination_user = 'root'
                     destination_server = 'web02.theforeman.org'
                     destination_dir = "${base_dir}/${output_dir}"
-
-                    // prepare upload
-                    sh """
-                    pushd result
-                    ln -snf fdi*tar fdi-image-latest.tar
-                    md5sum fdi*tar fdi*iso > MD5SUMS
-                    popd
-                    """
 
                     sshagent(['deploy-downloads']) {
                         // publish on web
