@@ -20,7 +20,7 @@ pipeline {
                         ]
                         job_extra_vars = [
                             jenkins_download_artifacts: 'true',
-                            jenkins_artifacts_directory: '../result/',
+                            jenkins_artifacts_directory: '../artifacts/',
                         ]
                         runCicoJob("foreman-discovery-image-build", job_parameters, job_extra_vars)
                     }
@@ -30,12 +30,13 @@ pipeline {
 
         stage('Prepare FDI upload') {
             steps {
-                sh """
-                pushd result
-                ln -snf fdi*tar fdi-image-latest.tar
-                md5sum fdi*tar fdi*iso > MD5SUMS
-                popd
-                """
+                dir('result') {
+                    sh """
+                    mv ../artifacts/fdi*tar ../artifacts/fdi*iso .
+                    ln -snf fdi*tar fdi-image-latest.tar
+                    md5sum fdi*tar fdi*iso > MD5SUMS
+                    """
+                }
             }
         }
 
