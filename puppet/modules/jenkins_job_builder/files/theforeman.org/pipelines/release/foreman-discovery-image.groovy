@@ -17,7 +17,11 @@ pipeline {
                         proxy_repository: env.proxy_repository,
                         branch: env.branch,
                     ]
-                    runCicoJob("foreman-discovery-image-build", job_parameters)
+                    job_extra_vars = [
+                        jenkins_download_artifacts: 'true',
+                        jenkins_artifacts_directory: '',
+                    ]
+                    runCicoJob("foreman-discovery-image-build", job_parameters, job_extra_vars)
                 }
             }
         }
