@@ -113,8 +113,7 @@
       get_url:
         url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/artifact/{{ item.relativePath }}"
         dest: "{{ jenkins_artifacts_directory}}/{{ item.fileName }}"
-      loop:
-        - "{{ build_job_result.json.artifacts }}"
+      loop: "{{ build_job_result.json.artifacts }}"
       when: jenkins_download_artifacts | bool
 
     - fail:
