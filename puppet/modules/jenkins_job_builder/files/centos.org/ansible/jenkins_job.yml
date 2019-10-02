@@ -105,7 +105,7 @@
 
     - name: "Create artifacts directory"
       file:
-        path: "{{ jenkins_artifacts_directory }"
+        path: "{{ jenkins_artifacts_directory }}"
         state: directory
       when: jenkins_download_artifacts | bool
 
