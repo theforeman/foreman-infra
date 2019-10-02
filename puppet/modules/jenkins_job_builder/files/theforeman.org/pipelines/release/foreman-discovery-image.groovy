@@ -32,7 +32,8 @@ pipeline {
             steps {
                 dir('result') {
                     sh """
-                    mv ../artifacts/fdi*tar ../artifacts/fdi*iso .
+                    mv ../artifacts/fdi*tar .
+                    mv ../artifacts/fdi*iso .
                     ln -snf fdi*tar fdi-image-latest.tar
                     md5sum fdi*tar fdi*iso > MD5SUMS
                     """
