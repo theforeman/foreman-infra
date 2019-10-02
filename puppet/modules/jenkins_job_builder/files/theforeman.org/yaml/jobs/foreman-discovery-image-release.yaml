@@ -1,6 +1,8 @@
 - job:
-    name: foreman-discovery-image-publish
-    node: 'admin && el && sshkey && ipv6'
+    name: foreman-discovery-image-release
+    project-type: pipeline
+    sandbox: true
+    concurrent: false
     parameters:
       - string:
           name: proxy_repository
@@ -11,22 +13,11 @@
           default: nightly
           description: 'Name of the directory for images published here http://downloads.theforeman.org/discovery/  (usually "nightly" or "releases/0.6" or "scratch/lzap/xyz). WARNING: Target folder is DELETED prior to starting the build process. You can use any string in the format of "scratch-myname" to create your own directory at downloads.tf.org/discovery site.'
       - string:
-          name: repoowner
-          default: theforeman
-          description: 'GitHub username to build against. Useful to change for scratch builds.'
-      - string:
           name: branch
           default: master
-          description: 'Name of the branch in repoowner to use.'
-    scm:
-      - git:
-          url: "https://github.com/${repoowner}/foreman-discovery-image"
-          wipe-workspace: true
-          per-build-tag: true
-          branches:
-            - '${branch}'
-    builders:
-      - shell: !include-raw: scripts/foreman-discovery-image-publish.sh
-    wrappers:
-      - abort_build:
-          timeout_min: 180
+          description: 'Name of the branch to use.'
+    dsl:
+      !include-raw:
+        - pipelines/release/foreman-discovery-image.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/foreman_infra.groovy
