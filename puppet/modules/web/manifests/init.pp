@@ -95,6 +95,12 @@ class web(
       provider => 'filesmatch',
       headers  => 'Set Cache-Control "public, max-age=2592000"',
     },
+    {
+      path            => 'repomd.xml',
+      provider        => 'files',
+      expires_active  => 'on',
+      expires_default => 'access plus 0 seconds'
+    },
   ]
 
   $yum_attrs = {
@@ -102,7 +108,6 @@ class web(
     docroot         => $yum_directory,
     docroot_mode    => '2575',
     directories     => $yum_directory_config,
-    custom_fragment => template('web/yum.conf.erb'),
   }
 
   rsync::server::module { 'yum':
