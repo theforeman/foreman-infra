@@ -84,10 +84,24 @@ class web(
   create_resources(web::htpasswd, $htpasswds)
 
   # YUM
+  $yum_directory = '/var/www/vhosts/yum/htdocs'
+  $yum_directory_config = [
+    {
+      path    => $yum_directory,
+      options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+    },
+    {
+      path     => '.+\.(bz2|gz|rpm)$',
+      provider => 'filesmatch',
+      headers  => 'Set Cache-Control "public, max-age=2592000"',
+    },
+  ]
+
   $yum_attrs = {
     servername      => 'yum.theforeman.org',
-    docroot         => '/var/www/vhosts/yum/htdocs',
+    docroot         => $yum_directory,
     docroot_mode    => '2575',
+    directories     => $yum_directory_config,
     custom_fragment => template('web/yum.conf.erb'),
   }
 
