@@ -91,7 +91,7 @@ class web(
       options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
     },
     {
-      path     => '.+\.(bz2|gz|rpm)$',
+      path     => '.+\.(bz2|gz|rpm|xz)$',
       provider => 'filesmatch',
       headers  => 'Set Cache-Control "public, max-age=2592000"',
     },
