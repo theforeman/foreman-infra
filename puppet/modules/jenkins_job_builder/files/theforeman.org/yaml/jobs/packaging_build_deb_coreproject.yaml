@@ -49,6 +49,7 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
           name: onlyos
           choices:
             - all
+            - buster
             - bionic
             - stretch
             - xenial

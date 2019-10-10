@@ -22,6 +22,18 @@ class debian {
           release    => 'bionic',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\n";
+        'buster64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'buster',
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
+        'buster32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'buster',
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
         'stretch64':
           ensure     => present,
           arch       => 'amd64',
@@ -57,6 +69,12 @@ class debian {
           release    => 'bionic',
           apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
           aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\n";
+        'buster':
+          ensure     => present,
+          arch       => 'armhf',
+          release    => 'buster',
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
         'stretch':
           ensure     => present,
           arch       => 'armhf',
@@ -80,6 +98,12 @@ class debian {
           release    => 'bionic',
           apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
           aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\n";
+        'buster':
+          ensure     => present,
+          arch       => 'arm64',
+          release    => 'buster',
+          apturl     => 'http://deb.debian.org/debian',
+          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
         'stretch':
           ensure     => present,
           arch       => 'arm64',
