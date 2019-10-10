@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /nightly/
+Disallow: /client/nightly/
+Disallow: /plugins/nightly/
+Disallow: /releases/nightly/
+Disallow: /rails/foreman-nightly/
