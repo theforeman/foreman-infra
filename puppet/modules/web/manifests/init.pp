@@ -17,6 +17,8 @@ class web(
 ) {
   include web::base
   include rsync::server
+  include apache::mod::expires
+  include apache::mod::headers
 
   letsencrypt::certonly { 'theforeman.org':
     plugin        => 'webroot',
@@ -84,11 +86,30 @@ class web(
   create_resources(web::htpasswd, $htpasswds)
 
   # YUM
+  $yum_directory = '/var/www/vhosts/yum/htdocs'
+  $yum_directory_config = [
+    {
+      path    => $yum_directory,
+      options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+    },
+    {
+      path     => '.+\.(bz2|gz|rpm|xz)$',
+      provider => 'filesmatch',
+      headers  => 'Set Cache-Control "public, max-age=2592000"',
+    },
+    {
+      path            => 'repomd.xml',
+      provider        => 'files',
+      expires_active  => 'on',
+      expires_default => 'access plus 0 seconds',
+    },
+  ]
+
   $yum_attrs = {
-    servername      => 'yum.theforeman.org',
-    docroot         => '/var/www/vhosts/yum/htdocs',
-    docroot_mode    => '2575',
-    custom_fragment => template('web/yum.conf.erb'),
+    servername   => 'yum.theforeman.org',
+    docroot      => $yum_directory,
+    docroot_mode => '2575',
+    directories  => $yum_directory_config,
   }
 
   rsync::server::module { 'yum':

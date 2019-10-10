@@ -1,7 +1,0 @@
-# Prevent top-level repodata file being cached
-<IfModule mod_expires.c>
-  <Files "repomd.xml">
-    ExpiresActive on
-    ExpiresDefault "access plus 0 seconds"
-  </Files>
-</IfModule>
