@@ -104,10 +104,10 @@ class web(
   ]
 
   $yum_attrs = {
-    servername      => 'yum.theforeman.org',
-    docroot         => $yum_directory,
-    docroot_mode    => '2575',
-    directories     => $yum_directory_config,
+    servername   => 'yum.theforeman.org',
+    docroot      => $yum_directory,
+    docroot_mode => '2575',
+    directories  => $yum_directory_config,
   }
 
   rsync::server::module { 'yum':
