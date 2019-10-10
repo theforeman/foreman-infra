@@ -100,7 +100,7 @@ class web(
       path            => 'repomd.xml',
       provider        => 'files',
       expires_active  => 'on',
-      expires_default => 'access plus 0 seconds',
+      expires_default => '"access plus 0 seconds"',
     },
   ]
 
