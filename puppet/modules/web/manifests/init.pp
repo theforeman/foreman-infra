@@ -94,8 +94,10 @@ class web(
   $yum_directory = '/var/www/vhosts/yum/htdocs'
   $yum_directory_config = [
     {
-      path    => $yum_directory,
-      options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+      path            => $yum_directory,
+      options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+      expires_active  => 'on',
+      expires_default => '"access plus 2 minutes"',
     },
     {
       path     => '.+\.(bz2|gz|rpm|xz)$',
