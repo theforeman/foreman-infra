@@ -17,7 +17,6 @@ class web(
 ) {
   include web::base
   include rsync::server
-  include apache::mod::expires
   include apache::mod::headers
 
   letsencrypt::certonly { 'theforeman.org':
