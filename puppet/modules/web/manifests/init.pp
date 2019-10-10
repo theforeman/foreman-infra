@@ -134,6 +134,13 @@ class web(
     mode   => '0644',
     source => 'puppet:///modules/web/yum-HEADER.html',
   }
+  file { '/var/www/vhosts/yum/htdocs/robots.txt':
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/web/yum-robots.txt',
+  }
   file { '/var/www/vhosts/yum/htdocs/RPM-GPG-KEY-foreman':
     ensure => file,
     owner  => 'root',
