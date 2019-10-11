@@ -9,11 +9,15 @@
 # $https:: to request an LE cert via webroot mode, the HTTP vhost must be up.  To start httpd, the
 #          certs have to exist, so keep SSL vhosts disabled until the certs are present via the HTTP
 #          vhost and only then enable the SSL vhosts.
+#
+# $setup_receiver:: Set up the SSH receiver setup. Mostly turned off for testing.
+#
 class web(
   String $stable = '1.23',
   String $next = '1.24',
   Hash[String, Hash] $htpasswds = {},
   Boolean $https = false,
+  Boolean $setup_receiver = true,
 ) {
   include web::base
   include rsync::server
@@ -57,10 +61,12 @@ class web(
   $max_rsync_connections = 5
 
   # WWW
-  secure_ssh::rsync::receiver_setup { 'web':
-    user           => 'website',
-    foreman_search => 'host ~ slave*.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
-    script_content => file('web/rsync.sh'),
+  if $setup_receiver {
+    secure_ssh::rsync::receiver_setup { 'web':
+      user           => 'website',
+      foreman_search => 'host ~ slave*.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
+      script_content => file('web/rsync.sh'),
+    }
   }
   $web_attrs = {
     servername      => 'theforeman.org',
