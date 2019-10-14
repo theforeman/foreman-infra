@@ -32,6 +32,8 @@ pipeline {
             }
         }
         stage('Install tests and Upgrade tests') {
+            agent { label 'el' }
+
             steps {
                 script {
                     runCicoJobsInParallel([

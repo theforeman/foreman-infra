@@ -61,14 +61,12 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null, job_extra_
 }
 
 def runCicoJob(job_name, job_parameters = null, job_extra_vars = null) {
-    node('el') {
-        script {
-            git_clone_foreman_infra()
-            try {
-                runIndividualCicoJob(job_name, 0, job_parameters, job_extra_vars)
-            } finally {
-                deleteDir()
-            }
+    script {
+        git_clone_foreman_infra()
+        try {
+            runIndividualCicoJob(job_name, 0, job_parameters, job_extra_vars)
+        } finally {
+            deleteDir()
         }
     }
 }
@@ -82,14 +80,12 @@ def runCicoJobsInParallel(jobs) {
         }
     }
 
-    node('el') {
-        script {
-            git_clone_foreman_infra()
-            try {
-                parallel branches
-            } finally {
-                deleteDir()
-            }
+    script {
+        git_clone_foreman_infra()
+        try {
+            parallel branches
+        } finally {
+            deleteDir()
         }
     }
 }

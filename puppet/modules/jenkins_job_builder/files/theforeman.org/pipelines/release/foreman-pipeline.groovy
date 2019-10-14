@@ -28,6 +28,7 @@ pipeline {
             }
         }
         stage('Install Test') {
+            agent { label 'el' }
             steps {
                 script {
                     def pipelines = foreman_server_distros.collect { os ->

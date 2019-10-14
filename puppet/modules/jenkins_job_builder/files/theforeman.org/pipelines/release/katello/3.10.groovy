@@ -32,6 +32,8 @@ pipeline {
             }
         }
         stage('Install Test') {
+            agent { label 'el' }
+
             steps {
                 script {
                     runCicoJobsInParallel([
