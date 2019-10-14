@@ -44,6 +44,7 @@
             period: '3600'
             placement:
             public_key:
+            region: ORD
             response_condition: error log
             timestamp_format: "%Y-%m-%dT%H:%M:%S.000"
             user: foremanfastlylogger
@@ -58,6 +59,7 @@
             period: '3600'
             placement:
             public_key:
+            region: ORD
             response_condition: ''
             timestamp_format: "%Y-%m-%dT%H:%M:%S.000"
             user: foremanfastlylogger
