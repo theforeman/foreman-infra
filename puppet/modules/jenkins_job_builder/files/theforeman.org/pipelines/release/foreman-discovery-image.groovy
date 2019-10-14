@@ -20,7 +20,7 @@ pipeline {
                         ]
                         job_extra_vars = [
                             jenkins_download_artifacts: 'true',
-                            jenkins_artifacts_directory: '../artifacts/',
+                            jenkins_artifacts_directory: "${env.WORKSPACE}/artifacts/",
                         ]
                         runCicoJob("foreman-discovery-image-build", job_parameters, job_extra_vars)
                     }
