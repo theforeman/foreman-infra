@@ -32,6 +32,8 @@ pipeline {
             }
         }
         stage('Test Suites') {
+            agent { label 'el' }
+
             steps {
                 script {
                     runCicoJobsInParallel([

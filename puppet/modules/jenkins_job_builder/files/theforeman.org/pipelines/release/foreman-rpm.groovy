@@ -30,6 +30,8 @@ pipeline {
             }
         }
         stage('Install Test') {
+            agent { label 'el' }
+
             steps {
                 runCicoJob("foreman-nightly-centos7-test")
             }
