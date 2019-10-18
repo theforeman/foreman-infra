@@ -1,15 +1,14 @@
-# uses a 3rd-party pbuilder module to create
-# tgz images of the specified OSs, as well as a hook script and an
-# execution script. This can be use to build a package.
-#
-class debian {
+# @api private
+class slave::packaging::debian(
+  Boolean $uploader = true,
+) {
   package { 'gem2deb':
     ensure => present,
   }
 
-  case $::architecture {
+  case $facts['os']['architecture'] {
     'amd64': {
-      debian::pbuilder_setup {
+      slave::pbuilder_setup {
         'bionic64':
           ensure     => present,
           arch       => 'amd64',
@@ -62,7 +61,7 @@ class debian {
     }
 
     'armv7l': {
-      debian::pbuilder_setup {
+      slave::pbuilder_setup {
         'bionic':
           ensure     => present,
           arch       => 'armhf',
@@ -91,7 +90,7 @@ class debian {
     }
 
     'aarch64': {
-      debian::pbuilder_setup {
+      slave::pbuilder_setup {
         'bionic':
           ensure     => present,
           arch       => 'arm64',
@@ -128,8 +127,10 @@ class debian {
     value    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
   }
 
-  # Add freight setup
-  include ::freight::uploader
+  if $uploader {
+    # Add freight setup
+    include freight::uploader
+  }
 
   # TODO: Cleanup failed pbuilder mounts as a cron
 }
