@@ -1,4 +1,4 @@
-define debian::pbuilder_setup (
+define slave::pbuilder_setup (
   $ensure     = present,
   $backports  = false,
   $nodesource = true,
@@ -35,7 +35,7 @@ define debian::pbuilder_setup (
   file { "/etc/pbuilder/${name}/hooks/F70aptupdate":
     ensure  => $ensure,
     mode    => '0775',
-    content => template('debian/pbuilder_f70.erb'),
+    content => template('slave/pbuilder_f70.erb'),
   }
 
   # the result cache gets huge after a while - trim it to the last ~2 days at 5am

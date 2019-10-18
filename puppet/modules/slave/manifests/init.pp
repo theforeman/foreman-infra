@@ -1,11 +1,12 @@
 class slave (
-  $github_user         = undef,
-  $github_oauth        = undef,
-  $jenkins_build_token = undef,
-  $koji_certificate    = undef,
-  $copr_login          = undef,
-  $copr_username       = undef,
-  $copr_token          = undef,
+  Optional[String] $github_user         = undef,
+  Optional[String] $github_oauth        = undef,
+  Optional[String] $jenkins_build_token = undef,
+  Optional[String] $koji_certificate    = undef,
+  Optional[String] $copr_login          = undef,
+  Optional[String] $copr_username       = undef,
+  Optional[String] $copr_token          = undef,
+  Boolean $uploader                     = true,
 ) {
   file { '/var/lib/workspace':
     ensure => directory,
@@ -251,9 +252,24 @@ class slave (
   # RVM
   include ::slave::rvm
 
-  # RPM packaging
-  if $::osfamily == 'RedHat' {
-    include ::slave::packaging::rpm
+  # Packaging
+  case $facts['os']['family'] {
+    'RedHat': {
+      class { 'slave::packaging::rpm':
+        koji_certificate => $koji_certificate,
+        copr_login       => $copr_login,
+        copr_username    => $copr_username,
+        copr_token       => $copr_token,
+      }
+      contain slave::packaging::rpm
+    }
+    'Debian': {
+      class { 'slave::packaging::debian':
+        uploader => $uploader,
+      }
+      contain slave::packaging::debian
+    }
+    default: {}
   }
 
   if $::architecture == 'x86_64' or $::architecture == 'amd64' {

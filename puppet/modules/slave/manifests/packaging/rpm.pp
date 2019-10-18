@@ -1,10 +1,10 @@
 # All RPM packaging tools
 # @api private
 class slave::packaging::rpm (
-  Optional[String] $koji_certificate = $slave::koji_certificate,
-  Optional[String] $copr_login = $slave::copr_login,
-  Optional[String] $copr_username = $slave::copr_username,
-  Optional[String] $copr_token = $slave::copr_token,
+  Optional[String] $koji_certificate = undef,
+  Optional[String] $copr_login = undef,
+  Optional[String] $copr_username = undef,
+  Optional[String] $copr_token = undef,
 ) {
   package { ['koji', 'rpm-build', 'git-annex', 'pyliblzma', 'createrepo']:
     ensure => latest,
@@ -49,6 +49,10 @@ class slave::packaging::rpm (
       owner   => 'jenkins',
       group   => 'jenkins',
       content => $koji_certificate,
+    }
+  } else {
+    file { '/home/jenkins/.katello.cert':
+      ensure  => absent,
     }
   }
 
