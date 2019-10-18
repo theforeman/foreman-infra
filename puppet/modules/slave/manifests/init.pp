@@ -33,18 +33,9 @@ class slave (
     source => 'puppet:///modules/slave/gemrc',
   }
 
-  # test-pull-requests scanner script
+  # Former test-pull-requests scanner script
   file { '/home/jenkins/pr_tests':
-    ensure  => directory,
-    owner   => 'jenkins',
-    group   => 'jenkins',
-    purge   => true,
-    recurse => true,
-  }
-  file { '/home/jenkins/pr_tests/cache':
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
+    ensure  => absent,
   }
 
   if $github_user and $github_oauth and $jenkins_build_token {
