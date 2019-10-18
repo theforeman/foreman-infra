@@ -16,5 +16,5 @@
           gem install bundler -v '< 2.0' --no-document
 
           bundle install --retry 5 --jobs 5
-          bundle exec rake TESTOPTS="-v"
+          bundle exec rake TESTOPTS="--verbose"
 
