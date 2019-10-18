@@ -1,3 +1,4 @@
+# @api private
 class slave::postgresql {
   Postgresql_psql {
     cwd => '/',

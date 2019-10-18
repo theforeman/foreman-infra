@@ -1,3 +1,4 @@
+# @api private
 define slave::db_config(
   $ensure = 'present',
   $jenkins_home = '/home/jenkins',

@@ -1,3 +1,4 @@
+# @api private
 define slave::rvm_config($version, $rubygems_version = '2.7.9') {
   $alias = $title
 
