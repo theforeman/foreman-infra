@@ -1,3 +1,4 @@
+# @api private
 class slave::mysql {
   # Tune DB settings for Jenkins slaves, this is UNSAFE for production!
   $override_options = {

@@ -1,4 +1,5 @@
 # All RPM packaging tools
+# @api private
 class slave::packaging::rpm (
   Optional[String] $koji_certificate = $slave::koji_certificate,
   Optional[String] $copr_login = $slave::copr_login,

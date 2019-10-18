@@ -1,3 +1,4 @@
+# @api private
 class slave::docker {
   file { '/etc/systemd/system/docker.service.d/service-overrides.conf':
     ensure => absent,

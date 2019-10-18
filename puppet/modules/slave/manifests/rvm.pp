@@ -1,4 +1,5 @@
 # Various RVM config
+# @api private
 class slave::rvm {
   gnupg_key { 'rvm_pkuczynski':
     ensure     => present,
