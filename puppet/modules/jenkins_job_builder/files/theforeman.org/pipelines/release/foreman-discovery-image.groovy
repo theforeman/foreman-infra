@@ -51,7 +51,7 @@ pipeline {
 
                     sshagent(['deploy-downloads']) {
                         // publish on web
-                        sh "rsync -av --delete result/ ${destination_user}@${destination_server}:${destination_dir}/"
+                        sh "rsync -rltv --delete result/ ${destination_user}@${destination_server}:${destination_dir}/"
 
                         // create symlinks
                         sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/releases/ && rm -f latest; ln -snf \$(ls -t | head -n 1) latest; popd' || true"
