@@ -12,6 +12,7 @@
           type: user-defined
           name: os
           values:
+          - buster
           - bionic
           - stretch
           - xenial
@@ -27,7 +28,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os)'
+      combination-filter: '((onlyarch == "all") || onlyarch == arch) && ((onlyos == "all") || onlyos == os) && !((version == "1.21" || version == "1.22" || version == "1.23") && os == "buster")'
     builders:
       - build_deb_coreproject
     publishers:
