@@ -10,8 +10,8 @@ pipeline {
 
     stages {
         stage('Install tests and Upgrade tests') {
+            agent { label 'el' }
             steps {
-                agent { label 'el' }
                 script {
                     runCicoJobsInParallel([
                         ['name': 'Install test', 'job': 'foreman-luna-nightly-test'],
