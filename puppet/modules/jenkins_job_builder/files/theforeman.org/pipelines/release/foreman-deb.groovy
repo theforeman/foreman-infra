@@ -16,6 +16,7 @@ pipeline {
                 script {
                     runCicoJobsInParallel([
                         ['name': 'debian9', 'job': 'foreman-nightly-debian9-test'],
+                        ['name': 'debian10', 'job': 'foreman-nightly-debian10-test'],
                         ['name': 'ubuntu1604', 'job': 'foreman-nightly-ubuntu1604-test'],
                         ['name': 'ubuntu1804', 'job': 'foreman-nightly-ubuntu1804-test']
                     ])
@@ -28,6 +29,7 @@ pipeline {
             steps {
                 parallel(
                     "stretch": { push_debs_direct('stretch', 'nightly') },
+                    "buster": { push_debs_direct('buster', 'nightly') },
                     "xenial": { push_debs_direct('xenial', 'nightly') },
                     "bionic": { push_debs_direct('bionic', 'nightly') }
                 )
