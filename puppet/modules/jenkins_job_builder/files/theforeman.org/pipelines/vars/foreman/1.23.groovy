@@ -14,3 +14,5 @@ def foreman_server_distros = [
     'ubuntu1604',
     'ubuntu1804'
 ]
+
+def foreman_debian_releases = ['stretch', 'xenial', 'bionic']

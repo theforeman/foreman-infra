@@ -1,10 +1,3 @@
-def debian_releases = [
-    '1.24': ['stretch', 'buster', 'xenial', 'bionic'],
-    '1.23': ['stretch', 'xenial', 'bionic'],
-    '1.22': ['stretch', 'xenial', 'bionic'],
-    '1.21': ['stretch', 'xenial', 'bionic'],
-]
-
 pipeline {
     agent none
 
@@ -73,11 +66,9 @@ pipeline {
             steps {
                 script {
                     def pushDistros = [:]
-                    debian_releases[foreman_version].each { distros ->
-                        distros.each { distro ->
-                            pushDistros["push-${foreman_version}-${distro}"] = {
-                                push_debs_direct(distro, foreman_version)
-                            }
+                    foreman_debian_releases.each { distro ->
+                        pushDistros["push-${foreman_version}-${distro}"] = {
+                            push_debs_direct(distro, foreman_version)
                         }
                     }
 
