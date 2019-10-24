@@ -64,12 +64,16 @@ pipeline {
         stage('Push DEBs') {
             agent { label 'debian' }
             steps {
-                // TODO: from variables
-                parallel(
-                    "stretch": { push_debs_direct('stretch', foreman_version) },
-                    "xenial": { push_debs_direct('xenial', foreman_version) },
-                    "bionic": { push_debs_direct('bionic', foreman_version) }
-                )
+                script {
+                    def pushDistros = [:]
+                    foreman_debian_releases.each { distro ->
+                        pushDistros["push-${foreman_version}-${distro}"] = {
+                            push_debs_direct(distro, foreman_version)
+                        }
+                    }
+
+                    parallel pushDistros
+                }
             }
         }
     }
