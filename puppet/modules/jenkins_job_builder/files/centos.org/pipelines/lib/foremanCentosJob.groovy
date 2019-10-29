@@ -50,8 +50,10 @@ pipeline {
 
             archiveArtifacts artifacts: 'debug/**/*.tap', allowEmptyArchive: true
             archiveArtifacts artifacts: 'debug/**/*.tar.xz', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'debug/**/*.xml', allowEmptyArchive: true
 
             step([$class: "TapPublisher", testResults: "debug/**/*.tap"])
+            junit "debug/**/*.xml"
 
             deprovision()
             deleteDir()
