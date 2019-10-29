@@ -64,8 +64,9 @@ define freight::user (
       options => ['Indexes', 'FollowSymLinks'],
     },
     {
-      path    => "${webdir}/dists",
-      headers => 'Set Cache-Control "public, max-age=120"',
+      path            => "${webdir}/dists",
+      expires_active  => 'on',
+      expires_default => '"access plus 2 minutes"',
     },
     {
       path    => "${webdir}/dists/*/.refs/",
@@ -73,7 +74,8 @@ define freight::user (
     },
     {
       path    => "${webdir}/pool",
-      headers => 'Set Cache-Control "public, max-age=2592000"',
+      expires_active  => 'on',
+      expires_default => '"access plus 30 days"',
     },
   ]
 
