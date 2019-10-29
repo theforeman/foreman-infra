@@ -21,7 +21,6 @@ class web(
 ) {
   include web::base
   include rsync::server
-  include apache::mod::headers
 
   letsencrypt::certonly { 'theforeman.org':
     plugin        => 'webroot',
@@ -100,15 +99,16 @@ class web(
       expires_default => '"access plus 2 minutes"',
     },
     {
-      path     => '.+\.(bz2|gz|rpm|xz)$',
-      provider => 'filesmatch',
-      headers  => 'Set Cache-Control "public, max-age=2592000"',
+      path            => '.+\.(bz2|gz|rpm|xz)$',
+      provider        => 'filesmatch',
+      expires_active  => 'on',
+      expires_default => '"access plus 30 days"',
     },
     {
       path            => 'repomd.xml',
       provider        => 'files',
       expires_active  => 'on',
-      expires_default => '"access plus 0 seconds"',
+      expires_default => '"access plus 2 minutes"',
     },
   ]
 
@@ -188,9 +188,10 @@ class web(
       options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
     },
     {
-      path     => '.+\.(bz2|csv|gem|gz|img|iso|iso-img|iso-vmlinuz|pdf|tar|webm|rpm|deb)$',
-      provider => 'filesmatch',
-      headers  => 'Set Cache-Control "public, max-age=2592000"',
+      path            => '.+\.(bz2|csv|gem|gz|img|iso|iso-img|iso-vmlinuz|pdf|tar|webm|rpm|deb)$',
+      provider        => 'filesmatch',
+      expires_active  => 'on',
+      expires_default => '"access plus 30 days"',
     },
   ]
 
