@@ -1,13 +1,9 @@
 pipeline {
     agent none
 
-    environment {
-        foreman_version = "1.20"
-    }
-
     options {
         timestamps()
-        timeout(time: 2, unit: 'HOURS')
+        timeout(time: 3, unit: 'HOURS')
         disableConcurrentBuilds()
         ansiColor('xterm')
     }
@@ -18,7 +14,7 @@ pipeline {
 
             steps {
 
-                mash("katello-mash-split-3.10.py")
+                mash("katello-mash-split.py", katello_version)
 
             }
         }
@@ -27,17 +23,18 @@ pipeline {
 
             steps {
 
-                repoclosure('katello', 'el7', env.foreman_version)
+                repoclosure('katello', 'el7', foreman_version)
 
             }
         }
-        stage('Install Test') {
+        stage('Test Suites') {
             agent { label 'el' }
 
             steps {
                 script {
                     runCicoJobsInParallel([
-                        ['name': 'Install test', 'job': 'foreman-katello-3.10-test']
+                        ['name': 'Install test', 'job': "foreman-katello-${katello_version}-test"],
+                        ['name': 'Upgrade test', 'job': "foreman-katello-upgrade-${katello_version}-test"]
                     ])
                 }
             }
@@ -46,7 +43,7 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                push_rpms_katello("3.10")
+                push_rpms_katello(katello_version)
             }
         }
     }
