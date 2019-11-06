@@ -14,7 +14,6 @@ if [ x$repoowner = xtheforeman ] && [ x$pr_number = x ]; then
   echo "Built from main repo, uploading to deb/plugins/main"
   export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/deb_key/rsync_freight_key"
   USER=freight
-  HOST=deb
   if [ x$repo = xdevelop ]; then
     COMPONENT=nightly
   else
@@ -24,9 +23,10 @@ else
   echo "scratch build: uploading to stagingdeb/plugins/${repoowner}"
   export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/staging_key/rsync_freightstage_key"
   USER=freightstage
-  HOST=web02
   COMPONENT=${repoowner}
 fi
+
+HOST=web02
 
 # The path is important, as freight_rsync (which is run on the web node for incoming
 # transfers) will parse the path to figure out the repo to send debs to.
