@@ -33,4 +33,11 @@
       - '3.13'
       - '3.14'
       - 'nightly'
+
+- project:
+    name: katello-devel
+    jobs:
+      - 'foreman-katello-{version}-test'
+    empty: ''
+    version:
       - 'devel'
