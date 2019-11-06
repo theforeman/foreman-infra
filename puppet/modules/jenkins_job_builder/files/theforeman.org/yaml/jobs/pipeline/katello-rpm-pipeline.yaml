@@ -1,0 +1,23 @@
+- job-template:
+    name: 'katello-{version}-rpm-pipeline'
+    project-type: pipeline
+    sandbox: true
+    dsl:
+      !include-raw:
+        - 'pipelines/release/katello/{version}.groovy'
+        - 'pipelines/lib/release.groovy{empty}'
+        - 'pipelines/lib/ansible.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
+        - 'pipelines/lib/rpm_packaging.groovy{empty}'
+        - 'pipelines/lib/obal.groovy{empty}'
+
+- project:
+    name: katello
+    jobs:
+      - 'katello-{version}-rpm-pipeline'
+    empty: ''
+    version:
+      - '3.10'
+      - '3.11'
+      - '3.12'
+      - '3.13'
