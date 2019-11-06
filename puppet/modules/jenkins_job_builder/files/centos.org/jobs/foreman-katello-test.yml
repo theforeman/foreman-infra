@@ -10,10 +10,23 @@
         - '../theforeman.org/pipelines/lib/duffy.groovy{empty}'
         - '../theforeman.org/pipelines/lib/foreman_infra.groovy{empty}'
 
+- job-template:
+    name: 'foreman-katello-upgrade-{version}-test'
+    project-type: pipeline
+    sandbox: true
+    dsl:
+      !include-raw:
+        - 'pipelines/lib/foremanCentosJob.groovy{empty}'
+        - 'pipelines/test/katello/{version}-upgrade.groovy'
+        - '../theforeman.org/pipelines/lib/ansible.groovy{empty}'
+        - '../theforeman.org/pipelines/lib/duffy.groovy{empty}'
+        - '../theforeman.org/pipelines/lib/foreman_infra.groovy{empty}'
+
 - project:
     name: katello
     jobs:
       - 'foreman-katello-{version}-test'
+      - 'foreman-katello-upgrade-{version}-test'
     empty: ''
     version:
       - '3.12'
