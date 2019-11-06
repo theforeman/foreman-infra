@@ -10,6 +10,7 @@ import shutil
 import difflib
 import time
 import re
+import sys
 
 import koji
 import kobo.log
@@ -288,28 +289,26 @@ class MashSplit(object):
         self.check_tag_listing(mash_config)
 
 def main():
-    s = MashSplit("/var/log/foreman-mash-split.log")
+    try:
+        version = sys.argv[1]
+    except IndexError:
+        version = "nightly"
+
+    s = MashSplit("/var/log/foreman-plugins-mash-split.log")
     options = ["server"]
     arches = ["x86_64"]
     whole_path = "/mnt/koji/releases/whole"
     tmp_path = "/mnt/koji/releases/tmp"
     split_path = "/mnt/koji/releases/split"
 
-    for version in ['1.22', '1.23', '1.24', 'nightly']:
-        koji_tag = "foreman-plugins-{}-rhel7-dist".format(version)
-        if version == "nightly":
-            git_tag = "rpm/develop"
-        else:
-            git_tag = "rpm/{}".format(version)
-        output_paths = ["foreman-plugins-{}/RHEL/7".format(version)]
-        s.mash_split(whole_path, tmp_path, split_path, koji_tag, options=options, arches=arches, compses=["comps-foreman-plugins-rhel7.xml"], git_tag=git_tag, output_paths=output_paths)
+    if version == "nightly":
+        git_tag = "rpm/develop"
+    else:
+        git_tag = "rpm/{}".format(version)
 
-    #s.mash_split(whole_path, tmp_path, split_path, "foreman-plugins-1.20-rhel7-dist", options=options, arches=["x86_64"], compses=["comps-foreman-plugins-rhel7.xml"], git_tag="rpm/1.20", output_paths=["foreman-plugins-1.20/RHEL/7"])
-    #s.mash_split(whole_path, tmp_path, split_path, "foreman-plugins-nightly-rhel7-dist", options=options, arches=["x86_64"], compses=["comps-foreman-plugins-rhel7.xml"], git_tag="rpm/develop", output_paths=["foreman-plugins-nightly/RHEL/7"])
-
-    #s.mash_split(whole_path, tmp_path, split_path, "foreman-plugins-1.13-fedora24-dist", options=options, arches=["x86_64"], compses=["comps-foreman-plugins-fedora24.xml"], git_tag="rpm/1.13", output_paths=["foreman-plugins-1.13/Fedora/24"])
-    #s.mash_split(whole_path, tmp_path, split_path, "foreman-plugins-1.14-fedora24-dist", options=options, arches=["x86_64"], compses=["comps-foreman-plugins-fedora24.xml"], git_tag="rpm/1.14", output_paths=["foreman-plugins-1.14/Fedora/24"])
-   #s.mash_split(whole_path, tmp_path, split_path, "foreman-plugins-1.15-fedora24-dist", options=options, arches=["x86_64"], compses=["comps-foreman-plugins-fedora24.xml"], git_tag="rpm/1.15", output_paths=["foreman-plugins-1.15/Fedora/24"])
+    koji_tag = "foreman-plugins-{}-rhel7-dist".format(version)
+    output_paths = ["foreman-plugins-{}/RHEL/7".format(version)]
+    s.mash_split(whole_path, tmp_path, split_path, koji_tag, options=options, arches=arches, compses=["comps-foreman-plugins-rhel7.xml"], git_tag=git_tag, output_paths=output_paths)
 
 if __name__ == "__main__":
     main()
