@@ -68,7 +68,9 @@ pipeline {
                     def pushDistros = [:]
                     foreman_debian_releases.each { distro ->
                         pushDistros["push-${foreman_version}-${distro}"] = {
-                            push_debs_direct(distro, foreman_version)
+                            script {
+                                push_debs_direct(distro, foreman_version)
+                            }
                         }
                     }
 
