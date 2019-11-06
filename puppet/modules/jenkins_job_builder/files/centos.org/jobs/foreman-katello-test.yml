@@ -1,0 +1,23 @@
+- job-template:
+    name: 'foreman-katello-{version}-test'
+    project-type: pipeline
+    sandbox: true
+    dsl:
+      !include-raw:
+        - 'pipelines/lib/foremanCentosJob.groovy{empty}'
+        - 'pipelines/test/katello/{version}.groovy'
+        - '../theforeman.org/pipelines/lib/ansible.groovy{empty}'
+        - '../theforeman.org/pipelines/lib/duffy.groovy{empty}'
+        - '../theforeman.org/pipelines/lib/foreman_infra.groovy{empty}'
+
+- project:
+    name: katello
+    jobs:
+      - 'foreman-katello-{version}-test'
+    empty: ''
+    version:
+      - '3.12'
+      - '3.13'
+      - '3.14'
+      - 'nightly'
+      - 'devel'
