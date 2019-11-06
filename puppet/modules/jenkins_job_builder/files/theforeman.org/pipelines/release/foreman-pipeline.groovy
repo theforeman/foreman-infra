@@ -13,6 +13,7 @@ pipeline {
             agent { label 'sshkey' }
             steps {
                 mash("foreman-mash-split.py", foreman_version)
+                mash("foreman-rails-mash-split.py", foreman_version)
             }
         }
         stage('Repoclosure') {
@@ -53,6 +54,7 @@ pipeline {
                     withRVM(["bundle install --jobs=5 --retry=5"])
                     // TODO: from variables
                     push_rpms_direct("foreman-${foreman_version}/RHEL/7", "releases/${foreman_version}/el7", false, true)
+                    push_rpms_direct("foreman-rails-${foreman_version}/el7", "rails/foreman-${foreman_version}/el7", false, true)
                 }
             }
             post {
