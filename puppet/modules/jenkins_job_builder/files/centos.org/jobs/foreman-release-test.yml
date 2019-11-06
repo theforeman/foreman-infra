@@ -19,7 +19,6 @@
         - pipelines/lib/foremanCentosJob.groovy{empty}
         - ../theforeman.org/pipelines/lib/duffy.groovy{empty}
         - ../theforeman.org/pipelines/lib/ansible.groovy{empty}
-        - ../theforeman.org/pipelines/lib/folderChanged.groovy{empty}
         - ../theforeman.org/pipelines/lib/foreman_infra.groovy{empty}
 
 - project:
