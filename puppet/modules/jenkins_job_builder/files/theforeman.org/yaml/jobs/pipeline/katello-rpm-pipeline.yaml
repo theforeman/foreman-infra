@@ -4,6 +4,7 @@
     sandbox: true
     dsl:
       !include-raw:
+        - 'pipelines/vars/katello/{version}.groovy'
         - 'pipelines/release/katello/{version}.groovy'
         - 'pipelines/lib/release.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'
