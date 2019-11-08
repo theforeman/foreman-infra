@@ -33,6 +33,7 @@
         - 'pipelines/lib/obal.groovy{empty}'
         - 'pipelines/lib/rpm_packaging.groovy{empty}'
         - 'pipelines/lib/release.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
 
 - job-template:
     name: 'foreman-plugins-{version}-rpm-pipeline'
@@ -49,6 +50,7 @@
         - 'pipelines/lib/obal.groovy{empty}'
         - 'pipelines/lib/rpm_packaging.groovy{empty}'
         - 'pipelines/lib/release.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
 
 - project:
     name: foreman
