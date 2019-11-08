@@ -43,7 +43,7 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                git url: 'https://github.com/theforeman/foreman-infra', poll: false
+                git_clone_foreman_infra()
 
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
