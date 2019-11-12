@@ -11,4 +11,4 @@
   # Publish the debs
   freight-cache -c <%= @home %>/freight.conf -v apt/$DISTRO
   # Cleanup - no need to keep the debs
-  find <%= @home %>/rsync_cache/$DISTRO/$REPO -iname '*.deb' -delete
+  find <%= @home %>/rsync_cache/$DISTRO/$REPO -iname '*.deb' -delete || true
