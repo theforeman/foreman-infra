@@ -1,9 +1,7 @@
 def databaseFile(id, database = 'postgresql') {
     if (database == 'sqlite3') {
         text = sqliteTemplate()
-    } else if (database == 'mysql') {
-        text = mysqlTemplate(id)
-    } else {
+    } else if (database == 'postgresql') {
         text = postgresqlTemplate(id)
     }
     writeFile(file: 'config/database.yml', text: text)
@@ -62,31 +60,6 @@ production:
   password: foreman
   host: localhost
   template: template0
-"""
-}
-
-def mysqlTemplate(id) {
-  return """
-test:
-  adapter: mysql2
-  database: test-${id}-test
-  username: foreman
-  password: foreman
-  host: localhost
-
-development:
-  adapter: mysql2
-  database: test-${id}-dev
-  username: foreman
-  password: foreman
-  host: localhost
-
-production:
-  adapter: mysql2
-  database: test-${id}-prod
-  username: foreman
-  password: foreman
-  host: localhost
 """
 }
 

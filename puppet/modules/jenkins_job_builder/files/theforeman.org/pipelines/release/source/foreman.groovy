@@ -143,35 +143,6 @@ pipeline {
                         }
                     }
                 }
-                stage('ruby-2.5-mysql') {
-                    agent { label 'fast' }
-                    environment {
-                        RUBY_VER = '2.5'
-                        GEMSET = 'ruby-2.5-mysql'
-                    }
-                    stages {
-                        stage("setup-2.5-mysql") {
-                            steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                configureRVM(env.RUBY_VER, env.GEMSET)
-                                databaseFile(gemset(env.GEMSET), 'mysql')
-                                configureDatabase(env.RUBY_VER, env.GEMSET)
-                            }
-                        }
-                        stage("unit-tests-2.5-mysql") {
-                            steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
-                            }
-                        }
-                    }
-                    post {
-                        always {
-                            cleanup(env.RUBY_VER, env.GEMSET)
-                            junit(testResults: 'jenkins/reports/unit/*.xml')
-                            deleteDir()
-                        }
-                    }
-                }
                 stage('ruby-2.5-sqlite3') {
                     agent { label 'fast' }
                     environment {

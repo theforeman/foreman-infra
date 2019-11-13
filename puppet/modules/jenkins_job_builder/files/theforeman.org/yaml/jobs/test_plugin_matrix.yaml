@@ -25,7 +25,7 @@
           description: "Git branch name of Foreman itself, e.g. <pre>develop</pre>"
       - string:
           name: dbs
-          default: 'postgresql mysql sqlite3'
+          default: 'postgresql sqlite3'
           description: "Databases to test against"
     concurrent: true
     scm:
@@ -56,7 +56,7 @@
             - fast
     execution-strategy:
       combination-filter: >
-        ((database == 'postgresql') && ((ruby == '2.3') || (ruby == '2.5') || (ruby == '2.6'))) || ((database == 'mysql') && (ruby == '2.5')) || ((database == 'sqlite3') && (ruby == '2.5'))
+        ((database == 'postgresql') && ((ruby == '2.3') || (ruby == '2.5') || (ruby == '2.6'))) || ((database == 'sqlite3') && (ruby == '2.5'))
     wrappers:
       - timestamps
       - abort_build:
