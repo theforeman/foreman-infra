@@ -35,4 +35,4 @@
     repo: '{name}'
     branch: master
     foreman_branch: develop
-    dbs: 'postgresql mysql sqlite3'
+    dbs: 'postgresql sqlite3'
