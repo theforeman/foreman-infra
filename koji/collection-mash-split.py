@@ -336,6 +336,7 @@ class MashSplit(object):
 
         self.check_tag_listing(mash_config)
 
+
 def run_mashes(collection, git_tag, mashes):
     log_file = "/var/log/{}-mash-split.log".format(collection)
 
@@ -355,46 +356,112 @@ def run_mashes(collection, git_tag, mashes):
 
 def main():
     try:
-        version = sys.argv[1]
+        collection = sys.argv[1]
+    except IndexError:
+        raise SystemExit("Usage: {} collection [version]".format(sys.argv[0]))
+
+    try:
+        version = sys.argv[2]
     except IndexError:
         version = "nightly"
 
-    collection = 'katello'
+    if collection in ("foreman", "foreman-plugins"):
+        if version == "nightly":
+            git_tag = "rpm/develop"
+        else:
+            git_tag = "rpm/{}".format(version)
 
-    branch_map = {
-        'nightly': 'develop',
-        '3.15': '2.0',
-        '3.14': '1.24',
-        '3.13': '1.23',
-        '3.12': '1.22',
-    }
+        CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
+        if collection == 'foreman':
+            CONFIG["extras_baseloc"] = "%(tag)s:extras"
+            CONFIG["extras_path"] = "/mnt/koji/mash/extras/foreman"
+            extras = ["extras-foreman-rhel7"]
+        else:
+            extras = []
 
-    git_tag = "rpm/{}".format(branch_map[version])
+        mashes = [
+            (
+                "{}-{}-rhel7-dist".format(collection, version),
+                {"comps-{}-rhel7.xml".format(collection): "{}-{}/RHEL/7".format(collection, version)},
+                extras,
+            ),
+        ]
+    elif collection == "foreman-client":
+        dists = {
+            "el8": "el8",
+            "rhel7": "el7",
+            "rhel6": "el6",
+            "rhel5": "el5",
+            "fedora29": "fc29",
+            "sles11": "sles11",
+            "sles12": "sles12",
+        }
 
-    if version == 'nightly':
-        mash_config_candlepin = "katello-thirdparty-candlepin-rhel7"
+        if version == "nightly":
+            git_tag = "rpm/develop"
+        else:
+            git_tag = "rpm/{}".format(version)
+
+            if version in ('1.22', '1.23', '1.24'):
+                del dists['el8']
+
+        mashes = []
+
+        for dist, code in dists.items():
+            mashes.append((
+                "{}-{}-{}".format(collection, version, dist),
+                {"comps-{}-{}.xml".format(collection, dist): "{}-{}/{}".format(collection, version, code)},
+                [],
+            ))
+    elif collection == 'foreman-rails':
+        CONFIG["gitloc"] = "https://github.com/theforeman/rails-packaging.git"
+        scl = "tfm-ror52"
+        git_tag = scl
+
+        mashes = [
+            (
+                "{}-{}-rhel7".format(collection, version),
+                {"comps-{}-rhel7.xml".format(scl): "{}-{}/el7".format(collection, version)},
+                []
+            ),
+        ]
+    elif collection == 'katello':
+        branch_map = {
+            'nightly': 'develop',
+            '3.15': '2.0',
+            '3.14': '1.24',
+            '3.13': '1.23',
+            '3.12': '1.22',
+        }
+
+        git_tag = "rpm/{}".format(branch_map[version])
+
+        if version == 'nightly':
+            mash_config_candlepin = "katello-thirdparty-candlepin-rhel7"
+        else:
+            mash_config_candlepin = "katello-{}-thirdparty-candlepin-rhel7".format(version)
+
+        mashes = [
+            (
+                "{}-{}-rhel7".format(collection, version),
+                {"comps-katello-server-rhel7.xml": "katello-{}/katello/el7".format(version)},
+                [],
+            ),
+            (
+                mash_config_candlepin,
+                {"comps-katello-candlepin-server-rhel7.xml": "katello-{}/candlepin/el7".format(version)},
+                [],
+            ),
+        ]
+
+        if version not in ['3.12', '3.13', '3.14']:
+            mashes.append((
+                "katello-pulpcore-{}-el7".format(version),
+                {"comps-katello-pulpcore-el7.xml": "katello-{}/pulpcore/el7".format(version)},
+                [],
+            ))
     else:
-        mash_config_candlepin = "katello-{}-thirdparty-candlepin-rhel7".format(version)
-
-    mashes = [
-        (
-            "{}-{}-rhel7".format(collection, version),
-            {"comps-katello-server-rhel7.xml": "katello-{}/katello/el7".format(version)},
-            [],
-        ),
-        (
-            mash_config_candlepin,
-            {"comps-katello-candlepin-server-rhel7.xml": "katello-{}/candlepin/el7".format(version)},
-            [],
-        ),
-    ]
-
-    if version not in ['3.12', '3.13', '3.14']:
-        mashes.append((
-            "katello-pulpcore-{}-el7".format(version),
-            {"comps-katello-pulpcore-el7.xml": "katello-{}/pulpcore/el7".format(version)},
-            [],
-        ))
+        raise SystemExit("Unknown collection {}".format(collection))
 
     run_mashes(collection, git_tag, mashes)
 
