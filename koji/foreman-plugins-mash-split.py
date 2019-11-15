@@ -96,7 +96,7 @@ class MashSplit(object):
             if status == 0:
                 break
 
-    def createrepo(self, path, comps=None):
+    def createrepo(self, path, comps=None, checksum=None):
         """Run createrepo.
 
         @param path: path to repository
@@ -107,6 +107,8 @@ class MashSplit(object):
         cmd = "createrepo --pretty --quiet --database "
         if comps:
             cmd += "--groupfile %s " % comps
+        if checksum:
+            cmd += "--checksum %s " % checksum
         cmd += path
         self.logger.debug("running %s" % cmd)
         kobo.shortcuts.run(cmd)
@@ -205,7 +207,7 @@ class MashSplit(object):
             self.logger.warning("No build for package %s in package listing for tag %s" % (pkg, tag))
         return
 
-    def mash_split(self, whole_path, tmp_path, split_path, mash_config, options=None, arches=None, compses=None, git_tag="HEAD", output_paths=None):
+    def mash_split(self, whole_path, tmp_path, split_path, mash_config, options=None, arches=None, compses=None, git_tag="HEAD", output_paths=None, checksum=None):
         """Run the mash, get comps from git and split the repo according to comps.
 
         @param whole_path: path to mash whole repo into
@@ -255,7 +257,7 @@ class MashSplit(object):
                     os.makedirs(tmp_target)
                 source = os.path.join(whole_path, mash_config, arch, "os", "Packages")
                 copied.update(self.copyout(comps_pkg_names, source, tmp_target))
-                self.createrepo(tmp_target, comps)
+                self.createrepo(tmp_target, comps, checksum=checksum)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
                     os.makedirs(rpm_target)
@@ -267,7 +269,7 @@ class MashSplit(object):
                 os.makedirs(tmp_target)
             source = os.path.join(whole_path, mash_config, "source", "SRPMS")
             self.copyout(self.list_srpms_from_rpms(rpm_target), source, tmp_target)
-            self.createrepo(tmp_target)
+            self.createrepo(tmp_target, checksum=checksum)
             srpm_target = os.path.join(split_path, "source", output_path)
             if not os.path.exists(srpm_target):
                 os.makedirs(srpm_target)
