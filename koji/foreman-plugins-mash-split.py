@@ -223,6 +223,7 @@ class MashSplit(object):
         @param arches: list of arches (e.g. i386 and x86_64)
         @type arches: list
         @param compses: list of comps file names
+        @type compses: list
         @param git_tag: git tag to fetch the comps from (e.g. HEAD)
         @type git_tag: str
         @param output_paths: list of relative paths for split repos
