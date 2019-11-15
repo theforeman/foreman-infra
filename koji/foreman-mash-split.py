@@ -236,7 +236,35 @@ class MashSplit(object):
             self.logger.warning("No build for package %s in package listing for tag %s" % (pkg, tag))
         return
 
-    def mash_split(self, whole_path, tmp_path, split_path, extras_path, mash_config, options=None, arches=None, compses=None, extras=None, git_tag="HEAD", output_paths=None, checksum=None):
+    def handle_extras(self, whole_path, mash_config, arches, extras, extras_path, git_tag):
+        """Run the mash, get comps from git and split the repo according to comps.
+
+        @param whole_path: path to mash whole repo into
+        @type whole_path: str
+        @param mash_config: name of configuration for mash
+        @type mash_config: str
+        @param arches: list of arches (e.g. i386 and x86_64)
+        @type arches: list
+        @param extras: extras file name prefix (minus "-x86_64")
+        @type extras: str
+        @param extras_path: path for cached (signed) extra files
+        @type extras_path: str
+        @param git_tag: git tag to fetch the comps from (e.g. HEAD)
+        @type git_tag: str
+        """
+        gitloc = CONFIG["gitloc"]
+
+        extras_baseloc = CONFIG["extras_baseloc"] % dict(tag=git_tag)
+        extras_git_path = CONFIG["extras_path"]
+        for arch in arches:
+            extras_cache_path = os.path.join(extras_path, mash_config, arch)
+            extras_repo_path = os.path.join(whole_path, mash_config, arch, "os", "Packages")
+            extras_file = self.get_from_git(gitloc, extras_baseloc, extras + '-' + arch, extras_git_path)
+            with open(extras_file) as f:
+                self.download_extras(extras_cache_path, extras_repo_path, [line.rstrip() for line in f.readlines()])
+
+    def handle_comps(self, whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag,
+                     checksum=None):
         """Run the mash, get comps from git and split the repo according to comps.
 
         @param whole_path: path to mash whole repo into
@@ -245,48 +273,24 @@ class MashSplit(object):
         @type tmp_path: str
         @param split_path: target path for split repos
         @type split_path: str
-        @param extras_path: path for cached (signed) extra files
-        @type extras_path: str
         @param mash_config: name of configuration for mash
         @type mash_config: str
         @param options: list of options (e.g. client and server)
         @type list:
         @param arches: list of arches (e.g. i386 and x86_64)
         @type arches: list
-        @param compses: list of comps file names
+        @param compses: dict of comps file names mapped to output paths
         @type compses: list
-        @param extras: extras file name prefix (minus "-x86_64")
-        @type extras: str
         @param git_tag: git tag to fetch the comps from (e.g. HEAD)
         @type git_tag: str
-        @param output_paths: list of relative paths for split repos
-        @type: str
         """
-        options = options or []
-        arches = arches or []
-
-        self.run_mash(whole_path, mash_config)
-
         gitloc = CONFIG["gitloc"]
-        extras_baseloc = CONFIG["extras_baseloc"] % dict(tag=git_tag)
+
         comps_baseloc = CONFIG["comps_baseloc"] % dict(tag=git_tag)
-        extras_git_path = CONFIG["extras_path"]
         comps_path = CONFIG["comps_path"]
 
-        if extras is not None:
-            for arch in arches:
-                extras_cache_path = os.path.join(extras_path, mash_config, arch)
-                extras_repo_path = os.path.join(whole_path, mash_config, arch, "os", "Packages")
-                extras_file = self.get_from_git(gitloc, extras_baseloc, extras + '-' + arch, extras_git_path)
-                with open(extras_file) as f:
-                    self.download_extras(extras_cache_path, extras_repo_path, [line.rstrip() for line in f.readlines()])
-
-        if len(options) != len(compses) or len(compses) != len(output_paths):
-            self.logger.error("Not enough arguments: options=[%s], compses=[%s], output_paths=[%s]", (", ".join(options), ", ".join(compses), ", ".join(output_paths)))
-            return
-
         all_from_comps = set()
-        for option, comps, output_path in zip(options, compses, output_paths):
+        for comps, output_path in compses.items():
             comps = self.get_from_git(gitloc, comps_baseloc, comps, comps_path)
             comps_pkg_names = self.list_comps(comps)
             all_from_comps.update(comps_pkg_names)
@@ -330,9 +334,27 @@ class MashSplit(object):
             for pkg in glob.glob(os.path.join(path, "*.rpm")):
                 pkgs.add(kobo.rpmlib.parse_nvra(os.path.basename(pkg))["name"])
         for pkg in pkgs - all_from_comps:
-            self.logger.warning("%s not in %s" % (pkg, " nor ".join(compses)))
+            self.logger.warning("%s not in %s" % (pkg, " nor ".join(compses.keys())))
 
         self.check_tag_listing(mash_config)
+
+
+def run_mashes(collection, git_tag, mashes):
+    log_file = "/var/log/{}-mash-split.log".format(collection)
+
+    arches = ["x86_64"]
+    whole_path = "/mnt/koji/releases/whole"
+    tmp_path = "/mnt/koji/releases/tmp"
+    split_path = "/mnt/koji/releases/split"
+    extras_path = "/mnt/koji/releases/extras"
+
+    s = MashSplit(log_file)
+    for mash_config, compses, extras in mashes:
+        s.run_mash(whole_path, mash_config)
+        for extra in extras:
+            s.handle_extras(whole_path, mash_config, arches, extra, extras_path, git_tag)
+        s.handle_comps(whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag)
+
 
 def main():
     try:
@@ -340,24 +362,22 @@ def main():
     except IndexError:
         version = "nightly"
 
-    s = MashSplit("/var/log/foreman-mash-split.log")
-    options = ["server"]
-    arches = ["x86_64"]
-    compses = ["comps-foreman-rhel7.xml"]
-    whole_path = "/mnt/koji/releases/whole"
-    tmp_path = "/mnt/koji/releases/tmp"
-    split_path = "/mnt/koji/releases/split"
-    extras = "extras-foreman-rhel7"
-    extras_path = "/mnt/koji/releases/extras"
+    collection = 'foreman'
 
-    mash_config = "foreman-{}-rhel7-dist".format(version)
     if version == "nightly":
         git_tag = "rpm/develop"
     else:
         git_tag = "rpm/{}".format(version)
-    output_paths = ["foreman-{}/RHEL/7".format(version)]
 
-    s.mash_split(whole_path, tmp_path, split_path, extras_path, mash_config, options=options, arches=arches, compses=compses, extras=extras, git_tag=git_tag, output_paths=output_paths)
+    mashes = [
+        (
+            "{}-{}-rhel7-dist".format(collection, version),
+            {"comps-{}-rhel7.xml".format(collection): "{}-{}/RHEL/7".format(collection, version)},
+            ['extras-foreman-rhel7'],
+        ),
+    ]
+
+    run_mashes(collection, git_tag, mashes)
 
 if __name__ == "__main__":
     main()
