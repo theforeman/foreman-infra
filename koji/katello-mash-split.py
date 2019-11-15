@@ -295,14 +295,14 @@ def main():
         version = sys.argv[1]
     except IndexError:
         version = "nightly"
-    
+
     s = MashSplit("/var/log/katello-mash-split.log")
     options = ["server"]
     arches = ["x86_64"]
     whole_path = "/mnt/koji/releases/whole"
     tmp_path = "/mnt/koji/releases/tmp"
     split_path = "/mnt/koji/releases/split"
-    
+
     branch_map = {
         'nightly': 'develop',
         '3.15': '2.0',
