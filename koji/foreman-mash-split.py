@@ -90,10 +90,10 @@ class MashSplit(object):
         for i in range(tries):
             if i == (tries - 1):
                 can_fail = False
-            self.logger.warning("running %s" % cmd)
+            self.logger.debug("running %s" % cmd)
             status, output = kobo.shortcuts.run(cmd, can_fail=can_fail)
             for line in output.splitlines():
-                self.logger.warning("mash: %s" % line)
+                self.logger.debug("mash: %s" % line)
                 self.mash_logger.info(line)
             if status == 0:
                 break
