@@ -23,7 +23,7 @@ kobo.tback.set_except_hook()
 
 
 CONFIG = {
-    "gitloc": "git://github.com/theforeman/foreman-packaging.git",
+    "gitloc": "https://github.com/theforeman/foreman-packaging.git",
     "baseloc": "%(tag)s:comps",
     "comps_path": "/mnt/koji/mash/comps",
     "info_log": "/mnt/koji/mash/logs/%(date)s.log",
