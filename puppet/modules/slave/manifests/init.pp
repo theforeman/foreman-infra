@@ -33,11 +33,6 @@ class slave (
     source => 'puppet:///modules/slave/gemrc',
   }
 
-  # Former test-pull-requests scanner script
-  file { '/home/jenkins/pr_tests':
-    ensure  => absent,
-  }
-
   if $github_user and $github_oauth and $jenkins_build_token {
     file { '/home/jenkins/.config':
       ensure => directory,
@@ -212,10 +207,6 @@ class slave (
   # needed by katello gem dependency qpid-messaging
   # to interface with candlepin's event topic
   if $::osfamily == 'RedHat' {
-    yumrepo { 'katello-pulp':
-      ensure => absent,
-    }
-
     package { 'qpid-cpp-client-devel':
       ensure => latest,
     }
@@ -223,10 +214,6 @@ class slave (
 
   # Needed by foreman_openscap gem dependency OpenSCAP
   if $::osfamily == 'RedHat' {
-    yumrepo { 'isimluk-openscap':
-      ensure => absent,
-    }
-
     package { 'openscap':
       ensure => latest,
     }
@@ -271,20 +258,6 @@ class slave (
 
   if $::architecture == 'x86_64' or $::architecture == 'amd64' {
     include slave::docker
-  }
-
-  # Vagrant has been removed - clean it up
-  package { 'vagrant':
-    ensure => absent,
-  }
-
-  file { ['/home/jenkins/.vagrant.d', '/root/vagrant-package-2.0.2']:
-    ensure => absent,
-  }
-
-  # Cleanup Jenkins Xvfb processes from aborted builds after a day
-  file { '/etc/cron.daily/xvfb_cleaner':
-    ensure => absent,
   }
 
   # Cleanup Jenkins Ruby processes from aborted builds after a day
