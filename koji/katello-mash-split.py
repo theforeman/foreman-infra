@@ -53,7 +53,7 @@ class MashSplit(object):
 
         @param gitloc: git repository url (for ex.: git://git.fedorahosted.org)
         @type gitloc: str
-        @param baseloc: base location (for ex.: rpm/develop:kobo/client)
+        @param baseloc: base location (for ex.: HEAD:kobo/client)
         @type baseloc: str
         @param filename: file name
         @type filename: str
@@ -207,7 +207,7 @@ class MashSplit(object):
             self.logger.warning("No build for package %s in package listing for tag %s" % (pkg, tag))
         return
 
-    def mash_split(self, whole_path, tmp_path, split_path, mash_config, options=None, arches=None, compses=None, git_tag="rpm/develop", output_paths=None, checksum=None):
+    def mash_split(self, whole_path, tmp_path, split_path, mash_config, options=None, arches=None, compses=None, git_tag="HEAD", output_paths=None, checksum=None):
         """Run the mash, get comps from git and split the repo according to comps.
 
         @param whole_path: path to mash whole repo into
@@ -223,7 +223,8 @@ class MashSplit(object):
         @param arches: list of arches (e.g. i386 and x86_64)
         @type arches: list
         @param compses: list of comps file names
-        @param git_tag: git tag to fetch the comps from (e.g. rpm/develop)
+        @type compses: list
+        @param git_tag: git tag to fetch the comps from (e.g. HEAD)
         @type git_tag: str
         @param output_paths: list of relative paths for split repos
         @type: str
