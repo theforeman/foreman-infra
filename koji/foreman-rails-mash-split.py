@@ -24,7 +24,7 @@ kobo.tback.set_except_hook()
 
 CONFIG = {
     "gitloc": "https://github.com/theforeman/rails-packaging.git",
-    "comps_baseloc": "%(tag)s:comps",
+    "baseloc": "%(tag)s:comps",
     "comps_path": "/mnt/koji/mash/comps",
     "info_log": "/mnt/koji/mash/logs/%(date)s.log",
     "mash_log": "/mnt/koji/mash/logs/%(date)s-mash.log",
@@ -235,7 +235,7 @@ class MashSplit(object):
         self.run_mash(whole_path, mash_config)
 
         gitloc = CONFIG["gitloc"]
-        comps_baseloc = CONFIG["comps_baseloc"] % dict(tag=git_tag)
+        baseloc = CONFIG["baseloc"] % dict(tag=git_tag)
         comps_path = CONFIG["comps_path"]
 
         if len(options) != len(compses) or len(compses) != len(output_paths):
@@ -244,7 +244,7 @@ class MashSplit(object):
 
         all_from_comps = set()
         for option, comps, output_path in zip(options, compses, output_paths):
-            comps = self.get_from_git(gitloc, comps_baseloc, comps, comps_path)
+            comps = self.get_from_git(gitloc, baseloc, comps, comps_path)
             comps_pkg_names = self.list_comps(comps)
             all_from_comps.update(comps_pkg_names)
 
