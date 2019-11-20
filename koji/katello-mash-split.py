@@ -315,6 +315,7 @@ def main():
     git_tag = "rpm/{}".format(branch_map[version])
 
     mash_config = "katello-{}-rhel7".format(version)
+    mash_config_pulp = "katello-{}-pulpcore-el7".format(version)
     if version == 'nightly':
         mash_config_candlepin = "katello-thirdparty-candlepin-rhel7"
     else:
@@ -322,9 +323,12 @@ def main():
 
     output_paths = ["katello-{}/katello/el7".format(version)]
     output_paths_candlepin = ["katello-{}/candlepin/el7".format(version)]
+    output_paths_pulp = ["katello-{}/pulpcore/el7".format(version)]
 
     s.mash_split(whole_path, tmp_path, split_path, mash_config, options=arches, arches=arches, compses=["comps-katello-server-rhel7.xml"], git_tag=git_tag, output_paths=output_paths)
     s.mash_split(whole_path, tmp_path, split_path, mash_config_candlepin, options=options, arches=arches, compses=["comps-katello-candlepin-server-rhel7.xml"], git_tag=git_tag, output_paths=output_paths_candlepin)
+    if version == 'nightly':
+        s.mash_split(whole_path, tmp_path, split_path, mash_config_pulp, options=options, arches=arches, compses=["comps-katello-pulpcore-el7.xml"], git_tag=git_tag, output_paths=output_paths_pulp)
 
 if __name__ == "__main__":
     main()
