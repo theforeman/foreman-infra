@@ -19,7 +19,7 @@ def obal(args) {
     }
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-        withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${env.WORKSPACE}/obal"]) {
+        withEnv(['ANSIBLE_FORCE_COLOR=true', "PYTHONPATH=${env.WORKSPACE}/obal:${env.WORKSPACE}/obsah"]) {
             sh "${cmd}"
         }
     }
@@ -30,6 +30,18 @@ def obal(args) {
 }
 
 def setup_obal() {
+    dir("${env.WORKSPACE}/obsah") {
+        checkout([
+            $class : 'GitSCM',
+            poll: false,
+            branches : [[name: 'master']],
+            extensions: [[$class: 'CleanCheckout']],
+            userRemoteConfigs: [
+                [url: 'https://github.com/theforeman/obsah']
+            ]
+        ])
+    }
+
     dir("${env.WORKSPACE}/obal") {
         checkout([
             $class : 'GitSCM',
