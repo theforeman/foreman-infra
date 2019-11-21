@@ -12,7 +12,7 @@
           type: user-defined
           name: os
           values:
-          - xenial
+          - bionic
       - axis:
           type: slave
           name: arch
