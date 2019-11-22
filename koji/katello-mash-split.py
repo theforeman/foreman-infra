@@ -315,7 +315,7 @@ def main():
     git_tag = "rpm/{}".format(branch_map[version])
 
     mash_config = "katello-{}-rhel7".format(version)
-    mash_config_pulp = "katello-{}-pulpcore-el7".format(version)
+    mash_config_pulp = "katello-pulpcore-{}-el7".format(version)
     if version == 'nightly':
         mash_config_candlepin = "katello-thirdparty-candlepin-rhel7"
     else:
