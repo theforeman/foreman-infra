@@ -96,19 +96,19 @@ class web(
       path            => $yum_directory,
       options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
       expires_active  => 'on',
-      expires_default => '"access plus 2 minutes"',
+      expires_default => 'access plus 2 minutes',
     },
     {
       path            => '.+\.(bz2|gz|rpm|xz)$',
       provider        => 'filesmatch',
       expires_active  => 'on',
-      expires_default => '"access plus 30 days"',
+      expires_default => 'access plus 30 days',
     },
     {
       path            => 'repomd.xml',
       provider        => 'files',
       expires_active  => 'on',
-      expires_default => '"access plus 2 minutes"',
+      expires_default => 'access plus 2 minutes',
     },
   ]
 
@@ -191,7 +191,7 @@ class web(
       path            => '.+\.(bz2|csv|gem|gz|img|iso|iso-img|iso-vmlinuz|pdf|tar|webm|rpm|deb)$',
       provider        => 'filesmatch',
       expires_active  => 'on',
-      expires_default => '"access plus 30 days"',
+      expires_default => 'access plus 30 days',
     },
   ]
 

@@ -66,7 +66,7 @@ define freight::user (
     {
       path            => "${webdir}/dists",
       expires_active  => 'on',
-      expires_default => '"access plus 2 minutes"',
+      expires_default => 'access plus 2 minutes',
     },
     {
       path    => "${webdir}/dists/*/.refs/",
@@ -75,7 +75,7 @@ define freight::user (
     {
       path    => "${webdir}/pool",
       expires_active  => 'on',
-      expires_default => '"access plus 30 days"',
+      expires_default => 'access plus 30 days',
     },
   ]
 
