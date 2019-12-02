@@ -2,7 +2,15 @@
     name: foreman-infra-jenkins-jobs-update
     project-type: 'pipeline'
     sandbox: true
+    properties:
+      - github:
+          url: https://github.com/theforeman/foreman-infra
     dsl:
       !include-raw:
         - pipelines/infra/updateJobs.groovy
         - pipelines/lib/virtualEnv.groovy
+    triggers:
+      - github
+      - pollscm:
+          cron: 'H/5 * * * *'
+
