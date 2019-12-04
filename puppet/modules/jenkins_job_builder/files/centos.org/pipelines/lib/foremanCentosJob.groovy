@@ -53,7 +53,7 @@ pipeline {
             archiveArtifacts artifacts: 'debug/**/*.xml', allowEmptyArchive: true
 
             step([$class: "TapPublisher", testResults: "debug/**/*.tap"])
-            junit "debug/**/*.xml"
+            junit testResults: "debug/**/*.xml", allowEmptyResults: true
 
             deprovision()
             deleteDir()
