@@ -66,6 +66,6 @@ namespace :repo do
   end
 
   task :purgecdn do
-    run "find #{repo_path} | sed 's|#{deploy_to}|https://yum.theforeman.org/|' | xargs curl -X PURGE -H 'Fastly-Soft-Purge:1'"
+    run "find #{repo_path} -mtime -3 | sed 's|#{deploy_to}|https://yum.theforeman.org/|' | xargs --no-run-if-empty curl -X PURGE -H 'Fastly-Soft-Purge:1'"
   end
 end
