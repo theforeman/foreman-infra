@@ -32,6 +32,7 @@ namespace :repo do
     prepcache
     rsync
     replace
+    purgecdn
   end
 
   # Copy with hard links the existing repo to minimise rsync later
@@ -62,5 +63,9 @@ namespace :repo do
       run "mv #{repo_instance_path} #{repo_path}"
       run "if [ -e #{repo_instance_path}-previous ]; then rm -rf #{repo_instance_path}-previous; fi" if overwrite || merge
     end
+  end
+
+  task :purgecdn do
+    run "find #{repo_path} | sed 's|#{deploy_to}|https://yum.theforeman.org/|' | xargs curl -X PURGE -H 'Fastly-Soft-Purge:1'"
   end
 end
