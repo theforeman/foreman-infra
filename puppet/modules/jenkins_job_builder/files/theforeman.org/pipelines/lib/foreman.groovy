@@ -17,6 +17,7 @@ def addSettings(settings) {
 
 def configureDatabase(ruby, name = '') {
     withRVM(['bundle install --without=development --jobs=5 --retry=5'], ruby, name)
+    archiveArtifacts(artifacts: 'Gemfile.lock')
     withRVM(['bundle exec rake db:drop || true'], ruby, name)
     withRVM(['bundle exec rake db:create --trace'], ruby, name)
     withRVM(['RAILS_ENV=production bundle exec rake db:create --trace'], ruby, name)
