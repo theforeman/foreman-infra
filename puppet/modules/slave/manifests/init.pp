@@ -150,12 +150,12 @@ class slave (
     source => 'puppet:///modules/slave/JSON.sh',
   }
 
-  # nodejs/npm for Katello JavaScript tests
-  # packages only really available on EL6+
+  # nodejs/npm for JavaScript tests
   if $::osfamily == 'RedHat' {
-    package { 'npm':
-      ensure  => present,
-      require => Package['bzip2'],
+    class { 'nodejs':
+      repo_url_suffix       => '12.x',
+      nodejs_package_ensure => latest,
+      npm_package_ensure    => absent,
     } -> Package <| provider == 'npm' |>
 
     package { 'bower':
