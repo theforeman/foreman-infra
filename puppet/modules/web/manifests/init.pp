@@ -33,6 +33,7 @@ class web(
       'stagingdeb.theforeman.org',
       'www.theforeman.org',
       'yum.theforeman.org',
+      'docs.theforeman.org',
     ],
     webroot_paths => [
       '/var/www/vhosts/web/htdocs',
@@ -42,6 +43,7 @@ class web(
       '/var/www/vhosts/stagingdeb/htdocs',
       '/var/www/vhosts/web/htdocs',
       '/var/www/vhosts/yum/htdocs',
+      '/var/www/vhosts/docs/htdocs',
     ],
   }
 
@@ -127,6 +129,24 @@ class web(
     uid             => 'nobody',
     gid             => 'nobody',
     max_connections => $max_rsync_connections,
+  }
+
+  # DOCS
+  $docs_directory = '/var/www/vhosts/docs/htdocs'
+  $docs_directory_config = [
+    {
+      path            => $docs_directory,
+      options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+      expires_active  => 'on',
+      expires_default => 'access plus 4 hours',
+    },
+  ]
+
+  $docs_attrs = {
+    servername   => 'docs.theforeman.org',
+    docroot      => $docs_directory,
+    docroot_mode => '2575',
+    directories  => $docs_directory_config,
   }
 
   if $::osfamily == 'RedHat' {
@@ -226,6 +246,7 @@ class web(
       'downloads' => $downloads_attrs,
       'web'       => $web_attrs,
       'yum'       => $yum_attrs,
+      'docs'       => $docs_attrs,
     },
     {
       'port'      => '80',
@@ -240,6 +261,7 @@ class web(
         'downloads-https' => $downloads_attrs,
         'web-https'       => $web_attrs,
         'yum-https'       => $yum_attrs,
+        'docs-https'       => $docs_attrs,
       },
       {
         'port'      => '443',
