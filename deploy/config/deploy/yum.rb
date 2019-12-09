@@ -17,6 +17,8 @@ set :repo_path, "#{deploy_to}/#{repo_dest}"
 # hidden directory
 set :repo_instance_path, "#{deploy_to}/#{File.dirname(repo_dest)}/.#{File.basename(repo_dest)}-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}"
 
+set :repo_rsync_log, "/tmp/rsync-#{File.dirname(repo_dest)}-#{File.basename(repo_dest)}-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.log"
+
 role :web, host
 
 ssh_options[:forward_agent] = true
@@ -45,8 +47,10 @@ namespace :repo do
 
   task :rsync do
     opts = merge ? '--exclude=**/repodata/' : '--delete'
-    run "rsync -avH #{opts} #{repo_source_rpm}/* #{repo_instance_path}/"
-    run "rsync -avH #{opts} #{repo_source_srpm}/ #{repo_instance_path}/source/"
+    opts << ' -avH'
+    opts << " --log-file #{repo_rsync_log}"
+    run "rsync #{opts} --log-file-format 'CHANGED %f' #{repo_source_rpm}/* #{repo_instance_path}/"
+    run "rsync #{opts} --log-file-format 'CHANGED source/%f #'{repo_source_srpm}/ #{repo_instance_path}/source/"
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-release-[0-9]*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-release.rpm || true); done}
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-client-release-[0-9]*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-client-release.rpm || true); done}
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; createrepo --skip-symlinks --update .); done} if merge
@@ -66,6 +70,8 @@ namespace :repo do
   end
 
   task :purgecdn do
-    run "find #{repo_path} -mtime -3 | sed 's|#{deploy_to}|https://yum.theforeman.org/|' | xargs --no-run-if-empty curl -X PURGE -H 'Fastly-Soft-Purge:1'"
+    run %Q{awk '/ CHANGED /{print "https://yum.theforeman.org/"#{repo_dest}$5}' #{repo_rsync_log} | xargs --no-run-if-empty curl -X PURGE -H 'Fastly-Soft-Purge:1'}
+    run %Q{for d in #{repo_instance_path}/*; do purge_base="https://yum.theforeman.org/#{repo_dest}/$(basename $d)"; curl -X PURGE -H 'Fastly-Soft-Purge:1' $purge_base/foreman-release.rpm $purge_base/foreman-client-release.rpm; done}
+    run "rm -f #{repo_rsync_log}"
   end
 end
