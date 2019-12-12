@@ -135,18 +135,18 @@ class web(
   $docs_directory = '/var/www/vhosts/docs/htdocs'
   $docs_directory_config = [
     {
-      path            => $docs_directory,
-      options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
-      expires_active  => 'on',
-      expires_default => 'access plus 4 hours',
+      path    => $docs_directory,
+      options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
     },
   ]
 
   $docs_attrs = {
-    servername   => 'docs.theforeman.org',
-    docroot      => $docs_directory,
-    docroot_mode => '2575',
-    directories  => $docs_directory_config,
+    servername    => 'docs.theforeman.org',
+    docroot       => $docs_directory,
+    directories   => $docs_directory_config,
+    docroot_owner => 'website',
+    docroot_group => 'website',
+    docroot_mode  => '0755',
   }
 
   if $::osfamily == 'RedHat' {
