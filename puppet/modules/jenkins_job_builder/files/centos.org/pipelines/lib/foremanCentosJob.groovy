@@ -38,7 +38,7 @@ pipeline {
     post {
         always {
             script {
-                duffy_ssh("cd forklift && ansible-playbook playbooks/collect_debug.yml -l ${playBook['boxes'].join(', ')}", 'duffy_box', './')
+                duffy_ssh("cd forklift && ansible-playbook playbooks/collect_debug.yml -l ${playBook['boxes'].join(',')}", 'duffy_box', './')
                 runPlaybook(
                     playbook: 'foreman-infra/ci/centos.org/ansible/fetch_debug_files.yml',
                     inventory: cico_inventory('./'),
