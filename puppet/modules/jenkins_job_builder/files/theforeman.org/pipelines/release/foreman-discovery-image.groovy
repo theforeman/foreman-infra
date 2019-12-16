@@ -57,7 +57,7 @@ pipeline {
                         sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/releases/ && rm -f latest; ln -snf \$(ls -t | head -n 1) latest; popd' || true"
                     }
 
-                    sh "curl -X PURGE -H 'Fastly-Soft-Purge:1' https://downloads.theforeman.org/discovery/${output_dir}/fdi-image-latest.tar"
+                    sh "curl --silent -X PURGE -H 'Fastly-Soft-Purge:1' https://downloads.theforeman.org/discovery/${output_dir}/fdi-image-latest.tar"
                 }
             }
         }
