@@ -50,7 +50,7 @@ namespace :repo do
     opts << ' -avH'
     opts << " --log-file #{repo_rsync_log}"
     run "rsync #{opts} --log-file-format 'CHANGED %f' #{repo_source_rpm}/* #{repo_instance_path}/"
-    run "rsync #{opts} --log-file-format 'CHANGED source/%f #'{repo_source_srpm}/ #{repo_instance_path}/source/"
+    run "rsync #{opts} --log-file-format 'CHANGED source/%f' #{repo_source_srpm}/ #{repo_instance_path}/source/"
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-release-[0-9]*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-release.rpm || true); done}
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; latest=$(ls -t foreman-client-release-[0-9]*.rpm 2>/dev/null | head -n1); [ -n "$latest" ] && ln -sf $latest foreman-client-release.rpm || true); done}
     run %Q{for d in #{repo_instance_path}/*; do (cd $d; createrepo --skip-symlinks --update .); done} if merge
