@@ -13,10 +13,13 @@ pipeline {
     stages {
         stage('Clone Packaging') {
             steps {
+                script {
+                    $foreman_branch = foreman_version == 'nightly' ? "rpm/develop" : "rpm/${foreman_version}"
+                }
 
                 checkout([
                     $class : 'GitSCM',
-                    branches : [[name: '*/rpm/develop']],
+                    branches : [[name: "*/${foreman_branch}"]],
                     extensions: [[$class: 'CleanCheckout']],
                     userRemoteConfigs: [
                         [url: 'https://github.com/theforeman/foreman-packaging']
@@ -65,10 +68,10 @@ pipeline {
             archive_git_hash()
         }
         failure {
-            emailext(
-                subject: "${env.JOB_NAME} failed for ${packages_to_build.join(',')}",
-                to: 'ericdhelms@gmail.com',
-                body: "Foreman packaging release job failed: ${env.BUILD_URL}"
+            notifyDiscourse(
+              env,
+              "${env.JOB_NAME} failed for ${packages_to_build.join(',')}",
+              "Foreman packaging release job failed: ${env.BUILD_URL}"
             )
         }
     }
