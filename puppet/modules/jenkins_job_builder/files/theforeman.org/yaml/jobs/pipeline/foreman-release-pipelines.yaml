@@ -60,9 +60,7 @@
       - 'foreman-plugins-{version}-rpm-pipeline'
     empty: ''
     version:
-      - '1.22'
-      - '1.23'
-      - '1.24'
+      !include: ../../includes/foreman_versions.yaml.inc
 
 # There is no unified foreman-nightly-release-pipeline
 - project:
