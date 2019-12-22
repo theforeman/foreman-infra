@@ -1,6 +1,0 @@
-- project:
-    name: foreman_docker
-    repo: foreman-docker
-    defaults: plugin
-    jobs:
-      - 'test_plugin_{name}_{branch}'
