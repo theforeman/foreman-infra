@@ -28,7 +28,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '(onlyarch == "all" || onlyarch == arch) && (onlyos == "all" || onlyos == os) && !((version == "1.21" || version == "1.22" || version == "1.23") && os == "buster") && !(version == "nightly" && os == "stretch") && !(version == "nightly" && os == "xenial")'
+      combination-filter: '(onlyarch == "all" || onlyarch == arch) && (onlyos == "all" || onlyos == os) && !((version == "1.22" || version == "1.23") && os == "buster") && !(version == "nightly" && os == "stretch") && !(version == "nightly" && os == "xenial")'
     builders:
       - build_deb_coreproject
     publishers:
