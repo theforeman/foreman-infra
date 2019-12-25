@@ -1,1 +1,13 @@
-require 'puppetlabs_spec_helper/rake_tasks'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.pattern = Rake::FileList['spec/{aliases,classes,defines,functions,hosts,integration,plans,tasks,type_aliases,types,unit}/**/*_spec.rb']
+end
+
+require 'puppet-syntax/tasks/puppet-syntax'
+PuppetSyntax.manifests_paths = ['modules/*/manifests/**/*.pp']
+PuppetSyntax.templates_paths = ['modules/*/templates/**/*.{erb,epp}']
+puts Rake::FileList[PuppetSyntax.templates_paths]
+
+task :test => [:syntax, :spec]
+
+task :default => [:test]
