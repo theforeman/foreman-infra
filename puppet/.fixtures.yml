@@ -1,5 +1,0 @@
-fixtures:
-  repositories:
-    cron_core:
-      repo: "https://github.com/puppetlabs/puppetlabs-cron_core"
-      puppet_version: ">= 6.0.0"
