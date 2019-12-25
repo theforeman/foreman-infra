@@ -25,7 +25,6 @@
           name: ruby
           values:
             - '2.0.0'
-            - '2.3'
             - '2.5'
             - '2.6'
     wrappers:
