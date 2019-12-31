@@ -1,6 +1,7 @@
 # All RPM packaging tools
 # @api private
 class slave::packaging::rpm (
+  Stdlib::Absolutepath $homedir,
   Optional[String] $koji_certificate = undef,
   Optional[String] $copr_login = undef,
   Optional[String] $copr_username = undef,
@@ -11,30 +12,30 @@ class slave::packaging::rpm (
   }
 
   # koji
-  file { '/home/jenkins/bin':
+  file { "${homedir}/bin":
     ensure => directory,
     owner  => 'jenkins',
     group  => 'jenkins',
   }
 
-  file { '/home/jenkins/bin/kkoji':
+  file { "${homedir}/bin/kkoji":
     ensure => link,
     owner  => 'jenkins',
     group  => 'jenkins',
     target => '/usr/bin/koji',
   }
 
-  file { '/home/jenkins/.koji':
+  file { "${homedir}/.koji":
     ensure => directory,
     owner  => 'jenkins',
     group  => 'jenkins',
   }
 
-  file { '/home/jenkins/.koji/katello-config':
+  file { "${homedir}/.koji/katello-config":
     ensure => absent,
   }
 
-  file { '/home/jenkins/.koji/config':
+  file { "${homedir}/.koji/config":
     ensure => file,
     mode   => '0644',
     owner  => 'jenkins',
@@ -43,7 +44,7 @@ class slave::packaging::rpm (
   }
 
   if $koji_certificate {
-    file { '/home/jenkins/.katello.cert':
+    file { "${homedir}/.katello.cert":
       ensure  => file,
       mode    => '0600',
       owner   => 'jenkins',
@@ -56,7 +57,7 @@ class slave::packaging::rpm (
     }
   }
 
-  file { '/home/jenkins/.katello-ca.cert':
+  file { "${homedir}/.katello-ca.cert":
     ensure => file,
     mode   => '0644',
     owner  => 'jenkins',
@@ -69,7 +70,7 @@ class slave::packaging::rpm (
     ensure => latest,
   }
 
-  file { '/home/jenkins/.titorc':
+  file { "${homedir}/.titorc":
     ensure => file,
     mode   => '0644',
     owner  => 'jenkins',
@@ -84,16 +85,18 @@ class slave::packaging::rpm (
   }
 
   # copr
-  package { 'copr-cli':
-    ensure => latest,
-  }
+  if $copr_login {
+    package { 'copr-cli':
+      ensure => latest,
+    }
 
-  file { '/home/jenkins/.config/copr':
-    ensure  => file,
-    mode    => '0640',
-    owner   => 'jenkins',
-    group   => 'jenkins',
-    content => template('slave/copr.erb'),
+    file { "${homedir}/.config/copr":
+      ensure  => file,
+      mode    => '0640',
+      owner   => 'jenkins',
+      group   => 'jenkins',
+      content => template('slave/copr.erb'),
+    }
   }
 
   # specs-from-koji

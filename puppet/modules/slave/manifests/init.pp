@@ -7,46 +7,58 @@ class slave (
   Optional[String] $copr_username       = undef,
   Optional[String] $copr_token          = undef,
   Boolean $uploader                     = true,
+  Stdlib::Absolutepath $homedir         = '/home/jenkins',
+  Stdlib::Absolutepath $workspace       = '/var/lib/workspace',
 ) {
-  file { '/var/lib/workspace':
+  file { $workspace:
     ensure => directory,
     owner  => 'jenkins',
     group  => 'jenkins',
   }
 
-  file { '/var/lib/workspace/workspace':
+  file { "${workspace}/workspace":
     ensure => directory,
     owner  => 'jenkins',
     group  => 'jenkins',
   }
 
-  file { '/home/jenkins/.gitconfig':
+  file { $homedir:
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
+
+  file { "${homedir}/.gitconfig":
     ensure => file,
     owner  => 'jenkins',
     group  => 'jenkins',
     source => 'puppet:///modules/slave/gitconfig',
   }
 
-  file { '/home/jenkins/.gemrc':
+  file { "${homedir}/.gemrc":
     ensure => file,
     owner  => 'jenkins',
     group  => 'jenkins',
     source => 'puppet:///modules/slave/gemrc',
   }
 
-  if $github_user and $github_oauth and $jenkins_build_token {
-    file { '/home/jenkins/.config':
-      ensure => directory,
-      owner  => 'jenkins',
-      group  => 'jenkins',
-    }
+  file { "${homedir}/.config":
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
 
-    file { '/home/jenkins/.config/hub':
+  if $github_user and $github_oauth and $jenkins_build_token {
+    file { "${homedir}/.config/hub":
       ensure  => file,
       mode    => '0600',
       owner   => 'jenkins',
       group   => 'jenkins',
       content => template('slave/hub_config.erb'),
+    }
+  } else {
+    file { "${homedir}/.config/hub":
+      ensure  => absent,
     }
   }
 
@@ -173,7 +185,7 @@ class slave (
     }
 
     # temporary dir
-    file { '/home/jenkins/tmp':
+    file { "${homedir}/tmp":
       ensure => directory,
       owner  => 'jenkins',
       group  => 'jenkins',
@@ -256,6 +268,7 @@ class slave (
   case $facts['os']['family'] {
     'RedHat': {
       class { 'slave::packaging::rpm':
+        homedir          => $homedir,
         koji_certificate => $koji_certificate,
         copr_login       => $copr_login,
         copr_username    => $copr_username,
@@ -265,7 +278,9 @@ class slave (
     }
     'Debian': {
       class { 'slave::packaging::debian':
-        uploader => $uploader,
+        uploader  => $uploader,
+        user      => 'jenkins',
+        workspace => $workspace,
       }
       contain slave::packaging::debian
     }

@@ -1,6 +1,8 @@
 # @api private
 class slave::packaging::debian(
   Boolean $uploader = true,
+  String $user,
+  Stdlib::Absolutepath $workspace,
 ) {
   package { 'gem2deb':
     ensure => present,
@@ -129,7 +131,11 @@ class slave::packaging::debian(
 
   if $uploader {
     # Add freight setup
-    include freight::uploader
+    class { 'freight::uploader':
+      user      => $user,
+      workspace => $workspace,
+    }
+    contain freight::uploader
   }
 
   # TODO: Cleanup failed pbuilder mounts as a cron
