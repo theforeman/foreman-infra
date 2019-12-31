@@ -1,9 +1,13 @@
 def gemset(name = null) {
 
-    def base_name = "${JOB_NAME}-${BUILD_ID}"
+    def base_name = env.BUILD_TAG
+
+    if (EXECUTOR_NUMBER != '0') {
+        base_name += '-' + EXECUTOR_NUMBER
+    }
 
     if (name) {
-        base_name = base_name + '-' + name.replace(".", "-")
+        base_name += '-' + name.replace(".", "-")
     }
 
     base_name
