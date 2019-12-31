@@ -188,10 +188,6 @@ class slave (
       ensure   => '1.7.9',
       provider => npm,
     }
-    package { 'phantomjs':
-      ensure   => latest,
-      provider => npm,
-    }
     package { 'grunt-cli':
       ensure   => present,
       provider => npm,
