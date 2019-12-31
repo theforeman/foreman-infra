@@ -1,0 +1,48 @@
+# parameters:
+#   name: plugin name, e.g. foreman_bootdisk
+#   repo: git repo name as it may differ, e.g. foreman_bootdisk
+#   branch: git repo branch to test, e.g. master
+#   foreman_branch: foreman git repo branch to run on, e.g. develop
+- job-template:
+    name: 'test_foreman_plugin_{plugin}_{branch}'
+    project-type: pipeline
+    sandbox: true
+    properties:
+      - github:
+          url: '{repo}'
+      - tfm-build-discarder
+    parameters:
+      - string:
+          name: plugin_repo
+          default: '{repo}'
+          description: "Git URL containing the Foreman plugin, e.g. <pre>https://github.com/theforeman/foreman_example</pre>"
+      - string:
+          name: plugin_branch
+          default: '{branch}'
+          description: "Git branch name of the Foreman plugin, e.g. <pre>master</pre>"
+      - string:
+          name: plugin_name
+          default: '{plugin}'
+          description: "Name of the Foreman plugin/gem, in the format that should be in the Gemfile, e.g. <pre>foreman_test</pre>"
+      - string:
+          name: foreman_repo
+          default: https://github.com/theforeman/foreman
+          description: "Git URL containing Foreman itself, which the plugin will be added to,
+          e.g. <pre>https://github.com/theforeman/foreman</pre>"
+      - string:
+          name: foreman_branch
+          default: '{foreman_branch}'
+          description: "Git branch name of Foreman itself, e.g. <pre>develop</pre>"
+    quiet-period: 1200
+    triggers:
+      - github
+      - pollscm:
+          cron: 'H/15 * * * *'
+      - timed: 'H H * * 6'
+    dsl:
+      !include-raw:
+        - pipelines/lib/rvm.groovy{empty}
+        - pipelines/lib/foreman.groovy{empty}
+        - pipelines/test/foreman_plugin.groovy{empty}
+    publishers:
+      - ircbot_freenode
