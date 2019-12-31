@@ -2,7 +2,7 @@ class slave (
   Optional[String] $koji_certificate    = undef,
   Boolean $uploader                     = true,
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
-  Stdlib::Absolutepath $workspace       = '/var/lib/workspace',
+  Stdlib::Absolutepath $workspace       = '/home/jenkins/workspace',
 ) {
   include git
 

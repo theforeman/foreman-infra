@@ -11,7 +11,7 @@ DEB_PATH=./dependencies/${os}/build-${project}
 
 # Upload all builds to stagingdeb for testing
 echo "scratch build: uploading to stagingdeb/${os}/${repoowner}-${version}"
-export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/staging_key/rsync_freightstage_key"
+export RSYNC_RSH="ssh -i /home/jenkins/workspace/staging_key/rsync_freightstage_key"
 USER=freightstage
 HOST=web02
 COMPONENT=${repoowner}-${version}

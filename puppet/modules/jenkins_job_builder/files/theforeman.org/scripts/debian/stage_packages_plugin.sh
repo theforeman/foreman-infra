@@ -12,7 +12,7 @@ DEB_PATH=./plugins/build-${project}
 # Don't upload scratch builds to deb.tf.o
 if [ x$repoowner = xtheforeman ] && [ x$pr_number = x ]; then
   echo "Built from main repo, uploading to deb/plugins/main"
-  export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/deb_key/rsync_freight_key"
+  export RSYNC_RSH="ssh -i /home/jenkins/workspace/deb_key/rsync_freight_key"
   USER=freight
   if [ x$repo = xdevelop ]; then
     COMPONENT=nightly
@@ -21,7 +21,7 @@ if [ x$repoowner = xtheforeman ] && [ x$pr_number = x ]; then
   fi
 else
   echo "scratch build: uploading to stagingdeb/plugins/${repoowner}"
-  export RSYNC_RSH="ssh -i /var/lib/workspace/workspace/staging_key/rsync_freightstage_key"
+  export RSYNC_RSH="ssh -i /home/jenkins/workspace/staging_key/rsync_freightstage_key"
   USER=freightstage
   COMPONENT=${repoowner}
 fi
