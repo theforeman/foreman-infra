@@ -8,7 +8,7 @@ class slave (
   Optional[String] $copr_token          = undef,
   Boolean $uploader                     = true,
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
-  Stdlib::Absolutepath $workspace       = '/var/lib/workspace',
+  Stdlib::Absolutepath $workspace       = '/home/jenkins/workspace',
 ) {
   # On Debian we use pbuilder with sudo
   $sudo = $facts['osfamily'] ? {
