@@ -32,7 +32,6 @@ pipeline {
                 sshagent(['deploy-website']) {
                     // Copy the site to the web node
                     // Dependencies
-                    // * the slave must have the web::uploader class
                     // * the web node must have the web class
                     sh "/usr/bin/rsync --archive --checksum --verbose --one-file-system --compress --stats --delete-after ./_site/ ${target_path}"
                 }
