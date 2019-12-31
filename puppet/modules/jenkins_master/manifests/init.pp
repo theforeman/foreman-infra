@@ -1,7 +1,6 @@
 class jenkins_master {
   # Devel is needed for jar unpacking support
-  $packages     = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig']
-  $old_packages = ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-headless', 'java-1.8.0-openjdk-devel']
+  $packages = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig']
 
   # Get the list by going to /script on jenkins and running:
   # Jenkins.instance.pluginManager.plugins.toArray().sort{ plugin -> plugin.getShortName()}.each{
@@ -188,11 +187,6 @@ class jenkins_master {
 
   ensure_packages($packages)
 
-  package { $old_packages:
-    ensure  => 'absent',
-    require => Package[$packages],
-  }
-
   class { 'jenkins':
     install_java      => false,
     lts               => true,
@@ -202,10 +196,9 @@ class jenkins_master {
     config_hash       => {
       'JENKINS_JAVA_OPTIONS' => {
         'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx2048m',
-      }
+      },
     },
     require           => Package[$packages],
-    subscribe         => Package[$old_packages],
   }
 
 }
