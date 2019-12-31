@@ -42,6 +42,7 @@ define users::account(
     $sudo_ensure = $ensure
   }
 
+  include sudo
   sudo::conf { "sudo-puppet-${name}":
     ensure  => $sudo_ensure,
     content => "${name} ${sudo}",

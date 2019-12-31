@@ -10,6 +10,17 @@ class slave (
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
   Stdlib::Absolutepath $workspace       = '/var/lib/workspace',
 ) {
+  # On Debian we use pbuilder with sudo
+  $sudo = $facts['osfamily'] ? {
+    'Debian' => 'ALL=NOPASSWD: ALL',
+    default  => '',
+  }
+
+  users::account { 'jenkins':
+    homedir => $homedir,
+    sudo    => $sudo,
+  }
+
   file { $workspace:
     ensure => directory,
     owner  => 'jenkins',
@@ -22,10 +33,12 @@ class slave (
     group  => 'jenkins',
   }
 
-  file { $homedir:
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
+  file { '/home/jenkins/.ssh/config':
+    ensure  => file,
+    mode    => '0600',
+    owner   => 'jenkins',
+    group   => 'jenkins',
+    content => "StrictHostKeyChecking no\n",
   }
 
   file { "${homedir}/.gitconfig":

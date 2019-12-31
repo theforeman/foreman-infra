@@ -12,6 +12,11 @@ describe 'slave' do
           {uploader: false}
         end
         it { is_expected.to compile.with_all_deps }
+        if facts[:osfamily] == 'Debian'
+          it { is_expected.to contain_users__account('jenkins').with_sudo('ALL=NOPASSWD: ALL') }
+        else
+          it { is_expected.to contain_users__account('jenkins').with_sudo('') }
+        end
       end
     end
   end
