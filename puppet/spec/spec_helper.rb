@@ -18,7 +18,7 @@ def on_supported_os(opts = {})
     },
     {
       'operatingsystem'        => 'Ubuntu',
-      'operatingsystemrelease' => ['16.04'],
+      'operatingsystemrelease' => ['18.04'],
     },
   ]
   super(opts)
