@@ -4,8 +4,20 @@ Foreman Infrastructure
 ### Summary
 This repo contains puppet modules that are used to manage infrastructure used by the Foreman project. These modules manage many different pieces of software, including Jenkins build slaves, package build machines, the Jenkins frontend, as well as an internal Foreman instance and puppetmaster.
 
-### Updates
-For more information what's currently being worked on, see the [Infrastructure Updates](https://projects.theforeman.org/projects/foreman/wiki/Infrastructure_Updates) page in the Foreman wiki.
+### Puppet module directories
+The `puppet` folder contains the following directories for Puppet modules:
+
+#### `forge_modules`
+Modules straight from the [Puppet Forge](https://forge.puppet.com).
+
+#### `git_modules`
+Modules from other git repositories, not available from the Forge, this should be avoided, especially for new modules.
+
+#### `modules`
+Our own custom modules, relevant only in this particular repository for this particular setup.
+
+#### `test_modules`
+Modules relevant only in the Puppet spec tests, e.g. Puppet's core modules, that are coming bundled with the agent in a real setup.
 
 ### Jenkins Job Naming conventions
 
