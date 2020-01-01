@@ -11,6 +11,38 @@ pipeline {
     stages {
         stage('Test Matrix') {
             parallel {
+                stage('ruby-2.7-postgres') {
+                    agent { label 'fast' }
+                    environment {
+                        RUBY_VER = '2.7'
+                        GEMSET = 'ruby-2.7-postgres'
+                    }
+                    stages {
+                        stage("setup-2.7-postgres") {
+                            steps {
+                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                                script {
+                                    commit_hash = archive_git_hash()
+                                }
+                                configureRVM(env.RUBY_VER, env.GEMSET)
+                                databaseFile(gemset(env.GEMSET))
+                                configureDatabase(env.RUBY_VER, env.GEMSET)
+                            }
+                        }
+                        stage("unit-tests-2.7-postgres") {
+                            steps {
+                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
+                            }
+                        }
+                    }
+                    post {
+                        always {
+                            cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
+                            deleteDir()
+                        }
+                    }
+                }
                 stage('ruby-2.6-postgres') {
                     agent { label 'fast' }
                     environment {
