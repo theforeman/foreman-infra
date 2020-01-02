@@ -17,7 +17,7 @@ pipeline {
             agent { label 'sshkey' }
 
             steps {
-                mash('foreman-mash-split.py', 'nightly')
+                mash('foreman', 'nightly')
             }
         }
         stage('Repoclosure') {

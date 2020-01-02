@@ -25,8 +25,8 @@ void push_debs_direct(os, repo) {
     }
 }
 
-void mash(filename, version = '') {
+void mash(collection, version) {
     sshagent(['mash']) {
-        sh "ssh -o 'BatchMode yes' root@koji.katello.org ${filename} ${version}"
+        sh "ssh -o 'BatchMode yes' root@koji.katello.org collection-mash-split.py ${collection} ${version}"
     }
 }
