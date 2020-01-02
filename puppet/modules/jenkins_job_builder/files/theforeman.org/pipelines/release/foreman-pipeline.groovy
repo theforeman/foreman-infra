@@ -12,16 +12,16 @@ pipeline {
         stage('Mash Koji Repositories') {
             agent { label 'sshkey' }
             steps {
-                mash("foreman-mash-split.py", foreman_version)
+                mash("foreman", foreman_version)
             }
         }
         stage('Mash Rails Koji Repositories') {
             agent { label 'sshkey' }
             when {
                 expression { foreman_version == '1.23' || foreman_version == '1.24' }
-	          }
+            }
             steps {
-	             mash("foreman-rails-mash-split.py", foreman_version)
+                mash("foreman-rails", foreman_version)
             }
         }
         stage('Repoclosure') {

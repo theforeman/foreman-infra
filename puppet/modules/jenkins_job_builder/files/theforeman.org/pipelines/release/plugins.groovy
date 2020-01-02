@@ -13,7 +13,7 @@ pipeline {
             agent { label 'sshkey' }
 
             steps {
-                mash('foreman-plugins-mash-split.py', foreman_version)
+                mash('foreman-plugins', foreman_version)
             }
         }
         stage('Repoclosure') {
