@@ -28,6 +28,7 @@
           values:
             - 2.5
             - 2.6
+            - 2.7
     builders:
       - shell: !include-raw: scripts/test/test_hammer_cli_foreman_pull_request.sh
     publishers:
