@@ -5,13 +5,3 @@
           url: https://github.com/theforeman/kafo.git
           branches:
             - '{branch}'
-
-- scm:
-    name: kafo_pr
-    scm:
-      - git:
-          url: https://github.com/theforeman/kafo.git
-          wipe-workspace: true
-          branches:
-            - '${ghprbActualCommit}'
-          refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
