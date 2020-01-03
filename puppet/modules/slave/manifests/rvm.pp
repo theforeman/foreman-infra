@@ -7,6 +7,7 @@ class slave::rvm {
     user       => 'root',
     key_source => 'https://rvm.io/pkuczynski.asc',
     key_type   => public,
+    require    => Package['wget'],
   } ->
   class { '::rvm':
     version => '1.29.9',

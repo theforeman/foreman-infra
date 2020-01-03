@@ -144,6 +144,8 @@ class slave (
       ensure => present;
     'unzip':
       ensure => present;
+    'wget':
+      ensure => present;
     'ansible':
       ensure => latest;
     'python-virtualenv':
