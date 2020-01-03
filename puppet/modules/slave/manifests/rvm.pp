@@ -20,14 +20,17 @@ class slave::rvm {
 
     if $::architecture == 'x86_64' or $::architecture == 'amd64' {
       slave::rvm_config { 'ruby-2.0.0':
-        version => 'ruby-2.0.0-p648',
+        version          => 'ruby-2.0.0-p648',
+        rubygems_version => '2.7.10',
       }
     }
     slave::rvm_config { 'ruby-2.1':
-      version => 'ruby-2.1.5',
+      version          => 'ruby-2.1.5',
+      rubygems_version => '2.7.10',
     }
     slave::rvm_config { 'ruby-2.2':
-      version => 'ruby-2.2.5',
+      version          => 'ruby-2.2.5',
+      rubygems_version => '2.7.10',
     }
     slave::rvm_config { 'ruby-2.3':
       version => 'ruby-2.3.5',
@@ -39,12 +42,10 @@ class slave::rvm {
       version => 'ruby-2.5.1',
     }
     slave::rvm_config { 'ruby-2.6':
-      version          => 'ruby-2.6.3',
-      rubygems_version => '3.0.3',
+      version => 'ruby-2.6.3',
     }
     slave::rvm_config { 'ruby-2.7':
-      version          => 'ruby-2.7.0',
-      rubygems_version => '3.1.2',
+      version => 'ruby-2.7.0',
     }
 
     # Cleanup log dirs
