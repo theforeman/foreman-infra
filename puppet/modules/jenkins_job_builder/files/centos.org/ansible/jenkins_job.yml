@@ -99,7 +99,7 @@
         password: "{{ jenkins_password }}"
         url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/api/json"
       register: build_job_result
-      until: (build_job_result.json is defined) and (not build_job_result.json.building) and (build_job_result.json.result == 'SUCCESS' or build_job_result.json.result == 'FAILURE')
+      until: (build_job_result.json is defined) and (not build_job_result.json.building) and (build_job_result.json.result == 'SUCCESS' or build_job_result.json.result == 'FAILURE' or build_job_result.json.result == 'UNSTABLE')
       retries: 360
       delay: 30
 
