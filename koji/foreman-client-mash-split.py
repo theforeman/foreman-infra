@@ -304,6 +304,7 @@ def main():
     split_path = "/mnt/koji/releases/split"
 
     dists = {
+        "el8": "el8",
         "rhel7": "el7",
         "rhel6": "el6",
         "rhel5": "el5",
