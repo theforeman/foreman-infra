@@ -1,4 +1,4 @@
 def playBookVars() {
-    playBook = ['boxes': ['pipeline-foreman-server-nightly-ubuntu1804'], 'pipeline': 'install_pipeline.yml', 'extraVars': ['pipeline_version': 'nightly', 'pipeline_os': 'ubuntu1804', 'pipeline_type': 'foreman']]
+    playBook = pipelineVars(action: 'install', type: 'foreman', version: 'nightly', os: 'ubuntu1804')
     return playBook
 }

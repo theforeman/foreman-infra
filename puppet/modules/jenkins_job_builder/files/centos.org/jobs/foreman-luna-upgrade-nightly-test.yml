@@ -6,6 +6,7 @@
     dsl:
       !include-raw:
         - pipelines/lib/foremanCentosJob.groovy
+        - pipelines/lib/pipelines.groovy
         - pipelines/test/luna/nightly-upgrade.groovy
         - ../theforeman.org/pipelines/lib/ansible.groovy
         - ../theforeman.org/pipelines/lib/duffy.groovy

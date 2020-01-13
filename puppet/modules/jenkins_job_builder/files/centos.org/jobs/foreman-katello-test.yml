@@ -5,6 +5,7 @@
     dsl:
       !include-raw:
         - 'pipelines/lib/foremanCentosJob.groovy{empty}'
+        - 'pipelines/lib/pipelines.groovy{empty}'
         - 'pipelines/test/katello/{version}.groovy'
         - '../theforeman.org/pipelines/lib/ansible.groovy{empty}'
         - '../theforeman.org/pipelines/lib/duffy.groovy{empty}'
@@ -17,6 +18,7 @@
     dsl:
       !include-raw:
         - 'pipelines/lib/foremanCentosJob.groovy{empty}'
+        - 'pipelines/lib/pipelines.groovy{empty}'
         - 'pipelines/test/katello/{version}-upgrade.groovy'
         - '../theforeman.org/pipelines/lib/ansible.groovy{empty}'
         - '../theforeman.org/pipelines/lib/duffy.groovy{empty}'
