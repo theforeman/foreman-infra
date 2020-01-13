@@ -6,6 +6,7 @@
     dsl:
       !include-raw:
         - pipelines/lib/foremanCentosJob.groovy{empty}
+        - pipelines/lib/pipelines.groovy{empty}
         - pipelines/test/foreman/nightly-{distro}.groovy
         - ../theforeman.org/pipelines/lib/duffy.groovy{empty}
         - ../theforeman.org/pipelines/lib/ansible.groovy{empty}
