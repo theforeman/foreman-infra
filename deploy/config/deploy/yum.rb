@@ -17,7 +17,7 @@ set :repo_path, "#{deploy_to}/#{repo_dest}"
 # hidden directory
 set :repo_instance_path, "#{deploy_to}/#{File.dirname(repo_dest)}/.#{File.basename(repo_dest)}-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}"
 
-set :repo_rsync_log, "/tmp/rsync-#{File.dirname(repo_dest)}-#{File.basename(repo_dest)}-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.log"
+set :repo_rsync_log, "/tmp/rsync-#{repo_dest.gsub('/', '-')}-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.log"
 
 role :web, host
 
