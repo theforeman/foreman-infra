@@ -318,9 +318,8 @@ def main():
     else:
         git_tag = "rpm/{}".format(version)
 
-        if version in ('1.20', '1.21'):
-            del dists['fedora29']
-            dists['fedora27'] = 'fc27'
+        if version in ('1.22', '1.23', '1.24'):
+            del dists['el8']
 
     for dist, code in dists.items():
         koji_tag = "foreman-client-{}-{}".format(version, dist)
