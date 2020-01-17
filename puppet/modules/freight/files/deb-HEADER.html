@@ -1,7 +1,4 @@
-<title>The Debian Foreman repo</title>
-<head><h1>The Debian Foreman repo</h1></head>
-<body>
-<p>The distros have changed!</p>
+<h1>The Debian Foreman repo</h1>
 
 <p>You will find them at:</p>
 
@@ -9,19 +6,21 @@
 
 <p>Currently we have</p>
 
-<pre> deb http://deb.theforeman.org/ stretch stable
-deb http://deb.theforeman.org/ xenial stable
-deb http://deb.theforeman.org/ bionic stable
-deb http://deb.theforeman.org/ stretch &lt;version&gt;
+<pre>deb http://deb.theforeman.org/ stretch &lt;version&gt;
+deb http://deb.theforeman.org/ buster &lt;version&gt;
 deb http://deb.theforeman.org/ xenial &lt;version&gt;
 deb http://deb.theforeman.org/ bionic &lt;version&gt;
-deb http://deb.theforeman.org/ stretch nightly
-deb http://deb.theforeman.org/ xenial nightly
+deb http://deb.theforeman.org/ buster nightly
 deb http://deb.theforeman.org/ bionic nightly
 
-deb http://deb.theforeman.org/ plugins stable
 deb http://deb.theforeman.org/ plugins &lt;version&gt;
 deb http://deb.theforeman.org/ plugins nightly</pre>
+
+<p>An example of how to add it:</p>
+
+<pre>wget https://deb.theforeman.org/foreman.asc -O - | apt-key add
+echo "deb http://deb.theforeman.org/ buster nightly" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list</pre>
 
 <p>This repo is also available over rsync at <code>rsync://rsync.theforeman.org/deb</code>.</p>
 
@@ -29,4 +28,3 @@ deb http://deb.theforeman.org/ plugins nightly</pre>
 
 <p>If you have any issues, you can find the forum at <a href="https://community.theforeman.org/">community.theforeman.org</a> or on IRC (<a href="https://freenode.net/">freenode</a>, <a href="irc://chat.freenode.net/theforeman">#theforeman</a>)</p>
 <br/>
-</body>
