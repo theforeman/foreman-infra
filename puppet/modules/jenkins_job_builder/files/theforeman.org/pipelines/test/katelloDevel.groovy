@@ -10,6 +10,8 @@ pipeline {
 
     stages {
         stage('katello devel forklift pipeline tests') {
+            agent { label 'el' }
+
             steps {
                 runCicoJob("foreman-katello-devel-test")
             }
