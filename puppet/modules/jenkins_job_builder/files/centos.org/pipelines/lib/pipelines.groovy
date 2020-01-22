@@ -15,7 +15,7 @@ def pipelineVars(Map args) {
     ]
 
     if (args.extra_vars != null) {
-        extra_vars.update(args.extra_vars)
+        extra_vars.putAll(args.extra_vars)
     }
 
     vars = [
