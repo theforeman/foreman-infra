@@ -147,7 +147,7 @@
 	path = puppet/forge_modules/yum_cron
 	url = https://github.com/treydock/puppet-yum_cron.git
 [submodule "puppet/modules/mailalias_core"]
-	path = puppet/test_modules/mailalias_core
+	path = puppet/forge_modules/mailalias_core
 	url = https://github.com/puppetlabs/puppetlabs-mailalias_core.git
 [submodule "puppet/modules/yumrepo_core"]
 	path = puppet/test_modules/yumrepo_core
