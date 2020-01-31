@@ -1,154 +1,22 @@
-[submodule "puppet/modules/concat"]
-	path = puppet/forge_modules/concat
-	url = https://github.com/ripienaar/puppet-concat.git
-[submodule "puppet/modules/jenkins"]
-	path = puppet/forge_modules/jenkins
-	url = https://github.com/jenkinsci/puppet-jenkins.git
 [submodule "puppet/modules/rvm"]
 	path = puppet/git_modules/rvm
 	url = https://github.com/maestrodev/puppet-rvm.git
-[submodule "puppet/modules/postgresql"]
-	path = puppet/forge_modules/postgresql
-	url = https://github.com/puppetlabs/puppet-postgresql.git
-[submodule "puppet/modules/mysql"]
-	path = puppet/forge_modules/mysql
-	url = https://github.com/puppetlabs/puppetlabs-mysql.git
-[submodule "puppet/modules/stdlib"]
-	path = puppet/forge_modules/stdlib
-	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
-[submodule "puppet/modules/sudo"]
-	path = puppet/forge_modules/sudo
-	url = https://github.com/saz/puppet-sudo.git
-[submodule "puppet/modules/foreman_proxy"]
-	path = puppet/forge_modules/foreman_proxy
-	url = https://github.com/theforeman/puppet-foreman_proxy.git
-[submodule "puppet/modules/tftp"]
-	path = puppet/forge_modules/tftp
-	url = https://github.com/theforeman/puppet-tftp.git
-[submodule "puppet/modules/puppet"]
-	path = puppet/forge_modules/puppet
-	url = https://github.com/theforeman/puppet-puppet.git
-[submodule "puppet/modules/foreman"]
-	path = puppet/forge_modules/foreman
-	url = https://github.com/theforeman/puppet-foreman.git
-[submodule "puppet/modules/xinetd"]
-	path = puppet/forge_modules/xinetd
-	url = https://github.com/puppetlabs/puppetlabs-xinetd.git
-[submodule "puppet/modules/epel"]
-	path = puppet/forge_modules/epel
-	url = https://github.com/stahnma/puppet-module-epel.git
 [submodule "puppet/modules/ssh_statickeys"]
 	path = puppet/git_modules/ssh_statickeys
 	url = https://github.com/GregSutcliffe/puppet-ssh_statickeys
 [submodule "puppet/modules/dirvish"]
 	path = puppet/git_modules/dirvish
 	url = https://github.com/GregSutcliffe/puppet-dirvish
-[submodule "puppet/modules/git"]
-	path = puppet/forge_modules/git
-	url = https://github.com/theforeman/puppet-git.git
-[submodule "puppet/modules/timezone"]
-	path = puppet/forge_modules/timezone
-	url = https://github.com/BashtonLtd/puppet-timezone.git
-[submodule "puppet/modules/rsync"]
-	path = puppet/forge_modules/rsync
-	url = https://github.com/puppetlabs/puppetlabs-rsync.git
-[submodule "puppet/modules/nodejs"]
-	path = puppet/forge_modules/nodejs
-	url = https://github.com/voxpupuli/puppet-nodejs.git
-[submodule "puppet/modules/mount_providers"]
-	path = puppet/forge_modules/mount_providers
-	url = https://github.com/puppetlabs/puppetlabs-mount_providers.git
-[submodule "puppet/modules/apt"]
-	path = puppet/forge_modules/apt
-	url = https://github.com/puppetlabs/puppetlabs-apt.git
-[submodule "puppet/modules/vcsrepo"]
-	path = puppet/forge_modules/vcsrepo
-	url = https://github.com/puppetlabs/puppetlabs-vcsrepo
 [submodule "puppet/modules/external_ip"]
 	path = puppet/git_modules/external_ip
 	url = https://github.com/nightfly19/puppet-external_ip
-[submodule "puppet/modules/apache"]
-	path = puppet/forge_modules/apache
-	url = https://github.com/puppetlabs/puppetlabs-apache.git
-[submodule "puppet/modules/selinux"]
-	path = puppet/forge_modules/selinux
-	url = https://github.com/voxpupuli/puppet-selinux.git
-[submodule "puppet/modules/letsencrypt"]
-	path = puppet/forge_modules/letsencrypt
-	url = https://github.com/voxpupuli/puppet-letsencrypt.git
-[submodule "puppet/modules/inifile"]
-	path = puppet/forge_modules/inifile
-	url = https://github.com/puppetlabs/puppetlabs-inifile.git
-[submodule "puppet/modules/ntp"]
-	path = puppet/forge_modules/ntp
-	url = https://github.com/puppetlabs/puppetlabs-ntp.git
-[submodule "puppet/modules/pbuilder"]
-	path = puppet/forge_modules/pbuilder
-	url = https://github.com/camptocamp/puppet-pbuilder.git
-[submodule "puppet/modules/staging"]
-	path = puppet/forge_modules/staging
-	url = https://github.com/voxpupuli/puppet-staging.git
-[submodule "puppet/modules/archive"]
-	path = puppet/forge_modules/archive
-	url = https://github.com/voxpupuli/puppet-archive.git
-[submodule "puppet/modules/extlib"]
-	path = puppet/forge_modules/extlib
-	url = https://github.com/voxpupuli/puppet-extlib.git
-[submodule "puppet/modules/augeasproviders_core"]
-	path = puppet/forge_modules/augeasproviders_core
-	url = https://github.com/hercules-team/augeasproviders_core.git
-[submodule "puppet/modules/augeasproviders_mounttab"]
-	path = puppet/forge_modules/augeasproviders_mounttab
-	url = https://github.com/hercules-team/augeasproviders_mounttab.git
-[submodule "puppet/modules/gnupg"]
-	path = puppet/forge_modules/gnupg
-	url = https://github.com/dgolja/golja-gnupg.git
-[submodule "puppet/modules/java"]
-	path = puppet/forge_modules/java
-	url = https://github.com/puppetlabs/puppetlabs-java.git
-[submodule "puppet/modules/augeasproviders_shellvar"]
-	path = puppet/forge_modules/augeasproviders_shellvar
-	url = https://github.com/hercules-team/augeasproviders_shellvar.git
-[submodule "puppet/modules/augeasproviders_ssh"]
-	path = puppet/forge_modules/augeasproviders_ssh
-	url = https://github.com/hercules-team/augeasproviders_ssh.git
-[submodule "puppet/modules/datacat"]
-	path = puppet/forge_modules/datacat
-	url = https://github.com/richardc/puppet-datacat.git
 [submodule "puppet/modules/htpasswd"]
 	path = puppet/git_modules/htpasswd
 	url = https://github.com/ghoneycutt/puppet-htpasswd
-[submodule "puppet/modules/translate"]
-	path = puppet/forge_modules/translate
-	url = https://github.com/puppetlabs/puppetlabs-translate.git
-[submodule "puppet/modules/docker"]
-	path = puppet/forge_modules/docker
-	url = https://github.com/puppetlabs/puppetlabs-docker
-[submodule "puppet/modules/reboot"]
-	path = puppet/forge_modules/reboot
-	url = https://github.com/puppetlabs/puppetlabs-reboot.git
-[submodule "puppet/modules/powershell"]
-	path = puppet/forge_modules/powershell
-	url = https://github.com/puppetlabs/puppetlabs-powershell.git
-[submodule "puppet/modules/unattended_upgrades"]
-	path = puppet/forge_modules/unattended_upgrades
-	url = https://github.com/voxpupuli/puppet-unattended_upgrades.git
-[submodule "puppet/modules/systemd"]
-	path = puppet/forge_modules/systemd
-	url = https://github.com/camptocamp/puppet-systemd
-[submodule "puppet/modules/transition"]
-	path = puppet/forge_modules/transition
-	url = https://github.com/puppetlabs/puppetlabs-transition
 [submodule "ansible/roles/Jimdo.fastly"]
 	path = ansible/roles/Jimdo.fastly
 	url = https://github.com/evgeni/ansible-fastly
 	branch = theforeman
-[submodule "puppet/modules/yum_cron"]
-	path = puppet/forge_modules/yum_cron
-	url = https://github.com/treydock/puppet-yum_cron.git
-[submodule "puppet/modules/mailalias_core"]
-	path = puppet/forge_modules/mailalias_core
-	url = https://github.com/puppetlabs/puppetlabs-mailalias_core.git
 [submodule "puppet/modules/yumrepo_core"]
 	path = puppet/test_modules/yumrepo_core
 	url = https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
