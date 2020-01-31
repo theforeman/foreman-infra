@@ -5,7 +5,7 @@
 	path = puppet/forge_modules/jenkins
 	url = https://github.com/jenkinsci/puppet-jenkins.git
 [submodule "puppet/modules/rvm"]
-	path = puppet/forge_modules/rvm
+	path = puppet/git_modules/rvm
 	url = https://github.com/maestrodev/puppet-rvm.git
 [submodule "puppet/modules/postgresql"]
 	path = puppet/forge_modules/postgresql
@@ -116,7 +116,7 @@
 	path = puppet/forge_modules/datacat
 	url = https://github.com/richardc/puppet-datacat.git
 [submodule "puppet/modules/htpasswd"]
-	path = puppet/forge_modules/htpasswd
+	path = puppet/git_modules/htpasswd
 	url = https://github.com/ghoneycutt/puppet-htpasswd
 [submodule "puppet/modules/translate"]
 	path = puppet/forge_modules/translate
