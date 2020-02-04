@@ -14,7 +14,7 @@ pipeline {
         stage('Clone Packaging') {
             steps {
                 script {
-                    $foreman_branch = foreman_version == 'nightly' ? "rpm/develop" : "rpm/${foreman_version}"
+                    foreman_branch = foreman_version == 'nightly' ? "rpm/develop" : "rpm/${foreman_version}"
                 }
 
                 checkout([
