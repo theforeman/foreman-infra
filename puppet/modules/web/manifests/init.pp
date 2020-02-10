@@ -14,7 +14,7 @@
 #
 class web(
   String $stable = '1.24',
-  String $next = '2.0',
+  String $next = '2.1',
   Hash[String, Hash] $htpasswds = {},
   Boolean $https = false,
   Boolean $setup_receiver = true,
