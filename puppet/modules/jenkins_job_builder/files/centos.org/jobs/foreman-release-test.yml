@@ -34,6 +34,6 @@
       - ubuntu1604
       - ubuntu1804
     foreman_version:
-      - '1.22'
       - '1.23'
       - '1.24'
+      - '2.0'
