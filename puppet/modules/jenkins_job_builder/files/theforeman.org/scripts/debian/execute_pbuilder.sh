@@ -32,7 +32,7 @@ if [[ x$repo =~ ^xdevelop ]]; then
   # Set this in case we need it
   LAST_COMMIT=`curl "${json_url}" | /usr/local/bin/JSON.sh -b | egrep '"lastBuiltRevision","SHA1"' | awk '{print $NF}' | tr -d \" | head -n1`
 else
-  VERSION=`echo ${VERSION} | tr '~rc' '-RC'`
+  VERSION=`echo ${VERSION} | tr '~rc' '-rc'`
   # Download sources
   wget http://downloads.theforeman.org/${project}/${project}-${VERSION}.tar.bz2
   wget http://downloads.theforeman.org/${project}/${project}-${VERSION}.tar.bz2.sig
