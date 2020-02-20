@@ -362,6 +362,10 @@ def comps_name(collection, suffix):
     return "comps-{}-{}.xml".format(collection, suffix)
 
 
+def comps_path(collection, version, directory):
+    return "{}-{}/{}".format(collection, version, directory)
+
+
 def main():
     try:
         collection = sys.argv[1]
@@ -390,7 +394,7 @@ def main():
         mashes = [
             (
                 mash_config_name(collection, version, "rhel7-dist"),
-                {comps_name(collection, "rhel7"): "{}-{}/RHEL/7".format(collection, version)},
+                {comps_name(collection, "rhel7"): comps_path(collection, version, "RHEL/7")},
                 extras,
             ),
         ]
@@ -418,7 +422,7 @@ def main():
         for dist, code in dists.items():
             mashes.append((
                 mash_config_name(collection, version, dist),
-                {comps_name(collection, dist): "{}-{}/{}".format(collection, version, code)},
+                {comps_name(collection, dist): comps_path(collection, version, code)},
                 [],
             ))
     elif collection == 'foreman-rails':
@@ -429,7 +433,7 @@ def main():
         mashes = [
             (
                 mash_config_name(collection, version, "rhel7"),
-                {comps_name(scl, "rhel7"): "{}-{}/el7".format(collection, version)},
+                {comps_name(scl, "rhel7"): comps_path(collection, version, "el7")},
                 []
             ),
         ]
@@ -452,12 +456,12 @@ def main():
         mashes = [
             (
                 mash_config_name(collection, version, "rhel7"),
-                {comps_name("katello-server", "rhel7"): "katello-{}/katello/el7".format(version)},
+                {comps_name("katello-server", "rhel7"): comps_path(collection, version, "katello/el7")},
                 [],
             ),
             (
                 mash_config_candlepin,
-                {comps_name("katello-candlepin-server", "rhel7"): "katello-{}/candlepin/el7".format(version)},
+                {comps_name("katello-candlepin-server", "rhel7"): comps_path(collection, version, "candlepin/el7")},
                 [],
             ),
         ]
@@ -465,7 +469,7 @@ def main():
         if version not in ['3.12', '3.13', '3.14']:
             mashes.append((
                 mash_config_name("katello-pulpcore", version, "el7"),
-                {comps_name("katello-pulpcore", "el7"): "katello-{}/pulpcore/el7".format(version)},
+                {comps_name("katello-pulpcore", "el7"): comps_path(collection, version, "pulpcore/el7")},
                 [],
             ))
     else:
