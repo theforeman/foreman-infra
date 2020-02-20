@@ -39,6 +39,7 @@
 - project:
     name: smart-proxy-plugin-pull-request
     plugin:
+      - dhcp_remote_isc
       - discovery
       - dynflow
       - monitoring

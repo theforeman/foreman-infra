@@ -40,6 +40,7 @@
 - project:
     name: smart-proxy-plugin
     plugin:
+      - dhcp_remote_isc
       - discovery:
           branch: develop # have to be the special child
       - dynflow
