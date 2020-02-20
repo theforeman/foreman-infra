@@ -31,6 +31,18 @@ CONFIG = {
     "koji_url": "http://localhost/kojihub",
 }
 
+
+class MashConfig(object):
+    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, extras=None):
+        self.name = "{}-{}-{}".format(collection, version, name_suffix)
+        self.comps_name = "comps-{}-{}.xml".format(collection, comps_suffix)
+        self.comps_path = "{}-{}/{}".format(collection, version, comps_directory)
+        self.extras = extras or []
+
+    @property
+    def compses(self):
+        return {self.comps_name: self.comps_path}
+
 class MashSplit(object):
     """
     Mash out packages from koji and split into repositories according to comps files.
@@ -347,23 +359,12 @@ def run_mashes(collection, git_tag, mashes):
     extras_path = "/mnt/koji/releases/extras"
 
     s = MashSplit(log_file)
-    for mash_config, compses, extras in mashes:
-        s.run_mash(whole_path, mash_config)
-        for extra in extras:
-            s.handle_extras(whole_path, mash_config, arches, extra, extras_path, git_tag)
-        s.handle_comps(whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag)
-
-
-def mash_config_name(collection, version, suffix):
-    return "{}-{}-{}".format(collection, version, suffix)
-
-
-def comps_name(collection, suffix):
-    return "comps-{}-{}.xml".format(collection, suffix)
-
-
-def comps_path(collection, version, directory):
-    return "{}-{}/{}".format(collection, version, directory)
+    for mash_config in mashes:
+        s.run_mash(whole_path, mash_config.name)
+        for extra in mash_config.extras:
+            s.handle_extras(whole_path, mash_config.name, arches, extra, extras_path, git_tag)
+        s.handle_comps(whole_path, tmp_path, split_path, mash_config.name, arches,
+                       mash_config.compses, git_tag)
 
 
 def main():
@@ -391,13 +392,7 @@ def main():
         else:
             extras = []
 
-        mashes = [
-            (
-                mash_config_name(collection, version, "rhel7-dist"),
-                {comps_name(collection, "rhel7"): comps_path(collection, version, "RHEL/7")},
-                extras,
-            ),
-        ]
+        mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
     elif collection == "foreman-client":
         dists = {
             "el8": "el8",
@@ -417,26 +412,17 @@ def main():
             if version in ('1.22', '1.23', '1.24'):
                 del dists['el8']
 
-        mashes = []
-
-        for dist, code in dists.items():
-            mashes.append((
-                mash_config_name(collection, version, dist),
-                {comps_name(collection, dist): comps_path(collection, version, code)},
-                [],
-            ))
+        mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
     elif collection == 'foreman-rails':
         CONFIG["gitloc"] = "https://github.com/theforeman/rails-packaging.git"
         scl = "tfm-ror52"
         git_tag = scl
 
-        mashes = [
-            (
-                mash_config_name(collection, version, "rhel7"),
-                {comps_name(scl, "rhel7"): comps_path(collection, version, "el7")},
-                []
-            ),
-        ]
+        mash_config = MashConfig(collection, version, "rhel7", "rhel7", "el7")
+        # File is not named after the collection but rather the SCL
+        mash_config.comps_name = "comps-{}-{}.xml".format(scl, "rhel7")
+
+        mashes = [mash_config]
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
@@ -448,30 +434,19 @@ def main():
 
         git_tag = "rpm/{}".format(branch_map[version])
 
+        mash_config_candlepin = MashConfig(collection, version, "thirdparty-candlepin-rhel7",
+                                           "katello-candlepin-server", "rhel7", "candlepin/el7")
         if version == 'nightly':
-            mash_config_candlepin = "katello-thirdparty-candlepin-rhel7"
-        else:
-            mash_config_candlepin = "katello-{}-thirdparty-candlepin-rhel7".format(version)
+            mash_config_candlepin.name = "katello-thirdparty-candlepin-rhel7"
 
         mashes = [
-            (
-                mash_config_name(collection, version, "rhel7"),
-                {comps_name("katello-server", "rhel7"): comps_path(collection, version, "katello/el7")},
-                [],
-            ),
-            (
-                mash_config_candlepin,
-                {comps_name("katello-candlepin-server", "rhel7"): comps_path(collection, version, "candlepin/el7")},
-                [],
-            ),
+            MashConfig(collection, version, "rhel7", "katello-server", "rhel7", "katello/el7"),
+            mash_config_candlepin,
         ]
 
         if version not in ['3.12', '3.13', '3.14']:
-            mashes.append((
-                mash_config_name("katello-pulpcore", version, "el7"),
-                {comps_name("katello-pulpcore", "el7"): comps_path(collection, version, "pulpcore/el7")},
-                [],
-            ))
+            pulpcore = MashConfig(collection, version, "el7", "katello-pulpcore", "el7", "pulpcore/el7")
+            mashes.append(pulpcore)
     else:
         raise SystemExit("Unknown collection {}".format(collection))
 
