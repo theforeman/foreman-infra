@@ -18,6 +18,7 @@
             port: 443
             shield: bwi-va-us
             ssl_cert_hostname: "{{ item }}.theforeman.org"
+            healthcheck: HEADER.html
         conditions:
           - name: error log
             statement: fastly_info.state == "ERROR" || (resp.status >= 400 && resp.status < 600)
