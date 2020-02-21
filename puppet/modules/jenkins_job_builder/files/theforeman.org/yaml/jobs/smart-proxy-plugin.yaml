@@ -40,7 +40,9 @@
 - project:
     name: smart-proxy-plugin
     plugin:
+      - dhcp_infoblox
       - dhcp_remote_isc
+      - dns_infoblox
       - discovery:
           branch: develop # have to be the special child
       - dynflow
