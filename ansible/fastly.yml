@@ -16,7 +16,7 @@
           - name: web02.theforeman.org
             address: web02.theforeman.org
             port: 443
-            shield: iad-va-us
+            shield: bwi-va-us
             ssl_cert_hostname: "{{ item }}.theforeman.org"
         conditions:
           - name: error log
