@@ -101,8 +101,11 @@ class slave (
     'postgresql-dev':
       ensure => present,
       name   => $::osfamily ? {
+        'RedHat' => $::operatingsystemmajrelease ? {
+          '7'     => 'rh-postgresql12-postgresql-devel',
+          default => 'postgresql-devel',
+        },
         'Debian' => 'libpq-dev',
-        default  => 'postgresql-devel'
       };
     'libkrb5-dev':
       ensure => present,
