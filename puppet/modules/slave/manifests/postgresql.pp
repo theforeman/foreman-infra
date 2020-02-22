@@ -3,8 +3,7 @@ class slave::postgresql {
   # only CentOS slaves are used to run unit tests
   if $facts['os']['family'] == 'RedHat' {
     if $facts['os']['release']['major'] == '7' {
-
-     ['postgresql-server', 'postgresql-devel', 'postgresql-client', 'postgresql'].each |$pkg| {
+      ['postgresql-server', 'postgresql-devel', 'postgresql-client', 'postgresql'].each |$pkg| {
         package { "${pkg}-nonscl":
           ensure  => absent,
           name    => $pkg,
@@ -33,6 +32,14 @@ class slave::postgresql {
         datadir              => '/var/opt/rh/rh-postgresql12/lib/pgsql/data',
         confdir              => '/var/opt/rh/rh-postgresql12/lib/pgsql/data',
         bindir               => '/usr/bin',
+      }
+
+      file { '/etc/profile.d/enable_postgresql12_scl.sh':
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        content => 'source scl_source enable rh-postgresql12',
       }
     }
   }
@@ -73,5 +80,4 @@ class slave::postgresql {
     login         => true,
     require       => Service['postgresql'],
   }
-
 }
