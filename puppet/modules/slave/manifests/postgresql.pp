@@ -4,7 +4,7 @@ class slave::postgresql {
   if $facts['os']['family'] == 'RedHat' {
     if $facts['os']['release']['major'] == '7' {
 
-     ['postgresql-server', 'postgresql-client', 'postgresql'].each |$pkg| {
+     ['postgresql-server', 'postgresql-devel', 'postgresql-client', 'postgresql'].each |$pkg| {
         package { "${pkg}-nonscl":
           ensure  => absent,
           name    => $pkg,
