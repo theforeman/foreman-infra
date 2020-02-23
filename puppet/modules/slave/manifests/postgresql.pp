@@ -35,11 +35,12 @@ class slave::postgresql {
       }
 
       file { '/etc/profile.d/enable_postgresql12_scl.sh':
-        ensure  => file,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0755',
-        content => 'source scl_source enable rh-postgresql12',
+        ensure  => absent,
+      }
+
+      file { '/usr/bin/pg_config':
+        ensure => 'link',
+        target => '/opt/rh/rh-postgresql12/root/usr/bin/pg_config',
       }
     }
   }
