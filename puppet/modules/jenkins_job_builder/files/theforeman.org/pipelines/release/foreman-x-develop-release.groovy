@@ -1,5 +1,6 @@
 def commit_hash = ''
 def sourcefile = ''
+def source_project_name = "${project_name}-${git_ref}-source-release"
 
 pipeline {
     agent { label 'rpmbuild' }
@@ -10,37 +11,46 @@ pipeline {
         ansiColor('xterm')
     }
 
-    environment {
-        ruby_version = "2.5"
-    }
-
     stages {
-        stage('Copy Source') {
-            steps {
-                script {
-                    sourcefile_paths = pwd(tmp: true)
-                    source_project_name = "${project_name}-${git_ref}-source-release"
-                    copyArtifacts(projectName: source_project_name, target: sourcefile_paths, selector: {lastSuccessful: true})
-                }
-            }
-        }
         stage('Build Package') {
             parallel {
                 stage('Build RPM') {
                     when {
                         expression { build_rpm }
                     }
-                    steps {
-                        dir('foreman-packaging') {
-                            obal(
-                                action: 'nightly',
-                                packages: obal_package_name,
-                                extraVars: [
-                                    'releasers': releasers,
-                                    'nightly_sourcefiles': sourcefile_paths,
-                                    'nightly_githash': commit_hash
-                                ]
-                            )
+                    stages {
+                        stage('Copy Source') {
+                            steps {
+                                script {
+                                    artifact_path = "${pwd()}/artifacts"
+                                    copyArtifacts(projectName: source_project_name, target: artifact_path)
+                                    sourcefile_paths = list_files("${artifact_path}/*").findAll { it.endsWith('.gem') || it.endsWith('tar.bz2') || it.endsWith('tar.gz') }
+                                    commit_hash = readFile("${artifact_path}/commit")
+                                }
+                            }
+                        }
+                        stage('Setup Environment') {
+                            steps {
+                                dir('foreman-packaging') {
+                                    git(url: 'https://github.com/theforeman/foreman-packaging.git', branch: 'rpm/develop', poll: false)
+                                }
+                                setup_obal()
+                            }
+                        }
+                        stage('Release') {
+                            steps {
+                                dir('foreman-packaging') {
+                                    obal(
+                                        action: 'nightly',
+                                        packages: obal_package_name,
+                                        extraVars: [
+                                            'releasers': releasers,
+                                            'nightly_sourcefiles': sourcefile_paths,
+                                            'nightly_githash': commit_hash
+                                        ]
+                                    )
+                                }
+                            }
                         }
                     }
                 }
@@ -69,7 +79,6 @@ pipeline {
         }
         always {
             echo "Cleaning up workspace"
-            cleanupRVM(env.ruby_version)
             deleteDir()
         }
     }
