@@ -1,5 +1,4 @@
 def commit_hash = ''
-def sourcefile = ''
 def source_project_name = "${project_name}-${git_ref}-source-release"
 
 pipeline {
