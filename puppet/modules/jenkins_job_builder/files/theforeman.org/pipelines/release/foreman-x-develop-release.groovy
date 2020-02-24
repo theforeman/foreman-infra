@@ -23,7 +23,6 @@ pipeline {
                                 script {
                                     artifact_path = "${pwd()}/artifacts"
                                     copyArtifacts(projectName: source_project_name, target: artifact_path)
-                                    sourcefile_paths = list_files("${artifact_path}/*").findAll { it.endsWith('.gem') || it.endsWith('tar.bz2') || it.endsWith('tar.gz') }
                                     commit_hash = readFile("${artifact_path}/commit")
                                 }
                             }
@@ -44,7 +43,7 @@ pipeline {
                                         packages: obal_package_name,
                                         extraVars: [
                                             'releasers': releasers,
-                                            'nightly_sourcefiles': sourcefile_paths,
+                                            'nightly_sourcefiles': artifact_path,
                                             'nightly_githash': commit_hash
                                         ]
                                     )
