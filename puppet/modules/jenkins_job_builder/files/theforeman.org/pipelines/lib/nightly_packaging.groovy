@@ -1,26 +1,3 @@
-def setup_nightly_build_environment(args) {
-    def project_name = args.project_name
-    def git_url = args.git_url
-    def git_ref = args.git_ref
-    def ruby_version = args.ruby_version ?: env.ruby_version
-
-    dir(project_name) {
-        // the full checkout() is necessary for checking out specific commits,
-        // as opposed to just branches with git()
-        checkout([
-            $class : 'GitSCM',
-            branches : [[name: git_ref]],
-            extensions: [[$class: 'CleanCheckout']],
-            userRemoteConfigs: [[url: git_url]]
-        ])
-    }
-    dir('foreman-packaging') {
-        git(url: 'https://github.com/theforeman/foreman-packaging.git', branch: 'rpm/develop', poll: false)
-    }
-    setup_obal()
-    configureRVM(ruby_version)
-}
-
 def generate_sourcefiles(args) {
     def sourcefile_paths = []
     def project_name = args.project_name
