@@ -31,26 +31,30 @@ def obal(args) {
 
 def setup_obal() {
     dir("${env.WORKSPACE}/obsah") {
-        checkout([
-            $class : 'GitSCM',
+        checkout(
             poll: false,
-            branches : [[name: 'master']],
-            extensions: [[$class: 'CleanCheckout']],
-            userRemoteConfigs: [
-                [url: 'https://github.com/theforeman/obsah']
+            scm: [
+                $class : 'GitSCM',
+                branches : [[name: 'master']],
+                extensions: [[$class: 'CleanCheckout']],
+                userRemoteConfigs: [
+                    [url: 'https://github.com/theforeman/obsah']
+                ]
             ]
-        ])
+        )
     }
 
     dir("${env.WORKSPACE}/obal") {
-        checkout([
-            $class : 'GitSCM',
+        checkout(
             poll: false,
-            branches : [[name: 'master']],
-            extensions: [[$class: 'CleanCheckout']],
-            userRemoteConfigs: [
-                [url: 'https://github.com/theforeman/obal']
+            scm: [
+                $class : 'GitSCM',
+                branches : [[name: 'master']],
+                extensions: [[$class: 'CleanCheckout']],
+                userRemoteConfigs: [
+                    [url: 'https://github.com/theforeman/obal']
+                ]
             ]
-        ])
+        )
     }
 }
