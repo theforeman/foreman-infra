@@ -61,7 +61,7 @@ pipeline {
                             job: 'release_nightly_build_deb',
                             propagate: true,
                             parameters: [
-                               string(name: 'project', value: project_name),
+                               string(name: 'project', value: obal_package_name),
                                string(name: 'jenkins_job', value: source_project_name),
                             ]
                         )
