@@ -1,5 +1,3 @@
-def commit_hash = ''
-
 pipeline {
     agent any
 
@@ -14,7 +12,7 @@ pipeline {
             steps {
                 git(url: git_url, branch: git_ref)
                 script {
-                    commit_hash = archive_git_hash()
+                    archive_git_hash()
                 }
                 add_hammer_cli_git_repos(hammer_cli_git_repos)
             }
@@ -32,7 +30,7 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
-                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                    git url: git_url, branch: git_ref
                 }
                 script {
                     sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
@@ -42,7 +40,7 @@ pipeline {
         stage('Build Packages') {
             steps {
                 build(
-                    job: "${project_name}-${foreman_branch}-package-release",
+                    job: "${project_name}-${git_ref}-package-release",
                     propagate: false,
                     wait: false
                 )

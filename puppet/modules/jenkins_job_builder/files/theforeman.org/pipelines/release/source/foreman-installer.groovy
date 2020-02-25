@@ -1,8 +1,3 @@
-def commit_hash = ''
-source_type = 'rake'
-foreman_branch = 'develop'
-project_name = 'foreman-installer'
-
 pipeline {
     agent any
 
@@ -15,9 +10,9 @@ pipeline {
     stages {
         stage("Collect Git Hash") {
             steps {
-                git(url: "https://github.com/theforeman/${project_name}", branch: foreman_branch)
+                git url: git_rul, branch: git_ref
                 script {
-                    commit_hash = archive_git_hash()
+                    archive_git_hash()
                 }
             }
         }
@@ -39,7 +34,7 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
-                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                    git url: git_url, branch: git_ref
                 }
                 script {
                     sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
@@ -49,7 +44,7 @@ pipeline {
         stage('Build Packages') {
             steps {
                 build(
-                    job: "${project_name}-${foreman_branch}-package-release",
+                    job: "${project_name}-${git_ref}-package-release",
                     propagate: false,
                     wait: false
                 )

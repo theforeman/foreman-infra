@@ -11,6 +11,7 @@
       - github
     dsl:
       !include-raw:
+        - pipelines/vars/foreman-selinux-develop-release.groovy
         - pipelines/release/source/foreman-selinux.groovy
         - pipelines/lib/nightly_packaging.groovy
         - pipelines/lib/foreman_infra.groovy

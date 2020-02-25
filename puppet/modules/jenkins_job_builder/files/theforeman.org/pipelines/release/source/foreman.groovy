@@ -1,8 +1,3 @@
-def commit_hash = ''
-foreman_branch = 'develop'
-project_name = 'foreman'
-source_type = 'rake'
-
 pipeline {
     agent { label 'fast' }
 
@@ -24,9 +19,9 @@ pipeline {
                     stages {
                         stage("setup-2.6-postgres") {
                             steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                                git url: git_url, branch: git_ref
                                 script {
-                                    commit_hash = archive_git_hash()
+                                    archive_git_hash()
                                 }
                                 configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
@@ -56,10 +51,7 @@ pipeline {
                     stages {
                         stage("setup-2.5-postgres") {
                             steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
-                                script {
-                                    commit_hash = archive_git_hash()
-                                }
+                                git url: git_url, branch: git_ref
                                 configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
                                 configureDatabase(env.RUBY_VER, env.GEMSET)
@@ -88,7 +80,7 @@ pipeline {
                     stages {
                         stage("setup-2.5-postgres-ui") {
                             steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                                git url: git_url, branch: git_ref
                                 configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
                                 configureDatabase(env.RUBY_VER, env.GEMSET)
@@ -123,7 +115,7 @@ pipeline {
                     stages {
                         stage("setup-2.5-sqlite3") {
                             steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                                git url: git_url, branch: git_ref
                                 configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET), 'sqlite3')
                                 configureDatabase(env.RUBY_VER, env.GEMSET)
@@ -148,7 +140,7 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
-                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                    git url: git_url, branch: git_ref
                 }
                 script {
                     sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
@@ -158,7 +150,7 @@ pipeline {
         stage('Build Packages') {
             steps {
                 build(
-                    job: "${project_name}-${foreman_branch}-package-release",
+                    job: "${project_name}-${git_ref}-package-release",
                     propagate: false,
                     wait: false
                 )
