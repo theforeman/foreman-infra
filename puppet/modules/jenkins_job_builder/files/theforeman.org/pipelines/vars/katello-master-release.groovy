@@ -6,3 +6,4 @@ def build_rpm = true
 def build_deb = false
 def source_type = 'gem'
 def releasers = ['koji-katello']
+def ruby = '2.5'

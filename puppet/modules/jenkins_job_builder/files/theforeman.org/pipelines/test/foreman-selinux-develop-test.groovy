@@ -1,5 +1,3 @@
-def commit_hash = ''
-
 pipeline {
     agent { label 'el' }
 
@@ -14,7 +12,7 @@ pipeline {
             steps {
                 git(url: 'https://github.com/theforeman/foreman-selinux', branch: 'develop')
                 script {
-                    commit_hash = archive_git_hash()
+                    archive_git_hash()
                 }
             }
         }

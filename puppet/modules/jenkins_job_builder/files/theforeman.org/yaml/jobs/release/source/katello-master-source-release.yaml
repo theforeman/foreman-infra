@@ -10,6 +10,7 @@
       - github
     dsl:
       !include-raw:
+        - pipelines/vars/katello-master-release.groovy
         - pipelines/release/source/katello.groovy
         - pipelines/lib/nightly_packaging.groovy
         - pipelines/lib/foreman_infra.groovy

@@ -1,9 +1,3 @@
-def commit_hash = ''
-foreman_branch = 'master'
-project_name = 'katello'
-source_type = 'gem'
-ruby = '2.5'
-
 pipeline {
     options {
         timestamps()
@@ -17,9 +11,9 @@ pipeline {
         stage('Setup Git Repos') {
             steps {
                 deleteDir()
-                git url: "https://github.com/Katello/${project_name}", branch: foreman_branch
+                git url: git_url, branch: git_ref
                 script {
-                    commit_hash = archive_git_hash()
+                    archive_git_hash()
                 }
 
                 dir('foreman') {
@@ -127,17 +121,17 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
-                    git url: "https://github.com/katello/${project_name}", branch: foreman_branch
+                    git url: git_url, branch: git_ref
                 }
                 script {
-                    sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
+                    generate_sourcefiles(project_name: project_name, source_type: source_type)
                 }
             }
         }
         stage('Build Packages') {
             steps {
                 build(
-                    job: "${project_name}-${foreman_branch}-package-release",
+                    job: "${project_name}-${git_ref}-package-release",
                     propagate: false,
                     wait: false
                 )

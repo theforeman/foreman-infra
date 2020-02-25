@@ -1,8 +1,3 @@
-def commit_hash = ''
-foreman_branch = 'develop'
-project_name = 'smart-proxy'
-source_type = 'rake'
-
 pipeline {
     agent any
 
@@ -13,12 +8,9 @@ pipeline {
     }
 
     stages {
-        stage("Collect Git Hash") {
+        stage("Clone repository") {
             steps {
-                git(url: 'https://github.com/theforeman/smart-proxy', branch: 'develop')
-                script {
-                    commit_hash = archive_git_hash()
-                }
+                git url: git_url, branch: git_ref
             }
         }
         stage("test ruby-2.5") {
@@ -34,9 +26,10 @@ pipeline {
         stage('Build and Archive Source') {
             steps {
                 dir(project_name) {
-                    git url: "https://github.com/theforeman/${project_name}", branch: foreman_branch
+                    git url: git_url, branch: git_ref
                 }
                 script {
+                    archive_git_hash()
                     sourcefile_paths = generate_sourcefiles(project_name: project_name, source_type: source_type)
                 }
             }
