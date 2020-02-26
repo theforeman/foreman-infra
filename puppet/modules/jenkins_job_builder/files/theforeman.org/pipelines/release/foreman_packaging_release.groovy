@@ -41,7 +41,7 @@ pipeline {
 
                     } else {
 
-                        packages_to_build = 'all'
+                        packages_to_build = []
 
                     }
                 }
