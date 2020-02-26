@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage("Collect Git Hash") {
             steps {
-                git url: git_rul, branch: git_ref
+                git url: git_url, branch: git_ref
                 script {
                     archive_git_hash()
                 }
