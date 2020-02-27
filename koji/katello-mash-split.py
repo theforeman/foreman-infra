@@ -326,7 +326,7 @@ def main():
 
     s.mash_split(whole_path, tmp_path, split_path, mash_config, options=arches, arches=arches, compses=["comps-katello-server-rhel7.xml"], git_tag=git_tag, output_paths=output_paths)
     s.mash_split(whole_path, tmp_path, split_path, mash_config_candlepin, options=options, arches=arches, compses=["comps-katello-candlepin-server-rhel7.xml"], git_tag=git_tag, output_paths=output_paths_candlepin)
-    if version in not ['3.12', '3.13', '3.14']:
+    if version not in ['3.12', '3.13', '3.14']:
         s.mash_split(whole_path, tmp_path, split_path, mash_config_pulp, options=options, arches=arches, compses=["comps-katello-pulpcore-el7.xml"], git_tag=git_tag, output_paths=output_paths_pulp)
 
 if __name__ == "__main__":
