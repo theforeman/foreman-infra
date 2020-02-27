@@ -326,7 +326,7 @@ def main():
 
     s.mash_split(whole_path, tmp_path, split_path, mash_config, options=arches, arches=arches, compses=["comps-katello-server-rhel7.xml"], git_tag=git_tag, output_paths=output_paths)
     s.mash_split(whole_path, tmp_path, split_path, mash_config_candlepin, options=options, arches=arches, compses=["comps-katello-candlepin-server-rhel7.xml"], git_tag=git_tag, output_paths=output_paths_candlepin)
-    if version == 'nightly':
+    if version in ['nightly', '3.15']:
         s.mash_split(whole_path, tmp_path, split_path, mash_config_pulp, options=options, arches=arches, compses=["comps-katello-pulpcore-el7.xml"], git_tag=git_tag, output_paths=output_paths_pulp)
 
 if __name__ == "__main__":
