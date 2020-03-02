@@ -37,7 +37,7 @@ pipeline {
         stage('Build Packages') {
             steps {
                 build(
-                    job: "${project_name}-${foreman_branch}-package-release",
+                    job: "${project_name}-${git_ref}-package-release",
                     propagate: false,
                     wait: false
                 )
