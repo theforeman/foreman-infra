@@ -1,0 +1,29 @@
+- job-template:
+    name: test_hammer_plugin_{name}_{branch}
+    project-type: matrix
+    concurrent: true
+    properties:
+    - github:
+        url: {url}
+    scm:
+    - git:
+        url: {url}
+        per-build-tag: true
+        wipe-workspace: true
+        branches:
+        - master
+    triggers:
+    - scm_fifteen_minutes
+    - github
+    axes:
+    - axis:
+        type: user-defined
+        name: ruby
+        values:
+        - 2.5
+        - 2.6
+    builders:
+
+    - shell: !include-raw: scripts/test/test_hammer_cli_foreman_plugin.sh
+    publishers:
+    - gemset_cleanup

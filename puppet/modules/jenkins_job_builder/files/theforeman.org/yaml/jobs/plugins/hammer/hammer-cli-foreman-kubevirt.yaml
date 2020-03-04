@@ -1,0 +1,9 @@
+- project:
+    name: hammer_cli_foreman_kubevirt
+    url: https://github.com/theforeman/hammer-cli-foreman-kubevirt
+    defaults: plugin
+    branch:
+      - master:
+          foreman_branch: develop
+    jobs:
+      - 'test_hammer_plugin_{name}_{branch}'
