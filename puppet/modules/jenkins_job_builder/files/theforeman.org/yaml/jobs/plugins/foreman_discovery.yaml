@@ -4,9 +4,5 @@
     branch:
       - develop:
           foreman_branch: develop
-      - 15.0-stable:
-          foreman_branch: 1.22-stable
-      - 15.1-stable:
-          foreman_branch: 1.23-stable
     jobs:
       - 'test_plugin_{name}_{branch}'
