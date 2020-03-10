@@ -16,6 +16,15 @@ class slave::postgresql {
           ensure => 'present',
           before => Class['postgresql::globals'],
         }
+        yumrepo { 'foreman-infra-el7':
+          baseurl => 'https://yum.theforeman.org/infra/el7/',
+          enabled => true,
+        } ->
+        package { 'rh-postgresql12-postgresql-evr':
+          ensure  => 'present',
+          notify  => Class['postgresql::server::service'],
+          require => Class['postgresql::server::install'],
+        }
       } elsif $facts['ec2_metadata'] {
         yumrepo { 'rhel-server-rhui-rhscl-7-rpms':
           enabled => true,
