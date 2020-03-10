@@ -71,7 +71,7 @@ namespace :repo do
 
   task :purgecdn do
     run %Q{awk '/ CHANGED /{print "https://yum.theforeman.org/#{repo_dest}/"$5}' #{repo_rsync_log} | xargs --no-run-if-empty curl --silent -X PURGE -H 'Fastly-Soft-Purge:1'}
-    run %Q{for d in #{repo_instance_path}/*; do purge_base="https://yum.theforeman.org/#{repo_dest}/$(basename $d)"; curl --silent -X PURGE -H 'Fastly-Soft-Purge:1' $purge_base/foreman-release.rpm $purge_base/foreman-client-release.rpm; done}
+    run %Q{for d in #{repo_instance_path}/*; do purge_base="https://yum.theforeman.org/#{repo_dest}/$(basename $d)"; echo ${purge_base}; curl --silent -X PURGE -H 'Fastly-Soft-Purge:1' ${purge_base}/foreman-release.rpm ${purge_base}/foreman-client-release.rpm; done}
     run "rm -f #{repo_rsync_log}"
   end
 end
