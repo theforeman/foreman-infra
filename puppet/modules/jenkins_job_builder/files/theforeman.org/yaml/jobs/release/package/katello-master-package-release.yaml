@@ -3,8 +3,6 @@
     project-type: pipeline
     sandbox: true
     concurrent: false
-    triggers:
-      - github
     properties:
       - github:
           url: 'https://github.com/katello/katello'
