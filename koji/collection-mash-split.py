@@ -436,6 +436,8 @@ def main():
 
         mash_config_candlepin = MashConfig(collection, version, "thirdparty-candlepin-rhel7",
                                            "candlepin-server-rhel7", "candlepin/el7")
+
+        # Nightly has no version tag
         if version == 'nightly':
             mash_config_candlepin.name = "katello-thirdparty-candlepin-rhel7"
 
@@ -445,7 +447,9 @@ def main():
         ]
 
         if version not in ['3.12', '3.13', '3.14']:
-            pulpcore = MashConfig(collection, version, "el7", "pulpcore-el7", "pulpcore/el7")
+            pulpcore = MashConfig(collection, version, "pulpcore-el7", "pulpcore-el7", "pulpcore/el7")
+            # The default builds katello-{}-pulpcore-el7
+            pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)
             mashes.append(pulpcore)
     else:
         raise SystemExit("Unknown collection {}".format(collection))
