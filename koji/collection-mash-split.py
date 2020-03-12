@@ -393,6 +393,10 @@ def main():
             extras = []
 
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
+
+        if collection == 'foreman' and version not in ['1.22', '1.23', '1.24', '2.0']:
+            mashes.append(MashConfig(collection, version, "el8", "el8", "EL/8"))
+
     elif collection == "foreman-client":
         dists = {
             "el8": "el8",
@@ -451,6 +455,12 @@ def main():
             # The default builds katello-{}-pulpcore-el7
             pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)
             mashes.append(pulpcore)
+
+            if version != '3.15':
+                el8_pulpcore = MashConfig(collection, version, "pulpcore-el8", "pulpcore-el8", "pulpcore/el8")
+                el8_pulpcore.name = 'katello-pulpcore-{}-el8'.format(version)
+                mashes.append(el8_pulpcore)
+
     else:
         raise SystemExit("Unknown collection {}".format(collection))
 
