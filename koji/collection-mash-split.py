@@ -435,17 +435,17 @@ def main():
         git_tag = "rpm/{}".format(branch_map[version])
 
         mash_config_candlepin = MashConfig(collection, version, "thirdparty-candlepin-rhel7",
-                                           "katello-candlepin-server", "rhel7", "candlepin/el7")
+                                           "candlepin-server-rhel7", "candlepin/el7")
         if version == 'nightly':
             mash_config_candlepin.name = "katello-thirdparty-candlepin-rhel7"
 
         mashes = [
-            MashConfig(collection, version, "rhel7", "katello-server", "rhel7", "katello/el7"),
+            MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"),
             mash_config_candlepin,
         ]
 
         if version not in ['3.12', '3.13', '3.14']:
-            pulpcore = MashConfig(collection, version, "el7", "katello-pulpcore", "el7", "pulpcore/el7")
+            pulpcore = MashConfig(collection, version, "el7", "pulpcore-el7", "pulpcore/el7")
             mashes.append(pulpcore)
     else:
         raise SystemExit("Unknown collection {}".format(collection))
