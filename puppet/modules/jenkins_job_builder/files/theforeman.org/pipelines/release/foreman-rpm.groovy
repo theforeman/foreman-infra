@@ -33,7 +33,12 @@ pipeline {
             agent { label 'el' }
 
             steps {
-                runCicoJob("foreman-nightly-centos7-test")
+                script {
+                    runCicoJobsInParallel([
+                        ['name': 'centos7', 'job': 'foreman-nightly-centos7-test'],
+                        ['name': 'centos7-upgrade', 'job': 'foreman-nightly-centos7-upgrade-test']
+                    ])
+                }
             }
         }
         stage('Push RPMs') {

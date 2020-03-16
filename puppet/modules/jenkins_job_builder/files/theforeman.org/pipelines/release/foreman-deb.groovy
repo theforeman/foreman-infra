@@ -16,7 +16,9 @@ pipeline {
                 script {
                     runCicoJobsInParallel([
                         ['name': 'debian10', 'job': 'foreman-nightly-debian10-test'],
+                        ['name': 'debian10-upgrade', 'job': 'foreman-nightly-debian10-upgrade-test'],
                         ['name': 'ubuntu1804', 'job': 'foreman-nightly-ubuntu1804-test']
+                        ['name': 'ubuntu1804-upgrade', 'job': 'foreman-nightly-ubuntu1804-upgrade-test']
                     ])
                 }
             }

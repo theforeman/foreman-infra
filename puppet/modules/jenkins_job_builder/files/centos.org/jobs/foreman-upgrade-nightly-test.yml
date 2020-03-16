@@ -1,0 +1,23 @@
+---
+- job-template:
+    name: foreman-nightly-{distro}-upgrade-test
+    project-type: 'pipeline'
+    sandbox: true
+    dsl:
+      !include-raw:
+        - pipelines/lib/foremanCentosJob.groovy{empty}
+        - pipelines/lib/pipelines.groovy{empty}
+        - pipelines/test/foreman/nightly-upgrade-{distro}.groovy
+        - ../theforeman.org/pipelines/lib/duffy.groovy{empty}
+        - ../theforeman.org/pipelines/lib/ansible.groovy{empty}
+        - ../theforeman.org/pipelines/lib/foreman_infra.groovy{empty}
+
+- project:
+    name: foreman-nightly-upgrade-test
+    jobs:
+      - 'foreman-nightly-{distro}-upgrade-test'
+    empty: ''
+    distro:
+      - centos7
+      - debian10
+      - ubuntu1804
