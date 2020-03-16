@@ -34,29 +34,30 @@ pipeline {
                     stage('Setup Git Repos') {
                         steps {
                             ghprb_git_checkout()
+                            sh "cp Gemfile Gemfile.${ruby}-${PUPPET_VERSION}"
                         }
                     }
                     stage("Setup RVM") {
                         steps {
-                            configureRVM(ruby)
+                            configureRVM(ruby, "${ruby}-${PUPPET_VERSION}")
                         }
                     }
                     stage('Install dependencies') {
                         steps {
-                            withRVM(['bundle install'], ruby)
+                            withRVM(["bundle install --gemfile Gemfile.${ruby}-${PUPPET_VERSION}"], ruby, "${ruby}-${PUPPET_VERSION}")
                         }
                     }
                     stage('Run Tests') {
                         steps {
-                            withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], ruby)
+                            withRVM(["bundle exec rake jenkins:unit TESTOPTS='-v' --trace Gemfile.${ruby}-${PUPPET_VERSION}"], ruby, "${ruby}-${PUPPET_VERSION}")
                         }
                     }
                 }
                 post {
                     always {
-                        archiveArtifacts artifacts: "Gemfile.lock"
+                        archiveArtifacts artifacts: "Gemfile*lock"
                         junit keepLongStdio: true, testResults: 'jenkins/reports/unit/*.xml'
-                        cleanupRVM('', ruby)
+                        cleanupRVM(ruby, "${ruby}-${PUPPET_VERSION}")
                         deleteDir()
                     }
                 }
