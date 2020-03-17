@@ -461,6 +461,10 @@ def main():
                 el8_pulpcore.name = 'katello-pulpcore-{}-el8'.format(version)
                 mashes.append(el8_pulpcore)
 
+                el8_candlepin = MashConfig(collection, version, "candlepin-el8", "candlepin-el8", "candlepin/el8")
+                el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
+                mashes.append(el8_candlepin)
+
     else:
         raise SystemExit("Unknown collection {}".format(collection))
 
