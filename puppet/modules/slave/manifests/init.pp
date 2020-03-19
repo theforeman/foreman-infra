@@ -130,7 +130,7 @@ class slave (
         default  => 'firefox'
       };
     'augeas-dev':
-      ensure => present,
+      ensure => absent,
       name   => $::osfamily ? {
         'Debian' => 'libaugeas-dev',
         default  => 'augeas-devel'
