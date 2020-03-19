@@ -1,0 +1,26 @@
+---
+- job-template:
+    name: test_hammer_plugin_{name}_{branch}
+    project-type: pipeline
+    sandbox: true
+    parameters:
+    - string:
+        name: hammer_plugin_url
+        description: 'git url of the hammer plugin repo'
+    - string:
+        name: hammer_plugin_branch
+        default: master
+        description: 'git branch of the hammer plugin to base on'
+
+    dsl:
+      !include-raw:
+      - pipelines/lib/rvm.groovy
+      - pipelines/lib/git.groovy
+      - pipelines/test/hammer_plugin_template_test.groovy
+
+- project:
+    name: hammer_cli_foreman_kubevirt
+    hammer_plugin_url: https://github.com/theforeman/hammer-cli-foreman-kubevirt
+    hammer_plugin_branch: master
+    jobs:
+        '- 'test_hammer_plugin_{name}_{branch}''
