@@ -30,14 +30,12 @@ def ssh_config(relative_dir = '') {
     return relative_dir + 'foreman-infra/ci/centos.org/ansible/ssh_config'
 }
 
-def color_shell(command = '') {
-    wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-        sh "${command}"
-    }
+def color_shell(command = '', returnStdout = false) {
+    sh(script: "${command}", returnStdout: returnStdout)
 }
 
-def duffy_ssh(command, box_name, relative_dir = '') {
-    color_shell "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -F ${ssh_config(relative_dir)} ${box_name} '${command}'"
+def duffy_ssh(command, box_name, relative_dir = '', returnStdout = false) {
+    color_shell("ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -F ${ssh_config(relative_dir)} ${box_name} '${command}'", returnStdout)
 }
 
 def duffy_scp(file_path, file_dest, box_name, relative_dir = '') {
