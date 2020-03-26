@@ -29,7 +29,15 @@ pipeline {
             steps {
                 script {
                     extra_vars = buildExtraVars(extraVars: playBook['extraVars'])
-                    duffy_ssh("cd forklift && ansible-playbook pipelines/${playBook['pipeline']} -e forklift_state=up ${extra_vars}", 'duffy_box', './')
+
+                    def playbooks = duffy_ssh("ls forklift/pipelines/${playBook['pipeline']}", 'duffy_box', './', true)
+                    playbooks = playbooks.split("\n")
+
+                    for(playbook in playbooks) {
+                        stage(playbook) {
+                            duffy_ssh("cd forklift && ansible-playbook pipelines/${playBook['pipeline']}/${playbook} ${extra_vars}", 'duffy_box', './')
+                        }
+                    }
                 }
             }
         }

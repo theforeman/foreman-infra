@@ -20,7 +20,7 @@ def pipelineVars(Map args) {
 
     vars = [
       'boxes': boxes,
-      'pipeline': "${args.action}_pipeline.yml",
+      'pipeline': args.action,
       'extraVars': extra_vars
     ]
     return vars
