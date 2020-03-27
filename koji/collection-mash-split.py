@@ -395,7 +395,7 @@ def main():
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
 
         if collection == 'foreman' and version not in ['1.22', '1.23', '1.24', '2.0']:
-            mashes.append(MashConfig(collection, version, "el8", "el8", "EL/8"))
+            mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
 
     elif collection == "foreman-client":
         dists = {
