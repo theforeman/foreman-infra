@@ -3,6 +3,7 @@ pipeline {
         timestamps()
         timeout(time: 2, unit: 'HOURS')
         ansiColor('xterm')
+        buildDiscarder(logRotator(daysToKeepStr: '7'))
     }
 
     agent { label 'fast' }
