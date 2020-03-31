@@ -1,5 +1,5 @@
 - job:
-    name: test_kafo_master_pull_request
+    name: kafo-pr-test
     project-type: pipeline
     sandbox: true
     properties:
