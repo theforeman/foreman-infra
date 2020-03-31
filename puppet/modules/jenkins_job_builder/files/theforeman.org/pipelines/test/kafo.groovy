@@ -29,6 +29,16 @@ pipeline {
                             values '2.0.0', '2.1', '2.2', '2.3'
                         }
                     }
+                    exclude {
+                        axis {
+                            name 'PUPPET_VERSION'
+                            values '4.10'
+                        }
+                        axis {
+                            name 'ruby'
+                            values '2.5', '2.6'
+                        }
+                    }
                 }
                 stages {
                     stage('Setup Git Repos') {
@@ -44,12 +54,12 @@ pipeline {
                     }
                     stage('Install dependencies') {
                         steps {
-                            withRVM(["bundle install --gemfile Gemfile.${ruby}-${PUPPET_VERSION}"], ruby, "${ruby}-${PUPPET_VERSION}")
+                            withRVM(["bundle install --gemfile=Gemfile.${ruby}-${PUPPET_VERSION}"], ruby, "${ruby}-${PUPPET_VERSION}")
                         }
                     }
                     stage('Run Tests') {
                         steps {
-                            withRVM(["bundle exec rake jenkins:unit TESTOPTS='-v' --trace Gemfile.${ruby}-${PUPPET_VERSION}"], ruby, "${ruby}-${PUPPET_VERSION}")
+                            withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec rake jenkins:unit TESTOPTS='-v' --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
                         }
                     }
                 }
