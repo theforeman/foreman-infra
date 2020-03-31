@@ -103,4 +103,9 @@ class slave::packaging::rpm (
   package { ['scl-utils-build', 'rpmdevtools']:
     ensure => present,
   }
+
+  # Needed for EL8 repoclosure on EL7 nodes
+  package { ['dnf', 'dnf-plugins-core']:
+    ensure => present,
+  }
 }
