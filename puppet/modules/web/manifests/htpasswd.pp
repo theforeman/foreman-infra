@@ -3,7 +3,7 @@ define web::htpasswd(
   $passwd = undef,
   $salt = undef,
 ) {
-  $_salt = pick($salt, cache_data('web_htpasswd_salts', "${vhost}-${name}", random_password(10)))
+  $_salt = pick($salt, extlib::cache_data('web_htpasswd_salts', "${vhost}-${name}", extlib::random_password(10)))
 
   htpasswd { $name:
     ensure      => present,

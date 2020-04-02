@@ -32,7 +32,7 @@ class redmine (
   Stdlib::Httpsurl $repo_url     = 'https://github.com/theforeman/redmine',
   String $username               = 'redmine',
   String $db_name                = 'redmine',
-  String $db_password            = cache_data('foreman_cache_data', 'db_password', random_password(32)),
+  String $db_password            = extlib::cache_data('foreman_cache_data', 'db_password', extlib::random_password(32)),
   Boolean $https                 = false,
 ) {
   # PostgreSQL tuning
