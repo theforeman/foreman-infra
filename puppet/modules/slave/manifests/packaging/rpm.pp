@@ -68,11 +68,11 @@ class slave::packaging::rpm (
   }
 
   file { "${homedir}/.titorc":
-    ensure => file,
-    mode   => '0644',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/slave/titorc',
+    ensure  => file,
+    mode    => '0644',
+    owner   => 'jenkins',
+    group   => 'jenkins',
+    content => "KOJI_OPTIONS=-c ~/.koji/config build --nowait\n",
   }
 
   file { '/tmp/tito':
