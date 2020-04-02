@@ -1,6 +1,4 @@
 class slave (
-  Optional[String] $github_user         = undef,
-  Optional[String] $github_oauth        = undef,
   Optional[String] $koji_certificate    = undef,
   Optional[String] $copr_login          = undef,
   Optional[String] $copr_username       = undef,
@@ -62,18 +60,8 @@ class slave (
     group  => 'jenkins',
   }
 
-  if $github_user and $github_oauth {
-    file { "${homedir}/.config/hub":
-      ensure  => file,
-      mode    => '0600',
-      owner   => 'jenkins',
-      group   => 'jenkins',
-      content => template('slave/hub_config.erb'),
-    }
-  } else {
-    file { "${homedir}/.config/hub":
-      ensure  => absent,
-    }
+  file { "${homedir}/.config/hub":
+    ensure  => absent,
   }
 
   # Build dependencies
