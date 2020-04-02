@@ -1,13 +1,6 @@
 class ssh {
-  file { '/root/.ssh':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-  }
-
   file { '/root/.ssh/authorized_keys':
-    ensure  => file,
-    content => $::root_ssh_recovery_key,
+    ensure => absent,
   }
 
   $ssh_service = $::osfamily ? {
@@ -31,7 +24,7 @@ class ssh {
 
   sshd_config { 'PermitRootLogin':
     ensure => present,
-    value  => 'without-password',
+    value  => 'no',
   }
 
   sshd_config { 'PasswordAuthentication':
