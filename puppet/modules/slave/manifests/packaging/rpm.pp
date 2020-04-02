@@ -106,10 +106,14 @@ class slave::packaging::rpm (
 
   # Needed for EL8 repoclosure on EL7 nodes
   if $facts['os']['family'] == 'RedHat' {
-    if $facts['ec2_metadata'] {
+    if $facts['os']['name'] == 'RedHat' {
       yumrepo { 'rhel-7-server-rhui-extras-rpms':
         enabled => true,
         before => Package['dnf'],
+      }
+    } else {
+      yumrepo { 'rhel-7-server-rhui-extras-rpms':
+        ensure => absent,
       }
     }
   }
