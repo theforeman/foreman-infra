@@ -2,7 +2,7 @@
 define awstats::vhost {
 
   file { "/etc/awstats/awstats.${name}.conf":
-    ensure  => present,
+    ensure  => file,
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
@@ -17,15 +17,15 @@ define awstats::vhost {
   }
 
   file { "/etc/cron.hourly/awstats-${name}":
-    ensure  => present,
+    ensure  => file,
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
-    content => template('awstats/cron.erb')
+    content => template('awstats/cron.erb'),
   }
 
   file { "/var/www/vhosts/debugs/htdocs/awstats/${name}.html":
-    ensure => present,
+    ensure => file,
     mode   => '0644',
     owner  => 'root',
     group  => 'root',

@@ -83,28 +83,28 @@ define freight::user (
   include ::apache::mod::headers
 
   apache::vhost { $vhost:
-    port            => '80',
-    servername      => "${vhost}.theforeman.org",
-    docroot         => $webdir,
-    docroot_owner   => $user,
-    docroot_group   => $user,
-    docroot_mode    => '0755',
-    directories     => $directory_config,
+    port          => '80',
+    servername    => "${vhost}.theforeman.org",
+    docroot       => $webdir,
+    docroot_owner => $user,
+    docroot_group => $user,
+    docroot_mode  => '0755',
+    directories   => $directory_config,
   }
 
   if $vhost_https {
     apache::vhost { "${vhost}-https":
-      port            => '443',
-      servername      => "${vhost}.theforeman.org",
-      docroot         => $webdir,
-      docroot_owner   => $user,
-      docroot_group   => $user,
-      docroot_mode    => '0755',
-      ssl             => true,
-      ssl_cert        => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
-      ssl_chain       => '/etc/letsencrypt/live/theforeman.org/chain.pem',
-      ssl_key         => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
-      directories     => $directory_config,
+      port          => '443',
+      servername    => "${vhost}.theforeman.org",
+      docroot       => $webdir,
+      docroot_owner => $user,
+      docroot_group => $user,
+      docroot_mode  => '0755',
+      ssl           => true,
+      ssl_cert      => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
+      ssl_chain     => '/etc/letsencrypt/live/theforeman.org/chain.pem',
+      ssl_key       => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
+      directories   => $directory_config,
     }
   }
 

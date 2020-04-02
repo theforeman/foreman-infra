@@ -48,15 +48,15 @@ define secure_ssh::receiver_setup (
   if $foreman_search {
     # Get the IPs of the uploaders from foreman
     $ip_data=foreman({
-      'item'         => 'fact_values',
-      'search'       => $foreman_search,
-      'foreman_user' => $::foreman_api_user,
-      'foreman_pass' => $::foreman_api_password,
-      })
+        'item'         => 'fact_values',
+        'search'       => $foreman_search,
+        'foreman_user' => $::foreman_api_user,
+        'foreman_pass' => $::foreman_api_password,
+    })
   }
 
   file { "${homedir}/.ssh/authorized_keys":
-    ensure  => present,
+    ensure  => file,
     owner   => $user,
     mode    => '0700',
     content => template('secure_ssh/auth_keys.erb'),
@@ -70,7 +70,7 @@ define secure_ssh::receiver_setup (
   }
 
   file { "${homedir}/bin/secure_${name}":
-    ensure  => present,
+    ensure  => file,
     owner   => $user,
     mode    => '0700',
     content => $script_content,
