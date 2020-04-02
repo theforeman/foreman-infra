@@ -1,8 +1,5 @@
 class slave (
   Optional[String] $koji_certificate    = undef,
-  Optional[String] $copr_login          = undef,
-  Optional[String] $copr_username       = undef,
-  Optional[String] $copr_token          = undef,
   Boolean $uploader                     = true,
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
   Stdlib::Absolutepath $workspace       = '/var/lib/workspace',
@@ -60,7 +57,7 @@ class slave (
     group  => 'jenkins',
   }
 
-  file { "${homedir}/.config/hub":
+  file { ["${homedir}/.config/hub", "${homedir}/.config/copr"]:
     ensure  => absent,
   }
 
@@ -271,9 +268,6 @@ class slave (
       class { 'slave::packaging::rpm':
         homedir          => $homedir,
         koji_certificate => $koji_certificate,
-        copr_login       => $copr_login,
-        copr_username    => $copr_username,
-        copr_token       => $copr_token,
       }
       contain slave::packaging::rpm
     }
