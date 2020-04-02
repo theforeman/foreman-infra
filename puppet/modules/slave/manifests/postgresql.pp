@@ -17,9 +17,10 @@ class slave::postgresql {
           before => Class['postgresql::globals'],
         }
         yumrepo { 'foreman-infra-el7':
-          name    => 'foreman-infra-el7',
-          baseurl => 'https://yum.theforeman.org/infra/el7/',
-          enabled => true,
+          name     => 'foreman-infra-el7',
+          baseurl  => 'https://yum.theforeman.org/infra/el7/',
+          enabled  => true,
+          gpgcheck => false,
         } ->
         package { 'rh-postgresql12-postgresql-evr':
           ensure  => 'present',
