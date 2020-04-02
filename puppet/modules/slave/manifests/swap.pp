@@ -1,4 +1,14 @@
-class slave::swap($file = '/swap', $size_mb = 2048) {
+# @summary Create a swapfile
+#
+# @param file
+#   The location of the swapfile
+#
+# @param size_mb
+#   The size in MBs
+class slave::swap(
+  Stdlib::Absolutepath $file = '/swap',
+  Integer[0] $size_mb = 2048,
+) {
   exec { 'create-swap':
     command => "/bin/dd if=/dev/zero of=${file} bs=1M count=${size_mb}",
     creates => $file,
