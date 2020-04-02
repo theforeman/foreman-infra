@@ -1,7 +1,6 @@
 class slave (
   Optional[String] $github_user         = undef,
   Optional[String] $github_oauth        = undef,
-  Optional[String] $jenkins_build_token = undef,
   Optional[String] $koji_certificate    = undef,
   Optional[String] $copr_login          = undef,
   Optional[String] $copr_username       = undef,
@@ -63,7 +62,7 @@ class slave (
     group  => 'jenkins',
   }
 
-  if $github_user and $github_oauth and $jenkins_build_token {
+  if $github_user and $github_oauth {
     file { "${homedir}/.config/hub":
       ensure  => file,
       mode    => '0600',
