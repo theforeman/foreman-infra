@@ -24,7 +24,7 @@ class slave::postgresql {
       }
 
       yumrepo { 'foreman-infra-el7':
-        name     => 'foreman-infra-el7',
+        descr    => 'foreman-infra-el7',
         baseurl  => 'https://yum.theforeman.org/infra/el7/',
         enabled  => true,
         gpgcheck => false,
