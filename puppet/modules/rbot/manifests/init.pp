@@ -16,8 +16,8 @@ class rbot(
   $core_language   = $rbot::params::core_language,
   $ssl             = $rbot::params::ssl,
   $plugin_dir      = $rbot::params::plugin_dir,
-  $irc_password    = '',
-  $bind_host       = '',
+  $irc_password    = undef,
+  $bind_host       = undef,
 ) inherits rbot::params {
   anchor { 'rbot::begin': } ->
   class  { 'rbot::package': } ~>

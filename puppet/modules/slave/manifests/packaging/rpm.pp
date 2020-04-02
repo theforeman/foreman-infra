@@ -109,7 +109,7 @@ class slave::packaging::rpm (
     if $facts['os']['name'] == 'RedHat' {
       yumrepo { 'rhel-7-server-rhui-extras-rpms':
         enabled => true,
-        before => Package['dnf'],
+        before  => Package['dnf'],
       }
     } else {
       yumrepo { 'rhel-7-server-rhui-extras-rpms':

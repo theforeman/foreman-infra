@@ -5,9 +5,9 @@ class slave::postgresql {
     if $facts['os']['release']['major'] == '7' {
       ['postgresql-server', 'postgresql-devel', 'postgresql-client', 'postgresql'].each |$pkg| {
         package { "${pkg}-nonscl":
-          ensure  => absent,
-          name    => $pkg,
-          before  => Class['postgresql::globals'],
+          ensure => absent,
+          name   => $pkg,
+          before => Class['postgresql::globals'],
         }
       }
 
@@ -19,7 +19,7 @@ class slave::postgresql {
       } elsif $facts['ec2_metadata'] {
         yumrepo { 'rhel-server-rhui-rhscl-7-rpms':
           enabled => true,
-          before => Class['postgresql::globals'],
+          before  => Class['postgresql::globals'],
         }
       }
 

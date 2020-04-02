@@ -6,7 +6,7 @@ class rbot::package {
 
   case $::osfamily {
     'RedHat':  { $packages = [ 'db4', 'db4-utils', 'gettext', 'gettext-devel', 'rubygems' ] }
-    default: { fail ("OS $::osfamily is not supported") }
+    default: { fail ("OS ${::osfamily} is not supported") }
   }
 
   $extra_gems = [ 'mechanize', 'tzinfo', 'tokyocabinet' ]
@@ -35,7 +35,7 @@ class rbot::package {
   }
   ->
   file { "${rbot::base_dir}/rbot":
-    ensure  => symlink,
-    target  => "/opt/rbot-${rbot::version}",
+    ensure => symlink,
+    target => "/opt/rbot-${rbot::version}",
   }
 }

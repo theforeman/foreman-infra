@@ -1,6 +1,6 @@
 class motd::params {
   case $::osfamily {
-    redhat, debian, suse: {
+    'RedHat', 'Debian', 'Suse': {
       $config_file = '/etc/motd'
       $template = 'motd/motd.erb'
     }
