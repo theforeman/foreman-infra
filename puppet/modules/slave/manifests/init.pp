@@ -10,6 +10,8 @@ class slave (
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
   Stdlib::Absolutepath $workspace       = '/var/lib/workspace',
 ) {
+  include git
+
   # On Debian we use pbuilder with sudo
   $sudo = $facts['osfamily'] ? {
     'Debian' => 'ALL=NOPASSWD: ALL',
