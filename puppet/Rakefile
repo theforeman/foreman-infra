@@ -6,7 +6,6 @@ end
 require 'puppet-syntax/tasks/puppet-syntax'
 PuppetSyntax.manifests_paths = ['modules/*/manifests/**/*.pp']
 PuppetSyntax.templates_paths = ['modules/*/templates/**/*.{erb,epp}']
-puts Rake::FileList[PuppetSyntax.templates_paths]
 
 task :test => [:syntax, :spec]
 
