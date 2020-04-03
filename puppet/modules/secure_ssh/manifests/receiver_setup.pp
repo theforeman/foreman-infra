@@ -35,7 +35,13 @@ define secure_ssh::receiver_setup (
     managehome => true,
     password   => '!',
   }
-  ->
+
+  # Created above, but this ensures futher chaining is correct
+  file { $homedir:
+    ensure => directory,
+    owner  => $user,
+  }
+
   file { "${homedir}/.ssh":
     ensure => directory,
     owner  => $user,
