@@ -24,4 +24,12 @@ Vagrant.configure("2") do |config|
       libvirt.memory = "2048"
     end
   end
+
+  config.vm.define "web" do |override|
+    override.vm.hostname = "web"
+
+    override.vm.provider "libvirt" do |libvirt|
+      libvirt.memory = "2048"
+    end
+  end
 end

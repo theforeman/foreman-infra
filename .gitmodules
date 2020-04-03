@@ -23,3 +23,6 @@
 [submodule "puppet/test_modules/cron_core"]
 	path = puppet/test_modules/cron_core
 	url = https://github.com/puppetlabs/puppetlabs-cron_core.git
+[submodule "puppet/test_modules/selinux_core"]
+	path = puppet/test_modules/selinux_core
+	url = https://github.com/puppetlabs/puppetlabs-selinux_core
