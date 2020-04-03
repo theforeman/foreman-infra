@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.provision "puppet" do |puppet|
-    puppet.module_path = "puppet/modules"
+    puppet.module_path = ["puppet/modules", "puppet/git_modules", "puppet/forge_modules"]
     puppet.manifests_path = "vagrant/manifests"
     puppet.synced_folder_type = "rsync"
   end
