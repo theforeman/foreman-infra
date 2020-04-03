@@ -1,21 +1,18 @@
-# Freight toplevel class
-#
-# Dependencies
-#
-# * puppetlabs-apt
-#
-# Assumptions
-#
-#   Assumes ~freight/.gnupg exists and has the repo secret key loaded
-#
-# Further setup
-#
-#   You probably want to point a vhost at $freight_home
-#
-class freight($https = false) {
+# @summary install freight
+class freight {
+  if $facts['os']['family'] == 'Debian' {
+    apt::source { 'freight':
+      location => 'http://build.openvpn.net/debian/freight_team',
+      repos    => 'main',
+      key      => {
+        id     => '30EBF4E73CCE63EEE124DD278E6DA8B4E158C569',
+        source => 'https://swupdate.openvpn.net/repos/repo-public.gpg',
+      },
+      before   => Package['freight'],
+    }
+  }
 
-  contain ::freight::install
-  contain ::freight::config
-
-  Class['freight::install'] ~> Class['freight::config']
+  package { 'freight':
+    ensure => 'installed',
+  }
 }

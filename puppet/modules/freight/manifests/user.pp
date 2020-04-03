@@ -1,46 +1,19 @@
 define freight::user (
-  $user         = 'freight',
-  $home         = '/var/www/freight',
-  $webdir       = "${home}/web",
-  $stagedir     = "${home}/staged",
-  $vhost        = 'deb',
-  $vhost_https  = false,
-  $cron_matches = 'all',
+  String $user,
+  Stdlib::Absolutepath $home,
+  Stdlib::Absolutepath $webdir,
+  Stdlib::Absolutepath $stagedir,
+  String $vhost,
+  Variant[String, Array[String]] $cron_matches,
 ) {
-
-  if $name == 'main' {
-    # Can't use a standard rsync define here as we need to extend the
-    # script to handle deployment too
-    secure_ssh::receiver_setup { $user:
-      user           => $user,
-      foreman_search => 'host.hostgroup = Debian and (name = external_ip4 or name = external_ip6)',
-      script_content => template('freight/rsync_main.erb'),
-      ssh_key_name   => "rsync_${user}_key",
-    }
-    file { '/home/freight/rsync_cache':
-      ensure => directory,
-      owner  => $user,
-    }
-    # This ruby script is called from the secure_freight template
-    file { '/home/freight/bin/secure_deploy_debs':
-      ensure  => file,
-      owner   => 'freight',
-      mode    => '0700',
-      content => template('freight/deploy_debs.erb'),
-    }
-  } else {
-    secure_ssh::rsync::receiver_setup { $user:
-      user           => $user,
-      foreman_search => 'host.hostgroup = Debian and (name = external_ip4 or name = external_ip6)',
-      script_content => template('freight/rsync.erb'),
-    }
-  }
+  require freight
 
   file { "${home}/freight.conf":
     ensure  => file,
+    owner   => 'root',
+    group   => $user,
     mode    => '0644',
     content => template('freight/freight.conf.erb'),
-    require => Package['freight'],
   }
 
   # $webdir should be created too, but since we normally override to point at
@@ -54,6 +27,8 @@ define freight::user (
   # Cleanup old stuff
   file { "/etc/cron.daily/${user}":
     mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
     content => template('freight/cron.erb'),
   }
 
@@ -80,11 +55,9 @@ define freight::user (
   ]
 
   # locations doesn't autorequire the headers module
-  include ::apache::mod::headers
+  include apache::mod::headers
 
-  apache::vhost { $vhost:
-    port          => '80',
-    servername    => "${vhost}.theforeman.org",
+  web::vhost { $vhost:
     docroot       => $webdir,
     docroot_owner => $user,
     docroot_group => $user,
@@ -92,23 +65,7 @@ define freight::user (
     directories   => $directory_config,
   }
 
-  if $vhost_https {
-    apache::vhost { "${vhost}-https":
-      port          => '443',
-      servername    => "${vhost}.theforeman.org",
-      docroot       => $webdir,
-      docroot_owner => $user,
-      docroot_group => $user,
-      docroot_mode  => '0755',
-      ssl           => true,
-      ssl_cert      => '/etc/letsencrypt/live/theforeman.org/fullchain.pem',
-      ssl_chain     => '/etc/letsencrypt/live/theforeman.org/chain.pem',
-      ssl_key       => '/etc/letsencrypt/live/theforeman.org/privkey.pem',
-      directories   => $directory_config,
-    }
-  }
-
-  include ::rsync::server
+  include rsync::server
   rsync::server::module { $vhost:
     path            => $webdir,
     list            => true,
@@ -134,13 +91,13 @@ define freight::user (
     group  => 'root',
   }
 
-  if $::selinux {
-    include ::selinux
+  if $facts['os']['selinux']['enabled'] {
+    include selinux
 
     # Ensure contexts are correct for content copied between webroot and staging area
     selinux::fcontext { "fcontext-${user}":
       seltype  => 'public_content_t',
-      pathspec => "/var/www/${user}(/.*)?",
+      pathspec => "${stagedir}(/.*)?",
     }
   }
 }

@@ -1,11 +1,15 @@
+# Basic webserver config
+#
+# @param letsencrypt
+#   Whether to include letsencrypt
 class web::base(
   Boolean $letsencrypt = true,
 ) {
   if $letsencrypt {
-    include ::web::letsencrypt
+    include web::letsencrypt
   }
 
-  class { '::apache':
+  class { 'apache':
     default_vhost => false,
   }
 

@@ -20,3 +20,9 @@ node 'jenkins-master' {
     require => [Class['jenkins_master', 'web::jenkins']],
   }
 }
+
+node /^web.*/ {
+  class { 'profiles::web':
+    https => false,
+  }
+}
