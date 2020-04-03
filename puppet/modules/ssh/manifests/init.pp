@@ -1,6 +1,6 @@
 class ssh {
   file { '/root/.ssh/authorized_keys':
-    ensure => absent,
+    ensure => file,
   }
 
   $ssh_service = $::osfamily ? {
@@ -24,7 +24,7 @@ class ssh {
 
   sshd_config { 'PermitRootLogin':
     ensure => present,
-    value  => 'no',
+    value  => 'without-password',
   }
 
   sshd_config { 'PasswordAuthentication':
