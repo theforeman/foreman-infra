@@ -1,10 +1,14 @@
 #!/bin/bash -xe
 
-wget https://github.com/xorpaul/g10k/releases/download/v0.8.9/g10k-linux-amd64.zip
-unzip g10k-linux-amd64.zip
+if [[ ! -f g10k ]] ; then
+	if [[ ! -f g10k-linux-amd64 ]] ; then
+		wget https://github.com/xorpaul/g10k/releases/download/v0.8.9/g10k-linux-amd64.zip
+	fi
+	unzip g10k-linux-amd64.zip
+fi
 
-./g10k -quiet -puppetfile -puppetfilelocation puppet/Puppetfile_forge -moduledir puppet/forge_modules
+./g10k -quiet -cachedir .g10k/cache -puppetfile -puppetfilelocation puppet/Puppetfile_forge -moduledir puppet/forge_modules
 
 cd puppet
-rake syntax
-rake spec
+bundle exec rake syntax
+bundle exec rake spec

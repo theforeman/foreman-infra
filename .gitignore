@@ -1,5 +1,9 @@
 ssl/*
 yaml/*
 puppet/puppet.conf
+puppet/forge_modules/
+g10k
+g10k-linux-amd64.zip
+.g10k/cache
 .idea
 .vagrant
