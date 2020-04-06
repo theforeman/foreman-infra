@@ -38,6 +38,7 @@ class slave::postgresql {
       class { 'postgresql::globals':
         version              => '12',
         client_package_name  => 'rh-postgresql12-postgresql-syspaths',
+        devel_package_name   => 'rh-postgresql12-postgresql-devel',
         server_package_name  => 'rh-postgresql12-postgresql-server-syspaths',
         contrib_package_name => 'rh-postgresql12-postgresql-contrib-syspaths',
         service_name         => 'postgresql',
@@ -82,8 +83,7 @@ class slave::postgresql {
 
   include ::postgresql::client
   include ::postgresql::server
-
-  Class['postgresql::server'] -> Package['postgresql-dev']
+  include ::postgresql::lib::devel
 
   # Simple known user/pass that will allow Jenkins to create its
   # own databases when required
