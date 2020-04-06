@@ -75,15 +75,6 @@ class slave (
         'RedHat' => 'libxslt-devel',
         default  => 'libxslt1-dev'
       };
-    'postgresql-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'RedHat' => $::operatingsystemmajrelease ? {
-          '7'     => 'rh-postgresql12-postgresql-devel',
-          default => 'postgresql-devel',
-        },
-        'Debian' => 'libpq-dev',
-      };
     'libkrb5-dev':
       ensure => present,
       name   => $::osfamily ? {
