@@ -23,7 +23,7 @@
 define web::vhost (
   Stdlib::Fqdn $servername = "${title}.theforeman.org",
   Array[Stdlib::Fqdn] $serveraliases = [],
-  Array[Hash] $directories = [],
+  Optional[Array[Hash]] $directories = undef,
   Stdlib::Absolutepath $docroot = "/var/www/vhosts/${title}/htdocs",
   Optional[String] $docroot_owner = undef,
   Optional[String] $docroot_group = undef,
