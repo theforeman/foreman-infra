@@ -51,7 +51,7 @@ define secure_ssh::receiver_setup (
   # Read the public key from the puppetmaster
   $pub_key  = ssh_keygen({name => $ssh_key_name, public => 'public'})
 
-  if $foreman_search and defined('::foreman_api_user') and defined('::foreman_api_password') {
+  if $foreman_search and defined('$::foreman_api_user') and defined('$::foreman_api_password') {
     # Get the IPs of the uploaders from foreman
     $ip_data=foreman({
         'item'         => 'fact_values',
