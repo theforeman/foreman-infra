@@ -10,7 +10,7 @@ class web::vhost::web(
   if $web::https {
     $https_rewrites = [
       {
-        'rewrite_cond' => ['%{HTTPS} != on'],
+        'rewrite_cond' => ['%{HTTPS} !=on'],
         'rewrite_rule' => ['^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]'],
       },
     ]
