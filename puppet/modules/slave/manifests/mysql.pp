@@ -31,4 +31,8 @@ class slave::mysql {
     table      => 'test%.*',
     user       => 'foreman@localhost',
   }
+
+  class { 'mysql::bindings':
+    client_dev => true,
+  }
 }
