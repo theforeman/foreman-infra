@@ -75,15 +75,6 @@ class slave (
         'RedHat' => 'libxslt-devel',
         default  => 'libxslt1-dev'
       };
-    'mysql-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'RedHat' => $::operatingsystemmajrelease ? {
-          '6'     => 'mysql-devel',
-          default => 'mariadb-devel',
-        },
-        default  => 'libmysqlclient-dev'
-      };
     'postgresql-dev':
       ensure => present,
       name   => $::osfamily ? {
