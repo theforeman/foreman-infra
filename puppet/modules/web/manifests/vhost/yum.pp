@@ -5,7 +5,7 @@ class web::vhost::yum (
   Integer[0] $rsync_max_connections = 5,
   Stdlib::Fqdn $servername = 'yum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/yum/htdocs',
-  String $user = 'root',
+  String $user = 'yumrepo',
 ) {
   $yum_directory_config = [
     {

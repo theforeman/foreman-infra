@@ -26,7 +26,7 @@ ssh_options[:forward_agent] = true
 if File.exists?(".CAPUSER")
   set :user, File.open(".CAPUSER", "r").read.chomp
 else
-  set :user, "root"
+  set :user, "yumrepo"
 end
 
 namespace :repo do
