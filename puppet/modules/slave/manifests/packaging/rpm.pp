@@ -49,7 +49,7 @@ class slave::packaging::rpm (
       content => $koji_certificate,
     }
   } else {
-    file { '/home/jenkins/.katello.cert':
+    file { "${homedir}/.katello.cert":
       ensure  => absent,
     }
   }
