@@ -5,6 +5,7 @@ class web::vhost::yum (
   Integer[0] $rsync_max_connections = 5,
   Stdlib::Fqdn $servername = 'yum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/yum/htdocs',
+  String $user = 'root',
 ) {
   $yum_directory_config = [
     {
@@ -27,11 +28,21 @@ class web::vhost::yum (
     },
   ]
 
+
+  file { $yum_directory:
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0755',
+  }
+
   web::vhost { 'yum':
-    servername   => $servername,
-    docroot      => $yum_directory,
-    docroot_mode => '2575',
-    directories  => $yum_directory_config,
+    servername    => $servername,
+    docroot       => $yum_directory,
+    docroot_owner => $user,
+    docroot_group => $user,
+    docroot_mode  => '0755',
+    directories   => $yum_directory_config,
   }
 
   include rsync::server
@@ -54,8 +65,8 @@ class web::vhost::yum (
   ['HEADER.html', 'robots.txt', 'RPM-GPG-KEY-foreman'].each |$filename| {
     file { "${yum_directory}/${filename}":
       ensure  => file,
-      owner   => 'root',
-      group   => 'root',
+      owner   => $user,
+      group   => $user,
       mode    => '0644',
       content => file("web/yum/${filename}"),
     }
@@ -64,8 +75,8 @@ class web::vhost::yum (
   ['releases', 'plugins', 'client'].each |$directory| {
     file { "${yum_directory}/${directory}":
       ensure => directory,
-      owner  => 'root',
-      group  => 'root',
+      owner  => $user,
+      group  => $user,
       mode   => '0755',
     }
 
@@ -82,8 +93,8 @@ class web::vhost::yum (
 
   file { "${yum_directory}/rails":
     ensure => directory,
-    owner  => 'root',
-    group  => 'root',
+    owner  => $user,
+    group  => $user,
     mode   => '0755',
   }
 
