@@ -1,23 +1,23 @@
-[submodule "puppet/modules/rvm"]
+[submodule "puppet/git_modules/rvm"]
 	path = puppet/git_modules/rvm
 	url = https://github.com/maestrodev/puppet-rvm.git
-[submodule "puppet/modules/ssh_statickeys"]
+[submodule "puppet/git_modules/ssh_statickeys"]
 	path = puppet/git_modules/ssh_statickeys
 	url = https://github.com/GregSutcliffe/puppet-ssh_statickeys
-[submodule "puppet/modules/dirvish"]
+[submodule "puppet/git_modules/dirvish"]
 	path = puppet/git_modules/dirvish
 	url = https://github.com/GregSutcliffe/puppet-dirvish
-[submodule "puppet/modules/external_ip"]
+[submodule "puppet/git_modules/external_ip"]
 	path = puppet/git_modules/external_ip
 	url = https://github.com/nightfly19/puppet-external_ip
-[submodule "puppet/modules/htpasswd"]
+[submodule "puppet/git_modules/htpasswd"]
 	path = puppet/git_modules/htpasswd
 	url = https://github.com/ghoneycutt/puppet-htpasswd
 [submodule "ansible/roles/Jimdo.fastly"]
 	path = ansible/roles/Jimdo.fastly
 	url = https://github.com/evgeni/ansible-fastly
 	branch = theforeman
-[submodule "puppet/modules/yumrepo_core"]
+[submodule "puppet/test_modules/yumrepo_core"]
 	path = puppet/test_modules/yumrepo_core
 	url = https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
 [submodule "puppet/test_modules/cron_core"]
