@@ -4,10 +4,12 @@ class web::vhost::stagingdeb(
   String $user = 'freightstage',
   Boolean $setup_receiver = true,
 ) {
+  $home = "/home/${user}"
+
   # Manual step: each user needs the GPG key in it's keyring
   freight::user { 'staging':
     user         => $user,
-    home         => "/home/${user}",
+    home         => $home,
     webdir       => '/var/www/vhosts/stagingdeb/htdocs',
     stagedir     => "/var/www/${user}",
     vhost        => 'stagingdeb',
