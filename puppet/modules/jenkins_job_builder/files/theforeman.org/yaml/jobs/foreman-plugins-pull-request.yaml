@@ -72,8 +72,6 @@
           repo: 'https://github.com/theforeman/foreman_host_extra_validator'
       - foreman_monitoring:
           repo: 'https://github.com/theforeman/foreman_monitoring'
-      - foreman_omaha:
-          repo: 'https://github.com/theforeman/foreman_omaha'
       - foreman_openscap:
           repo: 'https://github.com/theforeman/foreman_openscap'
       - foreman_remote_execution:
