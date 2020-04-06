@@ -4,6 +4,9 @@
     quiet-period: 2700
     properties:
       - github_foreman
+      - build-discarder:
+          num-to-keep: 10
+          artifact-num-to-keep: 10
     scm:
       - foreman:
           branch: '1.23-stable'
