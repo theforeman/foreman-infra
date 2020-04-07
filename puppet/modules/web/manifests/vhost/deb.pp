@@ -2,13 +2,13 @@
 # @api private
 class web::vhost::deb (
   String $user = 'freight',
-  Stdlib::Absolutepath $homedir = "/home/${user}",
+  Stdlib::Absolutepath $home = "/home/${user}",
   Boolean $setup_receiver = true,
 ) {
   # Manual step: each user needs the GPG key in it's keyring
   freight::user { 'main':
     user         => $user,
-    home         => $homedir,
+    home         => $home,
     webdir       => '/var/www/vhosts/deb/htdocs',
     stagedir     => '/var/www/freight',
     vhost        => 'deb',
@@ -24,12 +24,12 @@ class web::vhost::deb (
       script_content => template('freight/rsync_main.erb'),
       ssh_key_name   => "rsync_${user}_key",
     }
-    file { "${homedir}/rsync_cache":
+    file { "${home}/rsync_cache":
       ensure => directory,
       owner  => $user,
     }
     # This ruby script is called from the secure_freight template
-    file { "${homedir}/bin/secure_deploy_debs":
+    file { "${home}/bin/secure_deploy_debs":
       ensure  => file,
       owner   => 'freight',
       mode    => '0700',
