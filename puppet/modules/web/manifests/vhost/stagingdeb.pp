@@ -2,10 +2,9 @@
 # @api private
 class web::vhost::stagingdeb(
   String $user = 'freightstage',
+  Stdlib::Absolutepath $home = "/home/${user}",
   Boolean $setup_receiver = true,
 ) {
-  $home = "/home/${user}"
-
   # Manual step: each user needs the GPG key in it's keyring
   freight::user { 'staging':
     user         => $user,
