@@ -48,7 +48,7 @@ class web::vhost::web(
   if $setup_receiver {
     secure_ssh::rsync::receiver_setup { 'web':
       user           => 'website',
-      foreman_search => 'host ~ slave*.rackspace.theforeman.org and (name = external_ip4 or name = external_ip6)',
+      foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
       script_content => file('web/rsync.sh'),
     }
   }
