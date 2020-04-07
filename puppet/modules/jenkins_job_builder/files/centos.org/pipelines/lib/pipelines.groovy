@@ -3,7 +3,7 @@ def pipelineVars(Map args) {
     if (args.action == 'install') {
         boxes = ["pipeline-${args.type}-server-${args.version}-${args.os}", "pipeline-${args.type}-smoker-${args.version}-${args.os}"]
     } else if (args.action == 'upgrade') {
-        boxes = ["pipeline-upgrade-${args.type}-${args.version}-${args.os}", "pipeline-upgrade-${args.type}-smoker-${args.version}-${args.os}"]
+        boxes = ["pipeline-up-${args.type}-${args.version}-${args.os}", "pipeline-up-${args.type}-smoker-${args.version}-${args.os}"]
     } else {
         boxes = []
     }
