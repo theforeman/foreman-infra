@@ -79,16 +79,4 @@ class web::vhost::yum (
     ensure => link,
     target => '../nightly',
   }
-
-  file { "${yum_directory}/rails":
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
-  file { "${yum_directory}/rails/latest":
-    ensure => link,
-    target => "foreman-${stable}",
-  }
 }
