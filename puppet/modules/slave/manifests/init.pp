@@ -97,12 +97,6 @@ class slave (
         'Debian' => 'iceweasel',
         default  => 'firefox'
       };
-    'augeas-dev':
-      ensure => absent,
-      name   => $::osfamily ? {
-        'Debian' => 'libaugeas-dev',
-        default  => 'augeas-devel'
-      };
     'libvirt-dev':
       ensure => present,
       name   => $::osfamily ? {
@@ -125,17 +119,12 @@ class slave (
         'RedHat' => 'libcurl-devel',
         default  => 'libcurl4-openssl-dev'
       };
-  }
-
-  # this might clash with RVM on Ubuntu(?) otherwise
-  if ! defined(Package['libsqlite3-dev']) {
-    package { 'sqlite3-dev':
+    'sqlite3-dev':
       ensure => present,
       name   => $::osfamily ? {
         'RedHat' => 'sqlite-devel',
         default  => 'libsqlite3-dev'
-      },
-    }
+      };
   }
 
   # bash JSON parser
