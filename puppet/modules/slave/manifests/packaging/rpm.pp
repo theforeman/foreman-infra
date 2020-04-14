@@ -63,8 +63,10 @@ class slave::packaging::rpm (
   }
 
   # tito
+  # Work around to fix https://github.com/rpm-software-management/tito/pull/354#issuecomment-613523823
+  # Pulled from the infra repository
   package { 'tito':
-    ensure => latest,
+    ensure => '0.6.12',
   }
 
   file { "${homedir}/.titorc":
