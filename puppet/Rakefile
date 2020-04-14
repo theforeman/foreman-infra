@@ -10,7 +10,7 @@ PuppetSyntax.templates_paths = ['modules/*/templates/**/*.{erb,epp}']
 require 'puppet-lint/tasks/puppet-lint'
 PuppetLint::RakeTask.new :lint do |config|
   config.pattern = PuppetSyntax.manifests_paths
-  config.ignore_paths = ['modules/exim/**/*.pp', 'modules/slave/**/*.pp']
+  config.ignore_paths = ['modules/exim/**/*.pp']
 end
 
 task :test => [:syntax, :lint, :spec]

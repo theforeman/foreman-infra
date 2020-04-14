@@ -62,47 +62,63 @@ class slave (
   }
 
   # Build dependencies
+  $libxml2_dev = $facts['os']['family'] ? {
+    'RedHat' => 'libxml2-devel',
+    default  => 'libxml2-dev'
+  }
+
+  $libxslt1_dev = $facts['os']['family'] ? {
+    'RedHat' => 'libxslt-devel',
+    default  => 'libxslt1-dev'
+  }
+
+  $libkrb5_dev = $facts['os']['family'] ? {
+    'Debian' => 'libkrb5-dev',
+    default  => 'krb5-devel'
+  }
+
+  $systemd_dev = $facts['os']['family'] ? {
+    'Debian' => 'libsystemd-dev',
+    default  => 'systemd-devel'
+  }
+
+  $sqlite3_dev = $facts['os']['family'] ? {
+    'RedHat' => 'sqlite-devel',
+    default  => 'libsqlite3-dev'
+  }
+
+  $libcurl_dev = $facts['os']['family'] ? {
+    'RedHat' => 'libcurl-devel',
+    default  => 'libcurl4-openssl-dev'
+  }
+
+  $libvirt_dev = $facts['os']['family'] ? {
+    'Debian' => 'libvirt-dev',
+    default  => 'libvirt-devel'
+  }
+
+  $firefox = $facts['os']['name'] ? {
+    'Debian' => 'iceweasel',
+    default  => 'firefox'
+  }
+
   package {
-    'libxml2-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'RedHat' => 'libxml2-devel',
-        default  => 'libxml2-dev'
-      };
-    'libxslt1-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'RedHat' => 'libxslt-devel',
-        default  => 'libxslt1-dev'
-      };
-    'libkrb5-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'Debian' => 'libkrb5-dev',
-        default  => 'krb5-devel'
-      };
-    'systemd-devel':
-      ensure => present,
-      name   => $::osfamily ? {
-        'Debian' => 'libsystemd-dev',
-        default  => 'systemd-devel'
-      };
+    $libxml2_dev:
+      ensure => present;
+    $libxslt1_dev:
+      ensure => present;
+    $libkrb5_dev:
+      ensure => present;
+    $systemd_dev:
+      ensure => present;
     'freeipmi':
       ensure => present;
     'ipmitool':
       ensure => present;
-    'firefox':
-      ensure => present,
-      name   => $::operatingsystem ? {
-        'Debian' => 'iceweasel',
-        default  => 'firefox'
-      };
-    'libvirt-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'Debian' => 'libvirt-dev',
-        default  => 'libvirt-devel'
-      };
+    $firefox:
+      ensure => present;
+    $libvirt_dev:
+      ensure => present;
     'asciidoc':
       ensure => present;
     'bzip2':
@@ -113,18 +129,10 @@ class slave (
       ensure => latest;
     'python-virtualenv':
       ensure => present;
-    'libcurl-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'RedHat' => 'libcurl-devel',
-        default  => 'libcurl4-openssl-dev'
-      };
-    'sqlite3-dev':
-      ensure => present,
-      name   => $::osfamily ? {
-        'RedHat' => 'sqlite-devel',
-        default  => 'libsqlite3-dev'
-      };
+    $libcurl_dev:
+      ensure => present;
+    $sqlite3_dev:
+      ensure => present;
   }
 
   # bash JSON parser
@@ -263,6 +271,6 @@ class slave (
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /ruby/) { print \$1 }' | xargs kill -9 >/dev/null 2>&1 || true\n",
+    content => "#!/bin/sh\nps -eo pid,etime,comm | awk '(\$2 ~ /-/ && \$3 ~ /ruby/) { print \$1 }' | xargs kill -9 >/dev/null 2>&1 || true\n", # lint:ignore:140chars
   }
 }

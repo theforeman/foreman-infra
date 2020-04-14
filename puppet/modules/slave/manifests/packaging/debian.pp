@@ -1,8 +1,8 @@
 # @api private
 class slave::packaging::debian(
-  Boolean $uploader = true,
   String $user,
   Stdlib::Absolutepath $workspace,
+  Boolean $uploader = true,
 ) {
   package { 'gem2deb':
     ensure => present,
