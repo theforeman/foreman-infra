@@ -22,7 +22,7 @@ class unattended {
       apply_updates => true,
       mailto        => 'sysadmins',
       extra_configs => {
-        'base/exclude' => { 'value' => 'kernel* java* jenkins' },
+        'base/exclude' => { 'value' => 'kernel* java* jenkins tito' },
       },
     }
   }
