@@ -4,6 +4,11 @@ class slave::docker {
     ensure => absent,
   }
 
+  $docker_ce_package_name = $facts['os']['family'] ? {
+    'Debian' => 'docker.io',
+    default  => 'docker',
+  }
+
   package { 'docker-ce':
     ensure => absent,
   } ->
@@ -13,10 +18,7 @@ class slave::docker {
   class { 'docker':
     use_upstream_package_source => false,
     service_overrides_template  => false,
-    docker_ce_package_name      => $::osfamily ? {
-      'Debian' => 'docker.io',
-      default  => 'docker',
-    };
+    docker_ce_package_name      => $docker_ce_package_name,
   }
 
   group { 'docker':

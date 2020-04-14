@@ -1,12 +1,12 @@
 define slave::pbuilder_setup (
-  $ensure     = present,
-  $backports  = false,
-  $nodesource = true,
-  $puppetlabs = true,
   $arch,
   $release,
   $apturl,
   $aptcontent,
+  $ensure     = present,
+  $backports  = false,
+  $nodesource = true,
+  $puppetlabs = true,
 ) {
 
   pbuilder { $name:
@@ -44,5 +44,4 @@ define slave::pbuilder_setup (
     mode    => '0644',
     content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mindepth 1 -mtime +1 -delete\n",
   }
-
 }
