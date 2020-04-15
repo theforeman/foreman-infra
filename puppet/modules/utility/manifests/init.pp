@@ -3,7 +3,7 @@ class utility($sysadmins = ['/dev/null']) {
   include motd
   include unattended
 
-  $vim = $::osfamily ? {
+  $vim = $facts['os']['family'] ? {
     'RedHat' => 'vim-enhanced',
     default  => 'vim',
   }

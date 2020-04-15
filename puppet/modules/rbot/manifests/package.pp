@@ -4,9 +4,9 @@ class rbot::package {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat':  { $packages = [ 'db4', 'db4-utils', 'gettext', 'gettext-devel', 'rubygems' ] }
-    default: { fail ("OS ${::osfamily} is not supported") }
+    default: { fail ("OS ${facts['os']['family']} is not supported") }
   }
 
   $extra_gems = [ 'mechanize', 'tzinfo', 'tokyocabinet' ]

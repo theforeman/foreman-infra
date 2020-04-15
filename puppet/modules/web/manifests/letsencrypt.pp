@@ -1,7 +1,7 @@
 class web::letsencrypt(
   $email = 'foreman-infra-notifications@googlegroups.com',
 ) {
-  class { '::letsencrypt':
+  class { 'letsencrypt':
     email          => $email,
     configure_epel => false,
   }

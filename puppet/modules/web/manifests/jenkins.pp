@@ -3,7 +3,7 @@ class web::jenkins(
   Stdlib::Absolutepath $webroot = '/var/www/vhosts/jenkins/htdocs',
   Boolean $https = false,
 ) {
-  include ::web::base
+  include web::base
 
   $proxy_pass = {
     'path'          => '/',
@@ -20,7 +20,7 @@ class web::jenkins(
     }
   }
 
-  if $facts['selinux'] {
+  if $facts['os']['selinux']['enabled'] {
     selboolean { 'httpd_can_network_connect':
       persistent => true,
       value      => 'on',

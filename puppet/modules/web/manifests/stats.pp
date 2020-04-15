@@ -13,7 +13,7 @@ class web::stats(
   Stdlib::Absolutepath $webroot = '/var/www/vhosts/shiny/htdocs',
   Boolean $https                = false,
 ) {
-  include ::web::base
+  include web::base
 
   $proxy_pass = {
     'path'          => '/',

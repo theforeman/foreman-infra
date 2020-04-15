@@ -81,9 +81,9 @@ class slave::postgresql {
     cwd => '/',
   }
 
-  include ::postgresql::client
-  include ::postgresql::server
-  include ::postgresql::lib::devel
+  include postgresql::client
+  include postgresql::server
+  include postgresql::lib::devel
 
   # Simple known user/pass that will allow Jenkins to create its
   # own databases when required

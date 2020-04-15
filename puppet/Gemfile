@@ -2,6 +2,19 @@ source 'https://rubygems.org'
 
 gem 'puppet', '~> 6.9', require: false
 gem 'puppet-lint', require: false
+gem 'puppet-lint-absolute_classname-check', require: false
+gem 'puppet-lint-classes_and_types_beginning_with_digits-check', require: false
+gem 'puppet-lint-empty_string-check', require: false
+gem 'puppet-lint-file_ensure-check', require: false
+gem 'puppet-lint-leading_zero-check', require: false
+gem 'puppet-lint-legacy_facts-check', require: false
+gem 'puppet-lint-strict_indent-check', require: false
+gem 'puppet-lint-trailing_comma-check', require: false
+gem 'puppet-lint-topscope-variable-check', require: false
+gem 'puppet-lint-undef_in_function-check', require: false
+gem 'puppet-lint-unquoted_string-check', require: false
+gem 'puppet-lint-variable_contains_upcase', require: false
+gem 'puppet-lint-version_comparison-check', require: false
 gem 'puppet-syntax', require: false
 gem 'rspec-puppet', require: false
 gem 'rspec-puppet-facts', require: false

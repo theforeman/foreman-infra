@@ -1,5 +1,5 @@
 class unattended {
-  if $::osfamily == 'Debian' {
+  if $facts['os']['family'] == 'Debian' {
     class { 'unattended_upgrades':
       auto      => { 'reboot' => false },
       blacklist => [
@@ -17,7 +17,7 @@ class unattended {
     }
   }
 
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     class { 'yum_cron':
       apply_updates => true,
       mailto        => 'sysadmins',

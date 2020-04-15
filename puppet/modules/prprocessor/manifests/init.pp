@@ -88,7 +88,7 @@ class prprocessor (
 
   # Apache / Passenger
 
-  include ::web::base
+  include web::base
 
   $docroot = '/var/www/html'
   $env = [

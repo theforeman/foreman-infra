@@ -11,4 +11,5 @@ fi
 
 cd puppet
 bundle exec rake syntax
+bundle exec rake lint
 bundle exec rake spec
