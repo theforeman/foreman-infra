@@ -7,7 +7,7 @@ class slave (
   include git
 
   # On Debian we use pbuilder with sudo
-  $sudo = $facts['osfamily'] ? {
+  $sudo = $facts['os']['family'] ? {
     'Debian' => 'ALL=NOPASSWD: ALL',
     default  => '',
   }
@@ -145,7 +145,7 @@ class slave (
   }
 
   # nodejs/npm for JavaScript tests
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     class { 'nodejs':
       repo_url_suffix       => '12.x',
       nodejs_package_ensure => latest,
@@ -180,8 +180,8 @@ class slave (
   }
 
   # Needed for integration tests with headless chrome and Selenium
-  if $::osfamily == 'RedHat' {
-    include ::epel
+  if $facts['os']['family'] == 'RedHat' {
+    include epel
 
     package { ['chromium', 'chromedriver']:
       ensure  => latest,
@@ -190,27 +190,27 @@ class slave (
   }
 
   # Needed for foreman-selinux testing
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     ensure_packages(['selinux-policy-devel'])
   }
 
   # needed by katello gem dependency qpid-messaging
   # to interface with candlepin's event topic
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     package { 'qpid-cpp-client-devel':
       ensure => latest,
     }
   }
 
   # Needed by foreman_openscap gem dependency OpenSCAP
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     package { 'openscap':
       ensure => latest,
     }
   }
 
   # Increase OS limits, RH OSes ship them by default
-  if $::osfamily == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' {
     file { '/etc/security/limits.d':
       ensure  => directory,
       owner   => 'root',
@@ -230,16 +230,16 @@ class slave (
   }
 
   # Java
-  include ::slave::java
+  include slave::java
 
   # Databases
-  include ::slave::mysql, ::slave::postgresql
+  include slave::mysql, slave::postgresql
   slave::db_config { 'mysql': }
   slave::db_config { 'sqlite3': }
   slave::db_config { 'postgresql': }
 
   # RVM
-  include ::slave::rvm
+  include slave::rvm
 
   # Packaging
   case $facts['os']['family'] {
@@ -261,7 +261,7 @@ class slave (
     default: {}
   }
 
-  if $::architecture == 'x86_64' or $::architecture == 'amd64' {
+  if $facts['os']['architecture'] == 'x86_64' or $facts['os']['architecture'] == 'amd64' {
     include slave::docker
   }
 

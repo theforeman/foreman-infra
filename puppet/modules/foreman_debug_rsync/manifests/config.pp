@@ -17,7 +17,7 @@ class foreman_debug_rsync::config {
     outgoing_chmod  => 'Du=rwx,g=rx,o=rx,Fu=rw,g=r,o=r',
   }
 
-  if $::selinux {
+  if $facts['os']['selinux']['enabled'] {
     include selinux
 
     selinux::boolean { 'allow_rsync_anon_write': }

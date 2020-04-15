@@ -8,7 +8,7 @@ class slave::rvm {
     key_source => 'https://rvm.io/pkuczynski.asc',
     key_type   => public,
   } ->
-  class { '::rvm':
+  class { 'rvm':
     version => '1.29.9',
   }
 
@@ -18,7 +18,7 @@ class slave::rvm {
       require => User['jenkins'],
     }
 
-    if $::architecture == 'x86_64' or $::architecture == 'amd64' {
+    if $facts['os']['architecture'] == 'x86_64' or $facts['os']['architecture'] == 'amd64' {
       slave::rvm_config { 'ruby-2.0.0':
         version          => 'ruby-2.0.0-p648',
         rubygems_version => '2.7.10',

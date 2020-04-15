@@ -3,7 +3,7 @@ class ssh {
     ensure => file,
   }
 
-  $ssh_service = $::osfamily ? {
+  $ssh_service = $facts['os']['family'] ? {
     'RedHat' => 'sshd',
     default  => 'ssh',
   }

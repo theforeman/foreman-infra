@@ -63,7 +63,7 @@ class redmine (
     cwd => '/',
   }
 
-  include ::postgresql::client, ::postgresql::server
+  include postgresql::client, postgresql::server
 
   $postgresql_settings.each |$setting, $value| {
     postgresql::server::config_entry { $setting:
@@ -135,7 +135,7 @@ class redmine (
 
   # Apache / Passenger
 
-  include ::web::base
+  include web::base
 
   $docroot          = "${app_root}/public"
   $min_instances    = 1

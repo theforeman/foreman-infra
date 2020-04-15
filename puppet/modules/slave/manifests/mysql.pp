@@ -9,7 +9,7 @@ class slave::mysql {
     },
   }
 
-  class { '::mysql::server':
+  class { 'mysql::server':
     override_options => $override_options,
   }
 
