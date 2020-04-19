@@ -54,9 +54,6 @@ bundle exec rake $tasks TESTOPTS="-v" --trace
 
 # Test asset precompile
 if [ "${UI}" = "true" ]; then
-  bundle exec rake db:drop RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=true || true
-  bundle exec rake db:create RAILS_ENV=production DISABLE_DATABASE_ENVIRONMENT_CHECK=true
-  bundle exec rake db:migrate RAILS_ENV=production
-  bundle exec rake assets:precompile RAILS_ENV=production
-  bundle exec rake webpack:compile RAILS_ENV=production
+  bundle exec rake assets:precompile RAILS_ENV=production DATABASE_URL=nulldb://nohost
+  bundle exec rake webpack:compile RAILS_ENV=production DATABASE_URL=nulldb://nohost
 fi

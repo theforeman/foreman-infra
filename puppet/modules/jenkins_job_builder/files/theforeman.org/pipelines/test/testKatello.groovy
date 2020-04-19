@@ -128,7 +128,7 @@ pipeline {
                     steps {
                         dir('foreman') {
                             withRVM(["bundle exec npm install"], ruby)
-                            withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production --trace'], ruby)
+                            withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production DATABASE_URL=nulldb://nohost --trace'], ruby)
                         }
                     }
                 }

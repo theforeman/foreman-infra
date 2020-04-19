@@ -93,16 +93,40 @@ pipeline {
                                 withRVM(['bundle exec rake jenkins:integration TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
                             }
                         }
-                        stage("assets-precompile-2.5-postgres-ui") {
+                    }
+                    post {
+                        always {
+                            cleanup(env.RUBY_VER, env.GEMSET)
+                            junit(testResults: 'jenkins/reports/unit/*.xml')
+                            deleteDir()
+                        }
+                    }
+                }
+                stage('ruby-2.5-nulldb-assets') {
+                    agent { label 'fast' }
+                    environment {
+                        RUBY_VER = '2.5'
+                        GEMSET = 'ruby-2.5-nulldb-assets'
+                    }
+                    stages {
+                        stage("setup-2.5-nulldb") {
                             steps {
-                                withRVM(['bundle exec rake assets:precompile RAILS_ENV=production'], env.RUBY_VER, env.GEMSET)
+                                git url: git_url, branch: git_ref
+                                configureRVM(env.RUBY_VER, env.GEMSET)
+                                withRVM(['bundle install --without=development --jobs=5 --retry=5'], env.RUBY_VER, env.GEMSET)
+                                sh "cp db/schema.rb.nulldb db/schema.rb"
+                                withRVM(['npm install'], env.RUBY_VER, env.GEMSET)
+                            }
+                        }
+                        stage("assets-precompile-2.5-nulldb") {
+                            steps {
+                                withRVM(['bundle exec rake assets:precompile RAILS_ENV=production DATABASE_URL=nulldb://nohost'], env.RUBY_VER, env.GEMSET)
                             }
                         }
                     }
                     post {
                         always {
                             cleanup(env.RUBY_VER, env.GEMSET)
-                            junit(testResults: 'jenkins/reports/unit/*.xml')
                             deleteDir()
                         }
                     }
