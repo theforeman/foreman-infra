@@ -10,6 +10,7 @@ def foreman_client_distros = [
 ]
 def foreman_server_distros = [
     'centos7',
+    'centos8',
     'debian10',
     'ubuntu1804'
 ]

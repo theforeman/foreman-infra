@@ -26,6 +26,7 @@ pipeline {
             steps {
 
                 repoclosure('foreman', 'el7', env.foreman_version)
+                repoclosure('foreman', 'el8', env.foreman_version)
 
             }
         }
@@ -36,7 +37,8 @@ pipeline {
                 script {
                     runCicoJobsInParallel([
                         ['name': 'centos7', 'job': 'foreman-nightly-centos7-test'],
-                        ['name': 'centos7-upgrade', 'job': 'foreman-nightly-centos7-upgrade-test']
+                        ['name': 'centos7-upgrade', 'job': 'foreman-nightly-centos7-upgrade-test'],
+                        ['name': 'centos8', 'job': 'foreman-nightly-centos8-test']
                     ])
                 }
             }
@@ -51,6 +53,7 @@ pipeline {
 
                     withRVM(["bundle install --jobs=5 --retry=5"])
                     push_rpms_direct("foreman-nightly/RHEL/7", "nightly/el7")
+                    push_rpms_direct("foreman-nightly/RHEL/8", "nightly/el8")
                 }
             }
             post {

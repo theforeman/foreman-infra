@@ -19,5 +19,6 @@
     empty: ''
     distro:
       - centos7
+      - centos8
       - debian10
       - ubuntu1804
