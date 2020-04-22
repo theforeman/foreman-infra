@@ -385,7 +385,7 @@ def main():
             git_tag = "rpm/{}".format(version)
 
         CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
-        if collection == 'foreman':
+        if collection == 'foreman' and version in ['1.24', '2.0', '2.1']:
             CONFIG["extras_baseloc"] = "%(tag)s:extras"
             CONFIG["extras_path"] = "/mnt/koji/mash/extras/foreman"
             extras = ["extras-foreman-rhel7"]
