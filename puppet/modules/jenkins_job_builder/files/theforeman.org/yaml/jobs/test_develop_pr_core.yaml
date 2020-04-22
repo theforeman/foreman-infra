@@ -41,7 +41,7 @@
     publishers:
       - gemset_cleanup
       - archive:
-          artifacts: 'tmp/capybara/*,Gemfile.lock'
+          artifacts: 'tmp/capybara/*,Gemfile.lock,package-lock.json'
           only-if-success: false
       - junit:
           results: 'jenkins/reports/unit/*.xml'
