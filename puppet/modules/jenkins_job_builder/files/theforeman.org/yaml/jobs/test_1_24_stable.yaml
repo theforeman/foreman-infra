@@ -39,7 +39,7 @@
       - gemset_cleanup
       - ircbot_freenode
       - archive:
-          artifacts: 'pkg/*,Gemfile.lock'
+          artifacts: 'pkg/*,Gemfile.lock,package-lock.json'
           only-if-success: false
       - junit:
           results: 'jenkins/reports/unit/*.xml'

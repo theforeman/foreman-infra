@@ -86,6 +86,7 @@ pipeline {
                                 databaseFile(gemset(env.GEMSET))
                                 configureDatabase(env.RUBY_VER, env.GEMSET)
                                 withRVM(['npm install'], env.RUBY_VER, env.GEMSET)
+                                archiveArtifacts(artifacts: 'package-lock.json')
                             }
                         }
                         stage("integration-tests-2.5-postgres-ui") {
