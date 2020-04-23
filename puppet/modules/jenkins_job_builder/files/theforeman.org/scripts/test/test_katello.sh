@@ -41,7 +41,7 @@ rvm gemset empty --force
 set -x
 
 gem update --no-document
-gem install bundler -v '< 2.0' --no-document
+gem install bundler -v '< 3.0' --no-document
 
 # Now let's introduce the plugin
 echo "gemspec :path => '${PLUGIN_ROOT}', :development_group => :katello_dev" >> bundler.d/Gemfile.local.rb

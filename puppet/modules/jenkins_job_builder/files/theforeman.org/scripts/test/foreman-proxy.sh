@@ -15,7 +15,7 @@ rvm use ruby-${ruby}@${gemset} --create
 rvm gemset empty --force
 set -x
 
-gem install bundler -v '< 2.0' --no-document
+gem install bundler -v '< 3.0' --no-document
 
 # Puppet environment
 if [ -e $APP_ROOT/bundler.d/puppet.rb ] ; then
