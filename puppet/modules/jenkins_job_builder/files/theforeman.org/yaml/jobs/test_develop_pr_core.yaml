@@ -27,7 +27,6 @@
           values:
             - postgresql-integrations
             - postgresql
-            - sqlite3
       - axis:
           type: label-expression
           name: slave
@@ -35,7 +34,7 @@
             - fast
     execution-strategy:
       combination-filter: >
-        ((database == 'postgresql') && ((ruby == '2.5') || (ruby == '2.6'))) || ((database == 'sqlite3') && (ruby == '2.5')) || ((database == 'postgresql-integrations') && (ruby == '2.5'))
+        (database == 'postgresql') || ((database == 'postgresql-integrations') && (ruby == '2.5'))
     builders:
       - shell: !include-raw: scripts/test/test_develop.sh
     publishers:
