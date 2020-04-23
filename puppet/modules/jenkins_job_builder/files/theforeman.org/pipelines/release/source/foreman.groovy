@@ -164,35 +164,6 @@ pipeline {
                         }
                     }
                 }
-                stage('ruby-2.5-sqlite3') {
-                    agent { label 'fast' }
-                    environment {
-                        RUBY_VER = '2.5'
-                        GEMSET = 'ruby-2.5-sqlite3'
-                    }
-                    stages {
-                        stage("setup-2.5-sqlite3") {
-                            steps {
-                                git url: git_url, branch: git_ref
-                                configureRVM(env.RUBY_VER, env.GEMSET)
-                                databaseFile(gemset(env.GEMSET), 'sqlite3')
-                                configureDatabase(env.RUBY_VER, env.GEMSET)
-                            }
-                        }
-                        stage("unit-tests-2.5-sqlite3") {
-                            steps {
-                                withRVM(['bundle exec rake jenkins:unit TESTOPTS="-v" --trace'], env.RUBY_VER, env.GEMSET)
-                            }
-                        }
-                    }
-                    post {
-                        always {
-                            cleanup(env.RUBY_VER, env.GEMSET)
-                            junit(testResults: 'jenkins/reports/unit/*.xml')
-                            deleteDir()
-                        }
-                    }
-                }
             }
         }
         stage('Build and Archive Source') {
