@@ -12,13 +12,13 @@ class freight::uploader(
 
   secure_ssh::rsync::uploader_key { 'freight':
     user       => $user,
-    dir        => "${workspace}/workspace/deb_key",
+    dir        => "${workspace}/deb_key",
     manage_dir => true,
   }
 
   secure_ssh::rsync::uploader_key { 'freightstage':
     user       => $user,
-    dir        => "${workspace}/workspace/staging_key",
+    dir        => "${workspace}/staging_key",
     manage_dir => true,
   }
 
