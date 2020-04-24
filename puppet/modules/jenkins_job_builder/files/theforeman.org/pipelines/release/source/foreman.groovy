@@ -20,9 +20,9 @@ pipeline {
                     stages {
                         stage("setup-2.7-postgres") {
                             steps {
-                                git url: 'https://github.com/theforeman/foreman', branch: foreman_branch
+                                git url: git_url, branch: git_ref
                                 script {
-                                    commit_hash = archive_git_hash()
+                                    archive_git_hash()
                                 }
                                 configureRVM(env.RUBY_VER, env.GEMSET)
                                 databaseFile(gemset(env.GEMSET))
