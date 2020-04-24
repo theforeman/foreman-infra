@@ -23,12 +23,6 @@ class slave (
     group  => 'jenkins',
   }
 
-  file { "${workspace}/workspace":
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
-  }
-
   file { '/home/jenkins/.ssh/config':
     ensure  => file,
     mode    => '0600',
