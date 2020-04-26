@@ -25,7 +25,7 @@
           description: "Git branch name of Foreman itself, e.g. <pre>develop</pre>"
       - string:
           name: dbs
-          default: 'postgresql sqlite3'
+          default: 'postgresql'
           description: "Databases to test against"
     concurrent: true
     scm:
@@ -54,9 +54,6 @@
           name: slave
           values:
             - fast
-    execution-strategy:
-      combination-filter: >
-        (database == 'postgresql') || ((database == 'sqlite3') && (ruby == '2.5'))
     wrappers:
       - timestamps
       - abort_build:
