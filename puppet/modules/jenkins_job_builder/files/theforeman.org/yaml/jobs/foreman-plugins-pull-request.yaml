@@ -30,15 +30,11 @@
           name: database
           values:
             - postgresql
-            - sqlite3
       - axis:
           type: slave
           name: label
           values:
             - fast
-    execution-strategy:
-      combination-filter: >
-        (database == 'postgresql') || ((database == 'sqlite3') && (ruby == '2.5'))
     wrappers:
       - timeout:
           type: absolute
