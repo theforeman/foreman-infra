@@ -29,7 +29,6 @@
           name: database
           values:
             - postgresql
-            - sqlite3
       - axis:
           type: user-defined
           name: old_branch
