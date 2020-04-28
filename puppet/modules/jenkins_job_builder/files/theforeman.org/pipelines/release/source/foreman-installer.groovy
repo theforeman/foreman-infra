@@ -17,11 +17,6 @@ pipeline {
                 }
             }
         }
-        stage("test ruby 2.0 & puppet 5") {
-            steps {
-                run_test(ruby: '2.0.0', puppet: '5.5')
-            }
-        }
         stage("test ruby 2.4 & puppet 5") {
             steps {
                 run_test(ruby: '2.4', puppet: '5.5')
