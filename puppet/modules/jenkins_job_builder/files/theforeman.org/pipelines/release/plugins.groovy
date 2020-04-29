@@ -19,8 +19,11 @@ pipeline {
         stage('Repoclosure') {
             agent { label 'el' }
             steps {
-                // TODO: from variables
-                repoclosure('plugins', 'el7', foreman_version)
+                script {
+                    for (release in foreman_el_releases) {
+                        repoclosure('plugins', release, foreman_version)
+                    }
+                }
             }
             post {
                 always {
@@ -34,8 +37,12 @@ pipeline {
                 git_clone_foreman_infra()
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    // TODO: from variables
-                    push_rpms_direct("foreman-plugins-${foreman_version}/RHEL/7", "plugins/${foreman_version}/el7", false, true)
+
+                    script {
+                        for (release in foreman_el_releases) {
+                            push_rpms_direct("foreman-plugins-${foreman_version}/RHEL/${release.replace('el', '')}", "plugins/${foreman_version}/${release}", false, true)
+                        }
+                    }
                 }
             }
             post {
