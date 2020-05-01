@@ -26,14 +26,9 @@
     - debug:
         msg: "{{ crumb.json.crumb }}"
 
-    - name: "Set facts for build"
-      set_fact:
-        jenkins_build_url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/build?TOKEN={{ jenkins_job_token }}"
-
     - name: "Set facts for parametrized build"
       set_fact:
-        jenkins_build_url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/buildWithParameters?TOKEN={{ jenkins_job_token }}&{{ jenkins_job_parameters|urlencode }}"
-      when: jenkins_job_parameters is defined
+        jenkins_build_url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/buildWithParameters?TOKEN={{ jenkins_job_token }}&{{ jenkins_job_parameters|default('')|urlencode }}"
 
     - name: "Start Jenkins job"
       uri:

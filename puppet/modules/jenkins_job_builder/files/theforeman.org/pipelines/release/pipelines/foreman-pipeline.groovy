@@ -45,17 +45,7 @@ pipeline {
 
             steps {
                 script {
-                    def pipelines = foreman_server_distros.collect { os ->
-                        [
-                            name: os,
-                            job: "foreman-${foreman_version}-${os}-release-test",
-                            parameters: [
-                                expected_version: params.expected_version
-                            ]
-                        ]
-                    }
-
-                    runCicoJobsInParallel(pipelines)
+                    runCicoPipelines('foreman', foreman_version, pipelines)
                 }
             }
         }

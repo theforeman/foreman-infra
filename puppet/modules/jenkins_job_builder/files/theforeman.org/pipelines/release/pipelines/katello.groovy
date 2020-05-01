@@ -35,10 +35,7 @@ pipeline {
 
             steps {
                 script {
-                    runCicoJobsInParallel([
-                        ['name': 'centos7 install test', 'job': "foreman-katello-${katello_version}-test"],
-                        ['name': 'centos7 upgrade test', 'job': "foreman-katello-upgrade-${katello_version}-test"]
-                    ])
+                    runCicoPipelines('katello', katello_version, pipelines)
                 }
             }
         }

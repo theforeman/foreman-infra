@@ -1,0 +1,29 @@
+---
+- project:
+    name: luna-nightly-install
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    version:
+      - nightly
+    distro:
+      - centos7
+      - centos8
+    action:
+      - install
+    type:
+      - luna
+
+- project:
+    name: luna-nightly-upgrade
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    version:
+      - nightly
+    distro:
+      - centos7
+    action:
+      - upgrade
+    type:
+      - luna

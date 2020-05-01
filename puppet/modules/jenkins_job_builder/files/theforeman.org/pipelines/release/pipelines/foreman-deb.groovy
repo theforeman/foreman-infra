@@ -15,10 +15,10 @@ pipeline {
             steps {
                 script {
                     runCicoJobsInParallel([
-                        ['name': 'debian10', 'job': 'foreman-nightly-debian10-test'],
-                        ['name': 'debian10-upgrade', 'job': 'foreman-nightly-debian10-upgrade-test'],
-                        ['name': 'ubuntu1804', 'job': 'foreman-nightly-ubuntu1804-test'],
-                        ['name': 'ubuntu1804-upgrade', 'job': 'foreman-nightly-ubuntu1804-upgrade-test']
+                        ['name': 'debian10', 'job': 'foreman-pipeline-foreman-nightly-debian10-install'],
+                        ['name': 'debian10-upgrade', 'job': 'foreman-pipeline-foreman-nightly-debian10-upgrade'],
+                        ['name': 'ubuntu1804', 'job': 'foreman-pipeline-foreman-nightly-ubuntu1804-install'],
+                        ['name': 'ubuntu1804-upgrade', 'job': 'foreman-pipeline-foreman-nightly-ubuntu1804-upgrade']
                     ])
                 }
             }

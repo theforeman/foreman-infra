@@ -1,0 +1,84 @@
+---
+- project:
+    name: foreman-release-test-1.24
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    distro:
+      - centos7
+      - debian9
+      - debian10
+      - ubuntu1604
+      - ubuntu1804
+    version:
+      - '1.24'
+    action:
+      - install
+    type:
+      - foreman
+
+- project:
+    name: foreman-release-test-2.0
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    distro:
+      - centos7
+      - debian10
+      - ubuntu1804
+    version:
+      - '2.0'
+    action:
+      - install
+    type:
+      - foreman
+
+- project:
+    name: foreman-release-test-2.1
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    distro:
+      - centos7
+      - centos8
+      - debian10
+      - ubuntu1804
+    version:
+      - '2.1'
+    action:
+      - install
+    type:
+      - foreman
+
+- project:
+    name: foreman-nightly-install
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    distro:
+      - centos7
+      - centos8
+      - debian10
+      - ubuntu1804
+    version:
+      - nightly
+    action:
+      - install
+    type:
+      - foreman
+
+- project:
+    name: foreman-nightly-upgrade
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    distro:
+      - centos7
+      - debian10
+      - ubuntu1804
+    version:
+      - nightly
+    action:
+      - upgrade
+    type:
+      - foreman
