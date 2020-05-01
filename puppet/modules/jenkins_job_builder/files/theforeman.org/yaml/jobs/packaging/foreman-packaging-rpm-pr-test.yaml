@@ -7,9 +7,6 @@
     properties:
       - github:
           url: https://github.com/theforeman/foreman-packaging
-      - build-discarder:
-          days-to-keep: 30
-          artifact-days-to-keep: 30
     triggers:
       - github_pr_rpm:
           context: 'rpm'
