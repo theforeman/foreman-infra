@@ -13,10 +13,7 @@ pipeline {
             agent { label 'el' }
             steps {
                 script {
-                    runCicoJobsInParallel([
-                        ['name': 'Install test', 'job': 'foreman-luna-nightly-test'],
-                        ['name': 'Upgrade test', 'job': 'foreman-luna-upgrade-nightly-test']
-                    ])
+                    runCicoPipelines('luna', 'nightly', pipelines)
                 }
             }
         }

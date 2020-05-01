@@ -1,8 +1,7 @@
+playBook = pipelineVars(action: params.action, type: params.type, version: params.version, os: params.distro, extra_vars: ['foreman_expected_version': params.expected_version ?: null])
+
 pipeline {
     agent { label 'foreman' }
-    environment {
-      playBook = playBookVars()
-    }
 
     stages {
         stage('Setup Environment') {

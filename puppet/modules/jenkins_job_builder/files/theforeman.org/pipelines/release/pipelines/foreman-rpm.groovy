@@ -36,9 +36,9 @@ pipeline {
             steps {
                 script {
                     runCicoJobsInParallel([
-                        ['name': 'centos7', 'job': 'foreman-nightly-centos7-test'],
-                        ['name': 'centos7-upgrade', 'job': 'foreman-nightly-centos7-upgrade-test'],
-                        ['name': 'centos8', 'job': 'foreman-nightly-centos8-test']
+                        ['name': 'centos7', 'job': 'foreman-pipeline-foreman-nightly-centos7-install'],
+                        ['name': 'centos7-upgrade', 'job': 'foreman-pipeline-foreman-nightly-centos7-upgrade'],
+                        ['name': 'centos8', 'job': 'foreman-pipeline-foreman-nightly-centos8-install']
                     ])
                 }
             }
