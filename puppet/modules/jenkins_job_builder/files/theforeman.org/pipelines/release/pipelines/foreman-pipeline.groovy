@@ -11,12 +11,14 @@ pipeline {
     stages {
         stage('Mash Koji Repositories') {
             agent { label 'sshkey' }
+
             steps {
                 mash("foreman", foreman_version)
             }
         }
         stage('Mash Rails Koji Repositories') {
             agent { label 'sshkey' }
+
             when {
                 expression { foreman_version == '1.23' || foreman_version == '1.24' }
             }
@@ -26,9 +28,11 @@ pipeline {
         }
         stage('Repoclosure') {
             agent { label 'el' }
+
             steps {
-                // TODO: from variables
-                repoclosure('foreman', 'el7', foreman_version)
+                script {
+                    parallel repoclosures('foreman', foreman_el_releases, foreman_version)
+                }
             }
             post {
                 always {
@@ -38,6 +42,7 @@ pipeline {
         }
         stage('Install Test') {
             agent { label 'el' }
+
             steps {
                 script {
                     def pipelines = foreman_server_distros.collect { os ->
@@ -56,15 +61,20 @@ pipeline {
         }
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
+
             steps {
                 git_clone_foreman_infra()
+
                 dir('deploy') {
                     withRVM(["bundle install --jobs=5 --retry=5"])
-                    // TODO: from variables
+
                     script {
-                        push_rpms_direct("foreman-${foreman_version}/RHEL/7", "releases/${foreman_version}/el7", false, true)
                         if (foreman_version == '1.23' || foreman_version == '1.24') {
                             push_rpms_direct("foreman-rails-${foreman_version}/el7", "rails/foreman-${foreman_version}/el7", false, true)
+                        }
+
+                        for (release in foreman_el_releases) {
+                            push_rpms_direct("foreman-${foreman_version}/RHEL/${release.replace('el', '')}", "releases/${foreman_version}/${release}", false, true)
                         }
                     }
                 }
@@ -77,6 +87,7 @@ pipeline {
         }
         stage('Push DEBs') {
             agent { label 'debian' }
+
             steps {
                 script {
                     def pushDistros = [:]

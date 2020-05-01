@@ -6,7 +6,7 @@
       - timed: 'H 21 * * *'
     dsl:
       !include-raw:
-        - pipelines/release/foreman-rpm.groovy
+        - pipelines/release/pipelines/foreman-rpm.groovy
         - pipelines/lib/release.groovy
         - pipelines/lib/rvm.groovy
         - pipelines/lib/ansible.groovy

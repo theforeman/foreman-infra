@@ -53,28 +53,12 @@ def repoclosure(repo, dist, version) {
     }
 }
 
-def repoclosures(repo, versions) {
-    def results = [:]
+def repoclosures(repo, releases, version) {
+    def closures = [:]
 
-    // Run all repoclosure steps sequentially and store the result because
-    // yum on EL7 aggressively shares caches which breaks concurrent
-    // repoclosures
-    versions.each { version, distros ->
-        distros.each { distro, os ->
-            script {
-                stage("repoclosure-${version}-${distro}") {
-                    script {
-                        try {
-                            repoclosure(repo, distro, version)
-                            results["${version}-${distro}"] = true
-                        } catch(Exception ex) {
-                            results["${version}-${distro}"] = ex
-                        }
-                    }
-                }
-            }
-        }
+    releases.each { release ->
+        closures[release] = { repoclosure(repo, release, version) }
     }
 
-    return results
+    return closures
 }

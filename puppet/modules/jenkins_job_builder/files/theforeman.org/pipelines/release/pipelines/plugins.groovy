@@ -18,11 +18,10 @@ pipeline {
         }
         stage('Repoclosure') {
             agent { label 'el' }
+
             steps {
                 script {
-                    for (release in foreman_el_releases) {
-                        repoclosure('plugins', release, foreman_version)
-                    }
+                    parallel repoclosures('plugins', foreman_el_releases, foreman_version)
                 }
             }
             post {
@@ -33,6 +32,7 @@ pipeline {
         }
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
+
             steps {
                 git_clone_foreman_infra()
                 dir('deploy') {
