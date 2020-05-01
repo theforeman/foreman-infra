@@ -1,10 +1,6 @@
 pipeline {
     agent none
 
-    environment {
-        foreman_version = 'develop'
-    }
-
     options {
         timestamps()
         timeout(time: 2, unit: 'HOURS')
@@ -24,10 +20,14 @@ pipeline {
             agent { label 'el' }
 
             steps {
-
-                repoclosure('foreman', 'el7', env.foreman_version)
-                repoclosure('foreman', 'el8', env.foreman_version)
-
+                script {
+                    parallel repoclosures('foreman', foreman_el_releases, foreman_version)
+                }
+            }
+            post {
+                always {
+                    deleteDir()
+                }
             }
         }
         stage('Install Test') {

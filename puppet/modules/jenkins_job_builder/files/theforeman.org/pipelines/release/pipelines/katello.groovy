@@ -1,10 +1,6 @@
 pipeline {
     agent none
 
-    environment {
-        foreman_version = "develop"
-    }
-
     options {
         timestamps()
         timeout(time: 3, unit: 'HOURS')
@@ -17,28 +13,31 @@ pipeline {
             agent { label 'sshkey' }
 
             steps {
-
-                mash("katello", "nightly")
-
+                mash("katello", katello_version)
             }
         }
         stage('Katello Repoclosure') {
             agent { label 'el' }
 
             steps {
-
-                repoclosure('katello', 'el7', env.foreman_version)
-
+                script {
+                    parallel repoclosures('katello', foreman_el_releases, foreman_version)
+                }
+            }
+            post {
+                always {
+                    deleteDir()
+                }
             }
         }
-        stage('Install tests and Upgrade tests') {
+        stage('Test Suites') {
             agent { label 'el' }
 
             steps {
                 script {
                     runCicoJobsInParallel([
-                        ['name': 'Install test', 'job': 'foreman-katello-nightly-test'],
-                        ['name': 'Upgrade test', 'job': 'foreman-katello-upgrade-nightly-test']
+                        ['name': 'centos7 install test', 'job': "foreman-katello-${katello_version}-test"],
+                        ['name': 'centos7 upgrade test', 'job': "foreman-katello-upgrade-${katello_version}-test"]
                     ])
                 }
             }
@@ -47,13 +46,8 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                push_rpms_katello("nightly")
+                push_rpms_katello(katello_version)
             }
-        }
-    }
-    post {
-        failure {
-            notifyDiscourse(env, 'Katello nightly pipeline failed:', currentBuild.description)
         }
     }
 }

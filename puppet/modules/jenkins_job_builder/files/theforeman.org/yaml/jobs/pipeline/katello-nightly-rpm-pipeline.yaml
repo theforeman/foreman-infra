@@ -9,7 +9,8 @@
           result: success
     dsl:
       !include-raw:
-        - pipelines/release/katello/nightly.groovy
+        - pipelines/vars/katello/nightly.groovy
+        - pipelines/release/pipelines/katello.groovy
         - pipelines/lib/release.groovy
         - pipelines/lib/ansible.groovy
         - pipelines/lib/foreman_infra.groovy

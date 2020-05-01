@@ -5,7 +5,7 @@
     dsl:
       !include-raw:
         - 'pipelines/vars/katello/{version}.groovy'
-        - 'pipelines/release/katello.groovy{empty}'
+        - 'pipelines/release/pipelines/katello.groovy{empty}'
         - 'pipelines/lib/release.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'
         - 'pipelines/lib/foreman_infra.groovy{empty}'
