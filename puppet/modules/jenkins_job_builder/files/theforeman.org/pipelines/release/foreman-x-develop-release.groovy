@@ -1,5 +1,6 @@
 def commit_hash = ''
 def source_project_name = "${project_name}-${git_ref}-source-release"
+def koji_tasks
 
 pipeline {
     agent { label 'rpmbuild' }
@@ -36,7 +37,39 @@ pipeline {
                                 setup_obal()
                             }
                         }
-                        stage('Release') {
+                        stage('Scratch Build') {
+                            steps {
+                                dir('foreman-packaging') {
+                                    obal(
+                                        action: 'nightly',
+                                        packages: obal_package_name,
+                                        extraVars: [
+                                            'build_package_scratch': 'True',
+                                            'releasers': releasers,
+                                            'nightly_sourcefiles': artifact_path,
+                                            'nightly_githash': commit_hash,
+                                            'build_package_download_logs': 'True'
+                                        ]
+                                    )
+
+                                    koji_tasks = get_koji_tasks()
+                                }
+                            }
+                        }
+                        stage('end-to-end test') {
+                            agent { label 'el' }
+
+                            steps {
+                                script {
+                                    runCicoJobsInParallel([
+                                        ['name': 'centos7', 'job': 'foreman-nightly-centos7-test', 'parameters': ['koji_task_ids': koji_tasks]],
+                                        ['name': 'centos7-upgrade', 'job': 'foreman-nightly-centos7-upgrade-test', 'parameters': ['koji_task_ids': koji_tasks]],
+                                        ['name': 'centos8', 'job': 'foreman-nightly-centos8-test', 'parameters': ['koji_task_ids': koji_tasks]]
+                                    ])
+                                }
+                            }
+                        }
+                        stage('Commit Build') {
                             steps {
                                 dir('foreman-packaging') {
                                     obal(
