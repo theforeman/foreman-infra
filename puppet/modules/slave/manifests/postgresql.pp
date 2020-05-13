@@ -29,7 +29,7 @@ class slave::postgresql {
         enabled  => true,
         gpgcheck => false,
       } ->
-      package { 'rh-postgresql12-postgresql-evr':
+      package { ['rh-postgresql12-postgresql-debversion', 'rh-postgresql12-postgresql-evr']:
         ensure  => 'present',
         notify  => Class['postgresql::server::service'],
         require => Class['postgresql::server::install'],
