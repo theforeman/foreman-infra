@@ -403,7 +403,6 @@ def main():
             "rhel7": "el7",
             "rhel6": "el6",
             "rhel5": "el5",
-            "fedora29": "fc29",
             "sles11": "sles11",
             "sles12": "sles12",
         }
@@ -415,6 +414,9 @@ def main():
 
             if version in ('1.22', '1.23', '1.24'):
                 del dists['el8']
+
+            if version in ('1.22', '1.23', '1.24', '2.0'):
+                dists['fedora29'] = 'fc29'
 
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
     elif collection == 'foreman-rails':
@@ -430,6 +432,7 @@ def main():
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
+            '3.16': '2.1',
             '3.15': '2.0',
             '3.14': '1.24',
             '3.13': '1.23',
