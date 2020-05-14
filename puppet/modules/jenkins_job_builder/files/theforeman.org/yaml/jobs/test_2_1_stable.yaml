@@ -22,7 +22,6 @@
           name: database
           values:
             - postgresql
-            - sqlite3
       - axis:
           type: label-expression
           name: slave
