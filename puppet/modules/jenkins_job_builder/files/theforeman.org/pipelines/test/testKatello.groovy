@@ -86,15 +86,6 @@ pipeline {
                         }
                     }
                 }
-                stage('react-ui') {
-                    when {
-                        expression { fileExists('package.json') }
-                    }
-                    steps {
-                        sh "npm install"
-                        sh 'npm test'
-                    }
-                }
                 stage('angular-ui') {
                     steps {
                         script {
