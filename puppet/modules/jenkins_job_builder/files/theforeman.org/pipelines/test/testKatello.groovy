@@ -70,6 +70,13 @@ pipeline {
 
             }
         }
+        stage('Install Foreman npm packages') {
+            steps {
+                dir('foreman') {
+                    withRVM(["bundle exec npm install"], ruby)
+                }
+            }
+        }
         stage('Run Tests') {
             parallel {
                 stage('tests') {
@@ -131,7 +138,6 @@ pipeline {
                 stage('assets-precompile') {
                     steps {
                         dir('foreman') {
-                            withRVM(["bundle exec npm install"], ruby)
                             withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production DATABASE_URL=nulldb://nohost --trace'], ruby)
                         }
                     }
