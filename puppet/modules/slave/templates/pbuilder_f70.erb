@@ -8,6 +8,9 @@
 #cd /var/cache/pbuilder/result/
 #/usr/bin/dpkg-scanpackages . /dev/null >> /var/cache/pbuilder/result/Packages
 
+# Update apt
+/usr/bin/apt-get update
+
 # Since Debian/stretch, gnupg is not an apt dependency anymore, leading apt-key add to fail
 apt-get -y install gnupg
 
