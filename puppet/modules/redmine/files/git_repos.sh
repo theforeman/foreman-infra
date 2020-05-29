@@ -30,6 +30,10 @@ update_repo() {
   popd >/dev/null
 }
 
+rails_runner() {
+  RUBYOPT=-W0 bin/rails runner -e production "$@"
+}
+
 if [[ ! -n $CODE_DIR ]] || [[ ! -n $DATA_DIR ]] ; then
   echo "Usage: $0 CODE_DIR DATA_DIR"
   exit 1
@@ -49,7 +53,7 @@ done
 cd $CODE_DIR
 
 # Create repositories in the Redmine projects for all known git repos
-curl --fail --silent $REDMINE_REPOS | bin/rails runner -e production '
+curl --fail --silent $REDMINE_REPOS | rails_runner '
 JSON.load(STDIN).each do |project_name,repos|
   repos.each do |repo,branches|
     org_name, repo_name = repo.split("/", 2)
@@ -60,4 +64,4 @@ JSON.load(STDIN).each do |project_name,repos|
 end'
 
 # Import the changesets
-bin/rails runner "Repository.fetch_changesets" -e production
+rails_runner "Repository.fetch_changesets"
