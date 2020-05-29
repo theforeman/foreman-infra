@@ -35,6 +35,18 @@ class slave::packaging::debian(
           release    => 'buster',
           apturl     => 'http://deb.debian.org/debian',
           aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
+        'focal64':
+          ensure     => present,
+          arch       => 'amd64',
+          release    => 'focal',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\n";
+        'focal32':
+          ensure     => present,
+          arch       => 'i386',
+          release    => 'focal',
+          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
+          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\n";
         'stretch64':
           ensure     => present,
           arch       => 'amd64',
