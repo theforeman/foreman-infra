@@ -51,6 +51,7 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
             - all
             - buster
             - bionic
+            - focal
             - stretch
             - xenial
           description: 'Restrict matrix job to just the one OS.'
