@@ -46,15 +46,10 @@ fi
 # needs sudo as pedebuild uses loop and bind mounts
 if [ $arch = x86 ]; then
   sudo pdebuild-${os}64
-fi
-
-# Only build on non-x86 arches when the binary differs
-if grep -qe "Architecture:\s\+any" debian/control; then
-  if [ $arch != x86 ]; then
+else
+  # Only build on non-x86 arches when the binary differs
+  if ! grep -qe "Architecture:\s\+any" debian/control; then
     sudo pdebuild-${os}
-  else
-    # we are on x86 and build i386 DEBs (for dependencies, but not for the heavy weight core packages)
-    sudo pdebuild-${os}32
   fi
 fi
 

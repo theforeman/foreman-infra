@@ -17,21 +17,9 @@ class slave::packaging::debian(
           release    => 'bionic',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\n";
-        'bionic32':
-          ensure     => present,
-          arch       => 'i386',
-          release    => 'bionic',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\n";
         'buster64':
           ensure     => present,
           arch       => 'amd64',
-          release    => 'buster',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
-        'buster32':
-          ensure     => present,
-          arch       => 'i386',
           release    => 'buster',
           apturl     => 'http://deb.debian.org/debian',
           aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
@@ -41,33 +29,15 @@ class slave::packaging::debian(
           release    => 'focal',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\n";
-        'focal32':
-          ensure     => present,
-          arch       => 'i386',
-          release    => 'focal',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\n";
         'stretch64':
           ensure     => present,
           arch       => 'amd64',
           release    => 'stretch',
           apturl     => 'http://deb.debian.org/debian',
           aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
-        'stretch32':
-          ensure     => present,
-          arch       => 'i386',
-          release    => 'stretch',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
         'xenial64':
           ensure     => present,
           arch       => 'amd64',
-          release    => 'xenial',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\n";
-        'xenial32':
-          ensure     => present,
-          arch       => 'i386',
           release    => 'xenial',
           apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
           aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\n";
