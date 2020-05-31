@@ -81,8 +81,7 @@ EOF
 <% end -%>
 
 <% if @puppetlabs == true then %>
-# Puppet5
-echo "deb http://apt.puppet.com <%= @release %> puppet5" >> /etc/apt/sources.list
+echo "deb http://apt.puppet.com <%= @release %> puppet6" >> /etc/apt/sources.list
 
 cat <<EOF | apt-key add -
 -----BEGIN PGP PUBLIC KEY BLOCK-----
