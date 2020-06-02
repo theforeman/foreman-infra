@@ -89,7 +89,7 @@ if [ $arch = x86 ]; then
   sudo pdebuild-${os}64
 else
   # Only build on non-x86 arches when the binary differs
-  if ! grep -qe "Architecture:\s\+any" debian/control; then
+  if grep -qe "Architecture:\s\+any" debian/control; then
     sudo pdebuild-${os}
   fi
 fi
