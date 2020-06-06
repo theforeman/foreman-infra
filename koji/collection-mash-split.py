@@ -394,7 +394,7 @@ def main():
 
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
 
-        if version not in ['1.22', '1.23', '1.24', '2.0']:
+        if version not in ['1.24', '2.0']:
             mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
 
     elif collection == "foreman-client":
@@ -412,10 +412,10 @@ def main():
         else:
             git_tag = "rpm/{}".format(version)
 
-            if version in ('1.22', '1.23', '1.24'):
+            if version == '1.24':
                 del dists['el8']
 
-            if version in ('1.22', '1.23', '1.24', '2.0'):
+            if version in ('1.24', '2.0'):
                 dists['fedora29'] = 'fc29'
 
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
@@ -435,8 +435,6 @@ def main():
             '3.16': '2.1',
             '3.15': '2.0',
             '3.14': '1.24',
-            '3.13': '1.23',
-            '3.12': '1.22',
         }
 
         git_tag = "rpm/{}".format(branch_map[version])
@@ -453,7 +451,7 @@ def main():
             mash_config_candlepin,
         ]
 
-        if version not in ['3.12', '3.13', '3.14']:
+        if version not in ['3.14']:
             pulpcore = MashConfig(collection, version, "pulpcore-el7", "pulpcore-el7", "pulpcore/el7")
             # The default builds katello-{}-pulpcore-el7
             pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)

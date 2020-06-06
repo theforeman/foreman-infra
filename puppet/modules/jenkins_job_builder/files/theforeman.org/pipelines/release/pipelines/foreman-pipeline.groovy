@@ -20,7 +20,7 @@ pipeline {
             agent { label 'sshkey' }
 
             when {
-                expression { foreman_version == '1.23' || foreman_version == '1.24' }
+                expression { foreman_version == '1.24' }
             }
             steps {
                 mash("foreman-rails", foreman_version)
@@ -69,7 +69,7 @@ pipeline {
                     withRVM(["bundle install --jobs=5 --retry=5"])
 
                     script {
-                        if (foreman_version == '1.23' || foreman_version == '1.24') {
+                        if (foreman_version == '1.24') {
                             push_rpms_direct("foreman-rails-${foreman_version}/el7", "rails/foreman-${foreman_version}/el7", false, true)
                         }
 
