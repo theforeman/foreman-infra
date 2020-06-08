@@ -32,7 +32,7 @@
           values:
           - debian
     execution-strategy:
-      combination-filter: '(onlyos == "all" || onlyos == os) && !((version == "2.1" || version == "2.0" || version == "nightly") && os == "stretch") && !((version == "2.1" || version == "2.0" || version == "nightly") && os == "xenial") && !((version == "2.1" || version == "2.0" || version == "1.24" || arch = "armv8") && os == "focal") && !((version == "2.1" || version == "nightly") && arch == "arvmv8")'
+      combination-filter: '(onlyos == "all" || onlyos == os) && !((version == "2.1" || version == "2.0" || version == "nightly") && os == "stretch") && !((version == "2.1" || version == "2.0" || version == "nightly") && os == "xenial") && !((version == "2.1" || version == "2.0" || version == "1.24") && os == "focal") && !((version == "2.1" || version == "nightly") && arch == "arvmv8")'
     builders:
       - build_deb_dependency
     publishers:
