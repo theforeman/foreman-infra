@@ -67,8 +67,6 @@
           repo: 'https://github.com/theforeman/foreman-docker'
       - foreman_host_extra_validator:
           repo: 'https://github.com/theforeman/foreman_host_extra_validator'
-      - foreman_monitoring:
-          repo: 'https://github.com/theforeman/foreman_monitoring'
       - foreman_openscap:
           repo: 'https://github.com/theforeman/foreman_openscap'
       - foreman_salt:
