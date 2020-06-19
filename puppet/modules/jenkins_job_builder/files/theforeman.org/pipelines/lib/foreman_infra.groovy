@@ -90,11 +90,11 @@ def runCicoJobsInParallel(jobs) {
     }
 }
 
-runCicoPipelines(project, version, config) {
+def runCicoPipelines(project, version, config) {
     def pipes = []
 
-    config.each { type ->
-        pipes += config[type].collect { os ->
+    config.each { type, operating_systems ->
+        pipes += operating_systems.collect { os ->
             [
                 name: "${os}-${type}",
                 job: "foreman-pipeline-${project}-${version}-${os}-${type}"
