@@ -17,5 +17,10 @@ def pipelines = [
         'centos7',
         'debian10',
         'ubuntu1804'
+    ],
+    'upgrade': [
+        'centos7',
+        'debian10',
+        'ubuntu1804'
     ]
 ]
