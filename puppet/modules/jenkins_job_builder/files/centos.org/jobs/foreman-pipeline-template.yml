@@ -18,7 +18,7 @@
           default: '{action}'
       - string:
           name: type
-          default: 'foreman'
+          default: '{type}'
     dsl:
       !include-raw:
         - pipelines/lib/foremanCentosJob.groovy{empty}
