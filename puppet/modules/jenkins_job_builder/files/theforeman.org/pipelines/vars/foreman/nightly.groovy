@@ -22,6 +22,7 @@ def pipelines = [
     ],
     'upgrade': [
         'centos7',
+        'centos8',
         'debian10',
         'ubuntu1804'
     ]

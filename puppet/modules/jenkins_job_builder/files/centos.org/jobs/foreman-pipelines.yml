@@ -53,7 +53,7 @@
       - foreman
 
 - project:
-    name: foreman-nightly-install
+    name: foreman-nightly
     jobs:
       - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
     empty: ''
@@ -66,21 +66,6 @@
       - nightly
     action:
       - install
-    type:
-      - foreman
-
-- project:
-    name: foreman-nightly-upgrade
-    jobs:
-      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
-    empty: ''
-    distro:
-      - centos7
-      - debian10
-      - ubuntu1804
-    version:
-      - nightly
-    action:
       - upgrade
     type:
       - foreman
