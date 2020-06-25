@@ -20,7 +20,7 @@ pipeline {
         stage('Update ci.centos.org jobs') {
             steps {
                 withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                    virtEnv('./ci', "cd ./centos.org && jenkins-jobs --conf ./centos_jenkins.ini --user 'foreman' --password '${env.PASSWORD}' update -r ./jobs")
+                    virtEnv('./ci', "cd ./centos.org && jenkins-jobs --conf ./centos_jenkins.ini --user 'foreman' --password '${env.PASSWORD}' update --delete-old -r ./jobs")
                 }
             }
         }
