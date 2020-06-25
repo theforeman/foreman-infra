@@ -59,6 +59,7 @@ pipeline {
         stage("Verify version and release"){
             when {
                 expression { packages_to_build }
+                expression { ghprbTargetBranch == 'rpm/develop' }
             }
             steps {
                 script {
