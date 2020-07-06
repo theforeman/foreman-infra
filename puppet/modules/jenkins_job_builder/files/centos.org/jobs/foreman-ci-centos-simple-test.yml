@@ -4,6 +4,11 @@
     project-type: 'pipeline'
     sandbox: true
     concurrent: true
+    parameters:
+      - string:
+          name: simple_parameter
+          default: simple
+          description: 'A simple parameter for testing'
     dsl:
       !include-raw:
         - pipelines/test/simple.groovy
