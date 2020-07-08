@@ -7,6 +7,7 @@
       cico:
         action: get
         api_key: "{{ api_key }}"
+        release: 8
       register: cico_data
 
     - name: 'Retry geting list of nodes'
