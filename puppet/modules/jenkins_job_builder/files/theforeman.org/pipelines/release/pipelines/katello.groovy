@@ -47,4 +47,9 @@ pipeline {
             }
         }
     }
+    post {
+        failure {
+            notifyDiscourse(env, 'Katello nightly pipeline failed:', currentBuild.description)
+        }
+    }
 }
