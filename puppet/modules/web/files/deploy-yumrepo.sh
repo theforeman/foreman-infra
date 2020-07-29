@@ -6,8 +6,8 @@ set -f -- $SSH_ORIGINAL_COMMAND
 
 prepcache() {
 	if [[ -e $REPO_PATH ]]; then
-		if [[ $MERGE == true ]] || [[ $OVERWRITE == true ]] ; then
-			echo "Repo overwrite (${OVERWRITE}) or merge (${MERGE}) are disabled, but ${REPO_PATH} already exists"
+		if [[ $MERGE == false ]] && [[ $OVERWRITE == false ]] ; then
+			echo "Repo overwrite (${OVERWRITE}) and merge (${MERGE}) are disabled, but ${REPO_PATH} already exists"
 			exit 1
 		fi
 		cp -al $REPO_PATH "$REPO_INSTANCE_PATH"
