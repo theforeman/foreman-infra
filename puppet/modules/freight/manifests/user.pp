@@ -8,6 +8,8 @@ define freight::user (
 ) {
   require freight
 
+  ensure_packages(['ruby'])
+
   file { "${home}/freight.conf":
     ensure  => file,
     owner   => 'root',
@@ -30,6 +32,7 @@ define freight::user (
     owner   => 'root',
     group   => 'root',
     content => template('freight/cron.erb'),
+    require => Package['ruby'],
   }
 
   # Website resources
