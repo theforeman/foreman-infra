@@ -51,14 +51,14 @@ do_rsync() {
 
 replace() {
 	if [[ -e $REPO_PATH ]]; then
-		mv "${REPO_PATH}" "${REPO_INSTANCE_PATH}-previous"
+		mv "${REPO_PATH}" "${REPO_INSTANCE_PATH_PREV}"
 	fi
 
 	mv "${REPO_INSTANCE_PATH}" "${REPO_PATH}"
 
 	if [[ $MERGE == true ]] || [[ $OVERWRITE == true ]] ; then
-		if [[ -e "${REPO_INSTANCE_PATH}-previous" ]]; then
-			rm -rf "${REPO_INSTANCE_PATH}-previous"
+		if [[ -e "${REPO_INSTANCE_PATH_PREV}" ]]; then
+			rm -rf "${REPO_INSTANCE_PATH_PREV}"
 		fi
 	fi
 }
@@ -90,6 +90,7 @@ REPO_SOURCE_SRPM="${REPO_SOURCE_BASE}/source/${REPO_SOURCE}"
 DEPLOY_TO="/var/www/vhosts/yum/htdocs"
 REPO_PATH="${DEPLOY_TO}/${REPO_DEST}"
 REPO_INSTANCE_PATH="${DEPLOY_TO}/$(dirname $REPO_DEST)/.$(basename $REPO_DEST)-$(date "+%Y%m%d%H%M%S")"
+REPO_INSTANCE_PATH_PREV="${REPO_INSTANCE_PATH}-previous"
 
 REPO_RSYNC_LOG=$(mktemp)
 
