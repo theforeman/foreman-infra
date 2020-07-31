@@ -48,13 +48,6 @@ pipeline {
 
             }
         }
-        stage('Install Foreman npm packages') {
-            steps {
-                dir('foreman') {
-                    withRVM(["bundle exec npm install"], ruby)
-                }
-            }
-        }
         stage('Run Tests') {
             parallel {
                 stage('tests') {
@@ -71,15 +64,6 @@ pipeline {
                         }
                     }
                 }
-                stage('react-ui') {
-                    when {
-                        expression { fileExists('package.json') }
-                    }
-                    steps {
-                        sh "npm install"
-                        sh 'npm test'
-                    }
-                }
                 stage('angular-ui') {
                     steps {
                         script {
@@ -91,6 +75,21 @@ pipeline {
                                 sh "npm install"
                                 sh "grunt ci"
                             }
+                        }
+                    }
+                }
+                stage('React UI setup and tests') {
+                    agent any
+                    steps {
+                        when {
+                            expression { fileExists('package.json') }
+                        }
+                        dir('foreman') {
+                            withRVM(["bundle exec npm install"], ruby)
+                        }
+                        dir(project_name) {
+                            sh "npm install"
+                            sh 'npm test'
                         }
                     }
                 }
