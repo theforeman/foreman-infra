@@ -29,7 +29,6 @@ class web(
         'stagingdeb.theforeman.org',
         'www.theforeman.org',
         'yum.theforeman.org',
-        'docs.theforeman.org',
       ],
       webroot_paths => [
         '/var/www/vhosts/web/htdocs',
@@ -39,7 +38,6 @@ class web(
         '/var/www/vhosts/stagingdeb/htdocs',
         '/var/www/vhosts/web/htdocs',
         '/var/www/vhosts/yum/htdocs',
-        '/var/www/vhosts/docs/htdocs',
       ],
     }
   }
