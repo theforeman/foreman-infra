@@ -53,6 +53,24 @@
       - foreman
 
 - project:
+    name: foreman-release-test-2.2
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    distro:
+      - centos7
+      - centos8
+      - debian10
+      - ubuntu1804
+    version:
+      - '2.2'
+    action:
+      - install
+      - upgrade
+    type:
+      - foreman
+
+- project:
     name: foreman-nightly
     jobs:
       - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
