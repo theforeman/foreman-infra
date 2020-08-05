@@ -47,8 +47,6 @@ class profiles::web (
   }
   contain web::vhost::debugs
 
-  contain web::vhost::docs
-
   class { 'web::vhost::downloads':
     rsync_max_connections => $rsync_max_connections,
   }
