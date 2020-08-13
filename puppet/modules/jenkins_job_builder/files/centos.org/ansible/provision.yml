@@ -7,14 +7,22 @@
       cico:
         action: get
         api_key: "{{ api_key }}"
-      register: cico_data
+      register: cico_get_data
+
+    - name: 'Fail if no SSID returned'
+      fail:
+        msg: 'No SSID return from ci.centos.org when getting new node'
+      when: not cico_get_data.results.ssid
 
     - name: 'Retry geting list of nodes'
       cico:
         action: list
         api_key: "{{ api_key }}"
-        ssid: "{{ cico_data.results.ssid }}"
+        ssid: "{{ cico_get_data.results.ssid }}"
       register: cico_data
+      retries: 5
+      delay: 5
+      until: cico_data.results.hosts|length == 1
 
     - debug:
         msg: "{{ cico_data }}"
