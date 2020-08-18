@@ -20,6 +20,8 @@ class web::vhost::deb (
     # script to handle deployment too
     secure_ssh::receiver_setup { $user:
       user           => $user,
+      groups         => ['freightstage'],
+      homedir        => $home,
       foreman_search => 'host.hostgroup = Debian and (name = external_ip4 or name = external_ip6)',
       script_content => template('freight/rsync_main.erb'),
       ssh_key_name   => "rsync_${user}_key",
@@ -35,5 +37,7 @@ class web::vhost::deb (
       mode    => '0700',
       content => template('freight/deploy_debs.erb'),
     }
+
+    User <| title == 'freightstage' |> -> User <| title == $user |>
   }
 }
