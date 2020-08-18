@@ -26,9 +26,9 @@ else
   COMPONENT=${repoowner}
 fi
 
-HOSTS=web02.rackspace web01.osuosl
+HOSTS="web02.rackspace web01.osuosl"
 
-for HOST in HOSTS; do
+for HOST in $HOSTS; do
   # The path is important, as freight_rsync (which is run on the web node for incoming
   # transfers) will parse the path to figure out the repo to send debs to.
   TARGET_PATH="${USER}@${HOST}.theforeman.org:rsync_cache/plugins/${COMPONENT}/"
