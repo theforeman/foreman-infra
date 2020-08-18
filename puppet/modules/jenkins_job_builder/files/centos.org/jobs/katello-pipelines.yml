@@ -16,15 +16,15 @@
       - katello
 
 - project:
-    name: katello-release-3.16
+    name: katello-release-3.16-3.17
     jobs:
       - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
     empty: ''
     version:
       - '3.16'
+      - '3.17'
     distro:
       - centos7
-      - centos8
     action:
       - install
       - upgrade
