@@ -13,10 +13,10 @@ DEB_PATH=./debian/${os}/build-${project}
 echo "scratch build: uploading to stagingdeb/${os}/${repoowner}-${version}"
 export RSYNC_RSH="ssh -i /home/jenkins/workspace/staging_key/rsync_freightstage_key"
 USER=freightstage
-HOSTS=web02.rackspace web01.osuosl
+HOSTS="web02.rackspace web01.osuosl"
 COMPONENT=${repoowner}-${version}
 
-for HOST in HOSTS; do
+for HOST in $HOSTS; do
   # The path is important, as freight_rsync (which is run on the web node for incoming
   # transfers) will parse the path to figure out the repo to send debs to.
   TARGET_PATH="${USER}@${HOST}.theforeman.org:rsync_cache/${os}/${COMPONENT}/"
