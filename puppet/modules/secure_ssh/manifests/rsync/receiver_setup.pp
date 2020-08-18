@@ -21,14 +21,18 @@
 #
 define secure_ssh::rsync::receiver_setup (
   String $user,
+  Array[String] $groups = [],
   Stdlib::Absolutepath $homedir = "/home/${user}",
+  Stdlib::Filemode $homedir_mode = '0700',
   Optional[String] $foreman_search = undef,
   Array[Stdlib::IP::Address] $allowed_ips = [],
   String $script_content = "# Permit transfer\n\$SSH_ORIGINAL_COMMAND\n",
 ) {
   secure_ssh::receiver_setup { $name:
     user           => $user,
+    groups         => $groups,
     homedir        => $homedir,
+    homedir_mode   => $homedir_mode,
     foreman_search => $foreman_search,
     allowed_ips    => $allowed_ips,
     ssh_key_name   => "rsync_${name}_key",

@@ -21,8 +21,10 @@
 #
 define secure_ssh::receiver_setup (
   String $user,
+  Array[String] $groups = [],
   String $script_content,
   Stdlib::Absolutepath $homedir = "/home/${user}",
+  Stdlib::Filemode $homedir_mode = '0700',
   Optional[String] $foreman_search = undef,
   Array[Stdlib::IP::Address] $allowed_ips = [],
   String $ssh_key_name = "${name}_key",
@@ -34,12 +36,14 @@ define secure_ssh::receiver_setup (
     home       => $homedir,
     managehome => true,
     password   => '!',
+    groups     => $groups,
   }
 
   # Created above, but this ensures futher chaining is correct
   file { $homedir:
     ensure => directory,
     owner  => $user,
+    mode   => $homedir_mode,
   }
 
   file { "${homedir}/.ssh":
