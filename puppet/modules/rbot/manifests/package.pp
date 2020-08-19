@@ -19,7 +19,7 @@ class rbot::package {
   }
   ->
   exec { 'download-rbot':
-    command => "wget --directory-prefix=/tmp http://ruby-rbot.org/download/rbot-${$rbot::version}.tgz",
+    command => "wget --directory-prefix=/tmp https://ruby-rbot.org/download/rbot-${$rbot::version}.tgz",
     creates => "/tmp/rbot-${rbot::version}.tgz",
     unless  => "which ${rbot::working_dir}/setup.rb",
   }
