@@ -470,6 +470,14 @@ def main():
                 el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
                 mashes.append(el8_candlepin)
 
+    elif collection == 'pulpcore':
+        CONFIG["gitloc"] = "https://github.com/theforeman/pulpcore-packaging.git"
+        git_tag = "rpm/{}".format(version)
+
+        dists = ['el7', 'el8']
+
+        mashes = [MashConfig(collection, version, dist, dist, dist) for dist in dists]
+
     else:
         raise SystemExit("Unknown collection {}".format(collection))
 
