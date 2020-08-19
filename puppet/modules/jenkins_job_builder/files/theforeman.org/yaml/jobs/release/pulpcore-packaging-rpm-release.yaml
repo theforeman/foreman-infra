@@ -1,0 +1,30 @@
+---
+- job-template:
+    name: 'pulpcore-packaging-rpm-{version}-release'
+    project-type: pipeline
+    sandbox: true
+    concurrent: false
+    properties:
+      - github:
+          url: https://github.com/theforeman/pulpcore-packaging
+    triggers:
+        - github
+    dsl:
+      !include-raw:
+        - 'pipelines/vars/pulpcore/{version}.groovy'
+        - 'pipelines/release/pulpcore_packaging_release.groovy{empty}'
+        - 'pipelines/lib/git.groovy{empty}'
+        - 'pipelines/lib/ansible.groovy{empty}'
+        - 'pipelines/lib/obal.groovy{empty}'
+        - 'pipelines/lib/rpm_packaging.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
+
+- project:
+    name: pulpcore-packaging
+    jobs:
+      - 'pulpcore-packaging-rpm-{version}-release'
+    empty: ''
+    version:
+      - '3.4'
+      - '3.5'
+      - '3.6'
