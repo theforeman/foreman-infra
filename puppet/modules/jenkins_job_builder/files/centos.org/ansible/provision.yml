@@ -7,10 +7,8 @@
       cico:
         action: get
         api_key: "{{ api_key }}"
+        retry_count: 5
       register: cico_get_data
-      retries: 5
-      delay: 5
-      until: cico_get_data.results.ssid
 
     - name: 'Fail if no SSID returned'
       fail:
