@@ -3,6 +3,11 @@ playBook = pipelineVars(action: params.action, type: params.type, version: param
 pipeline {
     agent { label 'foreman' }
 
+    options {
+        timestamps()
+        ansiColor('xterm')
+    }
+
     stages {
         stage('Setup Environment') {
             steps {
