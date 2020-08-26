@@ -76,10 +76,15 @@ class MashSplit(object):
         """
         if not os.path.exists(finalloc):
             os.makedirs(finalloc)
+        repo_name = os.path.basename(gitloc)
+        workdir = "/mnt/tmp/gitrepo/%s" % repo_name
+        if not os.path.exists(workdir):
+            clone_cmd = "git clone %s %s" % (gitloc, workdir)
+            kobo.shortcuts.run(clone_cmd, workdir="/mnt/tmp/gitrepo/", can_fail=True)
         final_fn = os.path.join(os.path.realpath(finalloc), filename)
         cmd = "git pull && git archive remotes/origin/%s %s | tar -C %s -x -f -" % (baseloc, filename, finalloc)
         self.logger.debug("running %s" % cmd)
-        status, output = kobo.shortcuts.run(cmd, workdir="/mnt/tmp/gitrepo/foreman-packaging/", can_fail=True)
+        status, output = kobo.shortcuts.run(cmd, workdir=workdir, can_fail=True)
         if status != 0:
             self.logger.warning("Could not download %s/%s/%s. Using local copy." % (gitloc, baseloc, filename))
         if not os.path.exists(final_fn):
