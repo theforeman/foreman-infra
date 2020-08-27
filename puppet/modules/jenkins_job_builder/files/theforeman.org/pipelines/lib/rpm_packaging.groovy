@@ -41,9 +41,10 @@ def query_rpmspec(specfile, queryformat) {
 
 def repoclosure(repo, dist, version) {
     version = version == 'nightly' ? 'develop' : version
+    git_repo = repo == 'pulpcore' ? 'pulpcore-packaging' : 'foreman-packaging'
     ws(dist) {
         dir('packaging') {
-            git url: "https://github.com/theforeman/foreman-packaging", branch: "rpm/${version}", poll: false
+            git url: "https://github.com/theforeman/${git_repo}", branch: "rpm/${version}", poll: false
             setup_obal()
             obal(
                 action: 'repoclosure',
