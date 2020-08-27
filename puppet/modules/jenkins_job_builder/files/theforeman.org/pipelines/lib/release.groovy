@@ -27,6 +27,10 @@ void push_debs_direct(os, repo) {
     }
 }
 
+void push_pulpcore_rpms(version, distro) {
+    push_rpms("pulpcore-${version}", "pulpcore", version, distro)
+}
+
 void mash(collection, version) {
     sshagent(['mash']) {
         sh "ssh -o 'BatchMode yes' root@koji.katello.org collection-mash-split.py ${collection} ${version}"
