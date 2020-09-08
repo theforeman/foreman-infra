@@ -1,4 +1,4 @@
-node 'jenkins-master' {
+node /^jenkins-master.*/ {
   include jenkins_master
 
   class { 'web::base':
