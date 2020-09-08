@@ -38,7 +38,7 @@ def runPlaybook(args) {
         if (venv) {
             virtEnv(venv, command_string)
         } else {
-            sh "${command_string}"
+            sh command_string
         }
     }
 }
