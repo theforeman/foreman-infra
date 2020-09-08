@@ -5,6 +5,7 @@ def runPlaybook(args) {
     sensitiveExtraVars = args.sensitiveExtraVars ?: [:]
     options = args.options ?: []
     commandLineExtraVars = args.commandLineExtraVars ?: false
+    venv = args.venv
 
     def command = [
         "ansible-playbook",
@@ -31,8 +32,14 @@ def runPlaybook(args) {
         command.push("-e @${sensitive_extra_vars_file}")
     }
 
+    command_string = command.join(' ')
+
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-        sh "${command.join(' ')}"
+        if (venv) {
+            virtEnv(venv, command_string)
+        } else {
+            sh command_string
+        }
     }
 }
 
