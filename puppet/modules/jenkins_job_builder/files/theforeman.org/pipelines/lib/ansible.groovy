@@ -32,7 +32,7 @@ def runPlaybook(args) {
         command.push("-e @${sensitive_extra_vars_file}")
     }
 
-    command_string = command.join(' ')
+    def command_string = command.join(' ')
 
     wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
         if (venv) {
