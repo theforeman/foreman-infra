@@ -13,14 +13,14 @@ pipeline {
                     ]
                 ])
 
-                virtEnv('./ci', 'pip install jenkins-job-builder')
+                virtEnv('jjb-venv', 'pip install jenkins-job-builder')
             }
         }
 
         stage('Update ci.centos.org jobs') {
             steps {
                 withCredentials([string(credentialsId: 'centos-jenkins', variable: 'PASSWORD')]) {
-                    virtEnv('./ci', "cd ./centos.org && jenkins-jobs --conf ./centos_jenkins.ini --user 'foreman' --password '${env.PASSWORD}' update --delete-old -r ./jobs")
+                    virtEnv('jjb-venv', "cd ./ci/centos.org && jenkins-jobs --conf ./centos_jenkins.ini --user 'foreman' --password '${env.PASSWORD}' update --delete-old -r ./jobs")
                 }
             }
         }
