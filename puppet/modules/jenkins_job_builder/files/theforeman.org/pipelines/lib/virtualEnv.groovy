@@ -1,13 +1,11 @@
 def virtEnv(path, command) {
-    dir(path) {
-        if(!fileExists('venv')) {
-            sh "virtualenv venv"
-        }
-
-        sh """
-        source venv/bin/activate
-        ${command}
-        deactivate
-        """
+    if(!fileExists("${path}/bin/activate")) {
+        sh "virtualenv ${path}"
     }
+
+    sh """
+    source ${path}/bin/activate
+    ${command}
+    deactivate
+    """
 }
