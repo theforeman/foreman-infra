@@ -18,7 +18,7 @@ pipeline {
                 }
 
                 dir('foreman') {
-                   git url: "https://github.com/theforeman/foreman", branch: 'develop', poll: false
+                   git url: "https://github.com/theforeman/foreman", branch: 'develop', poll: false, changelog: false
                 }
             }
         }
