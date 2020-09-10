@@ -59,7 +59,7 @@ pipeline {
         stage("Verify version and release"){
             when {
                 expression { packages_to_build }
-                expression { ghprbTargetBranch == 'rpm/develop' }
+                expression { ghprbTargetBranch == 'rpm/develop' || ghprbGhRepository == 'theforeman/pulpcore-packaging' }
             }
             steps {
                 script {
