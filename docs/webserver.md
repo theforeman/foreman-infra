@@ -31,6 +31,29 @@ A Fastly CDN exists that sits in front of:
 
 For these, the webserver acts as a backend while the content is served from the Fastly CDN to users.
 
+#### Configuration
+
+The Fastly configuration happens through the `ansible/fastly.yml` Ansible playbook in this repository.
+
+The major points of the configuration are:
+
+* Set the backend to `web02.theforeman.org`
+* Enable shielding: a central system fetches the assets and then distributes them across the CDN instead of each CDN node fetches them itself, this costs more CDN traffic, but less traffic for web02 which is more expensive
+* Configure a health-check and serve stale content when it fails
+* Log requests to a RackSpace CloudFiles (S3-like) bucket
+
+#### TLS
+
+Fastly provides a shared certificate which has `theforeman.org` and `*.theforeman.org` as DNSAltName.
+
+This certificate is signed by GlobalSign and we have a `_globalsign-domain-verification` TXT record in the `theforeman.org` DNS zone for verification of ownership.
+
+#### DNS
+
+Each vhost has a CNAME pointing at `dualstack.p2.shared.global.fastly.net` which is the Fastly global, dualstack loadbalancer.
+
+Alternatively one can use `p2.shared.global.fastly.net` for an IPv4-only setup.
+
 ## Volumes
 
 /var/www is mounted on a separate 140GB block device via LVM.  /var/www/freight* contain the staging areas for freight (deb), and /var/www/vhosts contain the web roots themselves.
