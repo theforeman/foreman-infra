@@ -104,6 +104,12 @@
         state: directory
       when: jenkins_download_artifacts | bool
 
+    - name: "Fetch remote console log"
+      get_url:
+        url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/consoleText"
+        dest: "{{ jenkins_artifacts_directory }}/consoleText"
+      when: jenkins_download_artifacts | bool
+
     - name: "Fetch remote artifacts"
       get_url:
         url: "{{ jenkins_host }}/job/{{ jenkins_job_name }}/{{ poll_result.json.executable.number }}/artifact/{{ item.relativePath }}"

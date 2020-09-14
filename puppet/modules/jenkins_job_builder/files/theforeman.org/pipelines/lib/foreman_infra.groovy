@@ -55,6 +55,9 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null, job_extra_
         throw ex
     } finally {
         script {
+            if (extra_vars['jenkins_artifacts_directory']) {
+                archiveArtifacts artifacts: "${extra_vars['jenkins_artifacts_directory']}/**", allowEmptyArchive: true
+            }
             set_job_build_description(job_name, status, link_file_name)
         }
     }
@@ -100,6 +103,10 @@ def runCicoPipelines(project, version, config, expected_version = '') {
                 job: "foreman-pipeline-${project}-${version}-${os}-${type}",
                 parameters: [
                     expected_version: expected_version
+                ],
+                extra_vars: [
+                    jenkins_download_artifacts: 'true',
+                    jenkins_artifacts_directory: "${env.WORKSPACE}/artifacts/foreman-pipeline-${project}-${version}-${os}-${type}/",
                 ]
             ]
         }
