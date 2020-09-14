@@ -87,8 +87,7 @@ void build_tarball(project, version, ruby_ver) {
         withRVM(["${rake} pkg:generate_source"], ruby_ver, project)
 
         sshagent(['deploy-downloads']) {
-            sh "ssh root@web02.rackspace.theforeman.org \"mkdir -p ${base_dir}/\" || true"
-            sh "rsync -v --ignore-existing pkg/* root@web02.rackspace.theforeman.org:${base_dir}/"
+            sh "rsync -v --ignore-existing pkg/* downloads@web02.rackspace.theforeman.org:${base_dir}/"
         }
 
         cleanupRVM(ruby_ver, project)

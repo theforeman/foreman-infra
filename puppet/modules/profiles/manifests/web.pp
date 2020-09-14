@@ -49,6 +49,7 @@ class profiles::web (
 
   class { 'web::vhost::downloads':
     rsync_max_connections => $rsync_max_connections,
+    setup_receiver        => $setup_receiver,
   }
   contain web::vhost::downloads
 

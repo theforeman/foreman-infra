@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     base_dir = "/var/www/vhosts/downloads/htdocs/discovery"
-                    destination_user = 'root'
+                    destination_user = 'downloads'
                     destination_server = 'web02.rackspace.theforeman.org'
                     destination_dir = "${base_dir}/${output_dir}"
 
@@ -54,7 +54,7 @@ pipeline {
                         sh "rsync --recursive --links --times --verbose --delete result/ ${destination_user}@${destination_server}:${destination_dir}/"
 
                         // create symlinks
-                        sh "ssh ${destination_user}@${destination_server} 'pushd ${base_dir}/releases/ && rm -f latest; ln -snf \$(ls -t | head -n 1) latest; popd' || true"
+                        sh "ssh ${destination_user}@${destination_server} update-discovery-latest-release || true"
                     }
 
                     sh "curl --silent -X PURGE -H 'Fastly-Soft-Purge:1' https://downloads.theforeman.org/discovery/${output_dir}/fdi-image-latest.tar"
