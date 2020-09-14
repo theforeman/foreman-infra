@@ -1,0 +1,41 @@
+#!/bin/sh
+
+set -e
+
+case "$SSH_ORIGINAL_COMMAND" in
+*\&*)
+  echo "Rejected"
+;;
+*\(*)
+  echo "Rejected"
+;;
+*\{*)
+  echo "Rejected"
+;;
+*\;*)
+  echo "Rejected"
+;;
+*\<*)
+  echo "Rejected"
+;;
+*\`*)
+  echo "Rejected"
+;;
+*\|*)
+  echo "Rejected"
+;;
+rsync\ --server*)
+  # Permit transfer
+  $SSH_ORIGINAL_COMMAND
+;;
+update-discovery-latest-release)
+  DISCOVERY_RELEASES="<%= @downloads_directory %>/discovery/releases"
+  pushd ${DISCOVERY_RELEASES}
+  rm -f latest
+  ln -snf $(ls -t | head -n 1) latest
+  popd
+;;
+*)
+  echo "Rejected"
+;;
+esac
