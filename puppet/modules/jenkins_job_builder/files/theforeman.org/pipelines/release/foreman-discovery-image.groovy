@@ -46,7 +46,7 @@ pipeline {
                 script {
                     base_dir = "/var/www/vhosts/downloads/htdocs/discovery"
                     destination_user = 'root'
-                    destination_server = 'web02.theforeman.org'
+                    destination_server = 'web02.rackspace.theforeman.org'
                     destination_dir = "${base_dir}/${output_dir}"
 
                     sshagent(['deploy-downloads']) {
