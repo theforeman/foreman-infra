@@ -443,23 +443,19 @@ def main():
             mash_config_candlepin,
         ]
 
-        if version not in ['3.14']:
+        if version in ['3.15', '3.16', '3.17']:
             pulpcore = MashConfig(collection, version, "pulpcore-el7", "pulpcore-el7", "pulpcore/el7")
             # The default builds katello-{}-pulpcore-el7
             pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)
             mashes.append(pulpcore)
 
-            if version not in ['3.15', '3.16', '3.17']:
-                el8_katello = MashConfig(collection, version, "el8", "el8", "katello/el8")
-                mashes.append(el8_katello)
+        if version in ['nightly']:
+            el8_katello = MashConfig(collection, version, "el8", "el8", "katello/el8")
+            mashes.append(el8_katello)
 
-                el8_pulpcore = MashConfig(collection, version, "pulpcore-el8", "pulpcore-el8", "pulpcore/el8")
-                el8_pulpcore.name = 'katello-pulpcore-{}-el8'.format(version)
-                mashes.append(el8_pulpcore)
-
-                el8_candlepin = MashConfig(collection, version, "candlepin-el8", "candlepin-el8", "candlepin/el8")
-                el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
-                mashes.append(el8_candlepin)
+            el8_candlepin = MashConfig(collection, version, "candlepin-el8", "candlepin-el8", "candlepin/el8")
+            el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
+            mashes.append(el8_candlepin)
 
     elif collection == 'pulpcore':
         CONFIG["gitloc"] = "https://github.com/theforeman/pulpcore-packaging.git"
