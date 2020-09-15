@@ -56,7 +56,8 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null, job_extra_
     } finally {
         script {
             if (extra_vars['jenkins_artifacts_directory']) {
-                archiveArtifacts artifacts: "${extra_vars['jenkins_artifacts_directory']}/**", allowEmptyArchive: true
+                def relative_artifacts_directory = extra_vars['jenkins_artifacts_directory'].replace("${env.WORKSPACE}/", '')
+                archiveArtifacts artifacts: "${relative_artifacts_directory}/**", allowEmptyArchive: true
             }
             set_job_build_description(job_name, status, link_file_name)
         }
