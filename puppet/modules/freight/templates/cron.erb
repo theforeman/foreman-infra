@@ -49,11 +49,13 @@ package_names.each do |pn,archs|
   # pn is something like "apt/wheezy/nightly/foreman-proxy"
   # archs is ['all'] or ['amd64', 'i386']
 
+  owner_is_foreman = pn.split('/')[2].start_with?('theforeman-')
+
   archs.each do |arch|
     packages = raw_files.map { |f| f if f.match /^#{pn}_.*_#{arch}.deb/ }.compact
 
     packages.sort! {|x,y| File.mtime(x) <=> File.mtime(y)}
-    packages.delete_at(-1) # Always leave at least one file
+    packages.delete_at(-1) if owner_is_foreman # Always leave at least one file for foreman
     packages.delete_if { |f| File.mtime(f) > $time }
 
     files_to_remove += packages
