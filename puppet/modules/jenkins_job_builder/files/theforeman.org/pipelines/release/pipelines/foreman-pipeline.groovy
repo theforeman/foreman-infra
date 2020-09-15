@@ -16,16 +16,6 @@ pipeline {
                 mash("foreman", foreman_version)
             }
         }
-        stage('Mash Rails Koji Repositories') {
-            agent { label 'sshkey' }
-
-            when {
-                expression { foreman_version == '1.24' }
-            }
-            steps {
-                mash("foreman-rails", foreman_version)
-            }
-        }
         stage('Repoclosure') {
             agent { label 'el' }
 
@@ -59,10 +49,6 @@ pipeline {
                     withRVM(["bundle install --jobs=5 --retry=5"])
 
                     script {
-                        if (foreman_version == '1.24') {
-                            push_rpms_direct("foreman-rails-${foreman_version}/el7", "rails/foreman-${foreman_version}/el7", false, true)
-                        }
-
                         for (release in foreman_el_releases) {
                             push_rpms_direct("foreman-${foreman_version}/RHEL/${release.replace('el', '')}", "releases/${foreman_version}/${release}", false, true)
                         }

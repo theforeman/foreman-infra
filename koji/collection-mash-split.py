@@ -390,7 +390,7 @@ def main():
             git_tag = "rpm/{}".format(version)
 
         CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
-        if collection == 'foreman' and version in ['1.24', '2.0', '2.1']:
+        if collection == 'foreman' and version in ['2.0', '2.1']:
             CONFIG["extras_baseloc"] = "%(tag)s:extras"
             CONFIG["extras_path"] = "/mnt/koji/mash/extras/foreman"
             extras = ["extras-foreman-rhel7"]
@@ -399,7 +399,7 @@ def main():
 
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
 
-        if version not in ['1.24', '2.0']:
+        if version not in ['2.0']:
             mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
 
     elif collection == "foreman-client":
@@ -417,30 +417,16 @@ def main():
         else:
             git_tag = "rpm/{}".format(version)
 
-            if version == '1.24':
-                del dists['el8']
-
-            if version in ('1.24', '2.0'):
+            if version in ('2.0'):
                 dists['fedora29'] = 'fc29'
 
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
-    elif collection == 'foreman-rails':
-        CONFIG["gitloc"] = "https://github.com/theforeman/rails-packaging.git"
-        scl = "tfm-ror52"
-        git_tag = scl
-
-        mash_config = MashConfig(collection, version, "rhel7", "rhel7", "el7")
-        # File is not named after the collection but rather the SCL
-        mash_config.comps_name = "comps-{}-{}.xml".format(scl, "rhel7")
-
-        mashes = [mash_config]
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
             '3.17': '2.2',
             '3.16': '2.1',
             '3.15': '2.0',
-            '3.14': '1.24',
         }
 
         git_tag = "rpm/{}".format(branch_map[version])
