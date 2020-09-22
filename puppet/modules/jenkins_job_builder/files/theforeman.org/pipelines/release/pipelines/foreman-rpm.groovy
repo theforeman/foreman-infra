@@ -46,21 +46,9 @@ pipeline {
         }
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
-
             steps {
-                git_clone_foreman_infra()
-
-                dir('deploy') {
-
-                    withRVM(["bundle install --jobs=5 --retry=5"])
-                    push_rpms_direct("foreman-nightly/RHEL/7", "nightly/el7")
-                    push_rpms_direct("foreman-nightly/RHEL/8", "nightly/el8")
-                }
-            }
-            post {
-                always {
-                    deleteDir()
-                }
+                push_rpms_direct("foreman-nightly/RHEL/7", "nightly/el7")
+                push_rpms_direct("foreman-nightly/RHEL/8", "nightly/el8")
             }
         }
     }

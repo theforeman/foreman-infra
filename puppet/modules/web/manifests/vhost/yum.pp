@@ -5,6 +5,8 @@ class web::vhost::yum (
   Integer[0] $rsync_max_connections = 5,
   Stdlib::Fqdn $servername = 'yum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/yum/htdocs',
+  String $user = 'yumrepo',
+  Boolean $setup_receiver = true,
 ) {
   $yum_directory_config = [
     {
@@ -27,11 +29,21 @@ class web::vhost::yum (
     },
   ]
 
+  if $setup_receiver {
+    secure_ssh::receiver_setup { $user:
+      user           => $user,
+      foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
+      script_content => file('web/deploy-yumrepo.sh'),
+    }
+  }
+
   web::vhost { 'yum':
-    servername   => $servername,
-    docroot      => $yum_directory,
-    docroot_mode => '2575',
-    directories  => $yum_directory_config,
+    servername    => $servername,
+    docroot       => $yum_directory,
+    docroot_owner => $user,
+    docroot_group => $user,
+    docroot_mode  => '0755',
+    directories   => $yum_directory_config,
   }
 
   include rsync::server
@@ -54,8 +66,8 @@ class web::vhost::yum (
   ['HEADER.html', 'robots.txt', 'RPM-GPG-KEY-foreman'].each |$filename| {
     file { "${yum_directory}/${filename}":
       ensure  => file,
-      owner   => 'root',
-      group   => 'root',
+      owner   => $user,
+      group   => $user,
       mode    => '0644',
       content => file("web/yum/${filename}"),
     }
@@ -64,8 +76,8 @@ class web::vhost::yum (
   ['releases', 'plugins', 'client'].each |$directory| {
     file { "${yum_directory}/${directory}":
       ensure => directory,
-      owner  => 'root',
-      group  => 'root',
+      owner  => $user,
+      group  => $user,
       mode   => '0755',
     }
 
