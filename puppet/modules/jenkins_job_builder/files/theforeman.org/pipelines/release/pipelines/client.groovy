@@ -43,20 +43,10 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                git_clone_foreman_infra()
-
-                dir('deploy') {
-                    withRVM(["bundle install --jobs=5 --retry=5"])
-                    script {
-                        foreman_client_distros.each { distro ->
-                            push_foreman_rpms('client', foreman_version, distro)
-                        }
+                script {
+                    foreman_client_distros.each { distro ->
+                        push_foreman_rpms('client', foreman_version, distro)
                     }
-                }
-            }
-            post {
-                always {
-                    deleteDir()
                 }
             }
         }
