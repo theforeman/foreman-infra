@@ -39,20 +39,10 @@ pipeline {
             agent { label 'admin && sshkey' }
 
             steps {
-                git_clone_foreman_infra()
-
-                dir('deploy') {
-                    withRVM(["bundle install --jobs=5 --retry=5"])
-                    script {
-                        pulpcore_distros.each { distro ->
-                            push_pulpcore_rpms(pulpcore_version, distro)
-                        }
+                script {
+                    pulpcore_distros.each { distro ->
+                        push_pulpcore_rpms(pulpcore_version, distro)
                     }
-                }
-            }
-            post {
-                always {
-                    deleteDir()
                 }
             }
         }
