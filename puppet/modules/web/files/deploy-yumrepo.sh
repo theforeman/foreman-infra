@@ -64,7 +64,7 @@ replace() {
 }
 
 purgecdn() {
-	awk "/ CHANGED /{print 'https://yum.theforeman.org/${REPO_DEST}/'\$5}" "${REPO_RSYNC_LOG}" | xargs --no-run-if-empty curl --silent -X PURGE -H 'Fastly-Soft-Purge:1'
+	awk '/ CHANGED /{print "https://yum.theforeman.org/'${REPO_DEST}'/"$5}' "${REPO_RSYNC_LOG}" | xargs --no-run-if-empty curl --silent -X PURGE -H 'Fastly-Soft-Purge:1'
 	set +f
 	for d in "${REPO_PATH}"/*; do
 		purge_base="https://yum.theforeman.org/${REPO_DEST}/$(basename $d)"
