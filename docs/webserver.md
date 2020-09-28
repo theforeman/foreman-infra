@@ -1,12 +1,12 @@
 # Webserver
 
-| | web02.rackspace.theforeman.org |
+| | web01.osuosl.theforeman.org |
 | - | - |
 | type | OpenStack VM |
 | OS | CentOS 7 |
 | CPUs | 2 |
-| RAM | 2GB |
-| Storage | /dev/xvda (40GB): root, /dev/xvdb (100GB) + /dev/xvdc (50GB): data |
+| RAM | 4GB |
+| Storage | /dev/sda (30GB): root, /dev/sdb (140GB): data |
 | Managed by | [web.pp](https://github.com/theforeman/foreman-infra/blob/master/puppet/modules/profiles/manifests/web.pp) |
 
 ## Domains
@@ -56,16 +56,16 @@ Alternatively one can use `p2.shared.global.fastly.net` for an IPv4-only setup.
 
 ## Volumes
 
-/var/www is mounted on a separate 140GB block device via LVM.  /var/www/freight* contain the staging areas for freight (deb), and /var/www/vhosts contain the web roots themselves.
+/var/www is mounted on a separate 140GB block device.  /var/www/freight* contain the staging areas for freight (deb), and /var/www/vhosts contain the web roots themselves.
 
 ## Firewall
 
-firewalld is manually configured (non-puppetized) with TCP ports:
+There is no firewall on the machine itself. OpenStack has the following ports open:
 
-* 22
-* 80
-* 443
-* 873
+* 22/tcp (SSH)
+* 80/tcp (HTTP)
+* 443/tcp (HTTPS)
+* 873/tcp, 873/udp (rsync)
 
 ## Other
 
