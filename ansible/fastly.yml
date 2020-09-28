@@ -13,8 +13,8 @@
         domains:
           - name: "{{ item }}.theforeman.org"
         backends:
-          - name: web02.theforeman.org
-            address: web02.theforeman.org
+          - name: web01.osuosl.theforeman.org
+            address: web01.osuosl.theforeman.org
             port: 443
             shield: bwi-va-us
             ssl_cert_hostname: "{{ item }}.theforeman.org"
