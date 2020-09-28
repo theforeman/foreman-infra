@@ -33,37 +33,7 @@
             window: 2
             initial: 1
             check_interval: 60000
-        cloudfiles:
-          - name: "{{ item }} error logging"
-            access_key: "{{ cloudfiles_access_key }}"
-            bucket_name: "fastly_errorlogs_{{ item }}"
-            format: '%h %l %u %t "%r" %>s %b'
-            format_version: '2'
-            gzip_level: '0'
-            message_type: classic
-            path: ""
-            period: '3600'
-            placement:
-            public_key:
-            region: ORD
-            response_condition: error log
-            timestamp_format: "%Y-%m-%dT%H:%M:%S.000"
-            user: foremanfastlylogger
-          - name: "{{ item }} logging"
-            access_key: "{{ cloudfiles_access_key }}"
-            bucket_name: "fastly_logs_{{ item }}"
-            format: '%{client.geo.country_code}V %l %u %t "%r" %>s %b'
-            format_version: '2'
-            gzip_level: '0'
-            message_type: classic
-            path: ""
-            period: '3600'
-            placement:
-            public_key:
-            region: ORD
-            response_condition: ''
-            timestamp_format: "%Y-%m-%dT%H:%M:%S.000"
-            user: foremanfastlylogger
+        cloudfiles: []
       with_items:
         - downloads
         - stagingdeb
