@@ -13,7 +13,7 @@ DEB_PATH=./dependencies/${os}/build-${project}
 echo "scratch build: uploading to stagingdeb/${os}/${repoowner}-${version}"
 export RSYNC_RSH="ssh -i /home/jenkins/workspace/staging_key/rsync_freightstage_key"
 USER=freightstage
-HOSTS="web02.rackspace web01.osuosl"
+HOSTS="web01.osuosl"
 COMPONENT=${repoowner}-${version}
 
 for HOST in $HOSTS; do

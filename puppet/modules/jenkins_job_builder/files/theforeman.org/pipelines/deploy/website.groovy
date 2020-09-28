@@ -11,7 +11,7 @@ pipeline {
     environment {
         ruby_version = '2.5'
         // Sync to the pivot-point on the web node
-        target_path = 'website@web02.rackspace.theforeman.org:rsync_cache/'
+        target_path = 'website@web01.osuosl.theforeman.org:rsync_cache/'
     }
 
     stages {
