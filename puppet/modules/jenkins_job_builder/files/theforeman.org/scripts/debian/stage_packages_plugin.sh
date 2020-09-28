@@ -26,7 +26,7 @@ else
   COMPONENT=${repoowner}
 fi
 
-HOSTS="web02.rackspace web01.osuosl"
+HOSTS="web01.osuosl"
 
 for HOST in $HOSTS; do
   # The path is important, as freight_rsync (which is run on the web node for incoming
