@@ -92,7 +92,7 @@ class slave (
   }
 
   $firefox = $facts['os']['name'] ? {
-    'Debian' => 'iceweasel',
+    'Debian' => 'firefox-esr',
     default  => 'firefox'
   }
 
