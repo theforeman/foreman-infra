@@ -25,6 +25,7 @@ These domains are all hosted on the webserver.
 
 A Fastly CDN exists that sits in front of:
 
+* deb.theforeman.org
 * downloads.theforeman.org
 * stagingdeb.theforeman.org
 * yum.theforeman.org
