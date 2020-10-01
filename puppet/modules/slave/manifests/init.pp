@@ -127,6 +127,8 @@ class slave (
       ensure => present;
     $sqlite3_dev:
       ensure => present;
+    'transifex-client':
+      ensure => present;
   }
 
   # bash JSON parser
