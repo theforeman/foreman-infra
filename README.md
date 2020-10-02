@@ -7,7 +7,8 @@
  * [Jenkins](./docs/jenkins.md)
  * [Koji](./docs/koji.md)
  * [Webserver](./docs/webserver.md)
- * [redmine](./docs/redmine.md)
+ * [Redmine](./docs/redmine.md)
+ * [Discourse](./docs/discourse.md)
  * [Summary](#summary)
 
 ### Summary
