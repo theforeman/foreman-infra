@@ -8,6 +8,7 @@
  * [Koji](./docs/koji.md)
  * [Webserver](./docs/webserver.md)
  * [redmine](./docs/redmine.md)
+ * [CDN](./docs/cdn.md)
  * [Summary](#summary)
 
 ### Summary
