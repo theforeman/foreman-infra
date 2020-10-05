@@ -122,6 +122,11 @@ CentOS offer access to their [QA CI infrastructure](https://wiki.centos.org/QaWi
 * foreman@slave01 - a user account on a slave which our jobs all run on
 * [Duffy](https://wiki.centos.org/QaWiki/CI/Duffy) - on-demand provisioning of physical test servers running CentOS, available from foreman`slave01 jobs
 
+Getting help:
+
+* [centos-infra issues](https://pagure.io/centos-infra/issues)
+* IRC: `#centos-ci` on `irc.freenode.net`
+
 ## Managing jobs
 
 Jenkins itself is deployed onto one master VM from foreman-infra.  Jobs are maintained via Jenkins Job Builder - a set of YAML configuration files in foreman-infra that generate jobs. Jobs are synced via Puppet and unmanaged jobs are purged daily.
