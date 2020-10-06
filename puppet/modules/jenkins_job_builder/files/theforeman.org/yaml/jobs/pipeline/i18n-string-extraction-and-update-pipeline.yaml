@@ -1,0 +1,10 @@
+- job:
+    name: i18n-string-extraction-and-update-pipeline
+    project-type: pipeline
+    sandbox: true
+    triggers:
+      - timed: '30 4 */7 * *'
+    dsl:
+      !include-raw:
+        - pipelines/deploy/i18n-string-extraction-and-update.groovy
+        - pipelines/lib/rvm.groovy
