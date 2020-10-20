@@ -64,7 +64,6 @@ class jenkins_master {
     'create-fingerprint'                 => {},
     'credentials'                        => {},
     'credentials-binding'                => {},
-    'cvs'                                => {},
     'dashboard-view'                     => {},
     'data-tables-api'                    => {},
     'display-url-api'                    => {},
