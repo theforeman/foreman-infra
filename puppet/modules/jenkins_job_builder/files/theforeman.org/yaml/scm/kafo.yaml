@@ -1,7 +1,0 @@
-- scm:
-    name: kafo
-    scm:
-      - git:
-          url: https://github.com/theforeman/kafo.git
-          branches:
-            - '{branch}'
