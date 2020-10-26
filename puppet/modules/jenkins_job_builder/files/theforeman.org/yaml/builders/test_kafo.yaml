@@ -1,4 +1,0 @@
-- builder:
-    name: test_kafo
-    builders:
-      - shell: !include-raw: scripts/test/kafo.sh
