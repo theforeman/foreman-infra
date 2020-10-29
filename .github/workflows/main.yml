@@ -1,0 +1,80 @@
+name: CI
+
+on: pull_request
+
+jobs:
+  jjb:
+    runs-on: ubuntu-latest
+    name: Jenkins Job Builder
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3'
+      - name: Restore pip cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-{{ runner.python-version }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          for d in puppet/modules/jenkins_job_builder/files/theforeman.org; do
+            DIR="."
+            ( cd $d && jenkins-jobs -l debug test -r $DIR )
+            ( cd $d && jenkins-jobs test -r $DIR --config-xml -o output && find output -name config.xml -exec python ../jenkins-lint.py --xml {} + && rm -rf output )
+          done
+
+          for d in puppet/modules/jenkins_job_builder/files/centos.org; do
+            DIR="jobs"
+            ( cd $d && jenkins-jobs -l debug test -r $DIR )
+            ( cd $d && jenkins-jobs test -r $DIR --config-xml -o output && find output -name config.xml -exec python ../jenkins-lint.py --xml {} + && rm -rf output )
+          done
+  puppet:
+    runs-on: ubuntu-latest
+    name: Puppet
+    defaults:
+      run:
+        working-directory: puppet
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Setup ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.5'
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y yajl-tools
+          gem install bundler
+          bundle config path ~/.vendor/bundle
+      - uses: actions/cache@v2
+        with:
+          path: ~/.vendor/bundle
+          key: ${{ runner.os }}-gems-unit-
+          restore-keys: |
+            ${{ runner.os }}-gems-unit-
+      - name: Bundle install
+        run: |
+          bundle install --jobs $(nproc) --retry 3
+      - name: Setup g10k
+        run: |
+          wget https://github.com/xorpaul/g10k/releases/download/v0.8.9/g10k-linux-amd64.zip
+          unzip g10k-linux-amd64.zip
+
+          ./g10k -quiet -cachedir .g10k/cache -puppetfile -puppetfilelocation Puppetfile_forge -moduledir forge_modules
+      - name: Run syntax
+        run: |
+          bundle exec rake syntax
+      - name: Run lint
+        run: |
+          bundle exec rake lint
+      - name: Run tests
+        run: |
+          bundle exec rake spec
