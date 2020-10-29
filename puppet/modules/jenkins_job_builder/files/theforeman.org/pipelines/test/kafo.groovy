@@ -35,6 +35,11 @@ pipeline {
                             withRVM(["bundle install --gemfile=Gemfile.${ruby}-${PUPPET_VERSION}"], ruby, "${ruby}-${PUPPET_VERSION}")
                         }
                     }
+                    stage('Run Rubocop') {
+                        steps {
+                            withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec rubocop TESTOPTS='-v' --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
+                        }
+                    }
                     stage('Run Tests') {
                         steps {
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec rake jenkins:unit TESTOPTS='-v' --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
