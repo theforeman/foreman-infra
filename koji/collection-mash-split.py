@@ -407,10 +407,12 @@ def main():
             "el8": "el8",
             "rhel7": "el7",
             "rhel6": "el6",
-            "rhel5": "el5",
             "sles11": "sles11",
             "sles12": "sles12",
         }
+
+        if version in ["2.0", "2.1", "2.2"]:
+            dists["rhel5"] = "el5"
 
         if version == "nightly":
             git_tag = "rpm/develop"
