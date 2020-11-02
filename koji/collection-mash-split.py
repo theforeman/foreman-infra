@@ -417,7 +417,7 @@ def main():
         else:
             git_tag = "rpm/{}".format(version)
 
-            if version in ('2.0'):
+            if version in ['2.0']:
                 dists['fedora29'] = 'fc29'
 
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
