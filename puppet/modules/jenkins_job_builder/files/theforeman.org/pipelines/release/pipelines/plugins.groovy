@@ -35,11 +35,7 @@ pipeline {
 
             steps {
                 script {
-                    def overwrite = foreman_version == 'nightly'
-                    def merge = foreman_version != 'nightly'
-                    for (release in foreman_el_releases) {
-                        push_rpms_direct("foreman-plugins-${foreman_version}/${release}", "plugins/${foreman_version}/${release}", overwrite, merge)
-                    }
+                    push_foreman_rpms('plugins', foreman_version, foreman_el_releases)
                 }
             }
         }

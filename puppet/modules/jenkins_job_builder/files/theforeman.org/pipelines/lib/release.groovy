@@ -1,6 +1,13 @@
-void push_foreman_rpms(repo_type, version, distro) {
+void push_foreman_rpms(repo_type, version, distros) {
     version = version == 'develop' ? 'nightly' : version
-    push_rpms("foreman-${repo_type}-${version}", repo_type, version, distro)
+    keep_old_files = version != 'nightly'
+    for (distro in distros) {
+        if repo_type {
+            push_rpms("foreman-${repo_type}-${version}", repo_type, version, distro, keep_old_files)
+        } else {
+            push_rpms_direct("foreman-${version}/${distro}", "releases/${version}/${distro}", false, true)
+        }
+    }
 }
 
 void push_rpms(repo_src, repo_dest, version, distro, keep_old_files = false) {

@@ -44,9 +44,7 @@ pipeline {
 
             steps {
                 script {
-                    foreman_client_distros.each { distro ->
-                        push_foreman_rpms('client', foreman_version, distro)
-                    }
+                    push_foreman_rpms('client', foreman_version, foreman_client_distros)
                 }
             }
         }

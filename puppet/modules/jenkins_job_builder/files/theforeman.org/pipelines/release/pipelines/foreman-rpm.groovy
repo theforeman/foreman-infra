@@ -43,8 +43,9 @@ pipeline {
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
             steps {
-                push_rpms_direct("foreman-nightly/el7", "nightly/el7")
-                push_rpms_direct("foreman-nightly/el8", "nightly/el8")
+                script {
+                    push_foreman_rpms(nil, foreman_version, foreman_el_releases)
+                }
             }
         }
     }
