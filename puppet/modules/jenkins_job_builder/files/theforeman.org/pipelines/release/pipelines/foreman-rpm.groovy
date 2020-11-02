@@ -13,7 +13,7 @@ pipeline {
             agent { label 'sshkey' }
 
             steps {
-                mash('foreman', 'nightly')
+                mash('foreman', foreman_version)
             }
         }
         stage('Repoclosure') {
@@ -35,6 +35,7 @@ pipeline {
 
             steps {
                 script {
+                    // TODO: derive rpm_pipelines from pipelines (as defined in nightly)
                     def rpm_pipelines = ['install': ['centos7', 'centos8'], 'upgrade': ['centos7', 'centos8']]
                     runCicoPipelines('foreman', foreman_version, rpm_pipelines)
                 }
