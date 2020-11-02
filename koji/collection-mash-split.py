@@ -398,7 +398,7 @@ def main():
         else:
             extras = []
 
-        mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
+        mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "el7", extras)]
 
         if LooseVersion(version) > LooseVersion('2.0'):
             mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))

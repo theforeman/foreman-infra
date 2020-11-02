@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     for (release in foreman_el_releases) {
-                        push_rpms_direct("foreman-${foreman_version}/RHEL/${release.replace('el', '')}", "releases/${foreman_version}/${release}", false, true)
+                        push_rpms_direct("foreman-${foreman_version}/${release}", "releases/${foreman_version}/${release}", false, true)
                     }
                 }
             }
