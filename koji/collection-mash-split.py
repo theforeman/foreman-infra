@@ -11,6 +11,7 @@ import difflib
 import time
 import re
 import sys
+from distutils.version import LooseVersion
 
 import koji
 import kobo.log
@@ -390,7 +391,7 @@ def main():
             git_tag = "rpm/{}".format(version)
 
         CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
-        if collection == 'foreman' and version in ['2.0', '2.1']:
+        if collection == 'foreman' and LooseVersion(version) <= LooseVersion('2.1'):
             CONFIG["extras_baseloc"] = "%(tag)s:extras"
             CONFIG["extras_path"] = "/mnt/koji/mash/extras/foreman"
             extras = ["extras-foreman-rhel7"]
@@ -399,7 +400,7 @@ def main():
 
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
 
-        if version not in ['2.0']:
+        if LooseVersion(version) > LooseVersion('2.0'):
             mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
 
     elif collection == "foreman-client":
@@ -411,7 +412,7 @@ def main():
             "sles12": "sles12",
         }
 
-        if version in ["2.0", "2.1", "2.2"]:
+        if LooseVersion(version) < LooseVersion("2.3"):
             dists["rhel5"] = "el5"
 
         if version == "nightly":
@@ -419,7 +420,7 @@ def main():
         else:
             git_tag = "rpm/{}".format(version)
 
-            if version in ['2.0']:
+            if LooseVersion(version) == LooseVersion('2.0'):
                 dists['fedora29'] = 'fc29'
 
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
@@ -445,13 +446,13 @@ def main():
             mash_config_candlepin,
         ]
 
-        if version in ['3.15', '3.16', '3.17']:
+        if LooseVersion(version) < LooseVersion('3.18'):
             pulpcore = MashConfig(collection, version, "pulpcore-el7", "pulpcore-el7", "pulpcore/el7")
             # The default builds katello-{}-pulpcore-el7
             pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)
             mashes.append(pulpcore)
 
-        if version not in ['3.15', '3.16', '3.17']:
+        if LooseVersion(version) >= LooseVersion('3.18'):
             el8_katello = MashConfig(collection, version, "el8", "el8", "katello/el8")
             mashes.append(el8_katello)
 
