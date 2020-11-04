@@ -48,13 +48,6 @@ pipeline {
 
             }
         }
-        stage('Install Foreman npm packages') {
-            steps {
-                dir('foreman') {
-                    withRVM(["bundle exec npm install"], ruby)
-                }
-            }
-        }
         stage('Run Tests') {
             parallel {
                 stage('tests') {
@@ -71,15 +64,6 @@ pipeline {
                         }
                     }
                 }
-                stage('react-ui') {
-                    when {
-                        expression { fileExists('package.json') }
-                    }
-                    steps {
-                        sh "npm install"
-                        sh 'npm test'
-                    }
-                }
                 stage('angular-ui') {
                     steps {
                         script {
@@ -94,13 +78,18 @@ pipeline {
                         }
                     }
                 }
-                stage('assets-precompile') {
+                stage('react-ui and assets-precompile') {
+                    // putting these together so npm install can be done in parallel and not block the other tests
                     steps {
                         dir('foreman') {
-                            withRVM(["bundle exec rake plugin:assets:precompile[${project_name}] RAILS_ENV=production --trace"], ruby)
-                        }
-                    }
-                }
+                            withRVM(["bundle exec npm install"], ruby)
+                        }   
+                        sh 'npm test'
+                        dir('foreman') {
+                            withRVM(['bundle exec rake plugin:assets:precompile[katello] RAILS_ENV=production DATABASE_URL=nulldb://nohost --trace'], ruby)
+                        }   
+                    }   
+                }   
             }
             post {
                 always {
