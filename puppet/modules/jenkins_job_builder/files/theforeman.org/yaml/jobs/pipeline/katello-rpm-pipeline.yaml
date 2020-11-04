@@ -18,6 +18,5 @@
       - 'katello-{version}-rpm-pipeline'
     empty: ''
     version:
-      - '3.16'
       - '3.17'
       - '3.18'

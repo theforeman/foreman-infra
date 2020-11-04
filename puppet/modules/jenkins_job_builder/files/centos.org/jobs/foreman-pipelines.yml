@@ -1,22 +1,5 @@
 ---
 - project:
-    name: foreman-release-test-2.0
-    jobs:
-      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
-    empty: ''
-    distro:
-      - centos7
-      - debian10
-      - ubuntu1804
-    version:
-      - '2.0'
-    action:
-      - install
-      - upgrade
-    type:
-      - foreman
-
-- project:
     name: foreman-release-test
     jobs:
       - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
@@ -27,7 +10,6 @@
       - debian10
       - ubuntu1804
     version:
-      - '2.1'
       - '2.2'
       - '2.3'
     action:
