@@ -37,7 +37,7 @@
       - timeout:
           type: absolute
           abort: true
-          timeout: 120
+          timeout: 180
           write-description: 'Build timed out (after {{0}} minutes). Marking the build as aborted.'
     triggers:
       - github_pr:
