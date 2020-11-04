@@ -51,6 +51,25 @@ pipeline {
                 push_rpms_direct("foreman-nightly/RHEL/8", "nightly/el8")
             }
         }
+        stage('Build container images') {
+            agent any
+
+            steps {
+                script {
+                    def now = createTimestamp()
+
+                    parallel {
+                        foreman: {
+                            triggerGithubBuilder('foreman', 'nightly', now)
+                        },
+                        foreman_proxy: {
+                            triggerGithubBuilder('foreman_proxy', 'nightly', now)
+                        }
+                    }
+                }
+
+            }
+        }
     }
     post {
         failure {

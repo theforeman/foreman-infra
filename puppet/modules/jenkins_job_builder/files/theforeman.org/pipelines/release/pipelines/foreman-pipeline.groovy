@@ -68,5 +68,24 @@ pipeline {
                 }
             }
         }
+        stage('Build container images') {
+            agent any
+
+            steps {
+                script {
+                    def now = createTimestamp()
+
+                    parallel {
+                        foreman: {
+                            triggerGithubBuilder('foreman', foreman_version, now)
+                        },
+                        foreman_proxy: {
+                            triggerGithubBuilder('foreman_proxy', foreman_version, now)
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }

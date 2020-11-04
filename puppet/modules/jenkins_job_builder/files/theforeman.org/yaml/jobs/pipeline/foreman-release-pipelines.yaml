@@ -17,6 +17,7 @@
         - 'pipelines/lib/rvm.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'
         - 'pipelines/lib/foreman_infra.groovy{empty}'
+        - 'pipelines/lib/containers.groovy{empty}'
 
 - job-template:
     name: 'foreman-client-{version}-rpm-pipeline'
