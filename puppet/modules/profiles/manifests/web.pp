@@ -25,7 +25,7 @@ class profiles::web (
   String[1] $next = '2.4',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
-  Integer[0] $rsync_max_connections = 5,
+  Integer[0] $rsync_max_connections = 10,
   Boolean $setup_receiver = true,
 ) {
   contain awstats
