@@ -6,7 +6,7 @@
     parameters:
       - string:
           name: expected_version
-          default: '2.3.0-develop'
+          default: '2.4.0-develop'
       - string:
           name: version
           default: '{version}'
