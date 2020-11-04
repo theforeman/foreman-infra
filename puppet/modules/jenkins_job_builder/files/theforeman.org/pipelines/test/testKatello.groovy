@@ -23,7 +23,7 @@ def foreman_branch = katello_versions[ghprbTargetBranch]['foreman']
 pipeline {
     options {
         timestamps()
-        timeout(time: 2, unit: 'HOURS')
+        timeout(time: 3, unit: 'HOURS')
         ansiColor('xterm')
     }
 
