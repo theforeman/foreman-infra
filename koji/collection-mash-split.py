@@ -391,17 +391,10 @@ def main():
             git_tag = "rpm/{}".format(version)
 
         CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
-        if collection == 'foreman' and LooseVersion(version) <= LooseVersion('2.1'):
-            CONFIG["extras_baseloc"] = "%(tag)s:extras"
-            CONFIG["extras_path"] = "/mnt/koji/mash/extras/foreman"
-            extras = ["extras-foreman-rhel7"]
-        else:
-            extras = []
+        extras = []
 
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
-
-        if LooseVersion(version) > LooseVersion('2.0'):
-            mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
+        mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
 
     elif collection == "foreman-client":
         dists = {
@@ -420,17 +413,12 @@ def main():
         else:
             git_tag = "rpm/{}".format(version)
 
-            if LooseVersion(version) == LooseVersion('2.0'):
-                dists['fedora29'] = 'fc29'
-
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
             '3.18': '2.3',
             '3.17': '2.2',
-            '3.16': '2.1',
-            '3.15': '2.0',
         }
 
         git_tag = "rpm/{}".format(branch_map[version])
