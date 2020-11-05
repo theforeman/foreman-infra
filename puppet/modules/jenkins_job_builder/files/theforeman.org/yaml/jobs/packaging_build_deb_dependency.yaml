@@ -23,14 +23,13 @@
           name: arch
           values:
           - x86
-          - armv8
       - axis:
           type: slave
           name: label
           values:
           - debian
     execution-strategy:
-      combination-filter: '(onlyos == "all" || onlyos == os) && !((version == "2.2" || version == "2.1" || version == "2.0" ) && os == "focal") && !((version == "2.2" || version == "2.1" || version == "nightly") && arch == "armv8")'
+      combination-filter: '(onlyos == "all" || onlyos == os) && !((version == "2.2" || version == "2.1" || version == "2.0" ) && os == "focal")'
     builders:
       - build_deb_dependency
     publishers:

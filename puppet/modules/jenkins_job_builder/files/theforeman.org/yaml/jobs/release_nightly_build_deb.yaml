@@ -12,7 +12,6 @@
           predefined-parameters: |
             repoowner=theforeman
             project=${project}
-            onlyarch=x86
             onlyos=all
             repo=develop
             version=nightly

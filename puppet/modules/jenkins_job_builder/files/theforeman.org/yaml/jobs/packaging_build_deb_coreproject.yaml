@@ -19,14 +19,13 @@
           name: arch
           values:
           - x86
-          - armv8
       - axis:
           type: slave
           name: label
           values:
           - debian
     execution-strategy:
-      combination-filter: '(onlyarch == "all" || onlyarch == arch) && (onlyos == "all" || onlyos == os) && !((version == "2.2" || version == "2.1" || version == "nightly") && arch == "armv8")'
+      combination-filter: '(onlyos == "all" || onlyos == os)'
     builders:
       - build_deb_coreproject
     publishers:
@@ -52,13 +51,6 @@ Any value other than "theforeman" will be pushed to http://stagingdeb.theforeman
             - bionic
             - focal
           description: 'Restrict matrix job to just the one OS.'
-      - choice:
-          name: onlyarch
-          choices:
-            - all
-            - x86
-            - armv8
-          description: 'Restrict matrix job to just the one arch.'
       - string:
           name: repo
           default: develop

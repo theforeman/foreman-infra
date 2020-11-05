@@ -35,9 +35,6 @@ EOF
   elif [[ $p == foreman* ]] ; then
     echo "nightly_jenkins_job=$p-develop-source-release" >> test_builds/debian/${p}.properties
   fi
-  if [[ ${ghprbTargetBranch} == deb/2.1 ]] || [[ ${ghprbTargetBranch} == deb/develop ]]; then
-    echo "onlyarch=x86" >> test_builds/debian/${p}.properties
-  fi
 done
 
 # identify changed dependencies, 5 at most!
