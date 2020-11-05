@@ -427,6 +427,7 @@ def main():
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
+            '3.18': '2.3',
             '3.17': '2.2',
             '3.16': '2.1',
             '3.15': '2.0',
@@ -452,7 +453,7 @@ def main():
             pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)
             mashes.append(pulpcore)
 
-        if LooseVersion(version) >= LooseVersion('3.18'):
+        if LooseVersion(version) >= LooseVersion('4.0'):
             el8_katello = MashConfig(collection, version, "el8", "el8", "katello/el8")
             mashes.append(el8_katello)
 
