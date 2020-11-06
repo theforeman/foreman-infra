@@ -3,8 +3,8 @@ void push_foreman_rpms(repo_type, version, distro) {
     push_rpms("foreman-${repo_type}-${version}", repo_type, version, distro)
 }
 
-void push_rpms(repo_src, repo_dest, version, distro) {
-    push_rpms_direct("${repo_src}/${distro}", "${repo_dest}/${version}/${distro}")
+void push_rpms(repo_src, repo_dest, version, distro, keep_old_files = false) {
+    push_rpms_direct("${repo_src}/${distro}", "${repo_dest}/${version}/${distro}", !keep_old_files, keep_old_files)
 }
 
 void push_rpms_direct(repo_source, repo_dest, overwrite = true, merge = false) {
