@@ -26,7 +26,7 @@ void push_debs_direct(os, repo) {
 }
 
 void push_pulpcore_rpms(version, distro) {
-    push_rpms_direct("pulpcore-${version}/${distro}", "pulpcore/${version}/${distro}", false, true)
+    push_rpms("pulpcore-${version}", "pulpcore", version, distro, true)
 }
 
 void mash(collection, version) {
