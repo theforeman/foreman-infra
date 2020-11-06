@@ -3,7 +3,6 @@ def foreman_client_distros = [
     'el8',
     'el7',
     'el6',
-    'el5',
     'fc29',
     'sles12',
     'sles11'
