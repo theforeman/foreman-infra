@@ -58,6 +58,7 @@ def runIndividualCicoJob(job_name, number = 0, job_parameters = null, job_extra_
             if (extra_vars['jenkins_artifacts_directory']) {
                 def relative_artifacts_directory = extra_vars['jenkins_artifacts_directory'].replace("${env.WORKSPACE}/", '')
                 archiveArtifacts artifacts: "${relative_artifacts_directory}/**", allowEmptyArchive: true
+                step([$class: "TapPublisher", testResults: "${relative_artifacts_directory}/**/*.tap", failIfNoResults: false])
             }
             set_job_build_description(job_name, status, link_file_name)
         }
