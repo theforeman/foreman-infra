@@ -62,6 +62,22 @@ class web(
     source => 'puppet:///modules/web/filter_apache_stats.sh',
   }
 
+  file { '/usr/local/bin/fastly-purge':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => file('web/fastly-purge.sh'),
+  }
+
+  file { '/usr/local/bin/fastly-purge-find':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => file('web/fastly-purge-find.sh'),
+  }
+
   # daily at 4am, should be fairly quiet on the server
   cron { 'filter_apache_stats':
     command => '/usr/bin/nice -19 /usr/local/bin/filter_apache_stats',
