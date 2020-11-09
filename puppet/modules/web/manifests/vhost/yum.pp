@@ -84,7 +84,21 @@ class web::vhost::yum (
     file { "${yum_directory}/${directory}/latest":
       ensure => link,
       target => $stable,
+      notify => Exec["fastly-purge-${directory}-latest"],
     }
+
+    exec { "fastly-purge-${directory}-latest":
+      command     => "fastly-purge-find 'https://${servername}' ${yum_directory} ${directory}/latest/",
+      path        => '/bin:/usr/bin:/usr/local/bin',
+      refreshonly => true,
+    }
+  }
+
+  exec { "fastly-purge-root-latest":
+    command     => "fastly-purge-find 'https://${servername}' ${yum_directory} latest/",
+    path        => '/bin:/usr/bin:/usr/local/bin',
+    subscribe   => File["${yum_directory}/releases/latest"],
+    refreshonly => true,
   }
 
   file { "${yum_directory}/releases/nightly":

@@ -64,11 +64,11 @@ replace() {
 }
 
 purgecdn() {
-	awk '/ CHANGED /{print "https://yum.theforeman.org/'${REPO_DEST}'/"$5}' "${REPO_RSYNC_LOG}" | xargs --no-run-if-empty curl --silent -X PURGE -H 'Fastly-Soft-Purge:1'
+	awk '/ CHANGED /{print $5}' "${REPO_RSYNC_LOG}" | xargs --no-run-if-empty fastly-purge "https://yum.theforeman.org/${REPO_DEST}"
 	set +f
 	for d in "${REPO_PATH}"/*; do
 		purge_base="https://yum.theforeman.org/${REPO_DEST}/$(basename $d)"
-		curl --silent -X PURGE -H 'Fastly-Soft-Purge:1' ${purge_base}/foreman-release.rpm ${purge_base}/foreman-client-release.rpm
+		fastly-purge ${purge_base} foreman-release.rpm foreman-client-release.rpm
 	done
 	set -f
 }
