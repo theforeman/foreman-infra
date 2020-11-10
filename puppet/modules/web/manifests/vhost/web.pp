@@ -4,6 +4,7 @@ class web::vhost::web(
   String[1] $stable,
   String[1] $next,
   Boolean $setup_receiver = true,
+  Stdlib::Absolutepath $web_directory = '/var/www/vhosts/web/htdocs',
 ) {
   require web
 
@@ -33,9 +34,43 @@ class web::vhost::web(
     { 'rewrite_rule' => ["^/api/latest(.*) /api/${stable}\$1 [R,L]"] },
   ]
 
+  $directory_config = [
+    {
+      path            => $web_directory,
+      options         => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+      expires_active  => 'on',
+      expires_default => 'access plus 2 hours',
+    },
+    {
+      path            => "${web_directory}/static",
+      expires_active  => 'on',
+      expires_default => 'access plus 30 days',
+    },
+    {
+      path            => 'feed.xml',
+      provider        => 'files',
+      expires_active  => 'on',
+      expires_default => 'access plus 30 minutes',
+    },
+    {
+      path            => '/(manuals|api)/latest',
+      provider        => 'locationmatch',
+      expires_active  => 'on',
+      expires_default => 'access plus 30 minutes',
+    },
+    {
+      path            => '/blog',
+      provider        => 'location',
+      expires_active  => 'on',
+      expires_default => 'access plus 30 minutes',
+    },
+  ]
+
   web::vhost { 'web':
     servername    => 'theforeman.org',
     serveraliases => ['www.theforeman.org'],
+    directories   => $directory_config,
+    docroot       => $web_directory,
     docroot_owner => 'website',
     docroot_group => 'website',
     docroot_mode  => '0755',
