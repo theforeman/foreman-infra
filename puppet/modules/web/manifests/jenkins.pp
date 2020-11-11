@@ -35,6 +35,8 @@ class web::jenkins(
   }
 
   if $web::base::letsencrypt and $https {
+    $url = "https://${hostname}"
+
     apache::vhost { 'jenkins':
       port          => 80,
       servername    => $hostname,
@@ -59,6 +61,8 @@ class web::jenkins(
       require               => Letsencrypt::Certonly[$hostname],
     }
   } else {
+    $url = "http://${hostname}"
+
     apache::vhost { 'jenkins':
       port                  => 80,
       servername            => $hostname,
