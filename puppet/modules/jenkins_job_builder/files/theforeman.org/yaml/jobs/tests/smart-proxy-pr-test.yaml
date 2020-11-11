@@ -1,0 +1,16 @@
+- job:
+    name: smart-proxy-pr-test
+    project-type: pipeline
+    sandbox: true
+    properties:
+      - github:
+          url: https://github.com/theforeman/smart-proxy
+      - tfm-pull-request-build-discarder
+    triggers:
+      - github_pr:
+          context: 'smart-proxy'
+    dsl:
+      !include-raw:
+        - pipelines/lib/git.groovy
+        - pipelines/lib/rvm.groovy
+        - pipelines/test/smart-proxy.groovy
