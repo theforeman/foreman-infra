@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     yum -y install epel-release
-    yum -y install puppet5-release || yum -y install https://yum.puppetlabs.com/puppet5/puppet5-release-el-7.noarch.rpm
+    yum -y install puppet6-release || yum -y install https://yum.puppetlabs.com/puppet6/puppet6-release-el-7.noarch.rpm
     yum -y install puppet-agent
   SHELL
 
