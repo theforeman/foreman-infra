@@ -5,7 +5,7 @@
     concurrent: false
     properties:
       - github:
-          url: 'https://github.com/katello/hammer-cli-katello'
+          url: 'https://github.com/Katello/hammer-cli-katello'
     dsl:
       !include-raw:
         - pipelines/vars/hammer-cli-katello-master.groovy
