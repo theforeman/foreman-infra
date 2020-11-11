@@ -1,23 +1,10 @@
 node /^jenkins-master.*/ {
-  include jenkins_master
-
-  class { 'web::base':
-    letsencrypt => false,
-  }
-
-  class { 'web::jenkins':
-    hostname => $facts['fqdn'],
-  }
-
-  class { 'jenkins_job_builder':
-    configs => {
-      'theforeman.org' => {
-        url      => "http://${web::jenkins::hostname}",
-        username => 'admin',
-        password => 'changeme',
-      }
-    },
-    require => [Class['jenkins_master', 'web::jenkins']],
+  class { 'profiles::jenkins::controller':
+    hostname                     => $facts['networking']['fqdn'],
+    https                        => false,
+    jenkins_job_builder          => true,
+    jenkins_job_builder_username => 'admin',
+    jenkins_job_builder_password => 'changeme',
   }
 }
 
