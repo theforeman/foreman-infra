@@ -4,6 +4,8 @@ class slave (
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
   Stdlib::Absolutepath $workspace       = '/home/jenkins/workspace',
 ) {
+  $is_el8 = $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8'
+
   include git
 
   # On Debian we use pbuilder with sudo
@@ -121,14 +123,16 @@ class slave (
       ensure => present;
     'ansible':
       ensure => latest;
-    'python-virtualenv':
-      ensure => present;
     $libcurl_dev:
       ensure => present;
     $sqlite3_dev:
       ensure => present;
-    'transifex-client':
-      ensure => present;
+  }
+
+  unless $is_el8 {
+    package { ['python-virtualenv', 'transifex-client']:
+      ensure => present,
+    }
   }
 
   # bash JSON parser
@@ -192,7 +196,7 @@ class slave (
 
   # needed by katello gem dependency qpid-messaging
   # to interface with candlepin's event topic
-  if $facts['os']['family'] == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' and !$is_el8 {
     package { 'qpid-cpp-client-devel':
       ensure => latest,
     }
@@ -257,7 +261,7 @@ class slave (
     default: {}
   }
 
-  if $facts['os']['architecture'] == 'x86_64' or $facts['os']['architecture'] == 'amd64' {
+  if $facts['os']['architecture'] in ['x86_64', 'amd64'] and !$is_el8 {
     include slave::docker
   }
 
