@@ -18,23 +18,6 @@ class slave::rvm {
       require => User['jenkins'],
     }
 
-    if $facts['os']['architecture'] == 'x86_64' or $facts['os']['architecture'] == 'amd64' {
-      slave::rvm_config { 'ruby-2.0.0':
-        version          => 'ruby-2.0.0-p648',
-        rubygems_version => '2.7.10',
-      }
-    }
-    slave::rvm_config { 'ruby-2.1':
-      version          => 'ruby-2.1.5',
-      rubygems_version => '2.7.10',
-    }
-    slave::rvm_config { 'ruby-2.2':
-      version          => 'ruby-2.2.5',
-      rubygems_version => '2.7.10',
-    }
-    slave::rvm_config { 'ruby-2.3':
-      version => 'ruby-2.3.5',
-    }
     slave::rvm_config { 'ruby-2.4':
       version => 'ruby-2.4.3',
     }
