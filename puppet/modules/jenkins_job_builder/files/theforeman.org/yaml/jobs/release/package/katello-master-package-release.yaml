@@ -5,7 +5,7 @@
     concurrent: false
     properties:
       - github:
-          url: 'https://github.com/katello/katello'
+          url: 'https://github.com/Katello/katello'
     dsl:
       !include-raw:
         - pipelines/vars/katello-master-release.groovy
