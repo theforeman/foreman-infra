@@ -13,20 +13,20 @@ def gemset(name = null) {
     base_name
 }
 
-def configureRVM(ruby = '2.0', name = '') {
+def configureRVM(ruby, name = '') {
     emptyGemset(ruby, name)
     withRVM(["gem install bundler -v '< 2.0'"], ruby, name)
 }
 
-def emptyGemset(ruby = '2.0', name = '') {
+def emptyGemset(ruby, name = '') {
     withRVM(["rvm gemset empty ${gemset(name)} --force"], ruby, name)
 }
 
-def cleanupRVM(ruby = '2.0', name = '') {
+def cleanupRVM(ruby, name = '') {
     withRVM(["rvm gemset delete ${gemset(name)} --force"], ruby, name)
 }
 
-def withRVM(commands, ruby = '2.0', name = '') {
+def withRVM(commands, ruby, name = '') {
 
     commands = commands.join("\n")
     echo commands.toString()
