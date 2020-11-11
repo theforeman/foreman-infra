@@ -46,3 +46,90 @@
         - pipelines/test/foreman_plugin.groovy{empty}
     publishers:
       - ircbot_freenode
+
+# Foreman plugins that follow the conventions
+- project:
+    name: foreman-plugins-standard
+    plugin:
+      - ansible
+      - bootdisk
+      - default_hostgroup
+      - extra_hosts
+      - host_extra_validator
+      - kubevirt
+      - monitoring
+      - omaha
+      - openscap
+      - remote_execution
+      - salt
+      - setup
+      - templates
+    branch: master
+    foreman_branch: develop
+    repo: 'https://github.com/theforeman/foreman_{plugin}'
+    empty: ''
+    jobs:
+      - 'test_foreman_plugin_{plugin}_{branch}'
+
+# Git repo uses a dash instead of an underscore
+- project:
+    name: foreman-plugin-digitalocean
+    plugin: digitalocean
+    repo: https://github.com/theforeman/foreman-digitalocean
+    branch: master
+    foreman_branch: develop
+    empty: ''
+    jobs:
+      - 'test_foreman_plugin_{plugin}_{branch}'
+
+# Project name doesn't start with foreman_
+- project:
+    name: foreman-plugin-puppetdb
+    plugin: puppetdb
+    repo: https://github.com/theforeman/puppetdb_foreman
+    branch: master
+    foreman_branch: develop
+    empty: ''
+    jobs:
+      - 'test_foreman_plugin_{plugin}_{branch}'
+
+# Multiple branches
+- project:
+    name: foreman-plugin-bootdisk
+    plugin: bootdisk
+    repo: https://github.com/theforeman/foreman_discovery
+    branch:
+      - master:
+          foreman_branch: develop
+      - 17.0-stable:
+          foreman_branch: 2.1-stable
+    empty: ''
+    jobs:
+      - 'test_foreman_plugin_{plugin}_{branch}'
+    name: foreman-plugin-discovery
+    plugin: discovery
+    repo: https://github.com/theforeman/foreman_discovery
+    branch:
+      - develop:
+          foreman_branch: develop
+      - 16.1-stable:
+          foreman_branch: 2.1-stable
+    empty: ''
+    jobs:
+      - 'test_foreman_plugin_{plugin}_{branch}'
+
+# Multiple branches and git repo uses a dash
+- project:
+    name: foreman-plugin-tasks
+    plugin: tasks
+    repo: https://github.com/theforeman/foreman-tasks
+    branch:
+      - master:
+          foreman_branch: develop
+      - 0.16.x:
+          foreman_branch: 1.23-stable
+      - 0.15.x:
+          foreman_branch: 1.22-stable
+    empty: ''
+    jobs:
+      - 'test_foreman_plugin_{plugin}_{branch}'
