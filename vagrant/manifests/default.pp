@@ -8,6 +8,16 @@ node /^jenkins-master.*/ {
   }
 }
 
+node /^jenkins-node.*/ {
+  sudo::conf { 'vagrant':
+    content => 'vagrant ALL=(ALL) NOPASSWD: ALL',
+  }
+
+  class { 'profiles::jenkins::node':
+    swap_size_mb => 0,
+  }
+}
+
 node /^web.*/ {
   class { 'profiles::web':
     https => false,
