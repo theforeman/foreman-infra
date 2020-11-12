@@ -55,6 +55,19 @@ class slave (
     ensure  => absent,
   }
 
+  file { "${homedir}/.bundle":
+    ensure  => directory,
+    owner   => root,
+    group   => root,
+  }
+
+  file { "${homedir}/.bundle/config":
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    content => '',
+  }
+
   # Build dependencies
   $libxml2_dev = $facts['os']['family'] ? {
     'RedHat' => 'libxml2-devel',
