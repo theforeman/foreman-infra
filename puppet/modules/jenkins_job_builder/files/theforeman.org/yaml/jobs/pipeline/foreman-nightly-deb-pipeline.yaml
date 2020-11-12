@@ -6,6 +6,7 @@
       - timed: 'H 07 * * 1-5'
     dsl:
       !include-raw:
+        - pipelines/vars/foreman/nightly.groovy
         - pipelines/release/pipelines/foreman-deb.groovy
         - pipelines/lib/release.groovy
         - pipelines/lib/rvm.groovy
