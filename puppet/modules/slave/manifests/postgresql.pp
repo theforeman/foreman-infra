@@ -93,4 +93,8 @@ class slave::postgresql {
     login         => true,
     require       => Service['postgresql'],
   }
+
+  slave::db_config { 'postgresql':
+    require => Postgresql::Server::Role['foreman'],
+  }
 }
