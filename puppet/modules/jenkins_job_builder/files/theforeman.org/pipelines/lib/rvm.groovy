@@ -32,7 +32,7 @@ def withRVM(commands, ruby, name = '') {
     echo commands.toString()
 
     sh """#!/bin/bash -l
-        set +e
+        set -e
         rvm use ruby-${ruby}@${gemset(name)} --create
         ${commands}
     """
