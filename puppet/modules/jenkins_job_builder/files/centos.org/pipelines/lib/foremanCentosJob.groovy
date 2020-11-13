@@ -22,11 +22,19 @@ pipeline {
         }
         stage('Install Pipeline Requirements') {
             steps {
-                runPlaybook(
-                    playbook: 'playbooks/setup_forklift.yml',
-                    inventory: cico_inventory('./'),
-                    options: ['-b']
-                  )
+                script {
+                    if (params.type == 'pulpcore') {
+                        setup_extra_vars = ['forklift_install_from_galaxy': true]
+                    } else {
+                        setup_extra_vars = []
+                    }
+                    runPlaybook(
+                        playbook: 'playbooks/setup_forklift.yml',
+                        inventory: cico_inventory('./'),
+                        options: ['-b'],
+                        extraVars: setup_extra_vars
+                    )
+                }
             }
         }
         stage('Run Pipeline') {

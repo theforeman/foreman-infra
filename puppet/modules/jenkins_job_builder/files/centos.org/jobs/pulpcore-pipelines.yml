@@ -1,0 +1,18 @@
+---
+- project:
+    name: pulpcore-install
+    jobs:
+      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
+    empty: ''
+    version:
+      - '3.4'
+      - '3.6'
+      - '3.7'
+      - '3.8'
+    distro:
+      - centos7
+      - centos8
+    action:
+      - pulpcore
+    type:
+      - pulpcore
