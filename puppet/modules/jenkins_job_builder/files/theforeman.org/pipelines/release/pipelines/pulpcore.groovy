@@ -35,6 +35,15 @@ pipeline {
                 }
             }
         }
+        stage('Test Suites') {
+            agent any
+
+            steps {
+                script {
+                    runCicoPipelines('pulpcore', pulpcore_version, pipelines)
+                }
+            }
+        }
         stage('Push RPMs') {
             agent { label 'admin && sshkey' }
 
