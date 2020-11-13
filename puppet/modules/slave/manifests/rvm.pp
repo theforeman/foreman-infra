@@ -1,12 +1,15 @@
 # Various RVM config
 # @api private
 class slave::rvm {
+  ensure_packages(['wget'])
+
   gnupg_key { 'rvm_pkuczynski':
     ensure     => present,
     key_id     => '105BD0E739499BDB',
     user       => 'root',
     key_source => 'https://rvm.io/pkuczynski.asc',
     key_type   => public,
+    require    => Package['wget'],
   } ->
   class { 'rvm':
     version => '1.29.10',
