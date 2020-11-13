@@ -233,8 +233,8 @@ class slave (
   include slave::java
 
   # Databases
-  include slave::mysql, slave::postgresql
-  slave::db_config { 'mysql': }
+  include slave::mysql
+  include slave::postgresql
   slave::db_config { 'sqlite3': }
   slave::db_config { 'postgresql': }
 
