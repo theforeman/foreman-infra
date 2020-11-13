@@ -3,13 +3,13 @@
 class slave::rvm {
   gnupg_key { 'rvm_pkuczynski':
     ensure     => present,
-    key_id     => '39499BDB',
+    key_id     => '105BD0E739499BDB',
     user       => 'root',
     key_source => 'https://rvm.io/pkuczynski.asc',
     key_type   => public,
   } ->
   class { 'rvm':
-    version => '1.29.9',
+    version => '1.29.10',
   }
 
   if $::rvm_installed == true {
