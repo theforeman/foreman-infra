@@ -236,7 +236,6 @@ class slave (
   include slave::mysql
   include slave::postgresql
   slave::db_config { 'sqlite3': }
-  slave::db_config { 'postgresql': }
 
   # RVM
   include slave::rvm
