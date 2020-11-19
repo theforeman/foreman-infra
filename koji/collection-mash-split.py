@@ -453,7 +453,7 @@ def main():
             pulpcore.name = 'katello-pulpcore-{}-el7'.format(version)
             mashes.append(pulpcore)
 
-        if LooseVersion(version) >= LooseVersion('4.0'):
+        if LooseVersion(version) >= LooseVersion('3.18'):
             el8_katello = MashConfig(collection, version, "el8", "el8", "katello/el8")
             mashes.append(el8_katello)
 
