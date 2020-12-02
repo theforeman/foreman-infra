@@ -35,6 +35,7 @@
       - upgrade
     type:
       - foreman
+      - plugins
 
 - project:
     name: foreman-nightly
