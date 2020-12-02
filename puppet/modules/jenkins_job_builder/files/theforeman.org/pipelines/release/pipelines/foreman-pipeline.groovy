@@ -69,4 +69,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+          build job: "foreman-plugins-${foreman_version}-test-pipeline", wait: false
+        }
+    }
 }

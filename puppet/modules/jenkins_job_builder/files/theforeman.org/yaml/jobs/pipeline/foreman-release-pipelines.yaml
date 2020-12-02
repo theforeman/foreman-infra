@@ -52,12 +52,28 @@
         - 'pipelines/lib/release.groovy{empty}'
         - 'pipelines/lib/foreman_infra.groovy{empty}'
 
+- job-template:
+    name: 'foreman-plugins-{version}-test-pipeline'
+    project-type: pipeline
+    sandbox: true
+    dsl:
+      !include-raw:
+        - 'pipelines/vars/foreman/{version}.groovy'
+        - 'pipelines/release/pipelines/plugins-pipeline.groovy{empty}'
+        - 'pipelines/lib/rvm.groovy{empty}'
+        - 'pipelines/lib/ansible.groovy{empty}'
+        - 'pipelines/lib/obal.groovy{empty}'
+        - 'pipelines/lib/rpm_packaging.groovy{empty}'
+        - 'pipelines/lib/release.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
+
 - project:
     name: foreman
     jobs:
       - 'foreman-{version}-release-pipeline'
       - 'foreman-client-{version}-rpm-pipeline'
       - 'foreman-plugins-{version}-rpm-pipeline'
+      - 'foreman-plugins-{version}-test-pipeline'
     empty: ''
     version:
       !include: ../../includes/foreman_versions.yaml.inc
