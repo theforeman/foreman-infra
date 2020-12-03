@@ -41,6 +41,7 @@
 - project:
     name: smart-proxy-plugin
     plugin:
+      - ansible
       - dhcp_infoblox
       - dhcp_remote_isc
       - dns_infoblox
