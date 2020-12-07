@@ -15,7 +15,7 @@ pipeline {
                     agent { label 'fast' }
                     environment {
                         RUBY_VER = '2.7'
-                        GEMSET = 'ruby-2.7-postgres'
+                        GEMSET = 'ruby2.7'
                     }
                     stages {
                         stage("setup-2.7-postgres") {
@@ -47,7 +47,7 @@ pipeline {
                     agent { label 'fast' }
                     environment {
                         RUBY_VER = '2.6'
-                        GEMSET = 'ruby-2.6-postgres'
+                        GEMSET = 'ruby2.6'
                     }
                     stages {
                         stage("setup-2.6-postgres") {
@@ -79,7 +79,7 @@ pipeline {
                     agent { label 'fast' }
                     environment {
                         RUBY_VER = '2.5'
-                        GEMSET = 'ruby-2.5-postgres'
+                        GEMSET = 'ruby2.5'
                     }
                     stages {
                         stage("setup-2.5-postgres") {
@@ -108,7 +108,7 @@ pipeline {
                     agent { label 'fast' }
                     environment {
                         RUBY_VER = '2.5'
-                        GEMSET = 'ruby-2.5-postgres-ui'
+                        GEMSET = 'ruby2.5-ui'
                     }
                     stages {
                         stage("setup-2.5-postgres-ui") {
@@ -139,7 +139,7 @@ pipeline {
                     agent { label 'fast' }
                     environment {
                         RUBY_VER = '2.5'
-                        GEMSET = 'ruby-2.5-nulldb-assets'
+                        GEMSET = 'ruby2.5-assets'
                     }
                     stages {
                         stage("setup-2.5-nulldb") {
