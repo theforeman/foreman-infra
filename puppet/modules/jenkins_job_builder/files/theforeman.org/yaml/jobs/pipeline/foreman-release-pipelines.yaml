@@ -60,11 +60,7 @@
       !include-raw:
         - 'pipelines/vars/foreman/{version}.groovy'
         - 'pipelines/release/pipelines/plugins-pipeline.groovy{empty}'
-        - 'pipelines/lib/rvm.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'
-        - 'pipelines/lib/obal.groovy{empty}'
-        - 'pipelines/lib/rpm_packaging.groovy{empty}'
-        - 'pipelines/lib/release.groovy{empty}'
         - 'pipelines/lib/foreman_infra.groovy{empty}'
 
 - project:
