@@ -37,6 +37,9 @@ def cleanup(ruby, name = '') {
 }
 
 def postgresqlTemplate(id) {
+  if ("test-${id}-test".size() > 63) {
+    error "${id} cannot be used to generate a PostgreSQL DB name, the resulting name would be longer than 63 chars."
+  }
   return """
 test:
   adapter: postgresql
