@@ -52,11 +52,8 @@ pipeline {
                             }
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec rake install PREFIX=${install_dir} --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec ${install_dir}/sbin/foreman-installer --help --scenario foreman --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
-                            sh "cat ${install_dir}/var/log/foreman-installer/foreman.log"
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec ${install_dir}/sbin/foreman-installer --help --scenario foreman-proxy-content --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
-                            sh "cat ${install_dir}/var/log/foreman-installer/foreman-proxy-content.log"
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec ${install_dir}/sbin/foreman-installer --help --scenario katello --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
-                            sh "cat ${install_dir}/var/log/foreman-installer/katello.log"
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec ${install_dir}/sbin/foreman-proxy-certs-generate --help --trace"], ruby, "${ruby}-${PUPPET_VERSION}")
                             withRVM(["BUNDLE_GEMFILE=Gemfile.${ruby}-${PUPPET_VERSION} bundle exec ${install_dir}/sbin/foreman-proxy-certs-generate --help|grep -q certs-update-server"], ruby, "${ruby}-${PUPPET_VERSION}")
                         }
