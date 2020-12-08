@@ -1,9 +1,5 @@
-def databaseFile(id, database = 'postgresql') {
-    if (database == 'sqlite3') {
-        text = sqliteTemplate()
-    } else if (database == 'postgresql') {
-        text = postgresqlTemplate(id)
-    }
+def databaseFile(id) {
+    text = postgresqlTemplate(id)
     writeFile(file: 'config/database.yml', text: text)
 }
 
@@ -64,27 +60,5 @@ production:
   password: foreman
   host: localhost
   template: template0
-"""
-}
-
-def sqliteTemplate() {
-  return """
-test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
-
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
-
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
 """
 }
