@@ -1,6 +1,6 @@
 def gemset(name = null) {
 
-    def base_name = env.BUILD_TAG
+    def base_name = "${JOB_NAME}-${BUILD_NUMBER}"
 
     if (EXECUTOR_NUMBER != '0') {
         base_name += '-' + EXECUTOR_NUMBER
