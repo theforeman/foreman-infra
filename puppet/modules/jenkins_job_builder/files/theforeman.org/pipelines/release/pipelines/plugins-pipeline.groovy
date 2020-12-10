@@ -10,7 +10,7 @@ pipeline {
 
     stages {
         stage('Install Test') {
-            agent { label 'el' }
+            agent any
 
             steps {
                 script {

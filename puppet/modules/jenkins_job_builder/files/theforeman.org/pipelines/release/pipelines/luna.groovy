@@ -10,7 +10,7 @@ pipeline {
 
     stages {
         stage('Install tests and Upgrade tests') {
-            agent { label 'el' }
+            agent any
             steps {
                 script {
                     runCicoPipelines('luna', 'nightly', pipelines)
