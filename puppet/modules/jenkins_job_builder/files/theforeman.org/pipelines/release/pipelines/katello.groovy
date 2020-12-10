@@ -31,7 +31,7 @@ pipeline {
             }
         }
         stage('Test Suites') {
-            agent { label 'el' }
+            agent any
 
             steps {
                 script {
