@@ -59,6 +59,8 @@ for ARCH in ${ARCHES}; do
     # Go into the main tree
     pushd RHEL-8-001
     rm -rf ruby\:2.6*
+    rm -rf ruby\:2.7*
+    rm -rf nodejs\:14*
     # Mergerepo didn't work so lets just createrepo in the top directory.
     createrepo_c .  &> /dev/null
     popd
