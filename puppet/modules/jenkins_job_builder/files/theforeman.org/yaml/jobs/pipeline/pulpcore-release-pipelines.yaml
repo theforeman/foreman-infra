@@ -6,7 +6,7 @@
       - timed: 'H 21 * * *'
     dsl:
       !include-raw:
-        - 'pipelines/vars/pulpcore/{version}.groovy'
+        - 'pipelines/vars/pulpcore/version.groovy'
         - 'pipelines/release/pipelines/pulpcore.groovy{empty}'
         - 'pipelines/lib/rvm.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'

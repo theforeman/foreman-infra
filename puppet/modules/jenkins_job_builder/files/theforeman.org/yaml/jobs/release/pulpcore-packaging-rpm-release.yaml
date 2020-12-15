@@ -11,7 +11,7 @@
         - github
     dsl:
       !include-raw:
-        - 'pipelines/vars/pulpcore/{version}.groovy'
+        - 'pipelines/vars/pulpcore/version.groovy'
         - 'pipelines/release/pulpcore_packaging_release.groovy{empty}'
         - 'pipelines/lib/git.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'
