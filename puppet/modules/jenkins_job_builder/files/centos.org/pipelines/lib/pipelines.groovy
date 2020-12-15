@@ -1,9 +1,9 @@
 // action, type, version, os, extra_vars = nil
 def pipelineVars(Map args) {
     if (args.action == 'install') {
-        boxes = ["pipeline-${args.type}-server-${args.version}-${args.os}", "pipeline-${args.type}-proxy-${args.version}-${args.os}", "pipeline-${args.type}-smoker-${args.version}-${args.os}"]
+        boxes = ["pipe-${args.type}-server-${args.version}-${args.os}", "pipeline-${args.type}-proxy-${args.version}-${args.os}", "pipeline-${args.type}-smoker-${args.version}-${args.os}"]
     } else if (args.action == 'upgrade') {
-        boxes = ["pipeline-up-${args.type}-${args.version}-${args.os}", "pipeline-up-${args.type}-proxy-${args.version}-${args.os}", "pipeline-up-${args.type}-smoker-${args.version}-${args.os}"]
+        boxes = ["pipe-up-${args.type}-${args.version}-${args.os}", "pipeline-up-${args.type}-proxy-${args.version}-${args.os}", "pipeline-up-${args.type}-smoker-${args.version}-${args.os}"]
     } else {
         boxes = []
     }
