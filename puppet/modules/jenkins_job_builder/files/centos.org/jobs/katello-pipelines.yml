@@ -44,17 +44,3 @@
       - upgrade
     type:
       - katello
-
-- project:
-    name: katello-devel-install
-    jobs:
-      - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
-    empty: ''
-    version:
-      - devel
-    distro:
-      - centos7
-    action:
-      - install
-    type:
-      - katello
