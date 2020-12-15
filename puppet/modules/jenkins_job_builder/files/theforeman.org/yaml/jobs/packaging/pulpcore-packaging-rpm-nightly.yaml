@@ -1,0 +1,16 @@
+---
+- job:
+    name: pulpcore-packaging-rpm-nightly
+    project-type: pipeline
+    concurrent: false
+    sandbox: true
+    triggers:
+      - timed: 'H 4 * * *'
+    dsl:
+      !include-raw:
+        - pipelines/release/pulpcore_packaging_nightly.groovy
+        - pipelines/lib/rpm_packaging.groovy
+        - pipelines/lib/koji.groovy
+        - pipelines/lib/git.groovy
+        - pipelines/lib/ansible.groovy
+        - pipelines/lib/obal.groovy
