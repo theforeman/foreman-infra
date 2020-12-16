@@ -80,6 +80,7 @@
     jobs:
       - 'foreman-client-{version}-rpm-pipeline'
       - 'foreman-plugins-{version}-rpm-pipeline'
+      - 'foreman-plugins-{version}-test-pipeline'
     empty: ''
     version:
       - 'nightly'

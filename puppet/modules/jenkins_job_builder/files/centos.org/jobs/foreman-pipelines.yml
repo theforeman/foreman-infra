@@ -54,3 +54,4 @@
       - upgrade
     type:
       - foreman
+      - plugins
