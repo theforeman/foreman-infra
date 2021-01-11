@@ -19,4 +19,10 @@ pipeline {
             }
         }
     }
+
+    post {
+        failure {
+            notifyDiscourse(env, "Foreman ${foreman_version} Plugins Test pipeline failed:", currentBuild.description)
+        }
+    }
 }
