@@ -19,7 +19,7 @@ pipeline {
 
         stage('Update ci.theforeman.org jobs') {
             steps {
-                withCredentials([string(credentialsId: 'theforeman-jenkins', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'theforeman-jenkins', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     virtEnv('jjb-venv', "cd ./ci/theforeman.org && jenkins-jobs --conf ./foreman_jenkins.ini --user ${env.USERNAME} --password '${env.PASSWORD}' update --delete-old -r .")
                 }
             }
