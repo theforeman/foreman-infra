@@ -14,7 +14,7 @@ pipeline {
 
             steps {
                 script {
-                    runCicoPipelines('plugins', foreman_version, pipelines, params.expected_version)
+                    runCicoPipelines('plugins', foreman_version, pipelines)
                 }
             }
         }
