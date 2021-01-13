@@ -32,7 +32,8 @@ pipeline {
                         playbook: 'playbooks/setup_forklift.yml',
                         inventory: cico_inventory('./'),
                         options: ['-b'],
-                        extraVars: setup_extra_vars
+                        extraVars: setup_extra_vars,
+                        commandLineExtraVars: true,
                     )
                 }
             }
