@@ -5,7 +5,7 @@ def pipelineVars(Map args) {
     } else if (args.action == 'upgrade') {
         boxes = ["pipe-up-${args.type}-${args.version}-${args.os}", "pipe-up-${args.type}-proxy-${args.version}-${args.os}", "pipe-up-${args.type}-smoker-${args.version}-${args.os}"]
     } else {
-        boxes = []
+        boxes = ["all"]
     }
 
     extra_vars = [
