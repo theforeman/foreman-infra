@@ -32,20 +32,20 @@ pipeline {
                 }
             }
         }
-        stage('Build Packages') {
-            steps {
-                build(
-                    job: "${project_name}-${git_ref}-package-release",
-                    propagate: false,
-                    wait: false
-                )
-            }
-        }
     }
     post {
+        success {
+            build(
+                job: "${project_name}-${git_ref}-package-release",
+                propagate: false,
+                wait: false
+            )
+        }
+
         failure {
             notifyDiscourse(env, "${project_name} source release pipeline failed:", currentBuild.description)
         }
+
         always {
             deleteDir()
         }
