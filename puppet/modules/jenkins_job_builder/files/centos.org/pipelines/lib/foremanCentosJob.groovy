@@ -60,7 +60,7 @@ pipeline {
         always {
             script {
                 extra_vars = buildExtraVars(extraVars: playBook['extraVars'])
-                duffy_ssh("cd forklift && ansible-playbook playbooks/collect_debug.yml -l ${playBook['boxes'].join(',')} ${extra_vars}", 'duffy_box', './')
+                duffy_ssh("cd forklift && ansible-playbook playbooks/collect_debug.yml --limit '${playBook['boxes'].join(',')}' ${extra_vars}", 'duffy_box', './')
                 runPlaybook(
                     playbook: 'foreman-infra/ci/centos.org/ansible/fetch_debug_files.yml',
                     inventory: cico_inventory('./'),
