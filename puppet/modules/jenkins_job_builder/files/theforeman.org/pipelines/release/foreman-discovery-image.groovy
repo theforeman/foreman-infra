@@ -64,6 +64,10 @@ pipeline {
     }
 
     post {
+        always {
+            archiveArtifacts artifacts: "artifacts/**", allowEmptyArchive: true
+        }
+
         cleanup {
             deleteDir()
         }
