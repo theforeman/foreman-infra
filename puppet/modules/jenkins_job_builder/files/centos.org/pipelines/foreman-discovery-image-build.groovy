@@ -23,6 +23,8 @@ pipeline {
                 runPlaybook(
                     playbook: 'playbooks/setup_forklift.yml',
                     inventory: cico_inventory('./'),
+                    extraVars: ['vagrant_scp': true],
+                    commandLineExtraVars: true,
                 )
             }
         }
