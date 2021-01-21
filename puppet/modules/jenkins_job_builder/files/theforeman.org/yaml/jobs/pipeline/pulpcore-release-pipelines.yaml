@@ -21,6 +21,4 @@
       - 'pulpcore-{version}-rpm-pipeline'
     empty: ''
     version:
-      - '3.7'
-      - '3.8'
-      - '3.9'
+      !include: ../../includes/pulpcore_versions.yaml.inc
