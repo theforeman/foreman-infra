@@ -23,6 +23,7 @@ define jenkins_job_builder::config (
   }
 
   cron { "jenkins-jobs-update-${config_name}-delete-old":
+    ensure      => absent,
     command     => "timeout 1h jenkins-jobs --conf ${inifile} update --delete-old ${directory}/${config_name} > /var/cache/jjb.xml",
     hour        => 0,
     minute      => 10,
@@ -31,13 +32,14 @@ define jenkins_job_builder::config (
   }
 
   exec { "jenkins-jobs-update-${config_name}":
-    command => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} > /var/cache/jjb.xml",
+    command => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} foreman-infra-jenkins-job-update",
     timeout => $jenkins_jobs_update_timeout,
     path    => '/bin:/usr/bin:/usr/local/bin',
     require => File[$inifile],
   }
 
   cron { "remove-unmanaged-jobs-${config_name}":
+    ensure      => absent,
     command     => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
     hour        => 1,
     minute      => 10,
