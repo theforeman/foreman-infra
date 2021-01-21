@@ -21,8 +21,6 @@
       - 'pulpcore-{version}-rpm-pipeline'
     empty: ''
     version:
-      - '3.4'
-      - '3.6'
       - '3.7'
       - '3.8'
       - '3.9'
