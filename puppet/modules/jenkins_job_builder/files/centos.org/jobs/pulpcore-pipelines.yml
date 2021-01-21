@@ -5,9 +5,7 @@
       - 'foreman-pipeline-{type}-{version}-{distro}-{action}'
     empty: ''
     version:
-      - '3.7'
-      - '3.8'
-      - '3.9'
+      !include: ../../theforeman.org/yaml/includes/pulpcore_versions.yaml.inc
     distro:
       - centos7
       - centos8
