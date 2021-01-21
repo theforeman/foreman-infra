@@ -5,6 +5,11 @@ define jenkins_job_builder::config (
   String $username,
   String $password,
   Integer[0] $jenkins_jobs_update_timeout = 600,
+  String $git_project_name = 'foreman-infra',
+  String $git_repo = 'https://github.com/theforeman/foreman-infra.git',
+  String $git_branch = 'master',
+  Optional[String] $git_args = undef,
+  String $git_relative_path = 'ci',
 ) {
   $config_name = $name
   $directory = '/etc/jenkins_jobs'
@@ -22,13 +27,10 @@ define jenkins_job_builder::config (
     notify  => Exec["jenkins-jobs-update-${config_name}"],
   }
 
-  cron { "jenkins-jobs-update-${config_name}-delete-old":
-    ensure      => absent,
-    command     => "timeout 1h jenkins-jobs --conf ${inifile} update --delete-old ${directory}/${config_name} > /var/cache/jjb.xml",
-    hour        => 0,
-    minute      => 10,
-    environment => 'PATH=/bin:/usr/bin:/usr/sbin',
-    require     => File[$inifile],
+  git::repo { "jenkins-jobs-${config_name}":
+    target => "${directory}/${git_project_name}",
+    source => $git_repo,
+    args   => $git_args,
   }
 
   exec { "jenkins-jobs-update-${config_name}":
@@ -36,15 +38,7 @@ define jenkins_job_builder::config (
     timeout => $jenkins_jobs_update_timeout,
     path    => '/bin:/usr/bin:/usr/local/bin',
     require => File[$inifile],
-  }
-
-  cron { "remove-unmanaged-jobs-${config_name}":
-    ensure      => absent,
-    command     => "ruby ${directory}/${config_name}/unmanaged_jobs.rb ${inifile}",
-    hour        => 1,
-    minute      => 10,
-    environment => 'PATH=/bin:/usr/bin:/usr/sbin',
-    require     => File[$inifile],
+    cwd     => "${directory}/${git_project_name}/${git_relative_path}/${config_name}",
   }
 
 # TODO: We should put in  notify Exec['jenkins_jobs_update']
