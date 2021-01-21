@@ -5,6 +5,7 @@ define jenkins_job_builder::config (
   String $username,
   String $password,
   Integer[0] $jenkins_jobs_update_timeout = 600,
+  String $command_arguments = 'foreman-infra-jenkins-job-update',
 ) {
   $config_name = $name
   $directory = '/etc/jenkins_jobs'
@@ -32,7 +33,7 @@ define jenkins_job_builder::config (
   }
 
   exec { "jenkins-jobs-update-${config_name}":
-    command => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} foreman-infra-jenkins-job-update",
+    command => "jenkins-jobs --conf ${inifile} update ${directory}/${config_name} ${command_arguments}",
     timeout => $jenkins_jobs_update_timeout,
     path    => '/bin:/usr/bin:/usr/local/bin',
     require => File[$inifile],
