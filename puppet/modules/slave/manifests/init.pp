@@ -235,7 +235,10 @@ class slave (
   # Databases
   include slave::mysql
   include slave::postgresql
-  slave::db_config { 'sqlite3': }
+  # sqlite3 support was dropped in Foreman 2.1
+  slave::db_config { 'sqlite3':
+    ensure => absent,
+  }
 
   # RVM
   include slave::rvm
