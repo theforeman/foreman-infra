@@ -194,10 +194,10 @@ class slave (
     ensure_packages(['selinux-policy-devel'])
   }
 
-  # needed by katello gem dependency qpid-messaging
-  # to interface with candlepin's event topic
-  if $facts['os']['family'] == 'RedHat' and !$is_el8 {
-    package { 'qpid-cpp-client-devel':
+  # needed by katello gem dependency qpid_proton
+  # for katello-agent messaging
+  if $facts['os']['family'] == 'RedHat' {
+    package { 'qpid-proton-cpp-devel':
       ensure => latest,
     }
   }
