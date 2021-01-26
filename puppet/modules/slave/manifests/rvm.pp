@@ -13,7 +13,8 @@ class slave::rvm {
   } ->
   class { 'rvm':
     version => '1.29.10',
-  }
+  } ->
+  Class['Rvm::System']
 
   if $::rvm_installed == true {
     rvm::system_user { 'jenkins':
