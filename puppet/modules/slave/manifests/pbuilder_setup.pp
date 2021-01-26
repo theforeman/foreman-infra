@@ -22,8 +22,10 @@ define slave::pbuilder_setup (
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list":
     ensure  => $ensure,
-    notify  => Exec["update_pbuilder_${name}"],
     content => $aptcontent,
+  }
+  if $ensure == present {
+    File["/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list"] ~> Exec["update_pbuilder_${name}"]
   }
 
   file { "/usr/local/bin/pdebuild-${name}":
@@ -40,7 +42,7 @@ define slave::pbuilder_setup (
 
   # the result cache gets huge after a while - trim it to the last ~2 days at 5am
   file { "/etc/cron.d/cleanup-${name}":
-    ensure  => file,
+    ensure  => bool2str($ensure == present, 'file', 'absent'),
     mode    => '0644',
     content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mindepth 1 -mtime +1 -delete\n",
   }
