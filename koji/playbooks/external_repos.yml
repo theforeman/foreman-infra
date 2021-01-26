@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../vars/external_repos.yml
+  tasks:
+    - name: Configure Koji External Repositories
+      ktdreyer.koji_ansible.koji_external_repo:
+        name: "{{ item.name }}"
+        url: "{{ item.url }}"
+        state: "{{ item.state | default('present') }}"
+        koji: 'koji'
+      loop: "{{ external_repos }}"

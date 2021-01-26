@@ -1,0 +1,19 @@
+# Koji
+
+## Management Playbooks
+
+### Setup
+
+Install the necessary Ansible collections
+
+```
+ansible-galaxy collection install -r requirements.yml
+```
+
+### External Repositories
+
+To add a new external repository, add it to `vars/external_repos.yml` and then run the playbook:
+
+```
+ansible-playbook playbooks/external_repos.yml
+```
