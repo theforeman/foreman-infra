@@ -17,7 +17,7 @@ define slave::pbuilder_setup (
   }
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d":
-    ensure  => directory,
+    ensure  => bool2str($ensure == present, 'directory', 'absent'),
   }
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list":
