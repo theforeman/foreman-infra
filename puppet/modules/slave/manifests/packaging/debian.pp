@@ -3,6 +3,8 @@ class slave::packaging::debian(
   String $user,
   Stdlib::Absolutepath $workspace,
   Boolean $uploader = true,
+  Stdlib::HTTPUrl $debian_mirror = 'http://deb.debian.org/debian/',
+  Stdlib::HTTPUrl $ubuntu_mirror = 'http://ubuntu.osuosl.org/ubuntu/',
 ) {
   package { 'gem2deb':
     ensure => present,
@@ -25,32 +27,32 @@ class slave::packaging::debian(
           ensure     => present,
           arch       => 'amd64',
           release    => 'bionic',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ bionic main restricted universe\n";
+          apturl     => $ubuntu_mirror,
+          aptcontent => "deb $ubuntu_mirror bionic main restricted universe\ndeb-src $ubuntu_mirror bionic main restricted universe\n";
         'buster64':
           ensure     => present,
           arch       => 'amd64',
           release    => 'buster',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
+          apturl     => $debian_mirror,
+          aptcontent => "deb $debian_mirror buster main non-free contrib\ndeb-src $debian_mirror buster main non-free contrib\n";
         'focal64':
           ensure     => present,
           arch       => 'amd64',
           release    => 'focal',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ focal main restricted universe\n";
+          apturl     => $ubuntu_mirror,
+          aptcontent => "deb $ubuntu_mirror focal main restricted universe\ndeb-src $ubuntu_mirror focal main restricted universe\n";
         'stretch64':
           ensure     => absent,
           arch       => 'amd64',
           release    => 'stretch',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => $debian_mirror,
+          aptcontent => "deb $debian_mirror stretch main non-free contrib\ndeb-src $debian_mirror stretch main non-free contrib\n";
         'xenial64':
           ensure     => absent,
           arch       => 'amd64',
           release    => 'xenial',
-          apturl     => 'http://ubuntu.osuosl.org/ubuntu/',
-          aptcontent => "deb http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\ndeb-src http://ubuntu.osuosl.org/ubuntu/ xenial main restricted universe\n";
+          apturl     => $ubuntu_mirror,
+          aptcontent => "deb $ubuntu_mirror xenial main restricted universe\ndeb-src $ubuntu_mirror xenial main restricted universe\n";
       }
     }
 
@@ -66,14 +68,14 @@ class slave::packaging::debian(
           ensure     => present,
           arch       => 'armhf',
           release    => 'buster',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
+          apturl     => $debian_mirror,
+          aptcontent => "deb $debian_mirror buster main non-free contrib\ndeb-src $debian_mirror buster main non-free contrib\n";
         'stretch':
           ensure     => present,
           arch       => 'armhf',
           release    => 'stretch',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => $debian_mirror,
+          aptcontent => "deb $debian_mirror stretch main non-free contrib\ndeb-src $debian_mirror stretch main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'armhf',
@@ -95,14 +97,14 @@ class slave::packaging::debian(
           ensure     => present,
           arch       => 'arm64',
           release    => 'buster',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ buster main non-free contrib\ndeb-src http://deb.debian.org/debian/ buster main non-free contrib\n";
+          apturl     => $debian_mirror,
+          aptcontent => "deb $debian_mirror buster main non-free contrib\ndeb-src $debian_mirror buster main non-free contrib\n";
         'stretch':
           ensure     => present,
           arch       => 'arm64',
           release    => 'stretch',
-          apturl     => 'http://deb.debian.org/debian',
-          aptcontent => "deb http://deb.debian.org/debian/ stretch main non-free contrib\ndeb-src http://deb.debian.org/debian/ stretch main non-free contrib\n";
+          apturl     => $debian_mirror,
+          aptcontent => "deb $debian_mirror stretch main non-free contrib\ndeb-src $debian_mirror stretch main non-free contrib\n";
         'xenial':
           ensure     => present,
           arch       => 'arm64',
