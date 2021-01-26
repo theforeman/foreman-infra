@@ -8,6 +8,16 @@ class slave::packaging::debian(
     ensure => present,
   }
 
+  include apt::backports
+
+  Class['Apt::Backports'] ->
+  apt::pin { 'debootstrap':
+    packages  => 'debootstrap',
+    priority  => 500,
+    release   => 'buster-backports',
+  } ->
+  Class['Pbuilder::Common']
+
   case $facts['os']['architecture'] {
     'amd64': {
       slave::pbuilder_setup {
