@@ -7,9 +7,16 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
     . /etc/os-release
-    yum -y install epel-release
-    yum -y install puppet6-release || yum -y install https://yum.puppetlabs.com/puppet6/puppet6-release-el-${VERSION_ID}.noarch.rpm
-    yum -y install puppet-agent
+    if [ "${ID}" = "debian" ]; then
+       wget https://apt.puppet.com/puppet6-release-${VERSION_CODENAME}.deb
+       apt-get install -y ./puppet6-release-${VERSION_CODENAME}.deb
+       apt-get update
+       apt-get install -y puppet-agent
+    else
+       yum -y install epel-release
+       yum -y install puppet6-release || yum -y install https://yum.puppetlabs.com/puppet6/puppet6-release-el-${VERSION_ID}.noarch.rpm
+       yum -y install puppet-agent
+    fi
   SHELL
 
   config.vm.provision "run puppet", type: 'puppet' do |puppet|
@@ -44,6 +51,15 @@ Vagrant.configure("2") do |config|
   config.vm.define "jenkins-node-el8" do |override|
     override.vm.hostname = "jenkins-node-el8"
     override.vm.box = "centos/8"
+
+    override.vm.provider "libvirt" do |libvirt|
+      libvirt.memory = "4096"
+    end
+  end
+
+  config.vm.define "jenkins-node-debian10" do |override|
+    override.vm.hostname = "jenkins-node-debian10"
+    override.vm.box = "debian/buster64"
 
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "4096"
