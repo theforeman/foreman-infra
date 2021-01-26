@@ -1,0 +1,130 @@
+---
+external_repos:
+  - name: puppetlabs-pc1-fedora-24
+    url: file:///mnt/koji/external-repos/www/puppetlabsf24-$arch/RPMS.pc1/
+  - name: rhel-7.0-server
+    url: file:///mnt/koji/external-repos/rhel7-$arch/7.0/
+  - name: epel-7
+    url: file:///mnt/koji/external-repos/www/epel7-$arch/RPMS.epel/
+  - name: fedora-23
+    url: file:///mnt/koji/external-repos/www/fedora23-$arch/RPMS.os/
+  - name: fedora-23-updates
+    url: file:///mnt/koji/external-repos/www/fedora23-$arch/RPMS.updates/
+  - name: centos-sclo-rh-rhel-7
+    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.sclo.rh/
+  - name: centos-sclo-rh-rhel-6
+    url: file:///mnt/koji/external-repos/www/centos6-$arch/RPMS.sclo.rh/
+  - name: rhscl-1.0
+    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.0/
+  - name: fedora-20
+    url: file:///mnt/koji/external-repos/www/fedora20-$arch/RPMS.os/
+  - name: fedora-20-updates
+    url: file:///mnt/koji/external-repos/www/fedora20-$arch/RPMS.updates/
+  - name: rhel-6.5-server
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5/
+  - name: rhel-6.5-server-optional
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5-optional/
+  - name: fedora-22
+    url: file:///mnt/koji/external-repos/www/fedora22-$arch/RPMS.os/
+  - name: epel-7-beta
+    url: file:///mnt/koji/external-repos/www/epel7-$arch/RPMS.beta/
+  - name: fedora-22-updates
+    url: file:///mnt/koji/external-repos/www/fedora22-$arch/RPMS.updates/
+  - name: fedora-21
+    url: file:///mnt/koji/external-repos/www/fedora21-$arch/RPMS.os/
+  - name: rhscl-1.1-rhel-7
+    url: file:///mnt/koji/external-repos/rhscl-rhel7-$arch/1.1/
+  - name: fedora-16
+    url: file:///mnt/koji/external-repos/www/fedora16-$arch/RPMS.os/
+  - name: fedora-17
+    url: file:///mnt/koji/external-repos/www/fedora17-$arch/RPMS.os/
+  - name: fedora-17-updates
+    url: file:///mnt/koji/external-repos/www/fedora17-$arch/RPMS.updates/
+  - name: fedora-16-updates
+    url: file:///mnt/koji/external-repos/www/fedora16-$arch/RPMS.updates/
+  - name: epel-6
+    url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
+  - name: jpackage-5.0-generic-free
+    url: file:///mnt/koji/external-repos/www/jpackage-$arch/RPMS.jpackage/
+  - name: fedora-21-updates
+    url: file:///mnt/koji/external-repos/www/fedora21-$arch/RPMS.updates/
+  - name: rhel-5.9-server
+    url: file:///mnt/koji/external-repos/rhel5-$arch/5.9/
+  - name: epel-5
+    url: file:///mnt/koji/external-repos/www/epel5-$arch/RPMS.epel/
+  - name: fedora-19
+    url: file:///mnt/koji/external-repos/www/fedora19-$arch/RPMS.os/
+  - name: fedora-19-updates
+    url: file:///mnt/koji/external-repos/www/fedora19-$arch/RPMS.updates/
+  - name: rhscl-1.1-rhel-6
+    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.1/
+  - name: rhel-7.0-server-optional
+    url: file:///mnt/koji/external-repos/rhel7-$arch/7.0-optional/
+  - name: rhel-6.6-server
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.6/
+  - name: fedora-29
+    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.os/
+  - name: el8postgres12
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/postgres12/
+  - name: foreman-rails-nightly-rhel-7
+    url: file:///mnt/koji/external-repos/www/foreman-rails-nightly-$arch/RPMS.ror51/
+  - name: centos-7-server-updates
+    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.updates/
+  - name: foreman-rails-1.19-rhel-7
+    url: file:///mnt/koji/external-repos/www/foreman-rails-1.19-$arch/RPMS.ror51/
+  - name: puppetlabs-puppet5-rhel-7
+    url: file:///mnt/koji/external-repos/www/puppetlabs7-$arch/RPMS.puppet5/
+  - name: fedora-28
+    url: http://koji.katello.org/kojifiles/external-repos/www/fedora28-$arch/RPMS.os/
+  - name: fedora-29-updates
+    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.updates/
+  - name: puppetlabs-puppet6-rhel-7
+    url: file:///mnt/koji/external-repos/www/puppetlabs7-$arch/RPMS.puppet6/
+  - name: centos7-os
+    url: http://mirror.centos.org/centos/7/os/x86_64/
+  - name: centos8-baseos
+    url: http://mirror.centos.org/centos/8/BaseOS/$arch/os/
+  - name: centos8-appstream
+    url: http://mirror.centos.org/centos/8/AppStream/$arch/os/
+  - name: test-flat-el8
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001/
+  - name: centos8-devel
+    url: http://mirror.centos.org/centos/8/Devel/$arch/os/
+  - name: rhel-6.6-server-optional
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.6-optional/
+  - name: centos7-updates
+    url: http://mirror.centos.org/centos/7/updates/x86_64/
+  - name: fedora-27
+    url: file:///mnt/koji/external-repos/www/fedora27-$arch/RPMS.os/
+  - name: centos-7-server
+    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.os/
+  - name: tfm-ror51-rhel-7
+    url: file:///mnt/koji/external-repos/www/tfm-ror51-copr-$arch/RPMS.ror51/
+  - name: centos8-configmanagement-ansible-29
+    url: http://mirror.centos.org/centos/8/configmanagement/$arch/ansible-29/
+  - name: foreman-rails-1.18-rhel-7
+    url: file:///mnt/koji/external-repos/www/foreman-rails-1.18-$arch/RPMS.ror51/
+  - name: fedora-28-updates
+    url: http://koji.katello.org/kojifiles/external-repos/www/fedora28-$arch/RPMS.updates/
+  - name: puppetlabs-puppet6-rhel-8
+    url: http://yum.puppetlabs.com/puppet6/el/8/x86_64/
+  - name: centos-sclo-sclo-rhel-6
+    url: file:///mnt/koji/external-repos/www/centos6-$arch/RPMS.sclo.sclo/
+  - name: centos8-powertools
+    url: http://mirror.centos.org/centos/8/PowerTools/$arch/os/
+  - name: fedora-27-updates
+    url: file:///mnt/koji/external-repos/www/fedora27-$arch/RPMS.updates/
+  - name: foreman-rails-1.17-rhel-7
+    url: file:///mnt/koji/external-repos/www/foreman-rails-1.17-$arch/RPMS.ror51/
+  - name: centos-sclo-sclo-rhel-7
+    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.sclo.sclo/
+  - name: puppetlabs-prod-rhel-6
+    url: file:///mnt/koji/external-repos/www/puppetlabs6-$arch/RPMS.products/
+  - name: puppetlabs-deps-rhel-6
+    url: file:///mnt/koji/external-repos/www/puppetlabs6-$arch/RPMS.dependencies/
+  - name: puppetlabs-pc1-rhel-7
+    url: file:///mnt/koji/external-repos/www/puppetlabs7-$arch/RPMS.pc1/
+  - name: qpid-copr
+    url: file:///mnt/koji/external-repos/www/qpidcopr-$arch/RPMS.qpid/
+  - name: epel7
+    url: https://dl.fedoraproject.org/pub/epel/7/$arch/
