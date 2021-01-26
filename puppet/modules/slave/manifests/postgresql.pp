@@ -88,7 +88,7 @@ class slave::postgresql {
   # Simple known user/pass that will allow Jenkins to create its
   # own databases when required
   postgresql::server::role { 'foreman':
-    password_hash => postgresql_password('foreman', 'foreman'),
+    password_hash => postgresql::postgresql_password('foreman', 'foreman'),
     superuser     => true,
     login         => true,
     require       => Service['postgresql'],
