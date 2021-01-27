@@ -41,18 +41,6 @@ class slave::packaging::debian(
           release    => 'focal',
           apturl     => $ubuntu_mirror,
           aptcontent => "deb $ubuntu_mirror focal main restricted universe\ndeb-src $ubuntu_mirror focal main restricted universe\n";
-        'stretch64':
-          ensure     => absent,
-          arch       => 'amd64',
-          release    => 'stretch',
-          apturl     => $debian_mirror,
-          aptcontent => "deb $debian_mirror stretch main non-free contrib\ndeb-src $debian_mirror stretch main non-free contrib\n";
-        'xenial64':
-          ensure     => absent,
-          arch       => 'amd64',
-          release    => 'xenial',
-          apturl     => $ubuntu_mirror,
-          aptcontent => "deb $ubuntu_mirror xenial main restricted universe\ndeb-src $ubuntu_mirror xenial main restricted universe\n";
       }
     }
     default: {}
