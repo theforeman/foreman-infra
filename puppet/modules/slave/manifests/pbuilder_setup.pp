@@ -46,4 +46,10 @@ define slave::pbuilder_setup (
     mode    => '0644',
     content => "11 5 * * * root find /var/cache/pbuilder/${name}/result -mindepth 1 -mtime +1 -delete\n",
   }
+
+  file { "/etc/cron.d/update-${name}":
+    ensure  => bool2str($ensure == present, 'file', 'absent'),
+    mode    => '0644',
+    content => "11 4 * * * root pbuilder-${name} update\n",
+  }
 }
