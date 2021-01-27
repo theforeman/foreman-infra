@@ -55,64 +55,6 @@ class slave::packaging::debian(
           aptcontent => "deb $ubuntu_mirror xenial main restricted universe\ndeb-src $ubuntu_mirror xenial main restricted universe\n";
       }
     }
-
-    'armv7l': {
-      slave::pbuilder_setup {
-        'bionic':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'bionic',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\n";
-        'buster':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'buster',
-          apturl     => $debian_mirror,
-          aptcontent => "deb $debian_mirror buster main non-free contrib\ndeb-src $debian_mirror buster main non-free contrib\n";
-        'stretch':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'stretch',
-          apturl     => $debian_mirror,
-          aptcontent => "deb $debian_mirror stretch main non-free contrib\ndeb-src $debian_mirror stretch main non-free contrib\n";
-        'xenial':
-          ensure     => present,
-          arch       => 'armhf',
-          release    => 'xenial',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
-      }
-    }
-
-    'aarch64': {
-      slave::pbuilder_setup {
-        'bionic':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'bionic',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports bionic main restricted universe\n";
-        'buster':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'buster',
-          apturl     => $debian_mirror,
-          aptcontent => "deb $debian_mirror buster main non-free contrib\ndeb-src $debian_mirror buster main non-free contrib\n";
-        'stretch':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'stretch',
-          apturl     => $debian_mirror,
-          aptcontent => "deb $debian_mirror stretch main non-free contrib\ndeb-src $debian_mirror stretch main non-free contrib\n";
-        'xenial':
-          ensure     => present,
-          arch       => 'arm64',
-          release    => 'xenial',
-          apturl     => 'http://ports.ubuntu.com/ubuntu-ports',
-          aptcontent => "deb http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\ndeb-src http://ports.ubuntu.com/ubuntu-ports xenial main restricted universe\n";
-      }
-    }
     default: {}
   }
 
