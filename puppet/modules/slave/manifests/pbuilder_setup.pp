@@ -7,17 +7,30 @@ define slave::pbuilder_setup (
   Boolean $backports  = false,
   Boolean $nodesource = true,
   Boolean $puppetlabs = true,
+  Enum['pbuilder', 'cowbuilder'] $pbuilder_type = 'pbuilder',
 ) {
 
-  pbuilder { $name:
-    ensure    => $ensure,
-    arch      => $arch,
-    release   => $release,
-    methodurl => $apturl,
-  }
-
-  file { "/etc/pbuilder/${name}/apt.config/sources.list.d":
-    ensure  => bool2str($ensure == present, 'directory', 'absent'),
+  case $pbuilder_type {
+    'pbuilder': {
+      pbuilder { $name:
+        ensure    => $ensure,
+        arch      => $arch,
+        release   => $release,
+        methodurl => $apturl,
+      }
+      $update_pbuilder = "update_pbuilder_${name}"
+    }
+    'cowbuilder': {
+      pbuilder::cowbuilder { $name:
+        ensure  => $ensure,
+        arch    => $arch,
+        release => $release,
+      }
+      $update_pbuilder = "update cowbuilder ${name}"
+    }
+    default: {
+      # Unreachable due to the data type
+    }
   }
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list":
@@ -25,7 +38,7 @@ define slave::pbuilder_setup (
     content => $aptcontent,
   }
   if $ensure == present {
-    File["/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list"] ~> Exec["update_pbuilder_${name}"]
+    File["/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list"] ~> Exec[$update_pbuilder]
   }
 
   file { "/usr/local/bin/pdebuild-${name}":
