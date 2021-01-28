@@ -13,7 +13,7 @@
           description: "Git URL containing Katello, e.g. <pre>https://github.com/Katello/katello</pre>"
       - string:
           name: plugin_branch
-          default: master
+          default: main
           description: "Git branch name of Katello, e.g. <pre>master</pre>"
     scm:
       - foreman_pr

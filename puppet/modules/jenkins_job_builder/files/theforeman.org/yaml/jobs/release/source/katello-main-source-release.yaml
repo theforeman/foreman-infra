@@ -1,5 +1,5 @@
 - job:
-    name: katello-master-source-release
+    name: katello-main-source-release
     project-type: pipeline
     sandbox: true
     quiet-period: 2700
@@ -10,7 +10,7 @@
       - github
     dsl:
       !include-raw:
-        - pipelines/vars/katello-master-release.groovy
+        - pipelines/vars/katello-main-release.groovy
         - pipelines/release/source/katello.groovy
         - pipelines/lib/nightly_packaging.groovy
         - pipelines/lib/foreman_infra.groovy

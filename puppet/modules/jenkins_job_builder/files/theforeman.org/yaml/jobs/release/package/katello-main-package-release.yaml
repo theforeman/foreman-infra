@@ -1,5 +1,5 @@
 - job:
-    name: katello-master-package-release
+    name: katello-main-package-release
     project-type: pipeline
     sandbox: true
     concurrent: false
@@ -8,7 +8,7 @@
           url: 'https://github.com/Katello/katello'
     dsl:
       !include-raw:
-        - pipelines/vars/katello-master-release.groovy
+        - pipelines/vars/katello-main-release.groovy
         - pipelines/release/foreman-x-develop-release.groovy
         - pipelines/lib/foreman_infra.groovy
         - pipelines/lib/rvm.groovy
