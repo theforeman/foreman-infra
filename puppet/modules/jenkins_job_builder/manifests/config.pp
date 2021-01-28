@@ -9,7 +9,7 @@ define jenkins_job_builder::config (
   String $git_repo = 'https://github.com/theforeman/foreman-infra.git',
   String $git_branch = 'master',
   Optional[String] $git_args = undef,
-  String $git_relative_path = 'ci',
+  String $git_relative_path = 'jenkins-jobs',
 ) {
   $config_name = $name
   $directory = '/etc/jenkins_jobs'
