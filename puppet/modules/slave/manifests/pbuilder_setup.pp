@@ -50,6 +50,6 @@ define slave::pbuilder_setup (
   file { "/etc/cron.d/update-${name}":
     ensure  => bool2str($ensure == present, 'file', 'absent'),
     mode    => '0644',
-    content => "11 4 * * * root pbuilder-${name} update\n",
+    content => "11 4 * * * root /usr/local/bin/pbuilder-${name} update\n",
   }
 }
