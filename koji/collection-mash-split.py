@@ -419,7 +419,6 @@ def main():
             'nightly': 'develop',
             '4.0': '2.4',
             '3.18': '2.3',
-            '3.17': '2.2',
         }
 
         git_tag = "rpm/{}".format(branch_map[version])
