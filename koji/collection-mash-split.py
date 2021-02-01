@@ -417,6 +417,7 @@ def main():
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
+            '4.0': '2.4',
             '3.18': '2.3',
             '3.17': '2.2',
         }
