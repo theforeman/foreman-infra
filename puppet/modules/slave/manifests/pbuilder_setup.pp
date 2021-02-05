@@ -40,6 +40,12 @@ define slave::pbuilder_setup (
     content => template('slave/pbuilder_f70.erb'),
   }
 
+  file { "/etc/pbuilder/${name}/hooks/D80no-man-db-rebuild":
+    ensure  => $ensure,
+    mode    => '0775',
+    content => file('slave/pbuilder_D80no-man-db-rebuild'),
+  }
+
   # the result cache gets huge after a while - trim it to the last ~2 days at 5am
   file { "/etc/cron.d/cleanup-${name}":
     ensure  => bool2str($ensure == present, 'file', 'absent'),
