@@ -1,13 +1,32 @@
 ---
 - hosts: localhost
   gather_facts: false
+  collections:
+    - ktdreyer.koji_ansible
   vars_files:
     - ../vars/external_repos.yml
   tasks:
     - name: Configure Koji External Repositories
-      ktdreyer.koji_ansible.koji_external_repo:
+      koji_external_repo:
         name: "{{ item.name }}"
         url: "{{ item.url }}"
         state: "{{ item.state | default('present') }}"
         koji: 'koji'
       loop: "{{ external_repos }}"
+
+    - name: list of koji external repos from koji
+      koji_call:
+        name: listExternalRepos
+        koji: 'koji'
+      register: external_repos_result
+
+    - name: Extract external repository names
+      set_fact:
+        external_repository_names: "{{ external_repos | map(attribute='name') | list }}"
+
+    - name: Remove unmanaged external repositories
+      koji_external_repo:
+        name: "{{ item }}"
+        state: "absent"
+        koji: 'koji'
+      loop: "{{ external_repos_result['data'] | map(attribute='name') | reject('in', external_repository_names) | list }}"
