@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3'
       - name: Restore pip cache
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-{{ runner.python-version }}-pip-${{ hashFiles('**/requirements*.txt') }}
@@ -54,7 +54,7 @@ jobs:
           sudo apt-get update && sudo apt-get install -y yajl-tools
           gem install bundler
           bundle config path ~/.vendor/bundle
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.4
         with:
           path: ~/.vendor/bundle
           key: ${{ runner.os }}-gems-unit-
