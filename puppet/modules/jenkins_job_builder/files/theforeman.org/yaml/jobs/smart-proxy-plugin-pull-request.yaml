@@ -50,6 +50,7 @@
       - omaha
       - openscap
       - pulp
+      - qpid
       - remote_execution_ssh
       - salt
     jobs:
