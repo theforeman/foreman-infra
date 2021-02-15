@@ -1,8 +1,0 @@
-- scm:
-    name: forklift
-    scm:
-      - git:
-          url: https://github.com/theforeman/forklift.git
-          wipe-workspace: true
-          branches:
-            - 'master'

@@ -1,6 +1,0 @@
-- project:
-    name: foreman_openscap
-    repo: foreman_openscap
-    defaults: plugin
-    jobs:
-      - 'test_plugin_{name}_{branch}'

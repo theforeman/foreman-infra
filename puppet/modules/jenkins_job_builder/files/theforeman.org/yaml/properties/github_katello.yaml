@@ -1,5 +1,0 @@
-- property:
-    name: github_katello
-    properties:
-      - github:
-          url: https://github.com/Katello/katello

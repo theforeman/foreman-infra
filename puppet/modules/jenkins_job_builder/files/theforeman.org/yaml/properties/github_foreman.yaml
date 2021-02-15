@@ -1,5 +1,0 @@
-- property:
-    name: github_foreman
-    properties:
-      - github:
-          url: https://github.com/theforeman/foreman

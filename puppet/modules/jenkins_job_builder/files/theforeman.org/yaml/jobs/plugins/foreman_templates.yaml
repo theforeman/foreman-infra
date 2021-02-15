@@ -1,5 +1,0 @@
-- project:
-    name: foreman_templates
-    defaults: plugin
-    jobs:
-      - 'test_plugin_{name}_{branch}'

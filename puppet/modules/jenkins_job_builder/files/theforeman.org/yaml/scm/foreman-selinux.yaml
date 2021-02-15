@@ -1,8 +1,0 @@
-- scm:
-    name: foreman-selinux
-    scm:
-      - git:
-          url: https://github.com/theforeman/foreman-selinux.git
-          wipe-workspace: true
-          branches:
-            - '{branch}'

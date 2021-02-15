@@ -1,8 +1,0 @@
-- scm:
-    name: foreman-installer
-    scm:
-      - git:
-          url: https://github.com/theforeman/foreman-installer.git
-          wipe-workspace: true
-          branches:
-            - '{branch}'

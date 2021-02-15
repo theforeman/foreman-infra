@@ -1,4 +1,0 @@
-- builder:
-    name: plugin_pr_checkout
-    builders:
-      - shell: !include-raw: scripts/plugin_pr_checkout.sh

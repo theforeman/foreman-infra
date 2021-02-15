@@ -1,7 +1,0 @@
-- scm:
-    name: foreman-proxy
-    scm:
-      - git:
-          url: https://github.com/theforeman/smart-proxy.git
-          branches:
-            - '{branch}'

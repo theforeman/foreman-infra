@@ -1,9 +1,0 @@
-- scm:
-    name: katello
-    scm:
-      - git:
-          url: https://github.com/Katello/katello.git
-          wipe-workspace: true
-          basedir: 'plugin'
-          branches:
-            - '${branch}'
