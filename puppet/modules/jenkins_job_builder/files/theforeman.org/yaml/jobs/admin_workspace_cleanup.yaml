@@ -1,7 +1,0 @@
-- job:
-    name: admin_workspace_cleanup
-    triggers:
-      - timed: 'H H * * 6'
-    builders:
-      - system-groovy:
-          command: !include-raw: scripts/admin_workspace_cleanup.groovy

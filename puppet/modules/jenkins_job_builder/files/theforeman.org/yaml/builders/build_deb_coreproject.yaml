@@ -1,6 +1,0 @@
-- builder:
-    name: build_deb_coreproject
-    builders:
-      - shell: !include-raw: scripts/debian/configure_pbuilder.sh
-      - shell: !include-raw: scripts/debian/execute_pbuilder.sh
-      - shell: !include-raw: scripts/debian/stage_packages.sh

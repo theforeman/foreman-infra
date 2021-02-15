@@ -5,7 +5,7 @@ define jenkins_job_builder::config (
   String $username,
   String $password,
   Integer[0] $jenkins_jobs_update_timeout = 600,
-  String $command_arguments = 'foreman-infra-jenkins-job-update',
+  String $command_arguments = 'jenkins-job-update',
   String $git_project_name = 'jenkins-jobs',
   String $git_repo = 'https://github.com/theforeman/jenkins-jobs.git',
   Optional[String] $git_ref = undef,

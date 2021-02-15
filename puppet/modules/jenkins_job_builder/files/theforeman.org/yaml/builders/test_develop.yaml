@@ -1,4 +1,0 @@
-- builder:
-    name: test_develop
-    builders:
-      - shell: !include-raw: scripts/test/test_develop.sh

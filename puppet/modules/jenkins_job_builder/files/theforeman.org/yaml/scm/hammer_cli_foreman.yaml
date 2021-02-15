@@ -1,8 +1,0 @@
-- scm:
-    name: hammer_cli_foreman
-    scm:
-      - git:
-          url: https://github.com/theforeman/hammer-cli-foreman.git
-          wipe-workspace: true
-          branches:
-            - 'master'

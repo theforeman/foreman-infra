@@ -1,4 +1,0 @@
-- builder:
-    name: test_katello
-    builders:
-      - shell: !include-raw: scripts/test/test_katello.sh

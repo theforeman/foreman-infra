@@ -1,4 +1,0 @@
-- builder:
-    name: clone_foreman
-    builders:
-      - shell: !include-raw: scripts/test/clone_foreman.sh

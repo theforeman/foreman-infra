@@ -1,6 +1,0 @@
-- project:
-    name: foreman_ansible
-    repo: foreman_ansible
-    defaults: plugin
-    jobs:
-      - 'test_plugin_{name}_{branch}'

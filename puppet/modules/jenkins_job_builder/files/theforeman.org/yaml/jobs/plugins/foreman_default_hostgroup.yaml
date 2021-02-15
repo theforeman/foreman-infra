@@ -1,6 +1,0 @@
-- project:
-    name: foreman_default_hostgroup
-    defaults: plugin
-    branch: develop
-    jobs:
-      - 'test_plugin_{name}_{branch}'

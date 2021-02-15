@@ -1,8 +1,0 @@
-- project:
-    name: foreman_host_extra_validator
-    defaults: plugin
-    branch:
-      - master:
-          foreman_branch: develop
-    jobs:
-      - 'test_plugin_{name}_{branch}'

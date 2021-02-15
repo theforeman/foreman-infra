@@ -1,9 +1,0 @@
-- property:
-    name: tfm-pull-request-build-discarder
-    properties:
-      - build-discarder:
-          days-to-keep: 45
-          num-to-keep: -1
-          artifact-days-to-keep: 45
-          artifact-num-to-keep: -1
-
