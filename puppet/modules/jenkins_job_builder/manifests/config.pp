@@ -23,10 +23,11 @@ define jenkins_job_builder::config (
   }
 
   exec { "jenkins-jobs-update-${config_name}":
-    command => "jenkins-jobs --conf ${inifile} update ${directory}/${git_project_name}/${config_name} ${command_arguments}",
-    timeout => $jenkins_jobs_update_timeout,
-    path    => '/bin:/usr/bin:/usr/local/bin',
-    require => File[$inifile],
+    command     => "jenkins-jobs --conf ${inifile} update ${directory}/${git_project_name}/${config_name} ${command_arguments}",
+    timeout     => $jenkins_jobs_update_timeout,
+    path        => '/bin:/usr/bin:/usr/local/bin',
+    require     => File[$inifile],
+    refreshonly => true,
   }
 
 # TODO: We should put in  notify Exec['jenkins_jobs_update']
