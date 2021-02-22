@@ -14,35 +14,22 @@ jobs:
         with:
           submodules: true
       - name: Setup ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.5'
-      - name: Install dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y yajl-tools
-          gem install bundler
-          bundle config path ~/.vendor/bundle
-      - uses: actions/cache@v2
-        with:
-          path: ~/.vendor/bundle
-          key: ${{ runner.os }}-gems-unit-
-          restore-keys: |
-            ${{ runner.os }}-gems-unit-
-      - name: Bundle install
-        run: |
-          bundle install --jobs $(nproc) --retry 3
+          bundler-cache: true
+          working-directory: puppet
+      - name: Install yajl-tools
+        run: sudo apt-get install -y yajl-tools
       - name: Setup g10k
         run: |
           wget https://github.com/xorpaul/g10k/releases/download/v0.8.9/g10k-linux-amd64.zip
           unzip g10k-linux-amd64.zip
-
-          ./g10k -quiet -cachedir .g10k/cache -puppetfile -puppetfilelocation Puppetfile_forge -moduledir forge_modules
+      - name: Install modules using g10k
+        run: ./g10k -cachedir .g10k/cache -puppetfile -puppetfilelocation Puppetfile_forge -moduledir forge_modules
       - name: Run syntax
-        run: |
-          bundle exec rake syntax
+        run: bundle exec rake syntax
       - name: Run lint
-        run: |
-          bundle exec rake lint
+        run: bundle exec rake lint
       - name: Run tests
-        run: |
-          bundle exec rake spec
+        run: bundle exec rake spec
