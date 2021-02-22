@@ -6,6 +6,7 @@ end
 require 'puppet-syntax/tasks/puppet-syntax'
 PuppetSyntax.manifests_paths = ['modules/*/manifests/**/*.pp']
 PuppetSyntax.templates_paths = ['modules/*/templates/**/*.{erb,epp}']
+PuppetSyntax.exclude_paths = ["vendor/**/*"]
 
 require 'puppet-lint/tasks/puppet-lint'
 PuppetLint::RakeTask.new :lint do |config|
