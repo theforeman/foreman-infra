@@ -3,11 +3,11 @@ external_repos:
   - name: rhel-7.0-server
     url: file:///mnt/koji/external-repos/rhel7-$arch/7.0/
   - name: epel-7
-    url: file:///mnt/koji/external-repos/www/epel7-$arch/RPMS.epel/
+    url: https://dl.fedoraproject.org/pub/epel/7/$arch/
   - name: centos-sclo-rh-rhel-7
-    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.sclo.rh/
+    url: http://mirror.centos.org/centos/7/sclo/$arch/rh/
   - name: centos-sclo-rh-rhel-6
-    url: file:///mnt/koji/external-repos/www/centos6-$arch/RPMS.sclo.rh/
+    url: https://vault.centos.org/centos/6/sclo/$arch/rh/
   - name: rhscl-1.0
     url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.0/
   - name: rhel-6.5-server
@@ -63,7 +63,7 @@ external_repos:
   - name: centos7-updates
     url: http://mirror.centos.org/centos/7/updates/x86_64/
   - name: centos-7-server
-    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.os/
+    url: http://mirror.centos.org/centos/7/os/$arch/
   - name: tfm-ror51-rhel-7
     url: file:///mnt/koji/external-repos/www/tfm-ror51-copr-$arch/RPMS.ror51/
   - name: centos8-configmanagement-ansible-29
@@ -73,13 +73,13 @@ external_repos:
   - name: puppetlabs-puppet6-rhel-8
     url: http://yum.puppetlabs.com/puppet6/el/8/x86_64/
   - name: centos-sclo-sclo-rhel-6
-    url: file:///mnt/koji/external-repos/www/centos6-$arch/RPMS.sclo.sclo/
+    url: https://vault.centos.org/centos/6/sclo/$arch/sclo/
   - name: centos8-powertools
     url: http://mirror.centos.org/centos/8/PowerTools/$arch/os/
   - name: foreman-rails-1.17-rhel-7
     url: file:///mnt/koji/external-repos/www/foreman-rails-1.17-$arch/RPMS.ror51/
   - name: centos-sclo-sclo-rhel-7
-    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.sclo.sclo/
+    url: http://mirror.centos.org/centos/7/sclo/$arch/sclo/
   - name: puppetlabs-prod-rhel-6
     url: file:///mnt/koji/external-repos/www/puppetlabs6-$arch/RPMS.products/
   - name: puppetlabs-deps-rhel-6
