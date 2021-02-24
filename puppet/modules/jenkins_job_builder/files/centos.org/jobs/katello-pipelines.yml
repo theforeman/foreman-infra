@@ -7,8 +7,10 @@
     version:
       - '3.17'
       - '3.18'
+      - '4.0'
     distro:
       - centos7
+      - centos8
     action:
       - install
       - upgrade
