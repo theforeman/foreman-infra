@@ -12,17 +12,30 @@ def foreman_el_releases = [
     'el8'
 ]
 def foreman_debian_releases = ['buster', 'bionic']
-def pipelines = [
+
+def pipelines_deb = [
     'install': [
-        'centos7',
-        'centos8',
         'debian10',
         'ubuntu1804'
     ],
     'upgrade': [
-        'centos7',
-        'centos8',
         'debian10',
         'ubuntu1804'
     ]
+]
+
+def pipelines_el = [
+    'install': [
+        'centos7',
+        'centos8',
+    ],
+    'upgrade': [
+        'centos7',
+        'centos8',
+    ]
+]
+
+def pipelines = [
+    'install': pipelines_deb['install'] + pipelines_el['install'],
+    'upgrade': pipelines_deb['upgrade'] + pipelines_el['upgrade'],
 ]
