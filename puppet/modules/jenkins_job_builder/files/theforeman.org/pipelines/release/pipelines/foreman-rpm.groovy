@@ -35,8 +35,7 @@ pipeline {
 
             steps {
                 script {
-                    def rpm_pipelines = ['install': ['centos7', 'centos8'], 'upgrade': ['centos7', 'centos8']]
-                    runCicoPipelines('foreman', foreman_version, rpm_pipelines)
+                    runCicoPipelines('foreman', foreman_version, pipelines_el)
                 }
             }
         }

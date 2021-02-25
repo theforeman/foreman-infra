@@ -14,8 +14,7 @@ pipeline {
 
             steps {
                 script {
-                    def deb_pipelines = ['install': ['debian10', 'ubuntu1804'], 'upgrade': ['debian10', 'ubuntu1804']]
-                    runCicoPipelines('foreman', foreman_version, deb_pipelines)
+                    runCicoPipelines('foreman', foreman_version, pipelines_deb)
                 }
             }
         }
