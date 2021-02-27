@@ -14,7 +14,7 @@ pipeline {
 
             steps {
                 script {
-                    runCicoPipelines('plugins', foreman_version, pipelines)
+                    runCicoPipelines('plugins', foreman_version, pipelines_deb)
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
 
     post {
         failure {
-            notifyDiscourse(env, "Foreman ${foreman_version} Plugins Test pipeline failed:", currentBuild.description)
+            notifyDiscourse(env, "Foreman ${foreman_version} Plugins DEB Test pipeline failed:", currentBuild.description)
         }
     }
 }
