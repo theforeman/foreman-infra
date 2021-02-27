@@ -53,13 +53,24 @@
         - 'pipelines/lib/foreman_infra.groovy{empty}'
 
 - job-template:
-    name: 'foreman-plugins-{version}-test-pipeline'
+    name: 'foreman-plugins-{version}-rpm-test-pipeline'
     project-type: pipeline
     sandbox: true
     dsl:
       !include-raw:
         - 'pipelines/vars/foreman/{version}.groovy'
-        - 'pipelines/release/pipelines/plugins-pipeline.groovy{empty}'
+        - 'pipelines/release/pipelines/plugins-rpm.groovy{empty}'
+        - 'pipelines/lib/ansible.groovy{empty}'
+        - 'pipelines/lib/foreman_infra.groovy{empty}'
+
+- job-template:
+    name: 'foreman-plugins-{version}-deb-test-pipeline'
+    project-type: pipeline
+    sandbox: true
+    dsl:
+      !include-raw:
+        - 'pipelines/vars/foreman/{version}.groovy'
+        - 'pipelines/release/pipelines/plugins-deb.groovy{empty}'
         - 'pipelines/lib/ansible.groovy{empty}'
         - 'pipelines/lib/foreman_infra.groovy{empty}'
 
@@ -69,7 +80,8 @@
       - 'foreman-{version}-release-pipeline'
       - 'foreman-client-{version}-rpm-pipeline'
       - 'foreman-plugins-{version}-rpm-pipeline'
-      - 'foreman-plugins-{version}-test-pipeline'
+      - 'foreman-plugins-{version}-rpm-test-pipeline'
+      - 'foreman-plugins-{version}-deb-test-pipeline'
     empty: ''
     version:
       !include: ../../includes/foreman_versions.yaml.inc
@@ -80,7 +92,8 @@
     jobs:
       - 'foreman-client-{version}-rpm-pipeline'
       - 'foreman-plugins-{version}-rpm-pipeline'
-      - 'foreman-plugins-{version}-test-pipeline'
+      - 'foreman-plugins-{version}-rpm-test-pipeline'
+      - 'foreman-plugins-{version}-deb-test-pipeline'
     empty: ''
     version:
       - 'nightly'
