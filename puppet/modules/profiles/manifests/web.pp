@@ -37,6 +37,9 @@ class profiles::web (
   }
   contain web
 
+  class { 'web::vhost::archivedeb':
+    setup_receiver => $setup_receiver,
+  }
   contain web::vhost::archivedeb
 
   class { 'web::vhost::deb':
