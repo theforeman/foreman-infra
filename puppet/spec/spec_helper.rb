@@ -16,10 +16,6 @@ def on_supported_os(opts = {})
       'operatingsystem'        => 'Debian',
       'operatingsystemrelease' => ['10', '9'],
     },
-    {
-      'operatingsystem'        => 'Ubuntu',
-      'operatingsystemrelease' => ['18.04'],
-    },
   ]
   super(opts)
 end
