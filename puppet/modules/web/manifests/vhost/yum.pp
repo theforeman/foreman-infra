@@ -94,7 +94,7 @@ class web::vhost::yum (
     }
   }
 
-  exec { "fastly-purge-root-latest":
+  exec { 'fastly-purge-root-latest':
     command     => "fastly-purge-find 'https://${servername}' ${yum_directory} latest/",
     path        => '/bin:/usr/bin:/usr/local/bin',
     subscribe   => File["${yum_directory}/releases/latest"],

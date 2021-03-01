@@ -19,7 +19,7 @@ define jenkins_job_builder::config (
     provider => git,
     source   => $git_repo,
     revision => $git_ref,
-    notify  => Exec["jenkins-jobs-update-${config_name}"],
+    notify   => Exec["jenkins-jobs-update-${config_name}"],
   }
 
   exec { "jenkins-jobs-update-${config_name}":
