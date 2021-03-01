@@ -14,9 +14,9 @@ class slave::packaging::debian(
 
   Class['Apt::Backports'] ->
   apt::pin { 'debootstrap':
-    packages  => 'debootstrap',
-    priority  => 500,
-    release   => 'buster-backports',
+    packages => 'debootstrap',
+    priority => 500,
+    release  => 'buster-backports',
   } ->
   Class['Pbuilder::Common']
 
@@ -26,19 +26,19 @@ class slave::packaging::debian(
       arch       => 'amd64',
       release    => 'bionic',
       apturl     => $ubuntu_mirror,
-      aptcontent => "deb $ubuntu_mirror bionic main restricted universe\ndeb-src $ubuntu_mirror bionic main restricted universe\n";
+      aptcontent => "deb ${ubuntu_mirror} bionic main restricted universe\ndeb-src ${ubuntu_mirror} bionic main restricted universe\n";
     'buster64':
       ensure     => present,
       arch       => 'amd64',
       release    => 'buster',
       apturl     => $debian_mirror,
-      aptcontent => "deb $debian_mirror buster main non-free contrib\ndeb-src $debian_mirror buster main non-free contrib\n";
+      aptcontent => "deb ${debian_mirror} buster main non-free contrib\ndeb-src ${debian_mirror} buster main non-free contrib\n";
     'focal64':
       ensure     => present,
       arch       => 'amd64',
       release    => 'focal',
       apturl     => $ubuntu_mirror,
-      aptcontent => "deb $ubuntu_mirror focal main restricted universe\ndeb-src $ubuntu_mirror focal main restricted universe\n";
+      aptcontent => "deb ${ubuntu_mirror} focal main restricted universe\ndeb-src ${ubuntu_mirror} focal main restricted universe\n";
   }
 
   shellvar { 'extend_pbuilder_path':

@@ -21,8 +21,8 @@
 #
 define secure_ssh::receiver_setup (
   String $user,
-  Array[String] $groups = [],
   String $script_content,
+  Array[String] $groups = [],
   Stdlib::Absolutepath $homedir = "/home/${user}",
   Stdlib::Filemode $homedir_mode = '0700',
   Optional[String] $foreman_search = undef,
