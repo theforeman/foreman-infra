@@ -23,6 +23,7 @@ class web(
       # domain / webroot_paths must match exactly
       domains       => [
         'theforeman.org',
+        'archivedeb.theforeman.org',
         'deb.theforeman.org',
         'debugs.theforeman.org',
         'downloads.theforeman.org',
@@ -32,6 +33,7 @@ class web(
       ],
       webroot_paths => [
         '/var/www/vhosts/web/htdocs',
+        '/var/www/vhosts/archivedeb/htdocs',
         '/var/www/vhosts/deb/htdocs',
         '/var/www/vhosts/debugs/htdocs',
         '/var/www/vhosts/downloads/htdocs',
