@@ -1,19 +1,16 @@
-<title>The Debian Foreman staging repo</title>
-<head><h1>The Debian Foreman staging repo</h1></head>
-<body>
+<h1>The Debian Foreman staging repo</h1>
 
 <p>This repo is for building and testing scratch packages before pushing them to the real repos</p>
 
-<p>Every user will have the packages pushed to thier own component, based on the github repository used.<br/>
-So if you specified 'ares' as the github repo, and 'wheezy' as the distro, your package is at:</p>
+<p>Every user will have the packages pushed to their own component, based on the github repository used.<br/>
+So if you specified 'ares' as the github repo, and 'buster' as the distro, your package is at:</p>
 
-<p><strong>deb http://stagingdeb.theforeman.org/ wheezy ares-nightly</strong></p>
+<pre>deb http://stagingdeb.theforeman.org/ buster ares-nightly</pre>
 
 <p>Plugins are in a similar per-user component:</p>
 
-<p><strong>deb http://stagingdeb.theforeman.org/ plugins ares</strong></p>
+<pre>deb http://stagingdeb.theforeman.org/ plugins ares</pre>
 
 <p>This repo is also available over rsync at <code>rsync://rsync.theforeman.org/stagingdeb</code>.</p>
 
 <p>Enjoy</p>
-</body>
