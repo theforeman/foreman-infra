@@ -9,19 +9,16 @@
 <pre>
 deb http://archivedeb.theforeman.org/ buster &lt;version&gt;
 deb http://archivedeb.theforeman.org/ bionic &lt;version&gt;
-deb http://archivedeb.theforeman.org/ buster nightly
-deb http://archivedeb.theforeman.org/ bionic nightly
 
 deb http://archivedeb.theforeman.org/ plugins &lt;version&gt;
-deb http://archivedeb.theforeman.org/ plugins nightly
 </pre>
 
 <p>An example of how to add it:</p>
 
 <pre>
 wget https://archivedeb.theforeman.org/foreman.asc -O - | apt-key add
-echo "deb http://archivedeb.theforeman.org/ buster nightly" > /etc/apt/sources.list.d/foreman.list
-echo "deb http://archivedeb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
+echo "deb http://archivedeb.theforeman.org/ buster 1.24" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://archivedeb.theforeman.org/ plugins 1.24" >> /etc/apt/sources.list.d/foreman.list
 </pre>
 
 <p>This repo is also available over rsync at <code>rsync://rsync.theforeman.org/archivedeb</code>.</p>
