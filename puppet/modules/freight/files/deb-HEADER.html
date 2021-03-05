@@ -18,9 +18,11 @@ deb http://deb.theforeman.org/ plugins nightly
 
 <p>An example of how to add it:</p>
 
-<pre>wget https://deb.theforeman.org/foreman.asc -O - | apt-key add
+<pre>
+wget https://deb.theforeman.org/foreman.asc -O - | apt-key add
 echo "deb http://deb.theforeman.org/ buster nightly" > /etc/apt/sources.list.d/foreman.list
-echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list</pre>
+echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
+</pre>
 
 <p>This repo is also available over rsync at <code>rsync://rsync.theforeman.org/deb</code>.</p>
 
