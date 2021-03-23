@@ -41,6 +41,11 @@ do_rsync() {
 				ln -sf "$latest" foreman-client-release.rpm
 			fi
 
+			latest=$(ls -t katello-repos-[0-9]*.rpm 2>/dev/null | head -n1)
+			if [[ -n "$latest" ]] ; then
+				ln -sf "$latest" katello-repos-latest.rpm
+			fi
+
 			if [[ $MERGE == true ]] ; then
 				createrepo --skip-symlinks --update .
 			fi
