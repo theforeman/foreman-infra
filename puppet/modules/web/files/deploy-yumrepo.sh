@@ -73,7 +73,7 @@ purgecdn() {
 	set +f
 	for d in "${REPO_PATH}"/*; do
 		purge_base="https://yum.theforeman.org/${REPO_DEST}/$(basename $d)"
-		fastly-purge ${purge_base} foreman-release.rpm foreman-client-release.rpm
+		fastly-purge ${purge_base} foreman-release.rpm foreman-client-release.rpm katello-repos-latest.rpm
 	done
 	set -f
 }
