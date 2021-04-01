@@ -1,6 +1,13 @@
 #!/bin/bash
 HOMEDIR=/root/koji-sync/podman/
-BINDIR=/usr/local/bin
+BINDIR=$HOMEDIR
+
+dnf install -y createrepo_c libmodulemd librepo python36 python3-hawkey python3-librepo python3-gobject-base "dnf-command(reposync)"
+
+
+pushd $HOMEDIR/repos
+dnf reposync --repoid appstream --repoid powertools --repoid baseos --download-metadata
+popd
 
 ARCHES="x86_64"
 DATE=$(date -Ih | sed 's/+.*//')
@@ -35,17 +42,17 @@ for ARCH in ${ARCHES}; do
     fi
 
     # Begin splitting the various packages into their subtrees
-    ${BINDIR}/splitter.py --action hardlink --target RHEL-8-001 ${ARCHDIR}/BaseOS/ &> /dev/null
+    ${BINDIR}/splitter.py --action hardlink --target RHEL-8-001 ${ARCHDIR}/baseos/ # &> /dev/null
     if [ $? -ne 0 ]; then
 	echo "splitter ${ARCH} baseos failed"
 	exit
     fi
-    ${BINDIR}/splitter.py --action hardlink --target RHEL-8-002 ${ARCHDIR}/AppStream/ &> /dev/null
+    ${BINDIR}/splitter.py --action hardlink --target RHEL-8-002 ${ARCHDIR}/appstream/ # &> /dev/null
     if [ $? -ne 0 ]; then
 	echo "splitter ${ARCH} appstream failed"
 	exit
     fi
-    ${BINDIR}/splitter.py --action hardlink --target RHEL-8-003 ${ARCHDIR}/PowerTools/ &> /dev/null
+    ${BINDIR}/splitter.py --action hardlink --target RHEL-8-003 ${ARCHDIR}/powertools/ # &> /dev/null
     if [ $? -ne 0 ]; then
 	echo "splitter ${ARCH} codeready failed"
 	exit
@@ -56,6 +63,7 @@ for ARCH in ${ARCHES}; do
     echo "Moving data to ${ARCH}/RHEL-8-001"
     cp -anlr RHEL-8-002/* RHEL-8-001
     cp -anlr RHEL-8-003/* RHEL-8-001
+    cp -anlr RHEL-8-001 RHEL-8-001-mod
     # Go into the main tree
     pushd RHEL-8-001
     rm -rf ruby\:2.6*
@@ -64,6 +72,13 @@ for ARCH in ${ARCHES}; do
     # Mergerepo didn't work so lets just createrepo in the top directory.
     createrepo_c .  &> /dev/null
     popd
+    pushd RHEL-8-001-mod
+    for d in */ ; do
+        echo $d
+        pushd $d
+        createrepo_c . &> /dev/null
+        popd
+    done
 
     # Cleanup the trash 
     rm -rf RHEL-8-002 RHEL-8-003
