@@ -277,8 +277,11 @@ def perform_split(repos, args, def_modules):
         if args.only_defaults and modname not in def_modules:
             continue
         
-        targetdir = os.path.join(args.target, modname)
-        os.mkdir(targetdir)
+        moddir = ':'.join(modname.split(':')[0:2])
+
+        targetdir = os.path.join(args.target, moddir)
+        if not os.path.isdir(targetdir):
+            os.mkdir(targetdir)
 
         for pkg in repos[modname]:
             _, pkgfile = os.path.split(pkg)
@@ -295,10 +298,11 @@ def create_repos(target, repos,def_modules, only_defaults):
     Returns None
     """
     for modname in repos:
+        moddir = ':'.join(modname.split(':')[0:2])
         if only_defaults and modname not in def_modules:
             continue
         subprocess.run([
-            'createrepo_c', os.path.join(target, modname),
+            'createrepo_c', os.path.join(target, moddir),
             '--no-database'])
 
 
