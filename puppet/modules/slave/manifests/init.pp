@@ -281,6 +281,6 @@ class slave (
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => "#!/bin/sh\nrunuser -u jenkins -- find ${workspace} /usr/local/rvm/gems/ -maxdepth 1 -mindepth 1 -type d -user jenkins -ctime +3 -exec rm -rf {} +\n", # lint:ignore:140chars
+    content => "#!/bin/sh\nfind ${workspace} /usr/local/rvm/gems/ -maxdepth 1 -mindepth 1 -type d -user jenkins -ctime +3 -exec rm -rf {} +\n", # lint:ignore:140chars
   }
 }
