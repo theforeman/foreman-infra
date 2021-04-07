@@ -175,7 +175,7 @@ class slave (
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      content => "#!/bin/sh\nfind ~jenkins/tmp -maxdepth 1 -name 'npm-*' -type d -mtime +1 -exec rm -rf {} +\n",
+      content => template('slave/npm_cleaner.sh.erb'),
     }
   }
 
