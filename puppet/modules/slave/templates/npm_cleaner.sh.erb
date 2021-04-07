@@ -1,0 +1,4 @@
+#!/bin/sh
+
+find <%= @homedir %>/tmp -maxdepth 1 -name 'npm-*' -type d -mtime +1 -exec rm -rf {} +
+find <%= @homedir %>/.npm/_cacache/ -type f -mtime +3 -delete
