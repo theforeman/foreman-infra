@@ -26,12 +26,14 @@ class web::vhost::web(
     { 'rewrite_rule' => ['^/wiki(.*)  https://projects.theforeman.org/wiki$1  [R,L]'] },
     { 'rewrite_rule' => ['^/events/all.ics https://community.theforeman.org/c/events/l/calendar.ics [R,L]'] },
     { 'rewrite_rule' => ['^/events/? https://community.theforeman.org/c/events/l/calendar [R,L]'] },
+    { 'rewrite_rule' => ["^/api/latest(.*) https://apidocs.theforeman.org/foreman/${stable}\$1 [R,L]"] },
+    { 'rewrite_rule' => ['^/api/(.*) https://apidocs.theforeman.org/foreman/\$1 [R,L]'] },
+    { 'rewrite_rule' => ['^/api$ https://apidocs.theforeman.org/foreman/ [R,L]'] },
   ]
 
   $docs_rewrites = [
     { 'rewrite_rule' => ["^/manuals/latest(.*) /manuals/${stable}\$1 [R,L]"] },
     { 'rewrite_rule' => ["^/manuals/${next}(.*) /manuals/nightly\$1 [R,L]"] },
-    { 'rewrite_rule' => ["^/api/latest(.*) /api/${stable}\$1 [R,L]"] },
   ]
 
   $directory_config = [
