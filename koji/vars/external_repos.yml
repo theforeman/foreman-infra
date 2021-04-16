@@ -92,3 +92,5 @@ external_repos:
     url: https://dl.fedoraproject.org/pub/epel/7/$arch/
   - name: flat-ruby27-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/ruby:2.7/
+  - name: flat-perl26-el8
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/perl:5.26/ 
