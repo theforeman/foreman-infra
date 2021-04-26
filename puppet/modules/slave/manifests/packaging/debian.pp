@@ -10,6 +10,8 @@ class slave::packaging::debian(
     ensure => present,
   }
 
+  ensure_packages(['python-pip', 'python-setuptools'])
+
   include apt::backports
 
   Class['Apt::Backports'] ->
