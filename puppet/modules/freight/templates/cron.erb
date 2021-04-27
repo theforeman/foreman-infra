@@ -16,7 +16,7 @@ end
 exit unless ENV['VARLIB']
 
 Dir.chdir(ENV['VARLIB'])
-$time = Time.now - (60*60*24*7)  # 7 days ago
+$time = Time.now - (60*60*24*3)  # 3 days ago
 
 raw_files = []
 # Globs
