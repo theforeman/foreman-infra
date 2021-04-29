@@ -69,6 +69,7 @@ for ARCH in ${ARCHES}; do
     rm -rf ruby\:2.6*
     rm -rf ruby\:2.7*
     rm -rf nodejs\:14*
+    rm -rf perl\:5.24*
     rm -rf perl\:5.30*
     # Mergerepo didn't work so lets just createrepo in the top directory.
     createrepo_c .  &> /dev/null
