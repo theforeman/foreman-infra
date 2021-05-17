@@ -417,6 +417,7 @@ def main():
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
+            '4.1': '2.5',
             '4.0': '2.4',
             '3.18': '2.3',
         }
@@ -435,7 +436,7 @@ def main():
 
         mashes = [
             MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"),
-            MashConfig(collection, version, "el8", "el8", "katello/el8")
+            MashConfig(collection, version, "el8", "el8", "katello/el8"),
             mash_config_candlepin,
             el8_candlepin,
         ]
