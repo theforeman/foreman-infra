@@ -86,4 +86,4 @@ external_repos:
   - name: puppetlabs-puppet6-rhel-8
     url: http://yum.puppetlabs.com/puppet6/el/8/x86_64/
   - name: puppetlabs-puppet6-rhel-7
-    url: file:///mnt/koji/external-repos/www/puppetlabs7-$arch/RPMS.puppet6/
+    url: http://yum.puppetlabs.com/puppet6/el/7/x86_64/
