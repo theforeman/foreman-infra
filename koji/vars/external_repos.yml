@@ -93,5 +93,3 @@ external_repos:
     url: file:///mnt/koji/external-repos/www/puppetlabs6-$arch/RPMS.dependencies/
   - name: puppetlabs-pc1-rhel-7
     url: file:///mnt/koji/external-repos/www/puppetlabs7-$arch/RPMS.pc1/
-  - name: puppetlabs-puppet5-rhel-7
-    url: file:///mnt/koji/external-repos/www/puppetlabs7-$arch/RPMS.puppet5/
