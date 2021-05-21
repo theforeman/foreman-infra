@@ -84,6 +84,6 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/perl:5.26/
   # Puppet repositories
   - name: puppetlabs-puppet6-rhel-8
-    url: http://yum.puppetlabs.com/puppet6/el/8/x86_64/
+    url: http://yum.puppet.com/puppet6/el/8/x86_64/
   - name: puppetlabs-puppet6-rhel-7
-    url: http://yum.puppetlabs.com/puppet6/el/7/x86_64/
+    url: http://yum.puppet.com/puppet6/el/7/x86_64/
