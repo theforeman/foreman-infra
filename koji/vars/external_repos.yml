@@ -1,45 +1,62 @@
 ---
 external_repos:
+  # EL6 repositories
+  - name: centos-sclo-rh-rhel-6
+    url: https://vault.centos.org/centos/6/sclo/$arch/rh/
+  - name: rhel-6.5-server
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5/
+  - name: rhel-6.5-server-optional
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5-optional/
+  - name: rhscl-1.1-rhel-6
+    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.1/
+  - name: rhel-6.6-server
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.6/
+  - name: rhel-6.6-server-optional
+    url: file:///mnt/koji/external-repos/rhel6-$arch/6.6-optional/
+  - name: centos-sclo-sclo-rhel-6
+    url: https://vault.centos.org/centos/6/sclo/$arch/sclo/
+  - name: rhscl-1.0
+    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.0/
+  - name: epel-6
+    url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
+  - name: qpid-copr
+    url: file:///mnt/koji/external-repos/www/qpidcopr-$arch/RPMS.qpid/
+  # EL7 repositories
   - name: rhel-7.0-server
     url: file:///mnt/koji/external-repos/rhel7-$arch/7.0/
   - name: epel-7
     url: https://dl.fedoraproject.org/pub/epel/7/$arch/
   - name: centos-sclo-rh-rhel-7
     url: http://mirror.centos.org/centos/7/sclo/$arch/rh/
-  - name: centos-sclo-rh-rhel-6
-    url: https://vault.centos.org/centos/6/sclo/$arch/rh/
-  - name: rhscl-1.0
-    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.0/
-  - name: rhel-6.5-server
-    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5/
-  - name: rhel-6.5-server-optional
-    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5-optional/
   - name: epel-7-beta
     url: file:///mnt/koji/external-repos/www/epel7-$arch/RPMS.beta/
   - name: rhscl-1.1-rhel-7
     url: file:///mnt/koji/external-repos/rhscl-rhel7-$arch/1.1/
-  - name: epel-6
-    url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
-  - name: rhscl-1.1-rhel-6
-    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.1/
   - name: rhel-7.0-server-optional
     url: file:///mnt/koji/external-repos/rhel7-$arch/7.0-optional/
-  - name: rhel-6.6-server
-    url: file:///mnt/koji/external-repos/rhel6-$arch/6.6/
-  - name: fedora-29
-    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.os/
-  - name: el8postgres12
-    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/postgres12/
+  - name: epel7
+    url: https://dl.fedoraproject.org/pub/epel/7/$arch/
   - name: foreman-rails-nightly-rhel-7
     url: file:///mnt/koji/external-repos/www/foreman-rails-nightly-$arch/RPMS.ror51/
   - name: centos-7-server-updates
     url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.updates/
   - name: foreman-rails-1.19-rhel-7
     url: file:///mnt/koji/external-repos/www/foreman-rails-1.19-$arch/RPMS.ror51/
-  - name: fedora-29-updates
-    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.updates/
   - name: centos7-os
     url: http://mirror.centos.org/centos/7/os/x86_64/
+  - name: centos-7-server
+    url: http://mirror.centos.org/centos/7/os/$arch/
+  - name: centos7-updates
+    url: http://mirror.centos.org/centos/7/updates/x86_64/
+  - name: centos-sclo-sclo-rhel-7
+    url: http://mirror.centos.org/centos/7/sclo/$arch/sclo/
+  - name: tfm-ror51-rhel-7
+    url: file:///mnt/koji/external-repos/www/tfm-ror51-copr-$arch/RPMS.ror51/
+  - name: foreman-rails-1.18-rhel-7
+    url: file:///mnt/koji/external-repos/www/foreman-rails-1.18-$arch/RPMS.ror51/
+  - name: foreman-rails-1.17-rhel-7
+    url: file:///mnt/koji/external-repos/www/foreman-rails-1.17-$arch/RPMS.ror51/
+  # EL8 repositories
   - name: centos8-baseos
     url: http://mirror.centos.org/centos/8/BaseOS/$arch/os/
   - name: centos8-appstream
@@ -48,34 +65,21 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001/
   - name: centos8-devel
     url: http://mirror.centos.org/centos/8/Devel/$arch/os/
-  - name: rhel-6.6-server-optional
-    url: file:///mnt/koji/external-repos/rhel6-$arch/6.6-optional/
-  - name: centos7-updates
-    url: http://mirror.centos.org/centos/7/updates/x86_64/
-  - name: centos-7-server
-    url: http://mirror.centos.org/centos/7/os/$arch/
-  - name: tfm-ror51-rhel-7
-    url: file:///mnt/koji/external-repos/www/tfm-ror51-copr-$arch/RPMS.ror51/
   - name: centos8-configmanagement-ansible-29
     url: http://mirror.centos.org/centos/8/configmanagement/$arch/ansible-29/
-  - name: foreman-rails-1.18-rhel-7
-    url: file:///mnt/koji/external-repos/www/foreman-rails-1.18-$arch/RPMS.ror51/
-  - name: centos-sclo-sclo-rhel-6
-    url: https://vault.centos.org/centos/6/sclo/$arch/sclo/
   - name: centos8-powertools
     url: http://mirror.centos.org/centos/8/PowerTools/$arch/os/
-  - name: foreman-rails-1.17-rhel-7
-    url: file:///mnt/koji/external-repos/www/foreman-rails-1.17-$arch/RPMS.ror51/
-  - name: centos-sclo-sclo-rhel-7
-    url: http://mirror.centos.org/centos/7/sclo/$arch/sclo/
-  - name: qpid-copr
-    url: file:///mnt/koji/external-repos/www/qpidcopr-$arch/RPMS.qpid/
-  - name: epel7
-    url: https://dl.fedoraproject.org/pub/epel/7/$arch/
+  - name: el8postgres12
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/postgres12/
   - name: flat-ruby27-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/ruby:2.7/
   - name: flat-perl26-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/perl:5.26/
+  # Fedora repositories
+  - name: fedora-29
+    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.os/
+  - name: fedora-29-updates
+    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.updates/
   # Puppet repositories
   - name: puppetlabs-puppet6-rhel-8
     url: http://yum.puppet.com/puppet6/el/8/x86_64/
