@@ -1,26 +1,12 @@
 ---
 external_repos:
   # EL6 repositories
-  - name: centos-sclo-rh-rhel-6
-    url: https://vault.centos.org/centos/6/sclo/$arch/rh/
-  - name: rhel-6.5-server
-    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5/
-  - name: rhel-6.5-server-optional
-    url: file:///mnt/koji/external-repos/rhel6-$arch/6.5-optional/
-  - name: rhscl-1.1-rhel-6
-    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.1/
   - name: rhel-6.6-server
     url: file:///mnt/koji/external-repos/rhel6-$arch/6.6/
   - name: rhel-6.6-server-optional
     url: file:///mnt/koji/external-repos/rhel6-$arch/6.6-optional/
-  - name: centos-sclo-sclo-rhel-6
-    url: https://vault.centos.org/centos/6/sclo/$arch/sclo/
-  - name: rhscl-1.0
-    url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.0/
   - name: epel-6
     url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
-  - name: qpid-copr
-    url: file:///mnt/koji/external-repos/www/qpidcopr-$arch/RPMS.qpid/
   # EL7 repositories
   - name: rhel-7.0-server
     url: file:///mnt/koji/external-repos/rhel7-$arch/7.0/
