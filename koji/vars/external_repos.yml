@@ -5,8 +5,6 @@ external_repos:
     url: file:///mnt/koji/external-repos/rhel6-$arch/6.6/
   - name: rhel-6.6-server-optional
     url: file:///mnt/koji/external-repos/rhel6-$arch/6.6-optional/
-  - name: epel-6
-    url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
   # EL7 repositories
   - name: rhel-7.0-server
     url: file:///mnt/koji/external-repos/rhel7-$arch/7.0/
