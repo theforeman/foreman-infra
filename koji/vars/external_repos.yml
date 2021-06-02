@@ -20,12 +20,6 @@ external_repos:
     url: file:///mnt/koji/external-repos/rhscl-rhel7-$arch/1.1/
   - name: epel-6
     url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
-  - name: jpackage-5.0-generic-free
-    url: file:///mnt/koji/external-repos/www/jpackage-$arch/RPMS.jpackage/
-  - name: rhel-5.9-server
-    url: file:///mnt/koji/external-repos/rhel5-$arch/5.9/
-  - name: epel-5
-    url: file:///mnt/koji/external-repos/www/epel5-$arch/RPMS.epel/
   - name: rhscl-1.1-rhel-6
     url: file:///mnt/koji/external-repos/rhscl-rhel6-$arch/1.1/
   - name: rhel-7.0-server-optional
