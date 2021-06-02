@@ -63,9 +63,9 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/perl:5.26/
   # Fedora repositories
   - name: fedora-29
-    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.os/
+    url: https://dl.fedoraproject.org/pub/archive/fedora/linux/releases/29/Everything/x86_64/os/
   - name: fedora-29-updates
-    url: http://koji.katello.org/kojifiles/external-repos/www/fedora29-$arch/RPMS.updates/
+    url: https://dl.fedoraproject.org/pub/archive/fedora/linux/updates/29/Everything/x86_64/
   # Puppet repositories
   - name: puppetlabs-puppet6-rhel-8
     url: http://yum.puppet.com/puppet6/el/8/x86_64/
