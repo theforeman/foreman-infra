@@ -8,40 +8,18 @@ external_repos:
   - name: epel-6
     url: file:///mnt/koji/external-repos/www/epel6-$arch/RPMS.epel/
   # EL7 repositories
-  - name: rhel-7.0-server
-    url: file:///mnt/koji/external-repos/rhel7-$arch/7.0/
   - name: epel-7
     url: https://dl.fedoraproject.org/pub/epel/7/$arch/
   - name: centos-sclo-rh-rhel-7
     url: http://mirror.centos.org/centos/7/sclo/$arch/rh/
-  - name: epel-7-beta
-    url: file:///mnt/koji/external-repos/www/epel7-$arch/RPMS.beta/
-  - name: rhscl-1.1-rhel-7
-    url: file:///mnt/koji/external-repos/rhscl-rhel7-$arch/1.1/
-  - name: rhel-7.0-server-optional
-    url: file:///mnt/koji/external-repos/rhel7-$arch/7.0-optional/
-  - name: epel7
-    url: https://dl.fedoraproject.org/pub/epel/7/$arch/
-  - name: foreman-rails-nightly-rhel-7
-    url: file:///mnt/koji/external-repos/www/foreman-rails-nightly-$arch/RPMS.ror51/
   - name: centos-7-server-updates
-    url: file:///mnt/koji/external-repos/www/centos7-$arch/RPMS.updates/
-  - name: foreman-rails-1.19-rhel-7
-    url: file:///mnt/koji/external-repos/www/foreman-rails-1.19-$arch/RPMS.ror51/
+    url: http://mirror.centos.org/centos/7/updates/x86_64/
   - name: centos7-os
     url: http://mirror.centos.org/centos/7/os/x86_64/
   - name: centos-7-server
     url: http://mirror.centos.org/centos/7/os/$arch/
   - name: centos7-updates
     url: http://mirror.centos.org/centos/7/updates/x86_64/
-  - name: centos-sclo-sclo-rhel-7
-    url: http://mirror.centos.org/centos/7/sclo/$arch/sclo/
-  - name: tfm-ror51-rhel-7
-    url: file:///mnt/koji/external-repos/www/tfm-ror51-copr-$arch/RPMS.ror51/
-  - name: foreman-rails-1.18-rhel-7
-    url: file:///mnt/koji/external-repos/www/foreman-rails-1.18-$arch/RPMS.ror51/
-  - name: foreman-rails-1.17-rhel-7
-    url: file:///mnt/koji/external-repos/www/foreman-rails-1.17-$arch/RPMS.ror51/
   # EL8 repositories
   - name: centos8-baseos
     url: http://mirror.centos.org/centos/8/BaseOS/$arch/os/
