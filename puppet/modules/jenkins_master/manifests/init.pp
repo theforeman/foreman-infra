@@ -41,7 +41,6 @@ class jenkins_master {
     'bootstrap4-api'                     => {},
     'bouncycastle-api'                   => {},
     'branch-api'                         => {},
-    'build-flow-plugin'                  => {'version' => '0.20'},
     'build-keeper-plugin'                => {},
     'build-timeout'                      => {},
     'build-timestamp'                    => {},
