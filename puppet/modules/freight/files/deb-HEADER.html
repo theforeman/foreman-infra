@@ -19,7 +19,7 @@ deb http://deb.theforeman.org/ plugins nightly
 <p>An example of how to add it:</p>
 
 <pre>
-wget https://deb.theforeman.org/foreman.asc -O - | apt-key add
+wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
 echo "deb http://deb.theforeman.org/ buster nightly" > /etc/apt/sources.list.d/foreman.list
 echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
 </pre>

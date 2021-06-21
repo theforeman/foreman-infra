@@ -16,7 +16,7 @@ deb http://archivedeb.theforeman.org/ plugins &lt;version&gt;
 <p>An example of how to add it:</p>
 
 <pre>
-wget https://archivedeb.theforeman.org/foreman.asc -O - | apt-key add
+wget https://archivedeb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
 echo "deb http://archivedeb.theforeman.org/ buster 1.24" > /etc/apt/sources.list.d/foreman.list
 echo "deb http://archivedeb.theforeman.org/ plugins 1.24" >> /etc/apt/sources.list.d/foreman.list
 </pre>
