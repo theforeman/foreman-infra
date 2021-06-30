@@ -22,7 +22,7 @@ CentOS offer access to their [QA CI infrastructure](https://wiki.centos.org/QaWi
 Getting help:
 
 * [centos-infra issues](https://pagure.io/centos-infra/issues)
-* IRC: `#centos-ci` on `irc.freenode.net`
+* IRC: `#centos-ci` on `irc.libera.chat`
 
 ## Managing jobs
 
