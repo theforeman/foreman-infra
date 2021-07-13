@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  gather_facts: false
+  collections:
+    - ktdreyer.koji_ansible
+  vars_files:
+    - ../vars/users.yml
+  tasks:
+    - name: Set enabled users
+      koji_user:
+        name: "{{ user.name }}"
+        state: "enabled"
+        permissions: "{{ user.permissions }}"
+      loop: "{{ enabled_users }}"
+      loop_var: user
+
+    - name: Set disabled users
+      koji_user:
+        name: "{{ user.name }}"
+        state: "disabled"
+        permissions: []
+      loop: "{{ disabled_users }}"
+      loop_var: user

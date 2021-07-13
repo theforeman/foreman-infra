@@ -1,0 +1,125 @@
+---
+enabled_users:
+  - name: adprice
+    permissions:
+      - admin
+  - name: akofink
+    permissions:
+      - admin
+  - name: bbouters
+    permissions: []
+  - name: bizhang
+    permissions: []
+  - name: dadavis
+    permissions: []
+  - name: ddolguik
+    permissions:
+      - build
+      - repo
+  - name: dkliban
+    permissions: []
+  - name: dlobatog
+    permissions:
+      - admin
+      - build
+      - repo
+  - name: ehelms
+    permissions:
+      - admin
+      - build
+      - repo
+  - name: evgeni
+    permissions:
+      - admin
+  - name: ewoud
+    permissions:
+      - admin
+  - name: inecas
+    permissions:
+      - build
+      - repo
+  - name: ipanova
+    permissions:
+      - build
+  - name: jenkins
+    permissions:
+      - build
+      - repo
+  - name: jenkins.pulp
+    permissions:
+      - build
+      - repo
+  - name: jsherril
+    permissions:
+      - admin
+  - name: jturel
+    permissions:
+      - admin
+      - build
+  - name: koji
+    permissions:
+      - admin
+      - build
+  - name: kojiadm
+    permissions:
+      - admin
+      - build
+      - repo
+  - name: kojibuilder1.katello.org
+    permissions:
+      - build
+      - repo
+  - name: koji-gc
+    permissions: []
+  - name: kojira
+    permissions:
+      - build
+      - repo
+  - name: kojira.katello.org
+    permissions:
+      - build
+  - name: lzapleta
+    permissions:
+      - admin
+      - build
+      - repo
+  - name: mbacovsk
+    permissions: []
+  - name: mhulan
+    permissions:
+      - build
+      - repo
+  - name: mmoll
+    permissions:
+      - build
+      - repo
+  - name: oezr
+    permissions:
+      - build
+      - repo
+  - name: oprazak
+    permissions:
+      - admin
+  - name: osousa
+    permissions:
+      - build
+      - repo
+  - name: pcreech
+    permissions:
+      - admin
+      - build
+      - repo
+  - name: semyers
+    permissions:
+      - build
+      - repo
+  - name: stbenjam
+    permissions:
+      - admin
+  - name: zhunting
+    permissions:
+      - admin
+      - build
+      - repo
+
+disabled_users: []
