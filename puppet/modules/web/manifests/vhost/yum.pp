@@ -105,4 +105,19 @@ class web::vhost::yum (
     ensure => link,
     target => '../nightly',
   }
+
+  file { "${yum_directory}/pulpcore":
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0755',
+  }
+
+  file { "${yum_directory}/pulpcore/HEADER.html":
+    ensure  => file,
+    owner   => $user,
+    group   => $user,
+    mode    => '0644',
+    content => file('web/yum/pulpcore-HEADER.html'),
+  }
 }
