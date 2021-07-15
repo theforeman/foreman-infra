@@ -1,51 +1,15 @@
 ---
 enabled_users:
-  - name: adprice
-    permissions:
-      - admin
-  - name: akofink
-    permissions:
-      - admin
-  - name: bbouters
-    permissions: []
-  - name: bizhang
-    permissions: []
-  - name: dadavis
-    permissions: []
-  - name: ddolguik
-    permissions:
-      - build
-      - repo
-  - name: dkliban
-    permissions: []
-  - name: dlobatog
-    permissions:
-      - admin
-      - build
-      - repo
   - name: ehelms
     permissions:
       - admin
-      - build
-      - repo
   - name: evgeni
     permissions:
       - admin
   - name: ewoud
     permissions:
       - admin
-  - name: inecas
-    permissions:
-      - build
-      - repo
-  - name: ipanova
-    permissions:
-      - build
   - name: jenkins
-    permissions:
-      - build
-      - repo
-  - name: jenkins.pulp
     permissions:
       - build
       - repo
@@ -54,17 +18,14 @@ enabled_users:
       - admin
   - name: jturel
     permissions:
-      - admin
       - build
+      - repo
   - name: koji
     permissions:
       - admin
-      - build
   - name: kojiadm
     permissions:
       - admin
-      - build
-      - repo
   - name: kojibuilder1.katello.org
     permissions:
       - build
@@ -78,18 +39,11 @@ enabled_users:
   - name: kojira.katello.org
     permissions:
       - build
+      - repo
   - name: lzapleta
     permissions:
       - admin
-      - build
-      - repo
-  - name: mbacovsk
-    permissions: []
   - name: mhulan
-    permissions:
-      - build
-      - repo
-  - name: mmoll
     permissions:
       - build
       - repo
@@ -99,7 +53,8 @@ enabled_users:
       - repo
   - name: oprazak
     permissions:
-      - admin
+      - build
+      - repo
   - name: osousa
     permissions:
       - build
@@ -107,19 +62,23 @@ enabled_users:
   - name: pcreech
     permissions:
       - admin
-      - build
-      - repo
-  - name: semyers
-    permissions:
-      - build
-      - repo
-  - name: stbenjam
-    permissions:
-      - admin
   - name: zhunting
     permissions:
       - admin
-      - build
-      - repo
 
-disabled_users: []
+disabled_users:
+  - name: adprice
+  - name: akofink
+  - name: bbouters
+  - name: bizhang
+  - name: dadavis
+  - name: ddolguik
+  - name: dkliban
+  - name: dlobatog
+  - name: inecas
+  - name: ipanova
+  - name: jenkins.pulp
+  - name: mbacovsk
+  - name: mmoll
+  - name: semyers
+  - name: stbenjam
