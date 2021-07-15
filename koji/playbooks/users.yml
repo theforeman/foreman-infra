@@ -11,13 +11,17 @@
         name: "{{ user.name }}"
         state: "enabled"
         permissions: "{{ user.permissions }}"
+        koji: 'koji'
       loop: "{{ enabled_users }}"
-      loop_var: user
+      loop_control:
+        loop_var: user
 
     - name: Set disabled users
       koji_user:
         name: "{{ user.name }}"
         state: "disabled"
         permissions: []
+        koji: 'koji'
       loop: "{{ disabled_users }}"
-      loop_var: user
+      loop_control:
+        loop_var: user
