@@ -6,7 +6,7 @@
 | OS | CentOS 7 |
 | CPUs | 2 |
 | RAM | 4GB |
-| Storage | /dev/sda (30GB): root, /dev/sdb (140GB): data |
+| Storage | /dev/sda (30GB): root, /dev/sdc (150GB): data (LVM) |
 | Managed by | [web.pp](https://github.com/theforeman/foreman-infra/blob/master/puppet/modules/profiles/manifests/web.pp) |
 
 ## Domains
