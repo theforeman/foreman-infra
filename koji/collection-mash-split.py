@@ -400,10 +400,12 @@ def main():
         dists = {
             "el8": "el8",
             "rhel7": "el7",
-            "rhel6": "el6",
             "sles11": "sles11",
             "sles12": "sles12",
         }
+
+        if LooseVersion(version) < LooseVersion("3.0"):
+            dists["rhel6"] = "el6"
 
         if LooseVersion(version) < LooseVersion("2.3"):
             dists["rhel5"] = "el5"
@@ -417,6 +419,7 @@ def main():
     elif collection == 'katello':
         branch_map = {
             'nightly': 'develop',
+            '4.2': '3.0',
             '4.1': '2.5',
             '4.0': '2.4',
             '3.18': '2.3',
