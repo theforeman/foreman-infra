@@ -13,6 +13,29 @@ After our security incident in July 2014, we planned to try and contain the scop
 
 See [Generating a new GPG Key for a X.Y release](https://github.com/theforeman/theforeman-rel-eng/#generating-a-new-gpg-key-for-a-xy-release) and [Generating a new GPG Key for signing the Debian repository](https://github.com/theforeman/theforeman-rel-eng/#generating-a-new-gpg-key-for-signing-the-debian-repository) for documentation how to do so.
 
+## Extending the expiration of a key
+
+Sometimes it is required to extend the expiration of a (time based) key.
+
+```
+[freight@web01 ~]$ gpg --edit-key <KEYID>
+gpg> expire
+Changing expiration time for the primary key.
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 2y
+Key expires at Sun 20 Aug 2023 06:13:21 AM UTC
+Is this correct? (y/N) y
+gpg> save
+gpg> quit
+```
+
+You need to repeat that for every `freight` account (`freight{,stage,archive}@web01`).
+
 ## Distributing keys
 
 ### Release based keys
