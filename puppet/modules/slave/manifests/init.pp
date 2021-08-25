@@ -142,11 +142,7 @@ class slave (
 
   # Old bash JSON parser
   file { '/usr/local/bin/JSON.sh':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/slave/JSON.sh',
+    ensure => absent,
   }
 
   # nodejs/npm for JavaScript tests
