@@ -135,7 +135,12 @@ class slave (
     }
   }
 
-  # bash JSON parser
+  # CLI JSON parser
+  package { 'jq':
+    ensure => installed,
+  }
+
+  # Old bash JSON parser
   file { '/usr/local/bin/JSON.sh':
     ensure => file,
     owner  => 'root',
