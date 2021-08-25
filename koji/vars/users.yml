@@ -57,8 +57,7 @@ enabled_users:
       - repo
   - name: osousa
     permissions:
-      - build
-      - repo
+      - admin
   - name: pcreech
     permissions:
       - admin
