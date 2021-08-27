@@ -52,6 +52,18 @@ define slave::pbuilder_setup (
     content => file('slave/pbuilder_D80no-man-db-rebuild'),
   }
 
+  file { "/etc/pbuilder/${name}/hooks/C10foremanlog":
+    ensure  => $ensure,
+    mode    => '0775',
+    content => file('slave/pbuilder_C10foremanlog'),
+  }
+
+  file { "/etc/pbuilder/${name}/hooks/F99printrepos":
+    ensure  => $ensure,
+    mode    => '0775',
+    content => file('slave/pbuilder_F99printrepos'),
+  }
+
   # the result cache gets huge after a while - trim it to the last ~2 days at 5am
   file { "/etc/cron.d/cleanup-${name}":
     ensure  => bool2str($ensure == present, 'file', 'absent'),
