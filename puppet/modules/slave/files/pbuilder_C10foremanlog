@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Read Foreman package installation logs on failure
+cat /var/log/foreman-install.log || true
