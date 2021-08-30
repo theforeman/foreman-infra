@@ -10,7 +10,7 @@ class slave (
 
   # On Debian we use pbuilder with sudo
   $sudo = $facts['os']['family'] ? {
-    'Debian' => 'ALL=NOPASSWD: ALL',
+    'Debian' => "ALL=NOPASSWD: ALL\nDefaults:jenkins env_keep += FOREMAN_VERSION",
     default  => '',
   }
 
