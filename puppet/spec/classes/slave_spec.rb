@@ -17,6 +17,14 @@ describe 'slave' do
         else
           it { is_expected.to contain_users__account('jenkins').with_sudo('') }
         end
+
+        if facts[:osfamily] == 'Debian'
+          it { is_expected.to contain_file('/etc/pbuilder/buster64/hooks/C10foremanlog').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/buster64/hooks/D80no-man-db-rebuild').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/buster64/hooks/F60addforemanrepo').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/buster64/hooks/F70aptupdate').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/buster64/hooks/F99printrepos').with_ensure('present') }
+        end
       end
     end
   end

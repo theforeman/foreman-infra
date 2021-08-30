@@ -34,34 +34,32 @@ define slave::pbuilder_setup (
     content => template('slave/pbuilder_pdebuild.erb'),
   }
 
-  file { "/etc/pbuilder/${name}/hooks/F60addforemanrepo":
-    ensure  => $ensure,
-    mode    => '0775',
-    content => file('slave/pbuilder_F60addforemanrepo'),
-  }
-
   file { "/etc/pbuilder/${name}/hooks/F70aptupdate":
     ensure  => $ensure,
     mode    => '0775',
     content => template('slave/pbuilder_f70.erb'),
   }
 
-  file { "/etc/pbuilder/${name}/hooks/D80no-man-db-rebuild":
-    ensure  => $ensure,
-    mode    => '0775',
-    content => file('slave/pbuilder_D80no-man-db-rebuild'),
+  $hooks = {
+    'C10foremanlog'        => true,
+    'D80no-man-db-rebuild' => true,
+    'F60addforemanrepo'    => true,
+    'F99printrepos'        => true,
   }
 
-  file { "/etc/pbuilder/${name}/hooks/C10foremanlog":
-    ensure  => $ensure,
-    mode    => '0775',
-    content => file('slave/pbuilder_C10foremanlog'),
-  }
-
-  file { "/etc/pbuilder/${name}/hooks/F99printrepos":
-    ensure  => $ensure,
-    mode    => '0775',
-    content => file('slave/pbuilder_F99printrepos'),
+  $hooks.each |$hook, $enabled| {
+    $hook_path = "/etc/pbuilder/${name}/hooks/${hook}"
+    if $enabled {
+      file { $hook_path:
+        ensure  => $ensure,
+        mode    => '0775',
+        content => file("slave/pbuilder_${hook}"),
+      }
+    } else {
+      file { $hook_path:
+        ensure => absent,
+      }
+    }
   }
 
   # the result cache gets huge after a while - trim it to the last ~2 days at 5am
