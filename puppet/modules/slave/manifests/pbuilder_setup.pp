@@ -4,9 +4,9 @@ define slave::pbuilder_setup (
   $apturl,
   $aptcontent,
   $ensure     = present,
-  $backports  = false,
-  $nodesource = true,
-  $puppetlabs = true,
+  Boolean $backports  = false,
+  Boolean $nodesource = true,
+  Boolean $puppetlabs = true,
 ) {
 
   pbuilder { $name:
@@ -34,17 +34,15 @@ define slave::pbuilder_setup (
     content => template('slave/pbuilder_pdebuild.erb'),
   }
 
-  file { "/etc/pbuilder/${name}/hooks/F70aptupdate":
-    ensure  => $ensure,
-    mode    => '0775',
-    content => template('slave/pbuilder_f70.erb'),
-  }
-
   $hooks = {
-    'C10foremanlog'        => true,
-    'D80no-man-db-rebuild' => true,
-    'F60addforemanrepo'    => true,
-    'F99printrepos'        => true,
+    'C10foremanlog'            => true,
+    'D80no-man-db-rebuild'     => true,
+    'F60addforemanrepo'        => true,
+    'F65-add-backport-repos'   => $backports,
+    'F66-add-nodesource-repos' => $nodesource,
+    'F67-add-puppet-repos'     => $puppetlabs,
+    'F70aptupdate'             => true,
+    'F99printrepos'            => true,
   }
 
   $hooks.each |$hook, $enabled| {

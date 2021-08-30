@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Backports
+echo "deb http://backports.debian.org/debian-backports/ ${DISTRIBUTION}-backports main" >> /etc/apt/sources.list

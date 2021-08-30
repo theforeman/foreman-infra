@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# F<digit><digit><whatever-else-you-want> is executed just before
+# user logs in, or program starts executing, after chroot is created
+# in --login or --execute target.
+
+# Update apt
+/usr/bin/apt-get update
