@@ -3,6 +3,8 @@
 
 set -eu
 
-echo deb http://deb.theforeman.org/ <%= @release %> ${FOREMAN_VERSION} > /etc/apt/sources.list.d/foreman.list
-echo deb http://deb.theforeman.org/ plugins ${FOREMAN_VERSION} >> /etc/apt/sources.list.d/foreman.list
-echo deb http://stagingdeb.theforeman.org/ <%= @release %> theforeman-${FOREMAN_VERSION} >> /etc/apt/sources.list.d/foreman.list
+if [[ -n ${FOREMAN_VERSION:-} ]]; then
+  echo deb http://deb.theforeman.org/ <%= @release %> ${FOREMAN_VERSION} > /etc/apt/sources.list.d/foreman.list
+  echo deb http://deb.theforeman.org/ plugins ${FOREMAN_VERSION} >> /etc/apt/sources.list.d/foreman.list
+  echo deb http://stagingdeb.theforeman.org/ <%= @release %> theforeman-${FOREMAN_VERSION} >> /etc/apt/sources.list.d/foreman.list
+fi
