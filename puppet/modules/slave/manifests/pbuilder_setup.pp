@@ -31,7 +31,7 @@ define slave::pbuilder_setup (
   file { "/usr/local/bin/pdebuild-${name}":
     ensure  => $ensure,
     mode    => '0775',
-    content => "#!/bin/bash\n pdebuild --use-pdebuild-internal --configfile /etc/pbuilder/${name}/pbuilderrc --architecture ${arch}\n",
+    content => "#!/bin/bash\n pdebuild --use-pdebuild-internal --configfile /etc/pbuilder/${name}/pbuilderrc --architecture ${arch} --buildresult ..\n",
   }
 
   file { "/etc/pbuilder/${name}/hooks/F60addforemanrepo":
