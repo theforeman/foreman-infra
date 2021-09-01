@@ -1,0 +1,2 @@
+Cmnd_Alias PBUILDER = /usr/sbin/pbuilder, /usr/bin/pdebuild, /usr/local/bin/pbuilder-*, /usr/local/bin/pdebuild-*
+Defaults!PBUILDER env_keep += FOREMAN_VERSION
