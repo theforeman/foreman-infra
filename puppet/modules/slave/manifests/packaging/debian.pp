@@ -49,6 +49,12 @@ class slave::packaging::debian(
       aptcontent => "deb ${ubuntu_mirror} focal main restricted universe\ndeb-src ${ubuntu_mirror} focal main restricted universe\n";
   }
 
+  include sudo
+  sudo::conf { 'sudo-puppet-pbuilder-envkeep':
+    ensure  => 'present',
+    content => file('slave/pbuilder_sudoers'),
+  }
+
   shellvar { 'extend_pbuilder_path':
     ensure   => present,
     target   => '/etc/pbuilderrc',
