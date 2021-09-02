@@ -37,7 +37,7 @@ define slave::pbuilder_setup (
   file { "/etc/pbuilder/${name}/hooks/F60addforemanrepo":
     ensure  => $ensure,
     mode    => '0775',
-    content => template('slave/pbuilder_F60addforemanrepo.erb'),
+    content => file('slave/pbuilder_F60addforemanrepo'),
   }
 
   file { "/etc/pbuilder/${name}/hooks/F70aptupdate":
