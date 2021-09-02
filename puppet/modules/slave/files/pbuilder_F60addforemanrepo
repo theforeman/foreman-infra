@@ -1,0 +1,12 @@
+#!/bin/bash
+# Add the right theforeman.org repositories
+
+set -eu
+
+if [[ -n ${FOREMAN_VERSION:-} ]]; then
+	cat > /etc/apt/sources.list.d/foreman.list <<-EOF
+	deb http://deb.theforeman.org/ ${DISTRIBUTION} ${FOREMAN_VERSION}
+	deb http://deb.theforeman.org/ plugins ${FOREMAN_VERSION}
+	deb http://stagingdeb.theforeman.org/ ${DISTRIBUTION} theforeman-${FOREMAN_VERSION}
+	EOF
+fi
