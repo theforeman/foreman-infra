@@ -8,12 +8,11 @@ class utility($sysadmins = ['/dev/null']) {
     default  => 'vim',
   }
 
-  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8' {
-    $additional_packages = []
-  } else {
-    $additional_packages = ['htop', 'iftop', 'screen']
+  ensure_packages([$vim])
+
+  unless $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8' {
+    ensure_packages(['htop', 'iftop', 'screen'])
   }
-  ensure_packages([$vim] + $additional_packages)
 
   # TODO: rsync package is managed by puppetlabs-rsync
 
