@@ -8,7 +8,7 @@ class utility($sysadmins = ['/dev/null']) {
     default  => 'vim',
   }
 
-  ensure_packages([$vim, 'htop', 'iftop', 'screen', 'ruby-shadow'])
+  ensure_packages([$vim, 'htop', 'iftop', 'screen'])
 
   # TODO: rsync package is managed by puppetlabs-rsync
 
