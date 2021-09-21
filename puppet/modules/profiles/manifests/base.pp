@@ -6,9 +6,9 @@ class profiles::base (
   include timezone
   include users
   include utility
-  unless $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8' {
-    include ntp
-  } else {
+  if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '8') >= 0 {
     include chrony
+  } else {
+    include ntp
   }
 }
