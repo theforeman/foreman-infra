@@ -4,7 +4,7 @@ class slave::packaging::debian(
   Stdlib::Absolutepath $workspace,
   Boolean $uploader = true,
   Stdlib::HTTPUrl $debian_mirror = 'http://deb.debian.org/debian/',
-  Stdlib::HTTPUrl $ubuntu_mirror = 'http://ubuntu.osuosl.org/ubuntu/',
+  Stdlib::HTTPUrl $ubuntu_mirror = 'http://archive.ubuntu.com/ubuntu/',
 ) {
   package { 'gem2deb':
     ensure => present,
