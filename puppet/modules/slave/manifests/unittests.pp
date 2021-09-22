@@ -45,33 +45,11 @@ class slave::unittests(
     default  => 'firefox'
   }
 
-  package {
-    $libxml2_dev:
-      ensure => present;
-    $libxslt1_dev:
-      ensure => present;
-    $libkrb5_dev:
-      ensure => present;
-    $systemd_dev:
-      ensure => present;
-    'freeipmi':
-      ensure => present;
-    'ipmitool':
-      ensure => present;
-    $firefox:
-      ensure => present;
-    $libvirt_dev:
-      ensure => present;
-    $libcurl_dev:
-      ensure => present;
-    $sqlite3_dev:
-      ensure => present;
-  }
+  ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool', $firefox, $libvirt_dev, $libcurl_dev,
+  $sqlite3_dev])
 
   unless $is_el8 {
-    package { ['python-virtualenv', 'transifex-client']:
-      ensure => present,
-    }
+    ensure_packages(['python-virtualenv', 'transifex-client'])
   }
 
   # nodejs/npm for JavaScript tests
