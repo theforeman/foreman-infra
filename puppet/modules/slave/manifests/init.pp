@@ -59,6 +59,16 @@ class slave (
     ensure  => absent,
   }
 
+  package {
+    'asciidoc':
+      ensure => present;
+    'bzip2':
+      ensure => present;
+    'unzip':
+      ensure => present;
+    'ansible':
+      ensure => latest;
+  }
 
   if $unittests {
     class {'slave::unittests':
