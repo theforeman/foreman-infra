@@ -3,7 +3,7 @@ class slave (
   Boolean $uploader                     = true,
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
   Stdlib::Absolutepath $workspace       = '/home/jenkins/workspace',
-  Boolean $unittests = true,
+  Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
   include java
