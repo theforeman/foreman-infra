@@ -18,6 +18,17 @@ node /^jenkins-node.*/ {
   }
 }
 
+node /^jenkins-deb-node.*/ {
+  sudo::conf { 'vagrant':
+    content => 'vagrant ALL=(ALL) NOPASSWD: ALL',
+  }
+
+  class { 'profiles::jenkins::node':
+    swap_size_mb => 0,
+    unittests    => false,
+  }
+}
+
 node /^web.*/ {
   class { 'profiles::web':
     https => false,
