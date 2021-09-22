@@ -62,14 +62,6 @@ class slave::unittests(
       ensure => present;
     $libvirt_dev:
       ensure => present;
-    'asciidoc':
-      ensure => present;
-    'bzip2':
-      ensure => present;
-    'unzip':
-      ensure => present;
-    'ansible':
-      ensure => latest;
     $libcurl_dev:
       ensure => present;
     $sqlite3_dev:
