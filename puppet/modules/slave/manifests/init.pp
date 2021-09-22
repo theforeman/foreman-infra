@@ -6,8 +6,7 @@ class slave (
   Boolean $unittests = true,
   Boolean $packaging = true,
 ) {
-  # Java
-  include slave::java
+  include java
 
   include git
 
