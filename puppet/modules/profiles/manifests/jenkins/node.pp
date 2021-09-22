@@ -6,12 +6,22 @@
 #
 # @param swap_size_mb
 #   The swap file size in MBs. Will be unmanaged if set to 0
+#
+# @param unittests
+#   Should the node be able to run unittests
+#
+# @param packaging
+#   Should the node be able to run packaging jobs
 class profiles::jenkins::node(
   Optional[String[1]] $koji_certificate = undef,
   Integer[0] $swap_size_mb = 8192,
+  Boolean $unittests = true,
+  Boolean $packaging = true,
 ) {
   class { 'slave':
     koji_certificate => $koji_certificate,
+    unittests        => $unittests,
+    packaging        => $packaging,
   }
 
   if $swap_size_mb > 0 {
