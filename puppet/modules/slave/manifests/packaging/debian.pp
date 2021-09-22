@@ -10,17 +10,23 @@ class slave::packaging::debian(
     ensure => present,
   }
 
-  ensure_packages(['python-pip', 'python-setuptools'])
+  if $facts['os']['name'] == 'Debian' and versioncmp($facts['os']['release']['major'], '11') >= 0 {
+    ensure_packages(['python3-pip', 'python3-setuptools'])
+  } else {
+    ensure_packages(['python-pip', 'python-setuptools'])
+  }
 
-  include apt::backports
+  if $facts['os']['name'] == 'Debian' and $facts['os']['release']['major'] == '10' {
+    include apt::backports
 
-  Class['Apt::Backports'] ->
-  apt::pin { 'debootstrap':
-    packages => 'debootstrap',
-    priority => 500,
-    release  => 'buster-backports',
-  } ->
-  Class['Pbuilder::Common']
+    Class['Apt::Backports'] ->
+    apt::pin { 'debootstrap':
+      packages => 'debootstrap',
+      priority => 500,
+      release  => 'buster-backports',
+    } ->
+    Class['Pbuilder::Common']
+  }
 
   slave::pbuilder_setup {
     'bionic64':
