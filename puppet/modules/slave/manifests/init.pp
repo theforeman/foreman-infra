@@ -3,6 +3,7 @@ class slave (
   Boolean $uploader                     = true,
   Stdlib::Absolutepath $homedir         = '/home/jenkins',
   Stdlib::Absolutepath $workspace       = '/home/jenkins/workspace',
+  Boolean $packaging = true,
 ) {
   $is_el8 = $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8'
 
@@ -135,16 +136,6 @@ class slave (
     }
   }
 
-  # CLI JSON parser
-  package { 'jq':
-    ensure => installed,
-  }
-
-  # Old bash JSON parser
-  file { '/usr/local/bin/JSON.sh':
-    ensure => absent,
-  }
-
   # nodejs/npm for JavaScript tests
   if $facts['os']['family'] == 'RedHat' {
     class { 'nodejs':
@@ -245,23 +236,13 @@ class slave (
   include slave::rvm
 
   # Packaging
-  case $facts['os']['family'] {
-    'RedHat': {
-      class { 'slave::packaging::rpm':
-        homedir          => $homedir,
-        koji_certificate => $koji_certificate,
-      }
-      contain slave::packaging::rpm
+  if $packaging {
+    class {'slave::packaging':
+      koji_certificate => $koji_certificate,
+      uploader         => $uploader,
+      homedir          => $homedir,
+      workspace        => $workspace,
     }
-    'Debian': {
-      class { 'slave::packaging::debian':
-        uploader  => $uploader,
-        user      => 'jenkins',
-        workspace => $workspace,
-      }
-      contain slave::packaging::debian
-    }
-    default: {}
   }
 
   if $facts['os']['architecture'] in ['x86_64', 'amd64'] and !$facts['os']['release']['major'] == '8' {
