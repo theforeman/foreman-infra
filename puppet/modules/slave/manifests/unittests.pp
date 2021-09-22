@@ -140,10 +140,6 @@ class slave::unittests(
   # Databases
   include slave::mysql
   include slave::postgresql
-  # sqlite3 support was dropped in Foreman 2.1
-  slave::db_config { 'sqlite3':
-    ensure => absent,
-  }
 
   # RVM
   include slave::rvm
