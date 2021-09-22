@@ -264,7 +264,7 @@ class slave (
     default: {}
   }
 
-  if $facts['os']['architecture'] in ['x86_64', 'amd64'] and !$is_el8 {
+  if $facts['os']['architecture'] in ['x86_64', 'amd64'] and !$facts['os']['release']['major'] == '8' {
     include slave::docker
   }
 

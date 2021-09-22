@@ -19,11 +19,10 @@ class slave::docker {
     use_upstream_package_source => false,
     service_overrides_template  => false,
     docker_ce_package_name      => $docker_ce_package_name,
+    ensure                      => absent,
   }
 
   group { 'docker':
-    ensure => 'present',
+    ensure => 'absent',
   }
-
-  User<|title == 'jenkins'|>{groups +> ['docker']}
 }
