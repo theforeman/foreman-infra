@@ -29,6 +29,26 @@ describe 'slave' do
           it { is_expected.to contain_file('/etc/pbuilder/buster64/hooks/F99printrepos').with_ensure('present') }
         end
       end
+
+      context "packaging only node" do
+        let(:params) do
+          {uploader: false, packaging: true, unittests: false}
+        end
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_class('slave::packaging') }
+        it { is_expected.not_to contain_class('slave::rvm') }
+        it { is_expected.to contain_package('jq') }
+      end
+
+      context "unittest only node" do
+        let(:params) do
+          {uploader: false, packaging: false, unittests: true}
+        end
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.not_to contain_class('slave::packaging') }
+        it { is_expected.to contain_class('slave::rvm') }
+        it { is_expected.to contain_class('slave::postgresql') }
+      end
     end
   end
 end
