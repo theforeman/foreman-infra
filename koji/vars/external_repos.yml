@@ -35,6 +35,8 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/postgres12/
   - name: flat-ruby27-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/ruby:2.7/
+  - name: flat-swig30-el8
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/swig:3.0/
   - name: flat-perl26-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/perl:5.26/
   - name: flat-base-el8
