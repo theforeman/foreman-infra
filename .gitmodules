@@ -1,9 +1,6 @@
 [submodule "puppet/git_modules/rvm"]
 	path = puppet/git_modules/rvm
 	url = https://github.com/maestrodev/puppet-rvm.git
-[submodule "puppet/git_modules/ssh_statickeys"]
-	path = puppet/git_modules/ssh_statickeys
-	url = https://github.com/GregSutcliffe/puppet-ssh_statickeys
 [submodule "puppet/git_modules/dirvish"]
 	path = puppet/git_modules/dirvish
 	url = https://github.com/GregSutcliffe/puppet-dirvish
