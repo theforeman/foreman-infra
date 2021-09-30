@@ -1,31 +1,27 @@
-# Trivial class to include the dirvish keys on the clients
+# @summary Include Dirvish keys on a client
 #
-# Requires that /root/.ssh/authorized_keys is present
-#
+# @param pre_script
+#   An optional pre_client script. If not specified, the template is rendered
+# @param pre_template
+#   The ERB template to render for the pre_client hook
+# @param declare_rsync
+#   Whether to ensure rsync is installed or not
 class dirvish::client (
-  $pre_script    = 'undef',
-  $pre_template  = 'undef',
-  $declare_rsync = true
+  Optional[String] $pre_script = undef,
+  String[1] $pre_template  = 'dirvish/pre_client.sh.erb',
+  Boolean $declare_rsync = true,
 ) {
-
   # Read the dirvish key from the puppetmaster
-  $pub_key  = ssh_keygen({name => 'dirvish_key', public => 'true'})
+  $pub_key = ssh_keygen({name => 'dirvish_key', public => 'true'})
 
-  file_line { 'dirvish_ssh_pubkey':
+  ssh_authorized_key { 'dirvish_key':
     ensure => present,
-    path   => '/root/.ssh/authorized_keys',
-    line   => "ssh-rsa ${pub_key} dirvish_key",
+    user   => 'root',
+    type   => 'ssh-rsa',
+    key    => $pub_key,
   }
 
-  $template_content = $pre_template ? {
-    'undef' => template('dirvish/pre_client.sh.erb'),
-    default => template($pre_template),
-  }
-
-  $content = $pre_script ? {
-    'undef' => $template_content,
-    default => $pre_script,
-  }
+  $content = pick($pre_script, template($pre_template))
 
   # Basic pre-run script
   file { '/etc/dirvish':
@@ -35,6 +31,7 @@ class dirvish::client (
     mode   => '0755',
   }
   file { '/etc/dirvish/pre_client':
+    ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
@@ -45,5 +42,4 @@ class dirvish::client (
   if $declare_rsync {
     ensure_packages(['rsync'])
   }
-
 }
