@@ -1,12 +1,3 @@
-[submodule "puppet/git_modules/rvm"]
-	path = puppet/git_modules/rvm
-	url = https://github.com/maestrodev/puppet-rvm.git
-[submodule "puppet/git_modules/dirvish"]
-	path = puppet/git_modules/dirvish
-	url = https://github.com/GregSutcliffe/puppet-dirvish
-[submodule "puppet/git_modules/external_ip"]
-	path = puppet/git_modules/external_ip
-	url = https://github.com/nightfly19/puppet-external_ip
 [submodule "ansible/roles/Jimdo.fastly"]
 	path = ansible/roles/Jimdo.fastly
 	url = https://github.com/evgeni/ansible-fastly

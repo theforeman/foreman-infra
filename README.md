@@ -17,11 +17,8 @@ This repo contains puppet modules that are used to manage infrastructure used by
 ### Puppet module directories
 The `puppet` folder contains the following directories for Puppet modules:
 
-#### `forge_modules`
-Modules straight from the [Puppet Forge](https://forge.puppet.com).
-
-#### `git_modules`
-Modules from other git repositories, not available from the Forge, this should be avoided, especially for new modules.
+#### `external_modules`
+Externally maintained modules. Preferably straight from the [Puppet Forge](https://forge.puppet.com) but potentially via git.
 
 #### `modules`
 Our own custom modules, relevant only in this particular repository for this particular setup.

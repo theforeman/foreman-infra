@@ -26,7 +26,7 @@ jobs:
           wget https://github.com/xorpaul/g10k/releases/download/v0.8.9/g10k-linux-amd64.zip
           unzip g10k-linux-amd64.zip
       - name: Install modules using g10k
-        run: ./g10k -cachedir .g10k/cache -puppetfile -puppetfilelocation Puppetfile_forge -moduledir forge_modules
+        run: ./g10k -cachedir .g10k/cache -puppetfile
       - name: Run syntax
         run: bundle exec rake syntax
       - name: Run lint
