@@ -15,7 +15,7 @@
 class profiles::jenkins::node(
   Optional[String[1]] $koji_certificate = undef,
   Integer[0] $swap_size_mb = 8192,
-  Boolean $unittests = true,
+  Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
   class { 'slave':
