@@ -23,7 +23,7 @@ end
 base_dir = File.dirname(File.expand_path(__dir__))
 
 RSpec.configure do |c|
-  c.module_path     = [File.join(base_dir, 'modules'), File.join(base_dir, 'git_modules'), File.join(base_dir, 'forge_modules'), File.join(base_dir, 'test_modules')].join(File::PATH_SEPARATOR)
+  c.module_path     = [File.join(base_dir, 'modules'), File.join(base_dir, 'external_modules'), File.join(base_dir, 'test_modules')].join(File::PATH_SEPARATOR)
   c.manifest_dir    = File.join(base_dir, 'manifests')
   c.manifest        = File.join(base_dir, 'manifests', 'site.pp')
   c.environmentpath = base_dir
