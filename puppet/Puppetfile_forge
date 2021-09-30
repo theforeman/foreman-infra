@@ -2,6 +2,7 @@ moduledir 'forge_modules'
 
 mod 'camptocamp/pbuilder', '0.1.11'
 mod 'camptocamp/systemd', '2.9.0'
+mod 'citrin/htpasswd', '1.0.1'
 mod 'claranet/timezone', '2.0.1'
 mod 'golja/gnupg', '1.2.3'
 mod 'herculesteam/augeasproviders_core', '2.6.0'

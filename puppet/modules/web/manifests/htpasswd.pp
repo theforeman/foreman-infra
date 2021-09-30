@@ -8,6 +8,6 @@ define web::htpasswd(
   htpasswd { $name:
     ensure      => present,
     target      => "/var/www/vhosts/${vhost}/htpasswd",
-    cryptpasswd => ht_crypt($passwd, $_salt),
+    cryptpasswd => htpasswd::ht_crypt($passwd, $_salt),
   }
 }

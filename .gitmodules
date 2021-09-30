@@ -10,9 +10,6 @@
 [submodule "puppet/git_modules/external_ip"]
 	path = puppet/git_modules/external_ip
 	url = https://github.com/nightfly19/puppet-external_ip
-[submodule "puppet/git_modules/htpasswd"]
-	path = puppet/git_modules/htpasswd
-	url = https://github.com/ghoneycutt/puppet-htpasswd
 [submodule "ansible/roles/Jimdo.fastly"]
 	path = ansible/roles/Jimdo.fastly
 	url = https://github.com/evgeni/ansible-fastly
