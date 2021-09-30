@@ -1,0 +1,24 @@
+{
+  "name": "theforeman-dirvish",
+  "version": "0.1.0",
+  "author": "theforeman",
+  "summary": "",
+  "license": "GPL-3.0",
+  "source": "https://github.com/theforeman/foreman-infra",
+  "project_page": "https://github.com/theforeman/foreman-infra",
+  "issues_url": "https://github.com/theforeman/foreman-infra/issues",
+  "description": "Module for configuring Dirvish",
+  "tags": [
+    "dirvish"
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.25.0"
+    }
+  ],
+  "requirements": [
+  ],
+  "operatingsystem_support": [
+  ]
+}

@@ -1,0 +1,24 @@
+client: <%= @client %>
+tree: <%= @tree %>
+
+xdev: true
+index: gzip
+image-default: %Y%m%d
+
+rsh: ssh -oStrictHostKeyChecking=no -i<%= scope.lookupvar('::dirvish::backup_location') %>/ssh/dirvish_key
+
+<% if @preclient -%>
+pre-client: /etc/dirvish/pre_client
+
+<% end -%>
+<% unless @expire_rules.empty? -%>
+expire-rule:
+  <%= @expire_rules.join("\n  ") %>
+<% end -%>
+
+expire-default: <%= @expire_default %>
+
+<% unless @excludes.empty? -%>
+exclude:
+  <%= @excludes.join("\n  ") %>
+<% end -%>

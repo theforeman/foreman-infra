@@ -1,0 +1,17 @@
+bank:
+  <%= scope.lookupvar('::dirvish::backup_location') %>
+
+exclude:
+  lost+found/
+  *~
+  .nfs*
+
+expire-default: +15 days
+<% if scope.lookupvar('::dirvish::symlink_latest') -%>
+post-server: /etc/dirvish/post-server
+<% end -%>
+
+Runall:
+<% scope.lookupvar('::dirvish::vaults').keys.sort.each do |vault| -%>
+  <%= vault %>
+<% end -%>

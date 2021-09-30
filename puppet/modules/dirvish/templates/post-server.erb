@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Dirvish Post-Server Script: starting"
+
+if [[ $DIRVISH_STATUS == "success" ]]; then
+  vault=`echo $DIRVISH_IMAGE | cut -f1 -d:`
+  image=`echo $DIRVISH_IMAGE | cut -f3 -d:`
+
+  echo "Dirvish Post-Server Script: linking $image->latest in $vault"
+  cd <%= scope.lookupvar('::dirvish::backup_location') %>/$vault/ && ln -snf $image latest
+else
+  echo "Dirvish Post-Server Script: backup not successful, not updating link"
+fi
+
+echo "Dirvish Post-Server Script: complete"
