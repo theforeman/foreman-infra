@@ -1,8 +1,4 @@
 class ssh {
-  file { '/root/.ssh/authorized_keys':
-    ensure => file,
-  }
-
   $ssh_service = $facts['os']['family'] ? {
     'RedHat' => 'sshd',
     default  => 'ssh',
