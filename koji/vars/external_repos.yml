@@ -45,8 +45,6 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/ruby:2.5/
   - name: flat-python36-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python36:3.6/
-  - name: flat-python36-devel-el8
-    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python36-devel:3.6/
   - name: flat-python38-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python38:3.8/
   - name: flat-python38-devel-el8
