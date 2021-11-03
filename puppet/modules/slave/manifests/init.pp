@@ -64,6 +64,8 @@ class slave (
       ensure => present;
     'bzip2':
       ensure => present;
+    'curl':
+      ensure => present;
     'unzip':
       ensure => present;
     'ansible':
