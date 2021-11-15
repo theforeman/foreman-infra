@@ -373,6 +373,22 @@ def run_mashes(collection, git_tag, mashes):
                        mash_config.compses, git_tag)
 
 
+def get_foreman_version(katello_version):
+    branch_map = {
+        'nightly': 'develop',
+        '4.1': '2.5',
+        '4.0': '2.4',
+        '3.18': '2.3',
+    }
+
+    try:
+        return branch_map[katello_version]
+    except KeyError:
+        major, minor = map(int, katello_version.split('.', 1))
+        # Katello (4 + x).(2 + y) -> Foreman (3 + x).(0 + y)
+        return "{}.{}".format(major - 1, minor - 2)
+
+
 def main():
     try:
         collection = sys.argv[1]
@@ -417,15 +433,7 @@ def main():
 
         mashes = [MashConfig(collection, version, dist, dist, code) for dist, code in dists.items()]
     elif collection == 'katello':
-        branch_map = {
-            'nightly': 'develop',
-            '4.2': '3.0',
-            '4.1': '2.5',
-            '4.0': '2.4',
-            '3.18': '2.3',
-        }
-
-        git_tag = "rpm/{}".format(branch_map[version])
+        git_tag = "rpm/{}".format(get_foreman_version(version))
 
         mash_config_candlepin = MashConfig(collection, version, "thirdparty-candlepin-rhel7",
                                            "candlepin-server-rhel7", "candlepin/el7")
