@@ -26,7 +26,7 @@ external_repos:
   - name: test-flat-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001/
   - name: centos8-devel
-    url: http://mirror.centos.org/centos/8/Devel/$arch/os/
+    url: https://vault.centos.org/8.4.2105/Devel/$arch/os/
   - name: centos8-configmanagement-ansible-29
     url: http://mirror.centos.org/centos/8/configmanagement/$arch/ansible-29/
   - name: centos8-powertools
