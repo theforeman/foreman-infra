@@ -89,4 +89,20 @@ class web::vhost::web(
       script_content => file('web/rsync.sh'),
     }
   }
+
+  # Generate RSS stats
+  file { '/var/log/rss-stat':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0750',
+  }
+
+  file { '/etc/cron.weekly/rss-stat':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => file('web/rss-stat.sh'),
+  }
 }
