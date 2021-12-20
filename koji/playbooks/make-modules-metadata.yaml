@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Collect RPM names
+      # The epoch number in the NEVRA string is mandatory per spec
+      # https://github.com/fedora-modularity/libmodulemd/blob/main/yaml_specs/modulemd_stream_v2.yaml#L668
+      # So we can't just use `%{nevra}` here
+      command: "rpm --query --package {{ repository_path }}/*rpm --queryformat='%{name}-%{epochnum}:%{version}-%{release}.%{arch}\n'"
+      register: rpm_names
+
+    - name: Split RPM names into list
+      set_fact:
+        rpm_list: "{{ rpm_names.stdout_lines }}"
+
+    - name: Read base modules file
+      set_fact:
+        modules: "{{ lookup('file', modules_base) | from_yaml }}"
+
+    - name: Get current date for metadata version
+      set_fact:
+        version: "{{ lookup('pipe', 'date --universal +%Y%m%d%H%M%S') }}"
+
+    - name: Add RPM list to modules
+      set_fact:
+        modules: "{{ modules | combine({'data': {'artifacts': {'rpms': rpm_list}, 'version': (version|int)}}, recursive=True) }}"
+
+    - name: Write modules.yaml
+      copy:
+        dest: "{{ modules_output_path }}/modules.yaml"
+        content: "{{ modules | to_nice_yaml }}"

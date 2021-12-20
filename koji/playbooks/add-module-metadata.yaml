@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Run modifyrepo_c to add module metadata
+      command: "modifyrepo_c --mdtype=modules {{ modules_metadata }} {{ repository_path }}/repodata"
