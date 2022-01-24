@@ -19,6 +19,8 @@ import kobo.shortcuts
 import kobo.rpmlib
 from kobo.hardlink import Hardlink
 
+import yaml
+
 import kobo.tback
 kobo.tback.set_except_hook()
 
@@ -30,15 +32,21 @@ CONFIG = {
     "info_log": "/mnt/koji/mash/logs/%(date)s.log",
     "mash_log": "/mnt/koji/mash/logs/%(date)s-mash.log",
     "koji_url": "http://localhost/kojihub",
+    "modulemd_baseloc": "%(tag)s:modulemd",
 }
 
 
 class MashConfig(object):
-    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, extras=None):
+    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, extras=None, modulemd_suffix=None, modulemd_version=0):
         self.name = "{}-{}-{}".format(collection, version, name_suffix)
         self.comps_name = "comps-{}-{}.xml".format(collection, comps_suffix)
         self.comps_path = "{}-{}/{}".format(collection, version, comps_directory)
         self.extras = extras or []
+        if modulemd_suffix is not None:
+            self.modulemd_yaml = "modulemd-{}-{}.yaml".format(collection, modulemd_suffix)
+        else:
+            self.modulemd_yaml = None
+        self.modulemd_version = modulemd_version
 
     @property
     def compses(self):
@@ -157,6 +165,33 @@ class MashSplit(object):
         if checksum:
             cmd += "--checksum %s " % checksum
         cmd += path
+        self.logger.debug("running %s" % cmd)
+        kobo.shortcuts.run(cmd)
+
+    def inject_modulemd_yml(self, path, modulemd_yaml, modulemd_version=0):
+        """Generate modular metadata and inject it.
+
+        @param path: path to repository
+        @type path: str
+        @param modulemd_yaml: metadata template
+        @type modulemd_yaml: str
+        @param modulemd_version: the version that should be used in the metadata
+        @type modulemd_version: int
+        """
+        # The epoch number in the NEVRA string is mandatory per spec
+        # https://github.com/fedora-modularity/libmodulemd/blob/main/yaml_specs/modulemd_stream_v2.yaml#L668
+        # So we can't just use `%{nevra}` here
+        cmd = "rpm --query --package {}/*rpm".format(path)
+        cmd += " --queryformat='%{name}-%{epochnum}:%{version}-%{release}.%{arch}\n'"
+        self.logger.debug("running %s" % cmd)
+        status, output = kobo.shortcuts.run(cmd)
+        with open(modulemd_yaml) as modulemd_file:
+            modules = yaml.safe_load(modulemd_file)
+        modules['data']['artifacts'] = {'rpms': output.splitlines()}
+        modules['data']['version'] = modulemd_version
+        with open(modulemd_yaml, 'w') as modulemd_file:
+            yaml.dump(modules, modulemd_file, default_flow_style=False)
+        cmd = "modifyrepo_c --mdtype=modules {} {}/repodata".format(modulemd_yaml, path)
         self.logger.debug("running %s" % cmd)
         kobo.shortcuts.run(cmd)
 
@@ -282,7 +317,7 @@ class MashSplit(object):
                 self.download_extras(extras_cache_path, extras_repo_path, [line.rstrip() for line in f.readlines()])
 
     def handle_comps(self, whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag,
-                     checksum=None):
+                     checksum=None, modulemd_yaml=None, modulemd_version=0):
         """Run the mash, get comps from git and split the repo according to comps.
 
         @param whole_path: path to mash whole repo into
@@ -307,6 +342,8 @@ class MashSplit(object):
         comps_baseloc = CONFIG["comps_baseloc"] % dict(tag=git_tag)
         comps_path = CONFIG["comps_path"]
 
+        modulemd_baseloc = CONFIG["modulemd_baseloc"] % dict(tag=git_tag)
+
         all_from_comps = set()
         for comps, output_path in compses.items():
             comps = self.get_from_git(gitloc, comps_baseloc, comps, comps_path)
@@ -324,6 +361,9 @@ class MashSplit(object):
                 source = os.path.join(whole_path, mash_config, arch, "os", "Packages")
                 copied.update(self.copyout(comps_pkg_names, source, tmp_target))
                 self.createrepo(tmp_target, comps, checksum=checksum)
+                if modulemd_yaml:
+                    modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml, tmp_target)
+                    self.inject_modulemd_yml(tmp_target, modulemd, modulemd_version)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
                     os.makedirs(rpm_target)
@@ -372,7 +412,19 @@ def run_mashes(collection, git_tag, mashes):
         for extra in mash_config.extras:
             s.handle_extras(whole_path, mash_config.name, arches, extra, extras_path, git_tag)
         s.handle_comps(whole_path, tmp_path, split_path, mash_config.name, arches,
-                       mash_config.compses, git_tag)
+                       mash_config.compses, git_tag, modulemd_yaml=mash_config.modulemd_yaml,
+                       modulemd_version=mash_config.modulemd_version)
+
+def generate_modulemd_version(version):
+    if version == 'nightly':
+        modulemd_version_prefix = '9999'
+    else:
+        major, minor = version.split('.')
+        modulemd_version_prefix = int(major)*100 + int(minor)
+
+    modulemd_version_string = time.strftime("{}%Y%m%d%H%M%S".format(modulemd_version_prefix), time.gmtime())
+
+    return int(modulemd_version_string)
 
 
 def main():
@@ -386,6 +438,8 @@ def main():
     except IndexError:
         version = "nightly"
 
+    modulemd_version = generate_modulemd_version(version)
+
     if collection in ("foreman", "foreman-plugins"):
         if version == "nightly":
             git_tag = "rpm/develop"
@@ -396,7 +450,11 @@ def main():
         extras = []
 
         mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
-        mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8"))
+        if collection == 'foreman' and version not in ('3.1', '3.0', '2.5'):
+            modulemd_suffix = 'el8'
+        else:
+            modulemd_suffix = None
+        mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version))
 
     elif collection == "foreman-client":
         dists = {
@@ -440,9 +498,14 @@ def main():
         el8_candlepin = MashConfig(collection, version, "candlepin-el8", "candlepin-el8", "candlepin/el8")
         el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
 
+        if version not in ('4.2', '4.1', '4.0'):
+            modulemd_suffix = 'el8'
+        else:
+            modulemd_suffix = None
+
         mashes = [
             MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"),
-            MashConfig(collection, version, "el8", "el8", "katello/el8"),
+            MashConfig(collection, version, "el8", "el8", "katello/el8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version),
             mash_config_candlepin,
             el8_candlepin,
         ]
