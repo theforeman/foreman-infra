@@ -38,11 +38,10 @@ CONFIG = {
 
 
 class MashConfig(object):
-    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, extras=None, modulemd_suffix=None, modulemd_version=0):
+    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, modulemd_suffix=None, modulemd_version=0):
         self.name = "{}-{}-{}".format(collection, version, name_suffix)
         self.comps_name = "comps-{}-{}.xml".format(collection, comps_suffix)
         self.comps_path = "{}-{}/{}".format(collection, version, comps_directory)
-        self.extras = extras or []
         if modulemd_suffix is not None:
             self.modulemd_yaml = "modulemd-{}-{}.yaml".format(collection, modulemd_suffix)
         else:
@@ -120,33 +119,6 @@ class MashSplit(object):
                 self.mash_logger.info(line)
             if status == 0:
                 break
-
-    def download_extras(self, cache_path, path, urls):
-        """Downloads extra RPMs into a repo
-
-        @param cache_path: extras cache path
-        @type cache_path: str
-        @param path: output path
-        @type path: str
-        @param urls: list of URLs to download
-        @type urls: list
-        """
-        _hardlink = Hardlink(test=False)
-        if not os.path.exists(cache_path):
-            os.makedirs(cache_path)
-
-        for url in urls:
-            self.logger.info("downloading %s" % url)
-            basename = os.path.basename(url)
-            cache_file = os.path.join(cache_path, basename)
-
-            cmd = "/usr/bin/wget -nc -O %s %s" % (cache_file, url)
-            self.logger.debug("running %s" % cmd)
-            status, output = kobo.shortcuts.run(cmd, can_fail=True)
-            for line in output.splitlines():
-                self.logger.debug("extras wget: %s" % line)
-
-            _hardlink(cache_file, os.path.join(path, basename))
 
     def createrepo(self, path, comps=None, checksum=None):
         """Run createrepo.
@@ -286,32 +258,6 @@ class MashSplit(object):
             self.logger.warning("No build for package %s in package listing for tag %s" % (pkg, tag))
         return
 
-    def handle_extras(self, whole_path, mash_config, arches, extras, extras_path, git_tag):
-        """Run the mash, get comps from git and split the repo according to comps.
-
-        @param whole_path: path to mash whole repo into
-        @type whole_path: str
-        @param mash_config: name of configuration for mash
-        @type mash_config: str
-        @param arches: list of arches (e.g. i386 and x86_64)
-        @type arches: list
-        @param extras: extras file name prefix (minus "-x86_64")
-        @type extras: str
-        @param extras_path: path for cached (signed) extra files
-        @type extras_path: str
-        @param git_tag: git tag to fetch the comps from (e.g. HEAD)
-        @type git_tag: str
-        """
-        gitloc = CONFIG["gitloc"]
-
-        extras_baseloc = CONFIG["extras_baseloc"] % dict(tag=git_tag)
-        extras_git_path = CONFIG["extras_path"]
-        for arch in arches:
-            extras_cache_path = os.path.join(extras_path, mash_config, arch)
-            extras_repo_path = os.path.join(whole_path, mash_config, arch, "os", "Packages")
-            extras_file = self.get_from_git(gitloc, extras_baseloc, extras + '-' + arch)
-            self.download_extras(extras_cache_path, extras_repo_path, extras_file.splitlines())
-
     def handle_comps(self, whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag,
                      checksum=None, modulemd_yaml=None, modulemd_version=0):
         """Run the mash, get comps from git and split the repo according to comps.
@@ -400,13 +346,10 @@ def run_mashes(collection, git_tag, mashes):
     whole_path = "/mnt/koji/releases/whole"
     tmp_path = "/mnt/koji/releases/tmp"
     split_path = "/mnt/koji/releases/split"
-    extras_path = "/mnt/koji/releases/extras"
 
     s = MashSplit(log_file)
     for mash_config in mashes:
         s.run_mash(whole_path, mash_config.name)
-        for extra in mash_config.extras:
-            s.handle_extras(whole_path, mash_config.name, arches, extra, extras_path, git_tag)
         s.handle_comps(whole_path, tmp_path, split_path, mash_config.name, arches,
                        mash_config.compses, git_tag, modulemd_yaml=mash_config.modulemd_yaml,
                        modulemd_version=mash_config.modulemd_version)
@@ -443,9 +386,8 @@ def main():
             git_tag = "rpm/{}".format(version)
 
         CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
-        extras = []
 
-        mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7", extras)]
+        mashes = [MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7")]
         if collection == 'foreman' and version not in ('3.1', '3.0', '2.5'):
             modulemd_suffix = 'el8'
         else:
