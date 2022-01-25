@@ -403,9 +403,6 @@ def main():
         if LooseVersion(version) < LooseVersion("3.0"):
             dists["rhel6"] = "el6"
 
-        if LooseVersion(version) < LooseVersion("2.3"):
-            dists["rhel5"] = "el5"
-
         if version == "nightly":
             git_tag = "rpm/develop"
         else:
@@ -419,8 +416,6 @@ def main():
             '4.3': '3.1',
             '4.2': '3.0',
             '4.1': '2.5',
-            '4.0': '2.4',
-            '3.18': '2.3',
         }
 
         git_tag = "rpm/{}".format(branch_map[version])
@@ -435,7 +430,7 @@ def main():
         el8_candlepin = MashConfig(collection, version, "candlepin-el8", "candlepin-el8", "candlepin/el8")
         el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
 
-        if version not in ('4.2', '4.1', '4.0'):
+        if version not in ('4.3', '4.2', '4.1'):
             modulemd_suffix = 'el8'
         else:
             modulemd_suffix = None
