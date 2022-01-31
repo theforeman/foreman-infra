@@ -20,17 +20,17 @@ external_repos:
     url: http://mirror.centos.org/centos/7/updates/x86_64/
   # EL8 repositories
   - name: centos8-baseos
-    url: http://mirror.centos.org/centos/8/BaseOS/$arch/os/
+    url: http://vault.centos.org/centos/8/BaseOS/$arch/os/
   - name: centos8-appstream
-    url: http://mirror.centos.org/centos/8/AppStream/$arch/os/
+    url: http://vault.centos.org/centos/8/AppStream/$arch/os/
   - name: test-flat-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001/
   - name: centos8-devel
     url: https://vault.centos.org/8.4.2105/Devel/$arch/os/
   - name: centos8-configmanagement-ansible-29
-    url: http://mirror.centos.org/centos/8/configmanagement/$arch/ansible-29/
+    url: http://vault.centos.org/centos/8/configmanagement/$arch/ansible-29/
   - name: centos8-powertools
-    url: http://mirror.centos.org/centos/8/PowerTools/$arch/os/
+    url: http://vault.centos.org/centos/8/PowerTools/$arch/os/
   - name: el8postgres12
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/postgres12/
   - name: flat-ruby27-el8
