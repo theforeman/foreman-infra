@@ -14,7 +14,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 |---|---|
 | [Jenkins](./docs/jenkins.md) | OSUOSL |
 | [Koji](./docs/koji.md) | AWS |
-| [Jenkins Nodes](./docs/jenkins.md)  | OSUOSL / AWS |
+| [Jenkins Nodes](./docs/jenkins.md)  | OSUOSL / AWS / Conova |
 
 ## Infrastructure providers
 
@@ -47,4 +47,7 @@ A list of the hosting we have, who provides it, and what capacity it has
 * CentOS
   * Sponsored
   * Provides Jenkins and bare metal hardware for running pipeline testing
-
+* Conova
+  * Sponsored
+  * 1 HP Proliant machine (24 core, 64 GB RAM, 2×1TB SSD), incl power and network
+  * Running libvirt and two Jenkins nodes on top of that
