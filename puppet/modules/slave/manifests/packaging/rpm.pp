@@ -24,10 +24,6 @@ class slave::packaging::rpm (
     group  => 'jenkins',
   }
 
-  file { "${homedir}/bin/kkoji":
-    ensure => absent,
-  }
-
   file { "${homedir}/.koji":
     ensure => directory,
     owner  => 'jenkins',
