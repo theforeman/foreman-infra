@@ -11,7 +11,6 @@ import difflib
 import time
 import re
 import sys
-import StringIO
 from distutils.version import LooseVersion
 
 import koji
@@ -78,7 +77,9 @@ class MashSplit(object):
         @type baseloc: str
         @param filename: file name
         @type filename: str
-        @return: file contents
+        @param finalloc: local destination directory
+        @type finalloc: str
+        @return: output file name
         @rtype: str
         """
         if not os.path.exists(finalloc):
@@ -89,14 +90,16 @@ class MashSplit(object):
             clone_cmd = "git clone %s %s" % (gitloc, workdir)
             kobo.shortcuts.run(clone_cmd, workdir="/mnt/tmp/gitrepo/", can_fail=True)
         final_fn = os.path.join(os.path.realpath(finalloc), filename)
-        cmd = "git fetch && git show remotes/origin/%s/%s" % (baseloc, filename)
+        cmd = "git fetch && git archive remotes/origin/%s %s | tar -C %s -x -f -" % (baseloc, filename, finalloc)
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd, workdir=workdir, can_fail=True)
         if status != 0:
             err_msg = "Could not download %s/%s/%s." % (gitloc, baseloc, filename)
             self.logger.error(err_msg)
             raise SystemExit(err_msg)
-        return output
+        if not os.path.exists(final_fn):
+            self.logger.error("File %s does not exist." % final_fn)
+        return final_fn
 
     def run_mash(self, path, config):
         """Run mash with given config.
@@ -154,13 +157,13 @@ class MashSplit(object):
         cmd += " --queryformat='%{name}-%{epochnum}:%{version}-%{release}.%{arch}\n'"
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd)
-        modules = yaml.safe_load(modulemd_yaml)
+        with open(modulemd_yaml) as modulemd_file:
+            modules = yaml.safe_load(modulemd_file)
         modules['data']['artifacts'] = {'rpms': output.splitlines()}
         modules['data']['version'] = modulemd_version
-        modules_yaml = os.path.join(path, 'repodata', 'modules.yaml')
-        with open(modules_yaml, 'w') as modules_file:
-            yaml.dump(modules, modules_file, default_flow_style=False)
-        cmd = "modifyrepo_c --mdtype=modules {} {}/repodata".format(modules_yaml, path)
+        with open(modulemd_yaml, 'w') as modulemd_file:
+            yaml.dump(modules, modulemd_file, default_flow_style=False)
+        cmd = "modifyrepo_c --mdtype=modules {} {}/repodata".format(modulemd_yaml, path)
         self.logger.debug("running %s" % cmd)
         kobo.shortcuts.run(cmd)
 
@@ -182,13 +185,13 @@ class MashSplit(object):
 
     def list_comps(self, comps):
         """Get list of all package names from comps file
-        @param comps: comps file content
+        @param comps: comps file path
         @type comps: str
         @return: package name
         @rtype: set
         """
         yum_comps = yum.comps.Comps()
-        comps_file = StringIO.StringIO(comps)
+        comps_file = open(comps, "r")
         yum_comps.add(comps_file)
         comps_file.close()
         pkgs = set()
@@ -288,7 +291,7 @@ class MashSplit(object):
 
         all_from_comps = set()
         for comps, output_path in compses.items():
-            comps = self.get_from_git(gitloc, comps_baseloc, comps)
+            comps = self.get_from_git(gitloc, comps_baseloc, comps, comps_path)
             comps_pkg_names = self.list_comps(comps)
             all_from_comps.update(comps_pkg_names)
 
@@ -304,7 +307,7 @@ class MashSplit(object):
                 copied.update(self.copyout(comps_pkg_names, source, tmp_target))
                 self.createrepo(tmp_target, comps, checksum=checksum)
                 if modulemd_yaml:
-                    modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml)
+                    modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml, tmp_target)
                     self.inject_modulemd_yml(tmp_target, modulemd, modulemd_version)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
