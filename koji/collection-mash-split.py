@@ -188,7 +188,9 @@ class MashSplit(object):
         @rtype: set
         """
         yum_comps = yum.comps.Comps()
-        yum_comps.add(StringIO.StringIO(comps))
+        comps_file = StringIO.StringIO(comps)
+        yum_comps.add(comps_file)
+        comps_file.close()
         pkgs = set()
         for group in yum_comps.groups:
             for pkg in group.packages:
