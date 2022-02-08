@@ -8,6 +8,7 @@ import yum.comps
 import logging
 import shutil
 import difflib
+import tempfile
 import time
 import re
 import sys
@@ -69,7 +70,7 @@ class MashSplit(object):
         kobo.log.add_file_logger(self.mash_logger, mash_log, log_level=logging.DEBUG, format="%(message)s")
         self.koji_session = koji.ClientSession(CONFIG["koji_url"])
 
-    def get_from_git(self, gitloc, baseloc, filename, finalloc):
+    def get_from_git(self, gitloc, baseloc, filename):
         """Download a file from remote git repo.
 
         @param gitloc: git repository url (for ex.: git://git.fedorahosted.org)
@@ -81,14 +82,11 @@ class MashSplit(object):
         @return: file contents
         @rtype: str
         """
-        if not os.path.exists(finalloc):
-            os.makedirs(finalloc)
         repo_name = os.path.basename(gitloc)
         workdir = "/mnt/tmp/gitrepo/%s" % repo_name
         if not os.path.exists(workdir):
             clone_cmd = "git clone %s %s" % (gitloc, workdir)
             kobo.shortcuts.run(clone_cmd, workdir="/mnt/tmp/gitrepo/", can_fail=True)
-        final_fn = os.path.join(os.path.realpath(finalloc), filename)
         cmd = "git fetch && git show remotes/origin/%s/%s" % (baseloc, filename)
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd, workdir=workdir, can_fail=True)
@@ -125,17 +123,20 @@ class MashSplit(object):
 
         @param path: path to repository
         @type path: str
-        @param comps: comps file (not mandatory)
+        @param comps: comps file content (not mandatory)
         @type comps: str
         """
-        cmd = "createrepo --pretty --quiet --database "
-        if comps:
-            cmd += "--groupfile %s " % comps
-        if checksum:
-            cmd += "--checksum %s " % checksum
-        cmd += path
-        self.logger.debug("running %s" % cmd)
-        kobo.shortcuts.run(cmd)
+        with tempfile.NamedTemporaryFile() as comps_file:
+            cmd = "createrepo --pretty --quiet --database "
+            if comps:
+                comps_file.write(comps)
+                comps_file.flush()
+                cmd += "--groupfile %s " % comps_file.name
+            if checksum:
+                cmd += "--checksum %s " % checksum
+            cmd += path
+            self.logger.debug("running %s" % cmd)
+            kobo.shortcuts.run(cmd)
 
     def inject_modulemd_yml(self, path, modulemd_yaml, modulemd_version=0):
         """Generate modular metadata and inject it.
