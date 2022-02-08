@@ -69,7 +69,7 @@ class MashSplit(object):
         kobo.log.add_file_logger(self.mash_logger, mash_log, log_level=logging.DEBUG, format="%(message)s")
         self.koji_session = koji.ClientSession(CONFIG["koji_url"])
 
-    def get_from_git(self, gitloc, baseloc, filename, finalloc):
+    def get_from_git(self, gitloc, baseloc, filename, finalloc=None):
         """Download a file from remote git repo.
 
         @param gitloc: git repository url (for ex.: git://git.fedorahosted.org)
@@ -78,17 +78,16 @@ class MashSplit(object):
         @type baseloc: str
         @param filename: file name
         @type filename: str
+        @param finalloc: optional local destination directory
+        @type finalloc: str
         @return: file contents
         @rtype: str
         """
-        if not os.path.exists(finalloc):
-            os.makedirs(finalloc)
         repo_name = os.path.basename(gitloc)
         workdir = "/mnt/tmp/gitrepo/%s" % repo_name
         if not os.path.exists(workdir):
             clone_cmd = "git clone %s %s" % (gitloc, workdir)
             kobo.shortcuts.run(clone_cmd, workdir="/mnt/tmp/gitrepo/", can_fail=True)
-        final_fn = os.path.join(os.path.realpath(finalloc), filename)
         cmd = "git fetch && git show remotes/origin/%s/%s" % (baseloc, filename)
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd, workdir=workdir, can_fail=True)
@@ -96,7 +95,15 @@ class MashSplit(object):
             err_msg = "Could not download %s/%s/%s." % (gitloc, baseloc, filename)
             self.logger.error(err_msg)
             raise SystemExit(err_msg)
-        return output
+        if finalloc is not None:
+            if not os.path.exists(finalloc):
+                os.makedirs(finalloc)
+            final_fn = os.path.join(os.path.realpath(finalloc), filename)
+            with open(final_fn, 'w') as resultfile:
+                resultfile.write(output)
+        else:
+            final_fn = None
+        return output, final_fn
 
     def run_mash(self, path, config):
         """Run mash with given config.
@@ -286,8 +293,8 @@ class MashSplit(object):
 
         all_from_comps = set()
         for comps, output_path in compses.items():
-            comps = self.get_from_git(gitloc, comps_baseloc, comps)
-            comps_pkg_names = self.list_comps(comps)
+            comps_content, comps_file = self.get_from_git(gitloc, comps_baseloc, comps, comps_path)
+            comps_pkg_names = self.list_comps(comps_content)
             all_from_comps.update(comps_pkg_names)
 
             rpm_target = None
@@ -300,9 +307,9 @@ class MashSplit(object):
                     os.makedirs(tmp_target)
                 source = os.path.join(whole_path, mash_config, arch, "os", "Packages")
                 copied.update(self.copyout(comps_pkg_names, source, tmp_target))
-                self.createrepo(tmp_target, comps, checksum=checksum)
+                self.createrepo(tmp_target, comps_file, checksum=checksum)
                 if modulemd_yaml:
-                    modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml)
+                    modulemd, _ = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml)
                     self.inject_modulemd_yml(tmp_target, modulemd, modulemd_version)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
