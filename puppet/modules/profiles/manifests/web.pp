@@ -22,7 +22,7 @@
 #   Set up the SSH receiver setup. Mostly turned off for testing.
 class profiles::web (
   String[1] $stable = '3.1',
-  String[1] $next = '3.2',
+  String[1] $next = '3.3',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
   Integer[0] $rsync_max_connections = 10,
