@@ -151,7 +151,7 @@ class MashSplit(object):
         # The epoch number in the NEVRA string is mandatory per spec
         # https://github.com/fedora-modularity/libmodulemd/blob/main/yaml_specs/modulemd_stream_v2.yaml#L668
         # So we can't just use `%{nevra}` here
-        cmd = "rpm --query --package {}/*rpm".format(path)
+        cmd = "rpm --nosignature --query --package {}/*rpm".format(path)
         cmd += " --queryformat='%{name}-%{epochnum}:%{version}-%{release}.%{arch}\n'"
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd)
