@@ -87,7 +87,10 @@ class MashSplit(object):
         if not os.path.exists(workdir):
             clone_cmd = "git clone %s %s" % (gitloc, workdir)
             kobo.shortcuts.run(clone_cmd, workdir="/mnt/tmp/gitrepo/", can_fail=True)
-        cmd = "git fetch && git show remotes/origin/%s/%s" % (baseloc, filename)
+        cmd = "git fetch"
+        self.logger.debug("running %s" % cmd)
+        kobo.shortcuts.run(cmd, workdir=workdir)
+        cmd = "git show remotes/origin/%s/%s" % (baseloc, filename)
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd, workdir=workdir, can_fail=True)
         if status != 0:
