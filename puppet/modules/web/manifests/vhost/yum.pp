@@ -74,7 +74,7 @@ class web::vhost::yum (
   }
 
   ['releases', 'plugins', 'client'].each |$directory| {
-    file { "${yum_directory}/${directory}":
+    file { ["${yum_directory}/${directory}", "${yum_directory}/${directory}/${stable}"]:
       ensure => directory,
       owner  => $user,
       group  => $user,
@@ -82,21 +82,30 @@ class web::vhost::yum (
     }
 
     file { "${yum_directory}/${directory}/latest":
-      ensure => link,
-      target => $stable,
-      notify => Exec["fastly-purge-${directory}-latest"],
+      ensure  => link,
+      target  => $stable,
+      require => File["${yum_directory}/${directory}/${stable}"],
+      notify  => Exec["fastly-purge-${directory}-latest"],
     }
 
     exec { "fastly-purge-${directory}-latest":
       command     => "fastly-purge-find 'https://${servername}' ${yum_directory} ${directory}/latest/",
       path        => '/bin:/usr/bin:/usr/local/bin',
+      require     => File['/usr/local/bin/fastly-purge-find'],
       refreshonly => true,
     }
+  }
+
+  file { "${yum_directory}/latest":
+    ensure  => link,
+    target  => 'releases/latest',
+    require => File["${yum_directory}/releases/latest"],
   }
 
   exec { 'fastly-purge-root-latest':
     command     => "fastly-purge-find 'https://${servername}' ${yum_directory} latest/",
     path        => '/bin:/usr/bin:/usr/local/bin',
+    require     => File['/usr/local/bin/fastly-purge-find', "${yum_directory}/latest"],
     subscribe   => File["${yum_directory}/releases/latest"],
     refreshonly => true,
   }
