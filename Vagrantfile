@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "4096"
     end
-    config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
+    override.vm.provision "install puppet", type: "shell", inline: <<-SHELL
       . /etc/os-release
       wget https://apt.puppet.com/puppet6-release-${VERSION_CODENAME}.deb
       apt-get install -y ./puppet6-release-${VERSION_CODENAME}.deb
@@ -73,7 +73,7 @@ Vagrant.configure("2") do |config|
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "4096"
     end
-    config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
+    override.vm.provision "install puppet", type: "shell", inline: <<-SHELL
       . /etc/os-release
       wget https://apt.puppet.com/puppet6-release-${VERSION_CODENAME}.deb
       apt-get install -y ./puppet6-release-${VERSION_CODENAME}.deb
