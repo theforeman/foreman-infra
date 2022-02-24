@@ -10,6 +10,14 @@ class awstats (
     'yum',
   ]
 ) {
+  if $facts['os']['name'] == 'CentOS' and $facts['os']['release']['major'] == '8' {
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1925801
+    # powertools provides perl(Switch)
+    yumrepo { 'powertools':
+      enabled => '1',
+      before  => Package['awstats'],
+    }
+  }
 
   package { 'awstats':
     ensure => present,
