@@ -17,7 +17,8 @@ class awstats (
 
   # Use a cron per vhost instead of the one shipped in the package
   file { '/etc/cron.hourly/awstats':
-    ensure => absent,
+    ensure  => absent,
+    require => Package['awstats'],
   }
 
   # Dir for config
@@ -28,6 +29,7 @@ class awstats (
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
+    require => Package['awstats'],
   }
 
   # Dir for output
@@ -38,6 +40,7 @@ class awstats (
     group  => 'root',
   }
 
-  awstats::vhost { $vhosts: }
-
+  awstats::vhost { $vhosts:
+    require => Package['awstats'],
+  }
 }
