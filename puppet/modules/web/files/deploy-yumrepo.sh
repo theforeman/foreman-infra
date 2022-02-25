@@ -47,7 +47,7 @@ do_rsync() {
 			fi
 
 			if [[ $MERGE == true ]] ; then
-				createrepo --skip-symlinks --update .
+				createrepo_c --skip-symlinks --update --keep-all-metadata .
 			fi
 		)
 	done
