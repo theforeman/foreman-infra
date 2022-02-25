@@ -61,6 +61,21 @@ class web::vhost::yum (
     package { 'createrepo':
       ensure => present,
     }
+
+    if $facts['os']['release']['major'] == '7' {
+      yumrepo { 'pulpcore-3.16':
+        descr    => 'pulpcore-3.16',
+        baseurl  => "https://yum.theforeman.org/pulpcore/3.16/el${facts['os']['release']['major']}/x86_64/",
+        enabled  => true,
+        gpgcheck => true,
+        gpgkey   => 'https://yum.theforeman.org/pulpcore/3.16/GPG-RPM-KEY-pulpcore',
+        before   => Package['createrepo_c'],
+      }
+    }
+
+    package { 'createrepo_c':
+      ensure => present,
+    }
   }
 
   ['HEADER.html', 'robots.txt', 'RPM-GPG-KEY-foreman'].each |$filename| {
