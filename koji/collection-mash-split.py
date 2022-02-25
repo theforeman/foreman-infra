@@ -451,9 +451,15 @@ def main():
         CONFIG["gitloc"] = "https://github.com/theforeman/pulpcore-packaging.git"
         git_tag = "rpm/{}".format(version)
 
-        dists = ['el7', 'el8']
+        if LooseVersion(version) >= LooseVersion("3.16"):
+            modulemd_suffix = 'el8'
+        else:
+            modulemd_suffix = None
 
-        mashes = [MashConfig(collection, version, dist, dist, dist) for dist in dists]
+        mashes = [
+            MashConfig(collection, version, 'el7', 'el7', 'el7'),
+            MashConfig(collection, version, 'el8', 'el8', 'el8', modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version)
+        ]
 
     else:
         raise SystemExit("Unknown collection {}".format(collection))
