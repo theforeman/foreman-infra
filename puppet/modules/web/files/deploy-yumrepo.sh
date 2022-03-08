@@ -18,11 +18,10 @@ prepcache() {
 
 do_rsync() {
 	opts=(--archive --verbose --hard-links --log-file "$REPO_RSYNC_LOG")
-	if [[ $MERGE == true ]] ; then
-		opts+=('--exclude=**/repodata/')
-	else
+	if [[ $MERGE != true ]] ; then
 		opts+=('--delete')
 	fi
+
 	rsync "${opts[@]}" --log-file-format 'CHANGED %f' "${REPO_SOURCE_RPM}/*" "${REPO_INSTANCE_PATH}/"
 	rsync "${opts[@]}" --log-file-format 'CHANGED source/%f' "${REPO_SOURCE_SRPM}/" "${REPO_INSTANCE_PATH}/source/"
 
