@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # vim:ts=4:sw=4:et
 
+import hashlib
 import os
 import glob
 import yum.comps
@@ -39,7 +40,7 @@ CONFIG = {
 
 
 class MashConfig(object):
-    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, modulemd_suffix=None, modulemd_version=0):
+    def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, modulemd_suffix=None, modulemd_version=0, modulemd_context=''):
         self.name = "{}-{}-{}".format(collection, version, name_suffix)
         self.comps_name = "comps-{}-{}.xml".format(collection, comps_suffix)
         self.comps_path = "{}-{}/{}".format(collection, version, comps_directory)
@@ -48,6 +49,7 @@ class MashConfig(object):
         else:
             self.modulemd_yaml = None
         self.modulemd_version = modulemd_version
+        self.modulemd_context = modulemd_context
 
     @property
     def compses(self):
@@ -141,7 +143,7 @@ class MashSplit(object):
             self.logger.debug("running %s" % cmd)
             kobo.shortcuts.run(cmd)
 
-    def inject_modulemd_yml(self, path, modulemd_yaml, modulemd_version=0):
+    def inject_modulemd_yml(self, path, modulemd_yaml, modulemd_version=0, modulemd_context=''):
         """Generate modular metadata and inject it.
 
         @param path: path to repository
@@ -161,6 +163,7 @@ class MashSplit(object):
         modules = yaml.safe_load(modulemd_yaml)
         modules['data']['artifacts'] = {'rpms': output.splitlines()}
         modules['data']['version'] = modulemd_version
+        modules['data']['context'] = modulemd_context
         modules_yaml = os.path.join(path, 'repodata', 'modules.yaml')
         with open(modules_yaml, 'w') as modules_file:
             yaml.dump(modules, modules_file, default_flow_style=False)
@@ -261,7 +264,7 @@ class MashSplit(object):
         return
 
     def handle_comps(self, whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag,
-                     checksum=None, modulemd_yaml=None, modulemd_version=0):
+                     checksum=None, modulemd_yaml=None, modulemd_version=0, modulemd_context=''):
         """Run the mash, get comps from git and split the repo according to comps.
 
         @param whole_path: path to mash whole repo into
@@ -307,7 +310,7 @@ class MashSplit(object):
                 self.createrepo(tmp_target, comps, checksum=checksum)
                 if modulemd_yaml:
                     modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml)
-                    self.inject_modulemd_yml(tmp_target, modulemd, modulemd_version)
+                    self.inject_modulemd_yml(tmp_target, modulemd, modulemd_version, modulemd_context)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
                     os.makedirs(rpm_target)
@@ -354,7 +357,8 @@ def run_mashes(collection, git_tag, mashes):
         s.run_mash(whole_path, mash_config.name)
         s.handle_comps(whole_path, tmp_path, split_path, mash_config.name, arches,
                        mash_config.compses, git_tag, modulemd_yaml=mash_config.modulemd_yaml,
-                       modulemd_version=mash_config.modulemd_version)
+                       modulemd_version=mash_config.modulemd_version,
+                       modulemd_context=mash_config.modulemd_context)
 
 def generate_modulemd_version(version):
     if version == 'nightly':
@@ -366,6 +370,12 @@ def generate_modulemd_version(version):
     modulemd_version_string = time.strftime("{}%Y%m%d%H%M%S".format(modulemd_version_prefix), time.gmtime())
 
     return int(modulemd_version_string)
+
+
+def generate_modulemd_context(collection, version):
+    context_string = "{}-{}".format(collection, version)
+    digest = hashlib.sha256(context_string).hexdigest()
+    return digest[:8]
 
 
 def main():
@@ -380,6 +390,7 @@ def main():
         version = "nightly"
 
     modulemd_version = generate_modulemd_version(version)
+    modulemd_context = generate_modulemd_context(collection, version)
 
     if collection in ("foreman", "foreman-plugins"):
         if version == "nightly":
@@ -394,7 +405,7 @@ def main():
             modulemd_suffix = 'el8'
         else:
             modulemd_suffix = None
-        mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version))
+        mashes.append(MashConfig(collection, version, "el8", "el8", "RHEL/8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context))
 
     elif collection == "foreman-client":
         dists = {
@@ -441,7 +452,7 @@ def main():
 
         mashes = [
             MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"),
-            MashConfig(collection, version, "el8", "el8", "katello/el8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version),
+            MashConfig(collection, version, "el8", "el8", "katello/el8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context),
             mash_config_candlepin,
             el8_candlepin,
         ]
@@ -458,7 +469,7 @@ def main():
 
         mashes = [
             MashConfig(collection, version, 'el7', 'el7', 'el7'),
-            MashConfig(collection, version, 'el8', 'el8', 'el8', modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version)
+            MashConfig(collection, version, 'el8', 'el8', 'el8', modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context)
         ]
 
     else:
