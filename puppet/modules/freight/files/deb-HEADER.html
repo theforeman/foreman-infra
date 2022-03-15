@@ -7,10 +7,12 @@
 <p>Currently we have</p>
 
 <pre>
+deb http://deb.theforeman.org/ bullseye &lt;version&gt;
+deb http://deb.theforeman.org/ bullseye nightly
 deb http://deb.theforeman.org/ buster &lt;version&gt;
-deb http://deb.theforeman.org/ bionic &lt;version&gt;
 deb http://deb.theforeman.org/ buster nightly
-deb http://deb.theforeman.org/ bionic nightly
+deb http://deb.theforeman.org/ focal &lt;version&gt;
+deb http://deb.theforeman.org/ focal nightly
 
 deb http://deb.theforeman.org/ plugins &lt;version&gt;
 deb http://deb.theforeman.org/ plugins nightly
@@ -20,7 +22,16 @@ deb http://deb.theforeman.org/ plugins nightly
 
 <pre>
 wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
-echo "deb http://deb.theforeman.org/ buster nightly" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ bullseye nightly" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
+</pre>
+
+<p>Or dynamically which makes copy-paste easy:</p>
+
+<pre>
+. /etc/os-release
+wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
+echo "deb http://deb.theforeman.org/ $VERSION_CODENAME nightly" > /etc/apt/sources.list.d/foreman.list
 echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
 </pre>
 
