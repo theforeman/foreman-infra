@@ -49,6 +49,10 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python38:3.8/
   - name: flat-python38-devel-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python38-devel:3.8/
+  - name: flat-python39-el8
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python39:3.9/
+  - name: flat-python39-devel-el8
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/python39-devel:3.9/
   # EL9 repositories
   - name: centos9stream-baseos
     url: http://mirror.stream.centos.org/9-stream/BaseOS/$arch/os/
