@@ -51,3 +51,6 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Sponsored
   * 1 HP Proliant machine (24 core, 64 GB RAM, 2×1TB SSD), incl power and network
   * Running libvirt and two Jenkins nodes on top of that
+* OSCI.io
+  * Sponsored
+  * OpenShift access via https://openshift-console.osci.io/, needs RH Google account for sign in
