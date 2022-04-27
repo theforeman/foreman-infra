@@ -166,7 +166,7 @@ class MashSplit(object):
         modules['data']['context'] = modulemd_context
         modules_yaml = os.path.join(path, 'repodata', 'modules.yaml')
         with open(modules_yaml, 'w') as modules_file:
-            yaml.dump(modules, modules_file, default_flow_style=False)
+            yaml.dump(modules, modules_file, default_flow_style=False, explicit_start=True, explicit_end=True)
         cmd = "modifyrepo_c --mdtype=modules {} {}/repodata".format(modules_yaml, path)
         self.logger.debug("running %s" % cmd)
         kobo.shortcuts.run(cmd)
