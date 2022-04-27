@@ -46,7 +46,11 @@ do_rsync() {
 			fi
 
 			if [[ $MERGE == true ]] ; then
-				createrepo_c --skip-symlinks --update --keep-all-metadata .
+				zcat repodata/*-modules.yaml.gz > modules.yaml
+				modifyrepo_c --remove modules repodata/
+				rm repodata/*-modules.yaml.gz
+				createrepo_c --skip-symlinks --update .
+				modifyrepo_c --mdtype=modules modules.yaml repodata/
 			fi
 		)
 	done
