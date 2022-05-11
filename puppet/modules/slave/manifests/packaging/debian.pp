@@ -16,6 +16,8 @@ class slave::packaging::debian(
     ensure_packages(['python-pip', 'python-setuptools'])
   }
 
+  ensure_packages(['zstd'])
+
   if $facts['os']['name'] == 'Debian' {
     include apt::backports
 
