@@ -16,14 +16,14 @@ class slave::packaging::debian(
     ensure_packages(['python-pip', 'python-setuptools'])
   }
 
-  if $facts['os']['name'] == 'Debian' and $facts['os']['release']['major'] == '10' {
+  if $facts['os']['name'] == 'Debian' {
     include apt::backports
 
     Class['Apt::Backports'] ->
     apt::pin { 'debootstrap':
       packages => 'debootstrap',
       priority => 500,
-      release  => 'buster-backports',
+      release  => "${facts['os']['distro']['codename']}-backports",
     } ->
     Class['Pbuilder::Common']
   }
