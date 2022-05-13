@@ -46,11 +46,19 @@ do_rsync() {
 			fi
 
 			if [[ $MERGE == true ]] ; then
-				zcat repodata/*-modules.yaml.gz > modules.yaml
-				modifyrepo_c --remove modules repodata/
-				rm repodata/*-modules.yaml.gz
+				HAS_MODULES_YAML=$(test -f repodata/*-modules.yaml.gz && echo 'yes' || echo 'no')
+
+				if [[ $HAS_MODULES_YAML == yes ]]; then
+					zcat repodata/*-modules.yaml.gz > modules.yaml
+					modifyrepo_c --remove modules repodata/
+					rm repodata/*-modules.yaml.gz
+				fi
+
 				createrepo_c --skip-symlinks --update .
-				modifyrepo_c --mdtype=modules modules.yaml repodata/
+
+				if [[ $HAS_MODULES_YAML == yes ]]; then
+					modifyrepo_c --mdtype=modules modules.yaml repodata/
+				fi
 			fi
 		)
 	done
