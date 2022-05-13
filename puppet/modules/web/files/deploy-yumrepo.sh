@@ -46,7 +46,7 @@ do_rsync() {
 			fi
 
 			if [[ $MERGE == true ]] ; then
-				HAS_MODULES_YAML=$(test -f repodata/*-modules.yaml.gz && echo 'yes' || echo 'no')
+				HAS_MODULES_YAML=$(ls repodata/*-modules.yaml.gz >/dev/null 2>/dev/null && echo 'yes' || echo 'no')
 
 				if [[ $HAS_MODULES_YAML == yes ]]; then
 					zcat repodata/*-modules.yaml.gz > modules.yaml
