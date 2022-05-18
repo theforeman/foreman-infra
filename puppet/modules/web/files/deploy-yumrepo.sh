@@ -51,7 +51,7 @@ do_rsync() {
 				if [[ $HAS_MODULES_YAML == yes ]]; then
 					zcat repodata/*-modules.yaml.gz > modules.yaml
 					modifyrepo_c --remove modules repodata/
-					rm repodata/*-modules.yaml.gz
+					rm -f repodata/*-modules.yaml.gz
 				fi
 
 				createrepo_c --skip-symlinks --update .
