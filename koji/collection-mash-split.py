@@ -415,8 +415,8 @@ def main():
             "sles12": "sles12",
         }
 
-        if LooseVersion(version) < LooseVersion("3.0"):
-            dists["rhel6"] = "el6"
+        if LooseVersion(version) >= LooseVersion("3.4"):
+            dists["el9"] = "el9"
 
         if version == "nightly":
             git_tag = "rpm/develop"
