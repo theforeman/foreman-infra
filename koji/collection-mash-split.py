@@ -415,7 +415,7 @@ def main():
             "sles12": "sles12",
         }
 
-        if LooseVersion(version) >= LooseVersion("3.4"):
+        if LooseVersion(version) >= LooseVersion("3.3"):
             dists["el9"] = "el9"
 
         if version == "nightly":
