@@ -21,7 +21,7 @@
 # @param setup_receiver
 #   Set up the SSH receiver setup. Mostly turned off for testing.
 class profiles::web (
-  String[1] $stable = '3.2',
+  String[1] $stable = '3.3',
   String[1] $next = '3.4',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
