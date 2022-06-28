@@ -405,10 +405,10 @@ def main():
         else:
             modulemd_suffix = None
 
-        mashes = [MashConfig(collection, version, "el8", "el8", "RHEL/8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context)]
+        mashes = [MashConfig(collection, version, "el8", "el8", "el8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context)]
 
         if LooseVersion(version) <= LooseVersion("3.3"):
-            mashes.append(MashConfig(collection, version, "rhel7-dist", "rhel7", "RHEL/7"))
+            mashes.append(MashConfig(collection, version, "rhel7-dist", "rhel7", "el7"))
 
     elif collection == "foreman-client":
         dists = {
@@ -453,8 +453,8 @@ def main():
         ]
 
         if LooseVersion(version) <= LooseVersion("4.5"):
-            mahses.append(MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"))
-            mashes.append(MashConfig(collection, version, "thirdparty-candlepin-rhel7", "candlepin-server-rhel7", "candlepin/el7")
+            mashes.append(MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"))
+            mashes.append(MashConfig(collection, version, "thirdparty-candlepin-rhel7", "candlepin-server-rhel7", "candlepin/el7"))
 
     elif collection == 'pulpcore':
         CONFIG["gitloc"] = "https://github.com/theforeman/pulpcore-packaging.git"
