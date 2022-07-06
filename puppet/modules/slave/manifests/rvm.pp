@@ -29,6 +29,7 @@ class slave::rvm {
       version => 'ruby-2.5.1',
     }
     slave::rvm_config { 'ruby-2.6':
+      ensure  => absent,
       version => 'ruby-2.6.3',
     }
     slave::rvm_config { 'ruby-2.7':
