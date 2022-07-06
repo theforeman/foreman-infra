@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "jenkins-node-el8" do |override|
     override.vm.hostname = "jenkins-node-el8"
-    override.vm.box = "centos/8"
+    override.vm.box = "centos/stream8"
 
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "4096"
