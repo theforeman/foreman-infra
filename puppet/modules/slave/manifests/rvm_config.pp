@@ -1,5 +1,8 @@
 # @api private
-define slave::rvm_config($version, $rubygems_version = '3.0.6') {
+define slave::rvm_config (
+  String[1] $version,
+  String[1] $rubygems_version = '3.0.6',
+) {
   $alias = $title
 
   rvm_system_ruby { $version:
