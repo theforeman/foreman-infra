@@ -12,7 +12,7 @@ class slave::rvm {
     require    => Package['wget'],
   } ->
   class { 'rvm':
-    version => '1.29.10',
+    version => '1.29.12',
   } ->
   Class['Rvm::System']
 
@@ -35,6 +35,14 @@ class slave::rvm {
     slave::rvm_config { 'ruby-2.7':
       version          => 'ruby-2.7.0',
       rubygems_version => '3.1.2',
+    }
+    slave::rvm_config { 'ruby-3.0':
+      version          => 'ruby-3.0.4',
+      rubygems_version => '3.2.3',
+    }
+    slave::rvm_config { 'ruby-3.1':
+      version          => 'ruby-3.1.2',
+      rubygems_version => '3.3.3',
     }
 
     # Cleanup log dirs
