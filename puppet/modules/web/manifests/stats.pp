@@ -33,16 +33,16 @@ class web::stats(
       port          => '80',
       servername    => $hostname,
       docroot       => $webroot,
-      docroot_owner => $::apache::user,
-      docroot_group => $::apache::group,
+      docroot_owner => $apache::user,
+      docroot_group => $apache::group,
       redirect_dest => "https://${hostname}/",
     }
     apache::vhost { 'shiny_server-https':
       port          => 443,
       servername    => $hostname,
       docroot       => $webroot,
-      docroot_owner => $::apache::user,
-      docroot_group => $::apache::group,
+      docroot_owner => $apache::user,
+      docroot_group => $apache::group,
       proxy_pass    => $proxy_pass,
       ssl           => true,
       ssl_cert      => "/etc/letsencrypt/live/${hostname}/fullchain.pem",
@@ -55,8 +55,8 @@ class web::stats(
       port          => '80',
       servername    => $hostname,
       docroot       => $webroot,
-      docroot_owner => $::apache::user,
-      docroot_group => $::apache::group,
+      docroot_owner => $apache::user,
+      docroot_group => $apache::group,
       proxy_pass    => $proxy_pass,
     }
   }
