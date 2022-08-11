@@ -26,7 +26,11 @@ unless ENV['TARGETLIB']
   key = `source /home/freight/freight.conf 2> /dev/null && echo $VARLIB`.chomp
   ENV['TARGETLIB'] = key unless key.empty?
 end
-exit 2 unless ( ENV['SOURCELIB'] && ENV['TARGETLIB'] )
+unless ENV['TARGETCACHE']
+  key = `source /home/freight/freight.conf 2> /dev/null && echo $VARCACHE`.chomp
+  ENV['TARGETCACHE'] = key unless key.empty?
+end
+exit 2 unless ( ENV['SOURCELIB'] && ENV['TARGETLIB'] && ENV['TARGETCACHE'] )
 
 puts "Deb deploy from #{os}/theforeman-#{version} to #{os}/#{version} starting: #{Time.now}"
 
@@ -42,6 +46,17 @@ files.each do |file|
   system "/usr/bin/freight-add -v -c /home/freight/freight.conf #{ENV['SOURCELIB']}/apt/#{os}/theforeman-#{version}/#{file} apt/#{os}/#{version}"
 end
 system "/usr/bin/freight-cache -v -c /home/freight/freight.conf apt/#{os}"
+
+foreman_release_pool = "pool/#{os}/#{version}/f/foreman-release"
+foreman_release_dir = "#{ENV['TARGETCACHE']}/#{foreman_release_pool}"
+release_files = Dir.glob("#{foreman_release_dir}/foreman-release_*.deb")
+latest_release_file = release_files.max_by { |f| File.mtime(f) }
+if latest_release_file
+  release_symlink = "#{foreman_release_dir}/foreman-release.deb"
+  File.unlink(release_symlink) if File.exist?(release_symlink)
+  File.symlink(latest_release_file, release_symlink)
+  system "fastly-purge https://deb.theforeman.org/#{foreman_release_pool} foreman-release.deb"
+end
 
 puts "Deb deploy complete: #{Time.now}"
 # ERB highlighting looks terrible in this script...
