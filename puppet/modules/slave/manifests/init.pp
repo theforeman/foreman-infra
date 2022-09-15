@@ -6,7 +6,17 @@ class slave (
   Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
-  $java_package = if $facts['os']['family'] == 'RedHat' { 'java-11-openjdk-headless' } else { undef }
+
+  if $facts['os']['family'] == 'RedHat' {
+    $java_package = 'java-11-openjdk-headless'
+
+    package { 'java-1.8.0-openjdk-headless':
+      ensure => absent,
+    }
+  } else {
+    $java_package = undef
+  }
+
   class { 'java':
     package => $java_package,
   }
