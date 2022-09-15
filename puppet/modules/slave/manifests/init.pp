@@ -6,7 +6,10 @@ class slave (
   Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
-  include java
+  $java_package = if $facts['os']['family'] == 'RedHat' { 'java-11-openjdk-headless' } else { undef }
+  class { 'java':
+    package => $java_package,
+  }
 
   include git
 
