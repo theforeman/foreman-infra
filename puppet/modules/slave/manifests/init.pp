@@ -10,9 +10,10 @@ class slave (
   if $facts['os']['family'] == 'RedHat' {
     $java_package = 'java-11-openjdk-headless'
 
-    package { 'java-1.8.0-openjdk-headless':
+    package { ['java-1.8.0-openjdk', 'java-1.8.0-openjdk-headless', 'java-1.8.0-openjdk-devel']:
       ensure => absent,
     }
+    Package['java-1.8.0-openjdk-devel'] -> Package['java-1.8.0-openjdk'] -> Package['java-1.8.0-openjdk-headless']
   } else {
     $java_package = undef
   }
