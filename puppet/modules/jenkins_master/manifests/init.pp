@@ -198,17 +198,16 @@ class jenkins_master {
   ensure_packages($packages)
 
   class { 'jenkins':
-    install_java      => false,
-    lts               => true,
-    cli_remoting_free => true,
-    default_plugins   => [],
-    plugin_hash       => $plugins,
-    config_hash       => {
+    install_java    => false,
+    lts             => true,
+    default_plugins => [],
+    plugin_hash     => $plugins,
+    config_hash     => {
       'JENKINS_JAVA_OPTIONS' => {
         'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx2048m',
       },
     },
-    require           => Package[$packages],
+    require         => Package[$packages],
   }
 
 }
