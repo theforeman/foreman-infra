@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
     . /etc/os-release
     yum -y install epel-release
-    yum -y install puppet6-release || yum -y install https://yum.puppetlabs.com/puppet6/puppet6-release-el-${VERSION_ID}.noarch.rpm
+    yum -y install puppet7-release || yum -y install https://yum.puppetlabs.com/puppet7/puppet7-release-el-${VERSION_ID}.noarch.rpm
     yum -y install puppet-agent
   SHELL
 
@@ -59,8 +59,8 @@ Vagrant.configure("2") do |config|
     end
     override.vm.provision "install puppet", type: "shell", inline: <<-SHELL
       . /etc/os-release
-      wget https://apt.puppet.com/puppet6-release-${VERSION_CODENAME}.deb
-      apt-get install -y ./puppet6-release-${VERSION_CODENAME}.deb
+      wget https://apt.puppet.com/puppet7-release-${VERSION_CODENAME}.deb
+      apt-get install -y ./puppet7-release-${VERSION_CODENAME}.deb
       apt-get update
       apt-get install -y puppet-agent
     SHELL
@@ -75,8 +75,8 @@ Vagrant.configure("2") do |config|
     end
     override.vm.provision "install puppet", type: "shell", inline: <<-SHELL
       . /etc/os-release
-      wget https://apt.puppet.com/puppet6-release-${VERSION_CODENAME}.deb
-      apt-get install -y ./puppet6-release-${VERSION_CODENAME}.deb
+      wget https://apt.puppet.com/puppet7-release-${VERSION_CODENAME}.deb
+      apt-get install -y ./puppet7-release-${VERSION_CODENAME}.deb
       apt-get update
       apt-get install -y puppet-agent
     SHELL

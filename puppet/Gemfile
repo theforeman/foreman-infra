@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'puppet', '~> 6.9', require: false
+gem 'puppet', '~> 7.0', require: false
 gem 'puppet-lint', require: false
 gem 'puppet-lint-absolute_classname-check', require: false
 gem 'puppet-lint-classes_and_types_beginning_with_digits-check', require: false
