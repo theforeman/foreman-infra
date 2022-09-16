@@ -138,7 +138,6 @@ class slave::unittests(
   }
 
   # Databases
-  include slave::mysql
   include slave::postgresql
 
   # RVM
