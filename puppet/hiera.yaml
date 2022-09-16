@@ -1,0 +1,29 @@
+---
+version: 5
+defaults:  # Used for any hierarchy level that omits these keys.
+  # The default value for "datadir" is "data" under the same directory as the hiera.yaml
+  # file (this file)
+  # When specifying a datadir, make sure the directory exists.
+  # See https://puppet.com/docs/puppet/latest/environments_about.html for further details on environments.
+  datadir: data
+  data_hash: yaml_data
+
+hierarchy:
+  - name: "Per-node data"
+    path: "nodes/%{trusted.certname}.yaml"
+
+  - name: "Per-OS major defaults"
+    path: "os/%{facts.os.name}-%{facts.os.release.major}.yaml"
+
+  - name: "Per-OS defaults"
+    path: "os/%{facts.os.name}.yaml"
+
+  - name: "Per-OS family major defaults"
+    path: "osfamily/%{facts.os.family}-%{facts.os.release.major}.yaml"
+
+  - name: "Per-OS family defaults"
+    path: "osfamily/%{facts.os.family}.yaml"
+
+  - name: "Other YAML hierarchy levels"
+    paths:
+      - "common.yaml"

@@ -1,0 +1,9 @@
+apache::default_mods:
+  # https://github.com/puppetlabs/puppetlabs-apache/pull/2337
+  - http2
+  - status
+apache::protocols:
+  - 'h2'
+  - 'h2c'
+  - 'http/1.1'
+apache::mpm_module: event

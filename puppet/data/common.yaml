@@ -1,0 +1,26 @@
+foreman_servicename: 'foreman.theforeman.org'
+foreman_url: 'https://%{lookup("foreman_servicename")}'
+puppet_servicename: 'puppet.theforeman.org'
+
+foreman::repo::repo: '3.1'
+# TODO: theforeman/foreman 21.1.0 includes /server-status
+foreman::config::apache::proxy_no_proxy_uris:
+  - /icons
+  - /server-status
+foreman::serveraliases:
+  - '%{alias("foreman_servicename")}'
+
+foreman_proxy::trusted_hosts:
+  - "foreman01.conova.theforeman.org"
+foreman_proxy::foreman_base_url: '%{alias("foreman_url")}'
+
+puppet::runmode: cron
+puppet::puppetmaster: '%{alias("puppet_servicename")}'
+puppet::server_additional_settings:
+  dns_alt_names:
+    - '%{alias("puppet_servicename")}'
+puppet::server_foreman_url: '%{alias("foreman_url")}'
+puppet::server_environments_owner: 'deploypuppet'
+puppet::server_environments_group: 'deploypuppet'
+puppet::server_puppetserver_telemetry: false
+puppet::show_diff: true
