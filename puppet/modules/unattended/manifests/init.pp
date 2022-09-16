@@ -19,11 +19,9 @@ class unattended {
 
   if $facts['os']['family'] == 'RedHat' {
     class { 'yum_cron':
-      apply_updates => true,
-      mailto        => 'sysadmins',
-      extra_configs => {
-        'base/exclude' => { 'value' => 'kernel* java* jenkins tito' },
-      },
+      apply_updates    => true,
+      mailto           => 'sysadmins',
+      exclude_packages => ['kernel*', 'java*', 'jenkins', 'tito'],
     }
   }
 }
