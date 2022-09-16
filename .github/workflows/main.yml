@@ -27,6 +27,8 @@ jobs:
           unzip g10k-linux-amd64.zip
       - name: Install modules using g10k
         run: ./g10k -cachedir .g10k/cache -puppetfile
+      - name: Verify dependencies are compatible
+        run: bundle exec ./check_dependencies
       - name: Run syntax
         run: bundle exec rake syntax
       - name: Run lint

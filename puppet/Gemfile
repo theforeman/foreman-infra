@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'puppet_metadata'
+gem 'semantic_puppet'
+
 gem 'puppet', '~> 6.9', require: false
 gem 'puppet-lint', require: false
 gem 'puppet-lint-absolute_classname-check', require: false
