@@ -102,10 +102,6 @@ class slave (
     }
   }
 
-  if $facts['os']['architecture'] in ['x86_64', 'amd64'] and !$facts['os']['release']['major'] == '8' {
-    include slave::docker
-  }
-
   # Cleanup Jenkins Ruby processes from aborted builds after a day
   file { '/etc/cron.daily/ruby_cleaner':
     ensure  => file,
