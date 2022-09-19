@@ -1,0 +1,11 @@
+{
+  "name": "theforeman-profiles",
+  "version": "0.1.0",
+  "author": "theforeman",
+  "summary": "Foreman Infrastructure profiles",
+  "license": "Apache-2.0",
+  "source": "https://github.com/theforeman/foreman-infra",
+  "project_page": "https://github.com/theforeman/foreman-infra",
+  "issues_url": "https://github.com/theforeman/foreman-infra/issues",
+  "dependencies": []
+}
