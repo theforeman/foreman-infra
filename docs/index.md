@@ -18,10 +18,11 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | Role | Provider(s) |
 |---|---|
 | [Discourse](discourse.md) | Scaleway |
-| [Foreman](foreman-puppetserver.md) | Scaleway |
+| [Foreman](foreman.md) | Conova |
 | [Koji](koji.md) | AWS |
 | [Jenkins](jenkins.md) | OSUOSL |
 | [Jenkins Nodes](jenkins.md) | OSUOSL / AWS / Conova / Netways |
+| [Puppet](puppet.md) | Conova |
 | [Redmine](redmine.md) | Scaleway |
 | [Virt](virt.md) | Conova |
 | [Webserver](webserver.md) | OSUOSL |

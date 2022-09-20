@@ -4,10 +4,12 @@ nav:
   - Overview: index.md
   - Roles:
     - Discourse: discourse.md
-    - Foreman: foreman-puppetserver.md
+    - Foreman: foreman.md
     - Jenkins: jenkins.md
     - Koji: koji.md
+    - Puppet: puppet.md
     - Redmine: redmine.md
     - Virt: virt.md
     - Webserver: webserver.md
   - GPG: gpg.md
+  - Bootstrap: bootstrap.md
