@@ -467,13 +467,14 @@ def main():
             modulemd_suffix = None
 
         mashes = [
-            MashConfig(collection, version, 'el7', 'el7', 'el7'),
             MashConfig(collection, version, 'el8', 'el8', 'el8', modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context)
         ]
 
         if LooseVersion(version) >= LooseVersion("3.18"):
             mashes.append(MashConfig(collection, version, 'el9', 'el9', 'el9'))
 
+        if LooseVersion(version) <= LooseVersion("3.18"):
+            mashes.append(MashConfig(collection, version, 'el7', 'el7', 'el7'))
 
     else:
         raise SystemExit("Unknown collection {}".format(collection))
