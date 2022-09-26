@@ -1,0 +1,12 @@
+site_name: Foreman Infrastructure
+
+nav:
+  - Overview: index.md
+  - Roles:
+    - Discourse: discourse.md
+    - Foreman: foreman-puppetserver.md
+    - Jenkins: jenkins.md
+    - Koji: koji.md
+    - Redmine: redmine.md
+    - Webserver: webserver.md
+  - GPG: gpg.md

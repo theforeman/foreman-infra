@@ -53,10 +53,10 @@ https://github.com/theforeman/foreman-infra/tree/master/puppet/modules contains 
 For Enterprise Linux:
 
 * Ensure EPEL is configured: [epel-release](https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm)
-* Ensure yum.pl.com is configured: [puppet6-release](https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm)
+* Ensure yum.puppet.com is configured: [puppet6-release](https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm)
 * `yum -y install puppet-agent`
 * `echo "server = puppetmaster.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
-* ensure hostname is set node0X.jenkins.<provider>.theforeman.org where <provider> is osuosl or aws for example and that the record is in DNS
+* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider> is osuosl or aws for example and that the record is in DNS
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
 * `puppet ssl bootstrap`
 * Sign the certificate on the puppetmaster or via Foreman
@@ -67,11 +67,11 @@ For Enterprise Linux:
 
 For Debian:
 
-* Ensure apt.pl.com is configured: [puppet6-release](https://apt.puppetlabs.com/puppet6-release-buster.deb)
+* Ensure apt.puppet.com is configured: [puppet6-release](https://apt.puppetlabs.com/puppet6-release-buster.deb)
 * `apt update && apt install puppet-agent`
 * `echo "server = puppetmaster.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
-* ensure hostname is set node0X.jenkins.<provider>.theforeman.org where <provider> is osuosl or aws for example and that the record is in DNS
+* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider> is osuosl or aws for example and that the record is in DNS
 * `puppet ssl bootstrap`
 * Sign the certificate on the puppetmaster or via Foreman
 * `puppet agent --test`
