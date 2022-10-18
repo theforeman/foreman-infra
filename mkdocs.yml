@@ -8,5 +8,6 @@ nav:
     - Jenkins: jenkins.md
     - Koji: koji.md
     - Redmine: redmine.md
+    - Virt: virt.md
     - Webserver: webserver.md
   - GPG: gpg.md

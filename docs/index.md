@@ -23,6 +23,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [Jenkins](jenkins.md) | OSUOSL |
 | [Jenkins Nodes](jenkins.md) | OSUOSL / AWS / Conova / Netways |
 | [Redmine](redmine.md) | Scaleway |
+| [Virt](virt.md) | Conova |
 | [Webserver](webserver.md) | OSUOSL |
 
 ## Infrastructure providers
