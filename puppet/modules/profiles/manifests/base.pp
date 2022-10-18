@@ -6,6 +6,7 @@ class profiles::base (
   include timezone
   include users
   include utility
+  include profiles::base::sysadmins
   if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '8') >= 0 {
     include chrony
   } else {

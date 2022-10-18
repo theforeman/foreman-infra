@@ -1,5 +1,5 @@
 # Various basic utilities
-class utility($sysadmins = ['/dev/null']) {
+class utility {
   include motd
   include unattended
 
@@ -15,13 +15,4 @@ class utility($sysadmins = ['/dev/null']) {
   }
 
   # TODO: rsync package is managed by puppetlabs-rsync
-
-  mailalias { 'sysadmins':
-    ensure    => present,
-    recipient => $sysadmins,
-  }
-  mailalias { 'root':
-    ensure    => present,
-    recipient => 'sysadmins',
-  }
 }
