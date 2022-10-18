@@ -3,7 +3,6 @@
 class web::vhost::web(
   String[1] $stable,
   String[1] $next,
-  Boolean $setup_receiver = true,
   Stdlib::Absolutepath $web_directory = '/var/www/vhosts/web/htdocs',
 ) {
   require web
@@ -82,12 +81,10 @@ class web::vhost::web(
     },
   }
 
-  if $setup_receiver {
-    secure_ssh::rsync::receiver_setup { 'web':
-      user           => 'website',
-      foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
-      script_content => file('web/rsync.sh'),
-    }
+  secure_ssh::rsync::receiver_setup { 'web':
+    user           => 'website',
+    foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
+    script_content => file('web/rsync.sh'),
   }
 
   # Generate RSS stats

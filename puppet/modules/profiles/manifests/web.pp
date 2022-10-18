@@ -17,16 +17,12 @@
 # @param rsync_max_connections
 #   Maximum connection per rsync target. Using a small value to try and reduce
 #   server load
-#
-# @param setup_receiver
-#   Set up the SSH receiver setup. Mostly turned off for testing.
 class profiles::web (
   String[1] $stable = '3.4',
   String[1] $next = '3.5',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
   Integer[0] $rsync_max_connections = 10,
-  Boolean $setup_receiver = true,
 ) {
   contain awstats
 
@@ -37,14 +33,8 @@ class profiles::web (
   }
   contain web
 
-  class { 'web::vhost::archivedeb':
-    setup_receiver => $setup_receiver,
-  }
   contain web::vhost::archivedeb
 
-  class { 'web::vhost::deb':
-    setup_receiver => $setup_receiver,
-  }
   contain web::vhost::deb
 
   class { 'web::vhost::debugs':
@@ -54,26 +44,20 @@ class profiles::web (
 
   class { 'web::vhost::downloads':
     rsync_max_connections => $rsync_max_connections,
-    setup_receiver        => $setup_receiver,
   }
   contain web::vhost::downloads
 
-  class { 'web::vhost::stagingdeb':
-    setup_receiver => $setup_receiver,
-  }
   contain web::vhost::stagingdeb
 
   class { 'web::vhost::web':
-    stable         => $stable,
-    next           => $next,
-    setup_receiver => $setup_receiver,
+    stable => $stable,
+    next   => $next,
   }
   contain web::vhost::web
 
   class { 'web::vhost::yum':
     stable                => $stable,
     rsync_max_connections => $rsync_max_connections,
-    setup_receiver        => $setup_receiver,
   }
   contain web::vhost::yum
 }
