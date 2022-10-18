@@ -5,7 +5,7 @@
 #     :name   (the name of the key - e.g 'my_ssh_key')
 #   Optional parameters:
 #     :type   (the key type - default: 'rsa')
-#     :dir    (the subdir of /etc/puppet/ to store the key in - default: 'ssh')
+#     :dir    (the subdir of Puppet's vardir to store the key in - default: 'ssh')
 #     :size   (the key size - default 2048)
 #     :public (if specified, reads the public key instead of the private key)
 #
@@ -30,8 +30,7 @@ module Puppet::Parser::Functions
     # Ensure ecdsa uses keylength 521
     config['size'] = 521  if config['type'] == 'ecdsa'
 
-    # XXX hard coded path!
-    fullpath = "/etc/puppet/#{config['dir']}"
+    fullpath = File.join(Puppet[:vardir], config['dir'])
 
     # Make sure to write out a directory to init if necessary
     begin
