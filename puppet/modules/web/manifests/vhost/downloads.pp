@@ -4,7 +4,6 @@ class web::vhost::downloads (
   Stdlib::Absolutepath $downloads_directory = '/var/www/vhosts/downloads/htdocs',
   Integer[0] $rsync_max_connections = 5,
   String $user = 'downloads',
-  Boolean $setup_receiver = true,
 ) {
   $downloads_directory_config = [
     {
@@ -19,12 +18,10 @@ class web::vhost::downloads (
     },
   ]
 
-  if $setup_receiver {
-    secure_ssh::receiver_setup { $user:
-      user           => $user,
-      foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
-      script_content => template('web/rsync_downloads.sh.erb'),
-    }
+  secure_ssh::receiver_setup { $user:
+    user           => $user,
+    foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
+    script_content => template('web/rsync_downloads.sh.erb'),
   }
 
   web::vhost { 'downloads':

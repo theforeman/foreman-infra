@@ -6,7 +6,6 @@ class web::vhost::yum (
   Stdlib::Fqdn $servername = 'yum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/yum/htdocs',
   String $user = 'yumrepo',
-  Boolean $setup_receiver = true,
 ) {
   $yum_directory_config = [
     {
@@ -29,12 +28,10 @@ class web::vhost::yum (
     },
   ]
 
-  if $setup_receiver {
-    secure_ssh::receiver_setup { $user:
-      user           => $user,
-      foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
-      script_content => file('web/deploy-yumrepo.sh'),
-    }
+  secure_ssh::receiver_setup { $user:
+    user           => $user,
+    foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
+    script_content => file('web/deploy-yumrepo.sh'),
   }
 
   web::vhost { 'yum':

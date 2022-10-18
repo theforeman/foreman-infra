@@ -3,7 +3,6 @@
 class web::vhost::stagingdeb(
   String $user = 'freightstage',
   Stdlib::Absolutepath $home = "/home/${user}",
-  Boolean $setup_receiver = true,
 ) {
   # Manual step: each user needs the GPG key in it's keyring
   freight::user { 'staging':
@@ -15,13 +14,11 @@ class web::vhost::stagingdeb(
     cron_matches => 'all',
   }
 
-  if $setup_receiver {
-    secure_ssh::rsync::receiver_setup { $user:
-      user           => $user,
-      homedir        => $home,
-      homedir_mode   => '0750',
-      foreman_search => 'host.hostgroup = Debian and (name = external_ip4 or name = external_ip6)',
-      script_content => template('freight/rsync.erb'),
-    }
+  secure_ssh::rsync::receiver_setup { $user:
+    user           => $user,
+    homedir        => $home,
+    homedir_mode   => '0750',
+    foreman_search => 'host.hostgroup = Debian and (name = external_ip4 or name = external_ip6)',
+    script_content => template('freight/rsync.erb'),
   }
 }
