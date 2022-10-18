@@ -57,12 +57,7 @@ define secure_ssh::receiver_setup (
 
   if $foreman_search and defined('$::foreman_api_user') and defined('$::foreman_api_password') {
     # Get the IPs of the uploaders from foreman
-    $ip_data=foreman({
-        'item'         => 'fact_values',
-        'search'       => $foreman_search,
-        'foreman_user' => $::foreman_api_user,
-        'foreman_pass' => $::foreman_api_password,
-    })
+    $ip_data = foreman::foreman('fact_values', $foreman_search, '20', lookup('foreman_url'), $::foreman_api_user, $::foreman_api_password)
   }
 
   file { "${homedir}/.ssh/authorized_keys":
