@@ -2,16 +2,9 @@
 # permit upload from, the IPs to allow upload from, and
 # the script to run when accepting an upload
 #
-# === Parameters:
-#
-# $keys  Hash of names of keys to permit access from
-#        type:hash
-#
+# @param keys  Hash of names of keys to permit access from
 class secure_ssh::receiver (
-  $keys = {}
+  Hash[String[1], Hash[String[1], Any]] $keys = {},
 ) {
-
-  validate_hash($keys)
-  create_resources(secure_ssh::receiver_setup,$keys)
-
+  create_resources('secure_ssh::receiver_setup', $keys)
 }

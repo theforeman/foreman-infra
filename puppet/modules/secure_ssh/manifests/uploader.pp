@@ -2,16 +2,10 @@
 # create on a host which will be uploading to hosts configured
 # using the receiver class
 #
-# === Parameters:
-#
-# $keys  Hash of names to user/dir pairs for ssh keys to create
-#        type:hash
-#
+# @param keys
+#   Hash of names to user/dir pairs for ssh keys to create
 class secure_ssh::uploader (
-  $keys = {}
+  Hash[String[1], Hash[String[1], Any]] $keys = {},
 ) {
-
-  validate_hash($keys)
-  create_resources(secure_ssh::uploader_key,$keys)
-
+  create_resources('secure_ssh::uploader_key', $keys)
 }
