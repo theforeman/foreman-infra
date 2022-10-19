@@ -1,8 +1,9 @@
 class slave (
   Optional[String] $koji_certificate    = undef,
   Boolean $uploader                     = true,
-  Stdlib::Absolutepath $homedir         = '/home/jenkins',
-  Stdlib::Absolutepath $workspace       = '/home/jenkins/workspace',
+  String[1] $username                   = 'jenkins',
+  Stdlib::Absolutepath $homedir         = "/home/${username}",
+  Stdlib::Absolutepath $workspace       = "${homedir}/workspace",
   Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
@@ -30,18 +31,18 @@ class slave (
     default  => '',
   }
 
-  users::account { 'jenkins':
+  users::account { $username:
     homedir => $homedir,
     sudo    => $sudo,
   }
 
   file { $workspace:
     ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
+    owner  => $username,
+    group  => $username,
   }
 
-  file { '/home/jenkins/.ssh/config':
+  file { "${homedir}/.ssh/config":
     ensure  => file,
     mode    => '0600',
     owner   => 'jenkins',
