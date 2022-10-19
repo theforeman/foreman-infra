@@ -24,3 +24,5 @@ puppet::server_environments_owner: 'deploypuppet'
 puppet::server_environments_group: 'deploypuppet'
 puppet::server_puppetserver_telemetry: false
 puppet::show_diff: true
+
+sudo::wheel_config: password

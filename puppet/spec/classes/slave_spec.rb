@@ -12,10 +12,12 @@ describe 'slave' do
           {uploader: false}
         end
         it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_users__account('jenkins').with_sudo(false) }
         if facts[:osfamily] == 'Debian'
-          it { is_expected.to contain_users__account('jenkins').with_sudo('ALL=NOPASSWD: ALL') }
+          it { is_expected.to contain_class('sudo') }
+          it { is_expected.to contain_sudo__conf('sudo-puppet-jenkins').with_content('jenkins ALL=NOPASSWD: ALL') }
         else
-          it { is_expected.to contain_users__account('jenkins').with_sudo('') }
+          it { is_expected.not_to contain_class('sudo') }
         end
 
         if facts[:osfamily] == 'Debian'

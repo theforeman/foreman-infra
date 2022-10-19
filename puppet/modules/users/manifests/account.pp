@@ -1,14 +1,22 @@
-define users::account(
+define users::account (
   Enum['present', 'absent'] $ensure = 'present',
   Optional[String] $fullname = undef,
   Optional[String] $passwd = undef,
   Stdlib::Absolutepath $homedir = "/home/${title}",
-  String $sudo = 'ALL=(ALL) ALL',
+  Boolean $sudo = true,
 ) {
+  if $sudo {
+    include sudo
+    $groups = [if $facts['os']['family'] == 'Debian' { 'sudo' } else { 'wheel'}]
+  } else {
+    $groups = []
+  }
+
   user { $name:
     ensure     => $ensure,
     comment    => $fullname,
     home       => $homedir,
+    groups     => $groups,
     managehome => true,
     shell      => '/bin/bash',
     password   => $passwd,
@@ -36,16 +44,5 @@ define users::account(
       group   => $name,
       mode    => '0600',
     }
-
-    $sudo_ensure = bool2str($sudo == '', 'absent', 'present')
-  } else {
-    $sudo_ensure = $ensure
   }
-
-  include sudo
-  sudo::conf { "sudo-puppet-${name}":
-    ensure  => $sudo_ensure,
-    content => "${name} ${sudo}",
-  }
-
 }

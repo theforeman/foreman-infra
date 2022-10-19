@@ -26,14 +26,16 @@ class slave (
   include git
 
   # On Debian we use pbuilder with sudo
-  $sudo = $facts['os']['family'] ? {
-    'Debian' => 'ALL=NOPASSWD: ALL',
-    default  => '',
+  if $facts['os']['family'] == 'Debian' {
+    include sudo
+    sudo::conf { "sudo-puppet-${username}":
+      content => "${username} ALL=NOPASSWD: ALL",
+    }
   }
 
   users::account { $username:
     homedir => $homedir,
-    sudo    => $sudo,
+    sudo    => false,
   }
 
   file { $workspace:
