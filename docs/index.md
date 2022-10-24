@@ -20,6 +20,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [Discourse](discourse.md) | Scaleway |
 | [Foreman](foreman-puppetserver.md) | Scaleway |
 | [Koji](koji.md) | AWS |
+| [Koji Mirror](koji-mirror.md) | AWS |
 | [Jenkins](jenkins.md) | OSUOSL |
 | [Jenkins Nodes](jenkins.md) | OSUOSL / AWS / Conova / Netways |
 | [Redmine](redmine.md) | Scaleway |
