@@ -1,0 +1,10 @@
+<%- | Stdlib::Absolutepath $mirror_root | -%>
+#!/bin/bash
+
+dnf reposync \
+  --config /etc/reposync.conf \
+  --download-path=<%= $mirror_root %> \
+  --download-metadata \
+  --newest-only \
+  --delete \
+  --quiet

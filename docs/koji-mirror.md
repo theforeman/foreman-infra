@@ -40,8 +40,14 @@ Successfully attached a subscription for: Red Hat Enterprise Linux for Open Sour
 
 ## Mirroring
 
-TBD, describe reposync
+* `/etc/reposync.conf` is a DNF configuration file with the repositories we want to sync.
+  It uses the entitlement cert from `/etc/pki/entitlement/` to authenticate against the CDN.
+  We cannot use the normal `/etc/yum.repos.d/redhat.repo` as we want to sync RHEL8 and RHEL9, while `subscription-manager` only provisions the *matching* (RHEL8) repositories in that file.
+* `/etc/cron.weekly/reposync` calls `dnf reposync` with the above configuration file and the list of the repositories, thus syncing the content.
+* TBD: flattening
+
 
 ## Serving
 
-TBD, describe apache-to-koji-only setup
+There is an Apache httpd running on the machine, serving `/srv/mirror`.
+It's only reachable from inside our AWS VPC due to the applied Security Group and the Apache IP restrictions.

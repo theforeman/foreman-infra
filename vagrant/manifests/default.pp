@@ -34,3 +34,7 @@ node /^web.*/ {
     https => false,
   }
 }
+
+node /^koji-mirror.*/ {
+  class { 'profiles::koji::mirror': }
+}

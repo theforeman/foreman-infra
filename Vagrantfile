@@ -89,4 +89,13 @@ Vagrant.configure("2") do |config|
       libvirt.memory = "2048"
     end
   end
+
+  config.vm.define "koji-mirror" do |override|
+    override.vm.hostname = "koji-mirror"
+    override.vm.box = "centos/stream8"
+
+    override.vm.provider "libvirt" do |libvirt|
+      libvirt.memory = "2048"
+    end
+  end
 end
