@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "deb http://apt.puppet.com ${DISTRIBUTION} puppet6" >> /etc/apt/sources.list
+echo "deb http://apt.puppet.com ${DISTRIBUTION} puppet7" >> /etc/apt/sources.list
 
 cat > /etc/apt/trusted.gpg.d/puppet.asc <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
