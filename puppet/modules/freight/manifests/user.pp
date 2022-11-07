@@ -85,7 +85,7 @@ define freight::user (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => file("${module_name}/${vhost}-HEADER.html"),
+    content => epp("${module_name}/${vhost}-HEADER.html.epp", { 'stable' => $profiles::web::stable }),
   }
   file { "${webdir}/foreman.asc":
     ensure => link,
