@@ -1,3 +1,4 @@
+<%- | String $stable | -%>
 <h1>The Debian Foreman repo</h1>
 
 <p>You will find them at:</p>
@@ -20,8 +21,8 @@ deb http://deb.theforeman.org/ plugins nightly
 
 <pre>
 wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
-echo "deb http://deb.theforeman.org/ bullseye nightly" > /etc/apt/sources.list.d/foreman.list
-echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ bullseye <%= $stable %>" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins <%= $stable %>" >> /etc/apt/sources.list.d/foreman.list
 </pre>
 
 <p>Or dynamically which makes copy-paste easy:</p>
@@ -29,8 +30,8 @@ echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d
 <pre>
 . /etc/os-release
 wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
-echo "deb http://deb.theforeman.org/ $VERSION_CODENAME nightly" > /etc/apt/sources.list.d/foreman.list
-echo "deb http://deb.theforeman.org/ plugins nightly" >> /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ $VERSION_CODENAME <%= $stable %>" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ plugins <%= $stable %>" >> /etc/apt/sources.list.d/foreman.list
 </pre>
 
 <p>This repo is also available over rsync at <code>rsync://rsync.theforeman.org/deb</code>.</p>
