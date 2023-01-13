@@ -6,7 +6,11 @@ class profiles::base (
   include ssh
   include timezone
   include unattended
-  if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '8') >= 0 {
+  if $facts['os']['family'] == 'RedHat' {
+    package { 'ntp':
+      ensure => absent,
+      before => Class['chrony'],
+    }
     include chrony
   } else {
     include ntp
