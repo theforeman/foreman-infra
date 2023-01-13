@@ -14,7 +14,7 @@ foreman_proxy::trusted_hosts:
   - "foreman01.conova.theforeman.org"
 foreman_proxy::foreman_base_url: '%{alias("foreman_url")}'
 
-puppet::runmode: cron
+puppet::runmode: systemd.timer
 puppet::puppetmaster: '%{alias("puppet_servicename")}'
 puppet::server_additional_settings:
   dns_alt_names:
