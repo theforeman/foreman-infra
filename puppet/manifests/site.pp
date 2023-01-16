@@ -17,7 +17,7 @@ node /^foreman\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::foreman
 }
 
-node /^node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
+node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::jenkins::node
 }
