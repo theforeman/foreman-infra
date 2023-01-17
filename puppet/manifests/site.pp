@@ -5,19 +5,16 @@ node default {
 node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::jenkins::controller
-  include dirvish::client
 }
 
 node /^discourse\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   # TODO profiles::discourse
-  include dirvish::client
 }
 
 node /^foreman\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::foreman
-  # TODO: include dirvish::client
 }
 
 node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
@@ -28,7 +25,6 @@ node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
 node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::puppetserver
-  include dirvish
 }
 
 node /^redmine\d+\.[a-z]+\.theforeman\.org$/ {
