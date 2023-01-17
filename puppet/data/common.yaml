@@ -26,3 +26,27 @@ puppet::server_puppetserver_telemetry: false
 puppet::show_diff: true
 
 sudo::wheel_config: password
+
+dirvish::vaults:
+  ci-jenkins:
+    client: master02.rackspace.theforeman.org
+    tree: "/var/lib/jenkins/"
+    expire_default: "+7 days"
+    expire_rules:
+    - "wd { sun } +1 month"
+    excludes:
+    - "/jobs/"
+  redmine:
+    client: "redmine01.theforeman.org"
+    tree: "/var/lib/redmine"
+    expire_default: "+7 days"
+    expire_rules:
+    - "wd { sun } +1 month"
+    excludes:
+    - "/git/"
+  discourse:
+    client: "discourse01.theforeman.org"
+    tree: "/var/lib/discourse"
+    expire_default: "+7 days"
+    expire_rules:
+    - "wd { sun } +1 month"
