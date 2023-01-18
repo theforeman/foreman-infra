@@ -1,28 +1,29 @@
 # Define which deploys the key for a specific user
 #
-# === Parameters:
+# @param user
+#   User to own the key
 #
-# $name:       name of the key (required)
+# @param dir
+#   Directory to store the key in
 #
-# $user:       user to own the key (required)
+# @param mode
+#   Mode of $dir
 #
-# $dir:        directory to store the key in (default: /home/$user/.ssh)
+# @param manage_dir
+#   Whether or not to manage $dir
 #
-# $mode:       mode of $dir (default: 0600)
-#
-# $manage_dir  whether or not to manage $dir (default: false)
-#              type: boolean
+# @param ssh_key_name
+#   The name of the key
 #
 define secure_ssh::uploader_key (
-  $user,
-  $dir          = "/home/${user}/.ssh",
-  $mode         = '0600',
-  $manage_dir   = false,
-  $ssh_key_name = "${name}_key",
+  String[1] $user,
+  Stdlib::Absolutepath $dir = "/home/${user}/.ssh",
+  Stdlib::Filemode $mode = '0600',
+  Boolean $manage_dir = false,
+  String[1] $ssh_key_name = "${name}_key",
 ) {
-
-  $pub_key  = ssh_keygen({name => $ssh_key_name, public => 'public'})
-  $priv_key = ssh_keygen({name => $ssh_key_name})
+  $pub_key  = ssh_keygen({ name => $ssh_key_name, public => 'public' })
+  $priv_key = ssh_keygen({ name => $ssh_key_name })
 
   if $manage_dir {
     file { $dir:

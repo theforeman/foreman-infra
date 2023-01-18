@@ -1,4 +1,4 @@
-# Define which deploys the key for a specific user
+# @summary Define which deploys the key for a specific user
 #
 # @param user
 #   User to own the key
@@ -7,8 +7,14 @@
 #   Content of a script that'll be run by sshd when the user connects with the
 #   key
 #
+# @param groups
+#   Groups the user belongs to
+#
 # @param homedir
 #   Home directory the user
+#
+# @param homedir_mode
+#   Mode of the user's home directory
 #
 # @param allowed_ips
 #   List of allowed ips in the authorized keys file. Unused if $foreman_search

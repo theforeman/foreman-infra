@@ -1,25 +1,27 @@
-# Define which deploys the key for a specific user
+# @summary Define which deploys the key for a specific user
 #
-# === Parameters:
+# @param name
+#   Name of the key
 #
-# $name:       name of the key (required)
+# @param user
+#   User to own the key
 #
-# $user:       user to own the key (required)
+# @param dir
+#   Directory to store the key in
 #
-# $dir:        directory to store the key in (default: /home/$user/.ssh)
+# @param mode
+#   Mode of $dir
 #
-# $mode:       mode of $dir (default: 0600)
-#
-# $manage_dir  whether or not to manage $dir (default: false)
-#              type: boolean
+# @param manage_dir
+#   Whether or not to manage $dir
 #
 define secure_ssh::rsync::uploader_key (
-  $user,
-  $dir          = "/home/${user}/.ssh",
-  $mode         = '0600',
-  $manage_dir   = false,
+  String[1] $user,
+  Stdlib::Absolutepath $dir = "/home/${user}/.ssh",
+  Stdlib::Filemode $mode = '0600',
+  Boolean $manage_dir = false,
 ) {
-  ::secure_ssh::uploader_key { $name:
+  secure_ssh::uploader_key { $name:
     user         => $user,
     dir          => $dir,
     mode         => $mode,
