@@ -1,14 +1,15 @@
+# @summary Set up pbuilder on a Debian package builder
+# @api private
 define slave::pbuilder_setup (
-  $arch,
-  $release,
-  $apturl,
-  $aptcontent,
-  $ensure     = present,
+  String[1] $arch,
+  String[1] $release,
+  String[1] $apturl,
+  String[1] $aptcontent,
+  Enum['present', 'absent'] $ensure = present,
   Boolean $backports  = false,
   Boolean $nodesource = true,
   Boolean $puppetlabs = true,
 ) {
-
   pbuilder { $name:
     ensure    => $ensure,
     arch      => $arch,

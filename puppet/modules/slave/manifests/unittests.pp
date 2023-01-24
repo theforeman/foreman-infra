@@ -1,5 +1,5 @@
 # @api private
-class slave::unittests(
+class slave::unittests (
   Stdlib::Absolutepath $homedir,
 ) {
   $is_el8 = $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8'

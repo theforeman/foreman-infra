@@ -16,7 +16,7 @@ class slave::rvm {
   } ->
   Class['Rvm::System']
 
-  if $::rvm_installed == true {
+  if $facts['rvm_installed'] {
     rvm::system_user { 'jenkins':
       create  => false,
       require => User['jenkins'],

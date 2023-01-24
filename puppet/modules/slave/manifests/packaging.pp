@@ -1,11 +1,10 @@
 # @api private
-class slave::packaging(
+class slave::packaging (
   Boolean $uploader,
   Stdlib::Absolutepath $homedir,
   Stdlib::Absolutepath $workspace,
   Optional[String] $koji_certificate = undef,
 ) {
-
   # CLI JSON parser
   package { 'jq':
     ensure => installed,
@@ -29,5 +28,4 @@ class slave::packaging(
     }
     default: {}
   }
-
 }
