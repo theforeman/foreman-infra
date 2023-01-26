@@ -45,8 +45,13 @@ class slave::unittests(
     default  => 'firefox'
   }
 
+  $libyaml_dev = $facts['os']['name'] ? {
+    'Debian' => 'libyaml-dev',
+    default  => 'libyaml-devel'
+  }
+
   ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool', $firefox, $libvirt_dev, $libcurl_dev,
-  $sqlite3_dev])
+  $sqlite3_dev, $libyaml_dev])
 
   unless $is_el8 {
     ensure_packages(['python-virtualenv', 'transifex-client'])
