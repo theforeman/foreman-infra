@@ -44,11 +44,12 @@ class slave::packaging::rpm (
 
   if $koji_certificate {
     file { "${homedir}/.katello.cert":
-      ensure  => file,
-      mode    => '0600',
-      owner   => 'jenkins',
-      group   => 'jenkins',
-      content => $koji_certificate,
+      ensure    => file,
+      mode      => '0600',
+      owner     => 'jenkins',
+      group     => 'jenkins',
+      content   => $koji_certificate,
+      show_diff => false,
     }
   } else {
     file { "${homedir}/.katello.cert":
