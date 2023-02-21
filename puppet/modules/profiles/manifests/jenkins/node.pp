@@ -13,7 +13,7 @@
 # @param packaging
 #   Should the node be able to run packaging jobs
 class profiles::jenkins::node (
-  Optional[String[1]] $koji_certificate = undef,
+  Optional[String[1]] $koji_certificate = getvar('koji_certificate'),
   Integer[0] $swap_size_mb = 8192,
   Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
