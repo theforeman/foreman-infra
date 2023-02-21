@@ -142,6 +142,13 @@ class slave::unittests (
     }
   }
 
+  # Needed at least for libyaml-devel on our RHEL builders in AWS
+  if $facts['os']['name'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
+    yumrepo { 'rhel-7-server-rhui-optional-rpms':
+      enabled => '1',
+    }
+  }
+
   # Databases
   include slave::postgresql
 
