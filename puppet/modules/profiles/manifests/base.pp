@@ -15,4 +15,9 @@ class profiles::base (
   } else {
     include ntp
   }
+
+  # Ensure REX can log in
+  class { 'foreman_proxy::plugin::remote_execution::ssh_user':
+    manage_user => true,
+  }
 }

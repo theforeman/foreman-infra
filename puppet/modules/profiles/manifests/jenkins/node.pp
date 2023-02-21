@@ -29,9 +29,4 @@ class profiles::jenkins::node (
       size_mb => $swap_size_mb,
     }
   }
-
-  # Ensure REX can log in
-  class { 'foreman_proxy::plugin::remote_execution::ssh_user':
-    manage_user => true,
-  }
 }
