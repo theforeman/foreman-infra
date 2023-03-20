@@ -1,3 +1,4 @@
+# @summary The jenkins controller profile
 class jenkins_master {
   # Devel is needed for jar unpacking support
   $packages = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig']
@@ -183,5 +184,4 @@ class jenkins_master {
     },
     require         => Package[$packages],
   }
-
 }
