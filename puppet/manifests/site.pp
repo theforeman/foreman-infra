@@ -30,9 +30,8 @@ node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
 
 node /^redmine\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
-  include dirvish::client
+  include profiles::redmine
   include exim # TODO
-  include redmine
 }
 
 node /^web\d+\.[a-z]+\.theforeman\.org$/ {
