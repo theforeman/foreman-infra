@@ -34,3 +34,9 @@ node /^web.*/ {
     https => false,
   }
 }
+
+node /^backup.*/ {
+  class { 'profiles::backup::receiver':
+    targets => ['redmine', 'jenkins-master'],
+  }
+}
