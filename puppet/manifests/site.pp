@@ -25,6 +25,7 @@ node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
 node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::puppetserver
+  include profiles::backup::receiver
 }
 
 node /^redmine\d+\.[a-z]+\.theforeman\.org$/ {
