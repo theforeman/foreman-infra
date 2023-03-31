@@ -102,4 +102,12 @@ Vagrant.configure("2") do |config|
       provider.vm.box_url = CENTOS_8_BOX_URL
     end
   end
+
+  config.vm.define "redmine" do |override|
+    override.vm.hostname = "redmine"
+
+    override.vm.provider "libvirt" do |libvirt|
+      libvirt.memory = "2048"
+    end
+  end
 end

@@ -40,3 +40,7 @@ node /^backup.*/ {
     targets => ['redmine', 'jenkins-master'],
   }
 }
+
+node /^redmine.*/ {
+  include profiles::redmine
+}
