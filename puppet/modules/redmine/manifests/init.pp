@@ -27,7 +27,7 @@ class redmine (
   String $secret_token           = 'token',
   String $email_password         = 'pass',
   Stdlib::Absolutepath $app_root = '/usr/share/redmine',
-  Stdlib::Absolutepath $data_dir = '/var/lib/redmine_data',
+  Stdlib::Absolutepath $data_dir = '/var/lib/redmine',
   String $servername             = 'projects.theforeman.org',
   Stdlib::Httpsurl $repo_url     = 'https://github.com/theforeman/redmine',
   String $username               = 'redmine',
