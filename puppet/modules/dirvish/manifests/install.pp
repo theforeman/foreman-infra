@@ -26,8 +26,8 @@ class dirvish::install {
   # Read the dirvish SSH key (and create it if necessary)
 
   # Generate RSA keys reliably
-  $pub_key  = ssh_keygen({name => 'dirvish_key', public => 'true'})
-  $priv_key = ssh_keygen({name => 'dirvish_key'})
+  $pub_key  = ssh::keygen('dirvish_key', true)
+  $priv_key = ssh::keygen('dirvish_key')
 
   file { "${dirvish::backup_location}/ssh/dirvish_key":
     ensure  => file,

@@ -22,8 +22,8 @@ define secure_ssh::uploader_key (
   Boolean $manage_dir = false,
   String[1] $ssh_key_name = "${name}_key",
 ) {
-  $pub_key  = ssh_keygen({ name => $ssh_key_name, public => 'public' })
-  $priv_key = ssh_keygen({ name => $ssh_key_name })
+  $pub_key  = ssh::keygen($ssh_key_name, true)
+  $priv_key = ssh::keygen($ssh_key_name)
 
   if $manage_dir {
     file { $dir:

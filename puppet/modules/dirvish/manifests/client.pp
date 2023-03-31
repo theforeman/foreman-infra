@@ -12,7 +12,7 @@ class dirvish::client (
   Boolean $declare_rsync = true,
 ) {
   # Read the dirvish key from the puppetmaster
-  $pub_key = ssh_keygen({name => 'dirvish_key', public => 'true'})
+  $pub_key = ssh::keygen('dirvish_key', true)
 
   ssh_authorized_key { 'dirvish_key':
     ensure => present,

@@ -61,7 +61,7 @@ define secure_ssh::receiver_setup (
   }
 
   # Read the public key from the puppetmaster
-  $pub_key  = ssh_keygen({ name => $ssh_key_name, public => 'public' })
+  $pub_key  = ssh::keygen($ssh_key_name, true)
 
   $api_user = getvar('foreman_api_user')
   $api_pass = getvar('foreman_api_password')
