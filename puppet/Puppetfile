@@ -45,3 +45,7 @@ mod 'theforeman/puppet', '16.5.0'
 mod 'theforeman/puppetserver_foreman', '2.1.0'
 mod 'theforeman/tftp', '8.0.0'
 mod 'treydock/yum_cron', '6.2.0'
+# Maintain a stable branch until https://github.com/syseleven/puppet-restic/pull/24 is merged
+# The PR is on a stable branch which can be force pushed
+# foreman-infra-production is aimed to only roll forward
+mod 'syseleven/restic', :git => 'https://github.com/theforeman/puppet-restic', :branch => 'foreman-infra-production'
