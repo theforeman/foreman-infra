@@ -11,7 +11,7 @@ It runs the following types of tests:
 * Package smoke and integration testing
 * Package jobs for Pulpcore
 
-### CentOS QA service
+## CentOS QA service
 
 CentOS offer access to their [QA CI infrastructure](https://wiki.centos.org/QaWiki/CI) to Foreman and other projects, which gives on-demand access to run tests on physical hardware running CentOS.  It consists of three main components:
 
