@@ -11,6 +11,10 @@ It runs the following types of tests:
 * Package smoke and integration testing
 * Package jobs for Pulpcore
 
+## Access
+
+To get an account, open a new topic on [Foreman Infra SIG](https://community.theforeman.org/c/development/infra/24) with your GitHub username. An admin will figure out your email address from there (or ask you privately in case it's unclear) and create an account with a temporary password. After receiving the password, log in and change it.
+
 ## CentOS QA service
 
 CentOS offer access to their [QA CI infrastructure](https://wiki.centos.org/QaWiki/CI) to Foreman and other projects, which gives on-demand access to run tests on physical hardware running CentOS.  It consists of three main components:
