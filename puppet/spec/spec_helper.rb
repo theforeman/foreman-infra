@@ -4,6 +4,7 @@ include RspecPuppetFacts
 
 add_custom_fact :root_home, '/root'
 add_custom_fact :rvm_installed, false
+add_custom_fact :service_provider, 'systemd'
 add_custom_fact :sudoversion, '1.8.23'
 
 def on_supported_os(opts = {})
@@ -28,4 +29,8 @@ RSpec.configure do |c|
   c.manifest        = File.join(base_dir, 'manifests', 'site.pp')
   c.environmentpath = base_dir
   c.strict_variables = true
+
+  # Needed for theforeman-puppet
+  c.trusted_node_data = true
+  c.trusted_server_facts = true
 end

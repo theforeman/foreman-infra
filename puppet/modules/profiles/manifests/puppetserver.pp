@@ -9,7 +9,7 @@ class profiles::puppetserver {
     puppetca => true,
   }
   include foreman_proxy::plugin::ansible
-  include foreman_proxy::plugin::remote_execution::ssh
+  include foreman_proxy::plugin::remote_execution::script
 
   class { 'deploy':
     user => $puppet::server_environments_owner,

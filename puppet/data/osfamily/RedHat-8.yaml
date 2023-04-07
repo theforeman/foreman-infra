@@ -1,6 +1,5 @@
+---
 apache::default_mods:
-  # https://github.com/puppetlabs/puppetlabs-apache/pull/2337
-  - http2
   - status
 apache::protocols:
   - 'h2'

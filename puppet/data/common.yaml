@@ -1,12 +1,9 @@
+---
 foreman_servicename: 'foreman.theforeman.org'
 foreman_url: 'https://%{lookup("foreman_servicename")}'
 puppet_servicename: 'puppet.theforeman.org'
 
-foreman::repo::repo: '3.1'
-# TODO: theforeman/foreman 21.1.0 includes /server-status
-foreman::config::apache::proxy_no_proxy_uris:
-  - /icons
-  - /server-status
+foreman::repo::repo: '3.6'
 foreman::serveraliases:
   - '%{alias("foreman_servicename")}'
 
