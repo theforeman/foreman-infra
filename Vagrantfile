@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+CENTOS_8_BOX_URL = "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20220913.0.x86_64.vagrant-libvirt.box"
+
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -45,8 +47,9 @@ Vagrant.configure("2") do |config|
     override.vm.hostname = "jenkins-node-el8"
     override.vm.box = "centos/stream8"
 
-    override.vm.provider "libvirt" do |libvirt|
+    override.vm.provider "libvirt" do |libvirt, provider|
       libvirt.memory = "4096"
+      provider.vm.box_url = CENTOS_8_BOX_URL
     end
   end
 
