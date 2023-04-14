@@ -28,7 +28,7 @@ node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::backup::receiver
 }
 
-node /^redmine\d+\.([a-z]+)?\.theforeman\.org$/ {
+node /^redmine\d+\.([a-z]+\.)?theforeman\.org$/ {
   include profiles::base
   include profiles::redmine
   include exim # TODO
