@@ -13,4 +13,5 @@ nav:
     - Webserver: webserver.md
   - GPG: gpg.md
   - Secrets: secrets.md
+  - Backups: backups.md
   - Bootstrap: bootstrap.md
