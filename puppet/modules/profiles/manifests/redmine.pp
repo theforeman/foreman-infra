@@ -1,8 +1,9 @@
 # @summary A Redmine server
 class profiles::redmine (
 ) {
-  include redmine
-  $backup_path = $redmine::data_dir
+  # Redmine is already included via ENC
+  # TODO include redmine
+  $backup_path = '/var/lib/redmine'
 
   include profiles::backup::sender
 

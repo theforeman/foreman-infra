@@ -31,7 +31,6 @@ node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
 node /^redmine\d+\.([a-z]+\.)?theforeman\.org$/ {
   include profiles::base
   include profiles::redmine
-  include exim # TODO
 }
 
 node /^web\d+\.[a-z]+\.theforeman\.org$/ {
