@@ -5,7 +5,7 @@
 # @param username
 #   The remote username
 class profiles::backup::sender (
-  Sdlib::Host $host = 'backups.theforeman.org',
+  Stdlib::Host $host = 'backups.theforeman.org',
   String[1] $username = "backup-${facts['networking']['hostname']}",
 ) {
   # There are no packages in EL7 - EL8+ has it in EPEL
