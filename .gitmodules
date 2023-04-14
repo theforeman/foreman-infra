@@ -14,3 +14,6 @@
 [submodule "puppet/test_modules/augeas_core"]
 	path = puppet/test_modules/augeas_core
 	url = https://github.com/puppetlabs/puppetlabs-augeas_core
+[submodule "puppet/test_modules/sshkeys_core"]
+	path = puppet/test_modules/sshkeys_core
+	url = https://github.com/puppetlabs/puppetlabs-sshkeys_core
