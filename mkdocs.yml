@@ -12,4 +12,5 @@ nav:
     - Virt: virt.md
     - Webserver: webserver.md
   - GPG: gpg.md
+  - Secrets: secrets.md
   - Bootstrap: bootstrap.md
