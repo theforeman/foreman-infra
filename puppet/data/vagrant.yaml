@@ -1,2 +1,16 @@
 ---
 restic::password: "SomethingVerySecret"
+
+profiles::backup::receiver:
+  - redmine
+  - jenkins-master
+
+profiles::jenkins::controller::hostname: "%{facts.networking.fqdn}"
+profiles::jenkins::controller::https: false
+profiles::jenkins::controller::jenkins_job_builder: true
+profiles::jenkins::controller::jenkins_job_builder_password: "changeme"
+profiles::jenkins::controller::jenkins_job_builder_username: "admin"
+
+profiles::jenkins::node::swap_size_mb: 0
+
+profiles::web::https: false
