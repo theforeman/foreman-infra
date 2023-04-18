@@ -14,12 +14,16 @@ define jenkins_job_builder::config (
   $directory = '/etc/jenkins_jobs'
   $inifile = "${directory}/jenkins_jobs_${config_name}.ini"
 
+  $git = if $facts['os']['release']['major'] == '7' { 'git' } else { 'git-core' }
+  ensure_packages([$git])
+
   vcsrepo { "${directory}/${git_project_name}":
     ensure   => latest,
     provider => git,
     source   => $git_repo,
     revision => $git_ref,
     notify   => Exec["jenkins-jobs-update-${config_name}"],
+    require  => Package[$git],
   }
 
   exec { "jenkins-jobs-update-${config_name}":

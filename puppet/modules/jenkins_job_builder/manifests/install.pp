@@ -1,31 +1,15 @@
-# Class to install, configure, and maintain JJB
-#
-# Loosely based on
-# https://git.openstack.org/cgit/openstack-infra/puppet-jenkins/tree/manifests/job_builder.pp
-# and should probably be kept up to date from there
-class jenkins_job_builder::install {
-  ensure_packages(['python-pip'])
-
-  Package['python-pip'] -> Package <| provider == 'pip' |>
-
-  # A lot of things need yaml, be conservative requiring this package to avoid
-  # conflicts with other modules.
-  if ! defined(Package['PyYAML']) {
-    package { 'PyYAML':
-      ensure => present,
-    }
-  }
-
-  if ! defined(Package['python-jenkins']) {
-    package { 'python-jenkins':
-      ensure   => present,
-      provider => 'pip',
-    }
-  }
+# @summary install JJB
+# @api private
+class jenkins_job_builder::install (
+  String[1] $ensure = $jenkins_job_builder::ensure,
+) {
+  $yaml = if $facts['os']['release']['major'] == '7' { 'PyYAML' } else { 'python3-pyyaml' }
+  ensure_packages(['python-pip', $yaml])
 
   package { 'jenkins-job-builder':
-    ensure   => present,
+    ensure   => $jenkins_job_builder::ensure,
     provider => 'pip',
+    require  => Package['python-pip', $yaml],
   }
 
   file { '/etc/jenkins_jobs':
