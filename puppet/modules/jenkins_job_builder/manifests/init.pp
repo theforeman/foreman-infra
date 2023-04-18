@@ -4,12 +4,16 @@
 # Loosely based on
 # https://git.openstack.org/cgit/openstack-infra/puppet-jenkins/tree/manifests/job_builder.pp
 # and should probably be kept up to date from there
+
+# @param ensure
+#   The package state to ensure. Can be installed or a specific version.
 #
 # @param configs
 #   A hash of: 'name' => 'url', 'username', 'password'
 #   The name matches the name under files/ of the config directory.
 #
 class jenkins_job_builder (
+  String[1] $ensure = installed,
   Hash[String, Hash] $configs = {},
 ) {
   contain jenkins_job_builder::install
