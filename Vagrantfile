@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 CENTOS_8_BOX_URL = "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20220913.0.x86_64.vagrant-libvirt.box"
+CENTOS_9_BOX_URL = "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-Vagrant-9-20230410.0.x86_64.vagrant-libvirt.box"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
@@ -11,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
     . /etc/os-release
     yum -y install epel-release
-    yum -y install puppet7-release || yum -y install https://yum.puppetlabs.com/puppet7/puppet7-release-el-${VERSION_ID}.noarch.rpm
+    yum -y install puppet7-release || yum -y install https://yum.puppetlabs.com/puppet7-release-el-${VERSION_ID}.noarch.rpm
     yum -y install puppet-agent
   SHELL
 
@@ -23,11 +24,13 @@ Vagrant.configure("2") do |config|
     puppet.working_directory = "/tmp/vagrant-puppet"
   end
 
-  config.vm.define "jenkins-master" do |override|
-    override.vm.hostname = "jenkins-master"
+  config.vm.define "jenkins-controller" do |override|
+    override.vm.hostname = "jenkins-controller"
+    override.vm.box = "centos/stream9"
 
-    override.vm.provider "libvirt" do |libvirt|
+    override.vm.provider "libvirt" do |libvirt, provider|
       libvirt.memory = "2048"
+      provider.vm.box_url = CENTOS_9_BOX_URL
     end
   end
 

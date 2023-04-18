@@ -1,4 +1,4 @@
-node /^jenkins-master.*/ {
+node /^jenkins-controller.*/ {
   include profiles::jenkins::controller
 }
 
