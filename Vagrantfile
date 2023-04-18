@@ -6,6 +6,7 @@ CENTOS_8_BOX_URL = "https://cloud.centos.org/centos/8-stream/x86_64/images/CentO
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "puppet/data", "/tmp/vagrant-puppet/data", type: "rsync"
 
   config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
     . /etc/os-release
@@ -15,9 +16,11 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.provision "run puppet", type: 'puppet' do |puppet|
+    puppet.hiera_config_path = 'vagrant/hiera.yaml'
     puppet.module_path = ["puppet/modules", "puppet/external_modules"]
     puppet.manifests_path = "vagrant/manifests"
     puppet.synced_folder_type = "rsync"
+    puppet.working_directory = "/tmp/vagrant-puppet"
   end
 
   config.vm.define "jenkins-master" do |override|
