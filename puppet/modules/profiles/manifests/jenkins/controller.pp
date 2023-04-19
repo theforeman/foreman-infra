@@ -50,6 +50,20 @@ class profiles::jenkins::controller (
     https    => $https,
   }
 
+  include profiles::backup::sender
+
+  $backup_path = $jenkins::localstatedir
+
+  restic::repository { 'jenkins':
+    backup_cap_dac_read_search => true,
+    backup_path                => $backup_path,
+    backup_flags               => [
+      '--exclude', "${backup_path}/jobs/*/workspace*",
+      '--exclude', "${backup_path}/jobs/*/builds",
+      '--exclude', "${backup_path}/plugins",
+    ],
+  }
+
   if $jenkins_job_builder {
     class { 'jenkins_job_builder':
       configs => {
