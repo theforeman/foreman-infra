@@ -10,6 +10,6 @@ class profiles::redmine (
   restic::repository { 'redmine':
     backup_cap_dac_read_search => true,
     backup_path                => $backup_path,
-    backup_flags               => ['--exclude', '/git'],
+    backup_flags               => ['--exclude', "${backup_path}/git"],
   }
 }
