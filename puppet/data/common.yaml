@@ -1,4 +1,6 @@
 ---
+backup_servicename: 'backups.theforeman.org'
+backup_username: 'backup-%{facts.networking.hostname}'
 foreman_servicename: 'foreman.theforeman.org'
 foreman_url: 'https://%{lookup("foreman_servicename")}'
 puppet_servicename: 'puppet.theforeman.org'
@@ -19,9 +21,15 @@ profiles::backup::receiver::targets:
   - master02
   - discourse01
 
-profiles::backup::sender::host: 'backups.theforeman.org'
+profiles::backup::sender::host: '%{alias("backup_servicename")}'
 profiles::backup::sender::ssh_key: 'AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNfA651gsxAgFzWdBjFbTTXgZ+mIovdHE2TZShmyDJ9h6On+qQ3WOGVXflyrocM93vR4diZT80bnyIpLZtIf5RY='
 profiles::backup::sender::ssh_key_type: 'ecdsa-sha2-nistp256'
+profiles::backup::sender::username: '%{alias("backup_username")}'
+
+restic::backup_timer: 'daily'
+restic::type: 'sftp'
+restic::host: '%{alias("backup_servicename")}'
+restic::id: '%{alias("backup_username")}'
 
 puppet::runmode: systemd.timer
 puppet::puppetmaster: '%{alias("puppet_servicename")}'

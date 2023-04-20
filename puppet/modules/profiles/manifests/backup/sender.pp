@@ -12,26 +12,9 @@ class profiles::backup::sender (
   Stdlib::Host $host,
   String[1] $ssh_key,
   String[1] $ssh_key_type,
-  String[1] $username = "backup-${facts['networking']['hostname']}",
+  String[1] $username,
 ) {
-  # There are no packages in EL7 - EL8+ has it in EPEL
-  if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '7') <= 0 {
-    $params = {
-      install_method  => 'url',
-      package_version => '0.15.1',
-      binary          => '/usr/local/bin/restic',
-    }
-  } else {
-    $params = {}
-  }
-
-  class { 'restic':
-    backup_timer => 'daily',
-    type         => 'sftp',
-    host         => $host,
-    id           => $username,
-    *            => $params,
-  }
+  require restic
 
   $ssh_dir = "${restic::user_homedir}/.ssh"
 
@@ -50,7 +33,7 @@ class profiles::backup::sender (
     content => ssh::keygen($username),
   }
 
-  sshkey { $host:
+  sshkey { $restic::host:
     ensure => present,
     type   => $ssh_key_type,
     key    => $ssh_key,
