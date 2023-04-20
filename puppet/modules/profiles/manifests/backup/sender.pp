@@ -2,10 +2,16 @@
 #
 # @param host
 #   The target backup host
+# @param ssh_key
+#   The SSH key to use as a known host
+# @param ssh_key_type
+#   The type of SSH key
 # @param username
 #   The remote username
 class profiles::backup::sender (
-  Stdlib::Host $host = 'backups.theforeman.org',
+  Stdlib::Host $host,
+  String[1] $ssh_key,
+  String[1] $ssh_key_type,
   String[1] $username = "backup-${facts['networking']['hostname']}",
 ) {
   # There are no packages in EL7 - EL8+ has it in EPEL
@@ -42,5 +48,11 @@ class profiles::backup::sender (
     group   => $restic::group,
     mode    => '0600',
     content => ssh::keygen($username),
+  }
+
+  sshkey { $host:
+    ensure => present,
+    type   => $ssh_key_type,
+    key    => $ssh_key,
   }
 }
