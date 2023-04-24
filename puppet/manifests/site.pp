@@ -9,7 +9,7 @@ node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
 
 node /^discourse\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
-  # TODO profiles::discourse
+  include profiles::discourse
 }
 
 node /^foreman\d+\.[a-z]+\.theforeman\.org$/ {
