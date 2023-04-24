@@ -7,7 +7,7 @@ node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::jenkins::controller
 }
 
-node /^discourse\d+\.[a-z]+\.theforeman\.org$/ {
+node /^discourse\d+\.([a-z]+\.)?theforeman\.org$/ {
   include profiles::base
   include profiles::discourse
 }
