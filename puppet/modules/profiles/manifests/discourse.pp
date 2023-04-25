@@ -9,6 +9,6 @@ class profiles::discourse {
 
   restic::repository { 'discourse':
     backup_cap_dac_read_search => true,
-    backup_path                => ["${root}/containers", "${root}/shared/*/backups"],
+    backup_path                => ["${root}/containers", "${root}/shared/standalone/backups"],
   }
 }
