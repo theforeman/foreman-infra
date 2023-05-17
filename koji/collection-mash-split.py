@@ -400,26 +400,21 @@ def main():
 
         CONFIG["comps_path"] = "/mnt/koji/mash/comps/foreman"
 
-        if collection == 'foreman' and version not in ('3.1', '3.0', '2.5'):
+        if collection == 'foreman':
             modulemd_suffix = 'el8'
         else:
             modulemd_suffix = None
 
         mashes = [MashConfig(collection, version, "el8", "el8", "el8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context)]
 
-        if LooseVersion(version) <= LooseVersion("3.3"):
-            mashes.append(MashConfig(collection, version, "rhel7-dist", "rhel7", "el7"))
-
     elif collection == "foreman-client":
         dists = {
             "el8": "el8",
+            "el9": "el9",
             "rhel7": "el7",
             "sles11": "sles11",
             "sles12": "sles12",
         }
-
-        if LooseVersion(version) >= LooseVersion("3.3"):
-            dists["el9"] = "el9"
 
         if version == "nightly":
             git_tag = "rpm/develop"
@@ -433,11 +428,6 @@ def main():
             '4.8': '3.6',
             '4.7': '3.5',
             '4.6': '3.4',
-            '4.5': '3.3',
-            '4.4': '3.2',
-            '4.3': '3.1',
-            '4.2': '3.0',
-            '4.1': '2.5',
         }
 
         git_tag = "rpm/{}".format(branch_map[version])
@@ -445,31 +435,17 @@ def main():
         el8_candlepin = MashConfig(collection, version, "candlepin-el8", "candlepin-el8", "candlepin/el8")
         el8_candlepin.name = 'katello-candlepin-{}-el8'.format(version)
 
-        if version not in ('4.3', '4.2', '4.1'):
-            modulemd_suffix = 'el8'
-        else:
-            modulemd_suffix = None
-
         mashes = [
-            MashConfig(collection, version, "el8", "el8", "katello/el8", modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context),
+            MashConfig(collection, version, "el8", "el8", "katello/el8", modulemd_suffix='el8', modulemd_version=modulemd_version, modulemd_context=modulemd_context),
             el8_candlepin,
         ]
-
-        if LooseVersion(version) <= LooseVersion("4.5"):
-            mashes.append(MashConfig(collection, version, "rhel7", "server-rhel7", "katello/el7"))
-            mashes.append(MashConfig(collection, version, "thirdparty-candlepin-rhel7", "candlepin-server-rhel7", "candlepin/el7"))
 
     elif collection == 'pulpcore':
         CONFIG["gitloc"] = "https://github.com/theforeman/pulpcore-packaging.git"
         git_tag = "rpm/{}".format(version)
 
-        if LooseVersion(version) >= LooseVersion("3.16"):
-            modulemd_suffix = 'el8'
-        else:
-            modulemd_suffix = None
-
         mashes = [
-            MashConfig(collection, version, 'el8', 'el8', 'el8', modulemd_suffix=modulemd_suffix, modulemd_version=modulemd_version, modulemd_context=modulemd_context)
+            MashConfig(collection, version, 'el8', 'el8', 'el8', modulemd_suffix='el8', modulemd_version=modulemd_version, modulemd_context=modulemd_context)
         ]
 
         if LooseVersion(version) >= LooseVersion("3.18"):
