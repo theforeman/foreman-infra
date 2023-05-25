@@ -19,7 +19,7 @@
 #   server load
 class profiles::web (
   String[1] $stable = '3.6',
-  String[1] $next = '3.7',
+  String[1] $next = '3.8',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
   Integer[0] $rsync_max_connections = 10,
