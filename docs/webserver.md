@@ -41,7 +41,6 @@ The major points of the configuration are:
 * Set the backend to `web02.theforeman.org`
 * Enable shielding: a central system fetches the assets and then distributes them across the CDN instead of each CDN node fetches them itself, this costs more CDN traffic, but less traffic for web02 which is more expensive
 * Configure a health-check and serve stale content when it fails
-* Log requests to a RackSpace CloudFiles (S3-like) bucket
 
 #### TLS
 

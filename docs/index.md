@@ -32,8 +32,8 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 A list of the hosting we have, who provides it, and what capacity it has
 
 ### Rackspace
-  * Previously sponsored, [being phased out](https://community.theforeman.org/t/rfc-moving-off-of-rackspace-infrastructure/17932)
-  * Hosts Jenkins and Foreman
+  * Previously sponsored, now paid by Red Hat
+  * Used for Mailgun to send email from Redmine and Discourse
   * Contact support from our account as needed
 ### Scaleway
   * Previously sponsored, planned to be phased out
