@@ -41,7 +41,7 @@ class slave::rvm {
       rubygems_version => '3.2.3',
     }
     slave::rvm_config { 'ruby-3.1':
-      version          => 'ruby-3.1.2',
+      version          => 'ruby-3.1.4',
       rubygems_version => '3.3.3',
     }
 
