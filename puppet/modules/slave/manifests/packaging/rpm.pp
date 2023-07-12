@@ -17,6 +17,9 @@ class slave::packaging::rpm (
     }
   }
 
+  # To run obal
+  ensure_packages(['python3'])
+
   # koji
   file { "${homedir}/bin":
     ensure => directory,
