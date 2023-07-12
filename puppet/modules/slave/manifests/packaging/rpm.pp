@@ -66,25 +66,13 @@ class slave::packaging::rpm (
   }
 
   unless $is_el8 {
-    # tito
-    # Work around to fix https://github.com/rpm-software-management/tito/pull/354#issuecomment-613523823
-    # Pulled from the infra repository
+    # Tito was used in the past, but no longer. This cleans up the files we used to have.
     package { 'tito':
-      ensure => '0.6.12',
+      ensure => absent,
     }
 
     file { "${homedir}/.titorc":
-      ensure  => file,
-      mode    => '0644',
-      owner   => 'jenkins',
-      group   => 'jenkins',
-      content => "KOJI_OPTIONS=-c ~/.koji/config build --nowait\n",
-    }
-
-    file { '/tmp/tito':
-      ensure => directory,
-      owner  => 'jenkins',
-      group  => 'jenkins',
+      ensure => absent,
     }
   }
 
