@@ -18,7 +18,8 @@ class slave::packaging::rpm (
   }
 
   # To run obal
-  ensure_packages(['python3'])
+  $yaml = if $facts['os']['release']['major'] == '7' { 'python36-PyYAML' } else { 'python3-pyyaml' }
+  ensure_packages(['python3', $yaml])
 
   # koji
   file { "${homedir}/bin":
