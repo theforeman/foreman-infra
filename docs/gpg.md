@@ -56,7 +56,7 @@ To make our infrastructure aware of the new keys:
 * Configure it in `puppet/modules/freight/templates/freight.conf.erb`, examples:
   * [7680053](https://github.com/theforeman/foreman-infra/commit/7680053) - Add 2016 archive key, thus using two keys for a period of time
   * [9f50f62](https://github.com/theforeman/foreman-infra/commit/9f50f62) - Remove 2014 archive signing GPG key
-* Configure it in `puppet/modules/slave/templates/pbuilder_f70.erb`, example:
+* Configure it in `puppet/modules/slave/files/pbuilder_F60addforemanrepo`, example:
   * [596ece6](https://github.com/theforeman/foreman-infra/commit/596ece6) - add new (2021) key to pbuilder
 
 To make our users aware of the new keys:
