@@ -32,7 +32,7 @@ gopass clone secrets.theforeman.org:/srv/secretsgit/theforeman-release.git thefo
 Contains account access for Infra admins.
 
 ```
-gopass clone secrets.theforeman.org:/srv/secretsgit/theforeman-release.git theforeman/shared
+gopass clone secrets.theforeman.org:/srv/secretsgit/theforeman-passwords.git theforeman/shared
 ```
 
 ## Server setup
