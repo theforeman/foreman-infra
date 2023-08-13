@@ -15,6 +15,8 @@ class slave::packaging (
       class { 'slave::packaging::rpm':
         homedir          => $homedir,
         koji_certificate => $koji_certificate,
+        user             => 'jenkins',
+        workspace        => $workspace,
       }
       contain slave::packaging::rpm
     }

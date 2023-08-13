@@ -60,4 +60,6 @@ class profiles::web (
     rsync_max_connections => $rsync_max_connections,
   }
   contain web::vhost::yum
+
+  contain web::vhost::stagingyum
 }

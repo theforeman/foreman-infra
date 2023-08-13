@@ -2,6 +2,8 @@
 # @api private
 class slave::packaging::rpm (
   Stdlib::Absolutepath $homedir,
+  String $user,
+  Stdlib::Absolutepath $workspace,
   Optional[String] $koji_certificate = undef,
 ) {
   # TODO: Fix on EL8 and get rid of this
@@ -113,5 +115,11 @@ class slave::packaging::rpm (
 
   package { ['dnf', 'dnf-plugins-core']:
     ensure => present,
+  }
+
+  secure_ssh::rsync::uploader_key { 'yumstage':
+    user       => $user,
+    dir        => "${workspace}/staging_key",
+    manage_dir => true,
   }
 }
