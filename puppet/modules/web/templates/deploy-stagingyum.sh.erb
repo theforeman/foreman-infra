@@ -1,0 +1,11 @@
+  # Make sure target dir can be created
+  YUM_PATH=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'`
+  PROJECT=`echo $YUM_PATH | /bin/cut -f2 -d/`
+  RELEASE=`echo $YUM_PATH | /bin/cut -f3 -d/`
+  mkdir -p <%= @home %>/rsync_cache/$PROJECT/$RELEASE
+
+  # Permit transfer
+  $SSH_ORIGINAL_COMMAND
+
+  # Publish the site - stderr/out redirect is required to stop the noninteractive shell from hanging
+  rsync -rvx --delete-after <%= @home %>/rsync_cache/$PROJECT/$RELEASE <%= @yum_directory %>/ 2>&1 >/dev/null ;
