@@ -10,13 +10,7 @@ class slave::packaging::debian(
     ensure => present,
   }
 
-  if $facts['os']['name'] == 'Debian' and versioncmp($facts['os']['release']['major'], '11') >= 0 {
-    ensure_packages(['python3-pip', 'python3-setuptools'])
-  } else {
-    ensure_packages(['python-pip', 'python-setuptools'])
-  }
-
-  ensure_packages(['zstd'])
+  ensure_packages(['python3-pip', 'python3-setuptools', 'zstd'])
 
   if $facts['os']['name'] == 'Debian' {
     include apt::backports
