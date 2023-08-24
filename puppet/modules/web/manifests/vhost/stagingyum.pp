@@ -4,6 +4,7 @@ class web::vhost::stagingyum (
   Stdlib::Fqdn $servername = 'stagingyum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/stagingyum/htdocs',
   String $user = 'yumrepostage',
+  Stdlib::Absolutepath $home = "/home/${user}",
 ) {
   $yum_directory_config = [
     {
@@ -28,6 +29,8 @@ class web::vhost::stagingyum (
 
   secure_ssh::receiver_setup { $user:
     user           => $user,
+    homedir        => $home,
+    homedir_mode   => '0750',
     foreman_search => 'host ~ node*.jenkins.*.theforeman.org and (name = external_ip4 or name = external_ip6)',
     script_content => template('web/deploy-stagingyum.sh.erb'),
   }
