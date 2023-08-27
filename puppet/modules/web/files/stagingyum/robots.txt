@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /foreman/
+Disallow: /plugins/
+Disallow: /katello/
+Disallow: /client/
+Disallow: /pulpcore/

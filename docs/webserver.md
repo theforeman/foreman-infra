@@ -19,6 +19,7 @@ These domains are all hosted on the webserver.
 * downloads.theforeman.org
 * stagingdeb.theforeman.org
 * yum.theforeman.org
+* stagingyum.theforeman.org
 * rsync.theforeman.org
 
 ### Fastly CDN
@@ -29,6 +30,7 @@ A Fastly CDN exists that sits in front of:
 * downloads.theforeman.org
 * stagingdeb.theforeman.org
 * yum.theforeman.org
+* stagingyum.theforeman.org
 
 For these, the webserver acts as a backend while the content is served from the Fastly CDN to users.
 
