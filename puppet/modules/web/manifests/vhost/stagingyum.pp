@@ -27,7 +27,7 @@ class web::vhost::stagingyum (
     },
   ]
 
-  secure_ssh::receiver_setup { $user:
+  secure_ssh::rsync::receiver_setup { $user:
     user           => $user,
     homedir        => $home,
     homedir_mode   => '0750',
