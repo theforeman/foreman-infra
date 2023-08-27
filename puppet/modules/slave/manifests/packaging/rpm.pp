@@ -117,7 +117,7 @@ class slave::packaging::rpm (
     ensure => present,
   }
 
-  secure_ssh::rsync::uploader_key { 'yumstage':
+  secure_ssh::rsync::uploader_key { 'yumrepostage':
     user       => $user,
     dir        => "${workspace}/staging_key",
     manage_dir => true,
