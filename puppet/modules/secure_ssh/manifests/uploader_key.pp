@@ -21,6 +21,7 @@ define secure_ssh::uploader_key (
   Stdlib::Filemode $mode = '0600',
   Boolean $manage_dir = false,
   String[1] $ssh_key_name = "${name}_key",
+  String[1] $ensure = 'present',
 ) {
   $pub_key  = ssh::keygen($ssh_key_name, true)
   $priv_key = ssh::keygen($ssh_key_name)
@@ -34,12 +35,14 @@ define secure_ssh::uploader_key (
   }
 
   file { "${dir}/${ssh_key_name}":
+    ensure  => $ensure,
     owner   => $user,
     mode    => '0400',
     content => $priv_key,
   }
 
   file { "${dir}/${ssh_key_name}.pub":
+    ensure  => $ensure,
     owner   => $user,
     mode    => '0644',
     content => "ssh-rsa ${pub_key} ${ssh_key_name} from puppetmaster\n",
