@@ -20,8 +20,10 @@ define secure_ssh::rsync::uploader_key (
   Stdlib::Absolutepath $dir = "/home/${user}/.ssh",
   Stdlib::Filemode $mode = '0600',
   Boolean $manage_dir = false,
+  String[1] $ensure = 'present',
 ) {
   secure_ssh::uploader_key { $name:
+    ensure       => $ensure,
     user         => $user,
     dir          => $dir,
     mode         => $mode,

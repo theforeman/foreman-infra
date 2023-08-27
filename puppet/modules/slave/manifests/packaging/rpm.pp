@@ -111,4 +111,9 @@ class slave::packaging::rpm (
   }
 
   include rsync
+
+  secure_ssh::rsync::uploader_key { 'yumstage':
+    ensure => 'absent',
+    user   => $user,
+  }
 }
