@@ -50,7 +50,7 @@ class web::vhost::stagingyum (
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => file("web/yum/${filename}"),
+      content => file("web/stagingyum/${filename}"),
     }
   }
 }
