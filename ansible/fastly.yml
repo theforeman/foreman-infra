@@ -39,4 +39,5 @@
         - deb
         - downloads
         - stagingdeb
+        - stagingyum
         - yum
