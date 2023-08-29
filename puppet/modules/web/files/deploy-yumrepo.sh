@@ -23,7 +23,10 @@ do_rsync() {
 	fi
 
 	rsync "${opts[@]}" --log-file-format 'CHANGED %f' "${REPO_SOURCE_RPM}/*" "${REPO_INSTANCE_PATH}/"
-	rsync "${opts[@]}" --log-file-format 'CHANGED source/%f' "${REPO_SOURCE_SRPM}/" "${REPO_INSTANCE_PATH}/source/"
+
+	if [[ -n "$REPO_SOURCE_SRPM" ]]; then
+		rsync "${opts[@]}" --log-file-format 'CHANGED source/%f' "${REPO_SOURCE_SRPM}/" "${REPO_INSTANCE_PATH}/source/"
+	fi
 
 	set +f
 	for d in "${REPO_INSTANCE_PATH}"/*; do
@@ -93,15 +96,21 @@ REPO_SOURCE=$1
 REPO_DEST=$2
 OVERWRITE=${3:-false}
 MERGE=${4:-false}
+STAGING=${5:-false}
 
 if [[ -z $REPO_SOURCE ]] || [[ -z $REPO_DEST ]] ; then
 	echo "Usage: $0 REPO_SOURCE REPO_DEST OVERWRITE MERGE"
 	exit 1
 fi
 
-REPO_SOURCE_BASE="rsync://koji.katello.org/releases"
-REPO_SOURCE_RPM="${REPO_SOURCE_BASE}/yum/${REPO_SOURCE}"
-REPO_SOURCE_SRPM="${REPO_SOURCE_BASE}/source/${REPO_SOURCE}"
+if [[ $STAGING == true ]] ; then
+	REPO_SOURCE_BASE="rsync://rsync.theforeman.org/stagingyum/"
+	REPO_SOURCE_RPM="${REPO_SOURCE_BASE}/${REPO_SOURCE}"
+else
+	REPO_SOURCE_BASE="rsync://koji.katello.org/releases"
+	REPO_SOURCE_RPM="${REPO_SOURCE_BASE}/yum/${REPO_SOURCE}"
+	REPO_SOURCE_SRPM="${REPO_SOURCE_BASE}/source/${REPO_SOURCE}"
+fi
 
 DEPLOY_TO="/var/www/vhosts/yum/htdocs"
 REPO_PATH="${DEPLOY_TO}/${REPO_DEST}"
