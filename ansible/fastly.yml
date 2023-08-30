@@ -6,7 +6,7 @@
   vars_files:
     - secrets.yml
   tasks:
-    - name: configure fastly service
+    - name: configure fastly service for web01
       fastly_service:
         name: "{{ item }}.theforeman.org"
         fastly_api_key: "{{ fastly_api_key }}"
@@ -41,3 +41,25 @@
         - stagingdeb
         - stagingyum
         - yum
+    - name: configure fastly service for redmine-test
+      fastly_service:
+        name: "projects-test.theforeman.org"
+        fastly_api_key: "{{ fastly_api_key }}"
+        domains:
+          - name: "projects-test.theforeman.org"
+        backends:
+          - name: rails-pgsql-persistent-test-projects-theforeman-org.apps.ospo-osci.z3b1.p1.openshiftapps.com
+            address: rails-pgsql-persistent-test-projects-theforeman-org.apps.ospo-osci.z3b1.p1.openshiftapps.com
+            port: 443
+            shield: iad-va-us
+            ssl_cert_hostname: rails-pgsql-persistent-test-projects-theforeman-org.apps.ospo-osci.z3b1.p1.openshiftapps.com
+            healthcheck: home
+        healthchecks:
+          - name: home
+            host: rails-pgsql-persistent-test-projects-theforeman-org.apps.ospo-osci.z3b1.p1.openshiftapps.com
+            path: "/"
+            threshold: 1
+            timeout: 5000
+            window: 2
+            initial: 1
+            check_interval: 60000
