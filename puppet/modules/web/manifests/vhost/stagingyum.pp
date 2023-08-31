@@ -5,6 +5,7 @@ class web::vhost::stagingyum (
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/stagingyum/htdocs',
   String $user = 'yumrepostage',
   Stdlib::Absolutepath $home = "/home/${user}",
+  Integer[0] $rsync_max_connections = 5,
 ) {
   $yum_directory_config = [
     {
@@ -42,6 +43,17 @@ class web::vhost::stagingyum (
     docroot_group => $user,
     docroot_mode  => '0755',
     directories   => $yum_directory_config,
+  }
+
+  include rsync::server
+  rsync::server::module { 'stagingyum':
+    path            => $yum_directory,
+    list            => true,
+    read_only       => true,
+    comment         => $servername,
+    uid             => 'nobody',
+    gid             => 'nobody',
+    max_connections => $rsync_max_connections,
   }
 
   ['HEADER.html', 'robots.txt'].each |$filename| {
