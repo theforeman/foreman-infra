@@ -30,6 +30,12 @@ restic::backup_timer: 'daily'
 restic::type: 'sftp'
 restic::host: '%{alias("backup_servicename")}'
 restic::id: '%{alias("backup_username")}'
+restic::enable_forget: true
+restic::forget:
+  keep-daily: 14
+  keep-weekly: 4
+restic::forget_timer: 'weekly'
+restic::prune: true
 
 profiles::jenkins::controller::plugins:
   - 'Matrix-sorter-plugin'
