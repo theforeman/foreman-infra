@@ -1,6 +1,7 @@
 # Virtualization host
 
 | | virt01.conova.theforeman.org |
+|-|-|
 | type | HPE ProLiant DL325 Gen10 |
 | OS | CentOS Stream 8 |
 | CPUs | AMD EPYC 7402P 24-Core Processor |
