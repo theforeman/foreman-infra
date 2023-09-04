@@ -100,10 +100,16 @@ class redmine (
     content => template('redmine/secure_config.yaml.erb'),
   }
 
+  file { $app_root:
+    ensure => directory,
+    owner  => $username,
+  }
+
   vcsrepo { $app_root:
     ensure   => present,
     provider => 'git',
     source   => $repo_url,
+    owner    => $username,
     user     => $username,
     notify   => Exec['install redmine'],
   }
