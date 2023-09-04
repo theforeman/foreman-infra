@@ -142,13 +142,6 @@ class redmine (
   $start_timeout    = 600
   $priority         = '05'
 
-  letsencrypt::certonly { $servername:
-    plugin        => 'webroot',
-    domains       => [$servername],
-    webroot_paths => [$docroot],
-    require       => Vcsrepo[$app_root],
-  }
-
   apache::vhost { $servername:
     docroot        => $docroot,
     manage_docroot => false,
@@ -159,6 +152,13 @@ class redmine (
   }
 
   if $https {
+    letsencrypt::certonly { $servername:
+      plugin        => 'webroot',
+      domains       => [$servername],
+      webroot_paths => [$docroot],
+      require       => Vcsrepo[$app_root],
+    }
+
     apache::vhost { "${servername}-https":
       add_default_charset     => 'UTF-8',
       docroot                 => $docroot,
