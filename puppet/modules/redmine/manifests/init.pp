@@ -35,6 +35,7 @@ class redmine (
   String $db_name                = 'redmine',
   String $db_password            = extlib::cache_data('foreman_cache_data', 'db_password', extlib::random_password(32)),
   Boolean $https                 = false,
+  String $deployment             = 'passenger',
 ) {
   # PostgreSQL tuning
   $postgresql_settings = {
@@ -161,10 +162,62 @@ class redmine (
   $docroot          = "${app_root}/public"
   $priority         = '05'
 
-  $apache_backend_config = {
-    passenger_app_root      => $app_root,
-    passenger_min_instances => 1,
-    passenger_start_timeout => 600,
+  if $deployment == 'passenger' {
+    $apache_backend_config = {
+      passenger_app_root      => $app_root,
+      passenger_min_instances => 1,
+      passenger_start_timeout => 600,
+    }
+  } else {
+    systemd::manage_unit {'redmine.socket':
+      ensure        => 'present',
+      unit_entry    => {
+        'Description' => 'redmine socket',
+      },
+      socket_entry  => {
+        'ListenStream' => 3000,
+      },
+      install_entry => {
+        'WantedBy' => 'sockets.target',
+      },
+    }
+
+    systemd::manage_unit{'redmine.service':
+      ensure        => 'present',
+      enable        => true,
+      active        => true,
+      unit_entry    => {
+        'Description'   => 'redmine',
+      },
+      service_entry => {
+        'Type'             => 'notify',
+        'User'             => $username,
+        'PrivateTmp'       => true,
+        'WorkingDirectory' => $app_root,
+        'ExecStart'        => "${app_root}/bin/rails server --environment production",
+        'SyslogIdentifier' => 'redmine',
+      },
+    }
+
+    $apache_backend_config = {
+      'proxy_preserve_host' => true,
+      'proxy_add_headers'   => true,
+      'request_headers'     => ['set X_FORWARDED_PROTO "https"'],
+      'proxy_pass'          => {
+        'no_proxy_uris' => [
+          '/server-status', '/help', '/images', '/javascripts', '/plugin_assets', '/stylesheets', '/themes', '/favicon.ico',
+        ],
+        'path'          => '/',
+        'url'           => 'http://127.0.0.1:3000/',
+      },
+    }
+
+    if $facts['os']['selinux']['enabled'] {
+      selboolean { 'httpd_can_network_connect':
+        persistent => true,
+        value      => 'on',
+      }
+    }
   }
 
   apache::vhost { $servername:
