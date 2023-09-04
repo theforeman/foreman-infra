@@ -157,9 +157,13 @@ class redmine (
   include web::base
 
   $docroot          = "${app_root}/public"
-  $min_instances    = 1
-  $start_timeout    = 600
   $priority         = '05'
+
+  $apache_backend_config = {
+    passenger_app_root      => $app_root,
+    passenger_min_instances => 1,
+    passenger_start_timeout => 600,
+  }
 
   apache::vhost { $servername:
     docroot        => $docroot,
@@ -179,24 +183,22 @@ class redmine (
     }
 
     apache::vhost { "${servername}-https":
-      add_default_charset     => 'UTF-8',
-      docroot                 => $docroot,
-      manage_docroot          => false,
-      port                    => 443,
-      options                 => ['SymLinksIfOwnerMatch'],
-      passenger_app_root      => $app_root,
-      passenger_min_instances => $min_instances,
-      passenger_start_timeout => $start_timeout,
-      priority                => $priority,
-      servername              => $servername,
-      ssl                     => true,
-      ssl_cert                => "/etc/letsencrypt/live/${servername}/fullchain.pem",
-      ssl_chain               => "/etc/letsencrypt/live/${servername}/chain.pem",
-      ssl_key                 => "/etc/letsencrypt/live/${servername}/privkey.pem",
-      headers                 => [
+      add_default_charset => 'UTF-8',
+      docroot             => $docroot,
+      manage_docroot      => false,
+      port                => 443,
+      options             => ['SymLinksIfOwnerMatch'],
+      priority            => $priority,
+      servername          => $servername,
+      ssl                 => true,
+      ssl_cert            => "/etc/letsencrypt/live/${servername}/fullchain.pem",
+      ssl_chain           => "/etc/letsencrypt/live/${servername}/chain.pem",
+      ssl_key             => "/etc/letsencrypt/live/${servername}/privkey.pem",
+      headers             => [
         'set Strict-Transport-Security: max-age=15778800;',
       ],
-      require                 => [Letsencrypt::Certonly[$servername], Exec['install redmine']],
+      require             => [Letsencrypt::Certonly[$servername], Exec['install redmine']],
+      *                   => $apache_backend_config,
     }
   }
 
