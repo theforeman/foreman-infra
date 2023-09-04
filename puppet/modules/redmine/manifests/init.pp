@@ -46,6 +46,7 @@ class redmine (
 
   # Needed for bundle install
   $packages = [
+    'git',
     'rubygem-bundler.noarch',
     'ruby-devel',
     'gcc',
