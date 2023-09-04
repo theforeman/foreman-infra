@@ -38,7 +38,6 @@ class redmine (
   # PostgreSQL tuning
   $postgresql_settings = {
     'checkpoint_completion_target' => '0.9',
-    'checkpoint_segments'          => '20',
     'effective_cache_size'         => '2GB',
     'shared_buffers'               => '512MB',
     'work_mem'                     => '4MB',
