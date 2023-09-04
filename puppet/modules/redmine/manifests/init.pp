@@ -74,7 +74,7 @@ class redmine (
 
   postgresql::server::db { $db_name:
     user     => $username,
-    password => postgresql_password($username, $db_password),
+    password => postgresql::postgresql_password($username, $db_password),
     owner    => $username,
     encoding => 'utf8',
     locale   => 'en_US.utf8',
