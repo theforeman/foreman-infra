@@ -65,6 +65,8 @@ class redmine (
     'ImageMagick-devel',
     'postgresql-devel',
     'sqlite-devel',
+    'redhat-rpm-config',
+    'make',
   ]
 
   ensure_packages($packages)
