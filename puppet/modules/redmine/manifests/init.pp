@@ -126,8 +126,9 @@ class redmine (
     notify   => Exec['install redmine'],
   }
 
+  # TODO: this should lay down a .bundle/config instead of using --path
   exec { 'install redmine':
-    command     => 'bundle install',
+    command     => 'bundle install --path ./vendor',
     user        => $username,
     cwd         => $app_root,
     path        => $::path,
