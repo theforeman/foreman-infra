@@ -1,0 +1,10 @@
+[Unit]
+Description=redmine
+
+[Service]
+Type=notify
+User=<%= @username %>
+ExecStart=<%= @app_root %>/bin/rails server --environment production
+PrivateTmp=true
+WorkingDirectory=<%= @app_root %>
+SyslogIdentifier=redmine

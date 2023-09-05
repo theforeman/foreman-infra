@@ -1,0 +1,11 @@
+# Deployed with puppet
+#
+
+[Unit]
+Description=redmine socket
+
+[Socket]
+ListenStream=3000
+
+[Install]
+WantedBy=sockets.target

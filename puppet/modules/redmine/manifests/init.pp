@@ -169,34 +169,18 @@ class redmine (
       passenger_start_timeout => 600,
     }
   } else {
-    systemd::manage_unit {'redmine.socket':
-      ensure        => 'present',
-      unit_entry    => {
-        'Description' => 'redmine socket',
-      },
-      socket_entry  => {
-        'ListenStream' => 3000,
-      },
-      install_entry => {
-        'WantedBy' => 'sockets.target',
-      },
+    systemd::unit_file {'redmine.socket':
+      ensure  => 'present',
+      enable  => true,
+      active  => true,
+      content => file('redmine/redmine.socket'),
     }
 
-    systemd::manage_unit{'redmine.service':
-      ensure        => 'present',
-      enable        => true,
-      active        => true,
-      unit_entry    => {
-        'Description'   => 'redmine',
-      },
-      service_entry => {
-        'Type'             => 'notify',
-        'User'             => $username,
-        'PrivateTmp'       => true,
-        'WorkingDirectory' => $app_root,
-        'ExecStart'        => "${app_root}/bin/rails server --environment production",
-        'SyslogIdentifier' => 'redmine',
-      },
+    systemd::unit_file {'redmine.service':
+      ensure  => 'present',
+      enable  => true,
+      active  => true,
+      content => template('redmine/redmine.service.erb'),
     }
 
     $apache_backend_config = {
