@@ -46,16 +46,6 @@ class redmine (
   }
 
   # Needed for bundle install
-  if $facts['os']['release']['major'] == '8' {
-    package { 'ruby dnf module':
-      ensure      => '2.7',
-      name        => 'ruby',
-      enable_only => true,
-      provider    => 'dnfmodule',
-      before      => Package['rubygem-bundler.noarch', 'ruby-devel'],
-    }
-  }
-
   $packages = [
     'git',
     'rubygem-bundler.noarch',
