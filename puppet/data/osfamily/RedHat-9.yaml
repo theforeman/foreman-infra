@@ -1,0 +1,3 @@
+---
+redmine::repo_branch: 'new-redmine'
+redmine::deployment: 'puma'
