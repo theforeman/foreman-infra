@@ -28,14 +28,9 @@ node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::backup::receiver
 }
 
-# this should be node /^redmine\d+\.([a-z]+\.)?theforeman\.org$/ {
-node /^redmine\d+\.theforeman\.org$/ {
+node /^redmine\d+\.([a-z]+\.)?theforeman\.org$/ {
   include profiles::base
   include profiles::redmine
-}
-
-node /^redmine\d+\.conova.theforeman\.org$/ {
-  include profiles::base
 }
 
 node /^web\d+\.[a-z]+\.theforeman\.org$/ {
