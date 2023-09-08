@@ -6,3 +6,4 @@ restic::package_version: '0.15.1'
 
 redmine::db_name: redmine4
 redmine::username: adminpz8bn8d
+redmine::servername: 'redmine01.theforeman.org'
