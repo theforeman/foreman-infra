@@ -5,11 +5,14 @@ class profiles::redmine (
   # TODO include redmine
   $backup_path = '/var/lib/redmine'
 
-  include profiles::backup::sender
+  class {'profiles::backup::sender':
+    username => $redmine::username,
+  }
 
   restic::repository { 'redmine':
-    backup_cap_dac_read_search => true,
-    backup_path                => $backup_path,
-    backup_flags               => ['--exclude', "${backup_path}/git"],
+    backup_path    => $backup_path,
+    backup_flags   => ['--exclude', "${backup_path}/git"],
+    backup_pre_cmd => ["pg_dump --file=${backup_path}/redmine.backup.sql $redmine::db_name"],
+    user           => $redmine::username,
   }
 }

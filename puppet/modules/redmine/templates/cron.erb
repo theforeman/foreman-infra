@@ -1,2 +1,1 @@
 @hourly <%= @username %> /usr/local/bin/redmine_repos.sh <%= @app_root %> <%= @data_dir %>
-@daily  <%= @username %> pg_dump <%= @db_name %> | gzip > <%= @data_dir %>/redmine.backup.sql.gz
