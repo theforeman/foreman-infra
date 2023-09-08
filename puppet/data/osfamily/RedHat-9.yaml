@@ -1,4 +1,3 @@
 ---
 redmine::repo_branch: 'new-redmine'
 redmine::deployment: 'puma'
-redmine::servername: 'projects-test.theforeman.org'
