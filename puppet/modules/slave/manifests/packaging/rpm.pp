@@ -8,12 +8,13 @@ class slave::packaging::rpm (
 ) {
   # TODO: Fix on EL8 and get rid of this
   $is_el8 = $facts['os']['release']['major'] == '8'
+  $is_el9 = $facts['os']['release']['major'] == '9'
 
   package { ['koji', 'rpm-build', 'createrepo', 'copr-cli']:
     ensure => installed,
   }
 
-  if $is_el8 {
+  if $is_el8 or $is_el9 {
     yumrepo { 'git-annex':
       name     => 'git-annex',
       baseurl  => 'https://downloads.kitenet.net/git-annex/linux/current/rpms/',

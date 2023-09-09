@@ -3,6 +3,22 @@ class slave::unittests (
   Stdlib::Absolutepath $homedir,
 ) {
   $is_el8 = $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8'
+  $is_el9 = $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9'
+
+  if $is_el9 {
+    case $facts['os']['name'] {
+      'CentOS': {
+        yumrepo { 'crb':
+          enabled => '1',
+        }
+      }
+      'RedHat': {
+        yumrepo { 'codeready-builder-for-rhel-9-x86_64-rpms':
+          enabled => '1',
+        }
+      }
+    }
+  }
 
   # Build dependencies
   $libxml2_dev = $facts['os']['family'] ? {
@@ -53,12 +69,12 @@ class slave::unittests (
   ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool', $firefox, $libvirt_dev, $libcurl_dev,
   $sqlite3_dev, $libyaml_dev])
 
-  unless $is_el8 {
+  unless $is_el8 or $is_el9 {
     ensure_packages(['python-virtualenv'])
   }
 
   # nodejs/npm for JavaScript tests
-  if $facts['os']['family'] == 'RedHat' {
+  if $facts['os']['family'] == 'RedHat' and !$is_el9 {
     class { 'nodejs':
       repo_url_suffix       => '12.x',
       nodejs_package_ensure => latest,

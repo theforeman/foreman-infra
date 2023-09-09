@@ -59,6 +59,16 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.define "jenkins-node-el9" do |override|
+    override.vm.hostname = "jenkins-node-el9"
+    override.vm.box = "centos/stream9"
+
+    override.vm.provider "libvirt" do |libvirt, provider|
+      libvirt.memory = "4096"
+      provider.vm.box_url = CENTOS_9_BOX_URL
+    end
+  end
+
   config.vm.define "jenkins-node-debian10" do |override|
     override.vm.hostname = "jenkins-node-debian10"
     override.vm.box = "debian/buster64"
