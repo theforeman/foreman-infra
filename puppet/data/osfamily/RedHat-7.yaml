@@ -3,3 +3,6 @@
 restic::binary: '/usr/local/bin/restic'
 restic::install_method: 'url'
 restic::package_version: '0.15.1'
+
+redmine::db_name: redmine4
+redmine::username: adminpz8bn8d
