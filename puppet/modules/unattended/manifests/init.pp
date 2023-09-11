@@ -21,7 +21,7 @@ class unattended {
     class { 'yum_cron':
       apply_updates    => true,
       mailto           => 'sysadmins',
-      exclude_packages => ['kernel*', 'java*', 'jenkins', 'tito'],
+      exclude_packages => ['kernel*', 'java*', 'jenkins'],
     }
   }
 }
