@@ -1,14 +1,13 @@
 # @summary A Redmine server
 class profiles::redmine (
 ) {
-  # Redmine is already included via ENC
-  # TODO include redmine
-  $backup_path = '/var/lib/redmine'
+  include redmine
+
+  $backup_path = $redmine::data_dir
   $backup_db_path = "${backup_path}/db"
 
   include profiles::backup::sender
   include postgresql::server
-  include redmine
 
   postgresql::server::role { 'restic':
   }

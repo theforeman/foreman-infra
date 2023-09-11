@@ -209,3 +209,5 @@ puppet::server_puppetserver_telemetry: false
 puppet::show_diff: true
 
 sudo::wheel_config: password
+
+redmine::https: true
