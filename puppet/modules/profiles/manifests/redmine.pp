@@ -44,6 +44,6 @@ class profiles::redmine (
     backup_cap_dac_read_search => true,
     backup_path                => $backup_path,
     backup_flags               => ['--exclude', "${backup_path}/git"],
-    backup_pre_cmd             => ["pg_dump --file=${backup_db_path}/redmine.sql ${redmine::db_name}"],
+    backup_pre_cmd             => ["/usr/bin/pg_dump --file=${backup_db_path}/redmine.sql ${redmine::db_name}"],
   }
 }
