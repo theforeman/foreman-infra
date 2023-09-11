@@ -13,7 +13,17 @@ class slave::packaging::rpm (
     ensure => installed,
   }
 
-  unless $is_el8 {
+  if $is_el8 {
+    yumrepo { 'git-annex':
+      name     => 'git-annex',
+      baseurl  => 'https://downloads.kitenet.net/git-annex/linux/current/rpms/',
+      enabled  => '1',
+      gpgcheck => '0',
+    } ->
+    package { ['git-annex-standalone']:
+      ensure => installed,
+    }
+  } else {
     package { ['git-annex', 'pyliblzma']:
       ensure => installed,
     }
