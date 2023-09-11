@@ -54,7 +54,7 @@ class slave::unittests (
   $sqlite3_dev, $libyaml_dev])
 
   unless $is_el8 {
-    ensure_packages(['python-virtualenv', 'transifex-client'])
+    ensure_packages(['python-virtualenv'])
   }
 
   # nodejs/npm for JavaScript tests
