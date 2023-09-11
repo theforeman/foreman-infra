@@ -74,6 +74,7 @@ class prprocessor (
   }
 
   cron { 'close inactive':
+    ensure      => absent,
     command     => "cd ${app_root} && bundle exec scripts/close_inactive.rb",
     user        => $username,
     environment => [
