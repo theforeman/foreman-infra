@@ -20,6 +20,7 @@ profiles::backup::receiver::targets:
   - redmine01
   - master02
   - discourse01
+  - puppet01
 
 profiles::backup::sender::host: '%{alias("backup_servicename")}'
 profiles::backup::sender::ssh_key: 'AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNfA651gsxAgFzWdBjFbTTXgZ+mIovdHE2TZShmyDJ9h6On+qQ3WOGVXflyrocM93vR4diZT80bnyIpLZtIf5RY='

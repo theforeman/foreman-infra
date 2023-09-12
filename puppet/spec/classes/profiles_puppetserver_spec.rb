@@ -6,6 +6,9 @@ describe 'profiles::puppetserver' do
       let(:facts) { os_facts }
       let(:pre_condition) do
         <<~PUPPET
+        class { 'restic':
+          password => 'SuperSecret',
+        }
         class { 'puppet':
           server_environments_owner => 'deploypuppet',
         }

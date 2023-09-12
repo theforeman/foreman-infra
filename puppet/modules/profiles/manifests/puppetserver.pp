@@ -14,4 +14,14 @@ class profiles::puppetserver {
   class { 'deploy':
     user => $puppet::server_environments_owner,
   }
+
+  restic::repository { 'puppetserver':
+    backup_cap_dac_read_search => true,
+    backup_path                => [
+      '/etc/puppetlabs/puppet/data',
+      '/etc/puppetlabs/puppet/ssl',
+      '/opt/puppetlabs/server/data/puppetserver/ssh',
+      '/opt/puppetlabs/server/data/puppetserver/foreman_cache_data',
+    ],
+  }
 }
