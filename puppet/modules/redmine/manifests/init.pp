@@ -36,6 +36,7 @@ class redmine (
   String $db_password            = extlib::cache_data('foreman_cache_data', 'db_password', extlib::random_password(32)),
   Boolean $https                 = false,
   String $deployment             = 'puma',
+  Boolean $cron                  = true,
 ) {
   # PostgreSQL tuning
   $postgresql_settings = {
@@ -244,7 +245,7 @@ class redmine (
   }
 
   file { '/etc/cron.d/redmine':
-    ensure  => file,
+    ensure  => bool2str($cron, 'file', 'absent'),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -252,7 +253,7 @@ class redmine (
   }
 
   file { '/usr/local/bin/redmine_repos.sh':
-    ensure  => file,
+    ensure  => bool2str($cron, 'file', 'absent'),
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
