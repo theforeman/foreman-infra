@@ -18,7 +18,7 @@ jenkins_job_builder::ensure: '4.3.0'
 
 profiles::backup::receiver::targets:
   - redmine01
-  - master02
+  - controller01
   - discourse01
   - puppet01
 
