@@ -35,7 +35,7 @@ class redmine (
   String $db_name                = 'redmine',
   String $db_password            = extlib::cache_data('foreman_cache_data', 'db_password', extlib::random_password(32)),
   Boolean $https                 = false,
-  String $deployment             = 'passenger',
+  String $deployment             = 'puma',
 ) {
   # PostgreSQL tuning
   $postgresql_settings = {

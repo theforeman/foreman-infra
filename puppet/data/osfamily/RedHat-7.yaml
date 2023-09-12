@@ -2,3 +2,4 @@
 redmine::db_name: redmine4
 redmine::username: adminpz8bn8d
 redmine::servername: 'redmine01.theforeman.org'
+redmine::deployment: 'passenger'
