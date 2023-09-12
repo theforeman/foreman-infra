@@ -2,21 +2,7 @@
 class jenkins_node::unittests (
   Stdlib::Absolutepath $homedir,
 ) {
-  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
-    case $facts['os']['name'] {
-      'CentOS': {
-        yumrepo { 'crb':
-          enabled => '1',
-        }
-      }
-      'RedHat': {
-        yumrepo { 'codeready-builder-for-rhel-9-x86_64-rpms':
-          enabled => '1',
-        }
-      }
-      default: {}
-    }
-  }
+  require crb
 
   # Build dependencies
   $libxml2_dev = $facts['os']['family'] ? {

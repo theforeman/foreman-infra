@@ -1,0 +1,66 @@
+<%- |
+  String[1] $prometheus_username,
+  String[1] $prometheus_password,
+  Stdlib::HTTPUrl $prometheus_url,
+  Array[Hash] $blackbox_targets,
+  | -%>
+logging {
+  level = "info"
+}
+
+prometheus.exporter.unix "default" {
+  textfile {
+    directory = "/var/lib/prometheus/node-exporter/"
+  }
+}
+
+discovery.relabel "node_exporter" {
+  targets = prometheus.exporter.unix.default.targets
+
+  rule {
+          target_label = "job"
+          replacement  = "integrations/node_exporter"
+  }
+}
+
+prometheus.exporter.blackbox "blackbox" {
+  config = "{ modules: { http: { prober: http, icmp: {ip_protocol_fallback: false, preferred_ip_protocol: ip4} }, http6: { prober: http, http: { ip_protocol_fallback: false, preferred_ip_protocol: ip6 } } } }"
+
+  <% $blackbox_targets.each |$target| { %>
+  target {
+    name = "<%= $target['name'] %>"
+    address = "<%= $target['address'] %>"
+    module = "<%= $target['module'] %>"
+  }
+  <% } %>
+}
+
+discovery.relabel "blackbox" {
+  targets = prometheus.exporter.blackbox.blackbox.targets
+
+  rule {
+          source_labels = ["job"]
+          regex         = "integrations/blackbox/(.*)"
+          target_label  = "instance"
+  }
+}
+
+prometheus.scrape "default" {
+  targets = array.concat(
+    discovery.relabel.node_exporter.output,
+    discovery.relabel.blackbox.output,
+  )
+
+  forward_to = [prometheus.remote_write.grafanacloud.receiver]
+}
+
+prometheus.remote_write "grafanacloud" {
+  endpoint {
+    url = "<%= $prometheus_url %>"
+
+    basic_auth {
+      username = "<%= $prometheus_username %>"
+      password = "<%= $prometheus_password %>"
+    }
+  }
+}
