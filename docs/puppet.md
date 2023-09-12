@@ -1,5 +1,8 @@
 # Puppetserver
 
+The puppetserver is hosted on `puppet.theforeman.org`, which is a CNAME to the actual server.
+On the actual server a subjectAltName is configured so both the hostname and service name should work.
+
 | | puppet01.conova.theforeman.org |
 | - | - |
 | type | Libvirt VM |
