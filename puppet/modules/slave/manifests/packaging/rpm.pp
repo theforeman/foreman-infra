@@ -81,17 +81,6 @@ class slave::packaging::rpm (
     source => 'puppet:///modules/slave/katello-ca.cert',
   }
 
-  unless $is_el8 {
-    # Tito was used in the past, but no longer. This cleans up the files we used to have.
-    package { 'tito':
-      ensure => absent,
-    }
-
-    file { "${homedir}/.titorc":
-      ensure => absent,
-    }
-  }
-
   # specs-from-koji
   package { ['scl-utils-build', 'rpmdevtools']:
     ensure => present,
