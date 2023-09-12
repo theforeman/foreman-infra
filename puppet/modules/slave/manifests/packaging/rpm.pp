@@ -7,6 +7,7 @@ class slave::packaging::rpm (
   Optional[String] $koji_certificate = undef,
 ) {
   $is_el7 = $facts['os']['release']['major'] == '7'
+  $ansible_python_version = if $facts['os']['release']['major'] == '8' { 'python3.11' } else { 'python3' }
 
   package { ['koji', 'rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
     ensure => installed,
@@ -29,8 +30,16 @@ class slave::packaging::rpm (
   }
 
   # To run obal
-  $yaml = if $is_el7 { 'python36-PyYAML' } else { 'python3-pyyaml' }
-  ensure_packages(['python3', $yaml])
+  $obal_packages = if $is_el7 {
+    ['python36-PyYAML']
+  } else {
+    [
+      $ansible_python_version,
+      "${ansible_python_version}-pyyaml",
+      "${ansible_python_version}-setuptools",
+    ]
+  }
+  ensure_packages($obal_packages)
 
   # koji
   file { "${homedir}/bin":
