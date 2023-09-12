@@ -15,6 +15,8 @@ class profiles::puppetserver {
     user => $puppet::server_environments_owner,
   }
 
+  include profiles::backup::sender
+
   restic::repository { 'puppetserver':
     backup_cap_dac_read_search => true,
     backup_path                => [
