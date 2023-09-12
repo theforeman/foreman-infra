@@ -41,7 +41,7 @@ Now bootstrap Puppet:
 dnf install https://yum.puppet.com/puppet7-release-el-8.noarch.rpm
 dnf install puppet-agent
 . /etc/profile.d/puppet-agent.sh
-puppet config set server puppetmaster.theforeman.org
+puppet config set server puppet.theforeman.org
 puppet ssl bootstrap
 puppet agent -t
 ```
