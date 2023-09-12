@@ -109,4 +109,6 @@ class slave::packaging::rpm (
     dir        => "${workspace}/staging_key",
     manage_dir => true,
   }
+
+  include rsync
 }
