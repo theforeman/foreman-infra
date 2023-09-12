@@ -123,4 +123,14 @@ Vagrant.configure("2") do |config|
       provider.vm.box_url = CENTOS_9_BOX_URL
     end
   end
+
+  config.vm.define "monitoring" do |override|
+    override.vm.hostname = "monitoring"
+    override.vm.box = "centos/stream9"
+
+    override.vm.provider "libvirt" do |libvirt, provider|
+      libvirt.memory = "2048"
+      provider.vm.box_url = CENTOS_9_BOX_URL
+    end
+  end
 end

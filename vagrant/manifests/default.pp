@@ -25,3 +25,7 @@ node /^redmine.*/ {
 node /^discourse.*/ {
   include profiles::discourse
 }
+
+node /^monitoring.*/ {
+  include profiles::monitoring::server
+}

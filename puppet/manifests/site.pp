@@ -41,3 +41,8 @@ node /^web\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::web
 }
+
+node /^monitoring\d+\.([a-z]+\.)?theforeman\.org$/ {
+  include profiles::base
+  include profiles::monitoring::server
+}
