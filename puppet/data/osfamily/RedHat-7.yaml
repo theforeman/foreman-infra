@@ -2,7 +2,7 @@
 # There are no restic packages in EL7
 restic::binary: '/usr/local/bin/restic'
 restic::install_method: 'url'
-restic::package_version: '0.15.1'
+restic::package_version: '0.16.0'
 
 redmine::db_name: redmine4
 redmine::username: adminpz8bn8d
