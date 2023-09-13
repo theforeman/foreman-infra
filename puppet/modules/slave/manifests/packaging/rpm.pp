@@ -9,7 +9,7 @@ class slave::packaging::rpm (
   # TODO: Fix on EL8 and get rid of this
   $is_el8 = $facts['os']['release']['major'] == '8'
 
-  package { ['koji', 'rpm-build', 'createrepo', 'copr-cli']:
+  package { ['koji', 'rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
     ensure => installed,
   }
 
