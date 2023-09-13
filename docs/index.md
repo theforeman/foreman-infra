@@ -23,7 +23,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [Jenkins](jenkins.md) | OSUOSL |
 | [Jenkins Nodes](jenkins.md) | OSUOSL / AWS / Conova / Netways |
 | [Puppet](puppet.md) | Conova |
-| [Redmine](redmine.md) | Scaleway |
+| [Redmine](redmine.md) | Conova |
 | [Virt](virt.md) | Conova |
 | [Webserver](webserver.md) | OSUOSL |
 
@@ -38,7 +38,7 @@ A list of the hosting we have, who provides it, and what capacity it has
 ### Scaleway
   * Previously sponsored, planned to be phased out
   * Support usually helpful, Edouard Bonlieu & Yann Léger were initial contacts
-  * Hosts Discourse, Redmine, ARM Jenkins nodes
+  * Hosts Discourse
 ### Fastly
   * Sponsored
   * $1k/month CDN
@@ -59,7 +59,8 @@ A list of the hosting we have, who provides it, and what capacity it has
 ### Conova
   * Sponsored
   * 1 HP Proliant machine (24 core, 64 GB RAM, 2×1TB SSD), incl power and network
-  * Running libvirt and two Jenkins nodes on top of that
+  * Running libvirt and the following nodes on top of that: Foreman, Puppet, Redmine, Jenkins Controller, two Jenkins Nodes
 ### OSCI.io
   * Sponsored
   * OpenShift access via https://openshift-console.osci.io/, needs RH Google account for sign in
+  * Hosts prprocessor

@@ -2,7 +2,7 @@
 
 ## Deployment
 
-Redmine is deployed on a Scaleway VM, in the Paris datacenter. The box runs Centos7, and consequently uses Ruby 2.0 and PSQL 9.2.
+Redmine is deployed on VM at Conova. The box runs CentOS Stream 9, and consequently uses Ruby 3.0 and PSQL 13.
 
 A copy of the git repository is stored here: https://github.com/theforeman/redmine/. When upgrading Redmine it is required to rebase our changes onto the new upstream ref, and then push that back to our fork.
 
@@ -17,4 +17,4 @@ Note there are also some cron jobs (handled in foreman-infra Puppet code), and p
 
 ## Backups
 
-The Redmine database and files are backed up daily to the Puppetmaster via Dirvish. Should you need to recover the setup, apply the Puppet manifests from foreman-infra to a new Centos host, and then restore the backup DB to PostgreSQL and the files to `/var/lib/redmine`.
+The Redmine database and files are backed up daily to the Puppetserver via restic. Should you need to recover the setup, apply the Puppet manifests from foreman-infra to a new Centos host, and then restore the backup DB to PostgreSQL and the files to `/var/lib/redmine`.
