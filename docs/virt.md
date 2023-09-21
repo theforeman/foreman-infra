@@ -46,3 +46,16 @@ puppet ssl bootstrap
 puppet agent -t
 ```
 
+## Storage
+
+The system has 2 1TB NVMe drives, which are configured as individual drives, not as RAID in the HP firmware.
+
+The OS and the virt guests are residing on LVM, with select LVs in RAID1 mode.
+
+### converting an existing LV to RAID1
+
+```
+lvconvert --type raid1 -m 1 cs_node01/<lvname>
+```
+
+See [Converting a Linear device to a RAID logical volume](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_logical_volumes/configuring-raid-logical-volumes_configuring-and-managing-logical-volumes#converting-a-linear-device-to-a-raid-logical-volume_configuring-raid-logical-volumes).
