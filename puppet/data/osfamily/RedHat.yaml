@@ -1,5 +1,0 @@
----
-# There are no restic packages in EL7 and the ones in EPEL8/9 are too old
-restic::binary: '/usr/local/bin/restic'
-restic::install_method: 'url'
-restic::package_version: '0.16.0'
