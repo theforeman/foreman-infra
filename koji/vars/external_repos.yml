@@ -57,6 +57,8 @@ external_repos:
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/rust-toolset:rhel8/
   - name: flat-llvm-toolset-el8
     url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/llvm-toolset:rhel8/
+  - name: flat-go-toolset-1-20-el8
+    url: http://koji.katello.org/kojifiles/releases/split/yum/koji-modules/koji/staged/x86_64/RHEL-8-001-mod/go-toolset:rhel8/
   # EL9 repositories
   - name: centos9stream-baseos
     url: http://mirror.stream.centos.org/9-stream/BaseOS/$arch/os/
