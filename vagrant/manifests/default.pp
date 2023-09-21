@@ -21,3 +21,7 @@ node /^backup.*/ {
 node /^redmine.*/ {
   include profiles::redmine
 }
+
+node /^discourse.*/ {
+  include profiles::discourse
+}
