@@ -1,4 +1,11 @@
 ---
+discourse::developer_emails: 'admin@example.com'
+discourse::api_key: '1234567890abcdef'
+discourse::le_account_email: 'infra@example.com'
+discourse::smtp_address: 'mail.example.com'
+discourse::smtp_user_name: 'discourse'
+discourse::smtp_password: 'changeme'
+
 restic::password: "SomethingVerySecret"
 
 profiles::backup::receiver:

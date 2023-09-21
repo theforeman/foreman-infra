@@ -1,8 +1,6 @@
 # @summary Manage a Discourse server
 # @see https://github.com/discourse/discourse/blob/main/docs/INSTALL-cloud.md
 class profiles::discourse {
-  $root = '/var/discourse'
-
   if $facts['os']['family'] == 'RedHat' {
     yumrepo { 'docker-ce-stable':
       descr   => 'Docker CE Stable - $basearch',
@@ -18,19 +16,17 @@ class profiles::discourse {
       require => Package['docker-ce'],
     }
 
-    ensure_packages(['git'])
-
-    vcsrepo { $root:
-      ensure   => present,
-      provider => git,
-      source   => 'https://github.com/discourse/discourse_docker.git',
-    }
+    include discourse
+    $backup_path = ["${discourse::root}/shared/standalone/backups"]
+  } else {
+    $root = '/var/discourse'
+    $backup_path = ["${root}/containers", "${root}/shared/standalone/backups"]
   }
 
   include profiles::backup::sender
 
   restic::repository { 'discourse':
     backup_cap_dac_read_search => true,
-    backup_path                => ["${root}/containers", "${root}/shared/standalone/backups"],
+    backup_path                => $backup_path,
   }
 }
