@@ -5,7 +5,7 @@ CENTOS_8_BOX_URL = "https://cloud.centos.org/centos/8-stream/x86_64/images/CentO
 CENTOS_9_BOX_URL = "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-Vagrant-9-latest.x86_64.vagrant-libvirt.box"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = "centos/stream9"
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder "puppet/data", "/tmp/vagrant-puppet/data", type: "rsync"
 
@@ -26,7 +26,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "jenkins-controller" do |override|
     override.vm.hostname = "jenkins-controller"
-    override.vm.box = "centos/stream9"
 
     override.vm.provider "libvirt" do |libvirt, provider|
       libvirt.memory = "2048"
@@ -36,6 +35,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "jenkins-node-el7" do |override|
     override.vm.hostname = "jenkins-node-el7"
+    override.vm.box = "centos/7"
 
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "4096"
@@ -93,6 +93,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "web" do |override|
     override.vm.hostname = "web"
+    override.vm.box = "centos/7"
 
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "2048"
@@ -111,7 +112,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "redmine" do |override|
     override.vm.hostname = "redmine"
-    override.vm.box = "centos/stream9"
 
     override.vm.provider "libvirt" do |libvirt, provider|
       libvirt.memory = "2048"
