@@ -11,7 +11,7 @@ def on_supported_os(opts = {})
   opts[:supported_os] ||= [
     {
       'operatingsystem'        => 'CentOS',
-      'operatingsystemrelease' => ['7', '8'],
+      'operatingsystemrelease' => ['7', '8', '9'],
     },
     {
       'operatingsystem'        => 'Debian',
