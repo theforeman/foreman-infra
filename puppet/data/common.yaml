@@ -24,7 +24,7 @@ profiles::backup::receiver::targets:
   - foreman01
 
 profiles::backup::sender::host: '%{alias("backup_servicename")}'
-profiles::backup::sender::ssh_key: 'AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNfA651gsxAgFzWdBjFbTTXgZ+mIovdHE2TZShmyDJ9h6On+qQ3WOGVXflyrocM93vR4diZT80bnyIpLZtIf5RY='
+profiles::backup::sender::ssh_key: 'AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAcXYkJr+qZC6tF5TrdBcNdMOMPHMCOR2BdY0YN3yjiYlk68N7KiAUTG85U/zsdiZyzLEJ5QI/YTYahbPsYlgfE='
 profiles::backup::sender::ssh_key_type: 'ecdsa-sha2-nistp256'
 profiles::backup::sender::username: '%{alias("backup_username")}'
 
