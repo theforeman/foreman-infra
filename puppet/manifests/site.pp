@@ -2,6 +2,11 @@ node default {
   include profiles::base
 }
 
+node /^backup\d+\.[a-z]+\.theforeman\.org$/ {
+  include profiles::base
+  include profiles::backup::receiver
+}
+
 node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::jenkins::controller
