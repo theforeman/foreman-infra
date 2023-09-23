@@ -4,7 +4,7 @@ set -e -o pipefail
 
 CODE_DIR=$1
 DATA_DIR=$2
-REDMINE_REPOS=https://prprocessor.theforeman.org/redmine_repos
+REDMINE_REPOS=https://raw.githubusercontent.com/theforeman/prprocessor/app/prprocessor/config/repos.yaml
 
 update_repo() {
   pushd $DATA_DIR >/dev/null
@@ -40,12 +40,11 @@ if [[ ! -n $CODE_DIR ]] || [[ ! -n $DATA_DIR ]] ; then
 fi
 
 # Sync repositories for all known git repos
-curl --fail --silent $REDMINE_REPOS | ruby -rjson -e '
-JSON.load(STDIN).each do |project_name,repos|
-  repos.each do |repo,branches|
-    org_name, repo_name = repo.split("/", 2)
-    puts "#{repo_name} https://github.com/#{repo} #{branches.nil? ? "" : branches.map { |branch| "#{branch}:#{branch}" }.join(" ")}"
-  end
+curl --fail --silent $REDMINE_REPOS | ruby -ryaml -e '
+YAML.safe_load(STDIN).each do |repo,config|
+  branches = config["branches"]
+  org_name, repo_name = repo.split("/", 2)
+  puts "#{repo_name} https://github.com/#{repo} #{branches.nil? ? "" : branches.map { |branch| "#{branch}:#{branch}" }.join(" ")}"
 end' | while read repo; do
   update_repo $repo || echo "Failed to update $repo" > /dev/stderr
 done
@@ -54,13 +53,13 @@ cd $CODE_DIR
 
 # Create repositories in the Redmine projects for all known git repos
 curl --fail --silent $REDMINE_REPOS | rails_runner '
-JSON.load(STDIN).each do |project_name,repos|
-  repos.each do |repo,branches|
-    org_name, repo_name = repo.split("/", 2)
-    repo_path = File.join("'$DATA_DIR'", "git", "#{repo_name}.git") + File::SEPARATOR
-    project = Project.find_by_identifier(project_name) or raise("cannot find project #{project_name}")
-    Repository::Git.create!(:identifier => repo_name, :project => project, :url => repo_path) unless Repository.find_by_url(repo_path)
-  end
+YAML.safe_load(STDIN).each do |repo,config|
+  project_name = config["redmine"]
+  next if project_name.nil?
+  org_name, repo_name = repo.split("/", 2)
+  repo_path = File.join("'$DATA_DIR'", "git", "#{repo_name}.git") + File::SEPARATOR
+  project = Project.find_by_identifier(project_name) or raise("cannot find project #{project_name}")
+  Repository::Git.create!(:identifier => repo_name, :project => project, :url => repo_path) unless Repository.find_by_url(repo_path)
 end'
 
 # Import the changesets
