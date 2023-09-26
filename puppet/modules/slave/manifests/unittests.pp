@@ -2,8 +2,6 @@
 class slave::unittests (
   Stdlib::Absolutepath $homedir,
 ) {
-  $is_el8 = $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '8'
-
   # Build dependencies
   $libxml2_dev = $facts['os']['family'] ? {
     'RedHat' => 'libxml2-devel',
@@ -53,7 +51,7 @@ class slave::unittests (
   ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool', $firefox, $libvirt_dev, $libcurl_dev,
   $sqlite3_dev, $libyaml_dev])
 
-  unless $is_el8 {
+  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
     ensure_packages(['python-virtualenv'])
   }
 

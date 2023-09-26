@@ -6,14 +6,13 @@ class slave::packaging::rpm (
   Stdlib::Absolutepath $workspace,
   Optional[String] $koji_certificate = undef,
 ) {
-  # TODO: Fix on EL8 and get rid of this
-  $is_el8 = $facts['os']['release']['major'] == '8'
+  $is_el7 = $facts['os']['release']['major'] == '7'
 
   package { ['koji', 'rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
     ensure => installed,
   }
 
-  if $is_el8 {
+  unless $is_el7 {
     yumrepo { 'git-annex':
       name     => 'git-annex',
       baseurl  => 'https://downloads.kitenet.net/git-annex/linux/current/rpms/',
@@ -30,7 +29,7 @@ class slave::packaging::rpm (
   }
 
   # To run obal
-  $yaml = if $facts['os']['release']['major'] == '7' { 'python36-PyYAML' } else { 'python3-pyyaml' }
+  $yaml = if $is_el7 { 'python36-PyYAML' } else { 'python3-pyyaml' }
   ensure_packages(['python3', $yaml])
 
   # koji
