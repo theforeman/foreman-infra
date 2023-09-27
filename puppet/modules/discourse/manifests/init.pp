@@ -21,6 +21,8 @@ class discourse(
 
   file { $containers:
     ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
     mode    => '0700',
     require => Vcsrepo[$root],
   }
@@ -37,6 +39,8 @@ class discourse(
   }
 
   file { "${containers}/app.yml":
+    owner   => 'root',
+    group   => 'root',
     mode    => '0700',
     content => epp('discourse/app.yml.epp', $app_context),
   }
@@ -48,6 +52,8 @@ class discourse(
   }
 
   file { "${containers}/mail-receiver.yml":
+    owner   => 'root',
+    group   => 'root',
     mode    => '0700',
     content => epp('discourse/mail-receiver.yml.epp', $mail_context ),
   }
