@@ -205,7 +205,7 @@ profiles::jenkins::controller::plugins:
   - 'zentimestamp'
 
 puppet::runmode: systemd.timer
-puppet::puppetmaster: '%{alias("puppet_servicename")}'
+puppet::agent_server_hostname: '%{alias("puppet_servicename")}'
 puppet::server_additional_settings:
   dns_alt_names:
     - '%{alias("puppet_servicename")}'
