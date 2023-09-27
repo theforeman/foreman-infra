@@ -1,0 +1,45 @@
+<%- |
+  Stdlib::Absolutepath $root,
+  Stdlib::Host $hostname,
+  String $api_key,
+  | -%>
+## this is the incoming mail receiver container template
+##
+## After making changes to this file, you MUST rebuild
+## /var/discourse/launcher rebuild mail-receiver
+##
+## BE *VERY* CAREFUL WHEN EDITING!
+## YAML FILES ARE SUPER SUPER SENSITIVE TO MISTAKES IN WHITESPACE OR ALIGNMENT!
+## visit http://www.yamllint.com/ to validate this file as needed
+
+base_image: discourse/mail-receiver:release
+update_pups: false
+
+expose:
+  - "25:25"   # SMTP
+
+env:
+  LANG: en_US.UTF-8
+
+  ## Where e-mail to your forum should be sent.  In general, it's perfectly fine
+  ## to use the same domain as the forum itself here.
+  MAIL_DOMAIN: <%= $hostname %>
+
+  ## The base URL for this Discourse instance.
+  ## This will be whatever your Discourse site URL is. For example,
+  ## https://discourse.example.com. If you're running a subfolder setup,
+  ## be sure to account for that (ie https://example.com/forum).
+  DISCOURSE_BASE_URL: "https://<%= $hostname %>"
+
+  ## The master API key of your Discourse forum.  You can get this from
+  ## the "API" tab of your admin panel.
+  DISCOURSE_API_KEY: "<%= $api_key %>"
+
+  ## The username to use for processing incoming e-mail.  Unless you have
+  ## renamed the `system` user, you should leave this as-is.
+  DISCOURSE_API_USERNAME: system
+
+volumes:
+  - volume:
+      host: <%= $root %>/shared/mail-receiver/postfix-spool
+      guest: /var/spool/postfix
