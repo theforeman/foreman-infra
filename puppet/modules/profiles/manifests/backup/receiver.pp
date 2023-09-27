@@ -11,25 +11,31 @@
 #   The group which all targets belong to
 # @param directory
 #   The parent directory for all targets
+# @param ensure
+#   The backup receiver state to ensure.
 class profiles::backup::receiver (
   Array[String[1]] $targets = [],
   String[1] $group = 'backup',
   Stdlib::Absolutepath $directory = '/srv/backup',
+  Enum['present', 'absent'] $ensure = present,
 ) {
   group { $group:
-    ensure => present,
+    ensure => $ensure,
   }
 
-  file { $directory:
-    ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0750',
+  if $ensure == present {
+    file { $directory:
+      ensure => 'directory',
+      owner  => 'root',
+      group  => $group,
+      mode   => '0750',
+    }
   }
 
   # Ensure $directory/.ssh is set to to ssh_home_t
   if $facts['os']['selinux']['enabled'] and $directory != '/home' {
     selinux::fcontext { 'backup-ssh':
+      ensure   => $ensure,
       seltype  => 'ssh_home_t',
       pathspec => "${directory}/[^/]+/\\.ssh(/.*)?",
     }
@@ -39,19 +45,19 @@ class profiles::backup::receiver (
 
   $sshd_match = "Group ${group}"
   sshd_config_match { $sshd_match:
-    ensure => present,
+    ensure => $ensure,
   }
 
   # TODO: ChrootDirectory %h
 
   sshd_config { 'DisableForwarding':
-    ensure    => present,
+    ensure    => $ensure,
     condition => $sshd_match,
     value     => 'yes',
   }
 
   sshd_config { 'ForceCommand':
-    ensure    => present,
+    ensure    => $ensure,
     condition => $sshd_match,
     value     => 'internal-sftp',
   }
@@ -60,6 +66,7 @@ class profiles::backup::receiver (
 
   $targets.each |$target| {
     profiles::backup::receiver::target { $target:
+      ensure  => $ensure,
       require => $require,
     }
   }
