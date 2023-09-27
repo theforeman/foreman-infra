@@ -30,7 +30,9 @@ node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
 node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::puppetserver
-  include profiles::backup::receiver
+  class {'profiles::backup::receiver':
+    ensure => absent,
+  }
 }
 
 node /^redmine\d+\.([a-z]+\.)?theforeman\.org$/ {
