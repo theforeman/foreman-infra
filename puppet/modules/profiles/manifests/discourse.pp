@@ -28,5 +28,6 @@ class profiles::discourse {
   restic::repository { 'discourse':
     backup_cap_dac_read_search => true,
     backup_path                => $backup_path,
+    backup_pre_cmd             => ['+/usr/bin/docker exec app discourse backup'],
   }
 }
