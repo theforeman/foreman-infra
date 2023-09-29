@@ -72,3 +72,4 @@ Note you have to enable Restore from the Settings UI or console.
 7. Leave the `app` container: `exit`
 8. Rebuild the `app` to migrate the DB etc: `./launcher rebuild app`
 9. Rebuild the `mail-receiver` container: `./launcher rebuild mail-receiver`
+10. Switch the "disable emails" setting back to "no", it gets set to "non-staff" after restore.
