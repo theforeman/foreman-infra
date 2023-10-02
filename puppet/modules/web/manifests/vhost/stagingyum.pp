@@ -6,6 +6,7 @@ class web::vhost::stagingyum (
   String $user = 'yumrepostage',
   Stdlib::Absolutepath $home = "/home/${user}",
   Integer[0] $rsync_max_connections = 5,
+  Array[String[1]] $usernames = ['ehelms', 'evgeni', 'ekohl'],
 ) {
   $yum_directory_config = [
     {
@@ -28,12 +29,17 @@ class web::vhost::stagingyum (
     },
   ]
 
+  $authorized_keys = flatten($usernames.map |$name| {
+      split(file("users/${name}-authorized_keys"), "\n")
+  })
+
   secure_ssh::rsync::receiver_setup { $user:
-    user           => $user,
-    homedir        => $home,
-    homedir_mode   => '0750',
-    foreman_search => 'host ~ node*.jenkins.*.theforeman.org and (name = external_ip4 or name = external_ip6)',
-    script_content => template('web/deploy-stagingyum.sh.erb'),
+    user            => $user,
+    homedir         => $home,
+    homedir_mode    => '0750',
+    foreman_search  => 'host ~ node*.jenkins.*.theforeman.org and (name = external_ip4 or name = external_ip6)',
+    script_content  => template('web/deploy-stagingyum.sh.erb'),
+    authorized_keys => $authorized_keys,
   }
 
   web::vhost { 'stagingyum':

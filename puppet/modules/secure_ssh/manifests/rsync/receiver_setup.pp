@@ -33,16 +33,18 @@ define secure_ssh::rsync::receiver_setup (
   Optional[String] $foreman_search = undef,
   Array[Stdlib::IP::Address] $allowed_ips = [],
   String $script_content = "# Permit transfer\n\$SSH_ORIGINAL_COMMAND\n",
+  Array[String] $authorized_keys = [],
 ) {
   secure_ssh::receiver_setup { $name:
-    user           => $user,
-    groups         => $groups,
-    homedir        => $homedir,
-    homedir_mode   => $homedir_mode,
-    foreman_search => $foreman_search,
-    allowed_ips    => $allowed_ips,
-    ssh_key_name   => "rsync_${name}_key",
-    script_content => template('secure_ssh/script_rsync.erb'),
+    user            => $user,
+    groups          => $groups,
+    homedir         => $homedir,
+    homedir_mode    => $homedir_mode,
+    foreman_search  => $foreman_search,
+    allowed_ips     => $allowed_ips,
+    ssh_key_name    => "rsync_${name}_key",
+    script_content  => template('secure_ssh/script_rsync.erb'),
+    authorized_keys => $authorized_keys,
   }
 
   file { "${homedir}/rsync_cache":

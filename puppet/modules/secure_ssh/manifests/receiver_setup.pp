@@ -37,6 +37,7 @@ define secure_ssh::receiver_setup (
   Optional[String] $foreman_search = undef,
   Array[Stdlib::IP::Address] $allowed_ips = [],
   String $ssh_key_name = "${name}_key",
+  Array[String] $authorized_keys = [],
 ) {
   # Disable password, we want this to be keys only
   user { $user:
