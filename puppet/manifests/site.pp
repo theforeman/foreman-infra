@@ -37,6 +37,10 @@ node /^redmine\d+\.([a-z]+\.)?theforeman\.org$/ {
   include profiles::redmine
 }
 
+node /^virt\d+\.[a-z]+\.theforeman\.org$/ {
+  include profiles::base
+}
+
 node /^web\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::web
