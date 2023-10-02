@@ -69,22 +69,6 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "jenkins-node-debian10" do |override|
-    override.vm.hostname = "jenkins-node-debian10"
-    override.vm.box = "debian/buster64"
-
-    override.vm.provider "libvirt" do |libvirt|
-      libvirt.memory = "4096"
-    end
-    override.vm.provision "install puppet", type: "shell", inline: <<-SHELL
-      . /etc/os-release
-      wget https://apt.puppet.com/puppet7-release-${VERSION_CODENAME}.deb
-      apt-get install -y ./puppet7-release-${VERSION_CODENAME}.deb
-      apt-get update
-      apt-get install -y puppet-agent
-    SHELL
-  end
-
   config.vm.define "jenkins-deb-node-debian11" do |override|
     override.vm.hostname = "jenkins-deb-node-debian11"
     override.vm.box = "debian/bullseye64"
