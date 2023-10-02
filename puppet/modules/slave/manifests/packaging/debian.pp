@@ -25,24 +25,12 @@ class slave::packaging::debian(
   }
 
   slave::pbuilder_setup {
-    'bionic64':
-      ensure     => present,
-      arch       => 'amd64',
-      release    => 'bionic',
-      apturl     => $ubuntu_mirror,
-      aptcontent => "deb ${ubuntu_mirror} bionic main restricted universe\ndeb-src ${ubuntu_mirror} bionic main restricted universe\n";
     'bullseye64':
       ensure     => present,
       arch       => 'amd64',
       release    => 'bullseye',
       apturl     => $debian_mirror,
       aptcontent => "deb ${debian_mirror} bullseye main non-free contrib\ndeb-src ${debian_mirror} bullseye main non-free contrib\n";
-    'buster64':
-      ensure     => present,
-      arch       => 'amd64',
-      release    => 'buster',
-      apturl     => $debian_mirror,
-      aptcontent => "deb ${debian_mirror} buster main non-free contrib\ndeb-src ${debian_mirror} buster main non-free contrib\n";
     'focal64':
       ensure     => present,
       arch       => 'amd64',
