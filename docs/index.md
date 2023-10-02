@@ -39,24 +39,45 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Sponsored
   * $1k/month CDN
   * Elaine Greenberg was initial contact
+  * Support:
+    * Ticket system: [https://support.fastly.com/](https://support.fastly.com/)
+    * People with access: Evgeni, Ewoud
 ### OSUOSL
   * Sponsored
   * Hosts test machines, Jenkins nodes, and web01
   * Contact Lance Alberston if more capacity is needed
+  * Support:
+    * Contact: [https://osuosl.org/contact/](https://osuosl.org/contact/)
+    * Ticket system: `support@osuosl.org`
+    * IRC: `#osuosl` on `libera.chat`
 ### NETWAYS
   * Sponsored
   * Openstack instance for spinning up as needed compute
   * Option to add an Icinga Monitoring host here, talk to Dirk to progress
+  * Support:
+    * Ticket system: `nws@netways.de`
 ### Gandi
   * Sponsors theforeman.org domain
+  * Support:
+    * Ticket system: [https://help.gandi.net](https://help.gandi.net)
+    * People with access: Evgeni, Ewoud
 ### CentOS
   * Sponsored
   * Provides Jenkins and bare metal hardware for running pipeline testing
+  * Support:
+    * IRC: `#centos-ci` on `libera.chat`
+    * Ticket system: [https://pagure.io/centos-infra](https://pagure.io/centos-infra/issues)
 ### Conova
   * Sponsored
   * 1 HP Proliant machine (24 core, 192 GB RAM, 2×1TB SSD), incl power and network
   * Running libvirt and the following nodes on top of that: Foreman, Puppet, Redmine, Jenkins Controller, two Jenkins Nodes, Discourse
+  * Support:
+    * Ticket system: [https://ticket.conova.com/](https://ticket.conova.com/)
+    * Talk to Evgeni
 ### OSCI.io
   * Sponsored
   * OpenShift access via https://openshift-console.osci.io/, needs RH Google account for sign in
   * Hosts prprocessor
+  * Support:
+    * Contact: [https://osci.io/](https://osci.io/)
+    * IRC: `#openinfra` on `libera.chat`
