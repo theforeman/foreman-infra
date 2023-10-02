@@ -54,8 +54,8 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Provides Jenkins and bare metal hardware for running pipeline testing
 ### Conova
   * Sponsored
-  * 1 HP Proliant machine (24 core, 64 GB RAM, 2×1TB SSD), incl power and network
-  * Running libvirt and the following nodes on top of that: Foreman, Puppet, Redmine, Jenkins Controller, two Jenkins Nodes
+  * 1 HP Proliant machine (24 core, 192 GB RAM, 2×1TB SSD), incl power and network
+  * Running libvirt and the following nodes on top of that: Foreman, Puppet, Redmine, Jenkins Controller, two Jenkins Nodes, Discourse
 ### OSCI.io
   * Sponsored
   * OpenShift access via https://openshift-console.osci.io/, needs RH Google account for sign in

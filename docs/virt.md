@@ -5,7 +5,7 @@
 | type | HPE ProLiant DL325 Gen10 |
 | OS | CentOS Stream 8 |
 | CPUs | AMD EPYC 7402P 24-Core Processor |
-| RAM | 64GB |
+| RAM | 192GB |
 | Storage | 2 * 1TB SSD NVMe |
 
 ## Installation
