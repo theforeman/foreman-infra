@@ -17,10 +17,10 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 
 | Role | Provider(s) |
 |---|---|
-| [Discourse](discourse.md) | Scaleway |
+| [Discourse](discourse.md) | Conova |
 | [Foreman](foreman.md) | Conova |
 | [Koji](koji.md) | AWS |
-| [Jenkins](jenkins.md) | OSUOSL |
+| [Jenkins](jenkins.md) | Conova |
 | [Jenkins Nodes](jenkins.md) | OSUOSL / AWS / Conova / Netways |
 | [Puppet](puppet.md) | Conova |
 | [Redmine](redmine.md) | Conova |
@@ -35,10 +35,6 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Previously sponsored, now paid by Red Hat
   * Used for Mailgun to send email from Redmine and Discourse
   * Contact support from our account as needed
-### Scaleway
-  * Previously sponsored, planned to be phased out
-  * Support usually helpful, Edouard Bonlieu & Yann Léger were initial contacts
-  * Hosts Discourse
 ### Fastly
   * Sponsored
   * $1k/month CDN
