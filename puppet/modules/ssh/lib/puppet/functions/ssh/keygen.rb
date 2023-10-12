@@ -42,7 +42,7 @@ Puppet::Functions.create_function(:'ssh::keygen') do
     end
 
     # Do my keys exist? Well, keygen if they don't!
-    unless File.exists?(absolute_path) then
+    unless File.exist?(absolute_path) then
       command = ['/usr/bin/ssh-keygen', '-t', type, '-b', size, '-P', '', '-f', absolute_path]
       Puppet::Util::Execution.execute(command, failonfail: true)
     end
