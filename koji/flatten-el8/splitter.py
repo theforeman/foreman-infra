@@ -13,6 +13,12 @@ import os
 import subprocess
 import sys
 
+try:
+    import lzma
+except ImportError:
+    from backports import lzma
+
+
 # Look for a specific version of modulemd. The 1.x series does not
 # have the tools we need.
 try:
@@ -21,7 +27,7 @@ try:
 except:
     print("We require newer vesions of modulemd than installed..")
     sys.exit(0)
-    
+
 mmd = Modulemd
 
 # This code is from Stephen Gallagher to make my other caveman code
@@ -30,14 +36,14 @@ def _get_latest_streams (mymod, stream):
     """
     Routine takes modulemd object and a stream name.
     Finds the lates stream from that and returns that as a stream
-    object. 
+    object.
     """
     all_streams = mymod.search_streams(stream, 0)
     latest_streams = mymod.search_streams(stream,
-                                          all_streams[0].props.version) 
-    
+                                          all_streams[0].props.version)
+
     return latest_streams
-    
+
 def _get_repoinfo(directory):
     """
     A function which goes into the given directory and sets up the
@@ -66,7 +72,7 @@ def _get_hawkey_sack(repo_info):
 
     primary_sack = hawkey.Sack()
     primary_sack.load_repo(hk_repo, build_cache=False)
-    
+
     return primary_sack
 
 def _get_filelist(package_sack):
@@ -104,8 +110,8 @@ def _parse_repository_modular(repo_info,package_sack):
     """
     cts = {}
     idx = mmd.ModuleIndex()
-    with gzip.GzipFile(filename=repo_info['modules'], mode='r') as gzf:
-        mmdcts = gzf.read().decode('utf-8')
+    with lzma.open(repo_info['modules'], mode='rt', encoding='utf-8') as gzf:
+        mmdcts = gzf.read()
         res, failures = idx.update_from_string(mmdcts, True)
         if len(failures) != 0:
             raise Exception("YAML FAILURE: FAILURES: %s" % failures)
@@ -124,14 +130,14 @@ def _parse_repository_modular(repo_info,package_sack):
                 else:
                     continue
             cts[stream.get_NSVCA()] = templ
-                
+
     return cts
 
 
 def _get_modular_pkgset(mod):
     """
     Takes a module and goes through the moduleset to determine which
-    packages are inside it. 
+    packages are inside it.
     Returns a list of packages
     """
     pkgs = set()
@@ -148,17 +154,18 @@ def _perform_action(src, dst, action):
     file destination.
     Returns None
     """
-    if action == 'copy':
-        try:
-            shutil.copy(src, dst)
-        except FileNotFoundError:
-            # Missing files are acceptable: they're already checked before
-            # this by validate_filenames.
-            pass
-    elif action == 'hardlink':
-        os.link(src, dst)
-    elif action == 'symlink':
-        os.symlink(src, dst)
+    if not os.path.exists(dst):
+        if action == 'copy':
+            try:
+                shutil.copy(src, dst)
+            except FileNotFoundError:
+                # Missing files are acceptable: they're already checked before
+                # this by validate_filenames.
+                pass
+        elif action == 'hardlink':
+            os.link(src, dst)
+        elif action == 'symlink':
+            os.symlink(src, dst)
 
 def validate_filenames(directory, repoinfo):
     """
@@ -179,8 +186,8 @@ def validate_filenames(directory, repoinfo):
 def get_default_modules(directory):
     """
     Work through the list of modules and come up with a default set of
-    modules which would be the minimum to output. 
-    Returns a set of modules 
+    modules which would be the minimum to output.
+    Returns a set of modules
     """
     directory = os.path.abspath(directory)
     repo_info = _get_repoinfo(directory)
@@ -276,7 +283,7 @@ def perform_split(repos, args, def_modules):
     for modname in repos:
         if args.only_defaults and modname not in def_modules:
             continue
-        
+
         moddir = ':'.join(modname.split(':')[0:2])
 
         targetdir = os.path.join(args.target, moddir)
@@ -357,7 +364,7 @@ def parse_repository(directory):
     # If we have a repository with no modules we do not want our
     # script to error out but just remake the repository with
     # everything in a known sack (aka non_modular).
-     
+
     if 'modules' in repo_info:
         mod = _parse_repository_modular(repo_info,package_sack)
         modpkgset = _get_modular_pkgset(mod)
@@ -365,8 +372,8 @@ def parse_repository(directory):
         mod = dict()
         modpkgset = set()
 
-    non_modular = _parse_repository_non_modular(package_sack,repo_info, 
-                                  modpkgset) 
+    non_modular = _parse_repository_non_modular(package_sack,repo_info,
+                                  modpkgset)
     mod['non_modular'] = non_modular
 
     ## We should probably go through our default modules here and
@@ -375,7 +382,7 @@ def parse_repository(directory):
     return mod
 
 def main():
-    # Determine what the arguments are and 
+    # Determine what the arguments are and
     args = parse_args()
 
     # Go through arguments and act on their values.
@@ -387,8 +394,8 @@ def main():
         def_modules = get_default_modules(args.repository)
     else:
         def_modules = set()
-    def_modules.add('non_modular')        
-    
+    def_modules.add('non_modular')
+
     if not args.skip_missing:
         if not validate_filenames(args.repository, repos):
             raise ValueError("Package files were missing!")
