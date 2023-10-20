@@ -1,6 +1,6 @@
 #!/bin/bash
 
-podman run --privileged -v ./:/root/koji-sync/podman centos:8 /bin/sh /root/koji-sync/podman/rhel8-split.sh 
+podman run --privileged -v ./:/root/koji-sync/podman centos:stream8 /bin/sh /root/koji-sync/podman/rhel8-split.sh
 
 if [ $? == 0 ]
 then
