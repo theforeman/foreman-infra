@@ -74,7 +74,7 @@ class slave::unittests (
   # nodejs/npm for JavaScript tests
   if $facts['os']['family'] == 'RedHat' {
     class { 'nodejs':
-      repo_url_suffix       => '12.x',
+      repo_url_suffix       => '14.x',
       nodejs_package_ensure => latest,
       npm_package_ensure    => absent,
     } -> Package <| provider == 'npm' |>
