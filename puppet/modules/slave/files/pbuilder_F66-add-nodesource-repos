@@ -1,7 +1,12 @@
 #!/bin/sh
 
 # Nodesource
-echo "deb http://deb.nodesource.com/node_12.x ${DISTRIBUTION} main" >> /etc/apt/sources.list
+if [[ $FOREMAN_VERSION == 3.[0-8] ]]; then
+  nodesrcv="12.x"
+else
+  nodesrcv="14.x"
+fi
+echo "deb http://deb.nodesource.com/node_${nodesrcv} ${DISTRIBUTION} main" >> /etc/apt/sources.list
 
 cat > /etc/apt/trusted.gpg.d/nodesource.asc <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
