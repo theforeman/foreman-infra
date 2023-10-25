@@ -42,7 +42,7 @@ restic::prune: true
 # The ones in Debian are also too old
 restic::binary: '/usr/local/bin/restic'
 restic::install_method: 'url'
-restic::package_version: '0.16.0'
+restic::package_version: '0.16.1'
 
 profiles::jenkins::controller::plugins:
   - 'Matrix-sorter-plugin'
