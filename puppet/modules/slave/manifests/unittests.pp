@@ -76,7 +76,7 @@ class slave::unittests (
     class { 'nodejs':
       repo_url_suffix       => '14.x',
       nodejs_package_ensure => latest,
-      npm_package_ensure    => absent,
+      npm_package_name      => false,
     } -> Package <| provider == 'npm' |>
 
     package { 'bower':
