@@ -266,7 +266,7 @@ class MashSplit(object):
             self.logger.warning("No build for package %s in package listing for tag %s" % (pkg, tag))
         return
 
-    def handle_comps(self, whole_path, tmp_path, split_path, mash_config, arches, compses, git_tag,
+    def handle_comps(self, whole_path, tmp_path, split_path, mash_config, collection, arches, compses, git_tag,
                      checksum=None, modulemd_yaml=None, modulemd_version=0, modulemd_context=''):
         """Run the mash, get comps from git and split the repo according to comps.
 
@@ -313,7 +313,7 @@ class MashSplit(object):
                 self.createrepo(tmp_target, comps, checksum=checksum)
                 if modulemd_yaml:
                     modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml)
-                    self.inject_modulemd_yml(mash_config.collection, tmp_target, modulemd, modulemd_version, modulemd_context)
+                    self.inject_modulemd_yml(collection, tmp_target, modulemd, modulemd_version, modulemd_context)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
                     os.makedirs(rpm_target)
@@ -358,7 +358,7 @@ def run_mashes(collection, git_tag, mashes):
     s = MashSplit(log_file)
     for mash_config in mashes:
         s.run_mash(whole_path, mash_config.name)
-        s.handle_comps(whole_path, tmp_path, split_path, mash_config.name, arches,
+        s.handle_comps(whole_path, tmp_path, split_path, mash_config.name, mash_config.collection, arches,
                        mash_config.compses, git_tag, modulemd_yaml=mash_config.modulemd_yaml,
                        modulemd_version=mash_config.modulemd_version,
                        modulemd_context=mash_config.modulemd_context)
