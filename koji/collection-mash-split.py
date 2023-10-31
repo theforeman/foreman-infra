@@ -41,6 +41,7 @@ CONFIG = {
 
 class MashConfig(object):
     def __init__(self, collection, version, name_suffix, comps_suffix, comps_directory, modulemd_suffix=None, modulemd_version=0, modulemd_context=''):
+        self.collection = collection
         self.name = "{}-{}-{}".format(collection, version, name_suffix)
         self.comps_name = "comps-{}-{}.xml".format(collection, comps_suffix)
         self.comps_path = "{}-{}/{}".format(collection, version, comps_directory)
@@ -143,7 +144,7 @@ class MashSplit(object):
             self.logger.debug("running %s" % cmd)
             kobo.shortcuts.run(cmd)
 
-    def inject_modulemd_yml(self, path, modulemd_yaml, modulemd_version=0, modulemd_context=''):
+    def inject_modulemd_yml(self, collection, path, modulemd_yaml, modulemd_version=0, modulemd_context=''):
         """Generate modular metadata and inject it.
 
         @param path: path to repository
@@ -160,13 +161,15 @@ class MashSplit(object):
         cmd += " --queryformat='%{name}-%{epochnum}:%{version}-%{release}.%{arch}\n'"
         self.logger.debug("running %s" % cmd)
         status, output = kobo.shortcuts.run(cmd)
-        modules = yaml.safe_load(modulemd_yaml)
-        modules['data']['artifacts'] = {'rpms': output.splitlines()}
-        modules['data']['version'] = modulemd_version
-        modules['data']['context'] = modulemd_context
+        modules = list(yaml.safe_load_all(modulemd_yaml))
+        for module in modules:
+            module['data']['version'] = modulemd_version
+            module['data']['context'] = modulemd_context
+            if module['data']['name'] == collection:
+                module['data']['artifacts'] = {'rpms': output.splitlines()}
         modules_yaml = os.path.join(path, 'repodata', 'modules.yaml')
         with open(modules_yaml, 'w') as modules_file:
-            yaml.dump(modules, modules_file, default_flow_style=False, explicit_start=True, explicit_end=True)
+            yaml.dump_all(modules, modules_file, default_flow_style=False, explicit_start=True, explicit_end=True)
         cmd = "modifyrepo_c --mdtype=modules {} {}/repodata".format(modules_yaml, path)
         self.logger.debug("running %s" % cmd)
         kobo.shortcuts.run(cmd)
@@ -310,7 +313,7 @@ class MashSplit(object):
                 self.createrepo(tmp_target, comps, checksum=checksum)
                 if modulemd_yaml:
                     modulemd = self.get_from_git(gitloc, modulemd_baseloc, modulemd_yaml)
-                    self.inject_modulemd_yml(tmp_target, modulemd, modulemd_version, modulemd_context)
+                    self.inject_modulemd_yml(mash_config.collection, tmp_target, modulemd, modulemd_version, modulemd_context)
                 rpm_target = os.path.join(split_path, "yum", output_path, arch)
                 if not os.path.exists(rpm_target):
                     os.makedirs(rpm_target)
