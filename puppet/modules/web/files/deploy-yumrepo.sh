@@ -17,7 +17,7 @@ prepcache() {
 }
 
 do_rsync() {
-	opts=(--archive --verbose --hard-links --log-file "$REPO_RSYNC_LOG")
+	opts=(--checksum --perms --recursive --links --verbose --hard-links --log-file "$REPO_RSYNC_LOG")
 	if [[ $MERGE != true ]] ; then
 		opts+=('--delete')
 	fi
