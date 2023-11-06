@@ -1,0 +1,12 @@
+{
+  "branchPrefix": "foreman-renovate/",
+  "onboarding": false,
+  "platform": "github",
+  "prHourlyLimit": 10,
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions", "bundler", "pip_requirements"],
+      "enabled": false
+    }
+  ]
+}
