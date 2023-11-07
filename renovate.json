@@ -3,10 +3,5 @@
   "extends": [
     "config:base"
   ],
-  "packageRules": [
-    {
-      "matchManagers": ["github-actions", "bundler", "pip_requirements"],
-      "enabled": false
-    }
-  ]
+  "enabledManagers": ["puppet"]
 }
