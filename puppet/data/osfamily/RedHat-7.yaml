@@ -1,7 +1,0 @@
----
-redmine::db_name: redmine4
-redmine::username: adminpz8bn8d
-redmine::servername: 'redmine01.theforeman.org'
-redmine::deployment: 'passenger'
-redmine::cron: false
-redmine::branch: 'old-redmine-3'
