@@ -9,9 +9,7 @@ class web::base(
     include web::letsencrypt
   }
 
-  class { 'apache':
-    default_vhost => false,
-  }
+  include apache
 
   file { '/var/www/vhosts':
     ensure => directory,
