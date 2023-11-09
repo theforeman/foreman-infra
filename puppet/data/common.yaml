@@ -218,3 +218,5 @@ puppet::show_diff: true
 sudo::wheel_config: password
 
 redmine::https: true
+
+apache::default_vhost: false
