@@ -32,7 +32,7 @@ mod 'puppetlabs/ntp', '9.2.2'
 mod 'puppetlabs/postgresql', '8.2.1'
 # released version doesn't allow puppetlabs/concat 7.x
 mod 'puppetlabs/rsync', :git => 'https://github.com/ekohl/puppetlabs-rsync', :branch => 'allow-concat-7'
-mod 'puppetlabs/stdlib', '8.6.0'
+mod 'puppetlabs/stdlib', '9.4.1'
 mod 'puppetlabs/vcsrepo', '6.1.0'
 mod 'puppetlabs/xinetd', '3.4.1'
 mod 'richardc/datacat', '0.6.2'
