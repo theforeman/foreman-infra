@@ -131,4 +131,6 @@ rescue SemanticPuppet::Dependency::UnsatisfiableGraph => e
       end
     end
   end
+
+  exit 3
 end
