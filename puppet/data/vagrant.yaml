@@ -21,3 +21,5 @@ profiles::jenkins::controller::jenkins_job_builder_username: "admin"
 profiles::jenkins::node::swap_size_mb: 0
 
 profiles::web::https: false
+
+redmine::https: false
