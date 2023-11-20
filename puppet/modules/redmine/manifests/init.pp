@@ -266,4 +266,12 @@ class redmine (
     content => file('redmine/logrotate'),
   }
 
+  if $facts['os']['selinux']['enabled'] {
+    include selinux
+
+    selinux::fcontext { 'fcontext-redmine-log':
+      seltype  => 'var_log_t',
+      pathspec => "${app_root}/log(/.*)?",
+    }
+  }
 }
