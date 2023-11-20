@@ -195,13 +195,19 @@ class redmine (
     }
   }
 
+  if $https {
+    $http_backend_config = { 'redirect_dest' => "https://${servername}/" }
+  } else {
+    $http_backend_config = $apache_backend_config
+  }
+
   apache::vhost { $servername:
     docroot        => $docroot,
     manage_docroot => false,
     port           => 80,
     priority       => $priority,
     servername     => $servername,
-    redirect_dest  => "https://${servername}/",
+    *              => $http_backend_config,
   }
 
   if $https {
