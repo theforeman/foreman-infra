@@ -1,7 +1,8 @@
   # Make sure target dir can be created
-  YUM_PATH=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'`
-  PROJECT=`echo $YUM_PATH | /bin/cut -f2 -d/`
-  RELEASE=`echo $YUM_PATH | /bin/cut -f3 -d/`
+  YUM_PATH=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $(NF-1) }'`
+  PROJECT=`echo $YUM_PATH | awk -F/ '{print $(NF-1)}' | tr -d '"'`
+  RELEASE=`echo $YUM_PATH | awk -F/ '{print $NF}' | tr -d '"'`
+
   mkdir -p <%= @home %>/rsync_cache/$PROJECT/$RELEASE
 
   # Permit transfer
