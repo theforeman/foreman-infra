@@ -8,4 +8,4 @@
   $SSH_ORIGINAL_COMMAND
 
   # Publish the site - stderr/out redirect is required to stop the noninteractive shell from hanging
-  rsync -rvx --delete-after <%= @home %>/rsync_cache/$PROJECT/$RELEASE <%= @yum_directory %>/$PROJECT/ 2>&1 >/dev/null ;
+  rsync -rvx --delete-after <%= @home %>/rsync_cache/$PROJECT/$RELEASE/ <%= @yum_directory %>/$PROJECT/ 2>&1 >/dev/null ;
