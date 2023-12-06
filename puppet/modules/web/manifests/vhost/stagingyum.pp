@@ -6,7 +6,7 @@ class web::vhost::stagingyum (
   String $user = 'yumrepostage',
   Stdlib::Absolutepath $home = "/home/${user}",
   Integer[0] $rsync_max_connections = 5,
-  Array[String[1]] $usernames = ['ehelms', 'evgeni', 'ekohl', 'Odilhao', 'pcreech'],
+  Array[String[1]] $usernames = ['ehelms', 'evgeni', 'ekohl', 'Odilhao', 'pcreech', 'zhunting'],
 ) {
   $yum_directory_config = [
     {
