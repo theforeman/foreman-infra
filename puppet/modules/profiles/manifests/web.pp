@@ -18,7 +18,7 @@
 #   Maximum connection per rsync target. Using a small value to try and reduce
 #   server load
 class profiles::web (
-  String[1] $stable = '3.7',
+  String[1] $stable = '3.8',
   String[1] $next = '3.9',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
