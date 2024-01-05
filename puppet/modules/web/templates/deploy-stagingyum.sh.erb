@@ -7,5 +7,5 @@
   # Permit transfer
   $SSH_ORIGINAL_COMMAND
 
-  # Publish the site - stderr/out redirect is required to stop the noninteractive shell from hanging
-  rsync -rvx --delete-after <%= @home %>/rsync_cache/$PROJECT/$RELEASE <%= @yum_directory %>/$PROJECT/ 2>&1 >/dev/null ;
+  # Publish the repo - stderr/out redirect is required to stop the noninteractive shell from hanging
+  rsync --recursive --times --verbose --one-file-system --delete-after <%= @home %>/rsync_cache/$PROJECT/$RELEASE <%= @yum_directory %>/$PROJECT/ 2>&1 >/dev/null ;
