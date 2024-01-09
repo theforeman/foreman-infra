@@ -38,7 +38,7 @@ class slave (
     package => $java_package,
   }
 
-  include git
+  include vcsrepo::manage::git
 
   # On Debian we use pbuilder with sudo
   if $facts['os']['family'] == 'Debian' {
