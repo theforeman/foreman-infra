@@ -26,6 +26,8 @@ class profiles::jenkins::controller (
   Array[String[1]] $packages = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig'],
   Array[String[1]] $plugins = [],
 ) {
+  include postfix
+
   ensure_packages($packages)
 
   class { 'jenkins':
