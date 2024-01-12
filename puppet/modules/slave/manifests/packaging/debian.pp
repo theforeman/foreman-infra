@@ -31,6 +31,12 @@ class slave::packaging::debian(
       release    => 'bullseye',
       apturl     => $debian_mirror,
       aptcontent => "deb ${debian_mirror} bullseye main non-free contrib\ndeb-src ${debian_mirror} bullseye main non-free contrib\n";
+    'bookworm64':
+      ensure     => present,
+      arch       => 'amd64',
+      release    => 'bookworm',
+      apturl     => $debian_mirror,
+      aptcontent => "deb ${debian_mirror} bookworm main non-free contrib\ndeb-src ${debian_mirror} bullseye main non-free contrib\n";
     'focal64':
       ensure     => present,
       arch       => 'amd64',
