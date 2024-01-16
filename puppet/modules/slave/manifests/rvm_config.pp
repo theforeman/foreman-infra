@@ -3,11 +3,13 @@ define slave::rvm_config (
   String[1] $version,
   Enum['present', 'absent'] $ensure = 'present',
   String[1] $rubygems_version = '3.0.6',
+  Optional[String[1], Undef] $build_opts = undef,
 ) {
   $alias = $title
 
   rvm_system_ruby { $version:
-    ensure => $ensure,
+    ensure     => $ensure,
+    build_opts => $build_opts,
   }
 
   rvm_alias { $alias:
