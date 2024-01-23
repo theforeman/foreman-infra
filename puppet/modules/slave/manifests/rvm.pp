@@ -22,14 +22,6 @@ class slave::rvm {
       require => User['jenkins'],
     }
 
-    slave::rvm_config { 'ruby-2.4':
-      ensure  => absent,
-      version => 'ruby-2.4.3',
-    }
-    slave::rvm_config { 'ruby-2.5':
-      ensure  => absent,
-      version => 'ruby-2.5.1',
-    }
     slave::rvm_config { 'ruby-2.7':
       version          => 'ruby-2.7.4',
       rubygems_version => '3.1.6',
