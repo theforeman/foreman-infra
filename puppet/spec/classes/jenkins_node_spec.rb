@@ -49,14 +49,24 @@ describe 'jenkins_node' do
         it { is_expected.to contain_package('jq') }
       end
 
-      context "unittest only node" do
-        let(:params) do
-          {uploader: false, packaging: false, unittests: true}
+      if facts[:osfamily] == 'RedHat'
+        context "unittest only node" do
+          let(:params) do
+            {uploader: false, packaging: false, unittests: true}
+          end
+
+          it { is_expected.to compile.with_all_deps }
+          it { is_expected.not_to contain_class('jenkins_node::packaging') }
+          it { is_expected.to contain_class('jenkins_node::postgresql') }
+
+          if ['9', '8'].include?(facts[:operatingsystemrelease])
+            it { is_expected.to contain_class('jenkins_node::rbenv') }
+          end
+
+          if ['8', '7'].include?(facts[:operatingsystemrelease])
+            it { is_expected.to contain_class('jenkins_node::rvm') }
+          end
         end
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.not_to contain_class('jenkins_node::packaging') }
-        it { is_expected.to contain_class('jenkins_node::rvm') }
-        it { is_expected.to contain_class('jenkins_node::postgresql') }
       end
     end
   end

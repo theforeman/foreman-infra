@@ -165,5 +165,12 @@ class jenkins_node::unittests (
   include jenkins_node::postgresql
 
   # RVM
-  include jenkins_node::rvm
+  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] != '9' {
+    include jenkins_node::rvm
+  }
+
+  # rbenv
+  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] != '7' {
+    include jenkins_node::rbenv
+  }
 }
