@@ -2,59 +2,18 @@
 class slave::postgresql {
   # only CentOS slaves are used to run unit tests
   if $facts['os']['family'] == 'RedHat' {
-    if $facts['os']['release']['major'] == '7' {
-      ['postgresql-server', 'postgresql-devel', 'postgresql-client', 'postgresql'].each |$pkg| {
-        package { "${pkg}-nonscl":
-          ensure => absent,
-          name   => $pkg,
-          before => Class['postgresql::globals'],
-        }
-      }
-
-      if $facts['os']['name'] == 'CentOS' {
-        package { 'centos-release-scl-rh':
-          ensure => 'present',
-          before => Class['postgresql::globals'],
-        }
-      } elsif $facts['ec2_metadata'] {
-        yumrepo { 'rhel-server-rhui-rhscl-7-rpms':
-          enabled => true,
-          before  => Class['postgresql::globals'],
-        }
-      }
-
-      yumrepo { 'foreman-infra-el7':
-        descr    => 'foreman-infra-el7',
-        baseurl  => 'https://yum.theforeman.org/infra/el7/',
-        enabled  => true,
-        gpgcheck => false,
-      } ->
-      package { ['rh-postgresql12-postgresql-debversion', 'rh-postgresql12-postgresql-evr']:
-        ensure  => 'present',
-        notify  => Class['postgresql::server::service'],
-        require => Class['postgresql::server::install'],
-      }
-
-      class { 'postgresql::globals':
-        version              => '12',
-        client_package_name  => 'rh-postgresql12-postgresql-syspaths',
-        devel_package_name   => 'rh-postgresql12-postgresql-devel',
-        server_package_name  => 'rh-postgresql12-postgresql-server-syspaths',
-        contrib_package_name => 'rh-postgresql12-postgresql-contrib-syspaths',
-        service_name         => 'postgresql',
-        datadir              => '/var/opt/rh/rh-postgresql12/lib/pgsql/data',
-        confdir              => '/var/opt/rh/rh-postgresql12/lib/pgsql/data',
-        bindir               => '/usr/bin',
-      }
-
-      file { '/etc/profile.d/enable_postgresql12_scl.sh':
-        ensure  => absent,
-      }
-
-      file { '/usr/bin/pg_config':
-        ensure => 'link',
-        target => '/opt/rh/rh-postgresql12/root/usr/bin/pg_config',
-      }
+    # Necessary for PostgreSQL EVR extension
+    yumrepo { 'pulpcore':
+      baseurl  => "http://yum.theforeman.org/pulpcore/3.39/el\$releasever/\$basearch/",
+      descr    => 'Pulpcore',
+      enabled  => true,
+      gpgcheck => true,
+      gpgkey   => 'https://yum.theforeman.org/pulpcore/3.39/GPG-RPM-KEY-pulpcore',
+    } ->
+    package { ['postgresql-evr']:
+      ensure  => 'present',
+      notify  => Class['postgresql::server::service'],
+      require => Class['postgresql::server::install'],
     }
   }
 
