@@ -67,9 +67,7 @@ class slave::unittests (
   ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool', $firefox, $libvirt_dev, $libcurl_dev,
   $sqlite3_dev, $libyaml_dev])
 
-  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
-    ensure_packages(['python-virtualenv'])
-  }
+  ensure_packages(['python3-virtualenv'])
 
   # nodejs/npm for JavaScript tests
   if $facts['os']['family'] == 'RedHat' {
