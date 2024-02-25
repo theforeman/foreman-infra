@@ -29,17 +29,16 @@ class slave::packaging::rpm (
     }
   }
 
-  # To run obal
-  $obal_packages = if $is_el7 {
-    ['python36-PyYAML']
-  } else {
-    [
-      $ansible_python_version,
-      "${ansible_python_version}-pyyaml",
-      "${ansible_python_version}-setuptools",
-    ]
-  }
-  ensure_packages($obal_packages)
+  $obal_packages = [
+    $ansible_python_version,
+    "${ansible_python_version}-pyyaml",
+    "${ansible_python_version}-setuptools",
+  ]
+  $foreman_rel_eng_packages = [
+    "python3-pyyaml",
+  ]
+
+  ensure_packages($obal_packages + $foreman_rel_eng_packages)
 
   # koji
   file { "${homedir}/bin":
