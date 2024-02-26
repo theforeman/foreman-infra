@@ -35,7 +35,7 @@ class slave::packaging::rpm (
     "${ansible_python_version}-setuptools",
   ]
   $foreman_rel_eng_packages = [
-    "python3-pyyaml",
+    'python3-pyyaml',
   ]
 
   ensure_packages($obal_packages + $foreman_rel_eng_packages)
