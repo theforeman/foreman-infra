@@ -21,6 +21,8 @@ describe 'slave' do
         end
 
         if facts[:osfamily] == 'Debian'
+          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/A10nozstd').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/A10nozstd').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/C10foremanlog').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/D80no-man-db-rebuild').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F60addforemanrepo').with_ensure('present') }

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# revert Ubuntu's default zstd compression for .debs
+if dpkg-deb --help | grep zstd && grep "my @dpkg_options;" /usr/bin/dh_builddeb; then
+  sed -i -e "s/my @dpkg_options;/my @dpkg_options = ('-Zxz');/" /usr/bin/dh_builddeb
+fi
