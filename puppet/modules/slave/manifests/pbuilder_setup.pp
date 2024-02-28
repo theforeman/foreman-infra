@@ -36,6 +36,7 @@ define slave::pbuilder_setup (
   }
 
   $hooks = {
+    'A10nozstd'                => $release == 'jammy',
     'C10foremanlog'            => true,
     'D80no-man-db-rebuild'     => true,
     'F60addforemanrepo'        => true,
