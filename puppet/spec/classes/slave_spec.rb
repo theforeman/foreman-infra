@@ -28,6 +28,9 @@ describe 'slave' do
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F60addforemanrepo').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F65-add-backport-repos').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F66-add-nodesource-repos').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/F66-add-nodesource-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F67-add-puppet-repos').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F70aptupdate').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F99printrepos').with_ensure('present') }
