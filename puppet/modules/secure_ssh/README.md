@@ -9,9 +9,9 @@ This module uses Puppet to set up ssh and optionally rsync in such a way that:
 * The receiver can run an arbitrary script upon receiving the files to sanitize
   and distribute them to the correct place
 
-As an example, this module is used in the TheForeman infratructure to
+As an example, this module is used in the TheForeman infrastructure to
 
-* Build the `theforeman.org` website on a jenkins slave
+* Build the `theforeman.org` website on jenkins
 * Rsync the compiled static site to `theforeman.org:~website/rsync_cache/`
 * The webserver then chmod's all the files correctly and copies them to the vhost,
   thus allowing SELinux to prevent direct scp to the vhost.
@@ -28,17 +28,17 @@ There are two ways to use this module
 
 If you wish to simply add extra resources to your manifests, the defines in
 this module can be called directly. For example, if you have a website and a
-slave which pushes content to the site, you might already have a "website"
-class and a "slave" class. In which case you might add the following:
+node which pushes content to the site, you might already have a "website"
+class and a "jenkins_node" class. In which case you might add the following:
 
 ```
-class slave {
+class jenkins_node {
   secure_ssh::uploader_key { 'website':
     user       => 'jenkins',
     dir        => '/home/jenkins',
     manage_dir => true,
   }
-  # rest of your slave class here...
+  # rest of your jenkins_node class here...
 }
 
 class website {
