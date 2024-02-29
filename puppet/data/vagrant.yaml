@@ -23,3 +23,7 @@ profiles::jenkins::node::swap_size_mb: 0
 profiles::web::https: false
 
 redmine::https: false
+
+profiles::monitoring::server::url: 127.0.0.1
+profiles::monitoring::server::https: false
+profiles::monitoring::client::server: 127.0.0.1
