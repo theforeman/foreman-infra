@@ -1,5 +1,5 @@
 # @api private
-define slave::db_config (
+define jenkins_node::db_config (
   Enum['file', 'absent'] $ensure = 'file',
   Stdlib::Absolutepath $jenkins_home = '/home/jenkins',
   String[1] $jenkins_user = 'jenkins',

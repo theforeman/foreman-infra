@@ -1,6 +1,6 @@
 # @api private
-class slave::postgresql {
-  # only CentOS slaves are used to run unit tests
+class jenkins_node::postgresql {
+  # only CentOS nodes are used to run unit tests
   if $facts['os']['family'] == 'RedHat' {
     # Necessary for PostgreSQL EVR extension
     yumrepo { 'pulpcore':
@@ -17,7 +17,7 @@ class slave::postgresql {
     }
   }
 
-  # Tune DB settings for Jenkins slaves, this is UNSAFE for production!
+  # Tune DB settings for Jenkins nodes, this is UNSAFE for production!
   $settings = {
     'fsync'                        => 'off',
     'full_page_writes'             => 'off',
@@ -53,7 +53,7 @@ class slave::postgresql {
     require       => Service['postgresql'],
   }
 
-  slave::db_config { 'postgresql':
+  jenkins_node::db_config { 'postgresql':
     require => Postgresql::Server::Role['foreman'],
   }
 }

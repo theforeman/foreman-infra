@@ -14,7 +14,7 @@
 #   Whether the Jenkins node should be able to run Ruby (unit)tests
 # @param packaging
 #   Whether the node should be able to run packaging jobs
-class slave (
+class jenkins_node (
   Optional[String] $koji_certificate    = undef,
   Boolean $uploader                     = true,
   String[1] $username                   = 'jenkins',
@@ -71,14 +71,14 @@ class slave (
     ensure => file,
     owner  => 'jenkins',
     group  => 'jenkins',
-    source => 'puppet:///modules/slave/gitconfig',
+    source => 'puppet:///modules/jenkins_node/gitconfig',
   }
 
   file { "${homedir}/.gemrc":
     ensure => file,
     owner  => 'jenkins',
     group  => 'jenkins',
-    source => 'puppet:///modules/slave/gemrc',
+    source => 'puppet:///modules/jenkins_node/gemrc',
   }
 
   file { "${homedir}/.config":
@@ -105,14 +105,14 @@ class slave (
   }
 
   if $unittests {
-    class { 'slave::unittests':
+    class { 'jenkins_node::unittests':
       homedir => $homedir,
     }
   }
 
   # Packaging
   if $packaging {
-    class { 'slave::packaging':
+    class { 'jenkins_node::packaging':
       koji_certificate => $koji_certificate,
       uploader         => $uploader,
       homedir          => $homedir,

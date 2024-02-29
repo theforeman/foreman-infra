@@ -1,6 +1,6 @@
 # @summary Set up pbuilder on a Debian package builder
 # @api private
-define slave::pbuilder_setup (
+define jenkins_node::pbuilder_setup (
   String[1] $arch,
   String[1] $release,
   String[1] $apturl,
@@ -32,7 +32,7 @@ define slave::pbuilder_setup (
   file { "/usr/local/bin/pdebuild-${name}":
     ensure  => $ensure,
     mode    => '0775',
-    content => template('slave/pbuilder_pdebuild.erb'),
+    content => template('jenkins_node/pbuilder_pdebuild.erb'),
   }
 
   $hooks = {
@@ -54,7 +54,7 @@ define slave::pbuilder_setup (
       file { $hook_path:
         ensure  => $ensure,
         mode    => '0775',
-        content => file("slave/pbuilder_${hook}"),
+        content => file("jenkins_node/pbuilder_${hook}"),
       }
     } else {
       file { $hook_path:

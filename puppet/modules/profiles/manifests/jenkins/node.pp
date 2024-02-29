@@ -18,14 +18,14 @@ class profiles::jenkins::node (
   Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
-  class { 'slave':
+  class { 'jenkins_node':
     koji_certificate => $koji_certificate,
     unittests        => $unittests,
     packaging        => $packaging,
   }
 
   if $swap_size_mb > 0 {
-    class { 'slave::swap':
+    class { 'jenkins_node::swap':
       size_mb => $swap_size_mb,
     }
   }
