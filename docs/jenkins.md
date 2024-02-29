@@ -20,7 +20,7 @@ To get an account, open a new topic on [Foreman Infra SIG](https://community.the
 CentOS offer access to their [QA CI infrastructure](https://wiki.centos.org/QaWiki/CI) to Foreman and other projects, which gives on-demand access to run tests on physical hardware running CentOS.  It consists of three main components:
 
 * [ci.centos.org](https://ci.centos.org) - a Jenkins instance which we can manage jobs on
-* foreman@slave01 - a user account on a slave which our jobs all run on
+* foreman@slave01 - a user account on a node which our jobs all run on
 * [Duffy](https://wiki.centos.org/QaWiki/CI/Duffy) - on-demand provisioning of physical test servers running CentOS, available from foreman@slave01 jobs
 
 Getting help:
@@ -38,7 +38,7 @@ For detailed information see [Jenkins Job README](https://github.com/theforeman/
 
 ### Configuration management
 
-All nodes are maintained through our own Foreman instance using Puppet.  The Foreman instance has a host group called "Builders" and "Builders/Debian" which have the "slave" and other classes assigned to them. Debian machines have additional permissions to push Debian packages.
+All nodes are maintained through our own Foreman instance using Puppet.  The Foreman instance has a host group called "Builders" and "Builders/Debian" which have the "jenkins_node" and other classes assigned to them. Debian machines have additional permissions to push Debian packages.
 
 https://github.com/theforeman/foreman-infra/tree/master/puppet/modules contains the source for all Puppet modules.
 
