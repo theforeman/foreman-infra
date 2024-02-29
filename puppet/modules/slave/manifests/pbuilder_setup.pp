@@ -36,15 +36,16 @@ define slave::pbuilder_setup (
   }
 
   $hooks = {
-    'A10nozstd'                => $release == 'jammy',
-    'C10foremanlog'            => true,
-    'D80no-man-db-rebuild'     => true,
-    'F60addforemanrepo'        => true,
-    'F65-add-backport-repos'   => $backports,
-    'F66-add-nodesource-repos' => $nodesource,
-    'F67-add-puppet-repos'     => $puppetlabs,
-    'F70aptupdate'             => true,
-    'F99printrepos'            => true,
+    'A10nozstd'                         => $release == 'jammy',
+    'C10foremanlog'                     => true,
+    'D80no-man-db-rebuild'              => true,
+    'F60addforemanrepo'                 => true,
+    'F65-add-backport-repos'            => $backports,
+    'F66-add-nodesource-repos'          => $nodesource and $release != 'jammy',
+    'F66-add-nodesource-nodistro-repos' => $nodesource and $release == 'jammy',
+    'F67-add-puppet-repos'              => $puppetlabs,
+    'F70aptupdate'                      => true,
+    'F99printrepos'                     => true,
   }
 
   $hooks.each |$hook, $enabled| {
