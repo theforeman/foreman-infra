@@ -1,5 +1,5 @@
 # @api private
-class slave::unittests (
+class jenkins_node::unittests (
   Stdlib::Absolutepath $homedir,
 ) {
   if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
@@ -100,7 +100,7 @@ class slave::unittests (
       owner   => 'root',
       group   => 'root',
       mode    => '0755',
-      content => template('slave/npm_cleaner.sh.erb'),
+      content => template('jenkins_node/npm_cleaner.sh.erb'),
     }
   }
 
@@ -150,7 +150,7 @@ class slave::unittests (
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => template('slave/90-nproc.conf.erb'),
+      content => template('jenkins_node/90-nproc.conf.erb'),
     }
   }
 
@@ -162,8 +162,8 @@ class slave::unittests (
   }
 
   # Databases
-  include slave::postgresql
+  include jenkins_node::postgresql
 
   # RVM
-  include slave::rvm
+  include jenkins_node::rvm
 }

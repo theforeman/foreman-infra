@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'slave' do
+describe 'jenkins_node' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let :facts do
@@ -44,8 +44,8 @@ describe 'slave' do
           {uploader: false, packaging: true, unittests: false}
         end
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('slave::packaging') }
-        it { is_expected.not_to contain_class('slave::rvm') }
+        it { is_expected.to contain_class('jenkins_node::packaging') }
+        it { is_expected.not_to contain_class('jenkins_node::rvm') }
         it { is_expected.to contain_package('jq') }
       end
 
@@ -54,9 +54,9 @@ describe 'slave' do
           {uploader: false, packaging: false, unittests: true}
         end
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.not_to contain_class('slave::packaging') }
-        it { is_expected.to contain_class('slave::rvm') }
-        it { is_expected.to contain_class('slave::postgresql') }
+        it { is_expected.not_to contain_class('jenkins_node::packaging') }
+        it { is_expected.to contain_class('jenkins_node::rvm') }
+        it { is_expected.to contain_class('jenkins_node::postgresql') }
       end
     end
   end

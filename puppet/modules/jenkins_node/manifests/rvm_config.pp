@@ -1,5 +1,5 @@
 # @api private
-define slave::rvm_config (
+define jenkins_node::rvm_config (
   String[1] $version,
   Enum['present', 'absent'] $ensure = 'present',
   String[1] $rubygems_version = '3.0.6',

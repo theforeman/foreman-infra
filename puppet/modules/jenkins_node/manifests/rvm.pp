@@ -1,6 +1,6 @@
 # Various RVM config
 # @api private
-class slave::rvm {
+class jenkins_node::rvm {
   ensure_packages(['wget'])
 
   gnupg_key { 'rvm_pkuczynski':
@@ -22,15 +22,15 @@ class slave::rvm {
       require => User['jenkins'],
     }
 
-    slave::rvm_config { 'ruby-2.7':
+    jenkins_node::rvm_config { 'ruby-2.7':
       version          => 'ruby-2.7.4',
       rubygems_version => '3.1.6',
     }
-    slave::rvm_config { 'ruby-3.0':
+    jenkins_node::rvm_config { 'ruby-3.0':
       version          => 'ruby-3.0.4',
       rubygems_version => '3.2.3',
     }
-    slave::rvm_config { 'ruby-3.1':
+    jenkins_node::rvm_config { 'ruby-3.1':
       version          => 'ruby-3.1.2',
       rubygems_version => '3.3.3',
     }

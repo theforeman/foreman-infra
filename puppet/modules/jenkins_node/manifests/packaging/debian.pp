@@ -1,5 +1,5 @@
 # @api private
-class slave::packaging::debian(
+class jenkins_node::packaging::debian(
   String $user,
   Stdlib::Absolutepath $workspace,
   Boolean $uploader = true,
@@ -24,7 +24,7 @@ class slave::packaging::debian(
     Class['Pbuilder::Common']
   }
 
-  slave::pbuilder_setup {
+  jenkins_node::pbuilder_setup {
     'bullseye64':
       ensure     => present,
       arch       => 'amd64',
@@ -55,7 +55,7 @@ class slave::packaging::debian(
   include sudo
   sudo::conf { 'sudo-puppet-pbuilder-envkeep':
     ensure  => 'present',
-    content => file('slave/pbuilder_sudoers'),
+    content => file('jenkins_node/pbuilder_sudoers'),
   }
 
   shellvar { 'extend_pbuilder_path':

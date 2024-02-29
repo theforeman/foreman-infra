@@ -1,5 +1,5 @@
 # @api private
-class slave::packaging (
+class jenkins_node::packaging (
   Boolean $uploader,
   Stdlib::Absolutepath $homedir,
   Stdlib::Absolutepath $workspace,
@@ -12,21 +12,21 @@ class slave::packaging (
 
   case $facts['os']['family'] {
     'RedHat': {
-      class { 'slave::packaging::rpm':
+      class { 'jenkins_node::packaging::rpm':
         homedir          => $homedir,
         koji_certificate => $koji_certificate,
         user             => 'jenkins',
         workspace        => $workspace,
       }
-      contain slave::packaging::rpm
+      contain jenkins_node::packaging::rpm
     }
     'Debian': {
-      class { 'slave::packaging::debian':
+      class { 'jenkins_node::packaging::debian':
         uploader  => $uploader,
         user      => 'jenkins',
         workspace => $workspace,
       }
-      contain slave::packaging::debian
+      contain jenkins_node::packaging::debian
     }
     default: {}
   }

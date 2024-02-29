@@ -1,6 +1,6 @@
 # All RPM packaging tools
 # @api private
-class slave::packaging::rpm (
+class jenkins_node::packaging::rpm (
   Stdlib::Absolutepath $homedir,
   String $user,
   Stdlib::Absolutepath $workspace,
@@ -62,7 +62,7 @@ class slave::packaging::rpm (
     mode   => '0644',
     owner  => 'jenkins',
     group  => 'jenkins',
-    source => 'puppet:///modules/slave/katello-config',
+    source => 'puppet:///modules/jenkins_node/katello-config',
   }
 
   if $koji_certificate {
@@ -85,7 +85,7 @@ class slave::packaging::rpm (
     mode   => '0644',
     owner  => 'jenkins',
     group  => 'jenkins',
-    source => 'puppet:///modules/slave/katello-ca.cert',
+    source => 'puppet:///modules/jenkins_node/katello-ca.cert',
   }
 
   # specs-from-koji

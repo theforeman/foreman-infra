@@ -5,7 +5,7 @@
 #
 # @param size_mb
 #   The size in MBs
-class slave::swap (
+class jenkins_node::swap (
   Stdlib::Absolutepath $file = '/swap',
   Integer[0] $size_mb = 2048,
 ) {
