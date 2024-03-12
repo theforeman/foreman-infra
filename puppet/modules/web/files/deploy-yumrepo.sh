@@ -104,7 +104,7 @@ if [[ -z $REPO_SOURCE ]] || [[ -z $REPO_DEST ]] ; then
 fi
 
 if [[ $STAGING == true ]] ; then
-	REPO_SOURCE_BASE="rsync://rsync.theforeman.org/stagingyum/"
+	REPO_SOURCE_BASE="/var/www/vhosts/stagingyum/htdocs/"
 	REPO_SOURCE_RPM="${REPO_SOURCE_BASE}/${REPO_SOURCE}"
 else
 	REPO_SOURCE_BASE="rsync://koji.katello.org/releases"
