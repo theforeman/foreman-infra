@@ -9,3 +9,4 @@ g10k-linux-amd64.zip
 .vagrant
 koji/flatten-el8/koji
 koji/flatten-el8/repos
+puppet/.bundle
