@@ -4,12 +4,11 @@ class jenkins_node::packaging::rpm (
   Stdlib::Absolutepath $homedir,
   String $user,
   Stdlib::Absolutepath $workspace,
-  Optional[String] $koji_certificate = undef,
 ) {
   $is_el7 = $facts['os']['release']['major'] == '7'
   $ansible_python_version = if $facts['os']['release']['major'] == '8' { 'python3.11' } else { 'python3' }
 
-  package { ['koji', 'rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
+  package { ['rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
     ensure => installed,
   }
 
@@ -42,15 +41,11 @@ class jenkins_node::packaging::rpm (
 
   # koji
   file { "${homedir}/bin":
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
+    ensure => absent,
   }
 
   file { "${homedir}/.koji":
-    ensure => directory,
-    owner  => 'jenkins',
-    group  => 'jenkins',
+    ensure => absent,
   }
 
   file { "${homedir}/.koji/katello-config":
@@ -58,34 +53,15 @@ class jenkins_node::packaging::rpm (
   }
 
   file { "${homedir}/.koji/config":
-    ensure => file,
-    mode   => '0644',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/jenkins_node/katello-config',
+    ensure => absent,
   }
 
-  if $koji_certificate {
-    file { "${homedir}/.katello.cert":
-      ensure    => file,
-      mode      => '0600',
-      owner     => 'jenkins',
-      group     => 'jenkins',
-      content   => $koji_certificate,
-      show_diff => false,
-    }
-  } else {
-    file { "${homedir}/.katello.cert":
-      ensure  => absent,
-    }
+  file { "${homedir}/.katello.cert":
+    ensure => absent,
   }
 
   file { "${homedir}/.katello-ca.cert":
-    ensure => file,
-    mode   => '0644',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/jenkins_node/katello-ca.cert',
+    ensure => absent,
   }
 
   # specs-from-koji

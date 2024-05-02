@@ -1,7 +1,5 @@
 # @summary A Jenkins node
 #
-# @param koji_certificate
-#   The client certificate used to authenticate to Koji. Used for RPM building.
 # @param uploader
 #   Whether the machine can upload Debian packages.
 # @param username
@@ -15,7 +13,6 @@
 # @param packaging
 #   Whether the node should be able to run packaging jobs
 class jenkins_node (
-  Optional[String] $koji_certificate    = undef,
   Boolean $uploader                     = true,
   String[1] $username                   = 'jenkins',
   Stdlib::Absolutepath $homedir         = "/home/${username}",
@@ -113,10 +110,9 @@ class jenkins_node (
   # Packaging
   if $packaging {
     class { 'jenkins_node::packaging':
-      koji_certificate => $koji_certificate,
-      uploader         => $uploader,
-      homedir          => $homedir,
-      workspace        => $workspace,
+      uploader  => $uploader,
+      homedir   => $homedir,
+      workspace => $workspace,
     }
   }
 
