@@ -22,10 +22,10 @@ do_rsync() {
 		opts+=('--delete')
 	fi
 
-	rsync "${opts[@]}" --log-file-format 'CHANGED %f' "${REPO_SOURCE_RPM}/*" "${REPO_INSTANCE_PATH}/"
+	rsync "${opts[@]}" --log-file-format 'CHANGED %n' "${REPO_SOURCE_RPM}/*" "${REPO_INSTANCE_PATH}/"
 
 	if [[ -n "$REPO_SOURCE_SRPM" ]]; then
-		rsync "${opts[@]}" --log-file-format 'CHANGED source/%f' "${REPO_SOURCE_SRPM}/" "${REPO_INSTANCE_PATH}/source/"
+		rsync "${opts[@]}" --log-file-format 'CHANGED source/%n' "${REPO_SOURCE_SRPM}/" "${REPO_INSTANCE_PATH}/source/"
 	fi
 
 	set +f
