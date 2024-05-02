@@ -7,6 +7,4 @@ g10k-linux-amd64.zip
 .g10k/cache
 .idea
 .vagrant
-koji/flatten-el8/koji
-koji/flatten-el8/repos
 puppet/.bundle

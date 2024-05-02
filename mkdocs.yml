@@ -6,7 +6,6 @@ nav:
     - Discourse: discourse.md
     - Foreman: foreman.md
     - Jenkins: jenkins.md
-    - Koji: koji.md
     - Puppet: puppet.md
     - Redmine: redmine.md
     - Virt: virt.md

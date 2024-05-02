@@ -19,7 +19,6 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 |---|---|
 | [Discourse](discourse.md) | Conova |
 | [Foreman](foreman.md) | Conova |
-| [Koji](koji.md) | AWS |
 | [Jenkins](jenkins.md) | Conova |
 | [Jenkins Nodes](jenkins.md) | OSUOSL / AWS / Conova / Netways |
 | [Puppet](puppet.md) | Conova |
