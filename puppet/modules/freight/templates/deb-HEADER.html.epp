@@ -34,8 +34,6 @@ echo "deb http://deb.theforeman.org/ $VERSION_CODENAME <%= $stable %>" > /etc/ap
 echo "deb http://deb.theforeman.org/ plugins <%= $stable %>" >> /etc/apt/sources.list.d/foreman.list
 </pre>
 
-<p>This repo is also available over rsync at <code>rsync://rsync.theforeman.org/deb</code>.</p>
-
 <p>Older Foreman releases are archived to <a href="//archivedeb.theforeman.org">archivedeb.theforeman.org</a> once they have been unsupported for two release cycles.
 
 <p>You can find the installation instructions <a href="https://theforeman.org/manuals/latest/index.html#3.3InstallFromPackages">here</a>, but we recommend using our <a href="https://theforeman.org/manuals/latest/index.html#3.2ForemanInstaller">Installer</a>
