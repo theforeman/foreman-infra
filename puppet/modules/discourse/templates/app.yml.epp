@@ -100,7 +100,6 @@ hooks:
           - git clone https://github.com/discourse/discourse-solved.git
           - git clone https://github.com/paviliondev/discourse-events.git
           - git clone https://github.com/paviliondev/discourse-locations.git
-          - bash -c 'git clone https://github.com/discourse/discourse-checklist.git && cd discourse-checklist && git checkout 4a7f3df360a8e4ff3bbebfed33ea545b1c72506e'
 
 ## Any custom commands to run after building
 run:
