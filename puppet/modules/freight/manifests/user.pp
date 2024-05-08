@@ -68,18 +68,6 @@ define freight::user (
     directories   => $directory_config,
   }
 
-  include rsync::server
-  rsync::server::module { $vhost:
-    path            => $webdir,
-    list            => true,
-    read_only       => true,
-    comment         => "${vhost}.theforeman.org",
-    require         => File[$webdir],
-    uid             => 'nobody',
-    gid             => 'nobody',
-    max_connections => 5,
-    exclude         => ['/dists/*/.refs/'],
-  }
   file { "${webdir}/HEADER.html":
     ensure  => file,
     owner   => 'root',

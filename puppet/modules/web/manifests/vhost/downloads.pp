@@ -2,7 +2,6 @@
 # @api private
 class web::vhost::downloads (
   Stdlib::Absolutepath $downloads_directory = '/var/www/vhosts/downloads/htdocs',
-  Integer[0] $rsync_max_connections = 5,
   String $user = 'downloads',
 ) {
   $downloads_directory_config = [
@@ -30,17 +29,6 @@ class web::vhost::downloads (
     docroot_group => $user,
     docroot_mode  => '0755',
     directories   => $downloads_directory_config,
-  }
-
-  include rsync::server
-  rsync::server::module { 'downloads':
-    path            => $downloads_directory,
-    list            => true,
-    read_only       => true,
-    comment         => 'downloads.theforeman.org',
-    uid             => 'nobody',
-    gid             => 'nobody',
-    max_connections => $rsync_max_connections,
   }
 
   file { "${downloads_directory}/HEADER.html":
