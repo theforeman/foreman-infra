@@ -1,3 +1,0 @@
-This is the foreman_debug_rsync module.
-
-Configures rsync to accept foreman-debug tarballs.

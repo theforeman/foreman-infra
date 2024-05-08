@@ -9,8 +9,6 @@ class freight::uploader(
   String $user,
   Stdlib::Absolutepath $workspace,
 ) {
-  include rsync
-
   secure_ssh::rsync::uploader_key { 'freight':
     user       => $user,
     dir        => "${workspace}/deb_key",

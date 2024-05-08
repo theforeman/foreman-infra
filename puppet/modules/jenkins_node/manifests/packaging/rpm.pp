@@ -28,6 +28,7 @@ class jenkins_node::packaging::rpm (
   ]
   $foreman_rel_eng_packages = [
     'python3-pyyaml',
+    'rsync',
   ]
 
   stdlib::ensure_packages($obal_packages + $foreman_rel_eng_packages)
@@ -46,8 +47,6 @@ class jenkins_node::packaging::rpm (
     dir        => "${workspace}/staging_key",
     manage_dir => true,
   }
-
-  include rsync
 
   secure_ssh::rsync::uploader_key { 'yumstage':
     ensure => 'absent',

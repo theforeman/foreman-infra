@@ -2,7 +2,6 @@
 # @api private
 class web::vhost::yum (
   String[1] $stable,
-  Integer[0] $rsync_max_connections = 5,
   Stdlib::Fqdn $servername = 'yum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/yum/htdocs',
   String $user = 'yumrepo',
@@ -41,17 +40,6 @@ class web::vhost::yum (
     docroot_group => $user,
     docroot_mode  => '0755',
     directories   => $yum_directory_config,
-  }
-
-  include rsync::server
-  rsync::server::module { 'yum':
-    path            => $yum_directory,
-    list            => true,
-    read_only       => true,
-    comment         => $servername,
-    uid             => 'nobody',
-    gid             => 'nobody',
-    max_connections => $rsync_max_connections,
   }
 
   if $facts['os']['family'] == 'RedHat' {

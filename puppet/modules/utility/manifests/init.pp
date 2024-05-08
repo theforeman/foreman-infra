@@ -11,7 +11,7 @@ class utility($sysadmins = ['/dev/null']) {
     stdlib::ensure_packages(['htop', 'iftop', 'screen'])
   }
 
-  # TODO: rsync package is managed by puppetlabs-rsync
+  stdlib::ensure_packages(['rsync'])
 
   mailalias { 'sysadmins':
     ensure    => present,
