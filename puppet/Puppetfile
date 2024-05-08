@@ -29,7 +29,7 @@ mod 'puppetlabs/java', '11.0.0'
 mod 'puppetlabs/mailalias_core', '1.2.0'
 mod 'puppetlabs/mount_providers', '2.0.1'
 mod 'puppetlabs/ntp', '10.1.0'
-mod 'puppetlabs/postgresql', '10.2.0'
+mod 'puppetlabs/postgresql', '10.3.0'
 # released version doesn't allow puppetlabs/concat 9.x & puppetlabs/stdlib 9.x
 mod 'puppetlabs/rsync', :git => 'https://github.com/ekohl/puppetlabs-rsync', :branch => 'compatible-with-latest'
 mod 'puppetlabs/stdlib', '9.6.0'
