@@ -8,3 +8,4 @@ ExecStart=<%= @app_root %>/bin/rails server --environment production
 PrivateTmp=true
 WorkingDirectory=<%= @app_root %>
 SyslogIdentifier=redmine
+Environment=RAILS_LOG_TO_STDOUT=1
