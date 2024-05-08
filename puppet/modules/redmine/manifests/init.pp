@@ -259,11 +259,7 @@ class redmine (
 
   # Logrotate
   file { '/etc/logrotate.d/redmine':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => file('redmine/logrotate'),
+    ensure  => absent,
   }
 
 }
