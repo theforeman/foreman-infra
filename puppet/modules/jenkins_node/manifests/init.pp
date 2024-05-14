@@ -126,10 +126,6 @@ class jenkins_node (
   }
 
   file { '/etc/cron.daily/jenkins_cleaner':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => "#!/bin/sh\nfind ${workspace} /usr/local/rvm/gems/ -maxdepth 1 -mindepth 1 -type d -user jenkins -ctime +3 -exec rm -rf {} +\n", # lint:ignore:140chars
+    ensure => absent,
   }
 }

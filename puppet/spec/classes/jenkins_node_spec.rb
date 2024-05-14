@@ -45,7 +45,7 @@ describe 'jenkins_node' do
         end
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('jenkins_node::packaging') }
-        it { is_expected.not_to contain_class('jenkins_node::rvm') }
+        it { is_expected.not_to contain_class('jenkins_node::rbenv') }
         it { is_expected.to contain_package('jq') }
       end
 
@@ -61,10 +61,6 @@ describe 'jenkins_node' do
 
           if ['9', '8'].include?(facts[:operatingsystemrelease])
             it { is_expected.to contain_class('jenkins_node::rbenv') }
-          end
-
-          if ['8', '7'].include?(facts[:operatingsystemrelease])
-            it { is_expected.to contain_class('jenkins_node::rvm') }
           end
         end
       end
