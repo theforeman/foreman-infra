@@ -30,7 +30,7 @@ Getting help:
 
 ## Managing jobs
 
-Jenkins itself is deployed onto one master VM from foreman-infra.  Jobs are maintained via Jenkins Job Builder - a set of YAML configuration files in foreman-infra that generate jobs. Jobs are kept in sync by an update job running inside of Jenkins. The update job itself (jenkins-jobs-update) is deployed via Puppet.
+Jenkins itself is deployed onto one master VM from foreman-infra.  Jobs are maintained via Jenkins Job Builder - a set of YAML configuration files in foreman-infra that generate jobs. Jobs are kept in sync by an update job running inside of Jenkins.
 
 For detailed information see [Jenkins Job README](https://github.com/theforeman/jenkins-jobs/blob/master/README.md).
 

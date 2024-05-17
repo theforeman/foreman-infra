@@ -4,12 +4,6 @@
 #   The hostname to use in the Apache vhost
 # @param https
 #   Whether to serve on HTTPS. If so, the HTTP vhost becomes a redirect to HTTPS.
-# @param jenkins_job_builder
-#   Whether to run Jenkins Job Builder
-# @param jenkins_job_builder_username
-#   The username Jenkins Job Builder should use if enabled
-# @param jenkins_job_builder_password
-#   The password Jenkins Job Builder should use if enabled
 # @param packages
 #   The (java) packages to install. OpenJDK Devel is needed for jar unpacking support.
 # @param plugins
@@ -20,9 +14,6 @@
 class profiles::jenkins::controller (
   Stdlib::Fqdn $hostname = 'ci.theforeman.org',
   Boolean $https = true,
-  Boolean $jenkins_job_builder = true,
-  Optional[String] $jenkins_job_builder_username = undef,
-  Optional[String] $jenkins_job_builder_password = undef,
   Array[String[1]] $packages = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig'],
   Array[String[1]] $plugins = [],
 ) {
@@ -62,18 +53,5 @@ class profiles::jenkins::controller (
       '--exclude', "${backup_path}/jobs/*/builds",
       '--exclude', "${backup_path}/plugins",
     ],
-  }
-
-  if $jenkins_job_builder {
-    class { 'jenkins_job_builder':
-      configs => {
-        'theforeman.org' => {
-          url      => $web::jenkins::url,
-          username => $jenkins_job_builder_username,
-          password => $jenkins_job_builder_password,
-        },
-      },
-      require => [Class['jenkins', 'web::jenkins']],
-    }
   }
 }

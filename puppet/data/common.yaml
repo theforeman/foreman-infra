@@ -13,9 +13,6 @@ foreman_proxy::trusted_hosts:
   - "foreman01.conova.theforeman.org"
 foreman_proxy::foreman_base_url: '%{alias("foreman_url")}'
 
-# Foreman's jenkins-jobs is incompatible with JJB 5
-jenkins_job_builder::ensure: '4.3.0'
-
 profiles::backup::receiver::targets:
   - redmine01
   - controller01

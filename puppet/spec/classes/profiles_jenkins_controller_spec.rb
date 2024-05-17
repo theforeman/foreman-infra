@@ -11,12 +11,6 @@ describe 'profiles::jenkins::controller' do
         }
         PUPPET
       end
-      let(:params) do
-        {
-          jenkins_job_builder_username: 'user',
-          jenkins_job_builder_password: 'password',
-        }
-      end
 
       it { is_expected.to compile.with_all_deps }
     end
