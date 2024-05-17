@@ -2,7 +2,6 @@
 # @api private
 class web::vhost::web(
   String[1] $stable,
-  String[1] $next,
   Stdlib::Absolutepath $web_directory = '/var/www/vhosts/web/htdocs',
 ) {
   require web
@@ -32,7 +31,6 @@ class web::vhost::web(
 
   $docs_rewrites = [
     { 'rewrite_rule' => ["^/manuals/latest(.*) /manuals/${stable}\$1 [R,L]"] },
-    { 'rewrite_rule' => ["^/manuals/${next}(.*) /manuals/nightly\$1 [R,L]"] },
   ]
 
   $directory_config = [
