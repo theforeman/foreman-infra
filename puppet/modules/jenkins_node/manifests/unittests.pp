@@ -119,14 +119,6 @@ class jenkins_node::unittests (
     ensure_packages(['selinux-policy-devel'])
   }
 
-  # needed by katello gem dependency qpid_proton
-  # for katello-agent messaging
-  if $facts['os']['family'] == 'RedHat' {
-    package { 'qpid-proton-cpp-devel':
-      ensure => latest,
-    }
-  }
-
   # Needed by foreman_openscap gem dependency OpenSCAP
   if $facts['os']['family'] == 'RedHat' {
     package { 'openscap':
