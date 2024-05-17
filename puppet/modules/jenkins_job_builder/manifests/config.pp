@@ -15,7 +15,7 @@ define jenkins_job_builder::config (
   $inifile = "${directory}/jenkins_jobs_${config_name}.ini"
 
   $git = if $facts['os']['release']['major'] == '7' { 'git' } else { 'git-core' }
-  ensure_packages([$git])
+  stdlib::ensure_packages([$git])
 
   vcsrepo { "${directory}/${git_project_name}":
     ensure   => latest,

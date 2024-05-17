@@ -64,10 +64,10 @@ class jenkins_node::unittests (
     default  => 'libyaml-devel'
   }
 
-  ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool', $firefox, $libvirt_dev, $libcurl_dev,
-  $sqlite3_dev, $libyaml_dev])
+  stdlib::ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool',
+  $firefox, $libvirt_dev, $libcurl_dev, $sqlite3_dev, $libyaml_dev])
 
-  ensure_packages(['python3-virtualenv'])
+  stdlib::ensure_packages(['python3-virtualenv'])
 
   # nodejs/npm for JavaScript tests
   if $facts['os']['family'] == 'RedHat' {
@@ -116,7 +116,7 @@ class jenkins_node::unittests (
 
   # Needed for foreman-selinux testing
   if $facts['os']['family'] == 'RedHat' {
-    ensure_packages(['selinux-policy-devel'])
+    stdlib::ensure_packages(['selinux-policy-devel'])
   }
 
   # needed by katello gem dependency qpid_proton

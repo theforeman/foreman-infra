@@ -26,7 +26,7 @@ class profiles::jenkins::controller (
   Array[String[1]] $packages = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig'],
   Array[String[1]] $plugins = [],
 ) {
-  ensure_packages($packages)
+  stdlib::ensure_packages($packages)
 
   class { 'jenkins':
     install_java    => false,

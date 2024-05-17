@@ -9,7 +9,7 @@ class discourse(
   Stdlib::Absolutepath $root = '/var/discourse',
   Stdlib::Host $hostname = 'community.theforeman.org',
 ) {
-  ensure_packages(['git'])
+  stdlib::ensure_packages(['git'])
 
   vcsrepo { $root:
     ensure   => present,

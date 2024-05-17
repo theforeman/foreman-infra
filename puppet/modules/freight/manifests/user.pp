@@ -8,7 +8,7 @@ define freight::user (
 ) {
   require freight
 
-  ensure_packages(['ruby'])
+  stdlib::ensure_packages(['ruby'])
 
   file { "${home}/freight.conf":
     ensure  => file,

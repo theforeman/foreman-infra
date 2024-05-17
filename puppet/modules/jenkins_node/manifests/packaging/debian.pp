@@ -10,7 +10,7 @@ class jenkins_node::packaging::debian(
     ensure => present,
   }
 
-  ensure_packages(['python3-pip', 'python3-setuptools', 'zstd'])
+  stdlib::ensure_packages(['python3-pip', 'python3-setuptools', 'zstd'])
 
   if $facts['os']['name'] == 'Debian' {
     include apt::backports

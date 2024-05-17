@@ -60,7 +60,7 @@ class redmine (
     'make',
   ]
 
-  ensure_packages($packages)
+  stdlib::ensure_packages($packages)
 
   # Prevents errors if run from /root etc.
   Postgresql_psql {
