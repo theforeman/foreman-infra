@@ -30,7 +30,7 @@ class jenkins_node::packaging::rpm (
     'python3-pyyaml',
   ]
 
-  ensure_packages($obal_packages + $foreman_rel_eng_packages)
+  stdlib::ensure_packages($obal_packages + $foreman_rel_eng_packages)
 
   # specs-from-koji
   package { ['scl-utils-build', 'rpmdevtools']:

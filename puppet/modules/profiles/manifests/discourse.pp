@@ -7,7 +7,7 @@ class profiles::discourse {
     gpgkey  => 'https://download.docker.com/linux/centos/gpg',
   }
 
-  ensure_packages(['docker-ce'], { require => Yumrepo['docker-ce-stable'] })
+  stdlib::ensure_packages(['docker-ce'], { require => Yumrepo['docker-ce-stable'] })
 
   service { 'docker':
     ensure  => 'running',
