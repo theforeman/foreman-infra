@@ -29,15 +29,16 @@ define rbenv::build (
   Array[String[1]] $env = $rbenv::env,
   Optional[String] $rubygems_version = undef,
   Optional[String] $bundler_version = undef,
+  Optional[String[1]] $user = $rbenv::user,
 ) {
   include rbenv
 
   $base_env = ["RBENV_ROOT=${install_dir}"]
 
   Exec {
-    cwd         => $install_dir,
-    timeout     => 1800,
-    path        => [
+    cwd     => $install_dir,
+    timeout => 1800,
+    path    => [
       "${install_dir}/bin/",
       "${install_dir}/shims/",
       '/bin/',
@@ -45,6 +46,7 @@ define rbenv::build (
       '/usr/bin/',
       '/usr/sbin/',
     ],
+    user    => $user,
   }
 
   exec { "rbenv-install-${title}":
