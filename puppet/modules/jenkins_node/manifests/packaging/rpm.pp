@@ -5,27 +5,20 @@ class jenkins_node::packaging::rpm (
   String $user,
   Stdlib::Absolutepath $workspace,
 ) {
-  $is_el7 = $facts['os']['release']['major'] == '7'
   $ansible_python_version = if $facts['os']['release']['major'] == '8' { 'python3.11' } else { 'python3' }
 
   package { ['rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
     ensure => installed,
   }
 
-  unless $is_el7 {
-    yumrepo { 'git-annex':
-      name     => 'git-annex',
-      baseurl  => 'https://downloads.kitenet.net/git-annex/linux/current/rpms/',
-      enabled  => '1',
-      gpgcheck => '0',
-    } ->
-    package { ['git-annex-standalone']:
-      ensure => installed,
-    }
-  } else {
-    package { ['git-annex', 'pyliblzma']:
-      ensure => installed,
-    }
+  yumrepo { 'git-annex':
+    name     => 'git-annex',
+    baseurl  => 'https://downloads.kitenet.net/git-annex/linux/current/rpms/',
+    enabled  => '1',
+    gpgcheck => '0',
+  } ->
+  package { ['git-annex-standalone']:
+    ensure => installed,
   }
 
   $obal_packages = [
@@ -67,20 +60,6 @@ class jenkins_node::packaging::rpm (
   # specs-from-koji
   package { ['scl-utils-build', 'rpmdevtools']:
     ensure => present,
-  }
-
-  # Needed for EL8 repoclosure on EL7 nodes
-  if $facts['os']['family'] == 'RedHat' {
-    if $facts['os']['name'] == 'RedHat' {
-      yumrepo { 'rhel-7-server-rhui-extras-rpms':
-        enabled => true,
-        before  => Package['dnf'],
-      }
-    } else {
-      yumrepo { 'rhel-7-server-rhui-extras-rpms':
-        ensure => absent,
-      }
-    }
   }
 
   package { ['dnf', 'dnf-plugins-core']:

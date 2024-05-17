@@ -154,18 +154,9 @@ class jenkins_node::unittests (
     }
   }
 
-  # Needed at least for libyaml-devel on our RHEL builders in AWS
-  if $facts['os']['name'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
-    yumrepo { 'rhel-7-server-rhui-optional-rpms':
-      enabled => '1',
-    }
-  }
-
   # Databases
   include jenkins_node::postgresql
 
   # rbenv
-  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] != '7' {
-    include jenkins_node::rbenv
-  }
+  include jenkins_node::rbenv
 }
