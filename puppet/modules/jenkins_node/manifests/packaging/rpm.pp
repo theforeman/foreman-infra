@@ -32,31 +32,6 @@ class jenkins_node::packaging::rpm (
 
   ensure_packages($obal_packages + $foreman_rel_eng_packages)
 
-  # koji
-  file { "${homedir}/bin":
-    ensure => absent,
-  }
-
-  file { "${homedir}/.koji":
-    ensure => absent,
-  }
-
-  file { "${homedir}/.koji/katello-config":
-    ensure => absent,
-  }
-
-  file { "${homedir}/.koji/config":
-    ensure => absent,
-  }
-
-  file { "${homedir}/.katello.cert":
-    ensure => absent,
-  }
-
-  file { "${homedir}/.katello-ca.cert":
-    ensure => absent,
-  }
-
   # specs-from-koji
   package { ['scl-utils-build', 'rpmdevtools']:
     ensure => present,
