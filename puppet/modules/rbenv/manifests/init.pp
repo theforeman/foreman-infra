@@ -10,6 +10,7 @@
 class rbenv (
   Stdlib::Absolutepath $install_dir = '/usr/local/rbenv',
   Array[String[1]] $env = [],
+  Optional[String[1]] $user = undef,
 ) {
   $packages = $facts['os']['family'] ? {
     'RedHat' => ['rbenv', 'ruby-build-rbenv'],

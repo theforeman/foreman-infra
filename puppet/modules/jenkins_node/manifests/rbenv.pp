@@ -11,6 +11,7 @@ class jenkins_node::rbenv {
   class { 'rbenv':
     install_dir => '/home/jenkins/.rbenv',
     require     => [File['/home/jenkins/.rbenv'], Package['gcc-c++']],
+    user        => 'jenkins',
   }
 
   ensure_packages(['gcc-c++'])

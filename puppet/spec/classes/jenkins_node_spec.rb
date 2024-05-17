@@ -61,6 +61,7 @@ describe 'jenkins_node' do
 
           if ['9', '8'].include?(facts[:operatingsystemrelease])
             it { is_expected.to contain_class('jenkins_node::rbenv') }
+            it { is_expected.to contain_exec('rbenv-install-2.7.6').with_user('jenkins') }
           end
         end
       end
