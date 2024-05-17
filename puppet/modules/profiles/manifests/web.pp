@@ -3,9 +3,6 @@
 # @param stable
 #   Latest release that users expect
 #
-# @param next
-#   Next release (current nightly). To be updated as part of branching.
-#
 # @param debugs_htpasswds
 #   Which htpasswds to create for the debug vhost
 #
@@ -19,7 +16,6 @@
 #   server load
 class profiles::web (
   String[1] $stable = '3.10',
-  String[1] $next = '3.11',
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
   Integer[0] $rsync_max_connections = 10,
@@ -51,7 +47,6 @@ class profiles::web (
 
   class { 'web::vhost::web':
     stable => $stable,
-    next   => $next,
   }
   contain web::vhost::web
 
