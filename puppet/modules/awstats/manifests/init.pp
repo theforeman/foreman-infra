@@ -3,7 +3,6 @@ class awstats (
   $vhosts = [
     'all',
     'deb',
-    'debugs',
     'downloads',
     'stagingdeb',
     'web',
