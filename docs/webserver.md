@@ -15,7 +15,6 @@ These domains are all hosted on the webserver.
 
 * theforeman.org, www.theforeman.org
 * deb.theforeman.org
-* debugs.theforeman.org
 * downloads.theforeman.org
 * stagingdeb.theforeman.org
 * yum.theforeman.org
