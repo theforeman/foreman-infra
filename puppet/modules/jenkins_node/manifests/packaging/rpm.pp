@@ -5,7 +5,7 @@ class jenkins_node::packaging::rpm (
   String $user,
   Stdlib::Absolutepath $workspace,
 ) {
-  $ansible_python_version = if $facts['os']['release']['major'] == '8' { 'python3.11' } else { 'python3' }
+  $ansible_python_version = if $facts['os']['release']['major'] == '8' { 'python3.12' } else { 'python3' }
 
   package { ['rpm-build', 'createrepo', 'copr-cli', 'rpmlint']:
     ensure => installed,
