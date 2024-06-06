@@ -11,8 +11,6 @@ class profiles::web (
   String[1] $stable,
   Boolean $https = true,
 ) {
-  contain awstats
-
   class { 'web':
     https => $https,
   }
