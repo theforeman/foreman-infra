@@ -63,7 +63,7 @@ class web::vhost::yum (
     }
   }
 
-  ['HEADER.html', 'robots.txt', 'RPM-GPG-KEY-foreman'].each |$filename| {
+  ['robots.txt', 'RPM-GPG-KEY-foreman'].each |$filename| {
     file { "${yum_directory}/${filename}":
       ensure  => file,
       owner   => $user,
@@ -71,6 +71,14 @@ class web::vhost::yum (
       mode    => '0644',
       content => file("web/yum/${filename}"),
     }
+  }
+
+  file { "${yum_directory}/HEADER.html":
+    ensure  => file,
+    owner   => $user,
+    group   => $user,
+    mode    => '0644',
+    content => epp("${module_name}/yum/HEADER.html.epp", { 'stable' => $stable }),
   }
 
   ['releases', 'plugins', 'client'].each |$directory| {
