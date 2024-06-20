@@ -1,3 +1,4 @@
+<%- | String $stable | -%>
 <h1>yum.theforeman.org</h1>
 
 <h3>Foreman</h3>
@@ -5,7 +6,7 @@
 <p>Foreman is available under <code>/releases/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/releases/3.8/el8/x86_64</li>
+  <li>/releases/<%= $stable %>/el8/x86_64</li>
   <li>/releases/nightly/el8/x86_64</li>
 </ul>
 
@@ -29,7 +30,7 @@
 <p>Plugin repos are structured by the Foreman version that they're compatible with in the format <code>/plugins/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/plugins/3.8/el8/x86_64</li>
+  <li>/plugins/<%= $stable %>/el8/x86_64</li>
   <li>/plugins/nightly/el8/x86_64</li>
 </ul>
 
@@ -42,7 +43,7 @@
 <p>katello-repos RPMs containing an appropriate .repo file are available:</p>
 
 <ul>
-  <li><a href="https://yum.theforeman.org/katello/4.10/katello/el8/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/4.10/katello/el8/x86_64/katello-repos-latest.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/katello/4.12/katello/el8/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/4.12/katello/el8/x86_64/katello-repos-latest.rpm</a></li>
   <li><a href="https://yum.theforeman.org/katello/nightly/katello/el8/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/nightly/katello/el8/x86_64/katello-repos-latest.rpm</a></li>
 </ul>
 
