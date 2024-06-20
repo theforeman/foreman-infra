@@ -37,7 +37,7 @@
 
 <h3>Katello</h3>
 
-<p>Katello is available under <code>/katello/VERSION/katello/DIST/ARCH</code> with Candlepin under <code>/katello/VERSION/candlepin/DIST/ARCH</code>.
+<p>Katello is available under <code>/katello/VERSION/katello/DIST/ARCH</code> with Candlepin under <code>/candlepin/CANDLEPIN_VERSION/DIST/ARCH</code>.
 
 <p>katello-repos RPMs containing an appropriate .repo file are available:</p>
 
