@@ -63,14 +63,12 @@ class web::vhost::yum (
     }
   }
 
-  ['robots.txt', 'RPM-GPG-KEY-foreman'].each |$filename| {
-    file { "${yum_directory}/${filename}":
-      ensure  => file,
-      owner   => $user,
-      group   => $user,
-      mode    => '0644',
-      content => file("web/yum/${filename}"),
-    }
+  file { "${yum_directory}/robots.txt":
+    ensure  => file,
+    owner   => $user,
+    group   => $user,
+    mode    => '0644',
+    content => file('web/yum/robots.txt'),
   }
 
   file { "${yum_directory}/HEADER.html":
