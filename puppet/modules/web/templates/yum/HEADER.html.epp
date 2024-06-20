@@ -13,7 +13,7 @@
 <p>foreman-release RPMs containing an appropriate .repo file are available with fixed URLs:</p>
 
 <ul>
-  <li><a href="https://yum.theforeman.org/releases/latest/el9/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/latest/el9/x86_64/foreman-release.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/releases/<%= $stable %>/el9/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/<%= $stable %>/el9/x86_64/foreman-release.rpm</a></li>
   <li><a href="https://yum.theforeman.org/releases/nightly/el9/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/nightly/el9/x86_64/foreman-release.rpm</a></li>
 </ul>
 
