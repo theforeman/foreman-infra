@@ -6,15 +6,15 @@
 <p>Foreman is available under <code>/releases/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/releases/<%= $stable %>/el8/x86_64</li>
-  <li>/releases/nightly/el8/x86_64</li>
+  <li>/releases/<%= $stable %>/el9/x86_64</li>
+  <li>/releases/nightly/el9/x86_64</li>
 </ul>
 
 <p>foreman-release RPMs containing an appropriate .repo file are available with fixed URLs:</p>
 
 <ul>
-  <li><a href="https://yum.theforeman.org/releases/latest/el8/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/latest/el8/x86_64/foreman-release.rpm</a></li>
-  <li><a href="https://yum.theforeman.org/releases/nightly/el8/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/nightly/el8/x86_64/foreman-release.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/releases/latest/el9/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/latest/el9/x86_64/foreman-release.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/releases/nightly/el9/x86_64/foreman-release.rpm">https://yum.theforeman.org/releases/nightly/el9/x86_64/foreman-release.rpm</a></li>
 </ul>
 
 <p>Release packages <a href="https://theforeman.org/security.html#GPGkeys">are signed with a new key for each major release</a>.  The public key is available in the RPM-GPG-KEY-foreman file within each version directory or the foreman-release RPMs.</p>
@@ -30,8 +30,8 @@
 <p>Plugin repos are structured by the Foreman version that they're compatible with in the format <code>/plugins/VERSION/DIST/ARCH</code>, e.g.</p>
 
 <ul>
-  <li>/plugins/<%= $stable %>/el8/x86_64</li>
-  <li>/plugins/nightly/el8/x86_64</li>
+  <li>/plugins/<%= $stable %>/el9/x86_64</li>
+  <li>/plugins/nightly/el9/x86_64</li>
 </ul>
 
 <p>Plugin repos are not GPG signed.</p>
@@ -43,8 +43,8 @@
 <p>katello-repos RPMs containing an appropriate .repo file are available:</p>
 
 <ul>
-  <li><a href="https://yum.theforeman.org/katello/4.12/katello/el8/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/4.12/katello/el8/x86_64/katello-repos-latest.rpm</a></li>
-  <li><a href="https://yum.theforeman.org/katello/nightly/katello/el8/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/nightly/katello/el8/x86_64/katello-repos-latest.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/katello/4.12/katello/el9/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/4.12/katello/el9/x86_64/katello-repos-latest.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/katello/nightly/katello/el9/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/nightly/katello/el9/x86_64/katello-repos-latest.rpm</a></li>
 </ul>
 
 <p>Unlike Foreman, there is no <code>latest</code> symlink and you must match the Katello version to the correct Foreman version</p>
