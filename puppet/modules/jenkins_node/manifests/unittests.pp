@@ -109,7 +109,7 @@ class jenkins_node::unittests (
     include epel
 
     package { ['chromium', 'chromedriver']:
-      ensure  => latest,
+      ensure  => present,
       require => Class['epel'],
     }
   }
@@ -122,7 +122,7 @@ class jenkins_node::unittests (
   # Needed by foreman_openscap gem dependency OpenSCAP
   if $facts['os']['family'] == 'RedHat' {
     package { 'openscap':
-      ensure => latest,
+      ensure => present,
     }
   }
 

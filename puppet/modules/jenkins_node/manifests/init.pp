@@ -98,7 +98,7 @@ class jenkins_node (
     'unzip':
       ensure => present;
     'ansible':
-      ensure => latest;
+      ensure => present;
   }
 
   if $unittests {
