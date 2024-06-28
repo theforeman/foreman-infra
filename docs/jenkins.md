@@ -44,7 +44,7 @@ https://github.com/theforeman/foreman-infra/tree/master/puppet/modules contains 
 
 ### Node requirements
 
-* CentOS 7
+* CentOS Stream
   * Clean, minimal base installation or the option to reinstall it
 * 2GB of RAM per vCPU (4 vCPU + 8GB RAM is typical)
 * 60GB disk (minimum), SSD preferred
@@ -54,25 +54,13 @@ https://github.com/theforeman/foreman-infra/tree/master/puppet/modules contains 
 
 ### Configuring a new node
 
-For Enterprise Linux 8:
+For Enterprise Linux 9, ensure the correct Puppet repository is configured:
 
-* Ensure yum.puppet.com is configured: [puppet7-release](https://yum.puppet.com/puppet7-release-el-8.noarch.rpm)
-* `yum -y install puppet-agent`
-* `echo "server = puppet.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
-* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or aws for example and that the record is in DNS
-* Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
-* `puppet ssl bootstrap`
-* Sign the certificate on the puppetmaster or via Foreman
-* `puppet agent --test`
-* Set the host group to "Builders" in Foreman
-* Run `puppet agent --test` twice (second run is important, due to the rvm module behaviour)
+* `dnf -y install https://yum.puppet.com/puppet7-release-el-9.noarch.rpm`
 
+For all Enterprise Linux versions:
 
-For Enterprise Linux 7:
-
-* Ensure EPEL is configured: [epel-release](https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm)
-* Ensure yum.puppet.com is configured: [puppet7-release](https://yum.puppet.com/puppet7-release-el-7.noarch.rpm)
-* `yum -y install puppet-agent`
+* `dnf -y install puppet-agent`
 * `echo "server = puppet.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
 * ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or aws for example and that the record is in DNS
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
@@ -81,7 +69,6 @@ For Enterprise Linux 7:
 * `puppet agent --test`
 * Set the host group to "Builders" in Foreman
 * Run `puppet agent --test` twice (second run is important, due to the rvm module behaviour)
-
 
 For Debian:
 
