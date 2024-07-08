@@ -1,6 +1,5 @@
 moduledir 'external_modules'
 
-mod 'claranet/timezone', '2.0.1'
 mod 'puppet/archive', '7.1.0'
 mod 'puppet/augeasproviders_core', '4.1.0'
 mod 'puppet/augeasproviders_mounttab', '4.0.0'

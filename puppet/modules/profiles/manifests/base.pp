@@ -4,7 +4,7 @@ class profiles::base (
   include motd
   include puppet
   include ssh
-  include timezone
+  include systemd
   include unattended
   if $facts['os']['family'] == 'RedHat' {
     package { 'ntp':
