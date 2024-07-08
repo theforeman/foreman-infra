@@ -13,14 +13,14 @@ describe 'jenkins_node' do
         end
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_users__account('jenkins').with_sudo(false) }
-        if facts[:osfamily] == 'Debian'
+        if facts[:os]['family'] == 'Debian'
           it { is_expected.to contain_class('sudo') }
           it { is_expected.to contain_sudo__conf('sudo-puppet-jenkins').with_content('jenkins ALL=NOPASSWD: ALL') }
         else
           it { is_expected.not_to contain_class('sudo') }
         end
 
-        if facts[:osfamily] == 'Debian'
+        if facts[:os]['family'] == 'Debian'
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/A10nozstd').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/A10nozstd').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/C10foremanlog').with_ensure('present') }
@@ -49,7 +49,7 @@ describe 'jenkins_node' do
         it { is_expected.to contain_package('jq') }
       end
 
-      if facts[:osfamily] == 'RedHat'
+      if facts[:os]['family'] == 'RedHat'
         context "unittest only node" do
           let(:params) do
             {uploader: false, packaging: false, unittests: true}
