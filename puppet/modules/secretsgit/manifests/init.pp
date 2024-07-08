@@ -16,6 +16,14 @@ class secretsgit (
   Stdlib::Absolutepath $path = '/srv/secretsgit',
   Array[String] $users = [],
 ) {
+  file { '/etc/gitconfig':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => file('secretsgit/gitconfig'),
+  }
+
   group { $group:
     ensure => present,
   }
