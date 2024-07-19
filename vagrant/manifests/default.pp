@@ -25,3 +25,7 @@ node /^redmine.*/ {
 node /^discourse.*/ {
   include profiles::discourse
 }
+
+node /^repo-deb.*/ {
+  include profiles::repo::deb
+}

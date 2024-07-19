@@ -64,6 +64,10 @@ define freight::user (
   if $facts['os']['family'] != 'RedHat' or $facts['os']['release']['major'] != '7' {
     include apache::mod::expires
   }
+  include apache::mod::alias
+  include apache::mod::autoindex
+  include apache::mod::dir
+  include apache::mod::mime
 
   web::vhost { $vhost:
     docroot       => $webdir,
