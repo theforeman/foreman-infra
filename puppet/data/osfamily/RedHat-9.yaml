@@ -6,6 +6,3 @@ apache::protocols:
   - 'h2c'
   - 'http/1.1'
 apache::mpm_module: event
-
-redis::dnf_module_stream: "6"
-redis::package_ensure: ">=6.0"
