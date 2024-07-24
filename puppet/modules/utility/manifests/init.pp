@@ -7,7 +7,7 @@ class utility($sysadmins = ['/dev/null']) {
 
   stdlib::ensure_packages([$vim])
 
-  stdlib::ensure_packages(['htop', 'iftop', 'screen'])
+  stdlib::ensure_packages(['htop', 'iftop', 'tmux'])
 
   stdlib::ensure_packages(['rsync'])
 
