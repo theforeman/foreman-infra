@@ -1,0 +1,64 @@
+<%- |
+  String $stable_foreman,
+  Stdlib::Fqdn $servername,
+| -%>
+<h1><%= $servername %></h1>
+
+<h3>Foreman</h3>
+
+<p>Foreman is available under <code>/releases/VERSION/DIST/ARCH</code>, e.g.</p>
+
+<ul>
+  <li>/foreman/<%= $stable_foreman %>/foreman/el9/x86_64</li>
+  <li>/foreman/nightly/foreman/el9/x86_64</li>
+</ul>
+
+<p>foreman-release RPMs containing an appropriate .repo file are available with fixed URLs:</p>
+
+<ul>
+  <li><a href="https://<%= $servername %>/foreman/<%= $stable_foreman %>/foreman/el9/x86_64/foreman-release.rpm">https://<%= $servername %>/foreman/<%= $stable_foreman %>/foreman/el9/x86_64/foreman-release.rpm</a></li>
+  <li><a href="https://<%= $servername %>/foreman/nightly/foreman/el9/x86_64/foreman-release.rpm">https://<%= $servername %>/foreman/nightly/foreman/el9/x86_64/foreman-release.rpm</a></li>
+</ul>
+
+<p>Release packages <a href="https://theforeman.org/security.html#GPGkeys">are signed with a new key for each major release</a>.  The public key is available in the RPM-GPG-KEY-foreman file within each version directory or the foreman-release RPMs.</p>
+
+<p>Nightly builds of Foreman are available under <code>/foreman/nightly/foreman/DIST/ARCH</code> and are refreshed a few times a day, but are not GPG signed.</p>
+
+<h3>Plugins</h3>
+
+<p>A number of Foreman plugins are available in the plugin repos, see <a href="https://theforeman.github.io/foreman-plugin-overview/">List of Plugins</a> for more information.</p>
+
+<p>Plugin repos are structured by the Foreman version that they're compatible with in the format <code>/foreman/VERSION/plugins/DIST/ARCH</code>, e.g.</p>
+
+<ul>
+  <li>/foreman/<%= $stable_foreman %>/plugins/el9/x86_64</li>
+  <li>/foreman/nightly/plugins/el9/x86_64</li>
+</ul>
+
+<p>Plugin repos are not GPG signed.</p>
+
+<h3>Katello</h3>
+
+<p>Katello is available under <code>/foreman/VERSION/katello/DIST/ARCH</code> with Candlepin under <code>/candlepin/CANDLEPIN_VERSION/DIST/ARCH</code>.
+
+<p>katello-repos RPMs containing an appropriate .repo file are available:</p>
+
+<ul>
+  <li><a href="https://<%= $servername %>/foreman/<%= $stable_foreman %>/katello/el9/x86_64/katello-repos.rpm">https://<%= $servername %>/foreman/<%= $stable_foreman %>/katello/el9/x86_64/katello-repos.rpm</a></li>
+  <li><a href="https://<%= $servername %>/foreman/nightly/katello/el9/x86_64/katello-repos.rpm">https://<%= $servername %>/foreman/nightly/katello/el9/x86_64/katello-repos.rpm</a></li>
+</ul>
+
+<h3>Accessing this repo</h3>
+
+This repository is available over HTTP and HTTPS:
+
+<ul>
+  <li>http://<%= $servername %></li>
+  <li>https://<%= $servername %></li>
+</ul>
+
+<h3>Support</h3>
+
+<p>You can find the installation instructions <a href="https://theforeman.org/manuals/<%= $stable_foreman %>/index.html#3.3InstallFromPackages">here</a>, but we strongly recommend using our <a href="https://theforeman.org/manuals/<%= $stable_foreman %>/index.html#3.2ForemanInstaller">Installer</a> (which uses RPMs).
+
+<p>If you have any issues, you can find ways to reach us on our <a href="https://theforeman.org/support.html">Support</a> page.</p>

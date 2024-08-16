@@ -1,0 +1,19 @@
+<%- |
+  Stdlib::Fqdn $servername,
+| -%>
+<h1><%= $servername %></h1>
+
+<h2>RPM Staging Repositories for Foreman releases</h2>
+
+<h3>Accessing this repo</h3>
+
+This repository is available over HTTP and HTTPS:
+
+<ul>
+  <li>http://<%= $servername %></li>
+  <li>https://<%= $servername %></li>
+</ul>
+
+<h3>Support</h3>
+
+<p>These are staging repositories used for testing purposes only. They are NOT supported.</p>

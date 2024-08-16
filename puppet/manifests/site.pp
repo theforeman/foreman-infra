@@ -46,3 +46,8 @@ node /^repo-deb\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::repo::deb
 }
+
+node /^repo-rpm\d+\.[a-z]+\.theforeman\.org$/ {
+  include profiles::base
+  include profiles::repo::rpm
+}

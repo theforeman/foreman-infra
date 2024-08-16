@@ -1,11 +1,11 @@
 # @summary Set up the yum vhost
 # @api private
 class web::vhost::stagingyum (
+  Array[String[1]] $usernames,
   Stdlib::Fqdn $servername = 'stagingyum.theforeman.org',
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/stagingyum/htdocs',
   String $user = 'yumrepostage',
   Stdlib::Absolutepath $home = "/home/${user}",
-  Array[String[1]] $usernames = ['ehelms', 'evgeni', 'ekohl', 'Odilhao', 'pcreech', 'zhunting'],
 ) {
   $yum_directory_config = [
     {
