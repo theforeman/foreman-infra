@@ -29,3 +29,7 @@ node /^discourse.*/ {
 node /^repo-deb.*/ {
   include profiles::repo::deb
 }
+
+node /^repo-rpm.*/ {
+  include profiles::repo::rpm
+}

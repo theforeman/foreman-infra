@@ -1,0 +1,15 @@
+<%- |
+  Stdlib::Absolutepath $home,
+  Stdlib::Absolutepath $rpm_staging_directory,
+| -%>
+  # Make sure target dir can be created
+  RPM_PATH=`echo "${SSH_ORIGINAL_COMMAND}" | awk '{ print $NF }'`
+  PROJECT=`echo $RPM_PATH | /bin/cut -f2 -d/`
+  RELEASE=`echo $RPM_PATH | /bin/cut -f3 -d/`
+  mkdir -p <%= $home %>/rsync_cache/$PROJECT/$RELEASE
+
+  # Permit transfer
+  $SSH_ORIGINAL_COMMAND
+
+  # Publish the repo - stderr/out redirect is required to stop the noninteractive shell from hanging
+  rsync --recursive --times --verbose --one-file-system --delete-after <%= $home %>/rsync_cache/$PROJECT/$RELEASE <%= $rpm_staging_directory %>/$PROJECT/ 2>&1 >/dev/null ;
