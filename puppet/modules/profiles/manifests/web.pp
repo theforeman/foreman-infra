@@ -11,7 +11,7 @@
 #   in a 2 pass setup. First Apache needs to run for Letsencrypt to function.
 #   Then Letsencrypt can be enabled. Also useful to turn off in test setups.
 class profiles::web (
-  String[1] $stable = '3.11',
+  String[1] $stable,
   Hash[String, Hash] $debugs_htpasswds = {},
   Boolean $https = true,
 ) {
