@@ -60,7 +60,10 @@ define freight::user (
 
   # vhosts don't autorequire the expires module
   # https://github.com/puppetlabs/puppetlabs-apache/pull/2559
-  include apache::mod::expires
+  # limit to not EL7 as there we use apache::default_mods
+  if $facts['os']['family'] != 'RedHat' or $facts['os']['release']['major'] != '7' {
+    include apache::mod::expires
+  }
 
   web::vhost { $vhost:
     docroot       => $webdir,
