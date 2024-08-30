@@ -58,8 +58,9 @@ define freight::user (
     },
   ]
 
-  # locations doesn't autorequire the headers module
-  include apache::mod::headers
+  # vhosts don't autorequire the expires module
+  # https://github.com/puppetlabs/puppetlabs-apache/pull/2559
+  include apache::mod::expires
 
   web::vhost { $vhost:
     docroot       => $webdir,
