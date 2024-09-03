@@ -1,6 +1,7 @@
 # @summary Set up the deb vhost
 # @api private
 class web::vhost::deb (
+  String[1] $stable,
   String $user = 'freight',
   Stdlib::Absolutepath $home = "/home/${user}",
 ) {
@@ -12,6 +13,7 @@ class web::vhost::deb (
     stagedir     => '/var/www/freight',
     vhost        => 'deb',
     cron_matches => ['nightly', 'scratch'],
+    stable       => $stable,
   }
 
   # Can't use a standard rsync define here as we need to extend the
