@@ -5,6 +5,7 @@ define freight::user (
   Stdlib::Absolutepath $stagedir,
   String $vhost,
   Variant[String, Array[String]] $cron_matches,
+  Optional[String[1]] $stable = undef,
 ) {
   require freight
 
@@ -73,7 +74,7 @@ define freight::user (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => epp("${module_name}/${vhost}-HEADER.html.epp", { 'stable' => $profiles::web::stable }),
+    content => epp("${module_name}/${vhost}-HEADER.html.epp", { 'stable' => $stable }),
   }
   file { "${webdir}/foreman.asc":
     ensure => link,

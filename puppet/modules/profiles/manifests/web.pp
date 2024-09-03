@@ -24,6 +24,9 @@ class profiles::web (
 
   contain web::vhost::archivedeb
 
+  class { 'web::vhost::deb':
+    stable => $stable,
+  }
   contain web::vhost::deb
 
   class { 'web::vhost::debugs':
