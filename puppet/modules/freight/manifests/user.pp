@@ -70,6 +70,8 @@ define freight::user (
   include apache::mod::mime
 
   web::vhost { $vhost:
+    servername    => "${vhost}-backend.${facts['networking']['fqdn']}",
+    serveraliases => [ "${vhost}.theforeman.org" ],
     docroot       => $webdir,
     docroot_owner => $user,
     docroot_group => $user,
