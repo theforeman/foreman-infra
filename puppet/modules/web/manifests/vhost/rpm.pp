@@ -40,6 +40,23 @@ class web::vhost::rpm (
     script_content => epp('web/deploy-rpmrepo.sh.epp', $deploy_rpmrepo_context),
   }
 
+  if $web::https {
+    web::certs { 'rpm':
+      domains       => [
+        'yum.theforeman.org',
+        'stagingyum.theforeman.org',
+        'rpm.theforeman.org',
+        'stagingrpm.theforeman.org',
+      ],
+      webroot_paths => [
+        '/var/www/vhosts/yum/htdocs',
+        '/var/www/vhosts/stagingyum/htdocs',
+        '/var/www/vhosts/rpm/htdocs',
+        '/var/www/vhosts/stagingrpm/htdocs',
+      ],
+    }
+  }
+
   include apache::mod::expires
   include apache::mod::dir
   include apache::mod::autoindex

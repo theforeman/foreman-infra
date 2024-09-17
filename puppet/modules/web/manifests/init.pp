@@ -8,19 +8,19 @@
 #   start httpd, the certs have to exist, so keep SSL vhosts disabled until the
 #   certs are present via the HTTP vhost and only then enable the SSL vhosts.
 #
+# @param all_in_one
+#   Used when deploying all vhosts to the same machine.
+#
 class web(
   Boolean $https = false,
+  Boolean $all_in_one = true,
 ) {
   class { 'web::base':
     letsencrypt => $https,
   }
 
-  if $https {
-    $letsencypt_domain = 'theforeman.org'
-
-    letsencrypt::certonly { $letsencypt_domain:
-      plugin        => 'webroot',
-      # domain / webroot_paths must match exactly
+  if $https and $all_in_one {
+    web::certs { 'web':
       domains       => [
         'theforeman.org',
         'archivedeb.theforeman.org',

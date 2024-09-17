@@ -12,7 +12,8 @@ class profiles::repo::rpm (
   Boolean $https = true,
 ) {
   class { 'web':
-    https => $https,
+    https      => $https,
+    all_in_one => false,
   }
   contain web
 
