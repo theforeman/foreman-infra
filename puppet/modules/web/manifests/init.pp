@@ -11,40 +11,7 @@
 class web(
   Boolean $https = false,
 ) {
-  class { 'web::base':
-    letsencrypt => $https,
-  }
-
-  if $https {
-    $letsencypt_domain = 'theforeman.org'
-
-    letsencrypt::certonly { $letsencypt_domain:
-      plugin        => 'webroot',
-      # domain / webroot_paths must match exactly
-      domains       => [
-        'theforeman.org',
-        'archivedeb.theforeman.org',
-        'deb.theforeman.org',
-        'debugs.theforeman.org',
-        'downloads.theforeman.org',
-        'stagingdeb.theforeman.org',
-        'www.theforeman.org',
-        'yum.theforeman.org',
-        'stagingyum.theforeman.org',
-      ],
-      webroot_paths => [
-        '/var/www/vhosts/web/htdocs',
-        '/var/www/vhosts/archivedeb/htdocs',
-        '/var/www/vhosts/deb/htdocs',
-        '/var/www/vhosts/debugs/htdocs',
-        '/var/www/vhosts/downloads/htdocs',
-        '/var/www/vhosts/stagingdeb/htdocs',
-        '/var/www/vhosts/web/htdocs',
-        '/var/www/vhosts/yum/htdocs',
-        '/var/www/vhosts/stagingyum/htdocs',
-      ],
-    }
-  }
+  include web::base
 
   if $facts['os']['selinux']['enabled'] {
     include selinux
