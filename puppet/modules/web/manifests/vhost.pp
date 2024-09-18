@@ -52,6 +52,14 @@ define web::vhost (
   }
 
   if $web::https {
+    include web::letsencrypt
+
+    letsencrypt::certonly { $servername:
+      plugin        => 'webroot',
+      domains       => [$servername] + $serveraliases,
+      webroot_paths => [$docroot],
+    }
+
     apache::vhost { "${title}-https":
       servername    => $servername,
       serveraliases => $serveraliases,
@@ -62,10 +70,10 @@ define web::vhost (
       docroot_mode  => $docroot_mode,
       port          => 443,
       ssl           => true,
-      ssl_cert      => "${letsencrypt::config_dir}/live/${web::letsencypt_domain}/cert.pem",
-      ssl_chain     => "${letsencrypt::config_dir}/live/${web::letsencypt_domain}/chain.pem",
-      ssl_key       => "${letsencrypt::config_dir}/live/${web::letsencypt_domain}/privkey.pem",
-      require       => Letsencrypt::Certonly[$web::letsencypt_domain],
+      ssl_cert      => "${letsencrypt::config_dir}/live/${servername}/cert.pem",
+      ssl_chain     => "${letsencrypt::config_dir}/live/${servername}/chain.pem",
+      ssl_key       => "${letsencrypt::config_dir}/live/${servername}/privkey.pem",
+      require       => Letsencrypt::Certonly[$servername],
       *             => $attrs,
     }
   }

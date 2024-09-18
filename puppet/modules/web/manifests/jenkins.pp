@@ -12,7 +12,9 @@ class web::jenkins(
     'no_proxy_uris' => ['/.well-known'],
   }
 
-  if $web::base::letsencrypt {
+  if $https {
+    include web::letsencrypt
+
     letsencrypt::certonly { $hostname:
       plugin        => 'webroot',
       domains       => [$hostname],
@@ -34,7 +36,7 @@ class web::jenkins(
     mode   => '0755',
   }
 
-  if $web::base::letsencrypt and $https {
+  if $https {
     $url = "https://${hostname}"
 
     apache::vhost { 'jenkins':

@@ -202,6 +202,8 @@ class redmine (
   }
 
   if $https {
+    include web::letsencrypt
+
     letsencrypt::certonly { $servername:
       plugin        => 'webroot',
       domains       => [$servername],

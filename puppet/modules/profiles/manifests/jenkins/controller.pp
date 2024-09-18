@@ -41,10 +41,6 @@ class profiles::jenkins::controller (
     require         => Package[$packages],
   }
 
-  class { 'web::base':
-    letsencrypt => $https,
-  }
-
   class { 'web::jenkins':
     hostname => $hostname,
     https    => $https,
