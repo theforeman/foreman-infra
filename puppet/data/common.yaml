@@ -252,3 +252,4 @@ rsync_usernames:
   - 'zhunting'
 
 web::vhost::stagingrpm::usernames: '%{alias("rsync_usernames")}'
+web::vhost::stagingyum::usernames: '%{alias("rsync_usernames")}'
