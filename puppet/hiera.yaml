@@ -24,6 +24,10 @@ hierarchy:
   - name: "Per-OS family defaults"
     path: "osfamily/%{facts.os.family}.yaml"
 
-  - name: "Other YAML hierarchy levels"
+  - name: "Common data that changes often"
     paths:
       - "common.yaml"
+
+  - name: "Internal data that should rarely change"
+    paths:
+      - "internal.yaml"
