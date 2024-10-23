@@ -10,6 +10,8 @@
 <pre>
 deb http://deb.theforeman.org/ bullseye &lt;version&gt;
 deb http://deb.theforeman.org/ bullseye nightly
+deb http://deb.theforeman.org/ bookworm &lt;version&gt;
+deb http://deb.theforeman.org/ bookworm nightly
 deb http://deb.theforeman.org/ jammy &lt;version&gt;
 deb http://deb.theforeman.org/ jammy nightly
 
@@ -21,7 +23,7 @@ deb http://deb.theforeman.org/ plugins nightly
 
 <pre>
 wget https://deb.theforeman.org/foreman.asc -O /etc/apt/trusted.gpg.d/foreman.asc
-echo "deb http://deb.theforeman.org/ bullseye <%= $stable %>" > /etc/apt/sources.list.d/foreman.list
+echo "deb http://deb.theforeman.org/ bookworm <%= $stable %>" > /etc/apt/sources.list.d/foreman.list
 echo "deb http://deb.theforeman.org/ plugins <%= $stable %>" >> /etc/apt/sources.list.d/foreman.list
 </pre>
 
