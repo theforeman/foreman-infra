@@ -68,7 +68,6 @@ SemanticPuppet::Dependency.add_source(local_source)
 provided = {
   'puppet/zypprepo' => '3.1.0', # puppet/jenkins
   'theforeman/dhcp' => '8.0.0', # theforeman/foreman_proxy
-  'theforeman/dns' => '9.0.0', # theforeman/foreman_proxy
 }
 provided_source = ProvidedModules.new(provided)
 SemanticPuppet::Dependency.add_source(provided_source)
