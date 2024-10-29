@@ -1,25 +1,14 @@
-class web::jenkins(
+class web::jenkins (
   Stdlib::Fqdn $hostname = 'ci.theforeman.org',
-  Stdlib::Absolutepath $webroot = '/var/www/vhosts/jenkins/htdocs',
-  Boolean $https = false,
 ) {
-  include web::base
-
-  $proxy_pass = {
-    'path'          => '/',
-    'url'           => 'http://localhost:8080/',
-    'keywords'      => ['nocanon'],
-    'no_proxy_uris' => ['/.well-known'],
-  }
-
-  if $https {
-    include web::letsencrypt
-
-    letsencrypt::certonly { $hostname:
-      plugin        => 'webroot',
-      domains       => [$hostname],
-      webroot_paths => [$webroot],
-    }
+  $proxy_attrs = {
+    'allow_encoded_slashes' => 'nodecode',
+    'proxy_pass' => {
+      'path'          => '/',
+      'url'           => 'http://localhost:8080/',
+      'keywords'      => ['nocanon'],
+      'no_proxy_uris' => ['/.well-known'],
+    },
   }
 
   if $facts['os']['selinux']['enabled'] {
@@ -29,50 +18,24 @@ class web::jenkins(
     }
   }
 
-  file { dirname($webroot):
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
+  include web
+
+  if $web::https {
+    $http_attrs = {
+      'redirect_dest' => "https://${hostname}/",
+    }
+    $https_attrs = $proxy_attrs
+  } else {
+    $http_attrs = $proxy_attrs
+    $https_attrs = {}
   }
 
-  if $https {
-    $url = "https://${hostname}"
-
-    apache::vhost { 'jenkins':
-      port          => 80,
-      servername    => $hostname,
-      docroot       => $webroot,
-      docroot_owner => $apache::user,
-      docroot_group => $apache::group,
-      redirect_dest => "https://${hostname}/",
-    }
-    apache::vhost { 'jenkins-https':
-      port                  => 443,
-      servername            => $hostname,
-      docroot               => $webroot,
-      docroot_owner         => $apache::user,
-      docroot_group         => $apache::group,
-      proxy_pass            => $proxy_pass,
-      allow_encoded_slashes => 'nodecode',
-      request_headers       => ['set X-Forwarded-Proto "https"'],
-      ssl                   => true,
-      ssl_cert              => "/etc/letsencrypt/live/${hostname}/fullchain.pem",
-      ssl_chain             => "/etc/letsencrypt/live/${hostname}/chain.pem",
-      ssl_key               => "/etc/letsencrypt/live/${hostname}/privkey.pem",
-      require               => Letsencrypt::Certonly[$hostname],
-    }
-  } else {
-    $url = "http://${hostname}"
-
-    apache::vhost { 'jenkins':
-      port                  => 80,
-      servername            => $hostname,
-      docroot               => $webroot,
-      docroot_owner         => $apache::user,
-      docroot_group         => $apache::group,
-      proxy_pass            => $proxy_pass,
-      allow_encoded_slashes => 'nodecode',
-    }
+  web::vhost { 'jenkins':
+    servername  => $hostname,
+    http_attrs  => $http_attrs,
+    https_attrs => $https_attrs,
+    attrs       => {
+      'request_headers' => ['set X-Forwarded-Proto expr=%{REQUEST_SCHEME}'],
+    },
   }
 }
