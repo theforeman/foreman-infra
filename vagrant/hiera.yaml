@@ -29,3 +29,7 @@ hierarchy:
     paths:
       - "vagrant.yaml"
       - "common.yaml"
+
+  - name: "Internal data that should rarely change"
+    paths:
+      - "internal.yaml"
