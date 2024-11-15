@@ -51,3 +51,8 @@ node /^repo-rpm\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::repo::rpm
 }
+
+node /^website\d+\.[a-z]+\.theforeman\.org$/ {
+  include profiles::base
+  include profiles::website
+}
