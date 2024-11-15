@@ -9,7 +9,7 @@
 #   certs are present via the HTTP vhost and only then enable the SSL vhosts.
 #
 class web(
-  Boolean $https = false,
+  Boolean $https = true,
 ) {
   include web::base
 
