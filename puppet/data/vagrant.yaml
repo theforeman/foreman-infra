@@ -20,9 +20,6 @@ profiles::jenkins::controller::jenkins_job_builder_username: "admin"
 
 profiles::jenkins::node::swap_size_mb: 0
 
-profiles::web::https: false
-
-profiles::repo::deb::https: false
-profiles::repo::rpm::https: false
-
 redmine::https: false
+
+web::https: false
