@@ -24,6 +24,8 @@ class web::vhost::downloads (
   }
 
   web::vhost { 'downloads':
+    servername    => "downloads-backend.${facts['networking']['fqdn']}",
+    serveraliases => ['downloads.theforeman.org'],
     docroot       => $downloads_directory,
     docroot_owner => $user,
     docroot_group => $user,
