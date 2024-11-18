@@ -19,6 +19,7 @@
             shield: iad-va-us
             ssl_cert_hostname: "{{ item }}.theforeman.org"
             ssl_sni_hostname: "{{ item }}.theforeman.org"
+            override_host: "{{ item }}.theforeman.org"
             healthcheck: HEADER.html
         conditions:
           - name: error log
