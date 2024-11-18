@@ -21,11 +21,6 @@
             ssl_sni_hostname: "{{ item }}.theforeman.org"
             override_host: "{{ item }}.theforeman.org"
             healthcheck: HEADER.html
-        conditions:
-          - name: error log
-            statement: fastly_info.state == "ERROR" || (resp.status >= 400 && resp.status < 600)
-            type: RESPONSE
-            priority: 10
         healthchecks:
           - name: HEADER.html
             host: "{{ item }}.theforeman.org"
@@ -35,7 +30,6 @@
             window: 2
             initial: 1
             check_interval: 60000
-        cloudfiles: []
       with_items:
         - archivedeb
         - deb
