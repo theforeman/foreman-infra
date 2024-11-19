@@ -42,3 +42,9 @@
           backend: stagingyum-backend.web01.osuosl
         - service: yum
           backend: yum-backend.web01.osuosl
+        - service: www
+          backend: web-backend.web01.osuosl
+          healthcheck: index.html
+          domains:
+            - name: www.theforeman.org
+            - name: theforeman.org
