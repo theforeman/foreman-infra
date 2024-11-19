@@ -8,22 +8,22 @@
   tasks:
     - name: configure fastly service
       fastly_service:
-        name: "{{ item }}.theforeman.org"
+        name: "{{ item.service }}.theforeman.org"
         fastly_api_key: "{{ fastly_api_key }}"
         domains:
-          - name: "{{ item }}.theforeman.org"
+          - name: "{{ item.service }}.theforeman.org"
         backends:
-          - name: web01.osuosl.theforeman.org
-            address: web01.osuosl.theforeman.org
+          - name: "{{ item.backend }}.theforeman.org"
+            address: "{{ item.backend }}.theforeman.org"
             port: 443
             shield: iad-va-us
-            ssl_cert_hostname: "{{ item }}.theforeman.org"
-            ssl_sni_hostname: "{{ item }}.theforeman.org"
-            override_host: "{{ item }}.theforeman.org"
+            ssl_cert_hostname: "{{ item.backend }}.theforeman.org"
+            ssl_sni_hostname: "{{ item.backend }}.theforeman.org"
+            override_host: "{{ item.backend }}.theforeman.org"
             healthcheck: HEADER.html
         healthchecks:
           - name: HEADER.html
-            host: "{{ item }}.theforeman.org"
+            host: "{{ item.backend }}.theforeman.org"
             path: "/HEADER.html"
             threshold: 1
             timeout: 5000
@@ -31,9 +31,15 @@
             initial: 1
             check_interval: 60000
       with_items:
-        - archivedeb
-        - deb
-        - downloads
-        - stagingdeb
-        - stagingyum
-        - yum
+        - service: archivedeb
+          backend: archivedeb-backend.web01.osuosl
+        - service: deb
+          backend: deb-backend.web01.osuosl
+        - service: downloads
+          backend: downloads-backend.web01.osuosl
+        - service: stagingdeb
+          backend: stagingdeb-backend.web01.osuosl
+        - service: stagingyum
+          backend: stagingyum-backend.web01.osuosl
+        - service: yum
+          backend: yum-backend.web01.osuosl
