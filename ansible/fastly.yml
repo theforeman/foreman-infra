@@ -13,17 +13,17 @@
         domains:
           - name: "{{ item.service }}.theforeman.org"
         backends:
-          - name: "{{ item.backend | default('web01.osuosl') }}.theforeman.org"
-            address: "{{ item.backend | default('web01.osuosl') }}.theforeman.org"
+          - name: "{{ item.backend }}.theforeman.org"
+            address: "{{ item.backend }}.theforeman.org"
             port: 443
             shield: iad-va-us
-            ssl_cert_hostname: "{{ item.backend | default(item.service) }}.theforeman.org"
-            ssl_sni_hostname: "{{ item.backend | default(item.service) }}.theforeman.org"
-            override_host: "{{ item.backend | default(item.service) }}.theforeman.org"
+            ssl_cert_hostname: "{{ item.backend }}.theforeman.org"
+            ssl_sni_hostname: "{{ item.backend }}.theforeman.org"
+            override_host: "{{ item.backend }}.theforeman.org"
             healthcheck: HEADER.html
         healthchecks:
           - name: HEADER.html
-            host: "{{ item.backend | default(item.service) }}.theforeman.org"
+            host: "{{ item.backend }}.theforeman.org"
             path: "/HEADER.html"
             threshold: 1
             timeout: 5000
