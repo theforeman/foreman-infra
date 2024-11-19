@@ -32,8 +32,14 @@
             check_interval: 60000
       with_items:
         - service: archivedeb
+          backend: archivedeb-backend.web01.osuosl
         - service: deb
+          backend: deb-backend.web01.osuosl
         - service: downloads
+          backend: downloads-backend.web01.osuosl
         - service: stagingdeb
+          backend: stagingdeb-backend.web01.osuosl
         - service: stagingyum
+          backend: stagingyum-backend.web01.osuosl
         - service: yum
+          backend: yum-backend.web01.osuosl
