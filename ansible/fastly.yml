@@ -19,11 +19,11 @@
             ssl_cert_hostname: "{{ item.backend }}.theforeman.org"
             ssl_sni_hostname: "{{ item.backend }}.theforeman.org"
             override_host: "{{ item.backend }}.theforeman.org"
-            healthcheck: HEADER.html
+            healthcheck: "{{ item.healthcheck | default('HEADER.html') }}"
         healthchecks:
-          - name: HEADER.html
+          - name: "{{ item.healthcheck | default('HEADER.html') }}"
             host: "{{ item.backend }}.theforeman.org"
-            path: "/HEADER.html"
+            path: "/{{ item.healthcheck | default('HEADER.html') }}"
             threshold: 1
             timeout: 5000
             window: 2
