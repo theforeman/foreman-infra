@@ -10,8 +10,7 @@
       fastly_service:
         name: "{{ item.service }}.theforeman.org"
         fastly_api_key: "{{ fastly_api_key }}"
-        domains:
-          - name: "{{ item.service }}.theforeman.org"
+        domains: "{{ item.domains | default([{'name': item.service ~ '.theforeman.org'}]) }}"
         backends:
           - name: "{{ item.backend }}.theforeman.org"
             address: "{{ item.backend }}.theforeman.org"
