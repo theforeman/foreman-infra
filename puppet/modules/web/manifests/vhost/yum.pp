@@ -34,7 +34,8 @@ class web::vhost::yum (
   }
 
   web::vhost { 'yum':
-    servername    => $servername,
+    servername    => "yum-backend.${facts['networking']['fqdn']}",
+    serveraliases => [ $servername ],
     docroot       => $yum_directory,
     docroot_owner => $user,
     docroot_group => $user,
