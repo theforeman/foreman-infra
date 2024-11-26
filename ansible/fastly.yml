@@ -10,7 +10,7 @@
       fastly_service:
         name: "{{ item.service }}.theforeman.org"
         fastly_api_key: "{{ fastly_api_key }}"
-        domains: "{{ item.domains | default([{'name': item.service ~ '.theforeman.org'}]) }}"
+        domains: "{{ domains }}"
         backends:
           - name: "{{ item.backend }}.theforeman.org"
             address: "{{ item.backend }}.theforeman.org"
@@ -29,6 +29,18 @@
             window: 2
             initial: 1
             check_interval: 60000
+        headers:
+          - name: Location
+            action: regex
+            dst: http.Location
+            ignore_if_set: 0
+            priority: 10
+            regex: "{{ item.backend }}.theforeman.org"
+            src: resp.http.Location
+            substitution: "{{ domains[0].name }}"
+            type: response
+      vars:
+        domains: "{{ item.domains | default([{'name': item.service ~ '.theforeman.org'}]) }}"
       with_items:
         - service: archivedeb
           backend: archivedeb-backend.web01.osuosl
@@ -46,5 +58,5 @@
           backend: web-backend.web01.osuosl
           healthcheck: index.html
           domains:
-            - name: www.theforeman.org
             - name: theforeman.org
+            - name: www.theforeman.org
