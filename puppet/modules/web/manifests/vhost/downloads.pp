@@ -33,6 +33,13 @@ class web::vhost::downloads (
     directories   => $downloads_directory_config,
   }
 
+  # vhosts don't autorequire the expires module
+  # https://github.com/puppetlabs/puppetlabs-apache/pull/2559
+  # limit to not EL7 as there we use apache::default_mods
+  if $facts['os']['family'] != 'RedHat' or $facts['os']['release']['major'] != '7' {
+    include apache::mod::expires
+  }
+
   file { "${downloads_directory}/HEADER.html":
     ensure => file,
     owner  => 'root',
