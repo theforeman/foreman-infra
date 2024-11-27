@@ -79,6 +79,13 @@ class web::vhost::web(
     },
   }
 
+  # vhosts don't autorequire the expires module
+  # https://github.com/puppetlabs/puppetlabs-apache/pull/2559
+  # limit to not EL7 as there we use apache::default_mods
+  if $facts['os']['family'] != 'RedHat' or $facts['os']['release']['major'] != '7' {
+    include apache::mod::expires
+  }
+
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
     foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
