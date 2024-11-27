@@ -67,7 +67,6 @@ class web::vhost::web(
 
   web::vhost { 'web':
     servername    => "web-backend.${facts['networking']['fqdn']}",
-    serveraliases => ['theforeman.org', 'www.theforeman.org'],
     directories   => $directory_config,
     docroot       => $web_directory,
     docroot_owner => 'website',
