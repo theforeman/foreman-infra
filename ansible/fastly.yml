@@ -48,7 +48,7 @@
         - service: deb
           backend: deb-backend.repo-deb01.osuosl
         - service: downloads
-          backend: downloads-backend.web01.osuosl
+          backend: downloads-backend.website01.osuosl
         - service: stagingdeb
           backend: stagingdeb-backend.repo-deb01.osuosl
         - service: stagingyum
