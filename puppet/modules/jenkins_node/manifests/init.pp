@@ -20,6 +20,8 @@ class jenkins_node (
   Boolean $unittests = $facts['os']['family'] == 'RedHat',
   Boolean $packaging = true,
 ) {
+  include fastly_purge
+
   if $facts['os']['family'] == 'RedHat' {
     $java_package = 'java-11-openjdk-headless'
 

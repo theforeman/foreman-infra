@@ -5,6 +5,8 @@ class web::vhost::deb (
   String $user = 'freight',
   Stdlib::Absolutepath $home = "/home/${user}",
 ) {
+  include fastly_purge
+
   # Manual step: each user needs the GPG key in it's keyring
   freight::user { 'main':
     user         => $user,

@@ -7,6 +7,8 @@ class web::vhost::rpm (
   Stdlib::Absolutepath $rpm_staging_directory = '/var/www/vhosts/stagingrpm/htdocs/',
   String $user = 'rpmrepo',
 ) {
+  include fastly_purge
+
   $rpm_directory_config = [
     {
       path            => $rpm_directory,
