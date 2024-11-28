@@ -6,6 +6,8 @@ class web::vhost::yum (
   Stdlib::Absolutepath $yum_directory = '/var/www/vhosts/yum/htdocs',
   String $user = 'yumrepo',
 ) {
+  include fastly_purge
+
   $yum_directory_config = [
     {
       path            => $yum_directory,
