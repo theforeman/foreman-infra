@@ -39,6 +39,7 @@
             src: resp.http.Location
             substitution: "{{ domains[0].name }}"
             type: response
+        request_settings: "{{ item.request_settings | default(omit) }}"
       vars:
         domains: "{{ item.domains | default([{'name': item.service ~ '.theforeman.org'}]) }}"
       with_items:
@@ -60,3 +61,6 @@
           domains:
             - name: theforeman.org
             - name: www.theforeman.org
+          request_settings:
+            - name: force TLS
+              force_ssl: 1
