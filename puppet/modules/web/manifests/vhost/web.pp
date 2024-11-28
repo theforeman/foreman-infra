@@ -85,6 +85,10 @@ class web::vhost::web(
   if $facts['os']['family'] != 'RedHat' or $facts['os']['release']['major'] != '7' {
     include apache::mod::expires
   }
+  include apache::mod::dir
+  include apache::mod::autoindex
+  include apache::mod::alias
+  include apache::mod::mime
 
   secure_ssh::rsync::receiver_setup { 'web':
     user           => 'website',
