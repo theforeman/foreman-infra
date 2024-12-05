@@ -12,6 +12,7 @@ class web::vhost::archivedeb(
     stagedir     => "/var/www/${user}",
     vhost        => 'archivedeb',
     cron_matches => [],
+    cron_enable  => false,
   }
 
   secure_ssh::rsync::receiver_setup { $user:

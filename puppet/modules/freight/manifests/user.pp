@@ -5,6 +5,7 @@ define freight::user (
   Stdlib::Absolutepath $stagedir,
   String $vhost,
   Variant[String, Array[String]] $cron_matches,
+  Optional[Boolean] $cron_enable = true,
   Optional[String[1]] $stable = undef,
 ) {
   require freight
@@ -29,6 +30,7 @@ define freight::user (
 
   # Cleanup old stuff
   file { "/etc/cron.daily/${user}":
+    ensure  => bool2str($cron_enable, 'file', 'absent'),
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
