@@ -3,7 +3,7 @@
 set -e
 set -o pipefail
 
-BASE=${1}
+BASE=${1%/}
 shift
 
 for purge in $@; do
