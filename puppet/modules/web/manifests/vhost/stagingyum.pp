@@ -43,7 +43,6 @@ class web::vhost::stagingyum (
 
   web::vhost { 'stagingyum':
     servername    => "stagingyum-backend.${facts['networking']['fqdn']}",
-    serveraliases => [ $servername ],
     docroot       => $yum_directory,
     docroot_owner => $user,
     docroot_group => $user,
