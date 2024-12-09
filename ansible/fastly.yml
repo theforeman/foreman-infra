@@ -51,6 +51,10 @@
           backend: downloads-backend.website01.osuosl
         - service: stagingdeb
           backend: stagingdeb-backend.repo-deb01.osuosl
+        - service: stagingrpm
+          backend: stagingrpm-backend.repo-rpm01.osuosl
+        - service: rpm
+          backend: rpm-backend.repo-rpm01.osuosl
         - service: stagingyum
           backend: stagingyum-backend.web01.osuosl
         - service: yum
