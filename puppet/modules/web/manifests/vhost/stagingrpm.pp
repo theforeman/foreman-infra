@@ -51,7 +51,7 @@ class web::vhost::stagingrpm (
   }
 
   web::vhost { 'stagingrpm':
-    servername    => $servername,
+    servername    => "stagingrpm-backend.${facts['networking']['fqdn']}",
     docroot       => $rpm_staging_directory,
     docroot_owner => $user,
     docroot_group => $user,

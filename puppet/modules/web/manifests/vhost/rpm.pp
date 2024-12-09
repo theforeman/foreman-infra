@@ -49,7 +49,7 @@ class web::vhost::rpm (
   include apache::mod::mime
 
   web::vhost { 'rpm':
-    servername    => $servername,
+    servername    => "rpm-backend.${facts['networking']['fqdn']}",
     docroot       => $rpm_directory,
     docroot_owner => $user,
     docroot_group => $user,
