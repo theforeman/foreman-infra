@@ -7,6 +7,13 @@ class profiles::repo::rpm (
 ) {
   contain web
 
+  class { 'web::vhost::yum':
+    stable => $stable_foreman,
+  }
+  contain web::vhost::yum
+
+  contain web::vhost::stagingyum
+
   class { 'web::vhost::rpm':
     stable_foreman => $stable_foreman,
   }
