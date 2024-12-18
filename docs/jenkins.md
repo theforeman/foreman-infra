@@ -62,7 +62,7 @@ For all Enterprise Linux versions:
 
 * `dnf -y install puppet-agent`
 * `echo "server = puppet.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
-* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or aws for example and that the record is in DNS
+* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or conova for example and that the record is in DNS
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
 * `puppet ssl bootstrap`
 * Sign the certificate on the puppetserver or via Foreman
@@ -76,7 +76,7 @@ For Debian:
 * `apt update && apt install puppet-agent`
 * `echo "server = puppet.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
-* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or aws for example and that the record is in DNS
+* ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or conova for example and that the record is in DNS
 * `puppet ssl bootstrap`
 * Sign the certificate on the puppetserver or via Foreman
 * `puppet agent --test`
