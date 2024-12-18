@@ -25,6 +25,8 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [Redmine](redmine.md) | Conova |
 | [Virt](virt.md) | Conova |
 | [Webserver](webserver.md) | OSUOSL |
+| [DEB repository](repo-deb.md) | OSUOSL |
+| [RPM repository](repo-rpm.md) | OSUOSL |
 
 ## Infrastructure providers
 
