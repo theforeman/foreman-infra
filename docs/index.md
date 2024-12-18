@@ -43,7 +43,7 @@ A list of the hosting we have, who provides it, and what capacity it has
     * People with access: Evgeni, Ewoud
 ### OSUOSL
   * Sponsored
-  * Hosts test machines, Jenkins nodes, and web01
+  * Hosts Jenkins nodes, and backend webservers for website and repository hosting
   * Contact Lance Alberston if more capacity is needed
   * Support:
     * Contact: [https://osuosl.org/contact/](https://osuosl.org/contact/)
