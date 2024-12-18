@@ -25,6 +25,8 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [Redmine](redmine.md) | Conova |
 | [Virt](virt.md) | Conova |
 | [Webserver](webserver.md) | OSUOSL |
+| [DEB repository](repo-deb.md) | OSUOSL |
+| [RPM repository](repo-rpm.md) | OSUOSL |
 
 ## Infrastructure providers
 
@@ -43,7 +45,7 @@ A list of the hosting we have, who provides it, and what capacity it has
     * People with access: Evgeni, Ewoud
 ### OSUOSL
   * Sponsored
-  * Hosts test machines, Jenkins nodes, and web01
+  * Hosts Jenkins nodes, and backend machines for website and repository hosting
   * Contact Lance Alberston if more capacity is needed
   * Support:
     * Contact: [https://osuosl.org/contact/](https://osuosl.org/contact/)
