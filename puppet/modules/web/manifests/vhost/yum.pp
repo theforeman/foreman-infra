@@ -45,10 +45,6 @@ class web::vhost::yum (
   }
 
   if $facts['os']['family'] == 'RedHat' {
-    package { 'createrepo':
-      ensure => present,
-    }
-
     if $facts['os']['release']['major'] == '7' {
       yumrepo { 'pulpcore-3.16':
         descr    => 'pulpcore-3.16',
@@ -60,9 +56,7 @@ class web::vhost::yum (
       }
     }
 
-    package { 'createrepo_c':
-      ensure => present,
-    }
+    stdlib::ensure_packages(['createrepo_c'])
   }
 
   file { "${yum_directory}/robots.txt":
