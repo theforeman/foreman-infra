@@ -58,9 +58,7 @@ class web::vhost::rpm (
   }
 
   if $facts['os']['family'] == 'RedHat' {
-    package { 'createrepo_c':
-      ensure => present,
-    }
+    stdlib::ensure_packages(['createrepo_c'])
   }
 
   file { "${rpm_directory}/robots.txt":
