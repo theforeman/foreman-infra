@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Nodesource
-if [[ $FOREMAN_VERSION == 3.[0-8] ]]; then
-  nodesrcv="12.x"
-else
+if [[ $FOREMAN_VERSION == 3.1[0-3] ]]; then
   nodesrcv="14.x"
+else
+  nodesrcv="18.x"
 fi
 echo "deb http://deb.nodesource.com/node_${nodesrcv} ${DISTRIBUTION} main" >> /etc/apt/sources.list
 
