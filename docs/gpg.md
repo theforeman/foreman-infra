@@ -18,7 +18,7 @@ See [Generating a new GPG Key for a X.Y release](https://github.com/theforeman/t
 Sometimes it is required to extend the expiration of a (time based) key.
 
 ```
-[freight@web01 ~]$ gpg --edit-key <KEYID>
+[freight@repo-deb01 ~]$ gpg --edit-key <KEYID>
 gpg> expire
 Changing expiration time for the primary key.
 Please specify how long the key should be valid.
@@ -34,7 +34,7 @@ gpg> save
 gpg> quit
 ```
 
-You need to repeat that for every `freight` account (`freight{,stage,archive}@web01`).
+You need to repeat that for every `freight` account (`freight{,stage,archive}@repo-deb01`).
 
 ## Distributing keys
 
@@ -48,10 +48,10 @@ Debian archives can be signed with multiple keys (by setting those in `freight.c
 
 To make our infrastructure aware of the new keys:
 
-* Export private key to `freight{,stage,archive}@web01`:
+* Export private key to `freight{,stage,archive}@repo-deb01`:
   * Remove the passphrase: `gpg --homedir "releases/foreman-debian/2021/gnupg/" --edit-key KEY_ID` - enter `passwd`, this will prompt for the current passphrase, enter it, then, when asked for a new one, enter nothing.
   * Export the secret key: `gpg --homedir "releases/foreman-debian/2021/gnupg/" --export-secret-keys --armor > /tmp/debian-new.key`
-  * Copy `/tmp/debian-new.key` to `web01`
+  * Copy `/tmp/debian-new.key` to `repo-deb01`
   * Import the secret key with `gpg --import /tmp/debian-new.key` for each of the freight users: `freight`, `freightarchive`, `freightstage`
 * Configure it in `puppet/modules/freight/templates/freight.conf.erb`, examples:
   * [7680053](https://github.com/theforeman/foreman-infra/commit/7680053) - Add 2016 archive key, thus using two keys for a period of time
