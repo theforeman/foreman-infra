@@ -56,9 +56,9 @@
         - service: rpm
           backend: rpm-backend.repo-rpm01.osuosl
         - service: stagingyum
-          backend: stagingyum-backend.web01.osuosl
+          backend: stagingyum-backend.repo-rpm01.osuosl
         - service: yum
-          backend: yum-backend.web01.osuosl
+          backend: yum-backend.repo-rpm01.osuosl
         - service: www
           backend: web-backend.website01.osuosl
           healthcheck: index.html
