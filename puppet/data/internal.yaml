@@ -237,3 +237,4 @@ redmine::https: true
 
 apache::default_vhost: false
 
+systemd::timezone: UTC
