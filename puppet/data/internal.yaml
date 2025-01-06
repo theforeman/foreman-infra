@@ -104,6 +104,7 @@ profiles::jenkins::controller::plugins:
   - 'dtkit-api'
   - 'durable-task'
   - 'echarts-api'
+  - 'eddsa-api'
   - 'email-ext'
   - 'embeddable-build-status'
   - 'extended-read-permission'
