@@ -23,10 +23,15 @@ class profiles::jenkins::controller (
   Boolean $jenkins_job_builder = true,
   Optional[String] $jenkins_job_builder_username = undef,
   Optional[String] $jenkins_job_builder_password = undef,
-  Array[String[1]] $packages = ['java-11-openjdk-headless', 'java-11-openjdk-devel', 'fontconfig'],
+  Array[String[1]] $packages = ['java-17-openjdk-headless', 'java-17-openjdk-devel', 'fontconfig'],
   Array[String[1]] $plugins = [],
 ) {
   stdlib::ensure_packages($packages)
+
+  package { ['java-11-openjdk', 'java-11-openjdk-headless', 'java-11-openjdk-devel']:
+    ensure => absent,
+  }
+  Package['java-11-openjdk-devel'] -> Package['java-11-openjdk'] -> Package['java-11-openjdk-headless']
 
   class { 'jenkins':
     install_java    => false,
