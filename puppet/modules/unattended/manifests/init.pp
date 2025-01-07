@@ -3,7 +3,6 @@ class unattended {
     class { 'unattended_upgrades':
       auto      => { 'reboot' => false },
       blacklist => [
-        'docker-ce',
         'openjdk-17-jdk',
         'openjdk-17-jdk-headless',
         'openjdk-17-jre',
