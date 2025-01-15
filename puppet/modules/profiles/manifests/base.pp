@@ -6,6 +6,9 @@ class profiles::base (
   include ssh
   include systemd
   include unattended
+  include users
+  include utility
+  include profiles::base::sysadmins
   if $facts['os']['family'] == 'RedHat' {
     package { 'ntp':
       ensure => absent,
