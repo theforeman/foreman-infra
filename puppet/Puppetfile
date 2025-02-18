@@ -35,7 +35,7 @@ mod 'theforeman/foreman', '25.3.0'
 mod 'theforeman/foreman_proxy', '28.0.0'
 mod 'theforeman/motd', '2.0.0'
 mod 'theforeman/puppet', '20.1.0'
-mod 'theforeman/puppetserver_foreman', '4.0.0'
+mod 'theforeman/puppetserver_foreman', '4.1.0'
 mod 'theforeman/tftp', '9.1.0'
 mod 'treydock/yum_cron', '7.1.0'
 # Maintain a stable branch until https://github.com/syseleven/puppet-restic/pull/24 is merged
