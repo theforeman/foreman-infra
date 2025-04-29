@@ -71,11 +71,11 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "backup" do |override|
     override.vm.hostname = "backup"
-    override.vm.box = "centos/stream8"
+    override.vm.box = "centos/stream9"
 
     override.vm.provider "libvirt" do |libvirt, provider|
       libvirt.memory = "2048"
-      provider.vm.box_url = CENTOS_8_BOX_URL
+      provider.vm.box_url = CENTOS_9_BOX_URL
     end
   end
 
