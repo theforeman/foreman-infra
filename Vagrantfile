@@ -59,12 +59,13 @@ Vagrant.configure("2") do |config|
     SHELL
   end
 
-  config.vm.define "web" do |override|
-    override.vm.hostname = "web"
-    override.vm.box = "centos/7"
+  config.vm.define "website" do |override|
+    override.vm.hostname = "website"
+    override.vm.box = "centos/stream9"
 
-    override.vm.provider "libvirt" do |libvirt|
+    override.vm.provider "libvirt" do |libvirt, provider|
       libvirt.memory = "2048"
+      provider.vm.box_url = CENTOS_9_BOX_URL
     end
   end
 
