@@ -9,8 +9,25 @@ logging {
 }
 
 prometheus.exporter.unix "default" {
+  # we don't use it, but it produces log entries
+  disable_collectors = ["zfs"]
+
   textfile {
     directory = "/var/lib/prometheus/node-exporter/"
+  }
+
+  # ignore virtual devices from libvirt, docker and friends
+  netclass {
+    ignored_devices = "^(vnet.*|veth.*|cali.*|[a-f0-9]{15})$"
+  }
+
+  netdev {
+    device_exclude = "^(vnet.*|veth.*|cali.*|[a-f0-9]{15})$"
+  }
+
+  # add "tmpfs" to the default exclude
+  filesystem {
+    fs_types_exclude = "^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|tmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$"
   }
 }
 
