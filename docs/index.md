@@ -27,6 +27,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [Webserver](webserver.md) | OSUOSL |
 | [DEB repository](repo-deb.md) | OSUOSL |
 | [RPM repository](repo-rpm.md) | OSUOSL |
+| [Monitoring](monitoring.md) | Grafana Labs |
 
 ## Infrastructure providers
 
@@ -82,3 +83,8 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Support:
     * Contact: [https://osci.io/](https://osci.io/)
     * IRC: `#openinfra` on `libera.chat`
+### Grafana Labs
+  * Sponsored
+  * Sponsorship needs renewal once a year, mail `community@grafana.com` before it runs out (24.04 is the end data, so mailing in February is a good idea)
+  * Grafana access via https://theforeman.grafana.net/
+  * People with access: Eric, Evgeni, Ewoud
