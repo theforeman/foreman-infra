@@ -23,3 +23,7 @@ Right now only one contact point is defined: `grafana-default-email` - it sends 
 #### pending package updates
 
 When `apt_upgrades_pending` or `yum_upgrades_pending` is `> 0` an alert is sent to `grafana-default-email`
+
+#### reboot required
+
+When `node_reboot_required` is `> 0` an alert is sent to `grafana-default-email`
