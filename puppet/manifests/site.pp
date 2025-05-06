@@ -5,6 +5,7 @@ node default {
 node /^backup\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::backup::receiver
+  include profiles::monitoring::client
 }
 
 node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
@@ -35,6 +36,7 @@ node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
 node /^redmine\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::redmine
+  include profiles::monitoring::client
 }
 
 node /^web\d+\.[a-z]+\.theforeman\.org$/ {
@@ -45,11 +47,13 @@ node /^web\d+\.[a-z]+\.theforeman\.org$/ {
 node /^repo-deb\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::repo::deb
+  include profiles::monitoring::client
 }
 
 node /^repo-rpm\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::repo::rpm
+  include profiles::monitoring::client
 }
 
 node /^website\d+\.[a-z]+\.theforeman\.org$/ {
