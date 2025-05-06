@@ -1,0 +1,20 @@
+---
+profiles::monitoring::client::blackbox_targets:
+  - name: www.theforeman.org
+    address: https://www.theforeman.org
+    module: http
+  - name: ci.theforeman.org
+    address: https://ci.theforeman.org
+    module: http
+  - name: yum.theforeman.org
+    address: https://yum.theforeman.org
+    module: http
+  - name: deb.theforeman.org
+    address: https://deb.theforeman.org
+    module: http
+  - name: community.theforeman.org
+    address: https://community.theforeman.org
+    module: http
+  - name: projects.theforeman.org
+    address: https://projects.theforeman.org
+    module: http
