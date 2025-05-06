@@ -10,8 +10,8 @@ node /^jenkins-(deb-)?node.*/ {
   include profiles::jenkins::node
 }
 
-node /^web.*/ {
-  include profiles::web
+node /^website.*/ {
+  include profiles::website
 }
 
 node /^backup.*/ {

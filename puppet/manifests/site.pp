@@ -37,11 +37,6 @@ node /^redmine\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::redmine
 }
 
-node /^web\d+\.[a-z]+\.theforeman\.org$/ {
-  include profiles::base
-  include profiles::web
-}
-
 node /^repo-deb\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::repo::deb
