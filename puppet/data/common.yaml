@@ -1,6 +1,5 @@
 ---
 stable_release: '3.14'
-profiles::web::stable: '%{alias("stable_release")}'
 profiles::website::stable: '%{alias("stable_release")}'
 profiles::repo::deb::stable: '%{alias("stable_release")}'
 profiles::repo::rpm::stable_foreman: '%{alias("stable_release")}'
