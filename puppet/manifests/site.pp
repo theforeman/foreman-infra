@@ -16,11 +16,13 @@ node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
 node /^discourse\d+\.([a-z]+\.)?theforeman\.org$/ {
   include profiles::base
   include profiles::discourse
+  include profiles::monitoring::client
 }
 
 node /^foreman\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::foreman
+  include profiles::monitoring::client
 }
 
 node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
@@ -31,6 +33,7 @@ node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
 node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::puppetserver
+  include profiles::monitoring::client
 }
 
 node /^redmine\d+\.[a-z]+\.theforeman\.org$/ {
