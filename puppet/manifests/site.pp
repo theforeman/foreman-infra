@@ -11,6 +11,7 @@ node /^backup\d+\.[a-z]+\.theforeman\.org$/ {
 node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::jenkins::controller
+  include profiles::monitoring::client
 }
 
 node /^discourse\d+\.([a-z]+\.)?theforeman\.org$/ {
@@ -28,6 +29,7 @@ node /^foreman\d+\.[a-z]+\.theforeman\.org$/ {
 node /^(deb-)?node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::jenkins::node
+  include profiles::monitoring::client
 }
 
 node /^puppet\d+\.[a-z]+\.theforeman\.org$/ {
