@@ -17,7 +17,8 @@ class profiles::monitoring::client (
     # node-exporter-textfile-collector-scripts needs moreutils, and that needs perl(IPC::Run) from CRB
     require crb
 
-    stdlib::ensure_packages(['node-exporter-textfile-collector-scripts'])
+    # yum-utils contains /usr/bin/needs-restarting which is used by the yum collector
+    stdlib::ensure_packages(['node-exporter-textfile-collector-scripts', 'yum-utils'])
 
     service { 'prometheus-node-exporter-yum.timer':
       ensure  => 'running',
