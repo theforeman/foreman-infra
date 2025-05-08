@@ -1,7 +1,7 @@
 <%- |
-  String[1] $prometheus_username,
-  String[1] $prometheus_password,
-  Stdlib::HTTPUrl $prometheus_url,
+  Optional[String[1]] $prometheus_username,
+  Optional[String[1]] $prometheus_password,
+  Optional[Stdlib::HTTPUrl] $prometheus_url,
   Array[Hash] $blackbox_targets,
   | -%>
 logging {
@@ -71,13 +71,17 @@ prometheus.scrape "default" {
   forward_to = [prometheus.remote_write.grafanacloud.receiver]
 }
 
+<% if $prometheus_url { -%>
 prometheus.remote_write "grafanacloud" {
   endpoint {
     url = "<%= $prometheus_url %>"
 
+    <% if $prometheus_username and $prometheus_password { -%>
     basic_auth {
       username = "<%= $prometheus_username %>"
       password = "<%= $prometheus_password %>"
     }
+    <% } -%>
   }
 }
+<% } -%>
