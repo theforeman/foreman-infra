@@ -3,13 +3,12 @@
 class jenkins_job_builder::install (
   String[1] $ensure = $jenkins_job_builder::ensure,
 ) {
-  $yaml = if $facts['os']['release']['major'] == '7' { 'PyYAML' } else { 'python3-pyyaml' }
-  stdlib::ensure_packages(['python-pip', $yaml])
+  stdlib::ensure_packages(['python3-pip', 'python3-pyyaml'])
 
   package { 'jenkins-job-builder':
     ensure   => $jenkins_job_builder::ensure,
     provider => 'pip',
-    require  => Package['python-pip', $yaml],
+    require  => Package['python3-pip', 'python3-pyyaml'],
   }
 
   file { '/etc/jenkins_jobs':

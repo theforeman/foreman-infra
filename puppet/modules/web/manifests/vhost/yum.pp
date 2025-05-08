@@ -45,17 +45,6 @@ class web::vhost::yum (
   }
 
   if $facts['os']['family'] == 'RedHat' {
-    if $facts['os']['release']['major'] == '7' {
-      yumrepo { 'pulpcore-3.16':
-        descr    => 'pulpcore-3.16',
-        baseurl  => "https://yum.theforeman.org/pulpcore/3.16/el${facts['os']['release']['major']}/x86_64/",
-        enabled  => true,
-        gpgcheck => true,
-        gpgkey   => 'https://yum.theforeman.org/pulpcore/3.16/GPG-RPM-KEY-pulpcore',
-        before   => Package['createrepo_c'],
-      }
-    }
-
     stdlib::ensure_packages(['createrepo_c'])
   }
 
