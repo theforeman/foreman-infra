@@ -1,5 +1,5 @@
 ---
-profiles::monitoring::client::blackbox_targets:
+profiles::base::monitoring::blackbox_targets:
   - name: www.theforeman.org
     address: https://www.theforeman.org
     module: http

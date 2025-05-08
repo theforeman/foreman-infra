@@ -20,4 +20,6 @@ class profiles::base (
   class { 'foreman_proxy::plugin::remote_execution::ssh_user':
     manage_user => true,
   }
+
+  include profiles::base::monitoring
 }

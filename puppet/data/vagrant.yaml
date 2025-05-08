@@ -24,6 +24,6 @@ redmine::https: false
 
 web::https: false
 
-profiles::monitoring::client::prometheus_username: invalid
-profiles::monitoring::client::prometheus_password: invalid
-profiles::monitoring::client::prometheus_url: https://prometheus.example.com
+profiles::base::monitoring::prometheus_username: invalid
+profiles::base::monitoring::prometheus_password: invalid
+profiles::base::monitoring::prometheus_url: https://prometheus.example.com
