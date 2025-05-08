@@ -8,6 +8,8 @@ class profiles::foreman {
   include foreman::plugin::puppet
   include foreman::plugin::remote_execution
 
+  include puppet
+
   puppet::config::main { 'dns_alt_names':
     value => $foreman::serveraliases,
   }
