@@ -23,7 +23,3 @@ profiles::jenkins::node::swap_size_mb: 0
 redmine::https: false
 
 web::https: false
-
-profiles::base::monitoring::prometheus_username: invalid
-profiles::base::monitoring::prometheus_password: invalid
-profiles::base::monitoring::prometheus_url: https://prometheus.example.com

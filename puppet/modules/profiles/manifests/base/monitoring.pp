@@ -1,7 +1,7 @@
 class profiles::base::monitoring (
-  String[1] $prometheus_username,
-  String[1] $prometheus_password,
-  Stdlib::HTTPUrl $prometheus_url,
+  Optional[String[1]] $prometheus_username = undef,
+  Optional[String[1]] $prometheus_password = undef,
+  Optional[Stdlib::HTTPUrl] $prometheus_url = undef,
   Array[Hash] $blackbox_targets = [],
 ) {
   if $facts['os']['family'] == 'RedHat' {
