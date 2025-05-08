@@ -14,8 +14,7 @@ define jenkins_job_builder::config (
   $directory = '/etc/jenkins_jobs'
   $inifile = "${directory}/jenkins_jobs_${config_name}.ini"
 
-  $git = if $facts['os']['release']['major'] == '7' { 'git' } else { 'git-core' }
-  stdlib::ensure_packages([$git])
+  stdlib::ensure_packages(['git-core'])
 
   vcsrepo { "${directory}/${git_project_name}":
     ensure   => latest,
@@ -23,7 +22,7 @@ define jenkins_job_builder::config (
     source   => $git_repo,
     revision => $git_ref,
     notify   => Exec["jenkins-jobs-update-${config_name}"],
-    require  => Package[$git],
+    require  => Package['git-core'],
   }
 
   exec { "jenkins-jobs-update-${config_name}":

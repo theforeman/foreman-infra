@@ -28,15 +28,10 @@ class web::vhost::stagingrpm (
     },
   ]
 
-  # vhosts don't autorequire the expires module
-  # https://github.com/puppetlabs/puppetlabs-apache/pull/2559
-  # limit to not EL7 as there we use apache::default_mods
-  if $facts['os']['family'] != 'RedHat' or $facts['os']['release']['major'] != '7' {
-    include apache::mod::expires
-  }
-  include apache::mod::dir
-  include apache::mod::autoindex
   include apache::mod::alias
+  include apache::mod::autoindex
+  include apache::mod::dir
+  include apache::mod::expires
   include apache::mod::mime
 
   $authorized_keys = flatten($usernames.map |$name| {
