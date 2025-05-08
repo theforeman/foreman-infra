@@ -8,7 +8,7 @@ node /^backup\d+\.[a-z]+\.theforeman\.org$/ {
   include profiles::monitoring::client
 }
 
-node /^controller\d+\.[a-z]+\.theforeman\.org$/ {
+node /^controller\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
   include profiles::base
   include profiles::jenkins::controller
   include profiles::monitoring::client
