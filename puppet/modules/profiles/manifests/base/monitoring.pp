@@ -1,4 +1,4 @@
-class profiles::monitoring::client (
+class profiles::base::monitoring (
   String[1] $prometheus_username,
   String[1] $prometheus_password,
   Stdlib::HTTPUrl $prometheus_url,
@@ -37,6 +37,6 @@ class profiles::monitoring::client (
   }
 
   class { 'grafana_alloy':
-    config => epp("${module_name}/monitoring/alloy-config.epp", $prom_context),
+    config => epp("${module_name}/base/alloy-config.epp", $prom_context),
   }
 }
