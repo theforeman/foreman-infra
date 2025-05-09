@@ -38,4 +38,6 @@ class profiles::backup::sender (
     type   => $ssh_key_type,
     key    => $ssh_key,
   }
+
+  User<| title == $restic::user |> { groups +> ['prometheus'] }
 }

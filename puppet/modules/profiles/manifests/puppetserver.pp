@@ -25,5 +25,8 @@ class profiles::puppetserver {
       '/opt/puppetlabs/server/data/puppetserver/ssh',
       '/opt/puppetlabs/server/data/puppetserver/foreman_cache_data',
     ],
+    backup_post_cmd            => [
+      '-/bin/bash -c "/usr/local/bin/restic-prometheus-exporter | sponge /var/lib/prometheus/node-exporter/restic.prom"',
+    ],
   }
 }
