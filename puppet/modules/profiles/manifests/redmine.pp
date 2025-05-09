@@ -45,5 +45,8 @@ class profiles::redmine (
     backup_path                => $backup_path,
     backup_flags               => ['--exclude', "${backup_path}/git"],
     backup_pre_cmd             => ["/usr/bin/pg_dump --file=${backup_db_path}/redmine.sql ${redmine::db_name}"],
+    backup_post_cmd            => [
+      '-/bin/bash -c "/usr/local/bin/restic-prometheus-exporter | sponge /var/lib/prometheus/node-exporter/restic.prom"',
+    ],
   }
 }

@@ -63,6 +63,9 @@ class profiles::jenkins::controller (
       '--exclude', "${backup_path}/jobs/*/builds",
       '--exclude', "${backup_path}/plugins",
     ],
+    backup_post_cmd            => [
+      '-/bin/bash -c "/usr/local/bin/restic-prometheus-exporter | sponge /var/lib/prometheus/node-exporter/restic.prom"',
+    ],
   }
 
   if $jenkins_job_builder {

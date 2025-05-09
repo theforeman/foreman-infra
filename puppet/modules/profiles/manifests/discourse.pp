@@ -24,5 +24,8 @@ class profiles::discourse {
     backup_cap_dac_read_search => true,
     backup_path                => $backup_path,
     backup_pre_cmd             => ['+/usr/bin/docker exec app discourse backup'],
+    backup_post_cmd            => [
+      '-/bin/bash -c "/usr/local/bin/restic-prometheus-exporter | sponge /var/lib/prometheus/node-exporter/restic.prom"',
+    ],
   }
 }
