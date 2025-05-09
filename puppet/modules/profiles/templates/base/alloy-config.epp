@@ -76,12 +76,12 @@ prometheus.remote_write "grafanacloud" {
   endpoint {
     url = "<%= $prometheus_url %>"
 
-    <% if $prometheus_username and $prometheus_password { -%>
+    <%- if $prometheus_username and $prometheus_password { -%>
     basic_auth {
       username = "<%= $prometheus_username %>"
       password = "<%= $prometheus_password %>"
     }
-    <% } -%>
+    <%- } -%>
   }
 }
 <% } -%>
