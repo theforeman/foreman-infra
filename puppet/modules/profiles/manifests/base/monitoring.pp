@@ -29,6 +29,13 @@ class profiles::base::monitoring (
     stdlib::ensure_packages(['prometheus-node-exporter-collectors'])
   }
 
+  file { '/usr/local/bin/restic-prometheus-exporter':
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+    content => file("${module_name}/base/restic-prometheus-exporter.py"),
+  }
+
   $prom_context = {
     'prometheus_username' => $prometheus_username,
     'prometheus_password' => $prometheus_password,
