@@ -38,7 +38,9 @@ class profiles::base::monitoring (
 
   file { '/var/lib/prometheus/node-exporter/':
     ensure => directory,
-    mode   => '0770',
+    owner  => 'prometheus',
+    group  => 'prometheus',
+    mode   => '0775',
   }
 
   $prom_context = {
