@@ -38,7 +38,7 @@ def main():
         timestamp.labels(*labels).set(dateutil.parser.parse(snapshot['time']).timestamp())
 
         # summary is a restic 0.17+ feature
-        if summary := snapshot.get('summary') is not None:
+        if (summary := snapshot.get('summary')) is not None:
             size.labels(*labels).set(summary.get('total_bytes_processed'))
 
     print(generate_latest(registry).decode(), end='')
