@@ -27,3 +27,7 @@ When `apt_upgrades_pending` or `yum_upgrades_pending` is `> 0` an alert is sent 
 #### reboot required
 
 When `node_reboot_required` is `> 0` an alert is sent to `grafana-default-email`
+
+#### missing backup
+
+When `time() - restic_snapshot_timestamp_seconds` is `> 90000` (= the last restic snapshot is older than 25h) an alert is sent to `grafana-default-email`
