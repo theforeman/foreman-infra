@@ -8,7 +8,9 @@ People who work on infrastructure can be added to the organization by Eric, Evge
 
 ## Dashboards
 
-- [Blackbox Exporter (HTTP Prober)](https://grafana.com/grafana/dashboards/13659-blackbox-exporter-http-prober/)
+- [Blackbox Exporter (HTTP Prober)](https://grafana.com/grafana/dashboards/13659-blackbox-exporter-http-prober/) shows HTTP status at https://theforeman.grafana.net/d/NEzutrbMk/blackbox-exporter-http-prober
+- Restic Exporter shows backup status at https://theforeman.grafana.net/d/9f4a1fae-9438-41af-97f3-ca0f87f8ba3f/restic-exporter
+- Various OS-level views can be seen at https://theforeman.grafana.net/dashboards/f/integration---linux-node/
 
 ## Alerting
 
