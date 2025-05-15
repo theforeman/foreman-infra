@@ -1,6 +1,7 @@
 # Basic webserver config
 class web::base {
   include apache
+  include logrotate
 
   file { '/var/www/vhosts':
     ensure => directory,
