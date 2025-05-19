@@ -35,7 +35,7 @@ restic::enable_forget: true
 restic::forget:
   keep-daily: 14
   keep-weekly: 4
-restic::forget_timer: 'weekly'
+restic::forget_timer: 'Mon *-*-* 02:00:00'
 restic::prune: true
 # There are no restic packages in EL7 and the ones in EPEL8/9 are too old
 # The ones in Debian are also too old
