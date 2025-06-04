@@ -1,14 +1,17 @@
 class unattended {
   if $facts['os']['family'] == 'Debian' {
     class { 'unattended_upgrades':
-      auto      => { 'reboot' => false },
-      blacklist => [
+      auto          => { 'reboot' => false },
+      blacklist     => [
         'openjdk-17-jdk',
         'openjdk-17-jdk-headless',
         'openjdk-17-jre',
         'openjdk-17-jre-headless',
       ],
-      mail      => { 'to' => 'sysadmins', },
+      extra_origins => [
+        'site=apt.grafana.com,component=main',
+      ],
+      mail          => { 'to' => 'sysadmins', },
     }
   }
 
