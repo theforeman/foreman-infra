@@ -46,6 +46,11 @@ do_rsync() {
 				ln -sf "$latest" katello-repos-latest.rpm
 			fi
 
+			latest=$(ls -t pulpcore-release-[0-9]*.rpm 2>/dev/null | head -n1)
+			if [[ -n "$latest" ]] ; then
+				ln -sf "$latest" pulpcore-release.rpm
+			fi
+
 			if [[ $MERGE == true ]] ; then
 				HAS_MODULES_YAML=$(ls repodata/*-modules.yaml.gz >/dev/null 2>/dev/null && echo 'yes' || echo 'no')
 
@@ -85,7 +90,7 @@ purgecdn() {
 	set +f
 	for d in "${REPO_PATH}"/*; do
 		purge_base="https://yum.theforeman.org/${REPO_DEST}/$(basename $d)"
-		fastly-purge ${purge_base} foreman-release.rpm foreman-client-release.rpm katello-repos-latest.rpm
+		fastly-purge ${purge_base} foreman-release.rpm foreman-client-release.rpm katello-repos-latest.rpm pulpcore-release.rpm
 	done
 	set -f
 }
