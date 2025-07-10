@@ -166,16 +166,28 @@ class redmine (
     content => template('redmine/redmine.service.erb'),
   }
 
+  anubis::instance { 'redmine':
+    target   => 'http://127.0.0.1:3000/',
+    settings => {
+      'BIND'         => 'localhost:8923',
+      'METRICS_BIND' => 'localhost:9090',
+    },
+  }
+
   $apache_backend_config = {
     'proxy_preserve_host' => true,
     'proxy_add_headers'   => true,
-    'request_headers'     => ['set X_FORWARDED_PROTO "https"'],
+    'request_headers'     => [
+      'set X-Forwarded-Proto "https"',
+      'set X-Real-Ip expr=%{REMOTE_ADDR}',
+      'set X-Http-Version "%{SERVER_PROTOCOL}s"',
+    ],
     'proxy_pass'          => {
       'no_proxy_uris' => [
         '/server-status', '/help', '/images', '/javascripts', '/plugin_assets', '/stylesheets', '/themes', '/favicon.ico',
       ],
       'path'          => '/',
-      'url'           => 'http://127.0.0.1:3000/',
+      'url'           => 'http://127.0.0.1:8923/',
     },
   }
 
