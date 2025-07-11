@@ -3,6 +3,7 @@
   Optional[String[1]] $prometheus_password,
   Optional[Stdlib::HTTPUrl] $prometheus_url,
   Array[Hash] $blackbox_targets,
+  Array[String] $scrape_targets,
   | -%>
 logging {
   level = "info"
@@ -66,6 +67,9 @@ prometheus.scrape "default" {
   targets = array.concat(
     discovery.relabel.node_exporter.output,
     discovery.relabel.blackbox.output,
+    <% $scrape_targets.each |$target| { %>
+    [<%= $target %>],
+    <% } %>
   )
 
   forward_to = [prometheus.remote_write.grafanacloud.receiver]

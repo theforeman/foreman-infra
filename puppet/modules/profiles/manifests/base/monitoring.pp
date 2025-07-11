@@ -3,6 +3,7 @@ class profiles::base::monitoring (
   Optional[String[1]] $prometheus_password = undef,
   Optional[Stdlib::HTTPUrl] $prometheus_url = undef,
   Array[Hash] $blackbox_targets = [],
+  Array[String] $scrape_targets = [],
 ) {
   if $facts['os']['family'] == 'RedHat' {
     yumrepo { 'copr:copr.fedorainfracloud.org:group_theforeman:infra':
@@ -48,6 +49,7 @@ class profiles::base::monitoring (
     'prometheus_password' => $prometheus_password,
     'prometheus_url'      => $prometheus_url,
     'blackbox_targets'    => $blackbox_targets,
+    'scrape_targets'      => $scrape_targets,
   }
 
   class { 'grafana_alloy':
