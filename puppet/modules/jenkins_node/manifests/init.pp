@@ -145,14 +145,4 @@ class jenkins_node (
     mode    => '0755',
     content => file("${module_name}/reboot-jenkins-node"),
   }
-
-  if $facts['os']['family'] == 'RedHat' {
-    # https://github.com/treydock/puppet-yum_cron/pull/51
-    dnf_automatic_config { 'commands/reboot':
-      value => 'when-needed',
-    }
-    dnf_automatic_config { 'commands/reboot_command':
-      value => '/usr/local/sbin/reboot-jenkins-node',
-    }
-  }
 }
