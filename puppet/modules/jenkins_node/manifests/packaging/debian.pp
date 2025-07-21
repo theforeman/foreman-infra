@@ -39,7 +39,7 @@ class jenkins_node::packaging::debian(
       aptcontent => "deb ${debian_mirror} bookworm main non-free contrib\ndeb-src ${debian_mirror} bullseye main non-free contrib\n",
       nodesource => false;
     'focal64':
-      ensure     => present,
+      ensure     => absent,
       arch       => 'amd64',
       release    => 'focal',
       apturl     => $ubuntu_mirror,
