@@ -21,21 +21,21 @@ describe 'jenkins_node' do
         end
 
         if facts[:os]['family'] == 'Debian'
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/A10nozstd').with_ensure('absent') }
-          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/A10nozstd').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/C10foremanlog').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/D80no-man-db-rebuild').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F60addforemanrepo').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F65-add-backport-repos').with_ensure('absent') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F66-add-nodesource-repos').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('absent') }
-          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/F66-add-nodesource-repos').with_ensure('absent') }
-          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F66-add-nodesource-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/A10nozstd').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/C10foremanlog').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/D80no-man-db-rebuild').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F60addforemanrepo').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F65-add-backport-repos').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('absent') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F67-add-puppet-repos').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F70aptupdate').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F99printrepos').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F66-add-nodesource-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F67-add-puppet-repos').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F70aptupdate').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F99printrepos').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/bullseye64/hooks/F66-add-nodesource-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/A10nozstd').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/jammy64/hooks/F66-add-nodesource-repos').with_ensure('absent') }
         end
       end
 

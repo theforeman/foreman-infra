@@ -26,7 +26,7 @@ class jenkins_node::packaging::debian(
 
   jenkins_node::pbuilder_setup {
     'bullseye64':
-      ensure     => present,
+      ensure     => absent,
       arch       => 'amd64',
       release    => 'bullseye',
       apturl     => $debian_mirror,
