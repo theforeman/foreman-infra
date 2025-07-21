@@ -26,7 +26,7 @@ describe 'jenkins_node' do
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/D80no-man-db-rebuild').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F60addforemanrepo').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F65-add-backport-repos').with_ensure('absent') }
-          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F67-add-puppet-repos').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F70aptupdate').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F99printrepos').with_ensure('present') }
