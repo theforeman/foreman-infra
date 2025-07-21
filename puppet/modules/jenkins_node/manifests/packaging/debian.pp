@@ -25,25 +25,13 @@ class jenkins_node::packaging::debian(
   }
 
   jenkins_node::pbuilder_setup {
-    'bullseye64':
-      ensure     => absent,
-      arch       => 'amd64',
-      release    => 'bullseye',
-      apturl     => $debian_mirror,
-      aptcontent => "deb ${debian_mirror} bullseye main non-free contrib\ndeb-src ${debian_mirror} bullseye main non-free contrib\n";
     'bookworm64':
       ensure     => present,
       arch       => 'amd64',
       release    => 'bookworm',
       apturl     => $debian_mirror,
-      aptcontent => "deb ${debian_mirror} bookworm main non-free contrib\ndeb-src ${debian_mirror} bullseye main non-free contrib\n",
+      aptcontent => "deb ${debian_mirror} bookworm main non-free contrib\ndeb-src ${debian_mirror} bookworm main non-free contrib\n",
       nodesource => false;
-    'focal64':
-      ensure     => absent,
-      arch       => 'amd64',
-      release    => 'focal',
-      apturl     => $ubuntu_mirror,
-      aptcontent => "deb ${ubuntu_mirror} focal main restricted universe\ndeb-src ${ubuntu_mirror} focal main restricted universe\n";
     'jammy64':
       ensure     => present,
       arch       => 'amd64',
