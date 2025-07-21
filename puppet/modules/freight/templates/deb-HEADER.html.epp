@@ -8,8 +8,6 @@
 <p>Currently we have</p>
 
 <pre>
-deb http://deb.theforeman.org/ bullseye &lt;version&gt;
-deb http://deb.theforeman.org/ bullseye nightly
 deb http://deb.theforeman.org/ bookworm &lt;version&gt;
 deb http://deb.theforeman.org/ bookworm nightly
 deb http://deb.theforeman.org/ jammy &lt;version&gt;
