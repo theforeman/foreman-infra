@@ -273,7 +273,6 @@ class redmine (
 
   # Logrotate
   file { '/etc/logrotate.d/redmine':
-    ensure  => absent,
+    ensure => absent,
   }
-
 }
