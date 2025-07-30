@@ -152,18 +152,35 @@ class redmine (
   $docroot          = "${app_root}/public"
   $priority         = '05'
 
-  systemd::unit_file {'redmine.socket':
-    ensure  => 'present',
-    enable  => true,
-    active  => true,
-    content => file('redmine/redmine.socket'),
+  systemd::manage_unit { 'redmine.socket':
+    ensure        => 'present',
+    unit_entry    => {
+      'Description' => 'redmine socket',
+    },
+    socket_entry  => {
+      'ListenStream' => '127.0.0.1:3000',
+    },
+    install_entry => {
+      'WantedBy' => 'sockets.target',
+    },
   }
 
-  systemd::unit_file {'redmine.service':
-    ensure  => 'present',
-    enable  => true,
-    active  => true,
-    content => template('redmine/redmine.service.erb'),
+  systemd::manage_unit { 'redmine.service':
+    ensure        => 'present',
+    enable        => true,
+    active        => true,
+    unit_entry    => {
+      'Description'   => 'redmine',
+    },
+    service_entry => {
+      'Type'             => 'notify',
+      'User'             => $username,
+      'PrivateTmp'       => true,
+      'WorkingDirectory' => $app_root,
+      'ExecStart'        => "${app_root}/bin/rails server --environment production",
+      'SyslogIdentifier' => 'redmine',
+      'Environment'      => 'RAILS_LOG_TO_STDOUT=1',
+    },
   }
 
   anubis::instance { 'redmine':
