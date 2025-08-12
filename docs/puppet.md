@@ -6,7 +6,7 @@ On the actual server a subjectAltName is configured so both the hostname and ser
 | | puppet01.conova.theforeman.org |
 | - | - |
 | type | Libvirt VM |
-| OS | CentOS Stream 8 |
+| OS | CentOS Stream 9 |
 | CPUs | 4 |
 | RAM | 8GB |
 | Storage | /dev/vda (20GB) |
