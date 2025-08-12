@@ -1,8 +1,17 @@
 # Redmine
 
+| | redmine01.conova.theforeman.org |
+| - | - |
+| type | Libvirt VM |
+| OS | CentOS Stream 9 |
+| CPUs | 8 |
+| RAM | 8GB |
+| Storage | /dev/vda (30GB) |
+| Managed by | [profiles::redmine](https://github.com/theforeman/foreman-infra/blob/master/puppet/modules/profiles/manifests/redmine.pp) |
+
 ## Deployment
 
-Redmine is deployed on VM at Conova. The box runs CentOS Stream 9, and consequently uses Ruby 3.0 and PSQL 13.
+Redmine is deployed using Ruby 3.0 and PSQL 13.
 
 A copy of the git repository is stored here: https://github.com/theforeman/redmine/. When upgrading Redmine it is required to rebase our changes onto the new upstream ref, and then push that back to our fork.
 
