@@ -7,5 +7,5 @@ NODE_NAME=$(hostname -f)
 NODE_IDLE=$(curl --fail --silent https://ci.theforeman.org/computer/${NODE_NAME}/api/json/ | jq .idle)
 
 if [[ $NODE_IDLE == true ]]; then
-  shutdown -r 'Rebooting after applying package updates'
+  shutdown -r +5 'Rebooting after applying package updates'
 fi
