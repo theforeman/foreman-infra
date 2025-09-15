@@ -4,6 +4,7 @@ class web::vhost::deb (
   String[1] $stable,
   String $user = 'freight',
   Stdlib::Absolutepath $home = "/home/${user}",
+  Stdlib::Absolutepath $stagedir = "/var/www/${user}",
 ) {
   include fastly_purge
 
@@ -12,7 +13,7 @@ class web::vhost::deb (
     user         => $user,
     home         => $home,
     webdir       => '/var/www/vhosts/deb/htdocs',
-    stagedir     => '/var/www/freight',
+    stagedir     => $stagedir,
     vhost        => 'deb',
     cron_matches => ['nightly', 'scratch'],
     stable       => $stable,
