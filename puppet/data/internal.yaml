@@ -21,6 +21,7 @@ profiles::backup::receiver::targets:
   - discourse01
   - puppet01
   - foreman01
+  - repo-deb01
   - repo-rpm01
 
 profiles::backup::sender::host: '%{alias("backup_servicename")}'

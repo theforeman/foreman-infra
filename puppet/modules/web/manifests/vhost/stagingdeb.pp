@@ -3,13 +3,14 @@
 class web::vhost::stagingdeb(
   String $user = 'freightstage',
   Stdlib::Absolutepath $home = "/home/${user}",
+  Stdlib::Absolutepath $stagedir = "/var/www/${user}",
 ) {
   # Manual step: each user needs the GPG key in it's keyring
   freight::user { 'staging':
     user         => $user,
     home         => $home,
     webdir       => '/var/www/vhosts/stagingdeb/htdocs',
-    stagedir     => "/var/www/${user}",
+    stagedir     => $stagedir,
     vhost        => 'stagingdeb',
     cron_matches => 'all',
   }
