@@ -21,6 +21,7 @@ profiles::backup::receiver::targets:
   - discourse01
   - puppet01
   - foreman01
+  - repo-rpm01
 
 profiles::backup::sender::host: '%{alias("backup_servicename")}'
 profiles::backup::sender::ssh_key: 'AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAcXYkJr+qZC6tF5TrdBcNdMOMPHMCOR2BdY0YN3yjiYlk68N7KiAUTG85U/zsdiZyzLEJ5QI/YTYahbPsYlgfE='
