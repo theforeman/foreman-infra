@@ -1,5 +1,6 @@
 # @summary A Puppetserver with Foreman integration
 class profiles::puppetserver {
+  include openvox_repo
   include puppet
   include puppet::server
 
