@@ -5,7 +5,7 @@ foreman_servicename: 'foreman.theforeman.org'
 foreman_url: 'https://%{lookup("foreman_servicename")}'
 puppet_servicename: 'puppet.theforeman.org'
 
-foreman::repo::repo: '3.11'
+foreman::repo::repo: '3.16'
 foreman::serveraliases:
   - '%{alias("foreman_servicename")}'
 
