@@ -2,6 +2,7 @@
 class profiles::base (
 ) {
   include motd
+  include openvox_repo
   include puppet
   include ssh
   include systemd
