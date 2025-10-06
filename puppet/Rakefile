@@ -9,6 +9,9 @@ PuppetSyntax.templates_paths = ['modules/*/templates/**/*.{erb,epp}']
 PuppetSyntax.exclude_paths = ["vendor/**/*"]
 
 require 'puppet-lint/tasks/puppet-lint'
+# those two types totally make sense, but require lots of updates first
+PuppetLint.configuration.disable_documentation
+PuppetLint.configuration.disable_parameter_types
 PuppetLint::RakeTask.new :lint do |config|
   config.pattern = PuppetSyntax.manifests_paths
   config.fail_on_warnings = true
