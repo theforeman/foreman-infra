@@ -123,7 +123,7 @@ class redmine (
     command     => 'bundle install --path ./vendor',
     user        => $username,
     cwd         => $app_root,
-    path        => $::path,
+    path        => $facts['path'],
     environment => ["HOME=${app_root}"],
     unless      => 'bundle check',
     require     => Package[$packages],
