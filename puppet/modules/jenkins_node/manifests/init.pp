@@ -94,7 +94,7 @@ class jenkins_node (
   }
 
   file { ["${homedir}/.config/hub", "${homedir}/.config/copr"]:
-    ensure  => absent,
+    ensure => absent,
   }
 
   package {

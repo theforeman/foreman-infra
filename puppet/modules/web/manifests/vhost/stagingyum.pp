@@ -29,7 +29,7 @@ class web::vhost::stagingyum (
   ]
 
   $authorized_keys = flatten($usernames.map |$name| {
-      split(file("users/${name}-authorized_keys"), "\n")
+    split(file("users/${name}-authorized_keys"), "\n")
   })
 
   secure_ssh::rsync::receiver_setup { $user:

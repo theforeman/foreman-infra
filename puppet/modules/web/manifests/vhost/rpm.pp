@@ -75,8 +75,8 @@ class web::vhost::rpm (
     group   => $user,
     mode    => '0644',
     content => epp("${module_name}/rpm/HEADER.html.epp", {
-        'stable_foreman' => $stable_foreman,
-        'servername'     => $servername,
+      'stable_foreman' => $stable_foreman,
+      'servername'     => $servername,
     }),
   }
 

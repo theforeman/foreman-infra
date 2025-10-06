@@ -18,7 +18,7 @@ define jenkins_node::pbuilder_setup (
   }
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d":
-    ensure  => bool2str($ensure == present, 'directory', 'absent'),
+    ensure => bool2str($ensure == present, 'directory', 'absent'),
   }
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d/debian.list":

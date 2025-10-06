@@ -35,7 +35,7 @@ class web::vhost::stagingrpm (
   include apache::mod::mime
 
   $authorized_keys = flatten($usernames.map |$name| {
-      split(file("users/${name}-authorized_keys"), "\n")
+    split(file("users/${name}-authorized_keys"), "\n")
   })
 
   secure_ssh::rsync::receiver_setup { $user:
@@ -45,8 +45,8 @@ class web::vhost::stagingrpm (
     foreman_search  => 'host ~ node*.jenkins.*.theforeman.org and (name = external_ip4 or name = external_ip6)',
     authorized_keys => $authorized_keys,
     script_content  => epp("${module_name}/deploy-stagingrpm.sh.epp", {
-        'home'                  => $home,
-        'rpm_staging_directory' => $rpm_staging_directory,
+      'home'                  => $home,
+      'rpm_staging_directory' => $rpm_staging_directory,
     }),
   }
 
@@ -73,7 +73,7 @@ class web::vhost::stagingrpm (
     group   => 'root',
     mode    => '0644',
     content => epp("${module_name}/stagingrpm/HEADER.html.epp", {
-        'servername' => $servername,
+      'servername' => $servername,
     }),
   }
 
