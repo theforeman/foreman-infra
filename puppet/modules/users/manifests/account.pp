@@ -7,7 +7,7 @@ define users::account (
 ) {
   if $sudo {
     include sudo
-    $groups = [if $facts['os']['family'] == 'Debian' { 'sudo' } else { 'wheel'}]
+    $groups = [if $facts['os']['family'] == 'Debian' { 'sudo' } else { 'wheel' }]
   } else {
     $groups = []
   }

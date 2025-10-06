@@ -5,7 +5,7 @@ define freight::user (
   Stdlib::Absolutepath $stagedir,
   String $vhost,
   Variant[String, Array[String]] $cron_matches,
-  Optional[Boolean] $cron_enable = true,
+  Optional[Boolean] $cron_enable = true, #lint:ignore:optional_default
   Optional[String[1]] $stable = undef,
 ) {
   require freight

@@ -92,7 +92,7 @@ class redmine (
   }
 
   file { '/etc/redmine':
-    ensure =>  directory,
+    ensure => directory,
   }
 
   file { '/etc/redmine/secure_config.yaml':

@@ -1,5 +1,5 @@
 # @api private
-class jenkins_node::packaging::debian(
+class jenkins_node::packaging::debian (
   String $user,
   Stdlib::Absolutepath $workspace,
   Boolean $uploader = true,

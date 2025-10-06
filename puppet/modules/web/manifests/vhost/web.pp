@@ -1,6 +1,6 @@
 # @summary Set up the web vhost
 # @api private
-class web::vhost::web(
+class web::vhost::web (
   String[1] $stable,
   Stdlib::Absolutepath $web_directory = '/var/www/vhosts/web/htdocs',
 ) {
@@ -74,7 +74,7 @@ class web::vhost::web(
     docroot_mode  => '0755',
     attrs         => {
       'rewrites'        => $external_rewrites + $https_rewrites + $docs_rewrites,
-      'error_documents' => [ { 'error_code' => 404, 'document' => '/404.html' } ],
+      'error_documents' => [{ 'error_code' => 404, 'document' => '/404.html' }],
     },
   }
 

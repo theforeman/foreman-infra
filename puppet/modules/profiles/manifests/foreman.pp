@@ -14,7 +14,7 @@ class profiles::foreman {
     value => $foreman::serveraliases,
   }
 
-  package {'rubygem-foreman_maintain':
+  package { 'rubygem-foreman_maintain':
     ensure => present,
   }
 
