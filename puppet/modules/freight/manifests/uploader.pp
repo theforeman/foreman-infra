@@ -5,7 +5,7 @@
 #   The username for which to deploy the upload key
 # @param workspace
 #   The workspace where to deploy the key
-class freight::uploader(
+class freight::uploader (
   String $user,
   Stdlib::Absolutepath $workspace,
 ) {
@@ -20,5 +20,4 @@ class freight::uploader(
     dir        => "${workspace}/staging_key",
     manage_dir => true,
   }
-
 }

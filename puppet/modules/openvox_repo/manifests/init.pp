@@ -1,4 +1,4 @@
-class openvox_repo(
+class openvox_repo (
   Enum['8', '7'] $release = '8'
 ) {
   case $facts['os']['family'] {

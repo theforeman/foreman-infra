@@ -8,7 +8,7 @@
 #   start httpd, the certs have to exist, so keep SSL vhosts disabled until the
 #   certs are present via the HTTP vhost and only then enable the SSL vhosts.
 #
-class web(
+class web (
   Boolean $https = true,
 ) {
   include web::base

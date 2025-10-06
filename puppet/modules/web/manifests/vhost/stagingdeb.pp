@@ -1,6 +1,6 @@
 # @summary Set up the stagingdeb vhost
 # @api private
-class web::vhost::stagingdeb(
+class web::vhost::stagingdeb (
   String $user = 'freightstage',
   Stdlib::Absolutepath $home = "/home/${user}",
   Stdlib::Absolutepath $stagedir = "/var/www/${user}",

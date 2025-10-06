@@ -1,4 +1,4 @@
-class openvox_repo::apt() {
+class openvox_repo::apt () {
   include apt
 
   $os_name = downcase($facts['os']['name'])

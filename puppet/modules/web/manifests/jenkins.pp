@@ -1,4 +1,4 @@
-class web::jenkins(
+class web::jenkins (
   Stdlib::Fqdn $hostname = 'ci.theforeman.org',
   Stdlib::Absolutepath $webroot = '/var/www/vhosts/jenkins/htdocs',
   Boolean $https = false,

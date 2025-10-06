@@ -1,4 +1,4 @@
-class web::letsencrypt(
+class web::letsencrypt (
   $email = 'foreman-infra-notifications@googlegroups.com',
 ) {
   class { 'letsencrypt':

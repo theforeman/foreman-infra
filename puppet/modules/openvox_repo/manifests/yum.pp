@@ -1,4 +1,4 @@
-class openvox_repo::yum() {
+class openvox_repo::yum () {
   $os_name = $facts['os']['name'] ? {
     'Fedora' => 'fedora',
     'Amazon' => 'amazon',

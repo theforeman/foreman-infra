@@ -1,5 +1,5 @@
 # Various basic utilities
-class utility($sysadmins = ['/dev/null']) {
+class utility ($sysadmins = ['/dev/null']) {
   $vim = $facts['os']['family'] ? {
     'RedHat' => 'vim-enhanced',
     default  => 'vim',

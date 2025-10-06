@@ -1,4 +1,4 @@
-class discourse(
+class discourse (
   String $developer_emails,
   String $api_key,
   String $le_account_email,

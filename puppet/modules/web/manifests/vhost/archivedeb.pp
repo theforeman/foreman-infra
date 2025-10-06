@@ -1,6 +1,6 @@
 # @summary Set up the archivedeb vhost
 # @api private
-class web::vhost::archivedeb(
+class web::vhost::archivedeb (
   String $user = 'freightarchive',
   Stdlib::Absolutepath $home = "/home/${user}",
   Stdlib::Absolutepath $stagedir = "/var/www/${user}",

@@ -5,5 +5,4 @@ class users (
 
   # Users hash is passed from Foreman
   create_resources(users::account, $users)
-
 }
