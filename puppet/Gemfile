@@ -5,16 +5,7 @@ gem 'semantic_puppet'
 
 gem 'puppet', '~> 8.0', require: false
 gem 'puppet-lint', require: false
-gem 'puppet-lint-absolute_classname-check', require: false
-gem 'puppet-lint-file_ensure-check', require: false
-gem 'puppet-lint-leading_zero-check', require: false
-gem 'puppet-lint-params_empty_string-check', require: false
-gem 'puppet-lint-strict_indent-check', require: false
-gem 'puppet-lint-topscope-variable-check', require: false
-gem 'puppet-lint-trailing_comma-check', require: false
-gem 'puppet-lint-unquoted_string-check', require: false
-gem 'puppet-lint-variable_contains_upcase', require: false
-gem 'puppet-lint-version_comparison-check', require: false
+gem 'voxpupuli-puppet-lint-plugins', '~> 7.0'
 gem 'puppet-syntax', require: false
 gem 'rspec-puppet', require: false
 gem 'rspec-puppet-facts', require: false
