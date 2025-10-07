@@ -4,5 +4,5 @@
 # accidental fork bombs.
 # See rhbz #432903 for reasoning.
 
-*          soft    nproc     <%= (@memorysize_mb || 2048).to_i %>
+*          soft    nproc     <%= (@facts['memory']['system']['total_bytes'] / (1024*1024) || 2048).to_i %>
 root       soft    nproc     unlimited
