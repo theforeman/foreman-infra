@@ -9,11 +9,11 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder "puppet/data", "/tmp/vagrant-puppet/data", type: "rsync"
 
-  config.vm.provision "install puppet", type: "shell", inline: <<-SHELL
+  config.vm.provision "install openvox-agent", type: "shell", inline: <<-SHELL
     . /etc/os-release
     yum -y install epel-release
-    yum -y install puppet7-release || yum -y install https://yum.puppetlabs.com/puppet7-release-el-${VERSION_ID}.noarch.rpm
-    yum -y install puppet-agent
+    yum -y install openvox8-release || yum -y install https://yum.voxpupuli.org/openvox8-release-el-${VERSION_ID}.noarch.rpm
+    yum -y install openvox-agent
   SHELL
 
   config.vm.provision "run puppet", type: 'puppet' do |puppet|
@@ -50,12 +50,12 @@ Vagrant.configure("2") do |config|
     override.vm.provider "libvirt" do |libvirt|
       libvirt.memory = "4096"
     end
-    override.vm.provision "install puppet", type: "shell", inline: <<-SHELL
+    override.vm.provision "install openvox-agent", type: "shell", inline: <<-SHELL
       . /etc/os-release
-      wget https://apt.puppet.com/puppet7-release-${VERSION_CODENAME}.deb
-      apt-get install -y ./puppet7-release-${VERSION_CODENAME}.deb
+      wget https://apt.voxpupuli.org/openvox8-release-debian${VERSION_ID}.deb
+      apt-get install -y ./openvox8-release-debian${VERSION_ID}.deb
       apt-get update
-      apt-get install -y puppet-agent
+      apt-get install -y openvox-agent
     SHELL
   end
 

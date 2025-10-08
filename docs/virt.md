@@ -38,8 +38,8 @@ systemctl enable --now libvirtd
 
 Now bootstrap Puppet:
 ```
-dnf install https://yum.puppet.com/puppet7-release-el-8.noarch.rpm
-dnf install puppet-agent
+dnf install https://yum.voxpupuli.org/openvox8-release-el-9.noarch.rpm
+dnf install openvox-agent
 . /etc/profile.d/puppet-agent.sh
 puppet config set server puppet.theforeman.org
 puppet ssl bootstrap

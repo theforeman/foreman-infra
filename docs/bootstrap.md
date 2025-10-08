@@ -4,11 +4,11 @@ To rebuild the whole Foreman Infrastructure from scratch, these are the steps to
 
 ## Build a Puppetserver
 
-Install a minimal EL8 install. Then:
+Install a minimal EL9 install. Then:
 
 ```sh
-dnf install https://yum.puppet.com/puppet7-release-el-8.noarch.rpm
-dnf install puppetserver
+dnf install https://yum.voxpupuli.org/openvox8-release-el-9.noarch.rpm
+dnf install openvox-server
 . /etc/profile.d/puppet-agent.sh
 puppetserver ca setup --ca-name 'Foreman Puppet CA' --certname $HOSTNAME --subject-alt-names puppet.theforeman.org
 puppet config set --section agent server puppet.theforeman.org
@@ -34,11 +34,11 @@ rsync -av --delete --exclude={Gem,Rake,Puppet}file*,test_modules,spec,check_depe
 
 ## Build a Foreman server
 
-Install a minimal EL8 install. Then:
+Install a minimal EL9 install. Then:
 
 ```sh
-dnf install https://yum.puppet.com/puppet7-release-el-8.noarch.rpm
-dnf install puppet-agent
+dnf install https://yum.voxpupuli.org/openvox8-release-el-9.noarch.rpm
+dnf install openvox-agent
 . /etc/profile.d/puppet-agent.sh
 puppet config set --section agent environment bootstrap
 puppet config set --section agent server puppet.theforeman.org

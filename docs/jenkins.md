@@ -54,13 +54,13 @@ https://github.com/theforeman/foreman-infra/tree/master/puppet/modules contains 
 
 ### Configuring a new node
 
-For Enterprise Linux 9, ensure the correct Puppet repository is configured:
+For Enterprise Linux 9, ensure the correct Openvox repository is configured:
 
-* `dnf -y install https://yum.puppet.com/puppet7-release-el-9.noarch.rpm`
+* `dnf -y install https://yum.voxpupuli.org/openvox8-release-el-9.noarch.rpm`
 
 For all Enterprise Linux versions:
 
-* `dnf -y install puppet-agent`
+* `dnf -y install openvox-agent`
 * `echo "server = puppet.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
 * ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or conova for example and that the record is in DNS
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
@@ -72,8 +72,8 @@ For all Enterprise Linux versions:
 
 For Debian:
 
-* Ensure apt.puppet.com is configured: [puppet7-release](https://apt.puppetlabs.com/puppet7-release-bullseye.deb)
-* `apt update && apt install puppet-agent`
+* Ensure apt.voxpupuli.org is configured: [openvox8-release](https://apt.voxpupuli.org/openvox8-release-debian12.deb)
+* `apt update && apt install openvox-agent`
 * `echo "server = puppet.theforeman.org" >> /etc/puppetlabs/puppet/puppet.conf`
 * Make the `puppet` command available: `source /etc/profile.d/puppet-agent.sh`
 * ensure hostname is set node0X.jenkins.<provider\>.theforeman.org where <provider\> is osuosl or conova for example and that the record is in DNS
