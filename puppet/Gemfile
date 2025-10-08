@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'puppet_metadata'
 gem 'semantic_puppet'
 
-gem 'puppet', '~> 8.0', require: false
+gem 'openvox', '~> 8.0', require: false
 gem 'puppet-lint', require: false
 gem 'voxpupuli-puppet-lint-plugins', '~> 7.0'
 gem 'puppet-syntax', require: false
