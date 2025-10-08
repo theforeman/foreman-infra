@@ -23,7 +23,7 @@ end
 base_dir = File.dirname(File.expand_path(__dir__))
 
 RSpec.configure do |c|
-  c.module_path     = [File.join(base_dir, 'modules'), File.join(base_dir, 'external_modules'), File.join(base_dir, 'test_modules')].join(File::PATH_SEPARATOR)
+  c.module_path     = [File.join(base_dir, 'modules'), File.join(base_dir, 'external_modules')].join(File::PATH_SEPARATOR)
   c.hiera_config    = File.join(base_dir, 'hiera.yaml')
   c.environmentpath = base_dir
   c.strict_variables = true

@@ -12,6 +12,3 @@ Externally maintained modules. Preferably straight from the [Puppet Forge](https
 
 ### `modules`
 Our own custom modules, relevant only in this particular repository for this particular setup.
-
-### `test_modules`
-Modules relevant only in the Puppet spec tests, e.g. Puppet's core modules, that are coming bundled with the agent in a real setup.
