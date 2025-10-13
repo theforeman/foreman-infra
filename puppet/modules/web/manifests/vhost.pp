@@ -35,13 +35,13 @@ define web::vhost (
 ) {
   require web
 
-  $file_ensure = $ensure ? {
+  $directory_ensure = $ensure ? {
     'present' => 'directory',
     'absent'  => 'absent',
   }
 
   file { dirname($docroot):
-    ensure => $file_ensure,
+    ensure => $directory_ensure,
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
