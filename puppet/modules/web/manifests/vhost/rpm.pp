@@ -50,6 +50,7 @@ class web::vhost::rpm (
   include apache::mod::mime
 
   web::vhost { 'rpm':
+    ensure        => 'absent',
     servername    => "rpm-backend.${facts['networking']['fqdn']}",
     docroot       => $rpm_directory,
     docroot_owner => $user,
@@ -59,7 +60,7 @@ class web::vhost::rpm (
   }
 
   file { "${rpm_directory}/robots.txt":
-    ensure  => file,
+    ensure  => 'absent',
     owner   => $user,
     group   => $user,
     mode    => '0644',
@@ -67,7 +68,7 @@ class web::vhost::rpm (
   }
 
   file { "${rpm_directory}/HEADER.html":
-    ensure  => file,
+    ensure  => 'absent',
     owner   => $user,
     group   => $user,
     mode    => '0644',
@@ -79,22 +80,15 @@ class web::vhost::rpm (
 
   ['candlepin', 'foreman', 'pulpcore'].each |$directory| {
     file { ["${rpm_directory}/${directory}"]:
-      ensure => directory,
+      ensure => 'absent',
       owner  => $user,
       group  => $user,
       mode   => '0755',
     }
-
-    exec { "fastly-purge-${directory}-latest":
-      command     => "fastly-purge-find 'https://${servername}' ${rpm_directory} ${directory}/latest/",
-      path        => '/bin:/usr/bin:/usr/local/bin',
-      require     => File['/usr/local/bin/fastly-purge-find'],
-      refreshonly => true,
-    }
   }
 
   file { "${rpm_directory}/pulpcore/HEADER.html":
-    ensure  => file,
+    ensure  => 'absent',
     owner   => $user,
     group   => $user,
     mode    => '0644',
