@@ -1,7 +1,7 @@
 # @summary Set up the rpm staging vhost
 # @api private
 class web::vhost::stagingrpm (
-  Array[String[1]] $usernames,
+  Array[String[1]] $usernames = [],
   Stdlib::Fqdn $servername = 'stagingrpm.theforeman.org',
   Stdlib::Absolutepath $rpm_staging_directory = '/var/www/vhosts/stagingrpm/htdocs',
   String $user = 'rpmrepostage',
