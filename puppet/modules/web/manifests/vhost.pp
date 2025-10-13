@@ -18,9 +18,12 @@
 #   The docroot group, if any
 # @param docroot_mode
 #   The docroot mode, if any
+# @param ensure
+#   Whether the vhost should be present or absent
 # @param attrs
 #   Attributes that should be passed to the vhost and https vhost
 define web::vhost (
+  Enum['present', 'absent'] $ensure = 'present',
   Stdlib::Fqdn $servername = "${title}.theforeman.org",
   Array[Stdlib::Fqdn] $serveraliases = [],
   Optional[Array[Hash]] $directories = undef,
@@ -32,14 +35,20 @@ define web::vhost (
 ) {
   require web
 
+  $file_ensure = $ensure ? {
+    'present' => 'directory',
+    'absent'  => 'absent',
+  }
+
   file { dirname($docroot):
-    ensure => directory,
+    ensure => $file_ensure,
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
   }
 
   apache::vhost { $title:
+    ensure        => $ensure,
     servername    => $servername,
     serveraliases => $serveraliases,
     port          => 80,
@@ -55,12 +64,14 @@ define web::vhost (
     include web::letsencrypt
 
     letsencrypt::certonly { $servername:
+      ensure        => $ensure,
       plugin        => 'webroot',
       domains       => [$servername] + $serveraliases,
       webroot_paths => [$docroot],
     }
 
     apache::vhost { "${title}-https":
+      ensure        => $ensure,
       servername    => $servername,
       serveraliases => $serveraliases,
       directories   => $directories,
