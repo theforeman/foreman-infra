@@ -16,6 +16,7 @@ class jenkins_node::rbenv {
 
   stdlib::ensure_packages(['gcc-c++'])
 
+  rbenv::build { '3.2.9': }
   rbenv::build { '3.1.0': }
   rbenv::build { '3.0.4': }
   rbenv::build { '2.7.6': }
