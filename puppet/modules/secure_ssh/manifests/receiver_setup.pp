@@ -28,9 +28,13 @@
 # @param ssh_key_name
 #   The name of the SSH key
 #
+# @param ensure
+#   Whether the SSH receiver setup should be present or absent
+#
 define secure_ssh::receiver_setup (
   String $user,
   String $script_content,
+  Enum['present', 'absent'] $ensure = 'present',
   Array[String] $groups = [],
   Stdlib::Absolutepath $homedir = "/home/${user}",
   Stdlib::Filemode $homedir_mode = '0700',
@@ -39,9 +43,14 @@ define secure_ssh::receiver_setup (
   String $ssh_key_name = "${name}_key",
   Array[String] $authorized_keys = [],
 ) {
+  $directory_ensure = $ensure ? {
+    'present' => 'directory',
+    'absent'  => 'absent',
+  }
+
   # Disable password, we want this to be keys only
   user { $user:
-    ensure     => present,
+    ensure     => $ensure,
     home       => $homedir,
     managehome => true,
     password   => '!',
@@ -50,13 +59,13 @@ define secure_ssh::receiver_setup (
 
   # Created above, but this ensures futher chaining is correct
   file { $homedir:
-    ensure => directory,
+    ensure => $directory_ensure,
     owner  => $user,
     mode   => $homedir_mode,
   }
 
   file { "${homedir}/.ssh":
-    ensure => directory,
+    ensure => $directory_ensure,
     owner  => $user,
     mode   => '0700',
   }
@@ -72,7 +81,7 @@ define secure_ssh::receiver_setup (
   }
 
   file { "${homedir}/.ssh/authorized_keys":
-    ensure  => file,
+    ensure  => $ensure,
     owner   => $user,
     mode    => '0700',
     content => template('secure_ssh/auth_keys.erb'),
@@ -80,13 +89,13 @@ define secure_ssh::receiver_setup (
 
   # Create validation script for secure connections only
   file { "${homedir}/bin":
-    ensure => directory,
+    ensure => $directory_ensure,
     owner  => $user,
     mode   => '0700',
   }
 
   file { "${homedir}/bin/secure_${name}":
-    ensure  => file,
+    ensure  => $ensure,
     owner   => $user,
     mode    => '0700',
     content => $script_content,
