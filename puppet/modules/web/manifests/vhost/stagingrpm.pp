@@ -39,6 +39,7 @@ class web::vhost::stagingrpm (
   })
 
   secure_ssh::rsync::receiver_setup { $user:
+    ensure          => 'absent',
     user            => $user,
     homedir         => $home,
     homedir_mode    => '0750',
@@ -51,6 +52,7 @@ class web::vhost::stagingrpm (
   }
 
   web::vhost { 'stagingrpm':
+    ensure        => 'absent',
     servername    => "stagingrpm-backend.${facts['networking']['fqdn']}",
     docroot       => $rpm_staging_directory,
     docroot_owner => $user,
@@ -60,7 +62,7 @@ class web::vhost::stagingrpm (
   }
 
   file { "${rpm_staging_directory}/robots.txt":
-    ensure  => file,
+    ensure  => 'absent',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -68,7 +70,7 @@ class web::vhost::stagingrpm (
   }
 
   file { "${rpm_staging_directory}/HEADER.html":
-    ensure  => file,
+    ensure  => 'absent',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -79,7 +81,7 @@ class web::vhost::stagingrpm (
 
   ['candlepin', 'foreman', 'pulpcore'].each |$directory| {
     file { ["${rpm_staging_directory}/${directory}"]:
-      ensure => directory,
+      ensure => 'absent',
       owner  => $user,
       group  => $user,
       mode   => '0755',
