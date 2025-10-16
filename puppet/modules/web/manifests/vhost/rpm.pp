@@ -37,6 +37,7 @@ class web::vhost::rpm (
   }
 
   secure_ssh::receiver_setup { $user:
+    ensure         => 'absent',
     user           => $user,
     foreman_search => 'host ~ node*.jenkins.osuosl.theforeman.org and (name = external_ip4 or name = external_ip6)',
     script_content => epp('web/deploy-rpmrepo.sh.epp', $deploy_rpmrepo_context),
@@ -55,10 +56,6 @@ class web::vhost::rpm (
     docroot_group => $user,
     docroot_mode  => '0755',
     directories   => $rpm_directory_config,
-  }
-
-  if $facts['os']['family'] == 'RedHat' {
-    stdlib::ensure_packages(['createrepo_c'])
   }
 
   file { "${rpm_directory}/robots.txt":

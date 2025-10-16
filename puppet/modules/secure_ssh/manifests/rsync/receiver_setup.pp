@@ -27,6 +27,7 @@
 #
 define secure_ssh::rsync::receiver_setup (
   String $user,
+  Enum['present', 'absent'] $ensure = 'present',
   Array[String] $groups = [],
   Stdlib::Absolutepath $homedir = "/home/${user}",
   Stdlib::Filemode $homedir_mode = '0700',
@@ -35,7 +36,13 @@ define secure_ssh::rsync::receiver_setup (
   String $script_content = "# Permit transfer\n\$SSH_ORIGINAL_COMMAND\n",
   Array[String] $authorized_keys = [],
 ) {
+  $directory_ensure = $ensure ? {
+    'present' => 'directory',
+    'absent'  => 'absent',
+  }
+
   secure_ssh::receiver_setup { $name:
+    ensure          => $ensure,
     user            => $user,
     groups          => $groups,
     homedir         => $homedir,
@@ -48,7 +55,7 @@ define secure_ssh::rsync::receiver_setup (
   }
 
   file { "${homedir}/rsync_cache":
-    ensure => directory,
+    ensure => $directory_ensure,
     owner  => $user,
   }
 }
