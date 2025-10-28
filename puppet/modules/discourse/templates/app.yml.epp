@@ -96,8 +96,6 @@ hooks:
         cd: $home/plugins
         cmd:
           - git clone https://github.com/discourse/docker_manager.git
-          - git clone https://github.com/discourse/discourse-data-explorer.git
-          - git clone https://github.com/discourse/discourse-solved.git
           - git clone https://github.com/paviliondev/discourse-events.git
           - git clone https://github.com/paviliondev/discourse-locations.git
 
