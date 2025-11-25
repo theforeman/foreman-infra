@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+ACTIVE_SESSIONS=$(loginctl list-sessions --output json | jq 'any(.state == "active")')
+
+if [[ $ACTIVE_SESSIONS != true ]]; then
+  shutdown -r +5 'Rebooting after applying package updates'
+fi

@@ -19,9 +19,9 @@ class unattended {
     if $trusted['certname'] =~ /^node\d+\.jenkins\.[a-z]+\.theforeman\.org$/ {
       $reboot = 'when-needed'
       $reboot_command = '/usr/local/sbin/reboot-jenkins-node'
-    } elsif $trusted['certname'] =~ /(backup|website)\d+\.[a-z]+\.theforeman\.org$/ {
+    } elsif $trusted['certname'] =~ /^(repo-deb|repo-rpm|backup|website)\d+\.[a-z]+\.theforeman\.org$/ {
       $reboot = 'when-needed'
-      $reboot_command = "shutdown -r +5 'Rebooting after applying package updates'"
+      $reboot_command = '/usr/local/sbin/reboot-inactive-system'
     } else {
       $reboot = 'never'
       $reboot_command = "shutdown -r +5 'Rebooting after applying package updates'"
