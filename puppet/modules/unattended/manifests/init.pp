@@ -10,6 +10,7 @@ class unattended {
       ],
       extra_origins => [
         'site=apt.grafana.com,component=main',
+        'origin=Vox Pupuli',
       ],
       mail          => { 'to' => 'sysadmins', },
     }
