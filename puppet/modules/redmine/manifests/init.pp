@@ -36,6 +36,7 @@ class redmine (
   String $db_password            = extlib::cache_data('foreman_cache_data', 'db_password', extlib::random_password(32)),
   Boolean $https                 = false,
   Boolean $cron                  = true,
+  Boolean $anubis                = true,
 ) {
   # PostgreSQL tuning
   $postgresql_settings = {
@@ -192,12 +193,17 @@ class redmine (
     },
   }
 
-  anubis::instance { 'redmine':
-    target   => 'http://127.0.0.1:3000/',
-    settings => {
-      'BIND'         => 'localhost:8923',
-      'METRICS_BIND' => 'localhost:9090',
-    },
+  if $anubis {
+    anubis::instance { 'redmine':
+      target   => 'http://127.0.0.1:3000/',
+      settings => {
+        'BIND'         => 'localhost:8923',
+        'METRICS_BIND' => 'localhost:9090',
+      },
+    }
+    $proxy_backend = 'http://127.0.0.1:8923/'
+  } else {
+    $proxy_backend = 'http://127.0.0.1:3000/'
   }
 
   $apache_backend_config = {
@@ -213,7 +219,7 @@ class redmine (
         '/server-status', '/help', '/images', '/javascripts', '/plugin_assets', '/stylesheets', '/themes', '/favicon.ico',
       ],
       'path'          => '/',
-      'url'           => 'http://127.0.0.1:8923/',
+      'url'           => $proxy_backend,
     },
   }
 
