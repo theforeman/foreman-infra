@@ -19,6 +19,7 @@ node /^backup.*/ {
 }
 
 node /^redmine.*/ {
+  include profiles::base
   include profiles::redmine
 }
 
