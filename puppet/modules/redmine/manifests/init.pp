@@ -136,7 +136,7 @@ class redmine (
     path        => $facts['path'],
     environment => ["HOME=${app_root}"],
     unless      => 'bundle check',
-    require     => Package[$packages],
+    require     => [Package[$packages], File["${app_root}/config/database.yml"]],
   }
 
   file { "${app_root}/config/database.yml":
