@@ -66,6 +66,7 @@ class redmine (
     'sqlite-devel',
     'redhat-rpm-config',
     'make',
+    'libyaml-devel',
   ]
 
   stdlib::ensure_packages($packages)
