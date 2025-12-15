@@ -45,6 +45,14 @@ class redmine (
     'work_mem'                     => '4MB',
   }
 
+  package { 'ruby dnf module':
+    ensure      => '3.3',
+    name        => 'ruby',
+    enable_only => true,
+    provider    => 'dnfmodule',
+    before      => Package['ruby-devel'],
+  }
+
   # Needed for bundle install
   $packages = [
     'git',
