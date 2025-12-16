@@ -216,7 +216,7 @@ class redmine (
     ],
     'proxy_pass'          => {
       'no_proxy_uris' => [
-        '/server-status', '/help', '/images', '/javascripts', '/plugin_assets', '/stylesheets', '/themes', '/favicon.ico',
+        '/server-status', '/help', '/images', '/javascripts', '/plugin_assets', '/stylesheets', '/themes', '/favicon.ico', '/assets',
       ],
       'path'          => '/',
       'url'           => $proxy_backend,
