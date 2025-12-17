@@ -1,0 +1,3 @@
+---
+bots:
+  - import: (data)/meta/default-config.yaml
