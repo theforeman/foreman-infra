@@ -195,11 +195,12 @@ class redmine (
 
   if $anubis {
     anubis::instance { 'redmine':
-      target   => 'http://127.0.0.1:3000/',
-      settings => {
+      target       => 'http://127.0.0.1:3000/',
+      settings     => {
         'BIND'         => 'localhost:8923',
         'METRICS_BIND' => 'localhost:9090',
       },
+      bot_policies => file('redmine/anubis.botPolicies.yaml'),
     }
     $proxy_backend = 'http://127.0.0.1:8923/'
   } else {
