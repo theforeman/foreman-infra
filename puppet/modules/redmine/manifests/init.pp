@@ -238,12 +238,13 @@ class redmine (
   }
 
   apache::vhost { $servername:
-    docroot        => $docroot,
-    manage_docroot => false,
-    port           => 80,
-    priority       => $priority,
-    servername     => $servername,
-    *              => $http_backend_config,
+    access_log_format => 'common',
+    docroot           => $docroot,
+    manage_docroot    => false,
+    port              => 80,
+    priority          => $priority,
+    servername        => $servername,
+    *                 => $http_backend_config,
   }
 
   if $https {
@@ -257,6 +258,7 @@ class redmine (
     }
 
     apache::vhost { "${servername}-https":
+      access_log_format   => 'common',
       add_default_charset => 'UTF-8',
       docroot             => $docroot,
       manage_docroot      => false,
