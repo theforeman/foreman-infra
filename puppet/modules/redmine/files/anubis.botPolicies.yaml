@@ -1,3 +1,8 @@
 ---
 bots:
   - import: (data)/meta/default-config.yaml
+  - name: does-not-need-to-have-accept
+    expression: '!("Accept" in headers)'
+    action: WEIGH
+    weight:
+      adjust: -5
