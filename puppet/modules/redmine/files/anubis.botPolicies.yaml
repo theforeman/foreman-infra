@@ -1,5 +1,9 @@
 ---
 bots:
+  - name: community-theforeman-org
+    action: ALLOW
+    remote_addresses:
+      - 195.192.212.29/32
   - import: (data)/meta/default-config.yaml
   - name: does-not-need-to-have-accept
     expression: '!("Accept" in headers)'
