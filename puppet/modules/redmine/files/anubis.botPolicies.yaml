@@ -9,4 +9,3 @@ bots:
 
 openGraph:
   enabled: true
-  ttl: 24h
