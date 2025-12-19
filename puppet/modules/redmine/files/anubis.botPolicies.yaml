@@ -6,6 +6,3 @@ bots:
     action: WEIGH
     weight:
       adjust: -5
-
-openGraph:
-  enabled: true
