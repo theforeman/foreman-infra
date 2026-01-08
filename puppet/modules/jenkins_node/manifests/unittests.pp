@@ -58,7 +58,7 @@ class jenkins_node::unittests (
   # nodejs/npm for JavaScript tests
   if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
     class { 'nodejs':
-      repo_version     => '18',
+      repo_version     => '22',
       repo_class       => 'nodejs::repo::dnfmodule',
       npm_package_name => false,
     } -> Package <| provider == 'npm' |>
