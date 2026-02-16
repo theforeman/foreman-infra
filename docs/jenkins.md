@@ -4,9 +4,7 @@ The Foreman project maintains its own Jenkins instance for continuous integratio
 
 It runs the following types of tests:
 
-* Unit tests on the main develop and all supported stable branches of core Foreman projects
-* Pull request tests against core Foreman projects
-* Unit and pull request tests for many Foreman plugins
+* Tests on the develop branches of core Foreman projects
 * Nightly and release package building and release processes
 * Package smoke and integration testing
 * Package jobs for Pulpcore
