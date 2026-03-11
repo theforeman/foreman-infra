@@ -35,6 +35,12 @@ class web::vhost::yum (
     script_content => file('web/deploy-yumrepo.sh'),
   }
 
+  include apache::mod::alias
+  include apache::mod::autoindex
+  include apache::mod::dir
+  include apache::mod::expires
+  include apache::mod::mime
+
   web::vhost { 'yum':
     servername    => "yum-backend.${facts['networking']['fqdn']}",
     docroot       => $yum_directory,
