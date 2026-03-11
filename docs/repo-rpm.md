@@ -13,8 +13,6 @@
 
 These domains are all hosted on the server.
 
-* rpm.theforeman.org
-* stagingrpm.theforeman.org
 * yum.theforeman.org
 * stagingyum.theforeman.org
 
@@ -22,8 +20,6 @@ These domains are all hosted on the server.
 
 This server does not host the domains directly, but has the following backend vhosts configured:
 
-* rpm-backend.repo-rpm01.osuosl.theforeman.org
-* stagingrpm-backend.repo-rpm01.osuosl.theforeman.org
 * yum-backend.repo-rpm01.osuosl.theforeman.org
 * stagingyum-backend.repo-rpm01.osuosl.theforeman.org
 
