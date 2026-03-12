@@ -3,10 +3,10 @@ class unattended {
     class { 'unattended_upgrades':
       auto          => { 'reboot' => false },
       blacklist     => [
-        'openjdk-17-jdk',
-        'openjdk-17-jdk-headless',
-        'openjdk-17-jre',
-        'openjdk-17-jre-headless',
+        'openjdk-21-jdk',
+        'openjdk-21-jdk-headless',
+        'openjdk-21-jre',
+        'openjdk-21-jre-headless',
       ],
       extra_origins => [
         'site=apt.grafana.com,component=main',

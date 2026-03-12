@@ -23,19 +23,19 @@ class jenkins_node (
   include fastly_purge
 
   if $facts['os']['family'] == 'RedHat' {
-    $java_package = 'java-17-openjdk-headless'
+    $java_package = 'java-21-openjdk-headless'
 
-    package { ['java-11-openjdk', 'java-11-openjdk-headless', 'java-11-openjdk-devel']:
+    package { ['java-17-openjdk', 'java-17-openjdk-headless', 'java-17-openjdk-devel']:
       ensure => absent,
     }
-    Package['java-11-openjdk-devel'] -> Package['java-11-openjdk'] -> Package['java-11-openjdk-headless']
+    Package['java-17-openjdk-devel'] -> Package['java-17-openjdk'] -> Package['java-17-openjdk-headless']
   } elsif $facts['os']['family'] == 'Debian' {
-    $java_package = 'openjdk-17-jdk'
+    $java_package = 'openjdk-21-jdk'
 
-    package { ['openjdk-11-jdk', 'openjdk-11-jdk-headless', 'openjdk-11-jre', 'openjdk-11-jre-headless']:
+    package { ['openjdk-17-jdk', 'openjdk-17-jdk-headless', 'openjdk-17-jre', 'openjdk-17-jre-headless']:
       ensure => absent,
     }
-    Package['openjdk-11-jdk'] -> Package['openjdk-11-jre'] -> Package['openjdk-11-jdk-headless'] -> Package['openjdk-11-jre-headless']
+    Package['openjdk-17-jdk'] -> Package['openjdk-17-jre'] -> Package['openjdk-17-jdk-headless'] -> Package['openjdk-17-jre-headless']
   } else {
     $java_package = undef
   }
