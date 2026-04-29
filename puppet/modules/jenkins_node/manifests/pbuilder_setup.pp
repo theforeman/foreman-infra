@@ -11,10 +11,11 @@ define jenkins_node::pbuilder_setup (
   Boolean $puppetlabs = true,
 ) {
   pbuilder { $name:
-    ensure    => $ensure,
-    arch      => $arch,
-    release   => $release,
-    methodurl => $apturl,
+    ensure       => $ensure,
+    arch         => $arch,
+    release      => $release,
+    methodurl    => $apturl,
+    debbuildopts => '',
   }
 
   file { "/etc/pbuilder/${name}/apt.config/sources.list.d":
