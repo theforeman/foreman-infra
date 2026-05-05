@@ -4,6 +4,7 @@ class jenkins_node::postgresql {
   if $facts['os']['family'] == 'RedHat' {
     # Necessary for PostgreSQL EVR extension
     yumrepo { 'pulpcore':
+      ensure   => 'absent',
       baseurl  => "http://yum.theforeman.org/pulpcore/3.39/el\$releasever/\$basearch/",
       descr    => 'Pulpcore',
       enabled  => true,
