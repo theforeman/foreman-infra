@@ -1,5 +1,22 @@
 # @api private
 class jenkins_node::postgresql {
+  # only CentOS nodes are used to run unit tests
+  if $facts['os']['family'] == 'RedHat' {
+    # Necessary for PostgreSQL EVR extension
+    yumrepo { 'pulpcore':
+      baseurl  => "http://yum.theforeman.org/pulpcore/3.39/el\$releasever/\$basearch/",
+      descr    => 'Pulpcore',
+      enabled  => true,
+      gpgcheck => true,
+      gpgkey   => 'https://yum.theforeman.org/pulpcore/3.39/GPG-RPM-KEY-pulpcore',
+    } ->
+    package { ['postgresql-evr']:
+      ensure  => 'absent',
+      notify  => Class['postgresql::server::service'],
+      require => Class['postgresql::server::install'],
+    }
+  }
+
   # Tune DB settings for Jenkins nodes, this is UNSAFE for production!
   $settings = {
     'fsync'                        => 'off',
