@@ -18,3 +18,4 @@ nav:
   - Bootstrap: bootstrap.md
   - Monitoring: monitoring.md
   - CDN: cdn.md
+  - Packaging: packaging.md
