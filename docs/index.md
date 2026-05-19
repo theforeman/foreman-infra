@@ -28,6 +28,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [DEB repository](repo-deb.md) | OSUOSL |
 | [RPM repository](repo-rpm.md) | OSUOSL |
 | [Monitoring](monitoring.md) | Grafana Labs |
+| [CDN](cdn.md) | Fastly |
 
 ## Infrastructure providers
 
