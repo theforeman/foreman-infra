@@ -10,7 +10,10 @@ nav:
     - Redmine: redmine.md
     - Virt: virt.md
     - Webserver: webserver.md
+    - RPM repository: repo-rpm.md
+    - DEB repository: repo-deb.md
   - GPG: gpg.md
   - Secrets: secrets.md
   - Backups: backups.md
   - Bootstrap: bootstrap.md
+  - Monitoring: monitoring.md
