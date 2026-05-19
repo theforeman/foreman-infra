@@ -16,36 +16,9 @@ These domains are all hosted on the webserver.
 * theforeman.org, www.theforeman.org
 * downloads.theforeman.org
 
-### Fastly CDN
+### CDN
 
-A Fastly CDN exists that sits in front of:
-
-* theforeman.org, www.theforeman.org
-* downloads.theforeman.org
-
-For these, the webserver acts as a backend while the content is served from the Fastly CDN to users.
-
-#### Configuration
-
-The Fastly configuration happens through the `ansible/fastly.yml` Ansible playbook in this repository.
-
-The major points of the configuration are:
-
-* Set the backend to `<vhost>-backend.website01.osuosl.theforeman.org`
-* Enable shielding: a central system fetches the assets and then distributes them across the CDN instead of each CDN node fetches them itself, this costs more CDN traffic, but is usually faster
-* Configure a health-check and serve stale content when it fails
-
-#### TLS
-
-Fastly provides a shared certificate which has `theforeman.org` and `*.theforeman.org` as DNSAltName.
-
-This certificate is signed by GlobalSign and we have a `_globalsign-domain-verification` TXT record in the `theforeman.org` DNS zone for verification of ownership.
-
-#### DNS
-
-Each vhost has a CNAME pointing at `dualstack.p2.shared.global.fastly.net` which is the Fastly global, dualstack loadbalancer.
-
-Alternatively one can use `p2.shared.global.fastly.net` for an IPv4-only setup.
+The user traffic is served the [CDN](cdn.md), the webserver acts as a backend.
 
 ## Volumes
 

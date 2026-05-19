@@ -17,3 +17,4 @@ nav:
   - Backups: backups.md
   - Bootstrap: bootstrap.md
   - Monitoring: monitoring.md
+  - CDN: cdn.md
