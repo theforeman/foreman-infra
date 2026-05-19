@@ -69,7 +69,7 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Provides Jenkins and bare metal hardware for running pipeline testing
   * Support:
     * IRC: `#centos-ci` on `libera.chat`
-    * Ticket system: [https://pagure.io/centos-infra](https://pagure.io/centos-infra/issues)
+    * Ticket system: [https://gitlab.com/CentOS/infra/tracker/](https://gitlab.com/CentOS/infra/tracker/)
 ### Conova
   * Sponsored
   * 1 HP Proliant machine (24 core, 192 GB RAM, 2×1TB SSD), incl power and network
