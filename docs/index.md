@@ -29,6 +29,7 @@ Fork https://github.com/theforeman/foreman-infra and add your key into the [file
 | [RPM repository](repo-rpm.md) | OSUOSL |
 | [Monitoring](monitoring.md) | Grafana Labs |
 | [CDN](cdn.md) | Fastly |
+| [Packaging](packaging.md) | COPR, Packit |
 
 ## Infrastructure providers
 
@@ -89,3 +90,9 @@ A list of the hosting we have, who provides it, and what capacity it has
   * Sponsorship needs renewal once a year, mail `community@grafana.com` before it runs out (24.04 is the end data, so mailing in February is a good idea)
   * Grafana access via https://theforeman.grafana.net/
   * People with access: Eric, Evgeni, Ewoud
+### COPR
+  * Sponsored
+  * Access managed via Fedora Accounts: [https://accounts.fedoraproject.org/group/theforeman/](https://accounts.fedoraproject.org/group/theforeman/)
+### Packit
+  * Sponsored
+  * Access managed by having write access to the GitHub repository
