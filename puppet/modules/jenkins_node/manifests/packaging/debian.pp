@@ -38,6 +38,24 @@ class jenkins_node::packaging::debian (
       release    => 'jammy',
       apturl     => $ubuntu_mirror,
       aptcontent => "deb ${ubuntu_mirror} jammy main restricted universe\ndeb-src ${ubuntu_mirror} jammy main restricted universe\n";
+    'noble64':
+      ensure     => present,
+      arch       => 'amd64',
+      release    => 'noble',
+      apturl     => $ubuntu_mirror,
+      aptcontent => "deb ${ubuntu_mirror} noble main restricted universe\ndeb-src ${ubuntu_mirror} noble main restricted universe\n";
+    'resolute64':
+      ensure     => present,
+      arch       => 'amd64',
+      release    => 'resolute',
+      apturl     => $ubuntu_mirror,
+      aptcontent => "deb ${ubuntu_mirror} resolute main restricted universe\ndeb-src ${ubuntu_mirror} resolute main restricted universe\n";
+    'trixie64':
+      ensure     => present,
+      arch       => 'amd64',
+      release    => 'trixie',
+      apturl     => $debian_mirror,
+      aptcontent => "deb ${debian_mirror} trixie main non-free contrib\ndeb-src ${debian_mirror} trixie main non-free contrib\n",
   }
 
   include sudo
