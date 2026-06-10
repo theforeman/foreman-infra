@@ -8,7 +8,8 @@ define jenkins_node::pbuilder_setup (
   Enum['present', 'absent'] $ensure = present,
   Boolean $backports  = false,
   Boolean $nodesource = true,
-  Boolean $puppetlabs = true,
+  Boolean $puppetlabs = false,
+  Boolean $openvox    = true,
 ) {
   pbuilder { $name:
     ensure       => $ensure,
@@ -44,6 +45,7 @@ define jenkins_node::pbuilder_setup (
     'F65-add-backport-repos'            => $backports,
     'F66-add-nodesource-nodistro-repos' => $nodesource,
     'F67-add-puppet-repos'              => $puppetlabs,
+    'F67-add-openvox-repos'             => $openvox,
     'F70aptupdate'                      => true,
     'F99printrepos'                     => true,
   }
