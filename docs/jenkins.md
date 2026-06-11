@@ -32,6 +32,10 @@ Jenkins itself is deployed onto one master VM from foreman-infra.  Jobs are main
 
 For detailed information see [Jenkins Job README](https://github.com/theforeman/jenkins-jobs/blob/master/README.md).
 
+## AI Assistant Integration
+
+The MCP Server Plugin enables Jenkins to act as a Model Context Protocol (MCP) server, allowing AI assistants like Claude and Cursor to interact with Jenkins jobs and builds using natural language. You can find the setup details on the plugin repository itself: https://github.com/jenkinsci/mcp-server-plugin
+
 ## Jenkins Nodes
 
 ### Configuration management

@@ -151,6 +151,7 @@ profiles::jenkins::controller::plugins:
   - 'matrix-project'
   - 'maven-plugin'
   - 'metrics'
+  - 'mcp-server'
   - 'mina-sshd-api-common'
   - 'mina-sshd-api-core'
   - 'monitoring'
