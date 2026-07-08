@@ -28,9 +28,10 @@ class jenkins_node (
   # foremanctl (theforeman/foremanctl#632).
   if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
     file_line { 'dnf-exclude-broken-openssl':
-      path  => '/etc/dnf/dnf.conf',
-      line  => 'excludepkgs=openssl-3.5.7-1.*,openssl-libs-3.5.7-1.*,openssl-fips-provider-3.5.7-1.*',
-      match => '^excludepkgs=',
+      ensure => absent,
+      path   => '/etc/dnf/dnf.conf',
+      line   => 'excludepkgs=openssl-3.5.7-1.*,openssl-libs-3.5.7-1.*,openssl-fips-provider-3.5.7-1.*',
+      match  => '^excludepkgs=',
     }
     -> package { ['openssl', 'openssl-libs']:
       ensure => '3.5.5-3.el9',
