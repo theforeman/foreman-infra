@@ -14,13 +14,18 @@ People who work on infrastructure can be added to the organization by Eric, Evge
 
 ## Alerting
 
+### Alertmanagers
+
+Grafana uses [Alertmanagers](https://prometheus.io/docs/alerting/latest/alertmanager/) for sending out the alerts.
+Depending on the Alert rule, a different manager is used: "Grafana" for user-defined Alert rules (as below) and "grafanacloud-theforeman-ngalertmanager" for datasource-defined rules.
+
 ### Contact points
 
 Contact points in Grafana are "notification groups", that can use different integrations (like mail, Slack, etc) and targets (like mail address etc).
 
-Right now only one contact point is defined: `grafana-default-email` - it sends email to Eric, Ewoud and Evgeni.
+Right now only one contact point per Alertmanager is defined: `grafana-default-email` (Grafana), `default` (grafanacloud-theforeman-ngalertmanager) - they send email to Eric, Ewoud, Evgeni, Marek, Ondrej, Shim, Devendra, and Jameer.
 
-### Alert rules
+### user-defined Alert rules
 
 #### pending package updates
 
@@ -37,3 +42,7 @@ When `time() - restic_snapshot_timestamp_seconds` is `> 90000` (= the last resti
 #### http status
 
 When `probe_http_status_code` is `!= 200` an alert is sent to `grafana-default-email`
+
+### datasource-defined Alert rules
+
+We're using the "Linux node" integration that comes with a set of rules for `node_exporter`, like High CPU Usage, Filesystem Out Of Space, etc.
