@@ -22,22 +22,6 @@ class jenkins_node (
 ) {
   include fastly_purge
 
-  # Workaround for RHEL-192424: openssl-3.5.7-1 on EL9 broke TLS handling.
-  # Exclude the broken build and pin back to the last known-good NVR, following
-  # the same approach used in forklift (theforeman/forklift#1962) and
-  # foremanctl (theforeman/foremanctl#632).
-  if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '9' {
-    file_line { 'dnf-exclude-broken-openssl':
-      ensure => absent,
-      path   => '/etc/dnf/dnf.conf',
-      line   => 'excludepkgs=openssl-3.5.7-1.*,openssl-libs-3.5.7-1.*,openssl-fips-provider-3.5.7-1.*',
-      match  => '^excludepkgs=',
-    }
-    -> package { ['openssl', 'openssl-libs']:
-      ensure => '3.5.5-3.el9',
-    }
-  }
-
   if $facts['os']['family'] == 'RedHat' {
     $java_package = 'java-21-openjdk-headless'
 
