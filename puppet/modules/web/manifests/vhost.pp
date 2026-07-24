@@ -32,6 +32,8 @@ define web::vhost (
   Optional[String] $docroot_group = undef,
   Optional[Stdlib::Filemode] $docroot_mode = undef,
   Hash[String, Any] $attrs = {},
+  Hash[String, Any] $http_attrs = {},
+  Hash[String, Any] $https_attrs = {},
 ) {
   require web
 
@@ -57,7 +59,7 @@ define web::vhost (
     docroot_owner => $docroot_owner,
     docroot_group => $docroot_group,
     docroot_mode  => $docroot_mode,
-    *             => $attrs,
+    *             => $http_attrs + $attrs,
   }
 
   if $web::https {
@@ -85,7 +87,7 @@ define web::vhost (
       ssl_chain     => "${letsencrypt::config_dir}/live/${servername}/chain.pem",
       ssl_key       => "${letsencrypt::config_dir}/live/${servername}/privkey.pem",
       require       => Letsencrypt::Certonly[$servername],
-      *             => $attrs,
+      *             => $https_attrs + $attrs,
     }
   }
 }
