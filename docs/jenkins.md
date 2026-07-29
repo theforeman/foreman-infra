@@ -15,16 +15,16 @@ To get an account, open a new topic on [Foreman Infra SIG](https://community.the
 
 ## CentOS QA service
 
-CentOS offer access to their [QA CI infrastructure](https://wiki.centos.org/QaWiki/CI) to Foreman and other projects, which gives on-demand access to run tests on physical hardware running CentOS.  It consists of three main components:
+CentOS offer access to their [QA CI infrastructure](https://sigs.centos.org/guide/ci/) to Foreman and other projects, which gives on-demand access to run tests on physical hardware running CentOS.  It consists of three main components:
 
-* [ci.centos.org](https://ci.centos.org) - a Jenkins instance which we can manage jobs on
-* foreman@slave01 - a user account on a node which our jobs all run on
-* [Duffy](https://wiki.centos.org/QaWiki/CI/Duffy) - on-demand provisioning of physical test servers running CentOS, available from foreman@slave01 jobs
+* [jenkins-foreman.apps.ocp.cloud.ci.centos.org](https://jenkins-foreman.apps.ocp.cloud.ci.centos.org/) - a Jenkins instance which we can manage jobs on
+* [Duffy](https://sigs.centos.org/guide/ci/) - on-demand provisioning of physical test servers running CentOS, available from foreman@slave01 jobs
 
 Getting help:
 
-* [centos-infra issues](https://pagure.io/centos-infra/issues)
+* [CentOS/infra issues](https://gitlab.com/CentOS/infra/tracker)
 * IRC: `#centos-ci` on `irc.libera.chat`
+* OpenShift: [console-openshift-console.apps.ocp.cloud.ci.centos.org/](https://console-openshift-console.apps.ocp.cloud.ci.centos.org/)
 
 ## Managing jobs
 
