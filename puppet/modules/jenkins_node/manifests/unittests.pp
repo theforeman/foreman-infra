@@ -50,8 +50,13 @@ class jenkins_node::unittests (
     default  => 'libyaml-devel'
   }
 
+  $libcap_dev = $facts['os']['family'] ? {
+    'RedHat' => 'libcap-devel',
+    default  => 'libcap-dev'
+  }
+
   stdlib::ensure_packages([$libxml2_dev, $libxslt1_dev, $libkrb5_dev, $systemd_dev, 'freeipmi', 'ipmitool',
-  $firefox, $libvirt_dev, $libcurl_dev, $sqlite3_dev, $libyaml_dev])
+  $firefox, $libvirt_dev, $libcurl_dev, $sqlite3_dev, $libyaml_dev, $libcap_dev])
 
   stdlib::ensure_packages(['python3-virtualenv'])
 
