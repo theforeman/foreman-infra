@@ -8,6 +8,12 @@
 | RAM | 192GB |
 | Storage | 2 * 1TB SSD NVMe |
 
+## Out-of-Band management
+
+The system has an iLO that can be reached from Red Hat networks.
+
+The URL, credentials and details about the networks are in the `infra/conova/foremanproject001-ilo` shared secret.
+
 ## Installation
 
 Set up networking:
