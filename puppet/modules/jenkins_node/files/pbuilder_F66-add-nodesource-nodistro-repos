@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "deb http://deb.nodesource.com/node_22.x nodistro main" >> /etc/apt/sources.list
+echo "deb https://deb.nodesource.com/node_22.x nodistro main" >> /etc/apt/sources.list
 
 cat > /etc/apt/trusted.gpg.d/nodesource-nodistro.asc <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
