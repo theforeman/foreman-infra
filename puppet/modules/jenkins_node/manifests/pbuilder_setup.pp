@@ -41,7 +41,7 @@ define jenkins_node::pbuilder_setup (
     'A10nozstd'                         => $release == 'jammy',
     'C10foremanlog'                     => true,
     'D80no-man-db-rebuild'              => true,
-    'D85-install-ca-certificates'       => $nodesource,
+    'F05-install-ca-certificates'       => $nodesource,
     'F60addforemanrepo'                 => true,
     'F65-add-backport-repos'            => $backports,
     'F66-add-nodesource-nodistro-repos' => $nodesource,
