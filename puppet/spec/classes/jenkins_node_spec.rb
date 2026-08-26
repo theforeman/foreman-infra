@@ -24,7 +24,7 @@ describe 'jenkins_node' do
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/A10nozstd').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/C10foremanlog').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/D80no-man-db-rebuild').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/D85-install-ca-certificates').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F05-install-ca-certificates').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F60addforemanrepo').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F65-add-backport-repos').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/bookworm64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
@@ -37,7 +37,7 @@ describe 'jenkins_node' do
           it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/A10nozstd').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/C10foremanlog').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/D80no-man-db-rebuild').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/D85-install-ca-certificates').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/F05-install-ca-certificates').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/F60addforemanrepo').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/F65-add-backport-repos').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/noble64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
@@ -48,7 +48,7 @@ describe 'jenkins_node' do
           it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/A10nozstd').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/C10foremanlog').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/D80no-man-db-rebuild').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/D85-install-ca-certificates').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/F05-install-ca-certificates').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/F60addforemanrepo').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/F65-add-backport-repos').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/resolute64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }
@@ -59,7 +59,7 @@ describe 'jenkins_node' do
           it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/A10nozstd').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/C10foremanlog').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/D80no-man-db-rebuild').with_ensure('present') }
-          it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/D85-install-ca-certificates').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/F05-install-ca-certificates').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/F60addforemanrepo').with_ensure('present') }
           it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/F65-add-backport-repos').with_ensure('absent') }
           it { is_expected.to contain_file('/etc/pbuilder/trixie64/hooks/F66-add-nodesource-nodistro-repos').with_ensure('present') }

@@ -1,8 +1,0 @@
-#!/bin/sh
-# Make sure ca-certificates is present before any F-hook adds a repo that
-# redirects plain HTTP to HTTPS (e.g. deb.nodesource.com). Without this,
-# apt fails with "No system certificates available" instead of falling
-# back to the distro's older package.
-
-apt-get update -qq
-apt-get install -y --no-install-recommends ca-certificates

@@ -1,0 +1,9 @@
+#!/bin/sh
+# Make sure ca-certificates is present before other F-hooks (F60+) add repos
+# and run apt-get update. F-hooks run in lexical order right after the chroot
+# is created, before D-hooks -- a D-hook here runs too late, after F70 has
+# already tried and failed to fetch a repo that redirects HTTP to HTTPS
+# (e.g. deb.nodesource.com), aborting with "No system certificates available".
+
+apt-get update -qq
+apt-get install -y --no-install-recommends ca-certificates
