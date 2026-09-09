@@ -40,7 +40,7 @@ class profiles::jenkins::controller (
     plugin_hash     => $plugins.reduce({}) |Hash $memo, String $plugin| { $memo + { $plugin => {} } },
     config_hash     => {
       'JENKINS_JAVA_OPTIONS' => {
-        'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx2048m',
+        'value' => '-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false -Xms2048m -Xmx4096m',
       },
     },
     require         => Package[$packages],
