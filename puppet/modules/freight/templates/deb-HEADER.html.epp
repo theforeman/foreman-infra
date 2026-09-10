@@ -10,8 +10,12 @@
 <pre>
 deb http://deb.theforeman.org/ bookworm &lt;version&gt;
 deb http://deb.theforeman.org/ bookworm nightly
+deb http://deb.theforeman.org/ trixie &lt;version&gt;
+deb http://deb.theforeman.org/ trixie nightly
 deb http://deb.theforeman.org/ jammy &lt;version&gt;
 deb http://deb.theforeman.org/ jammy nightly
+deb http://deb.theforeman.org/ noble &lt;version&gt;
+deb http://deb.theforeman.org/ noble nightly
 
 deb http://deb.theforeman.org/ plugins &lt;version&gt;
 deb http://deb.theforeman.org/ plugins nightly
