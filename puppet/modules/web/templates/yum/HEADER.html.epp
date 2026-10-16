@@ -43,7 +43,7 @@
 <p>katello-repos RPMs containing an appropriate .repo file are available:</p>
 
 <ul>
-  <li><a href="https://yum.theforeman.org/katello/4.12/katello/el9/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/4.12/katello/el9/x86_64/katello-repos-latest.rpm</a></li>
+  <li><a href="https://yum.theforeman.org/katello/<%= $stable %>/katello/el9/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/<%= $stable %>/katello/el9/x86_64/katello-repos-latest.rpm</a></li>
   <li><a href="https://yum.theforeman.org/katello/nightly/katello/el9/x86_64/katello-repos-latest.rpm">https://yum.theforeman.org/katello/nightly/katello/el9/x86_64/katello-repos-latest.rpm</a></li>
 </ul>
 
