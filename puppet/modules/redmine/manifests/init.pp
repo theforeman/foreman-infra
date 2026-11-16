@@ -193,6 +193,10 @@ class redmine (
     },
   }
 
+  systemd::tmpfile { 'redmine.conf':
+    content => "d ${app_root}/tmp/cache 0750 ${username} ${username} 4d -",
+  }
+
   if $anubis {
     anubis::instance { 'redmine':
       target       => 'http://127.0.0.1:3000/',
