@@ -1,6 +1,6 @@
 moduledir 'external_modules'
 
-mod 'puppet/anubis', '2.1.0'
+mod 'puppet/anubis', '2.2.0'
 mod 'puppet/archive', '9.0.0'
 mod 'puppet/augeasproviders_core', '5.0.0'
 mod 'puppet/augeasproviders_mounttab', '5.0.0'
