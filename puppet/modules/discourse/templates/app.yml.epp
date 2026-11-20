@@ -96,8 +96,8 @@ hooks:
         cd: $home/plugins
         cmd:
           - git clone https://github.com/discourse/docker_manager.git
-          - git clone https://github.com/paviliondev/discourse-events.git
-          - git clone https://github.com/paviliondev/discourse-locations.git
+          - git clone https://github.com/angusmcleod/angus-events-plugin.git
+          - git clone https://github.com/merefield/discourse-locations.git
 
 ## Any custom commands to run after building
 run:
